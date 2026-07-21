@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rule30-lab"
+version = "0.1.0"
+description = "Reproducible computational research tools for Rule 30 prize problems"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Rule 30 Lab" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.0.2",
+  "pytest-timeout==2.4.0",
+]
+analysis = [
+  "numpy==2.4.2",
+]
+
+[project.scripts]
+rule30 = "rule30lab.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src/python" }
+
+[tool.setuptools.packages.find]
+where = ["src/python"]
+include = ["rule30lab*"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests/python"]
+timeout = 60
+markers = [
+  "slow: test requiring more than a few seconds",
+  "gpu: test requiring the local CUDA GPU",
+]

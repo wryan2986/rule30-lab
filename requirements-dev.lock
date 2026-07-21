@@ -1,0 +1,11 @@
+# Install the package and this exact environment with:
+#   python -m pip install -e . --no-deps
+#   python -m pip install -r requirements-dev.lock
+iniconfig==2.3.0
+numpy==2.4.2
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.0.2
+pytest-timeout==2.4.0
+setuptools==80.9.0
