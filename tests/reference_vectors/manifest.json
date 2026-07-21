@@ -1,0 +1,65 @@
+{
+  "balance_checkpoints": {
+    "10": {
+      "discrepancy": 4,
+      "ones": 7,
+      "ones_fraction": 0.7,
+      "zeros": 3
+    },
+    "100": {
+      "discrepancy": 4,
+      "ones": 52,
+      "ones_fraction": 0.52,
+      "zeros": 48
+    },
+    "1000": {
+      "discrepancy": -38,
+      "ones": 481,
+      "ones_fraction": 0.481,
+      "zeros": 519
+    },
+    "10000": {
+      "discrepancy": 64,
+      "ones": 5032,
+      "ones_fraction": 0.5032,
+      "zeros": 4968
+    }
+  },
+  "conventions": {
+    "center": "exactly count bits c_0 through c_(count-1), one byte per bit",
+    "rows": "row t spans j=-t through j=t in increasing coordinate"
+  },
+  "cross_checks": {
+    "center_bits": [
+      "coordinate-bytearray",
+      "supplied-packed-integer"
+    ],
+    "compiled_backend_pending": true,
+    "complete_rows": [
+      "coordinate-bytearray",
+      "live-coordinate-set"
+    ]
+  },
+  "files": {
+    "center_c00000000_c00009999.txt": {
+      "bytes": 10001,
+      "sha256": "e24ba0daa28b4b2e09b85a0a0b674138ea7411769a139d8a2ce23309d7461d6d"
+    },
+    "center_c00000000_c00009999.u8": {
+      "bytes": 10000,
+      "sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860"
+    },
+    "rows_t0000_t0255.txt": {
+      "bytes": 67072,
+      "sha256": "c7934b376982990bb471475f62423e3c3d9205c2a0128508d6ababffbf20f5c5"
+    }
+  },
+  "parameters": {
+    "center_count": 10000,
+    "row_count": 256
+  },
+  "schema_version": 1,
+  "source_git_commit": "a59f31b45226811f5f4f8d436f1ed82a7c20e7b0",
+  "status": "provisional-two-way",
+  "supplied_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+}
