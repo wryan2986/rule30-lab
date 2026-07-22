@@ -1,0 +1,87 @@
+{
+  "backend": "python-exact-2adic-schedule-coding",
+  "experiment_id": "problem1-period-two-schedule-coding-20260722T192813Z",
+  "git_commit": "1504579a107984e17c6eac5f06f5214478e1fe82",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_available_to_container": 5,
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 110760
+  },
+  "hypothesis": "Zero-survivor schedules form an exact 2-adic Cantor coding, and eventually periodic schedules are incompatible with ordinary finite support.",
+  "interpretation": "Any finite-support period-two zero survivor must be coded by a genuinely aperiodic auxiliary schedule; the actual schedule remains unresolved.",
+  "limitations": [
+    "the actual moving-fringe branch schedule is not proved eventually periodic",
+    "Haar measure zero and dimension one half do not exclude isolated ordinary integers",
+    "the finite seven-block shadow does not imply an infinite periodic schedule",
+    "the result does not exclude eventual center period two",
+    "the result does not prove Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "degree_check_limit": 65536,
+    "maximum_coding_depth": 10,
+    "shadow_width": 512
+  },
+  "proof_scope": "All-width similarity, dimension, and periodic-schedule arguments are proved in proofs/informal/problem1_period_two_schedule_coding.md; this script checks only bounded quotients and ordinary integers.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "91d06f891e32882c70f1d5c7d8da268a993100f994fe40eaf2284064234929f0",
+    "deterministic_stdout_sha256": "e41d2cbdd4914446adaf009da3b9bbf5b07f8f73c12619c718e9956329a19498",
+    "informal_proof_sha256": "3d9a67201804bead4732a55b006e2a2404419c8c063b939cba0f9d8e4665ab38",
+    "scientific_certificate_sha256": "9bf35a8386e6f5e5f50940b174535167e276b56dec13091c19f9e8def1645093",
+    "test_source_sha256": "86308d60335de2580044c4840b833b78dec183c524320af8093012eba5cc5b23"
+  },
+  "result_summary": {
+    "actual_periodic_shadow": {
+      "actual_schedule_start_block": 2,
+      "all_checks_pass": true,
+      "common_branches": 151,
+      "comparison_width": 512,
+      "first_global_mismatch_block": 153,
+      "period_word": "ttututt",
+      "survivor_2adic_agreement_bits": 304
+    },
+    "certificate_sha256": "9bf35a8386e6f5e5f50940b174535167e276b56dec13091c19f9e8def1645093",
+    "exact_conclusions": {
+      "actual_shadow": "the actual shift-two survivor agrees for exactly 304 low bits with the survivor of repeated branch word ttututt",
+      "cantor_geometry": "the full zero-survivor set is compact, perfect, Haar-null, and has 2-adic Hausdorff dimension one half",
+      "eventually_periodic_schedule_obstruction": "an eventually periodic branch schedule cannot have an ordinary finite-support zero survivor because tail uniqueness conflicts with degree growth by two per step",
+      "similarity_coding": "the first differing schedule branch n is exactly the first possible survivor disagreement at bit 2n+2"
+    },
+    "ordinary_degree_law": {
+      "all_checks_pass": true,
+      "continuing_states_checked": 8192,
+      "degree_increment_per_zero_step": 2,
+      "exclusive_limit": 65536
+    },
+    "schedule_coding": {
+      "all_checks_pass": true,
+      "exact_distance_law": "first differing branch n gives v_2=2n+2",
+      "final_level_pair_checks": 523776,
+      "levels": [
+        {"cover_haar_measure_power_of_two": -2, "depth": 0, "distinct_cylinders": 1, "expected_cylinders": 1, "quotient_width": 2},
+        {"cover_haar_measure_power_of_two": -3, "depth": 1, "distinct_cylinders": 2, "expected_cylinders": 2, "quotient_width": 4},
+        {"cover_haar_measure_power_of_two": -4, "depth": 2, "distinct_cylinders": 4, "expected_cylinders": 4, "quotient_width": 6},
+        {"cover_haar_measure_power_of_two": -5, "depth": 3, "distinct_cylinders": 8, "expected_cylinders": 8, "quotient_width": 8},
+        {"cover_haar_measure_power_of_two": -6, "depth": 4, "distinct_cylinders": 16, "expected_cylinders": 16, "quotient_width": 10},
+        {"cover_haar_measure_power_of_two": -7, "depth": 5, "distinct_cylinders": 32, "expected_cylinders": 32, "quotient_width": 12},
+        {"cover_haar_measure_power_of_two": -8, "depth": 6, "distinct_cylinders": 64, "expected_cylinders": 64, "quotient_width": 14},
+        {"cover_haar_measure_power_of_two": -9, "depth": 7, "distinct_cylinders": 128, "expected_cylinders": 128, "quotient_width": 16},
+        {"cover_haar_measure_power_of_two": -10, "depth": 8, "distinct_cylinders": 256, "expected_cylinders": 256, "quotient_width": 18},
+        {"cover_haar_measure_power_of_two": -11, "depth": 9, "distinct_cylinders": 512, "expected_cylinders": 512, "quotient_width": 20},
+        {"cover_haar_measure_power_of_two": -12, "depth": 10, "distinct_cylinders": 1024, "expected_cylinders": 1024, "quotient_width": 22}
+      ],
+      "maximum_depth": 10
+    }
+  },
+  "runtime_seconds": 0.95,
+  "software": {
+    "algorithm": "exact 2-adic schedule cylinders, first-difference valuations, finite degree law, and periodic-shadow comparison",
+    "kernel": "Linux 6.12.13 x86_64",
+    "python": "3.13.5"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T19:28:13Z"
+}
