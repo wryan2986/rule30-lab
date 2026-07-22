@@ -1,0 +1,86 @@
+{
+  "backend": "python-packed-time-columns",
+  "command": "env PYTHONDONTWRITEBYTECODE=1 /usr/bin/time -f wall=%e,maxrss_kib=%M,exit=%x .venv/bin/python experiments/problem1_nonperiodicity/run_sideways_search.py --horizon 500 --max-period 10 --max-preperiod 3 --eventual-max-period 5 --true-prefix-lengths 1,2,4,8,16,32,64,128,256 --graph-width 4 --graph-max-period 3 --export-graphs-dir results/problem1/graphs",
+  "experiment_id": "problem1-sideways-prefix-zero-graphs-h500-20260722T014531Z",
+  "git_commit": "79fc0337330b0969f695d32aaaeca0da03e55a69",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_threads_used": 1,
+    "gpu_used": false
+  },
+  "hypothesis": "For each listed retained true-prefix length L in {1,2,4,8,16,32,64,128,256}, replacing every center bit c_t with zero for t >= L produces a nonzero reconstructed initial-left bit by depth 500; the exported period-length 1 through 3, width-4 transition graphs exactly enumerate their stated finite models.",
+  "interpretation": "All nine fully specified prefix-then-zero traces have exact finite incompatibility witnesses. The graph artifacts exactly enumerate 14 fixed-width, zero-outer-boundary functional graphs. Neither finite calculation proves eventual center-column nonperiodicity or supplies a depth-independent finite-state reduction.",
+  "limitations": [
+    "Only the nine explicitly listed retained-prefix lengths were tested.",
+    "Reconstruction stops at left depth 500.",
+    "A finite incompatibility witness concerns one fully specified trace only.",
+    "The width-4 graphs force the outer right boundary to zero.",
+    "The graph state bound grows as period_length times 2**width.",
+    "No finite search proves eventual nonperiodicity."
+  ],
+  "parameters": {
+    "eventual_max_period": 5,
+    "graph_max_period": 3,
+    "graph_width": 4,
+    "horizon": 500,
+    "max_preperiod": 3,
+    "pure_max_period": 10,
+    "true_prefix_lengths": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ]
+  },
+  "proof_scope": "Exact finite Rule 30 inversion for nine specified center traces through depth 500 and exact enumeration of 14 width-4 functional graphs for all binary word descriptions of lengths 1 through 3.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_graph_set_sha256": "5afe6043b2da1a5f912bc0ddcd706ab4e1b91c24be086c96eb0fc48b1c6bb5f6",
+    "deterministic_stdout_sha256": "9330e80258e5dc57d30e354bfd9e59f86ddc0b31c9071dcc2652a431cdc85875",
+    "graph_dot_sha256": "df172879dca9235124c7af604372adc4cfa7f67cb7036e4609ea7d4cf975b252",
+    "graph_readme_sha256": "c76957c0942999e2ca31a5af2b9cfbe43bb6601669ceb8b4a07e0c2d7959cd6f",
+    "graph_sha256sums_sha256": "7e845ff2e9ab6480819b32c6b60eef94fafe7a38369bd6c2efd6ca2961c1728c",
+    "prefix_zero_certificate_sha256": "0f8c7be5f70fbc5333264ca50ddbd2c06fa420c8c021e79f6cd34699f793c0d5",
+    "trusted_center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860"
+  },
+  "result_summary": {
+    "fixed_width_graphs": {
+      "explicit_edges": 544,
+      "graph_count": 14,
+      "graph_width": 4,
+      "period_word_lengths": "1..3"
+    },
+    "maximum_resident_set_kib": 22772,
+    "prefix_then_zero": {
+      "candidate_descriptions": 9,
+      "finite_exclusion_witnesses": 9,
+      "first_nonzero_reconstructed_left_depths": [
+        1,
+        3,
+        4,
+        8,
+        16,
+        33,
+        64,
+        128,
+        256
+      ],
+      "logical_cell_update_budget_charged": 3377250,
+      "no_witness_through_horizon": 0
+    },
+    "trusted_trace_nonzero_reconstructed_left_bits": 0
+  },
+  "runtime_seconds": 0.79,
+  "software": {
+    "algorithm": "rule30lab.sideways packed temporal-column reconstruction plus deterministic fixed-width graph export",
+    "python": "3.14.4",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T01:45:31.381379Z"
+}
