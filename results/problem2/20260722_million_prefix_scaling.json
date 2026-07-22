@@ -2,6 +2,8 @@
   "backend": "python-analysis-on-cpp-avx2-prefix",
   "commands": {
     "analysis_rerun": "/usr/bin/time -f 'wall_seconds=%e\\nmax_rss_kib=%M\\nexit_status=%x' -o /tmp/rule30-problem2-scaling-million.time nice -n 10 .venv/bin/python experiments/problem2_balance/run_scaling_analysis.py --input /tmp/rule30-cpp-avx2-1000000.u8 > /tmp/rule30-problem2-scaling-million-record-rerun.json",
+    "build_generator": "cmake --fresh -S . -B /tmp/rule30-reproduce -G Ninja -DCMAKE_BUILD_TYPE=Release -DRULE30_ENABLE_CUDA=OFF && cmake --build /tmp/rule30-reproduce --parallel 2",
+    "generate_input": "/tmp/rule30-reproduce/src/cpp/rule30_cpp generate --count 1000000 --backend avx2 --format raw > /tmp/rule30-cpp-avx2-1000000.u8",
     "hash_verification": "sha256sum /tmp/rule30-cpp-avx2-1000000.u8 /tmp/rule30-problem2-scaling-million-record-rerun.json",
     "record_validation": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -p no:cacheprovider tests/python/test_result_records.py -q"
   },

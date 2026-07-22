@@ -1,6 +1,7 @@
 {
   "backend": "python-reference-supplied",
-  "command": "nice -n 10 /usr/bin/time -v .venv/bin/python -c <recorded inline million-prefix script>",
+  "command": "nice -n 10 /usr/bin/time -v .venv/bin/python scripts/reproduce_reported_results.py python-million",
+  "command_provenance": "The original run used an inline equivalent. The tracked reproduction command was added later without changing the historical measurements.",
   "experiment_id": "problem2-python-reference-million-20260721T235434Z",
   "git_commit": "c411bb51bd8f74c0a355defd4ff91b02f81a7ffe",
   "hardware": {
@@ -24,6 +25,7 @@
   },
   "proof_scope": "Exact empirical result for the finite prefix c_0 through c_999999 only.",
   "question": "problem2",
+  "reproduction_available_from_git_commit": "9bb5e7509afeb351da35c5fbb8676a6a8646abb4",
   "result_hashes": {
     "center_u8_sha256": "6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669",
     "reference_source_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"

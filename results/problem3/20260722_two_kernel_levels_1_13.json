@@ -1,6 +1,7 @@
 {
   "backend": "python-analysis-on-cpp-avx2-prefix",
-  "command": "nice -n 10 env PYTHONPATH=src/python .venv/bin/python -c <recorded 2-kernel diagnostic>",
+  "command": "nice -n 10 .venv/bin/python scripts/reproduce_reported_results.py two-kernel --input /tmp/rule30-cpp-avx2-1000000.u8 --first-level 1 --last-level 13 --prefix-length 64",
+  "command_provenance": "The original analysis used an inline equivalent. The tracked reproduction script was added later without changing the historical measurements.",
   "experiment_id": "problem3-two-kernel-prefix64-levels1-13-20260722T001448Z",
   "git_commit": "dbc6d989df94f7459fb0ca3952e5335f8dd5679b",
   "hardware": {
@@ -28,6 +29,12 @@
   },
   "proof_scope": "Exact exhaustive equality classification of 64-bit prefixes for every residue modulo 2^k, for 1 <= k <= 13, on the identified finite input.",
   "question": "problem3",
+  "reproduction": {
+    "available_from_git_commit": "9bb5e7509afeb351da35c5fbb8676a6a8646abb4",
+    "build": "cmake --fresh -S . -B /tmp/rule30-reproduce -G Ninja -DCMAKE_BUILD_TYPE=Release -DRULE30_ENABLE_CUDA=OFF && cmake --build /tmp/rule30-reproduce --parallel 2",
+    "generate_input": "/tmp/rule30-reproduce/src/cpp/rule30_cpp generate --count 1000000 --backend avx2 --format raw > /tmp/rule30-cpp-avx2-1000000.u8",
+    "analyze": "nice -n 10 .venv/bin/python scripts/reproduce_reported_results.py two-kernel --input /tmp/rule30-cpp-avx2-1000000.u8 --first-level 1 --last-level 13 --prefix-length 64"
+  },
   "result_hashes": {
     "center_u8_sha256": "6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669",
     "canonical_level_records_sha256": "31041c1a58602ddd2d82b781a4af0e89b69261d4fdf7b1507b93b9085e5dbb72"
