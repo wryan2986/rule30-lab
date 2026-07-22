@@ -1,0 +1,270 @@
+{
+  "backend": "cpp-avx2-independent-horizon-restarts",
+  "experiment_id": "p2-multimillion-1m-2m-4m-20260722",
+  "git_commit": "5fc0c5c413f5cdb8aff9c46061a94f9a3cf35fd9",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "local WSL2 host only",
+    "hardware_settings_changed": false,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "Selected multi-million center-prefix discrepancies remain small relative to N; the observations do not establish a limit.",
+  "interpretation": "Every listed integer was emitted by independently restarted native evolutions and repeated checkpoint values agreed exactly.",
+  "limitations": [
+    "only the explicitly listed finite horizons were observed",
+    "restarted runs share the same implementation and are not independent algorithms",
+    "small D(N)/N at finite N does not prove D(N)=o(N)",
+    "the log-log fit is heuristic and highly checkpoint-dependent",
+    "native executable hashes and a clean source tree are provenance evidence, not build attestation",
+    "checkpointing is between independent complete evolutions, not within a single evolution",
+    "top-level runtime sums native subprocess times and excludes failed-publication and orchestration overhead"
+  ],
+  "parameters": {
+    "checkpoint_path": "/tmp/rule30-scaling-worktree-5fc0c5c/results/runs/p2-multimillion-1m-2m-4m.checkpoint.state",
+    "counts": [
+      1000000,
+      2000000,
+      4000000
+    ],
+    "hard_max_count": 8000000,
+    "nice_level": 10,
+    "resume_requested": true,
+    "timeout_seconds_per_horizon": 300.0
+  },
+  "proof_scope": "Exact counts only for the listed finite horizons and overlap checks; the fitted exponent is heuristic.",
+  "question": "problem2",
+  "result_hashes": {
+    "checkpoint_state_sha256": "37e3a0e5fb1334ee7f103fccbf187473ae5840265bb4fc0b46bf4c537cec17fc",
+    "cpp_executable_sha256": "f2d5e444f016de436437db435dfd478375732d3e04b0ede636c3f37d303b11c4",
+    "scientific_payload_sha256": "fe95903522053081209c127f1c4823004e83480fa6412a58e0eb01aaeecae5f6",
+    "script_sha256": "f4ec55c8c6f8428738623fa55a600407945f78234c528c36452ff93f9562964f"
+  },
+  "result_summary": {
+    "all_horizons_completed": true,
+    "native_runs": [
+      {
+        "argv": [
+          "/usr/bin/nice",
+          "-n",
+          "10",
+          "/tmp/rule30-followup-scaling-9d013b8/src/cpp/rule30_cpp",
+          "generate",
+          "--count",
+          "1000000",
+          "--backend",
+          "avx2",
+          "--format",
+          "json",
+          "--checkpoint",
+          "1000000"
+        ],
+        "backend": "avx2",
+        "checkpoints": [
+          {
+            "count": 1000000,
+            "discrepancy": 1536,
+            "ones": 500768
+          }
+        ],
+        "count": 1000000,
+        "discrepancy": 1536,
+        "ones": 500768,
+        "runtime_seconds": 7.681865365000704,
+        "stdout_sha256": "572fe20ffcb91dc8819e8b7d047c7692b3c53afbf845a18bd35be000d89073b4",
+        "zeros": 499232
+      },
+      {
+        "argv": [
+          "/usr/bin/nice",
+          "-n",
+          "10",
+          "/tmp/rule30-followup-scaling-9d013b8/src/cpp/rule30_cpp",
+          "generate",
+          "--count",
+          "2000000",
+          "--backend",
+          "avx2",
+          "--format",
+          "json",
+          "--checkpoint",
+          "1000000",
+          "--checkpoint",
+          "2000000"
+        ],
+        "backend": "avx2",
+        "checkpoints": [
+          {
+            "count": 1000000,
+            "discrepancy": 1536,
+            "ones": 500768
+          },
+          {
+            "count": 2000000,
+            "discrepancy": 1418,
+            "ones": 1000709
+          }
+        ],
+        "count": 2000000,
+        "discrepancy": 1418,
+        "ones": 1000709,
+        "runtime_seconds": 33.38186824100012,
+        "stdout_sha256": "a76404b0ba4bfa82a8c15904cda74452e3a968eb4bc65c5661b692a0a43f40d9",
+        "zeros": 999291
+      },
+      {
+        "argv": [
+          "/usr/bin/nice",
+          "-n",
+          "10",
+          "/tmp/rule30-followup-scaling-9d013b8/src/cpp/rule30_cpp",
+          "generate",
+          "--count",
+          "4000000",
+          "--backend",
+          "avx2",
+          "--format",
+          "json",
+          "--checkpoint",
+          "1000000",
+          "--checkpoint",
+          "2000000",
+          "--checkpoint",
+          "4000000"
+        ],
+        "backend": "avx2",
+        "checkpoints": [
+          {
+            "count": 1000000,
+            "discrepancy": 1536,
+            "ones": 500768
+          },
+          {
+            "count": 2000000,
+            "discrepancy": 1418,
+            "ones": 1000709
+          },
+          {
+            "count": 4000000,
+            "discrepancy": 1986,
+            "ones": 2000993
+          }
+        ],
+        "count": 4000000,
+        "discrepancy": 1986,
+        "ones": 2000993,
+        "runtime_seconds": 142.31181513199954,
+        "stdout_sha256": "f62d3e526774836e3b33d1a6ae679506314b9700cf42d719e887f2ebdaf705f8",
+        "zeros": 1999007
+      }
+    ],
+    "scientific_payload": {
+      "finite_observations": [
+        {
+          "discrepancy": 1536,
+          "discrepancy_over_n": 0.001536,
+          "discrepancy_over_sqrt_n": 1.536,
+          "n": 1000000,
+          "ones": 500768,
+          "overlap_run_horizons": [
+            1000000,
+            2000000,
+            4000000
+          ],
+          "zeros": 499232
+        },
+        {
+          "discrepancy": 1418,
+          "discrepancy_over_n": 0.000709,
+          "discrepancy_over_sqrt_n": 1.0026774157225244,
+          "n": 2000000,
+          "ones": 1000709,
+          "overlap_run_horizons": [
+            2000000,
+            4000000
+          ],
+          "zeros": 999291
+        },
+        {
+          "discrepancy": 1986,
+          "discrepancy_over_n": 0.0004965,
+          "discrepancy_over_sqrt_n": 0.993,
+          "n": 4000000,
+          "ones": 2000993,
+          "overlap_run_horizons": [
+            4000000
+          ],
+          "zeros": 1999007
+        }
+      ],
+      "heuristic_fit": {
+        "coefficient": 110.70298437350212,
+        "excluded_zero_discrepancy": [],
+        "included": [
+          {
+            "discrepancy": 1536,
+            "n": 1000000
+          },
+          {
+            "discrepancy": 1418,
+            "n": 2000000
+          },
+          {
+            "discrepancy": 1986,
+            "n": 4000000
+          }
+        ],
+        "intercept": 4.706850798461428,
+        "limitations": [
+          "the horizons are sparse and selected before observing this run",
+          "the fit is descriptive and is not an upper bound",
+          "no asymptotic behavior follows from finitely many observations"
+        ],
+        "model": "log(abs(D(N))) = intercept + slope * log(N)",
+        "r_squared": 0.5327149213331929,
+        "selection": "all requested nonzero-discrepancy horizons",
+        "slope": 0.18534370340360892,
+        "status": "heuristic"
+      },
+      "hypothesis": "Selected multi-million center-prefix discrepancies remain small relative to N; the observations do not establish a limit.",
+      "interpretation": "Every listed integer was emitted by independently restarted native evolutions and repeated checkpoint values agreed exactly.",
+      "limitations": [
+        "only the explicitly listed finite horizons were observed",
+        "restarted runs share the same implementation and are not independent algorithms",
+        "small D(N)/N at finite N does not prove D(N)=o(N)",
+        "the log-log fit is heuristic and highly checkpoint-dependent"
+      ],
+      "overlap_consistency": {
+        "all_repeated_checkpoints_equal": true,
+        "comparison_count": 3,
+        "status": "finite-exhaustive"
+      },
+      "parameters": {
+        "horizons": [
+          1000000,
+          2000000,
+          4000000
+        ],
+        "initial_condition": "single black cell",
+        "prefix_convention": "c_0 through c_(N-1)"
+      },
+      "question": "problem2",
+      "schema_version": 1,
+      "status": "empirical"
+    }
+  },
+  "runtime_seconds": 183.37554873800036,
+  "software": {
+    "cpp_executable": "/tmp/rule30-followup-scaling-9d013b8/src/cpp/rule30_cpp",
+    "finalization_invocation_seconds": 0.013244932000816334,
+    "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+    "python": "3.14.4",
+    "repository_clean_before_and_after": true,
+    "runtime_scope": "sum of native subprocess elapsed times retained across checkpoint/resume attempts",
+    "script": "experiments/problem2_balance/run_multimillion_discrepancy.py",
+    "script_matches_head": true
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T03:18:58.641850Z"
+}
