@@ -84,6 +84,25 @@ pure alternating lift has infinite support exactly when `m-ell_m` tends to
 infinity. This is a reduction, not yet the growth proof. See
 [`problem1_period_two_quotient_obstruction.md`](../proofs/informal/problem1_period_two_quotient_obstruction.md).
 
+The leading-run target now has an exact renewal form. A zero emitted base-4
+block extends the leading `t` run by one, while every nonzero block resets it;
+therefore infinite support is equivalent to infinitely many nonzero blocks.
+During any hypothetical final zero streak, a normalized ordinary integer
+`x=K^(-1)(0)` obeys `x'=Q(P(x>>2))`. Zero continuation is possible only at
+`x=7 mod 16` with `Q=U` or `x=11 mod 16` with `Q=T`, and each continuing step
+raises bit length by two. The new barrier is to rule out an ever-growing orbit
+that also matches the actual schedule. See
+[`problem1_period_two_renewal_reduction.md`](../proofs/informal/problem1_period_two_renewal_reduction.md).
+
+The partial map itself cannot supply a termination theorem on the full 2-adic
+space. It has exact fixed points `x=5/3` on the constant-`u` branch and `x=1/3`
+on the constant-`t` branch. Finite truncations shadow either fixed point for at
+least `floor((N-4)/2)+1` zero blocks, so there is no uniform finite zero-run
+bound based only on low-bit dynamics. The remaining route must distinguish
+eventually-zero binary support or couple the orbit to the actual moving-fringe
+schedule. See
+[`problem1_period_two_2adic_zero_countermodels.md`](../proofs/informal/problem1_period_two_2adic_zero_countermodels.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -143,13 +162,14 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Derive a recurrence or lower bound for
-   `m-leading_t_run(H_m)` under the exact period-two block map.
-2. Seek a nonlocal algebraic character or cocycle of the coupled accumulated
-   word and moving fringe that controls this quantity.
-3. Prove closure before classifying zero-emitting cycles; fixed portrait depth
-   and longer endpoint samples are not substitutes.
-4. If the leading-run route does not close, return to an original-spacetime
+1. Couple the partial zero-streak orbit to the actual autonomous
+   moving-fringe schedule; the integer map alone has rational 2-adic fixed
+   points and cannot force termination.
+2. Seek a support/schedule cocycle that distinguishes eventually-zero ordinary
+   integers from the `1/3` and `5/3` infinite-support countermodels.
+3. Prove closure before classifying matched cycles; longer word, quotient, or
+   block prefixes are not substitutes.
+4. If the coupled renewal route does not close, return to an original-spacetime
    finite-support monotone quantity rather than another portrait sweep.
-5. Formalize the moving-fringe and excess-degree identities, or a later
-   invariant, only when it enters a genuine infinite argument.
+5. Formalize the renewal, expansion, and countermodel identities only when
+   they enter a genuine infinite argument.

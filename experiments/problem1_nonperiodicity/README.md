@@ -34,6 +34,10 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_inverse_lift_sections.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_quotient.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_renewal.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_2adic_zero_countermodels.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -41,9 +45,18 @@ The first exhausts each listed radius-`p` Boolean cone for the condition
 exact `-1/3,1/3` countermodel. The third audits three concrete mechanisms for
 the smallest unresolved period, two. The fourth checks the exact inverse-lift
 section recurrence. The fifth refutes three resulting finite quotient
-candidates and verifies an exact arithmetic support criterion. Their JSON
-status is `finite-exhaustive`; the all-width arguments are separately stated
-in `proofs/informal/` and no analyzer proves center nonperiodicity.
+candidates and verifies an exact arithmetic support criterion. The sixth
+checks the exact renewal law and reduces any final zero streak to a partial
+ordinary-integer recurrence controlled modulo 16. The seventh verifies two
+rational 2-adic fixed points of that partial map and the linear shadowing bound
+for their finite truncations. Their JSON status is `finite-exhaustive`; the
+all-width arguments are separately stated in `proofs/informal/` and no analyzer
+proves center nonperiodicity.
+
+Tracked results are:
+
+- `results/problem1/20260722_period_two_renewal_reduction.json`
+- `results/problem1/20260722_period_two_2adic_zero_countermodels.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
