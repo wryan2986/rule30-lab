@@ -8,6 +8,18 @@ rust-version.workspace = true
 [lib]
 path = "src/lib.rs"
 
+[[bin]]
+name = "rule30-rust"
+path = "src/bin/rule30-rust.rs"
+
+[[bin]]
+name = "rule30-rust-bench"
+path = "src/bin/rule30-rust-bench.rs"
+
 [[test]]
 name = "rust_reference_vectors"
 path = "../../../tests/rust/reference_vectors.rs"
+
+[[test]]
+name = "rust_cli_contract"
+path = "../../../tests/rust/rust_cli_contract.rs"
