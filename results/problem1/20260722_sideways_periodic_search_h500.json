@@ -1,0 +1,76 @@
+{
+  "backend": "python-packed-time-columns",
+  "command": "/usr/bin/time nice -n 10 .venv/bin/python experiments/problem1_nonperiodicity/run_sideways_search.py",
+  "experiment_id": "problem1-sideways-periodic-search-h500-20260722T003445Z",
+  "git_commit": "88769b1f1ea75d8a90b5f2170e649ef6235f21eb",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_threads_used": 1,
+    "gpu_used": false
+  },
+  "hypothesis": "Within pure period lengths 1 through 10 and preperiod lengths 0 through 3 with period lengths 1 through 5, every nonzero trace reconstructs a nonzero initial-left cell by depth 500.",
+  "interpretation": "Every description in both finite boxes was checked exactly. The only survivors are redundant descriptions of the constant-zero trace, and none satisfy the required c_0=1 seed condition. The deepest first failure was 11 for pure periods and 10 for the bounded eventual-period box. These finite exclusions do not address unbounded preperiod, period, or witness depth.",
+  "limitations": [
+    "The reconstruction horizon is 500.",
+    "Pure periods longer than 10 are untested.",
+    "The eventual-period search does not cover preperiods above 3 or periods above 5.",
+    "Candidate counts are description counts and retain equivalent redundant words.",
+    "The fixed-width graph state bound grows exponentially with retained width.",
+    "No finite search proves eventual nonperiodicity."
+  ],
+  "parameters": {
+    "center_convention": "c_0 through c_500 inclusive",
+    "eventual_max_period": 5,
+    "fixed_graph_max_period": 3,
+    "fixed_graph_width": 4,
+    "horizon": 500,
+    "max_preperiod": 3,
+    "pure_max_period": 10,
+    "reconstructed_left_convention": "x_-1(0) through x_-500(0)"
+  },
+  "proof_scope": "Exact exhaustive enumeration of 2046 pure-period descriptions and 930 bounded preperiod-plus-period descriptions through left depth 500, plus 14 exact width-four functional graphs.",
+  "question": "problem1",
+  "result_hashes": {
+    "deterministic_payload_sha256": "dd800415557f9d84a3f3c40892802a95298308cd793509ba1af60746885a8c4c",
+    "eventual_period_certificate_sha256": "a339533bba85ba02e4603395a7b9f88cfee8dbb11fec98a77a02767a6d58a4a0",
+    "pure_period_certificate_sha256": "668d97828f3828932483edd936c1fb527f14c12e9b098f2a39161c65b36cfd6d",
+    "trusted_center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860",
+    "trusted_reconstructed_left_u8_sha256": "e6304a473c65ecd0ccffbd2f5925a8f51c44b11f59b66cfcc055e4bb911b8fa0"
+  },
+  "result_summary": {
+    "eventual_period_search": {
+      "all_zero_trace_survivor_descriptions": 20,
+      "candidate_descriptions": 930,
+      "maximum_first_nonzero_depth": 10,
+      "single_seed_survivor_descriptions": 0,
+      "zero_left_survivor_descriptions": 20
+    },
+    "fixed_width_graph_count": 14,
+    "maximum_resident_set_kib": 21852,
+    "pure_period_search": {
+      "candidate_descriptions": 2046,
+      "distinct_survivor_periodic_sequences": 1,
+      "maximum_first_nonzero_depth": 11,
+      "single_seed_survivor_descriptions": 0,
+      "survivor_primitive_roots": ["0"],
+      "zero_left_survivor_descriptions": 10
+    },
+    "trusted_trace_check": {
+      "nonzero_reconstructed_left_bits": 0,
+      "reconstructed_left_bit_count": 500
+    }
+  },
+  "runtime_seconds": 0.89,
+  "software": {
+    "algorithm": "rule30lab.sideways packed temporal-column reconstruction",
+    "independent_oracles": [
+      "cell-by-cell finite triangle",
+      "full-row initial-left round trip",
+      "immutable supplied reconstruction"
+    ],
+    "python": "3.14.4",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T00:34:45.194657Z"
+}
