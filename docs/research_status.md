@@ -175,8 +175,10 @@ below use the definitions in `docs/experiment_protocol.md`.
   `s_(2^k-1)=k mod 2` first fails at `k=11`, position 2,047. The all-width
   arithmetic criterion reduces infinite support to proving that
   `m-leading_t_run(H_m)` tends to infinity. Its finite checks do not prove
-  that growth. The reviewed certificate and strict record are listed in the
-  dated research log and `results/runs/`.
+  that growth. Certificate:
+  `81593871f2305f0bf796ba596de2ce3285275084b0cfea0d5c155c80965d574c`;
+  strict record:
+  `results/runs/p1-period-two-quotient-20260722.record.json`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or

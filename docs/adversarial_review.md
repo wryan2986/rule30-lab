@@ -356,3 +356,49 @@ information: the identity and `p^2` act identically modulo four, but their
 `11`-sections have root activities zero and one. Accordingly, the new block
 recurrence is a theorem, while closure of any period-two quotient remains an
 explicit missing premise.
+
+## 2026-07-22 period-two quotient addendum
+
+The quotient analyzer was reviewed with independent packed-integer inversion
+and ordinary-cell sideways reconstruction. Both recovered the same 2,048-bit
+lift and packed SHA-256
+`279385743213d9b8b175fd080dbe07762652f5b3e3cf3a25386cd60e6a00da7c`.
+They confirmed that the endpoint samples alternate through `k=10` but that
+`s_2047=0`, refuting the parity prediction at `k=11`. Unit triangularity makes
+width 2,048 sufficient; no higher trace bit can alter this result.
+
+The schedule indexing was checked separately. After `m` low-first blocks
+`10`, the head is the section of `T` determined by bits `2m-2,2m-1` of
+`T^(2m)(S)`. The apparent period-seven word beginning at block two matches
+through block 152 but fails at block 153: block 146 has head `T`, while block
+153 has pair `11` and head `P`. Width 306 suffices for this counterexample.
+
+The review also found a more relevant actual-path collision. Retaining the
+schedule head and all root activities at words of length at most two gives the
+same state at blocks 11 and 55,
+
+`(T, (0,1,0,0,1,0,1))`,
+
+but the next emitted blocks are 0 and 2. Thus this quotient cannot preserve
+even next-block zero status. The committed analyzer independently reproduces
+the collision from the exact block recurrence.
+
+A separate adversarial proof audit accepted the arithmetic criterion. It
+checked the outermost-to-innermost composition convention and independently
+verified blocks 1 through 12, including
+`H_1=pu`, `H_1^(-1)(0)=12`, `H_2=uppt`, and `H_2^(-1)(0)=111`. It confirmed
+that `P(0)=3`, `U(0)=1`, and every forward generator raises the degree of a
+nonzero finite integer by exactly two. Consequently,
+
+`m-leading_t_run(H_m)=floor(h_m/2)+1`
+
+for `m>=1`. The review's sole correction was to state the `m>=1` domain
+explicitly because degree and the first non-`t` letter are undefined at zero;
+the proof now does so.
+
+None of the finite counterexamples implies that the alternating lift has
+finite or infinite support, that its schedule head is nonperiodic, or that no
+deeper/nonlocal quotient exists. The arithmetic identity is an exact
+reformulation, not the missing growth proof. Its proper consequence is to
+replace fixed-depth sweeps with the single target of proving the leading-run
+deficit unbounded.

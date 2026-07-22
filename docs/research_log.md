@@ -164,3 +164,26 @@ inside the corresponding JSON records.
   an induction; even maps acting identically modulo four can have different
   required depth-two-section activity. The final Python gate passed all 303
   tests, including exact first-block and fixed-depth-obstruction regressions.
+- Completed the period-two quotient pass in commits `bc0c188` and `afe9b9a`.
+  The first schedule map is exactly a two-cell autonomous moving fringe, whose
+  four-state local transition relation is strongly connected. The apparent
+  seven-block driver first fails at block 153, the head-plus-depth-two
+  portrait collides at blocks 11 and 55 while the next emitted blocks have
+  different zero status, and the dyadic endpoint parity law first fails at
+  `k=11`, position 2,047. These are exact counterexamples to the named
+  quotient candidates, not an exclusion of period two.
+- The same pass proved the exact arithmetic criterion
+  `m-leading_t_run(H_m)=floor(h_m/2)+1`, where `h_m` is the highest one in the
+  first `2m` lift bits. Thus the pure alternating lift has infinite support
+  exactly when this leading-run deficit tends to infinity. Independent review
+  verified composition order, degree growth, and blocks 1 through 12, and
+  caught only the now-explicit requirement `m>=1`. The complete Python gate
+  passed 311 tests.
+- The final controlled run on clean source commit
+  `afe9b9a14d31ed6cb81f2f1949218cbdb254a162` completed in 2.050033 seconds
+  with zero stderr. Its stdout SHA-256
+  `d9ae9001f1d120f7bde0a21d78ce91fdcbec257beb6c3e55439dfebdaf813780`
+  reproduced exactly on an immediate direct rerun. The scientific certificate
+  is `81593871f2305f0bf796ba596de2ce3285275084b0cfea0d5c155c80965d574c`,
+  and the 160-row arithmetic certificate is
+  `16adc34128de1e418fd64465b16a803e0c83bade93cacb42eb947ddf3dc22b9d`.
