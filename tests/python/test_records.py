@@ -40,6 +40,26 @@ def test_record_validation() -> None:
     with pytest.raises(ValueError, match="invalid experiment status"):
         validate_record(bad_status)
 
+    bad_commit = complete_record()
+    bad_commit["git_commit"] = "deadbeef"
+    with pytest.raises(ValueError, match="full lowercase 40-hex"):
+        validate_record(bad_commit)
+
+    bad_timestamp = complete_record()
+    bad_timestamp["timestamp_utc"] = "2026-07-21T00:00:00-04:00"
+    with pytest.raises(ValueError, match="UTC Z suffix"):
+        validate_record(bad_timestamp)
+
+    bad_runtime = complete_record()
+    bad_runtime["runtime_seconds"] = float("nan")
+    with pytest.raises(ValueError, match="finite nonnegative"):
+        validate_record(bad_runtime)
+
+    bad_limitations = complete_record()
+    bad_limitations["limitations"] = "not a list"
+    with pytest.raises(ValueError, match="list of nonempty strings"):
+        validate_record(bad_limitations)
+
 
 def test_atomic_write_json(tmp_path: Path) -> None:
     destination = tmp_path / "nested" / "record.json"
