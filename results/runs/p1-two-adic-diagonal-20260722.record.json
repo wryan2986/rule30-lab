@@ -1,0 +1,181 @@
+{
+  "backend": "controlled-runner:python-exhaustive-two-oracle",
+  "experiment_id": "p1-two-adic-diagonal-20260722",
+  "git_commit": "8960181bb58ae322371f977152d8c11d31bf4537",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "this local WSL/Linux instance only",
+    "gpu_telemetry": {
+      "enabled": false,
+      "note": "GPU state was not queried and no GPU setting was changed.",
+      "queried": false
+    },
+    "hardware_settings_changed": false,
+    "hostname": "WrightPc",
+    "kernel": "6.6.114.1-microsoft-standard-WSL2",
+    "linux_memory_total_bytes": 16730128384,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "The Rule 30 growing-diagonal map is unit triangular on finite 2-adic quotients, while a spatially infinite rational 2-adic state can have an exactly periodic diagonal.",
+  "interpretation": "The allowlisted local child completed successfully; captured bytes and the parsed finite-scope JSON are identified by deterministic SHA-256 hashes.",
+  "limitations": [
+    "The executable campaign alone covers only finite quotient widths.",
+    "The rational countermodel has infinite spatial support.",
+    "the executable campaign alone covers only the listed finite widths",
+    "both rational countermodel states have infinite spatial support",
+    "finite truncations matching longer prefixes may change with the horizon",
+    "the result does not prove any finite seed has a periodic diagonal",
+    "the result does not prove Rule 30 center nonperiodicity",
+    "No finite computation in this run proves an infinite Rule 30 statement.",
+    "The checkpoint records runner capture state only; this child does not support mid-script continuation and resume restarts it from the beginning.",
+    "NVIDIA telemetry, when enabled, is global device telemetry and is not attributed exclusively to this child."
+  ],
+  "parameters": {
+    "allowlisted_experiment": "problem1-two-adic-diagonal",
+    "child_arguments": [],
+    "child_argv": [
+      "/home/wryan/rule30-lab/.venv/bin/python",
+      "-I",
+      "/home/wryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py"
+    ],
+    "execution_policy": {
+      "linux_address_space_limit_applied_in_child": true,
+      "local_only": true,
+      "shell": false,
+      "stdin": "devnull",
+      "worker_environment_limit": 10
+    },
+    "resource_limits": {
+      "cpu_workers": 10,
+      "disk_reserve_bytes": 10737418240,
+      "gpu_abort_temperature_c": 84,
+      "gpu_memory_bytes": 4294967296,
+      "gpu_pause_temperature_c": 78,
+      "output_bytes": 1073741824,
+      "profile": "interactive",
+      "progress_seconds": 10.0,
+      "ram_bytes": 268435456,
+      "wall_seconds": 30.0
+    },
+    "resume": null,
+    "resume_semantics": {
+      "child_continuation_supported": false,
+      "mode": "restart-child-from-beginning"
+    },
+    "stderr_cap_bytes": 1048576,
+    "stdout_cap_bytes": 4194304,
+    "telemetry_enabled": false,
+    "telemetry_seconds": 5.0,
+    "termination_grace_seconds": 3.0
+  },
+  "proof_scope": "Every residue modulo 2^m for each explicitly tested width m; the separate informal proof supplies the all-width statement.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_child_json_sha256": "2a138859e20b31ca1add6ce2b81d5c38bfc54966ee419f8569a09edb8c26b7ef",
+    "child_script_sha256_after": "ee9e8e9015604f69d780e335dd0731143d5d75f6f47fdfa145261b15517f1b5d",
+    "child_script_sha256_before": "ee9e8e9015604f69d780e335dd0731143d5d75f6f47fdfa145261b15517f1b5d",
+    "logical_argv_sha256": "b2a6fb8ae245a3228e995f9fd5c2a9256706491535f5f01fe96bef30047a4c01",
+    "runner_module_sha256": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_sha256_after": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "7f1211fe815b8a82a56e5964428d24c8b063aeab935011e9051f2ea331a19f4c"
+  },
+  "result_summary": {
+    "artifacts": {
+      "checkpoint": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.checkpoint.state",
+      "record": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.record.json",
+      "stderr": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.stderr.log",
+      "stdout": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.stdout.data"
+    },
+    "child_json_valid": true,
+    "child_metadata": {
+      "backend": "python-exhaustive-two-oracle",
+      "experiment_id": "problem1-two-adic-diagonal-v1",
+      "hypothesis": "The Rule 30 growing-diagonal map is unit triangular on finite 2-adic quotients, while a spatially infinite rational 2-adic state can have an exactly periodic diagonal.",
+      "interpretation": "The tested finite quotients support the unit-triangular diagonal bijection and the exact -1/3, 1/3 two-cycle. The accompanying all-width proof shows that periodicity alone is consistent with the growing diagonal; a Problem 1 proof must use finite spatial support or another property absent from this countermodel.",
+      "limitations": [
+        "the executable campaign alone covers only the listed finite widths",
+        "both rational countermodel states have infinite spatial support",
+        "finite truncations matching longer prefixes may change with the horizon",
+        "the result does not prove any finite seed has a periodic diagonal",
+        "the result does not prove Rule 30 center nonperiodicity"
+      ],
+      "proof_scope": "Every residue modulo 2^m for each explicitly tested width m; the separate informal proof supplies the all-width statement.",
+      "question": "problem1",
+      "schema_version": 1,
+      "scientific_payload_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ],
+      "status": "finite-exhaustive",
+      "top_level_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ]
+    },
+    "child_returncode": 0,
+    "outcome": "success",
+    "reason": null,
+    "stderr": {
+      "bytes_captured": 0,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.stderr.log",
+      "sha256_captured": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "truncated_by_cap": false
+    },
+    "stdout": {
+      "bytes_captured": 11050,
+      "cap_bytes": 4194304,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-two-adic-diagonal-20260722.stdout.data",
+      "sha256_captured": "7f1211fe815b8a82a56e5964428d24c8b063aeab935011e9051f2ea331a19f4c",
+      "truncated_by_cap": false
+    }
+  },
+  "runtime_seconds": 0.46088771799986716,
+  "software": {
+    "child_script": "experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py",
+    "child_script_sha256_after": "ee9e8e9015604f69d780e335dd0731143d5d75f6f47fdfa145261b15517f1b5d",
+    "child_script_sha256_before": "ee9e8e9015604f69d780e335dd0731143d5d75f6f47fdfa145261b15517f1b5d",
+    "child_script_unchanged_during_run": true,
+    "git_commit": "8960181bb58ae322371f977152d8c11d31bf4537",
+    "git_commit_after": "8960181bb58ae322371f977152d8c11d31bf4537",
+    "git_commit_unchanged_during_run": true,
+    "provenance_policy": "all tracked and non-ignored untracked Git worktree entries were required to be clean before the child was launched",
+    "python_executable": "/home/wryan/rule30-lab/.venv/bin/python",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4",
+    "repository_clean_after_run": true,
+    "repository_clean_before_run": true,
+    "runner": "rule30lab.controlled_runner",
+    "runner_module_sha256": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_sha256_after": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_unchanged_during_run": true,
+    "runner_schema_version": 1
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T11:14:10.623698Z"
+}

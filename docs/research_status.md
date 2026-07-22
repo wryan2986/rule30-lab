@@ -132,6 +132,18 @@ below use the definitions in `docs/experiment_protocol.md`.
   `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`;
   the strict controlled record is
   `results/runs/p1-eventual-zero-tail-final-20260722.record.json`.
+- The exact period-defect campaign exhausted all 174,760 radius-`p` cone
+  assignments for `p=1..8` with two independent evaluators. Every tested
+  constraint used all `2p+1` variables, uniquely solved the leftmost one, and
+  had ANF degrees `2,3,5,7,9,11,13,15`. Certificate:
+  `1fea76c334d7f16c24fa27f2ca4af8f41e1a14bb11f4097b6fdf5479ab60fe0c`;
+  strict record: `results/runs/p1-period-defect-20260722.record.json`.
+- The finite 2-adic campaign exhausted 8,190 quotient points through width
+  12. Every finite diagonal map was a unit-triangular permutation, both
+  inverse directions matched, and every quotient verified the exact
+  `-1/3,1/3` countermodel. Certificate:
+  `b4ea4e5af4cd2318efd99a78a9a5ad9f4fa90d3c5952c072a46073528adc7670`;
+  strict record: `results/runs/p1-two-adic-diagonal-20260722.record.json`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or

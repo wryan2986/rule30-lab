@@ -35,3 +35,8 @@ The first exhausts each listed radius-`p` Boolean cone for the condition
 exact `-1/3,1/3` countermodel. Their JSON status is `finite-exhaustive`; the
 all-width arguments are separately stated in `proofs/informal/` and neither
 analyzer proves center nonperiodicity.
+
+Reviewed controlled-run records for the defaults are stored at:
+
+- `results/runs/p1-period-defect-20260722.record.json`
+- `results/runs/p1-two-adic-diagonal-20260722.record.json`

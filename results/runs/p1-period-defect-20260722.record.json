@@ -1,0 +1,181 @@
+{
+  "backend": "controlled-runner:python-exhaustive-boolean",
+  "experiment_id": "p1-period-defect-20260722",
+  "git_commit": "8960181bb58ae322371f977152d8c11d31bf4537",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "this local WSL/Linux instance only",
+    "gpu_telemetry": {
+      "enabled": false,
+      "note": "GPU state was not queried and no GPU setting was changed.",
+      "queried": false
+    },
+    "hardware_settings_changed": false,
+    "hostname": "WrightPc",
+    "kernel": "6.6.114.1-microsoft-standard-WSL2",
+    "linux_memory_total_bytes": 16730128384,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "A hypothetical center period may induce a lower-radius or lower-degree exact phase constraint compatible with fixed moving-frame periods.",
+  "interpretation": "The allowlisted local child completed successfully; captured bytes and the parsed finite-scope JSON are identified by deterministic SHA-256 hashes.",
+  "limitations": [
+    "Finite period bounds do not cover arbitrary eventual periods.",
+    "Full-cone ANF growth does not exclude a nonlocal identity.",
+    "finite period bounds do not cover arbitrary eventual periods",
+    "full finite-cone dependence does not exclude nonlocal identities",
+    "ANF degree over arbitrary rows does not imply behavior of one fixed seed",
+    "the constraints are imposed at one spatial site, not at every translate",
+    "no result proves Rule 30 center nonperiodicity",
+    "No finite computation in this run proves an infinite Rule 30 statement.",
+    "The checkpoint records runner capture state only; this child does not support mid-script continuation and resume restarts it from the beginning.",
+    "NVIDIA telemetry, when enabled, is global device telemetry and is not attributed exclusively to this child."
+  ],
+  "parameters": {
+    "allowlisted_experiment": "problem1-period-defect",
+    "child_arguments": [],
+    "child_argv": [
+      "/home/wryan/rule30-lab/.venv/bin/python",
+      "-I",
+      "/home/wryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_period_defect.py"
+    ],
+    "execution_policy": {
+      "linux_address_space_limit_applied_in_child": true,
+      "local_only": true,
+      "shell": false,
+      "stdin": "devnull",
+      "worker_environment_limit": 10
+    },
+    "resource_limits": {
+      "cpu_workers": 10,
+      "disk_reserve_bytes": 10737418240,
+      "gpu_abort_temperature_c": 84,
+      "gpu_memory_bytes": 4294967296,
+      "gpu_pause_temperature_c": 78,
+      "output_bytes": 1073741824,
+      "profile": "interactive",
+      "progress_seconds": 10.0,
+      "ram_bytes": 268435456,
+      "wall_seconds": 30.0
+    },
+    "resume": null,
+    "resume_semantics": {
+      "child_continuation_supported": false,
+      "mode": "restart-child-from-beginning"
+    },
+    "stderr_cap_bytes": 1048576,
+    "stdout_cap_bytes": 4194304,
+    "telemetry_enabled": false,
+    "telemetry_seconds": 5.0,
+    "termination_grace_seconds": 3.0
+  },
+  "proof_scope": "Every Boolean assignment in each p-step causal cone for the explicit finite period interval.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_child_json_sha256": "397bfd0d75e39f3c698a5d9f67d6033f391493d103ec5bec7f66ad9e36ffe75a",
+    "child_script_sha256_after": "51f62515a0276c2e15b17201005763f750045822e2ec51da9b7665eb5efdd7c3",
+    "child_script_sha256_before": "51f62515a0276c2e15b17201005763f750045822e2ec51da9b7665eb5efdd7c3",
+    "logical_argv_sha256": "601349e32753bd6b49530a6c603d8d7aba69d6c4ddb2553e009dafe1dfb1fde0",
+    "runner_module_sha256": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_sha256_after": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "dd93af1f7b193672cc88a1b7e822155095b7ddb6aefdab00502a938eb95ef7c9"
+  },
+  "result_summary": {
+    "artifacts": {
+      "checkpoint": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.checkpoint.state",
+      "record": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.record.json",
+      "stderr": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.stderr.log",
+      "stdout": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.stdout.data"
+    },
+    "child_json_valid": true,
+    "child_metadata": {
+      "backend": "python-exhaustive-boolean",
+      "experiment_id": "problem1-period-defect-anf-v1",
+      "hypothesis": "A hypothetical center period may induce a lower-radius or lower-degree exact phase constraint compatible with fixed moving-frame periods.",
+      "interpretation": "For each tested p, the exact condition c_(t+p)=c_t uses every cell in x[-p..p], uniquely solves x[-p], and has the reported linearly growing ANF degree. This is a finite obstruction to a narrower local phase constraint, not a proof against an eventually periodic center or against a nonlocal simplification.",
+      "limitations": [
+        "finite period bounds do not cover arbitrary eventual periods",
+        "full finite-cone dependence does not exclude nonlocal identities",
+        "ANF degree over arbitrary rows does not imply behavior of one fixed seed",
+        "the constraints are imposed at one spatial site, not at every translate",
+        "no result proves Rule 30 center nonperiodicity"
+      ],
+      "proof_scope": "Every Boolean assignment in each p-step causal cone for the explicit finite period interval.",
+      "question": "problem1",
+      "schema_version": 1,
+      "scientific_payload_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ],
+      "status": "finite-exhaustive",
+      "top_level_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ]
+    },
+    "child_returncode": 0,
+    "outcome": "success",
+    "reason": null,
+    "stderr": {
+      "bytes_captured": 0,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.stderr.log",
+      "sha256_captured": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "truncated_by_cap": false
+    },
+    "stdout": {
+      "bytes_captured": 16262,
+      "cap_bytes": 4194304,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-period-defect-20260722.stdout.data",
+      "sha256_captured": "dd93af1f7b193672cc88a1b7e822155095b7ddb6aefdab00502a938eb95ef7c9",
+      "truncated_by_cap": false
+    }
+  },
+  "runtime_seconds": 1.279285061000337,
+  "software": {
+    "child_script": "experiments/problem1_nonperiodicity/analyze_period_defect.py",
+    "child_script_sha256_after": "51f62515a0276c2e15b17201005763f750045822e2ec51da9b7665eb5efdd7c3",
+    "child_script_sha256_before": "51f62515a0276c2e15b17201005763f750045822e2ec51da9b7665eb5efdd7c3",
+    "child_script_unchanged_during_run": true,
+    "git_commit": "8960181bb58ae322371f977152d8c11d31bf4537",
+    "git_commit_after": "8960181bb58ae322371f977152d8c11d31bf4537",
+    "git_commit_unchanged_during_run": true,
+    "provenance_policy": "all tracked and non-ignored untracked Git worktree entries were required to be clean before the child was launched",
+    "python_executable": "/home/wryan/rule30-lab/.venv/bin/python",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4",
+    "repository_clean_after_run": true,
+    "repository_clean_before_run": true,
+    "runner": "rule30lab.controlled_runner",
+    "runner_module_sha256": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_sha256_after": "158fefaa637a6c6f5d82327e94f64c7d746a79a939a495d9518965c1228e80c2",
+    "runner_module_unchanged_during_run": true,
+    "runner_schema_version": 1
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T11:13:50.834985Z"
+}

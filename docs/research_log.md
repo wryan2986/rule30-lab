@@ -115,3 +115,14 @@ inside the corresponding JSON records.
   excluded for every nonzero finite seed. Lean kernel-checks the new local
   right-neighbor persistence lemma without axiom dependencies; the external
   width-two theorem remains outside Lean.
+- Committed the 2-adic, period-defect, period-one, tests, and synchronized
+  documentation as `8960181`. The full Python suite passed 292 tests and the
+  Lean build passed all three jobs before the commit.
+- Ran both new analyzers through the controlled runner on clean source commit
+  `8960181`. The period-defect run covered 174,760 assignments in 1.279285
+  seconds with stdout SHA-256
+  `dd93af1f7b193672cc88a1b7e822155095b7ddb6aefdab00502a938eb95ef7c9`.
+  The 2-adic run covered 8,190 quotient points in 0.460888 seconds with stdout
+  SHA-256
+  `7f1211fe815b8a82a56e5964428d24c8b063aeab935011e9051f2ea331a19f4c`.
+  Independent immediate reruns reproduced both hashes exactly.
