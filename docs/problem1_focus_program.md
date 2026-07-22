@@ -144,6 +144,15 @@ a neutral one: it identifies high-front shape, rather than return time or
 degree, as the remaining obstruction. See
 [`problem1_period_two_first_return.md`](../proofs/informal/problem1_period_two_first_return.md).
 
+The first high-front continuation has an exact gluing obstruction. A finite
+return-gap prefix of total branch length `B` fixes one low residue `y mod
+2^(2B)`, but any prescribed finite leading word and any arbitrary finite
+middle can be attached above that residue. Hence separated fixed-width low and
+high frontier tests cannot exclude finite support at any finite depth. A
+successful continuation must bridge the entire growing middle, use a
+growing-width relation, or return to original spacetime. See
+[`problem1_period_two_frontier_gluing.md`](../proofs/informal/problem1_period_two_frontier_gluing.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -203,13 +212,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Refine the neutral first-return degree cocycle to a high-front-shape
-   cocycle for the paired ordinary states `z_n` and `y_n`.
-2. Test whether the sixteen fringe return residues and four survivor return
-   cylinders admit a depth-independent coupled frontier quotient.
-3. Connect any frontier transition to a forced nonzero survivor output pair; a
-   longer return-gap list or larger residue table is not continuation.
-4. If the coupled frontier does not close, transfer the exact return patterns
-   to an original-spacetime finite-support obstruction.
-5. Formalize the first-return selector and degree identities only when they
-   enter a genuine infinite argument.
+1. Seek a global quantity that bridges the full growing middle between the
+   fixed low return cylinder and the finite high edge.
+2. Test growing-width candidates whose observed width scales with cumulative
+   return length; fixed separated front windows are now ruled out as a proof.
+3. Transfer the exact return cylinders to an original-spacetime obstruction
+   coupling the left and right expanding edges.
+4. Connect any global transition to a forced nonzero survivor output pair; a
+   larger finite gluing table is not continuation.
+5. Formalize the gluing and return identities only when they enter a genuine
+   infinite argument.

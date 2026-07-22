@@ -1,0 +1,65 @@
+{
+  "backend": "python-exact-2adic-cylinder-gluing",
+  "experiment_id": "problem1-period-two-frontier-gluing-20260722T212500Z",
+  "hardware": {
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false
+  },
+  "hypothesis": "Finite return-prefix constraints and finite high-front constraints remain exactly separable by an arbitrary middle region.",
+  "interpretation": "A fixed-width high-front refinement cannot close the period-two proof: finite shadows can satisfy the exact low schedule cylinder while carrying any prescribed finite edge shape.",
+  "limitations": [
+    "the construction changes the finite state as the tested prefix grows",
+    "it does not construct one ordinary state surviving the infinite schedule",
+    "it does not exclude a growing-width or genuinely global invariant",
+    "it does not exclude eventual center period two",
+    "it does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "free_bits": 8,
+    "front_width": 8,
+    "return_count": 8
+  },
+  "proof_scope": "The all-width cylinder and gluing arguments are stated in proofs/informal/problem1_period_two_frontier_gluing.md. The analyzer checks a bounded actual return prefix and every selected finite gluing.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "fc1e4a5ab0b53042be678b83ad456564e998bde4c2ad5e300b7094d1807bd14c",
+    "informal_proof_sha256": "6cc2e677e7359b7635c730e1d637b0e6c8f0b31bf98b7ad6ec5e6f5326b36b1f",
+    "scientific_certificate_sha256": "c5f52d4e56c1c113b15a5c5b09fe6b6d7ff90a3f2c9592fd678a2f6186135285",
+    "test_source_sha256": "eceb74d006d79f9be7d83d632626664f9d8be929ada859389026167247c76a1d"
+  },
+  "result_summary": {
+    "actual_prefix_gluing": {
+      "actual_return_gaps": [4, 2, 5, 2, 5, 2, 5, 2],
+      "all_checks_pass": true,
+      "exact_family_size": "2^(7+8)",
+      "final_bit_length_after_prefix": 124,
+      "fixed_low_bits": 54,
+      "free_middle_assignments_per_front": 256,
+      "free_middle_bits": 8,
+      "front_width": 8,
+      "initial_bit_length": 70,
+      "leading_front_words_checked": 128,
+      "low_residue": 17473383097439340,
+      "ordinary_finite_states_checked": 32768,
+      "total_zero_branches": 27
+    },
+    "certificate_sha256": "c5f52d4e56c1c113b15a5c5b09fe6b6d7ff90a3f2c9592fd678a2f6186135285",
+    "exact_conclusions": {
+      "arbitrary_front_gluing": "any finite leading word and any finite free middle can be glued above that low cylinder without changing the return prefix",
+      "bounded_frontier_obstruction": "fixed low-prefix and fixed high-front tests cannot exclude finite support; a successful invariant must bridge the growing interior",
+      "unique_low_cylinder": "a return-gap prefix of total branch length B fixes exactly one survivor residue y modulo 2^(2B)"
+    },
+    "single_gap_consistency": {
+      "all_checks_pass": true,
+      "rows": [
+        {"gap": 2, "modulus": 16, "residue": 8},
+        {"gap": 3, "modulus": 64, "residue": 60},
+        {"gap": 4, "modulus": 256, "residue": 108},
+        {"gap": 5, "modulus": 1024, "residue": 940}
+      ]
+    }
+  },
+  "schema_version": 1,
+  "status": "finite-exhaustive"
+}
