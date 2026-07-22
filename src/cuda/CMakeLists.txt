@@ -11,7 +11,12 @@ endif()
 
 find_package(CUDAToolkit REQUIRED)
 
-add_library(rule30_cuda STATIC batch_period.cu)
+add_library(
+  rule30_cuda STATIC
+  batch_period.cu
+  batch_sideways.cu
+  direct_evolution.cu
+)
 add_library(rule30::cuda ALIAS rule30_cuda)
 target_include_directories(
   rule30_cuda
@@ -42,6 +47,18 @@ add_executable(rule30_cuda_period_benchmark period_benchmark.cpp)
 target_link_libraries(rule30_cuda_period_benchmark PRIVATE rule30::cuda)
 target_compile_options(
   rule30_cuda_period_benchmark PRIVATE -Wall -Wextra -Wpedantic
+)
+
+add_executable(rule30_cuda_evolution_benchmark direct_evolution_benchmark.cpp)
+target_link_libraries(rule30_cuda_evolution_benchmark PRIVATE rule30::cuda)
+target_compile_options(
+  rule30_cuda_evolution_benchmark PRIVATE -Wall -Wextra -Wpedantic
+)
+
+add_executable(rule30_cuda_sideways_benchmark sideways_benchmark.cpp)
+target_link_libraries(rule30_cuda_sideways_benchmark PRIVATE rule30::cuda)
+target_compile_options(
+  rule30_cuda_sideways_benchmark PRIVATE -Wall -Wextra -Wpedantic
 )
 
 if(BUILD_TESTING AND NOT TARGET rule30_cuda_tests)
