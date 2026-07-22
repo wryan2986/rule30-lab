@@ -209,6 +209,9 @@ rule30 experiment run problem2-conservation -- \
   --minimum-width 1 --maximum-width 5
 rule30 experiment reproduce --json problem3-exact-searches -- \
   --limit-bits 10000 --train-length 5000
+rule30 experiment controlled -- \
+  --profile interactive --experiment-id p2-conservation-widths-1-5 \
+  problem2-conservation -- --minimum-width 1 --maximum-width 5
 ```
 
 `run` records the child stdout hash and parses JSON when possible.
@@ -216,6 +219,12 @@ rule30 experiment reproduce --json problem3-exact-searches -- \
 default; when both JSON outputs publish `scientific_payload_sha256`, it compares
 that documented scientific payload hash so empirical runtime metadata may
 differ without masking scientific reproducibility.
+`controlled` is the production route for nontrivial or long runs. It adds a
+clean-commit precondition, Linux address-space and wall limits, streamed hard
+output caps, disk reserve checks, progress/checkpoints, optional read-only GPU
+telemetry, and an atomic strict result record. The first `--` routes the
+remaining arguments to the controlled runner; the second separates runner
+options from child options. See [resource controls](resource_controls.md).
 
 ## Conservative controls
 

@@ -766,6 +766,46 @@ def test_experiment_unknown_name_is_rejected_before_execution(
     assert "invalid choice" in capsys.readouterr().err
 
 
+def test_experiment_controlled_forwards_to_production_runner(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from rule30lab import controlled_runner
+
+    observed: list[list[str]] = []
+
+    def fake_main(arguments: list[str]) -> int:
+        observed.append(arguments)
+        return 7
+
+    monkeypatch.setattr(controlled_runner, "main", fake_main)
+    assert (
+        main(
+            (
+                "experiment",
+                "controlled",
+                "--",
+                "--profile",
+                "interactive",
+                "problem2-conservation",
+                "--",
+                "--maximum-width",
+                "3",
+            )
+        )
+        == 7
+    )
+    assert observed == [
+        [
+            "--profile",
+            "interactive",
+            "problem2-conservation",
+            "--",
+            "--maximum-width",
+            "3",
+        ]
+    ]
+
+
 def test_python_generation_cap_is_conservative(
     capsys: pytest.CaptureFixture[str],
 ) -> None:

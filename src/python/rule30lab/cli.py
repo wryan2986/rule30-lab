@@ -360,6 +360,15 @@ def _parser() -> argparse.ArgumentParser:
             nargs="*",
             help="arguments after -- are passed as separate argv entries",
         )
+    controlled = experiment_commands.add_parser(
+        "controlled",
+        help="run one allowlisted experiment with production resource controls",
+    )
+    controlled.add_argument(
+        "runner_args",
+        nargs=argparse.REMAINDER,
+        help="controlled-runner options followed by the allowlisted experiment",
+    )
     return parser
 
 
@@ -1335,6 +1344,15 @@ def _experiment_reproduce(args: argparse.Namespace) -> int:
     return 0 if match else 1
 
 
+def _experiment_controlled(args: argparse.Namespace) -> int:
+    from . import controlled_runner
+
+    runner_args = list(args.runner_args)
+    if runner_args[:1] == ["--"]:
+        runner_args = runner_args[1:]
+    return controlled_runner.main(runner_args)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = _parser()
     args = parser.parse_args(argv)
@@ -1355,6 +1373,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.command == "experiment":
             if args.experiment_command == "run":
                 return _experiment_run(args)
+            if args.experiment_command == "controlled":
+                return _experiment_controlled(args)
             return _experiment_reproduce(args)
         return handlers[args.command](args)
     except (CliError, MemoryError, OSError, ValueError) as exc:
