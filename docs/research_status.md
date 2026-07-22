@@ -45,10 +45,11 @@ below use the definitions in `docs/experiment_protocol.md`.
 - WSL sees the local RTX 2060 SUPER (8,192 MiB, compute capability 7.5) through
   the Windows driver. CUDA is compiled as native `sm_75` SASS; no Linux display
   driver or hardware-control setting was installed or changed.
-- The final clean-build gate on 2026-07-22 passed 224 Python tests, all seven
-  release C++/CUDA CTests plus direct GPU contracts, two sanitizer-enabled C++
-  tests, Rust formatting/clippy and 22 tests, strict structured-record checks,
-  and the three-job Lean build. GPU temperature was 40 C before and 41 C after.
+- The latest clean-build gate on commit `a89246e` passed 279 Python tests, all
+  nine release C++/CUDA CTests plus every direct GPU contract, two
+  sanitizer-enabled C++ tests, Rust formatting/clippy and 22 tests, strict
+  structured-record checks, and the three-job Lean build. Post-gate GPU
+  telemetry was 41 C at 12.64 W.
 
 ## Reproduced empirical observations
 

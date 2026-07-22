@@ -96,3 +96,7 @@ inside the corresponding JSON records.
   inversion, and every finite state through width 10 confirmed the indexing
   and fixed-coordinate power-of-two period bound. The result exposes the
   growing diagonal—not the fixed coordinates—as the unresolved obstruction.
+- Ran the canonical clean quality gate on `a89246e`: 279 Python tests, nine
+  release C++/CUDA CTests and every direct RTX 2060 contract, two sanitizer
+  tests, Rust format/clippy and 22 tests, and the three-job Lean build all
+  passed. Post-gate telemetry was 41 C at 12.64 W; no hardware control changed.

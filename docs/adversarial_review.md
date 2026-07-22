@@ -205,7 +205,9 @@ the whole-tail equivalence proof, and the final strict controlled record. The
 lead review checked enumeration and multiplicity arithmetic, finite-trace
 deduplication scope, horizon conventions, certificate inputs, independent
 prefix reconstruction, resource caps, and every finite-versus-infinite status
-label. The complete Python suite passed 279 tests.
+label. The canonical clean gate on commit `a89246e` passed 279 Python tests,
+all nine release C++/CUDA CTests and direct GPU contracts, two sanitizer tests,
+Rust formatting/clippy and 22 tests, and the Lean build.
 
 A separate read-only reviewer independently checked the mathematical core and
 reported no flaw in these three statements:
