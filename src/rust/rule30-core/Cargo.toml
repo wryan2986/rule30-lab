@@ -7,3 +7,7 @@ rust-version.workspace = true
 
 [lib]
 path = "src/lib.rs"
+
+[[test]]
+name = "rust_reference_vectors"
+path = "../../../tests/rust/reference_vectors.rs"
