@@ -84,6 +84,16 @@ pure alternating lift has infinite support exactly when `m-ell_m` tends to
 infinity. This is a reduction, not yet the growth proof. See
 [`problem1_period_two_quotient_obstruction.md`](../proofs/informal/problem1_period_two_quotient_obstruction.md).
 
+The leading-run target now has an exact renewal form. A zero emitted base-4
+block extends the leading `t` run by one, while every nonzero block resets it;
+therefore infinite support is equivalent to infinitely many nonzero blocks.
+During any hypothetical final zero streak, a normalized ordinary integer
+`x=K^(-1)(0)` obeys `x'=Q(P(x>>2))`. Zero continuation is possible only at
+`x=7 mod 16` with `Q=U` or `x=11 mod 16` with `Q=T`, and each continuing step
+raises bit length by two. The new barrier is to rule out an ever-growing orbit
+that also matches the actual schedule. See
+[`problem1_period_two_renewal_reduction.md`](../proofs/informal/problem1_period_two_renewal_reduction.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -143,13 +153,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Derive a recurrence or lower bound for
-   `m-leading_t_run(H_m)` under the exact period-two block map.
-2. Seek a nonlocal algebraic character or cocycle of the coupled accumulated
-   word and moving fringe that controls this quantity.
-3. Prove closure before classifying zero-emitting cycles; fixed portrait depth
-   and longer endpoint samples are not substitutes.
-4. If the leading-run route does not close, return to an original-spacetime
+1. Analyze the partial zero-streak integer map and its uniquely forced
+   modulo-16 branch together with the actual period-two schedule.
+2. Seek a ranking function, forbidden 2-adic cycle, or nonlocal cocycle that
+   rules out an infinite ever-growing matched orbit.
+3. Prove closure before classifying zero-emitting cycles; longer word or block
+   prefixes are not substitutes.
+4. If the renewal route does not close, return to an original-spacetime
    finite-support monotone quantity rather than another portrait sweep.
-5. Formalize the moving-fringe and excess-degree identities, or a later
-   invariant, only when it enters a genuine infinite argument.
+5. Formalize the renewal/integer identities, or a later invariant, only when
+   it enters a genuine infinite argument.
