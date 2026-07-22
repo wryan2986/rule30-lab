@@ -33,6 +33,16 @@ time-zero constraint is vacuous on an all-zero adjacent left pair. The exact
 cyclic-pair theorem assumes both the center and right-neighbor columns are
 cyclic; eventual center periodicity alone does not justify that assumption.
 
+The whole-tail formulation also has an exact limitation. An eventually-zero
+reconstructed tail is equivalent to a finite-support initial configuration
+whose rightmost one is at coordinate zero. In right-edge coordinates its
+center trace is the growing diagonal
+`bit_t(T^t(S))`, where
+`T(S) = S XOR ((S << 1) OR (S << 2))` and `S` is any odd positive integer.
+Thus the focused conjecture uniformly strengthens the single-seed prize
+instance; it does not reduce it to a fixed finite-state system. See
+[`problem1_whole_tail_equivalence.md`](../proofs/informal/problem1_whole_tail_equivalence.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -88,12 +98,11 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Measure terminal-zero behavior of reconstructed left prefixes, with exact
-   cross-horizon consistency and candidate retention rather than first-witness
-   counts.
-2. Inspect the surviving long-zero-tail candidates symbolically and attempt to
-   extend or refute them exactly.
-3. Extract a seam-aware recurrence or finite certificate from those cases.
+1. Complete the terminal-zero campaign and retain its exact finite certificate.
+2. Use the right-edge recurrence to connect a claimed temporal period to the
+   power-of-two periods of fixed moving-frame coordinates.
+3. Look for an exact contradiction along the growing diagonal, or identify a
+   precise reason the nested-period argument cannot reach it.
 4. State and prove the smallest stable lemma, informally first and then in
    Lean when useful.
-5. Reassess the focused conjecture before authorizing another finite search.
+5. Reassess this proof route before authorizing any larger finite search.

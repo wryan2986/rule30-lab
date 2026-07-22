@@ -1,6 +1,6 @@
 # Rule 30 prize problems: theory and literature review
 
-Review date: 2026-07-21
+Review date: 2026-07-22
 
 This note records what the cited sources actually establish. It distinguishes source facts, deductions made in this project, unresolved interpretation issues, and checks still recommended. It uses $0$ for white, $1$ for black, and time $t=0$ for the single-cell initial row.
 
@@ -40,6 +40,7 @@ These scalar and trace definitions avoid an ambiguity in the Wolfram Language no
 4. Erica Jen, [“Global Properties of Cellular Automata,” *Journal of Statistical Physics* 43 (1986), 219–242](https://doi.org/10.1007/BF01010579), is the paper cited by Wolfram for the two-column result. The publisher page exposes the abstract and bibliographic record but not public full text.
 5. Erica Jen, [“Aperiodicity in One-Dimensional Cellular Automata,” *Physica D* 45 (1990), 3–18](https://doi.org/10.1016/0167-2789(90)90169-P), contains the applicable result as Proposition 3. A public Los Alamos manuscript is available through the [U.S. Department of Energy OSTI repository](https://www.osti.gov/servlets/purl/7230855).
 6. Johan Kopra, [“Rapid Left Expansivity, a Commonality between Wolfram's Rule 30 and Powers of $p/q$,” *Theoretical Computer Science* 946 (2023), 113668](https://doi.org/10.1016/j.tcs.2022.12.018), gives a modern definition-and-proof route and recovers Jen's result as Corollary 3.7. The author manuscript is openly available from the [University of Turku repository](https://urn.fi/URN:NBN:fi-fe2023031832340).
+7. Eric Rowland, [“Local Nested Structure in Rule 30,” *Complex Systems* 16 (2006), 239–258](https://wpmedia.wolfram.com/uploads/sites/13/2018/02/16-3-4.pdf), proves power-of-two periodicity and local nestedness for the fixed diagonals on Rule 30's right side. It does not prove periodicity or nonperiodicity of the growing diagonal that forms the fixed spatial center.
 
 ## Verified source facts
 

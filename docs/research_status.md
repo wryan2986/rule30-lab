@@ -122,6 +122,13 @@ below use the definitions in `docs/experiment_protocol.md`.
   type forbidding `(2,0)`, `(2,1)`, `(3,2)`, and `(3,3)`. This is
   depth-independent structure, but it does not distinguish an all-zero
   reconstructed time-zero tail.
+- The first complete-tail campaign exhausted all 7,905 eventual-period
+  descriptions with `q<=4`, `p<=8`, `c_0=1` through reconstruction depth
+  2,048, representing 3,776 distinct finite trace classes. Every class had a
+  reconstructed one in each adjacent interval from `(64,128]` through
+  `(1024,2048]`; the largest internal zero run observed was 22. The exact
+  scientific certificate is
+  `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
@@ -147,6 +154,14 @@ complexity result.
   Exhaustive checks covered all 262,142 traces through horizons zero to 16.
   This shows that larger finite first-witness searches are prefix comparisons,
   not independent evidence for nonperiodicity.
+- `partial-proof` (complete informal argument, independently checked on finite
+  instances): an eventually-zero reconstructed left tail is equivalent to a
+  finite-support initial configuration whose rightmost one is at coordinate
+  zero. Encoding that configuration by an odd integer `S`, its moving-frame
+  evolution is `T(S)=S XOR ((S<<1) OR (S<<2))`, and its fixed spatial center is
+  the growing diagonal `bit_t(T^t(S))`. Every fixed bit `k` is periodic with
+  period dividing `2^k`, but this does not control the growing diagonal. The
+  proof is in `proofs/informal/problem1_whole_tail_equivalence.md`.
 
 These results do not exclude an all-zero tail, any period greater than one, or
 eventual periodicity in general.
@@ -175,12 +190,18 @@ eventual periodicity in general.
   finite-state proof.
 - Extending first-nonzero sideways searches cannot advance the proof by itself:
   the first witness is exactly the first trusted-prefix mismatch.
+- The complete-tail campaign produced no counterexample lead, but its maximum
+  internal zero run increased from 19 to 22 and the extremal description
+  changed. The data do not support a uniform bounded-gap claim, so merely
+  increasing the reconstruction horizon is not an admitted continuation.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
 
 ## Open questions
 
+- Can eventual periodicity of the growing diagonal `bit_t(T^t(S))` be made
+  incompatible with the power-of-two periods of every fixed moving-frame bit?
 - Can sideways reconstruction under an eventually periodic boundary be
   summarized by a rigorously depth-independent invariant or finite state?
 - Can the width-two nonperiodicity theorem be combined with a new local lemma
@@ -197,13 +218,13 @@ eventual periodicity in general.
 Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
 Admission and stopping criteria are in `docs/problem1_focus_program.md`.
 
-1. Search for eventually periodic traces whose reconstructed left prefixes
-   end in anomalously long zero runs after their last one, retaining only
-   counterexample leads and exact cross-horizon certificates.
-2. Derive a seam-aware recurrence or front constraint for the whole
-   reconstructed tail under periodic temporal forcing.
-3. Encode simultaneous eventual temporal periodicity and eventual spatial
-   zero as a symbolic/SAT problem, proving any finite state bound used.
-4. Test candidate monotone potentials against the exact four-block image
-   subshift and transient seams.
-5. Formalize only the smallest stable whole-tail lemma that emerges.
+1. Derive exact phase constraints imposed by a hypothetical period on the
+   growing diagonal of the right-edge recurrence.
+2. Combine those constraints with fixed-coordinate power-of-two periodicity
+   and Rowland's local-nestedness theorem.
+3. Identify a contradiction or a precise barrier before authorizing another
+   finite parameter increase.
+4. Encode simultaneous eventual temporal periodicity and eventual spatial
+   zero as a symbolic/SAT problem only if a depth-independent state bound is
+   first proved.
+5. Formalize only the smallest stable diagonal lemma that emerges.

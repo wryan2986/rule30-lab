@@ -96,6 +96,13 @@ pattern, bounded-gap mechanism, candidate invariant, or exact counterexample
 lead. Merely increasing the horizon is prohibited by
 [`problem1_focus_program.md`](problem1_focus_program.md).
 
+The subsequent
+[`whole-tail equivalence`](../proofs/informal/problem1_whole_tail_equivalence.md)
+shows why this stopping rule matters: an eventually-zero reconstructed tail
+is exactly a finite odd seed in the right-edge recurrence. The finite campaign
+therefore probes a uniform strengthening of Problem 1 rather than a finite-state
+reduction of it.
+
 ## Reproduction
 
 ```bash
