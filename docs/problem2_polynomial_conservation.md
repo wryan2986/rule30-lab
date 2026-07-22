@@ -64,7 +64,7 @@ same quotient procedure.
 Run the focused tests:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/pytest -q -p no:cacheprovider \
   tests/python/test_polynomial_conservation.py
 ```

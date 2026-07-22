@@ -257,7 +257,7 @@ semi-infinite problem has been established here.
 Run the focused tests:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
   -p no:cacheprovider tests/python/test_sideways.py -q
 ```
@@ -265,7 +265,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
 Emit the default deterministic JSON:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/run_sideways_search.py \
   > /tmp/rule30-problem1-sideways-default.json
@@ -279,7 +279,7 @@ Reproduce the default true-prefix baseline and regenerate the explicit graph
 artifacts with every relevant parameter stated:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/run_sideways_search.py \
   --horizon 500 \

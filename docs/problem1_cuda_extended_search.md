@@ -109,7 +109,7 @@ The targets are fixed to the repository's native CUDA architecture setting,
 `75-real`:
 
 ```bash
-cmake -S /home/wryan/rule30-lab \
+cmake -S . \
   -B /tmp/rule30-extended-search-build -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \

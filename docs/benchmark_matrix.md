@@ -116,7 +116,7 @@ jobs. Replace only the build-root path if needed; pass the resulting executable
 paths explicitly to the matrix.
 
 ```bash
-cmake --fresh -S /home/wryan/rule30-lab \
+cmake --fresh -S . \
   -B /tmp/rule30-benchmark-matrix-build \
   -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
@@ -127,8 +127,8 @@ cmake --fresh -S /home/wryan/rule30-lab \
 nice -n 10 cmake --build /tmp/rule30-benchmark-matrix-build --parallel 2
 
 env \
-  RUSTUP_HOME=/home/wryan/rule30-lab/.toolchains/rustup \
-  CARGO_HOME=/home/wryan/rule30-lab/.toolchains/cargo \
+  RUSTUP_HOME=$PWD/.toolchains/rustup \
+  CARGO_HOME=$PWD/.toolchains/cargo \
   CARGO_TARGET_DIR=/tmp/rule30-benchmark-matrix-rust \
   nice -n 10 cargo build --offline --locked --release \
     -p rule30-core --bin rule30-rust
@@ -137,9 +137,9 @@ env \
 Run a draft matrix after those binaries pass their normal correctness gates:
 
 ```bash
-nice -n 10 /home/wryan/rule30-lab/.venv/bin/python \
-  /home/wryan/rule30-lab/experiments/shared/run_benchmark_matrix.py \
-  --python-executable /home/wryan/rule30-lab/.venv/bin/python \
+nice -n 10 .venv/bin/python \
+  experiments/shared/run_benchmark_matrix.py \
+  --python-executable .venv/bin/python \
   --cpp-executable /tmp/rule30-benchmark-matrix-build/src/cpp/rule30_cpp \
   --rust-executable /tmp/rule30-benchmark-matrix-rust/release/rule30-rust \
   --cuda-executable /tmp/rule30-benchmark-matrix-build/src/cuda/rule30_cuda_generate \
@@ -154,12 +154,12 @@ nice -n 10 /home/wryan/rule30-lab/.venv/bin/python \
   --cpp-build-directory /tmp/rule30-benchmark-matrix-build \
   --cuda-build-directory /tmp/rule30-benchmark-matrix-build \
   --rust-build-directory /tmp/rule30-benchmark-matrix-rust \
-  --trusted-prefix /home/wryan/rule30-lab/tests/reference_vectors/center_c00000000_c00009999.u8 \
+  --trusted-prefix tests/reference_vectors/center_c00000000_c00009999.u8 \
   --count 4096 --warmups 1 --repetitions 5 \
   --timeout-seconds 30 --max-capture-bytes 2097152 \
   --nice-level 10 --cuda-device 0 --cuda-threads 256 \
   --cuda-memory-budget-mib 64 --cuda-output-budget-mib 16 \
-  --output /home/wryan/rule30-lab/results/benchmarks/20260722_same_output_matrix_n4096.json
+  --output results/benchmarks/20260722_same_output_matrix_n4096.json
 ```
 
 The outer `nice` keeps the orchestrator polite; every measured child also has
@@ -225,8 +225,8 @@ does not need CUDA or a GPU:
 
 ```bash
 PYTHONPYCACHEPREFIX=/tmp/rule30-benchmark-pyc \
-  /home/wryan/rule30-lab/.venv/bin/pytest -q -p no:cacheprovider \
-  /home/wryan/rule30-lab/tests/python/test_benchmark_matrix.py
+  .venv/bin/pytest -q -p no:cacheprovider \
+  tests/python/test_benchmark_matrix.py
 ```
 
 It checks command construction, canonical trusted-vector anchoring (including

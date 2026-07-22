@@ -256,7 +256,7 @@ does not settle that statement.
 Run the focused tests:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
   -p no:cacheprovider tests/python/test_sideways_invariant_search.py -q
 ```
@@ -270,7 +270,7 @@ Current result:
 Emit the default deterministic JSON:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/search_sideways_invariants.py \
   > /tmp/sideways-invariants-default.json

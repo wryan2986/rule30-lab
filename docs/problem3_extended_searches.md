@@ -64,7 +64,7 @@ still does not prove that the full 2-kernel is infinite.
 Run the default 10,000-bit campaign with:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 nice -n 10 .venv/bin/python \
   experiments/problem3_complexity/run_extended_model_searches.py \
   > /tmp/rule30-problem3-extended.json

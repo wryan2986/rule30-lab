@@ -13,11 +13,9 @@ Lean 4 development.
 > explicitly scoped all-one-tail exclusion is currently classified as a
 > `partial-proof`.
 
-The canonical checkout is the WSL-native path `/home/wryan/rule30-lab`. All
-compute is local to this Windows/WSL2 workstation and its NVIDIA RTX 2060 SUPER;
-there is no cloud, remote, distributed, or paid compute dependency. The Git
-repository has no configured remote and is intended to remain private until
-the owner reviews it.
+All compute is local and there is no cloud, remote, distributed, or paid
+compute dependency. The CPU-compatible code can be run on any machine with
+Python 3.11+; C++20, Rust, and CUDA components are optional accelerators.
 
 ## Current status
 
@@ -35,10 +33,10 @@ depth-independent state bound or invariant has yet been proved.
 
 ## Setup and GPU verification
 
-Run commands inside Ubuntu WSL2:
+Run commands inside the repository directory:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd rule30-lab
 python3 -m venv .venv
 .venv/bin/python -m pip install -e . --no-deps
 .venv/bin/python -m pip install -r requirements-dev.lock

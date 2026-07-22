@@ -82,8 +82,8 @@ From `proofs/lean`:
 
 ```bash
 env \
-  ELAN_HOME=/home/wryan/rule30-lab/.toolchains/elan \
-  PATH=/home/wryan/rule30-lab/.toolchains/elan/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+  ELAN_HOME=$PWD/.toolchains/elan \
+  PATH=$PWD/.toolchains/elan/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
   lake build
 ```
 

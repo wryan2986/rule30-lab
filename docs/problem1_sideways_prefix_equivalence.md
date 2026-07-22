@@ -66,7 +66,7 @@ real structural fact, but it has not yet supplied the needed tail invariant.
 ## Reproduction
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
   -p no:cacheprovider tests/python/test_sideways_prefix_equivalence.py -q
 nice -n 10 .venv/bin/python \

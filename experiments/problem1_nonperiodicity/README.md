@@ -8,7 +8,7 @@ and summarizes explicitly fixed-width state graphs.
 Default run:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/run_sideways_search.py \
   > /tmp/rule30-problem1-sideways-default.json
@@ -23,7 +23,7 @@ for conventions, validation, exact default results, and limitations.
 Focused exact analyzers support the current right-edge proof work:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_defect.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \

@@ -126,7 +126,7 @@ claim.
 Run the deterministic experiment payload with:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem3_complexity/run_exact_searches.py
 ```
@@ -190,7 +190,7 @@ exhaustion.
 ## Reproduction tests
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
   -p no:cacheprovider tests/python/test_predictor_search.py
 ```

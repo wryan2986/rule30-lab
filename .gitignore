@@ -1,26 +1,71 @@
+# Python
 .venv/
-.toolchains/
+venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-.lake/
+
+# C and C++
 build/
-target/
 cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
 *.o
 *.so
 *.a
 *.exe
+
+# Rust
+target/
+
+# CUDA
+*.ptx
+*.cubin
+*.fatbin
+
+# Lean
+.lake/
+lake-packages/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Profiling and traces
 *.prof
 *.trace
+
+# Toolchains (project-local, not user-global)
+.toolchains/
+
+# Experiment run artifacts (transient, not for publication)
+results/runs/**/*.record.json
+results/runs/**/*.checkpoint.state
+results/runs/**/*.stdout.data
+results/runs/**/*.stderr.log
+
+# Temporary and generated output
 results/**/*.bin
 results/**/*.tmp
 results/**/*.partial
-results/runs/**/*.stdout.data
-results/runs/**/*.stderr.log
-results/runs/**/*.checkpoint.state
-results/runs/**/*.record.json
-!results/**/.gitkeep
+
+# Large generated results (excluded from git archive)
+results/raw/
+results/checkpoints/
+
+# Keep gitkeep files
+!**/.gitkeep

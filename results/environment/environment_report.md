@@ -23,7 +23,7 @@ verified at 2026-07-21T23:30:26Z. Commands were run in the existing default
 - Ubuntu 26.04 LTS (Resolute Raccoon), x86-64
 - glibc 2.43
 - Root filesystem: ext4, 1007 GiB total, 926 GiB available at inspection
-- Repository: `/home/wryan/rule30-lab` on the ext4 filesystem
+- Repository: `.` on the ext4 filesystem
 
 ## CPU and memory
 

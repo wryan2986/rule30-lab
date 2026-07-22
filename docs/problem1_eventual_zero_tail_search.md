@@ -106,7 +106,7 @@ reduction of it.
 ## Reproduction
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest \
   -p no:cacheprovider tests/python/test_eventual_zero_tail_search.py -q
 nice -n 10 .venv/bin/python \

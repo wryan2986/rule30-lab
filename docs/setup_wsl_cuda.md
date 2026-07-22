@@ -1,6 +1,6 @@
 # WSL2 and CUDA setup
 
-The canonical repository is `/home/wryan/rule30-lab` in the Ubuntu WSL2 ext4
+The canonical repository is `.` in the Ubuntu WSL2 ext4
 filesystem. The current machine facts are in
 `results/environment/environment_report.md`.
 
@@ -42,7 +42,7 @@ CUDA 13.x minor-version compatibility range (`>= 580`); compiling explicit
 
 ## Project-local toolchains
 
-Run every command below from `/home/wryan/rule30-lab`. The operating-system
+Run every command below from `.`. The operating-system
 build prerequisites used by this checkout are Git, Python 3 with `venv`, GCC
 and G++, CMake, Ninja, GNU Make, Clang 21, `rustup`, and `elan`. Their detected
 versions are recorded in `results/environment/environment_report.md`.

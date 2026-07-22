@@ -47,7 +47,7 @@ Put runner options before the experiment name and experiment-specific options
 after `--`:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 rule30 experiment controlled -- \
   --profile interactive \
   --run-directory results/runs \
@@ -292,7 +292,7 @@ The focused suite uses only tiny temporary Python children; it does not query
 the GPU or run an expensive experiment:
 
 ```bash
-cd /home/wryan/rule30-lab
+cd .
 .venv/bin/python -m pytest -q tests/python/test_controlled_runner.py
 ```
 
