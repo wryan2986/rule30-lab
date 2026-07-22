@@ -1,0 +1,130 @@
+{
+  "backend": "cpp-independent-oracle-and-cuda-sideways",
+  "command": "nice -n 10 /tmp/rule30-cuda-direct-build-20260721/rule30_cuda_sideways_benchmark --candidates 1003 --horizon 63 --repetitions 3 --threads 96 --memory-budget-mib 16 --max-chunk-candidates 197",
+  "experiment_id": "benchmark-cuda-sideways-1003-h63-six-chunks-20260722T003201Z",
+  "git_commit": "3eb6e5136630f85bccd538665a5d6118d4b87c1e",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_oracle_threads": 1,
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_compute_capability": "7.5",
+    "gpu_multiprocessors": 34,
+    "gpu_temperature_celsius": {
+      "final_idle_snapshot_after_validation": 40,
+      "immediately_after_benchmark_session": 39,
+      "before_benchmark_session": 39
+    },
+    "gpu_vram_mib": 8192
+  },
+  "hypothesis": "For 1003 deterministically generated binary traces of length 64 forced through six CUDA chunks, the CUDA sideways reconstruction returns all 63 reconstructed initial-left bits per trace exactly as an independent CPU oracle; timings expose chunk and launch overhead for this exact workload.",
+  "interpretation": "All 63189 finite output bytes matched the independent CPU oracle in the warm-up and every measured run. Forced chunking raised CUDA median end-to-end time to 9.676108 ms versus 0.996188 ms for the CPU oracle; the 7.441408 ms median kernel total demonstrates that chunk and launch overhead matters for this small workload.",
+  "limitations": [
+    "The test covers 1003 finite pseudorandom traces through reconstruction horizon 63; it does not establish compatibility or incompatibility of any infinite or eventually periodic center trace.",
+    "The forced six-chunk configuration was selected to exercise chunking and uneven grids, not because memory pressure required six chunks on this GPU.",
+    "The timing result applies only to this exact chunk cap, block size, workload, and host; it is not a general CPU or CUDA performance claim.",
+    "The CPU oracle is an independent single-threaded O(horizon)-workspace implementation of the same finite mapping.",
+    "One CPU warm-up and one GPU warm-up preceded only three measured repetitions; frequency scaling and unrelated host activity were not disabled.",
+    "Sideways reconstruction performs quadratic work in the finite horizon and supplies no asymptotic shortcut for c_n.",
+    "The 39 C benchmark-session readings and 40 C final idle reading are coarse snapshots, not a per-repetition thermal trace; no clock, voltage, fan, power, or thermal control was changed.",
+    "Compute Sanitizer 2026.2.1 could not initialize its WSL/WDDM debugger interface, so this milestone has passing functional tests but no successful Compute Sanitizer run."
+  ],
+  "parameters": {
+    "candidate_count": 1003,
+    "chunk_candidate_counts": [197, 197, 197, 197, 197, 18],
+    "cpu_warmup_runs": 1,
+    "device_index": 0,
+    "device_memory_budget_mib": 16,
+    "free_device_memory_reserve_mib": 64,
+    "full_chunk_blocks": 3,
+    "full_chunk_final_block_active_threads": 5,
+    "gpu_warmup_runs": 1,
+    "horizon": 63,
+    "last_chunk_active_threads": 18,
+    "last_chunk_blocks": 1,
+    "max_chunk_candidates": 197,
+    "measured_repetitions": 3,
+    "nice_adjustment": 10,
+    "trace_generation": "xorshift with shifts 13, 7, 17; each low bit is emitted",
+    "trace_generation_seed": "0x4d595df4d0f33173",
+    "trace_length": 64,
+    "threads_per_block": 96
+  },
+  "proof_scope": "Exact finite equality of all 1003*63 reconstructed bytes between the independent CPU oracle and CUDA across six chunks in the warm-up and each of three measured runs; all performance conclusions are empirical and workload-specific.",
+  "question": "problem1",
+  "result_hashes": {
+    "reconstructed_u8_fnv1a64": "2dca0352d9c6c668"
+  },
+  "result_summary": {
+    "chunk_capacity": 197,
+    "chunks_per_run": 6,
+    "cpu_gpu_exact_match": true,
+    "cpu_oracle_milliseconds": {
+      "maximum": 1.049336,
+      "mean": 1.004720,
+      "median": 0.996188,
+      "minimum": 0.968637,
+      "standard_deviation": 0.033493
+    },
+    "cuda_end_to_end_median_is_lower": false,
+    "cuda_end_to_end_milliseconds": {
+      "maximum": 9.741138,
+      "mean": 9.644675,
+      "median": 9.676108,
+      "minimum": 9.516778,
+      "standard_deviation": 0.094253
+    },
+    "device_to_host_milliseconds": {
+      "maximum": 0.561366,
+      "mean": 0.532615,
+      "median": 0.540369,
+      "minimum": 0.496109,
+      "standard_deviation": 0.027199
+    },
+    "host_to_device_milliseconds": {
+      "maximum": 0.146688,
+      "mean": 0.122829,
+      "median": 0.121710,
+      "minimum": 0.100090,
+      "standard_deviation": 0.019040
+    },
+    "kernel_milliseconds": {
+      "maximum": 7.538464,
+      "mean": 7.473611,
+      "median": 7.441408,
+      "minimum": 7.440960,
+      "standard_deviation": 0.045859
+    },
+    "median_cpu_to_cuda_end_to_end_ratio": 0.102953,
+    "peak_device_bytes": 63434,
+    "result_bytes": 63189,
+    "result_ones": 31707,
+    "result_zeros": 31482,
+    "timing_standard_deviation_definition": "population",
+    "total_transfer_milliseconds": {
+      "maximum": 0.662079,
+      "mean": 0.655444,
+      "median": 0.661456,
+      "minimum": 0.642797,
+      "standard_deviation": 0.008946
+    },
+    "workspace_bytes_per_candidate": 195
+  },
+  "runtime_seconds": 3.4,
+  "software": {
+    "algorithm": "one CUDA thread per trace; finite Rule 30 left-permutive sideways reconstruction with three horizon-plus-two-byte work buffers per candidate",
+    "build_type": "Release",
+    "cmake": "4.2.3",
+    "cuda_compiler": "nvcc 13.3.73",
+    "cuda_compile_flags": "-O3 -DNDEBUG -std=c++20 --generate-code=arch=compute_75,code=[sm_75] -Xcompiler=-Wall,-Wextra",
+    "cuda_driver_api_version": 13010,
+    "cuda_runtime_package": "13.3.29",
+    "cuda_runtime_version": 13030,
+    "gpu_code": "native sm_75 SASS",
+    "host_compiler": "GCC 15.2.0",
+    "host_compile_flags": "-O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic",
+    "nvidia_windows_driver": "591.86",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:32:01.831000Z"
+}

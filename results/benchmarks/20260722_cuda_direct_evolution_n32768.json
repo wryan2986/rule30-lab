@@ -1,0 +1,122 @@
+{
+  "backend": "cpp-packed-oracle-and-cuda-direct",
+  "command": "nice -n 10 /tmp/rule30-cuda-direct-build-20260721/rule30_cuda_evolution_benchmark --center-bits 32768 --repetitions 5 --threads 256 --memory-budget-mib 64",
+  "experiment_id": "benchmark-cuda-direct-evolution-n32768-20260722T002923Z",
+  "git_commit": "3eb6e5136630f85bccd538665a5d6118d4b87c1e",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_oracle_threads": 1,
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_compute_capability": "7.5",
+    "gpu_multiprocessors": 34,
+    "gpu_temperature_celsius": {
+      "final_idle_snapshot_after_validation": 40,
+      "immediately_after_benchmark_session": 39,
+      "before_benchmark_session": 39
+    },
+    "gpu_vram_mib": 8192
+  },
+  "hypothesis": "For the finite single-cell Rule 30 history c_0 through c_32767, direct CUDA row evolution returns exactly the independent packed CPU result; timings determine whether CUDA is faster for this exact workload.",
+  "interpretation": "The complete 32768-byte center prefix and 1024-word final row matched exactly in the warm-up and all five measured CPU/CUDA repetitions. For this workload, CUDA was slower: its 280.757527 ms median end-to-end time exceeded the packed CPU median of 36.820499 ms. The 32767 sequential kernel launches dominate this direct single-history formulation.",
+  "limitations": [
+    "This is one finite N=32768 single-history workload on one CPU/GPU host; it makes no claim about infinite Rule 30 behavior.",
+    "The timing result is workload-specific and is neither an asymptotic complexity result nor a lower bound for computing c_n.",
+    "The CPU comparator is an independent single-threaded packed uint64_t implementation of the same direct row-evolution task.",
+    "One CPU warm-up and one GPU warm-up preceded five measured repetitions; frequency scaling and unrelated host activity were not disabled.",
+    "Kernel-sequence timing covers the dependent CUDA launches, transfer timing covers explicit host/device transfers, and end-to-end timing additionally includes allocation, setup, synchronization, and cleanup in the CUDA API call.",
+    "The 39 C benchmark-session readings and 40 C final idle reading are coarse snapshots, not a per-repetition thermal trace; no clock, voltage, fan, power, or thermal control was changed.",
+    "Compute Sanitizer 2026.2.1 could not initialize its WSL/WDDM debugger interface, so this milestone has passing functional tests but no successful Compute Sanitizer run."
+  ],
+  "parameters": {
+    "bit_order": "center bytes c_0 through c_(N-1); final packed-row bit i is coordinate i-(N-1)",
+    "center_bit_count": 32768,
+    "cpu_warmup_runs": 1,
+    "device_index": 0,
+    "device_memory_budget_mib": 64,
+    "free_device_memory_reserve_mib": 64,
+    "gpu_warmup_runs": 1,
+    "measured_repetitions": 5,
+    "nice_adjustment": 10,
+    "threads_per_block": 256
+  },
+  "proof_scope": "Exact finite equality of every center byte and final packed-row word between the independent CPU oracle and CUDA in the warm-up and each of five measured runs; all performance conclusions are empirical and workload-specific.",
+  "question": "problem2",
+  "result_hashes": {
+    "center_u8_fnv1a64": "c5aa1c722b35125e",
+    "final_row_u64_little_endian_fnv1a64": "fab45601a97245ea"
+  },
+  "result_summary": {
+    "center_ones": 16525,
+    "center_zeros": 16243,
+    "cpu_gpu_exact_match": true,
+    "cpu_packed_milliseconds": {
+      "maximum": 43.015659,
+      "mean": 37.596707,
+      "median": 36.820499,
+      "minimum": 35.355195,
+      "standard_deviation": 2.768855
+    },
+    "cuda_end_to_end_median_is_lower": false,
+    "cuda_end_to_end_milliseconds": {
+      "maximum": 389.987509,
+      "mean": 301.936565,
+      "median": 280.757527,
+      "minimum": 245.176842,
+      "standard_deviation": 49.704514
+    },
+    "device_to_host_milliseconds": {
+      "maximum": 0.214420,
+      "mean": 0.189291,
+      "median": 0.186429,
+      "minimum": 0.156759,
+      "standard_deviation": 0.019395
+    },
+    "final_row_bit_count": 65535,
+    "final_row_word_count": 1024,
+    "host_to_device_milliseconds": {
+      "maximum": 0.322249,
+      "mean": 0.217152,
+      "median": 0.197680,
+      "minimum": 0.166130,
+      "standard_deviation": 0.054606
+    },
+    "kernel_sequence_milliseconds": {
+      "maximum": 388.176819,
+      "mean": 300.299936,
+      "median": 279.080902,
+      "minimum": 243.646622,
+      "standard_deviation": 49.627001
+    },
+    "median_cpu_to_cuda_end_to_end_ratio": 0.131147,
+    "packed_word_updates_per_run": 16809471,
+    "peak_device_bytes": 49152,
+    "result_bytes": 40960,
+    "sequential_kernel_launches_per_run": 32767,
+    "timing_standard_deviation_definition": "population",
+    "total_transfer_milliseconds": {
+      "maximum": 0.536669,
+      "mean": 0.406443,
+      "median": 0.374398,
+      "minimum": 0.368489,
+      "standard_deviation": 0.065359
+    }
+  },
+  "runtime_seconds": 5.6,
+  "software": {
+    "algorithm": "direct packed uint64_t Rule 30 row evolution with one dependent CUDA kernel launch per row after the seed",
+    "build_type": "Release",
+    "cmake": "4.2.3",
+    "cuda_compiler": "nvcc 13.3.73",
+    "cuda_compile_flags": "-O3 -DNDEBUG -std=c++20 --generate-code=arch=compute_75,code=[sm_75] -Xcompiler=-Wall,-Wextra",
+    "cuda_driver_api_version": 13010,
+    "cuda_runtime_package": "13.3.29",
+    "cuda_runtime_version": 13030,
+    "gpu_code": "native sm_75 SASS",
+    "host_compiler": "GCC 15.2.0",
+    "host_compile_flags": "-O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic",
+    "nvidia_windows_driver": "591.86",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:29:23.072000Z"
+}

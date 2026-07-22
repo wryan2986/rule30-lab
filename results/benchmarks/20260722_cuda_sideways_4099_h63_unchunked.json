@@ -1,0 +1,127 @@
+{
+  "backend": "cpp-independent-oracle-and-cuda-sideways",
+  "command": "nice -n 10 /tmp/rule30-cuda-direct-build-20260721/rule30_cuda_sideways_benchmark --candidates 4099 --horizon 63 --repetitions 5 --threads 128 --memory-budget-mib 64",
+  "experiment_id": "benchmark-cuda-sideways-4099-h63-unchunked-20260722T003151Z",
+  "git_commit": "3eb6e5136630f85bccd538665a5d6118d4b87c1e",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_oracle_threads": 1,
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_compute_capability": "7.5",
+    "gpu_multiprocessors": 34,
+    "gpu_temperature_celsius": {
+      "final_idle_snapshot_after_validation": 40,
+      "immediately_after_benchmark_session": 39,
+      "before_benchmark_session": 39
+    },
+    "gpu_vram_mib": 8192
+  },
+  "hypothesis": "For 4099 deterministically generated binary traces of length 64, the CUDA sideways reconstruction returns all 63 reconstructed initial-left bits per trace exactly as an independent CPU oracle; timings determine relative performance for this exact one-chunk workload.",
+  "interpretation": "All 258237 finite output bytes matched the independent CPU oracle in the warm-up and every measured run. CUDA's 3.946667 ms median end-to-end time was slightly below the CPU oracle's 4.131626 ms median for this exact one-chunk workload, a measured ratio of 1.046865 that must not be generalized.",
+  "limitations": [
+    "The test covers 4099 finite pseudorandom traces through reconstruction horizon 63; it does not establish compatibility or incompatibility of any infinite or eventually periodic center trace.",
+    "The small measured CUDA advantage applies only to this exact one-chunk workload and this host; it is not a general GPU speed claim.",
+    "The CPU oracle is an independent single-threaded O(horizon)-workspace implementation of the same finite mapping.",
+    "One CPU warm-up and one GPU warm-up preceded five measured repetitions; frequency scaling and unrelated host activity were not disabled.",
+    "The candidate count requires a partial final CUDA block, but the entire batch fit in one device-memory chunk; this record does not measure chunk overhead.",
+    "Sideways reconstruction performs quadratic work in the finite horizon and supplies no asymptotic shortcut for c_n.",
+    "The 39 C benchmark-session readings and 40 C final idle reading are coarse snapshots, not a per-repetition thermal trace; no clock, voltage, fan, power, or thermal control was changed.",
+    "Compute Sanitizer 2026.2.1 could not initialize its WSL/WDDM debugger interface, so this milestone has passing functional tests but no successful Compute Sanitizer run."
+  ],
+  "parameters": {
+    "active_threads_in_final_block": 3,
+    "blocks_per_chunk": 33,
+    "candidate_count": 4099,
+    "cpu_warmup_runs": 1,
+    "device_index": 0,
+    "device_memory_budget_mib": 64,
+    "free_device_memory_reserve_mib": 64,
+    "gpu_warmup_runs": 1,
+    "horizon": 63,
+    "max_chunk_candidates": 0,
+    "measured_repetitions": 5,
+    "nice_adjustment": 10,
+    "trace_generation": "xorshift with shifts 13, 7, 17; each low bit is emitted",
+    "trace_generation_seed": "0x4d595df4d0f33173",
+    "trace_length": 64,
+    "threads_per_block": 128
+  },
+  "proof_scope": "Exact finite equality of all 4099*63 reconstructed bytes between the independent CPU oracle and CUDA in the warm-up and each of five measured runs; all performance conclusions are empirical and workload-specific.",
+  "question": "problem1",
+  "result_hashes": {
+    "reconstructed_u8_fnv1a64": "9116225379191e6f"
+  },
+  "result_summary": {
+    "chunk_capacity": 4099,
+    "chunks_per_run": 1,
+    "cpu_gpu_exact_match": true,
+    "cpu_oracle_milliseconds": {
+      "maximum": 4.463876,
+      "mean": 4.192375,
+      "median": 4.131626,
+      "minimum": 4.096017,
+      "standard_deviation": 0.137980
+    },
+    "cuda_end_to_end_median_is_lower": true,
+    "cuda_end_to_end_milliseconds": {
+      "maximum": 4.257795,
+      "mean": 3.954655,
+      "median": 3.946667,
+      "minimum": 3.679079,
+      "standard_deviation": 0.183789
+    },
+    "device_to_host_milliseconds": {
+      "maximum": 0.192139,
+      "mean": 0.148943,
+      "median": 0.155189,
+      "minimum": 0.107579,
+      "standard_deviation": 0.031168
+    },
+    "host_to_device_milliseconds": {
+      "maximum": 0.111120,
+      "mean": 0.066346,
+      "median": 0.061710,
+      "minimum": 0.041980,
+      "standard_deviation": 0.024027
+    },
+    "kernel_milliseconds": {
+      "maximum": 2.599008,
+      "mean": 2.589690,
+      "median": 2.592960,
+      "minimum": 2.573024,
+      "standard_deviation": 0.008874
+    },
+    "median_cpu_to_cuda_end_to_end_ratio": 1.046865,
+    "peak_device_bytes": 1319878,
+    "result_bytes": 258237,
+    "result_ones": 129110,
+    "result_zeros": 129127,
+    "timing_standard_deviation_definition": "population",
+    "total_transfer_milliseconds": {
+      "maximum": 0.266309,
+      "mean": 0.215289,
+      "median": 0.219519,
+      "minimum": 0.169289,
+      "standard_deviation": 0.034293
+    },
+    "workspace_bytes_per_candidate": 195
+  },
+  "runtime_seconds": 3.4,
+  "software": {
+    "algorithm": "one CUDA thread per trace; finite Rule 30 left-permutive sideways reconstruction with three horizon-plus-two-byte work buffers per candidate",
+    "build_type": "Release",
+    "cmake": "4.2.3",
+    "cuda_compiler": "nvcc 13.3.73",
+    "cuda_compile_flags": "-O3 -DNDEBUG -std=c++20 --generate-code=arch=compute_75,code=[sm_75] -Xcompiler=-Wall,-Wextra",
+    "cuda_driver_api_version": 13010,
+    "cuda_runtime_package": "13.3.29",
+    "cuda_runtime_version": 13030,
+    "gpu_code": "native sm_75 SASS",
+    "host_compiler": "GCC 15.2.0",
+    "host_compile_flags": "-O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic",
+    "nvidia_windows_driver": "591.86",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:31:51.423000Z"
+}
