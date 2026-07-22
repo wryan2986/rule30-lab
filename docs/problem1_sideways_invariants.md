@@ -234,6 +234,23 @@ The strongest next theoretical target is therefore one of:
 3. find a wider or non-additive finite quotient with a persistent distinction,
    then prove that its state is determined despite the unseen temporal bit.
 
+## Follow-up: first witnesses collapse to prefix disagreement
+
+The subsequent causal/permutivity proof in
+[`problem1_sideways_prefix_equivalence.md`](../proofs/informal/problem1_sideways_prefix_equivalence.md)
+clarifies what the existing finite first-witness searches measure. For any
+finite proposed trace with the required `c0=1`, the first nonzero reconstructed
+left depth is exactly the first index at which that trace differs from the
+true single-cell center prefix. An exhaustive cross-check covered all 262,142
+binary traces through every horizon 0 through 16, with no disagreement, while
+the proof is horizon-independent.
+
+Thus first-witness histograms are exact certificates but not independent
+structural evidence. The genuinely stronger sideways target is to prove that
+an eventually periodic proposal reconstructs a left tail with infinitely many
+ones (or at least a tail that is not eventually zero). The finite equivalence
+does not settle that statement.
+
 ## Reproduction
 
 Run the focused tests:

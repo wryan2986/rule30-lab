@@ -43,6 +43,13 @@ theorem sidewaysStep_recovers_left (left center right : Bool) :
     sidewaysStep center (localUpdate left center right) right = left := by
   cases left <;> cases center <;> cases right <;> rfl
 
+/-- With the center and right inputs fixed, Rule 30 is injective in its left input. -/
+theorem localUpdate_left_injective (center right : Bool) :
+    Function.Injective (fun left => localUpdate left center right) := by
+  intro first second hEqual
+  cases first <;> cases second <;> cases center <;> cases right <;>
+    simp_all [localUpdate]
+
 /-- Reapplying Rule 30 after a sideways step recovers the supplied next value. -/
 theorem localUpdate_sidewaysStep (center next right : Bool) :
     localUpdate (sidewaysStep center next right) center right = next := by
