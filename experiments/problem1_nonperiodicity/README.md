@@ -38,6 +38,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_renewal.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_2adic_zero_countermodels.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_schedule_survivor.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -49,14 +51,18 @@ candidates and verifies an exact arithmetic support criterion. The sixth
 checks the exact renewal law and reduces any final zero streak to a partial
 ordinary-integer recurrence controlled modulo 16. The seventh verifies two
 rational 2-adic fixed points of that partial map and the linear shadowing bound
-for their finite truncations. Their JSON status is `finite-exhaustive`; the
-all-width arguments are separately stated in `proofs/informal/` and no analyzer
-proves center nonperiodicity.
+for their finite truncations. The eighth constructs the unique zero survivor
+for the actual future moving-fringe schedule, proves the exact mismatch
+valuation law, identifies the shift-zero survivor with the alternating inverse
+lift, and emits its coupled output-pair transducer. Their JSON status is
+`finite-exhaustive`; the all-width arguments are separately stated in
+`proofs/informal/` and no analyzer proves center nonperiodicity.
 
 Tracked results are:
 
 - `results/problem1/20260722_period_two_renewal_reduction.json`
 - `results/problem1/20260722_period_two_2adic_zero_countermodels.json`
+- `results/problem1/20260722_period_two_schedule_survivor.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
