@@ -43,6 +43,13 @@ add_executable(rule30_cuda_probe device_probe.cpp)
 target_link_libraries(rule30_cuda_probe PRIVATE rule30::cuda)
 target_compile_options(rule30_cuda_probe PRIVATE -Wall -Wextra -Wpedantic)
 
+add_executable(rule30_cuda_generate generate_cli.cpp)
+target_link_libraries(rule30_cuda_generate PRIVATE rule30::cuda)
+target_compile_features(rule30_cuda_generate PRIVATE cxx_std_20)
+target_compile_options(
+  rule30_cuda_generate PRIVATE -Wall -Wextra -Wpedantic
+)
+
 add_executable(rule30_cuda_period_benchmark period_benchmark.cpp)
 target_link_libraries(rule30_cuda_period_benchmark PRIVATE rule30::cuda)
 target_compile_options(
