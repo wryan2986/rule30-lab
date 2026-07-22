@@ -1215,8 +1215,8 @@ def _build_record(
             "repository_clean_before_run": True,
             "repository_clean_after_run": repository_clean_after_run,
             "provenance_policy": (
-                "the complete tracked and untracked Git worktree was required "
-                "to be clean before the child was launched"
+                "all tracked and non-ignored untracked Git worktree entries "
+                "were required to be clean before the child was launched"
             ),
         },
         "runtime_seconds": runtime_seconds,
@@ -1257,7 +1257,8 @@ def run_controlled_experiment(config: RunnerConfiguration) -> RunResult:
     if worktree_status:
         raise RunnerConfigurationError(
             "controlled scientific records require a clean Git worktree; "
-            "commit or remove every tracked and untracked change before running"
+            "commit or remove every tracked and non-ignored untracked change "
+            "before running"
         )
     child_script_sha256_before = _file_sha256(script)
     runner_module_sha256 = _file_sha256(Path(__file__).resolve())

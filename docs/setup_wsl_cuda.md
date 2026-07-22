@@ -91,9 +91,21 @@ cmake --fresh -S . -B /tmp/rule30-lab-release -G Ninja \
   -DCMAKE_CUDA_ARCHITECTURES=75 \
   -DRULE30_ENABLE_CUDA=ON
 nice -n 10 cmake --build /tmp/rule30-lab-release --parallel 2
-RULE30_REQUIRE_CUDA=1 \
-  ctest --test-dir /tmp/rule30-lab-release --output-on-failure
+ctest --test-dir /tmp/rule30-lab-release --output-on-failure
+cuda_build=/tmp/rule30-lab-release/src/cuda
+nice -n 10 "$cuda_build/rule30_cuda_probe"
+nice -n 10 "$cuda_build/tests/rule30_cuda_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_evolution_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_sideways_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_generate_contract_tests" \
+  gpu "$cuda_build/rule30_cuda_generate" \
+  "$PWD/tests/reference_vectors/center_c00000000_c00009999.u8"
 ```
+
+CTest deliberately skips CUDA cases with return code 77 when no device is
+available. Therefore CTest success alone is not proof that the GPU ran. The
+direct invocations above, and the consolidated quality-gate script below,
+treat device unavailability as a failure on this canonical workstation.
 
 Rust release binaries:
 

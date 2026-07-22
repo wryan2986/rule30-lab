@@ -168,8 +168,9 @@ an explicit `nice -n 10` prefix recorded in its argv.
 ## Persistent record provenance
 
 Without `--output`, the script prints a draft record. Persistent output
-requires the driver to match `HEAD`, the complete tracked and untracked
-worktree to be clean, and the canonical repository trusted vector. It also
+requires the driver to match `HEAD`, every tracked and non-ignored untracked
+entry visible to `git status` to be clean, and the canonical repository trusted
+vector. It also
 requires explicit C++, CUDA, and Rust build directories; native executables
 must reside beneath those directories, and each CMake cache must name this
 repository as its source. Executable size and SHA-256 are measured before and

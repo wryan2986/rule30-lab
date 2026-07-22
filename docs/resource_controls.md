@@ -25,8 +25,9 @@ environment's Python with isolated mode (`-I`), `stdin` attached to
 The fixed experiment scripts perform local computation; arbitrary executable
 or script selection is not available. Fixed read-only metadata probes are
 limited to `git rev-parse HEAD` and, when explicitly enabled, `nvidia-smi`.
-The runner also requires a clean tracked and untracked Git worktree before
-launch, excluding its explicitly ignored transient run artifacts. Read-path
+The runner also requires a clean tracked and non-ignored untracked Git worktree
+before launch; ignored toolchains and explicitly ignored transient run
+artifacts are outside that check. Read-path
 options must resolve inside the repository; abbreviated path-bearing options
 are rejected rather than delegated to argparse abbreviation.
 Generic child side-output options such as `--export-graphs-dir` are rejected

@@ -69,6 +69,8 @@ inside the corresponding JSON records.
   Every backend produced SHA-256
   `c31df0a2310247e6452237d4b780467e31b86340ce2a6dd90b679dd94c8012ff`.
 - Updated the claim ledger, reproduction instructions, resource-control
-  contract, benchmark protocol, and architecture. A separate final
-  repository-wide adversarial review and consolidated quality-gate run were
-  scheduled before the initial project handoff.
+  contract, benchmark protocol, and architecture (`7941c5e`). A clean external
+  build then passed 224 Python tests, all seven release C++/CUDA CTests and
+  direct GPU contracts, two sanitizer-enabled C++ tests, Rust format/clippy and
+  22 tests, strict record validation, and Lean's three build jobs. The RTX 2060
+  SUPER measured 40 C before and 41 C after; no hardware setting changed.

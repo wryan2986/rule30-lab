@@ -71,8 +71,15 @@ cmake --fresh -S . -B /tmp/rule30-lab-release -G Ninja \
   -DCMAKE_CUDA_ARCHITECTURES=75 \
   -DRULE30_ENABLE_CUDA=ON
 nice -n 10 cmake --build /tmp/rule30-lab-release --parallel 2
-RULE30_REQUIRE_CUDA=1 ctest --test-dir /tmp/rule30-lab-release \
-  --output-on-failure
+ctest --test-dir /tmp/rule30-lab-release --output-on-failure
+cuda_build=/tmp/rule30-lab-release/src/cuda
+nice -n 10 "$cuda_build/rule30_cuda_probe"
+nice -n 10 "$cuda_build/tests/rule30_cuda_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_evolution_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_sideways_tests"
+nice -n 10 "$cuda_build/tests/rule30_cuda_generate_contract_tests" \
+  gpu "$cuda_build/rule30_cuda_generate" \
+  "$PWD/tests/reference_vectors/center_c00000000_c00009999.u8"
 ```
 
 Build and test Rust with the project-local toolchain:
@@ -93,9 +100,11 @@ RULE30_BUILD_ROOT=/tmp/rule30-lab-quality-gates \
   nice -n 10 scripts/run_quality_gates.sh
 ```
 
-On this canonical machine, inaccessible or skipped CUDA execution is a gate
-failure. NVIDIA Compute Sanitizer is not included in that success claim because
-its WDDM debugger initialization fails in this WSL configuration.
+CTest uses return code 77 to skip CUDA cases when a device is inaccessible, so
+CTest success alone is not the canonical GPU gate. The direct commands above
+and `scripts/run_quality_gates.sh` make device unavailability a failure. NVIDIA
+Compute Sanitizer is not included in the success claim because its WDDM
+debugger initialization fails in this WSL configuration.
 
 ## Unified CLI
 
