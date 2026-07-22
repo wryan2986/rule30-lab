@@ -1,0 +1,58 @@
+{
+  "backend": "python-exact-linear-algebra",
+  "command": "/usr/bin/time nice -n 10 .venv/bin/python experiments/problem2_balance/search_local_conservation.py --minimum-width 1 --maximum-width 5",
+  "experiment_id": "problem2-local-conservation-widths1-5-20260722T002930Z",
+  "git_commit": "01656dd1e94eeece893c944458f680d7a4e9fc37",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_threads_used": 1,
+    "gpu_used": false
+  },
+  "hypothesis": "Within the stated one-step scalar block-density/flux ansatz, Rule 30 has no solution beyond constants and certified spatial coboundaries for density widths 1 through 5 over either the rationals or GF(2).",
+  "interpretation": "Every equation in all ten bounded systems was solved exactly. In each case the full nullity equals the independently constructed trivial-subspace rank, so this ansatz has zero excess dimension through width 5. This finite negative search does not rule out wider, nonlocal, nonlinear, differently valued, or otherwise structured identities.",
+  "limitations": [
+    "Density width is bounded by five and flux width by six.",
+    "Only one-step scalar block observables with nearest-boundary telescoping flux are included.",
+    "Only rational and GF(2) coefficient fields are tested.",
+    "Zero excess at tested widths does not prove global nonexistence.",
+    "Even a spatial conservation law would require a separate argument to bound center-column discrepancy."
+  ],
+  "parameters": {
+    "density_widths": [1, 2, 3, 4, 5],
+    "fields": ["rational", "gf2"],
+    "flux_width_rule": "density_width + 1",
+    "local_rule": 30,
+    "positive_control": "Rule 204 at width 1 is detected by the unit tests",
+    "tested_identity": "rho(F_k(w))-rho(w[1:-1]) = J(w[:-1])-J(w[1:]) for every length-(k+2) binary word"
+  },
+  "proof_scope": "Exact ranks and nullities of ten explicitly defined finite linear systems, plus exact verification and rank of their constructed trivial solution subspaces.",
+  "question": "problem2",
+  "result_hashes": {
+    "deterministic_payload_sha256": "02dbb9312dfc49a8ce58c6797221c46c5662ecfbf5cc3aa98ba28c44c70c2cbf"
+  },
+  "result_summary": {
+    "all_tested_systems_have_zero_excess_nullity": true,
+    "maximum_resident_set_kib": 21376,
+    "systems": [
+      {"equations": 8, "field": "rational", "nullity": 2, "rank": 4, "trivial_rank": 2, "unknowns": 6, "width": 1},
+      {"equations": 16, "field": "rational", "nullity": 3, "rank": 9, "trivial_rank": 3, "unknowns": 12, "width": 2},
+      {"equations": 32, "field": "rational", "nullity": 5, "rank": 19, "trivial_rank": 5, "unknowns": 24, "width": 3},
+      {"equations": 64, "field": "rational", "nullity": 9, "rank": 39, "trivial_rank": 9, "unknowns": 48, "width": 4},
+      {"equations": 128, "field": "rational", "nullity": 17, "rank": 79, "trivial_rank": 17, "unknowns": 96, "width": 5},
+      {"equations": 8, "field": "gf2", "nullity": 2, "rank": 4, "trivial_rank": 2, "unknowns": 6, "width": 1},
+      {"equations": 16, "field": "gf2", "nullity": 3, "rank": 9, "trivial_rank": 3, "unknowns": 12, "width": 2},
+      {"equations": 32, "field": "gf2", "nullity": 5, "rank": 19, "trivial_rank": 5, "unknowns": 24, "width": 3},
+      {"equations": 64, "field": "gf2", "nullity": 9, "rank": 39, "trivial_rank": 9, "unknowns": 48, "width": 4},
+      {"equations": 128, "field": "gf2", "nullity": 17, "rank": 79, "trivial_rank": 17, "unknowns": 96, "width": 5}
+    ]
+  },
+  "runtime_seconds": 0.21,
+  "software": {
+    "gf2_rank": "exact Python integer bitset elimination",
+    "python": "3.14.4",
+    "rational_rank": "exact fractions.Fraction Gaussian elimination",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T00:29:30.602547Z"
+}
