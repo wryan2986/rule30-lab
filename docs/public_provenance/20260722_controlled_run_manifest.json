@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-07-22T00:00:00Z",
+  "purpose": "Public, path-neutral provenance for scientific claims whose original controlled-run records contained machine-local execution metadata and were intentionally excluded from the public repository.",
+  "raw_controlled_records": {
+    "tracked": false,
+    "reason": "The original records included local executable and checkout paths. They remain local operational evidence and are not required to reproduce the deterministic scientific payloads listed here.",
+    "excluded_artifacts": [
+      "raw stdout and stderr captures",
+      "checkpoint state",
+      "temporary run directories",
+      "machine-local executable paths"
+    ]
+  },
+  "records": [
+    {
+      "id": "controlled-p2-conservation-final-w1-w3-20260722",
+      "question": "problem2",
+      "status": "finite-exhaustive",
+      "scope": "Exact rational and GF(2) additive local-conservation systems at widths 1 through 3. The tracked public width-1-through-5 result strictly contains this scientific scope.",
+      "source_commit": "6a93595",
+      "original_local_record": "results/runs/controlled-p2-conservation-final-w1-w3-20260722.record.json",
+      "scientific_certificate_sha256": "02dbb9312dfc49a8ce58c6797221c46c5662ecfbf5cc3aa98ba28c44c70c2cbf",
+      "certificate_kind": "deterministic payload hash of the tracked width-1-through-5 result",
+      "public_result_paths": [
+        "results/problem2/20260722_local_conservation_widths_1_5.json"
+      ],
+      "source_paths": [
+        "experiments/problem2_balance/search_local_conservation.py"
+      ],
+      "documentation_paths": [
+        "docs/problem2_conservation_search.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem2_balance/search_local_conservation.py --minimum-width 1 --maximum-width 5"
+    },
+    {
+      "id": "p1-eventual-zero-tail-final-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "All eventual-period descriptions with q<=4, p<=8 and c_0=1 through reconstruction depth 2048.",
+      "source_commit": "72376d40c075a07d36e2fafb09435e9718df2eb5",
+      "original_local_record": "results/runs/p1-eventual-zero-tail-final-20260722.record.json",
+      "controlled_stdout_sha256": "899806101fe059e7d358041e21cf61c248f1d38897d4e678315c088e34119647",
+      "scientific_certificate_sha256": "e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27",
+      "certificate_kind": "scientific certificate emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/search_eventual_zero_tail.py"
+      ],
+      "documentation_paths": [
+        "docs/problem1_eventual_zero_tail_search.md",
+        "proofs/informal/problem1_whole_tail_equivalence.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/search_eventual_zero_tail.py"
+    },
+    {
+      "id": "p1-period-defect-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "All 174760 radius-p cone assignments for p=1 through 8, checked by two evaluators.",
+      "source_commit": "8960181",
+      "original_local_record": "results/runs/p1-period-defect-20260722.record.json",
+      "controlled_stdout_sha256": "dd93af1f7b193672cc88a1b7e822155095b7ddb6aefdab00502a938eb95ef7c9",
+      "scientific_certificate_sha256": "1fea76c334d7f16c24fa27f2ca4af8f41e1a14bb11f4097b6fdf5479ab60fe0c",
+      "certificate_kind": "scientific certificate emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/analyze_period_defect.py"
+      ],
+      "documentation_paths": [
+        "experiments/problem1_nonperiodicity/README.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/analyze_period_defect.py"
+    },
+    {
+      "id": "p1-two-adic-diagonal-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "All 8190 finite 2-adic quotient points through width 12, including inverse checks and the -1/3,1/3 countermodel.",
+      "source_commit": "8960181",
+      "original_local_record": "results/runs/p1-two-adic-diagonal-20260722.record.json",
+      "controlled_stdout_sha256": "7f1211fe815b8a82a56e5964428d24c8b063aeab935011e9051f2ea331a19f4c",
+      "scientific_certificate_sha256": "b4ea4e5af4cd2318efd99a78a9a5ad9f4fa90d3c5952c072a46073528adc7670",
+      "certificate_kind": "scientific certificate emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py"
+      ],
+      "documentation_paths": [
+        "proofs/informal/problem1_two_adic_diagonal_map.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py"
+    },
+    {
+      "id": "p1-period-two-audit-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "Thirty-two local assignments, 262144 arbitrary adjacent-right traces through horizon 16, two forced-half-line oracles, and the stated bounded period probes.",
+      "source_commit": "6372840",
+      "original_local_record": "results/runs/p1-period-two-audit-20260722.record.json",
+      "controlled_stdout_sha256": "fa46b34bfb1065456bdd229903e8a566d4a4a05e9bd4cbaab07c42f7ef247c58",
+      "scientific_certificate_sha256": "c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf",
+      "certificate_kind": "scientific certificate emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/analyze_period_two.py"
+      ],
+      "documentation_paths": [
+        "proofs/informal/problem1_period_two_barrier.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/analyze_period_two.py"
+    },
+    {
+      "id": "p1-inverse-lift-sections-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "All 2046 quotient points through width 10, three inverse oracles, and 4352 bounded continuation checks.",
+      "source_commit": "d9d1e8b085c408052e25c8b677164392b35d2056",
+      "original_local_record": "results/runs/p1-inverse-lift-sections-20260722.record.json",
+      "controlled_stdout_sha256": "f2c1510a14f2bc6a1bb379b8f759b81847eec65b4adb230fe6fb36010ed876fb",
+      "scientific_certificate_sha256": "9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d",
+      "certificate_kind": "scientific certificate emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/analyze_inverse_lift_sections.py"
+      ],
+      "documentation_paths": [
+        "proofs/informal/problem1_inverse_lift_sections.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/analyze_inverse_lift_sections.py"
+    },
+    {
+      "id": "p1-period-two-quotient-20260722",
+      "question": "problem1",
+      "status": "finite-exhaustive",
+      "scope": "A 2048-bit inverse lift, 161 moving-fringe blocks, 13 complete schedule states, all 16 two-cell fringe assignments, and arithmetic identities through 160 blocks.",
+      "source_commit": "afe9b9a14d31ed6cb81f2f1949218cbdb254a162",
+      "original_local_record": "results/runs/p1-period-two-quotient-20260722.record.json",
+      "controlled_stdout_sha256": "d9ae9001f1d120f7bde0a21d78ce91fdcbec257beb6c3e55439dfebdaf813780",
+      "scientific_certificate_sha256": "81593871f2305f0bf796ba596de2ce3285275084b0cfea0d5c155c80965d574c",
+      "arithmetic_certificate_sha256": "16adc34128de1e418fd64465b16a803e0c83bade93cacb42eb947ddf3dc22b9d",
+      "certificate_kind": "scientific and arithmetic certificates emitted by the deterministic analyzer",
+      "public_result_paths": [],
+      "source_paths": [
+        "experiments/problem1_nonperiodicity/analyze_period_two_quotient.py"
+      ],
+      "documentation_paths": [
+        "proofs/informal/problem1_period_two_quotient_obstruction.md",
+        "docs/research_log.md"
+      ],
+      "reproduction_command": "PYTHONDONTWRITEBYTECODE=1 python experiments/problem1_nonperiodicity/analyze_period_two_quotient.py"
+    }
+  ]
+}
