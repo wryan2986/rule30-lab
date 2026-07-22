@@ -44,6 +44,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_schedule_coding.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_fringe_language.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_first_return.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -63,9 +65,12 @@ first-difference schedule coding, finite cylinder counts, ordinary degree law,
 and the 304-bit consequence of the actual seven-block periodic shadow. The tenth
 checks the autonomous packed fringe map, identifies the branch sequence with
 the even-time cell-minus-two trace, and proves the all-time forbidden words
-`uu`, `ttttt`, and `ututtu` from complete local dependency cones. Their
-JSON status is `finite-exhaustive`; the all-width arguments are separately
-stated in `proofs/informal/` and no analyzer proves center nonperiodicity.
+`uu`, `ttttt`, and `ututtu` from complete local dependency cones. The eleventh
+derives the exact four-bit first-return selector at `u` events, the four
+variable-length survivor return cylinders, and the shared neutral degree
+cocycle. Their JSON status is `finite-exhaustive`; the all-width arguments are
+separately stated in `proofs/informal/` and no analyzer proves center
+nonperiodicity.
 
 Tracked results are:
 
@@ -74,6 +79,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_schedule_survivor.json`
 - `results/problem1/20260722_period_two_schedule_coding.json`
 - `results/problem1/20260722_period_two_fringe_language.json`
+- `results/problem1/20260722_period_two_first_return.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
