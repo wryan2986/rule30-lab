@@ -72,6 +72,7 @@ _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-period-two": frozenset(),
     "problem1-two-adic-diagonal": frozenset(),
     "problem1-inverse-lift-sections": frozenset(),
+    "problem1-period-two-quotient": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
     "problem2-conservation": frozenset(),
@@ -256,6 +257,27 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         ),
         (
             "Finite section growth does not prove unbounded state growth.",
+            "The complete finite-support period-two case remains open.",
+        ),
+    ),
+    "problem1-period-two-quotient": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_period_two_quotient.py"
+        ),
+        "problem1",
+        (
+            "Audit the schedule-head and dyadic-endpoint candidates for a "
+            "period-two inverse-lift quotient."
+        ),
+        "finite-exhaustive",
+        (
+            "Every listed finite lift bit, schedule state, fringe block, and "
+            "all 16 two-cell local transition assignments."
+        ),
+        (
+            "Counterexamples to the named candidates do not exclude every "
+            "period-two quotient.",
             "The complete finite-support period-two case remains open.",
         ),
     ),
