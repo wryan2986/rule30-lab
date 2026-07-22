@@ -143,6 +143,10 @@ def test_default_campaign_refutes_both_named_candidates() -> None:
             "279385743213d9b8b175fd080dbe07762652f5b3e3cf3a25386cd60e6a00da7c"
         ),
     }
+    criterion = result["arithmetic_finite_support_criterion"]
+    assert criterion["verified_blocks"] == 160
+    assert criterion["maximum_leading_t_run_observed"] == 2
+    assert criterion["all_leading_run_identities_pass"] is True
     assert len(result["certificate_sha256"]) == 64
 
 
@@ -155,6 +159,37 @@ def test_depth_two_portrait_conflict_is_reproduced_directly() -> None:
     assert conflict["first_next_emitted_block"] == 0
     assert conflict["conflicting_next_emitted_block"] == 2
     assert conflict["next_zero_status_differs"] is True
+
+
+def test_arithmetic_support_criterion_matches_direct_word_actions() -> None:
+    heads, _ = module.fringe_driver(32)
+    seed = module.inverse_diagonal_map_mod(module.minus_one_third_mod(64), 64)
+    criterion = module.arithmetic_support_criterion(seed, heads, 32)
+    assert criterion["all_residual_word_preimage_identities_pass"] is True
+    assert criterion["all_excess_degree_identities_pass"] is True
+    assert criterion["all_leading_run_identities_pass"] is True
+    assert criterion["maximum_leading_t_run_observed"] == 2
+    assert criterion["selected_checkpoints"][-1] == {
+        "block": 32,
+        "highest_seed_one": 62,
+        "preimage_zero_degree": 126,
+        "excess_degree": 62,
+        "leading_t_run": 0,
+        "first_non_t": "u",
+        "block_minus_leading_t_run": 32,
+    }
+
+    for name in ("t", "p", "u"):
+        for state in range(16):
+            width = max(8, state.bit_length() + 4)
+            image = module.forward_generator(name, state)
+            current_word = (name,)
+            recovered = 0
+            for position in range(width):
+                bit = (image >> position) & 1
+                recovered |= module._inverse_word_root(current_word, bit) << position
+                current_word = module._inverse_word_section(current_word, bit)
+            assert recovered == state
 
 
 def test_campaign_limits_fail_closed() -> None:

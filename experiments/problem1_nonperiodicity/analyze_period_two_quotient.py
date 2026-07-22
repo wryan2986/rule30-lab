@@ -357,18 +357,23 @@ def _emitted_block(word: tuple[str, ...]) -> int:
     )
 
 
+def accumulated_words(heads: list[str]) -> list[tuple[str, ...]]:
+    """Return the exact accumulated inverse word at every listed block."""
+
+    words: list[tuple[str, ...]] = [()]
+    for head in heads[:-1]:
+        current = words[-1]
+        section_11 = _section_along(current, (1, 1))
+        words.append(section_11 + ("p", "u" if head == "T" else "t"))
+    return words
+
+
 def depth_two_portrait_conflict(heads: list[str]) -> dict[str, Any] | None:
     """Find an actual-path failure of the depth-two portrait quotient."""
 
     if len(heads) < 2:
         return None
-    words: list[tuple[str, ...]] = [()]
-    for head in heads[:-1]:
-        current = words[-1]
-        section_11 = _section_along(current, (1, 1))
-        words.append(
-            section_11 + ("p", "u" if head == "T" else "t")
-        )
+    words = accumulated_words(heads)
 
     portraits = [_depth_two_portrait(word) for word in words]
     blocks = [_emitted_block(word) for word in words]
@@ -397,6 +402,114 @@ def depth_two_portrait_conflict(heads: list[str]) -> dict[str, Any] | None:
             }
         first.setdefault(key, block)
     return None
+
+
+def forward_generator(name: str, state: int) -> int:
+    """Apply the forward map inverse to one of ``t``, ``p``, or ``u``."""
+
+    if state < 0:
+        raise ValueError("state must be a nonnegative integer")
+    stepped = state ^ ((state << 1) | (state << 2))
+    if name == "t":
+        return stepped
+    if name == "p":
+        return stepped ^ 1 ^ (2 if state & 1 == 0 else 0)
+    if name == "u":
+        return stepped ^ 1
+    raise ValueError("unknown inverse-generator name")
+
+
+def inverse_word_preimage_zero(word: tuple[str, ...]) -> int:
+    """Return the ordinary integer ``H^-1(0)`` for an inverse word ``H``."""
+
+    state = 0
+    # The tuple is outermost to innermost. Inverting H applies each outer
+    # letter's inverse first, hence this iteration order.
+    for name in word:
+        state = forward_generator(name, state)
+    return state
+
+
+def arithmetic_support_criterion(
+    seed: int, heads: list[str], maximum_block: int
+) -> dict[str, Any]:
+    """Check the exact excess-degree/leading-run identities finitely."""
+
+    if maximum_block <= 0 or maximum_block >= len(heads):
+        raise ValueError("invalid arithmetic criterion block bound")
+    words = accumulated_words(heads[: maximum_block + 1])
+    rows: list[dict[str, Any]] = []
+    maximum_leading_t_run = 0
+    for block in range(1, maximum_block + 1):
+        word = words[block]
+        seed_prefix = seed & ((1 << (2 * block)) - 1)
+        highest_seed_one = seed_prefix.bit_length() - 1
+
+        evolved = seed_prefix
+        for _ in range(2 * block):
+            evolved ^= (evolved << 1) | (evolved << 2)
+        residual = evolved >> (2 * block)
+        word_preimage = inverse_word_preimage_zero(word)
+        if residual != word_preimage:
+            raise AssertionError("arithmetic residual and word preimage disagree")
+
+        leading_t_run = next(
+            (index for index, name in enumerate(word) if name != "t"),
+            len(word),
+        )
+        if leading_t_run == len(word):
+            raise AssertionError("an accumulated period-two word cannot be all t")
+        first_non_t = word[leading_t_run]
+        epsilon = 1 if first_non_t == "p" else 0
+        predicted_highest_seed_one = (
+            2 * block - 2 * leading_t_run - 2 + epsilon
+        )
+        if predicted_highest_seed_one != highest_seed_one:
+            raise AssertionError("leading-run support identity failed")
+        if residual.bit_length() - 1 != 2 * block + highest_seed_one:
+            raise AssertionError("excess-degree support identity failed")
+        if block - leading_t_run != highest_seed_one // 2 + 1:
+            raise AssertionError("leading-run deficit identity failed")
+
+        maximum_leading_t_run = max(maximum_leading_t_run, leading_t_run)
+        rows.append(
+            {
+                "block": block,
+                "highest_seed_one": highest_seed_one,
+                "preimage_zero_degree": residual.bit_length() - 1,
+                "excess_degree": residual.bit_length() - 1 - 2 * block,
+                "leading_t_run": leading_t_run,
+                "first_non_t": first_non_t,
+                "block_minus_leading_t_run": block - leading_t_run,
+            }
+        )
+
+    selected_blocks = sorted(
+        {
+            value
+            for value in (1, 2, 3, 4, 8, 16, 32, 64, 128, maximum_block)
+            if value <= maximum_block
+        }
+    )
+    rows_bytes = json.dumps(
+        rows, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode("utf-8")
+    return {
+        "verified_blocks": maximum_block,
+        "all_residual_word_preimage_identities_pass": True,
+        "all_excess_degree_identities_pass": True,
+        "all_leading_run_identities_pass": True,
+        "maximum_leading_t_run_observed": maximum_leading_t_run,
+        "selected_checkpoints": [rows[block - 1] for block in selected_blocks],
+        "full_rows_sha256": hashlib.sha256(rows_bytes).hexdigest(),
+        "proved_criterion": (
+            "m-leading_t_run(H_m)=floor(highest_seed_one/2)+1; the "
+            "alternating lift has infinite support iff this tends to infinity."
+        ),
+        "finite_scope_warning": (
+            "The observed leading runs do not prove the required unboundedness."
+        ),
+    }
 
 
 def _first_period_mismatch(heads: list[str]) -> dict[str, Any] | None:
@@ -473,12 +586,14 @@ def run_campaign(
     fringe_cell_updates = (driver_max_block + 1) * (
         4 * driver_max_block + 33
     )
+    arithmetic_updates = 2 * driver_max_block * (driver_max_block + 1)
     estimated_work_points = (
         inverse_row_updates
         + cell_updates
         + width
         + 2 * driver_max_block
         + fringe_cell_updates
+        + arithmetic_updates
         + 16
     )
     if estimated_work_points > maximum_work_points:
@@ -530,6 +645,9 @@ def run_campaign(
     graph = fringe_pair_graph()
     head_only_conflict = _first_head_only_transition_conflict(fringe_heads)
     portrait_conflict = depth_two_portrait_conflict(fringe_heads)
+    arithmetic_criterion = arithmetic_support_criterion(
+        seed, fringe_heads, driver_max_block
+    )
     packed_seed = seed.to_bytes((width + 7) // 8, "little")
     certificate_payload = {
         "endpoint_samples": endpoint_samples,
@@ -537,6 +655,7 @@ def run_campaign(
         "fringe_pairs": fringe_pairs,
         "graph": graph,
         "portrait_conflict": portrait_conflict,
+        "arithmetic_criterion": arithmetic_criterion,
         "period_mismatch": period_mismatch,
         "schedule_heads": schedule_heads,
         "schedule_periods": schedule_periods,
@@ -589,6 +708,7 @@ def run_campaign(
             "driver_blocks_inclusive": driver_max_block + 1,
             "full_schedule_states_crosschecked": schedule_crosscheck_blocks + 1,
             "local_fringe_assignments_exhausted": 16,
+            "arithmetic_support_blocks_checked": driver_max_block,
             "independent_forward_diagonal_evaluators": 2,
             "estimated_work_points": estimated_work_points,
         },
@@ -615,6 +735,7 @@ def run_campaign(
             "samples": endpoint_samples,
             "first_mismatch": endpoint_mismatch,
         },
+        "arithmetic_finite_support_criterion": arithmetic_criterion,
         "alternating_lift": {
             "trace_residue": trace,
             "inverse_seed_ones": seed.bit_count(),
@@ -633,7 +754,10 @@ def run_campaign(
             "nonconstant monotone observable depending only on its two-bit "
             "state can hold for all local tails. Any surviving period-two "
             "argument must retain nonlocal tail information or use a "
-            "different arithmetic invariant."
+            "different arithmetic invariant. The exact excess-degree identity "
+            "reduces the surviving target to proving that the block index "
+            "minus the leading-t run of H_m is unbounded; the bounded checks "
+            "do not prove that asymptotic claim."
         ),
     }
 
@@ -681,7 +805,8 @@ def main() -> int:
         "question": "problem1",
         "hypothesis": (
             "For the pure alternating trace, either a seven-block schedule-head "
-            "cycle or dyadic endpoint parity supplies a closed induction state."
+            "cycle or dyadic endpoint parity supplies a closed induction state; "
+            "if not, excess degree may give an exact finite-support target."
         ),
         "backend": "python-exact-packed-and-cell-array",
         "parameters": campaign["parameters"],
@@ -690,13 +815,15 @@ def main() -> int:
         "proof_scope": (
             "Every listed finite lift bit, schedule state, fringe block, and "
             "all 16 assignments in the two-cell local transition relation. "
-            "The all-width fringe identities are proved separately."
+            "The all-width fringe and arithmetic support identities are "
+            "proved separately."
         ),
         "interpretation": campaign["interpretation"],
         "limitations": [
             "the candidate counterexamples do not exclude every period-two quotient",
             "finite lift bits do not prove any later bit pattern",
             "the pair transition graph does not encode the complete inward tail",
+            "bounded leading-t runs do not prove their required asymptotic behavior",
             "local strong connectivity does not imply mixing of the unique true orbit",
             "the result does not exclude eventual center period two",
             "the result does not prove Rule 30 center nonperiodicity",

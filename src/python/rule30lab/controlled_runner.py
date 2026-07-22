@@ -273,11 +273,13 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         "finite-exhaustive",
         (
             "Every listed finite lift bit, schedule state, fringe block, and "
-            "all 16 two-cell local transition assignments."
+            "all 16 two-cell local transition assignments; the all-width "
+            "support criterion is proved separately."
         ),
         (
             "Counterexamples to the named candidates do not exclude every "
             "period-two quotient.",
+            "Finite leading-run checks do not prove asymptotic growth.",
             "The complete finite-support period-two case remains open.",
         ),
     ),

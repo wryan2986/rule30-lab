@@ -165,6 +165,18 @@ below use the definitions in `docs/experiment_protocol.md`.
   `9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d`;
   strict record:
   `results/runs/p1-inverse-lift-sections-20260722.record.json`.
+- The period-two quotient campaign checked 2,048 exact lift bits, 161 moving
+  fringe blocks, 13 complete schedule states, all 16 assignments in the
+  two-cell fringe relation, and the arithmetic support identities through 160
+  blocks. Three schedule-head constructions agreed. The apparent seven-block
+  driver first fails at block 153; the head plus complete depth-two
+  root-activity portrait is identical at blocks 11 and 55 but the next
+  emitted blocks are respectively 0 and 2; and the endpoint law
+  `s_(2^k-1)=k mod 2` first fails at `k=11`, position 2,047. The all-width
+  arithmetic criterion reduces infinite support to proving that
+  `m-leading_t_run(H_m)` tends to infinity. Its finite checks do not prove
+  that growth. The reviewed certificate and strict record are listed in the
+  dated research log and `results/runs/`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
@@ -223,6 +235,18 @@ complexity result.
   `F_(H,W)(-1/3) = beta(H) + 4 F_(R(H,W))(-1/3)`; the transition consumes the
   depth-two section `H_11` and changes the periodic schedule. See
   `proofs/informal/problem1_inverse_lift_sections.md`.
+- `partial-proof` (exact all-width identities with executable finite checks):
+  after `m` alternating temporal blocks, the first induced schedule map is
+  determined by a two-cell autonomous moving fringe. Its four-state local
+  transition relation is strongly connected, so every pair-only observable
+  monotone on all local transitions is constant. More importantly, if
+  `ell_m` is the leading run of `t` letters in the accumulated inverse word
+  `H_m`, then the highest one `h_m` in the first `2m` lift bits satisfies
+  `h_m=2m-2ell_m-2+epsilon_m`, where `epsilon_m` records whether the first
+  non-`t` letter is `p`. Thus the pure alternating lift has infinite support
+  exactly when `m-ell_m` tends to infinity. This is a sharper target, not yet
+  the required growth proof. See
+  `proofs/informal/problem1_period_two_quotient_obstruction.md`.
 
 These results do not exclude any period greater than one or eventual
 periodicity in general.
@@ -273,6 +297,14 @@ periodicity in general.
   `(seed prefix, period phase)`-only block recurrences at widths two through
   five. Only a proved period-specific quotient or a non-finite-state
   invariant remains viable along this route.
+- Three concrete period-two quotient candidates are now exactly refuted. The
+  schedule head shadows a seven-block word only through block 152, the
+  dyadic endpoint parity law holds only through `k=10`, and a state retaining
+  the schedule head plus every root activity through depth two cannot predict
+  whether the next emitted block is zero. The strongly connected two-cell
+  fringe graph also rules out a nonconstant universal pair-local monotone
+  quantity. Wider fixed portraits or longer endpoint samples have no admitted
+  value without a closure theorem.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
@@ -281,8 +313,12 @@ periodicity in general.
 
 - Can the 2-adic lift of every odd period-`p` trace for `p>=2` be proved to
   have infinitely many one bits?
-- Does the alternating period-two lift admit a closed quotient of its growing
-  section-schedule/postcomposition state that still detects zero output?
+- Can the exact leading-run target `m-leading_t_run(H_m)` be proved
+  unbounded? This is equivalent to infinite support of the pure alternating
+  lift.
+- Does the alternating period-two lift admit a nonlocal algebraic character,
+  cocycle, or tail functional that controls that leading run? Head-only and
+  depth-two portrait quotients do not.
 - Can sideways reconstruction under an eventually periodic boundary be
   summarized by a rigorously depth-independent invariant or finite state?
 - Can the width-two nonperiodicity theorem be combined with phase-local
@@ -299,14 +335,14 @@ periodicity in general.
 Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
 Admission and stopping criteria are in `docs/problem1_focus_program.md`.
 
-1. Derive a period-two-specific quotient or invariant of the exact inverse
-   section recurrence that detects permanently zero spatial output.
-2. Attempt a proof of the observed dyadic-index lift-bit pattern; do not
-   extend the prefix unless an algebraic induction identifies the needed
-   state.
-3. Classify zero-emitting cycles only after proving closure and a
-   depth-independent bound for the chosen quotient.
-4. If no such quotient closes, switch to arithmetic or monotone
-   finite-support tools rather than another section-fingerprint sweep.
-5. Formalize the branch recurrence or first proof-relevant quotient only
-   after its informal statement is stable.
+1. Derive a recurrence or lower bound for
+   `m-leading_t_run(H_m)` under the exact period-two block map.
+2. Search for a nonlocal algebraic character or cocycle of the coupled
+   accumulated word and autonomous moving fringe that controls this quantity.
+3. Prove closure before classifying any zero-emitting cycles. Do not enlarge
+   fixed portrait depth or endpoint samples as a substitute.
+4. If the leading-run route does not close, seek a different finite-support
+   monotone quantity in the original spacetime rather than another section
+   fingerprint sweep.
+5. Formalize only the stable moving-fringe and excess-degree identities, or a
+   later invariant that enters a genuine infinite argument.

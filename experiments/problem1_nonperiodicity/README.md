@@ -20,7 +20,7 @@ The JSON includes compact first-failure certificates and labels the result
 See [`docs/problem1_sideways_research.md`](../../docs/problem1_sideways_research.md)
 for conventions, validation, exact default results, and limitations.
 
-Two focused exact analyzers support the current right-edge proof work:
+Focused exact analyzers support the current right-edge proof work:
 
 ```bash
 cd /home/wryan/rule30-lab
@@ -30,17 +30,25 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_inverse_lift_sections.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_quotient.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
 `c_(t+p)=c_t`. The second exhausts finite 2-adic quotient maps and checks the
 exact `-1/3,1/3` countermodel. The third audits three concrete mechanisms for
-the smallest unresolved period, two. Their JSON status is
-`finite-exhaustive`; the all-width arguments are separately stated in
-`proofs/informal/` and no analyzer proves center nonperiodicity.
+the smallest unresolved period, two. The fourth checks the exact inverse-lift
+section recurrence. The fifth refutes three resulting finite quotient
+candidates and verifies an exact arithmetic support criterion. Their JSON
+status is `finite-exhaustive`; the all-width arguments are separately stated
+in `proofs/informal/` and no analyzer proves center nonperiodicity.
 
 Reviewed controlled-run records for the defaults are stored at:
 
 - `results/runs/p1-period-defect-20260722.record.json`
 - `results/runs/p1-two-adic-diagonal-20260722.record.json`
 - `results/runs/p1-period-two-audit-20260722.record.json`
+- `results/runs/p1-inverse-lift-sections-20260722.record.json`
+- `results/runs/p1-period-two-quotient-20260722.record.json`

@@ -231,7 +231,102 @@ packed little-endian SHA-256 is
 These values certify the finite counterexample only. In particular, the zero
 at position 2,047 does not suggest that the lift terminates there.
 
-## 7. Consequence for the focused program
+## 7. Exact arithmetic finite-support criterion
+
+The failed finite portraits still leave a narrower, nonlocal arithmetic
+target. For the remainder of this section let `m>=1`, let `H_m` be the
+accumulated inverse automorphism after `m` temporal blocks, and let
+
+\[
+S_m=S\bmod4^m.
+\]
+
+After `2m` diagonal bits have been removed, the residual transformed seed is
+
+\[
+Y_m=\left\lfloor\frac{T^{2m}(S)}{4^m}\right\rfloor,
+\]
+
+and the original seed tail is `H_m(Y_m)`. Replace the original seed by its
+truncation `S_m`. Its seed tail is zero, while all consumed diagonal bits and
+therefore `H_m` are unchanged. Consequently,
+
+\[
+\boxed{
+H_m^{-1}(0)=
+\left\lfloor\frac{T^{2m}(S_m)}{4^m}\right\rfloor.
+}
+\]
+
+Let `h_m` be the highest one position of `S_m`. Every application of `T` to a
+nonzero finite integer raises its highest one position by exactly two: the
+shift by two creates a unique new highest bit. Therefore
+
+\[
+\boxed{
+\deg(H_m^{-1}(0))=2m+h_m.
+}
+\]
+
+It follows immediately that
+
+\[
+\boxed{
+S\text{ has finite support}
+\iff
+\deg(H_m^{-1}(0))-2m\text{ is bounded}.
+}
+\]
+
+There is a sharper word form. Write `H_m` outermost-to-innermost as a word of
+length `2m` in `t,p,u`, and let `ell_m` be its initial run of `t` letters.
+The word is never all `t`; let `epsilon_m=1` when its first non-`t` letter is
+`p`, and zero when it is `u`.
+
+To compute `H_m^(-1)(0)`, apply the corresponding forward maps in word order.
+Each initial `t` applies `T` to zero and leaves zero. The first `p` sends zero
+to 3, of degree one, while the first `u` sends zero to 1, of degree zero.
+Every remaining forward map `T`, `P`, or `U` raises the degree of a nonzero
+finite integer by exactly two. Hence
+
+\[
+\deg(H_m^{-1}(0))=4m-2\ell_m-2+\epsilon_m
+\]
+
+and comparison with the preceding identity gives
+
+\[
+\boxed{
+h_m=2m-2\ell_m-2+\epsilon_m.
+}
+\]
+
+Parity in this identity gives `epsilon_m=h_m mod 2`, and rearrangement gives
+the particularly simple equality
+
+\[
+\boxed{
+m-\ell_m=\left\lfloor\frac{h_m}{2}\right\rfloor+1.
+}
+\]
+
+Thus the pure alternating lift has infinite support exactly when
+
+\[
+\boxed{m-\ell_m\longrightarrow\infty.}
+\]
+
+If the lift instead terminated with highest one at `h`, then eventually
+
+\[
+\ell_m=m-\left\lfloor\frac h2\right\rfloor-1,
+\]
+
+and the first non-`t` letter would be `p` for odd `h` and `u` for even `h`.
+This is an exact reformulation, not yet a growth proof. The recurrence for the
+leading run still depends on sections of the complete inner suffix of `H_m`.
+
+## 8. Consequence for the focused program
 
 The complete inverse schedule still has an exact period-two description, but
 neither of the two proposed small induction states survives:
@@ -241,8 +336,9 @@ neither of the two proposed small induction states survives:
 - its head-plus-depth-two portrait does not preserve next-block zero status;
 - every monotone observable of only the two-cell schedule fringe is trivial.
 
-The next admitted proof mechanism must therefore retain genuinely nonlocal
-tail information or discover an arithmetic quantity that survives the
-two-step fringe map. Enlarging the observed driver prefix, testing another
-unguarded endpoint pattern, or storing a wider fixed fringe without a
-depth-independent theorem would repeat the same failure mode.
+The strongest surviving target is now explicit: prove that `m-ell_m` tends to
+infinity under the exact block recurrence. This retains genuinely nonlocal
+word information while asking for only one asymptotic quantity. Enlarging the
+observed driver prefix, testing another unguarded endpoint pattern, or storing
+a wider fixed fringe without a depth-independent theorem would repeat the
+same failure mode.

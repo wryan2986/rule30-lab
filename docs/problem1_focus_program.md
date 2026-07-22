@@ -73,6 +73,17 @@ universal finite-state obstruction plus a finite period-specific diagnostic,
 not an exclusion of period two. See
 [`problem1_inverse_lift_sections.md`](../proofs/informal/problem1_inverse_lift_sections.md).
 
+The first period-specific quotient pass is also complete. The schedule head
+is exactly a two-cell autonomous moving fringe, but its local four-state
+relation is strongly connected. The apparent seven-block driver fails at
+block 153, equal head-plus-depth-two portraits at blocks 11 and 55 have
+different next-block zero status, and the proposed dyadic endpoint parity law
+fails at `k=11`. A surviving all-width identity gives the sharper target: if
+`ell_m` is the leading `t` run in the accumulated inverse word `H_m`, then the
+pure alternating lift has infinite support exactly when `m-ell_m` tends to
+infinity. This is a reduction, not yet the growth proof. See
+[`problem1_period_two_quotient_obstruction.md`](../proofs/informal/problem1_period_two_quotient_obstruction.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -108,6 +119,8 @@ time on:
 - fixed-width graphs offered without a depth-independent state theorem;
 - universal finite-state section searches for `Delta` or `Delta^(-1)`, which
   are ruled out by the infinite-section theorem;
+- wider fixed-depth portraits, longer schedule-head prefixes, or new endpoint
+  patterns without a proved closure mechanism;
 - CLI, runner, dashboard, or documentation features beyond maintenance; or
 - broad Lean formalization of implementation details.
 
@@ -130,15 +143,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Seek a **period-two-specific** quotient of the exact inverse-lift state
-   `(H,A)` that still detects a permanently zero spatial output. A universal
-   finite-state quotient cannot be the full section state.
-2. Attempt an algebraic induction for a concrete dyadic-index lift-bit
-   pattern before collecting any longer prefix; abandon the candidate at the
-   first exact counterexample.
-3. Classify zero-emitting cycles only after proving the selected quotient is
-   closed and depth-independent.
-4. Generalize to period `p` only if the period-two quotient or invariant is
-   exact; otherwise return to non-finite-state monotone or arithmetic tools.
-5. Formalize the branch recurrence or its first proof-relevant quotient only
-   after the informal invariant is stable.
+1. Derive a recurrence or lower bound for
+   `m-leading_t_run(H_m)` under the exact period-two block map.
+2. Seek a nonlocal algebraic character or cocycle of the coupled accumulated
+   word and moving fringe that controls this quantity.
+3. Prove closure before classifying zero-emitting cycles; fixed portrait depth
+   and longer endpoint samples are not substitutes.
+4. If the leading-run route does not close, return to an original-spacetime
+   finite-support monotone quantity rather than another portrait sweep.
+5. Formalize the moving-fringe and excess-degree identities, or a later
+   invariant, only when it enters a genuine infinite argument.
