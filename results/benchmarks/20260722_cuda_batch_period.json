@@ -1,0 +1,97 @@
+{
+  "backend": "cuda",
+  "command": "nice -n 10 rule30_cuda_period_benchmark --bits 262147 --candidates 4099 --window 8191 --memory-budget-mib 64 --repetitions 7 --threads 256 --device 0",
+  "experiment_id": "benchmark-cuda-batch-period-20260722T001709Z",
+  "git_commit": "2d8cb15f15024c8e898ad0316b4c501df36e104d",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_oracle_threads": 1,
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_compute_capability": "7.5",
+    "gpu_multiprocessors": 34,
+    "gpu_vram_mib": 8192
+  },
+  "hypothesis": "For the specified batch of 4099 finite period-equality candidates, CUDA returns exactly the CPU-oracle results and has lower measured end-to-end latency on this host.",
+  "interpretation": "All seven measured CUDA runs exactly matched the independent CPU oracle. For this exact workload, CUDA median kernel time was 1.458464 ms and median end-to-end time was 2.699272 ms versus 9.616258 ms for the CPU oracle, an observed 3.5625x end-to-end ratio. This is not a general GPU speed claim.",
+  "limitations": [
+    "The timing comparison applies only to this generated workload and this host.",
+    "The CPU oracle is a clear scalar implementation, not the packed AVX2 center generator.",
+    "CUDA startup outside the measured per-run BatchStats is reflected only in total invocation time.",
+    "Candidate and result buffers are chunkable, but this one-run configuration fit in one chunk.",
+    "Finite period equalities do not establish eventual periodicity or nonperiodicity."
+  ],
+  "parameters": {
+    "bit_count": 262147,
+    "candidate_count": 4099,
+    "candidate_generation_seed": "0x4d595df4d0f33173",
+    "cpu_warmup_runs": 1,
+    "device_index": 0,
+    "gpu_memory_budget_mib": 64,
+    "gpu_warmup_runs": 1,
+    "measured_repetitions": 7,
+    "requested_window": 8191,
+    "threads_per_block": 256
+  },
+  "proof_scope": "Exact finite CPU/GPU result equality for every candidate in every recorded run; timing is empirical.",
+  "question": "problem1",
+  "result_hashes": {
+    "benchmark_json_sha256": "727a87d1418185d36589cf62f5582649e4a585698b5c0213d2c868182232a6c9",
+    "period_results_fnv1a64": "c4cef8a29d19386f"
+  },
+  "result_summary": {
+    "candidate_window_maximum": 8191,
+    "candidate_window_minimum": 8191,
+    "chunks_per_run": 1,
+    "cpu_oracle_milliseconds": {
+      "maximum": 13.501487,
+      "mean": 10.127399,
+      "median": 9.616258,
+      "minimum": 9.072811,
+      "standard_deviation": 1.396384
+    },
+    "cuda_end_to_end_milliseconds": {
+      "maximum": 3.135539,
+      "mean": 2.764513,
+      "median": 2.699272,
+      "minimum": 2.547542,
+      "standard_deviation": 0.197715
+    },
+    "cuda_kernel_milliseconds": {
+      "maximum": 1.567904,
+      "mean": 1.461650,
+      "median": 1.458464,
+      "minimum": 1.395456,
+      "standard_deviation": 0.049015
+    },
+    "device_to_host_milliseconds": {
+      "maximum": 0.185138,
+      "mean": 0.122162,
+      "median": 0.124979,
+      "minimum": 0.075589,
+      "standard_deviation": 0.035372
+    },
+    "host_to_device_milliseconds": {
+      "maximum": 0.287699,
+      "mean": 0.169087,
+      "median": 0.147650,
+      "minimum": 0.115970,
+      "standard_deviation": 0.057360
+    },
+    "matches": 2050,
+    "observed_cpu_to_cuda_end_to_end_ratio": 3.562537603,
+    "peak_device_bytes": 458899,
+    "result_bytes": 98376
+  },
+  "runtime_seconds": 7.9,
+  "software": {
+    "cuda_compiler": "nvcc 13.3.73",
+    "cuda_driver_api_version": 13010,
+    "cuda_runtime_version": 13030,
+    "gpu_code": "native sm_75 SASS (--generate-code=arch=compute_75,code=[sm_75])",
+    "host_compiler": "GCC 15.2.0",
+    "nvidia_windows_driver": "591.86",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:17:09.518288Z"
+}

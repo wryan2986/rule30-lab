@@ -1,0 +1,65 @@
+{
+  "backend": "rust-coordinate-and-packed-u64",
+  "command": "nice -n 10 rule30-rust-bench --bits 10000 --repetitions 7",
+  "experiment_id": "benchmark-rust-coordinate-packed-20260722T001831Z",
+  "git_commit": "26ef846404e5f2e19f0455fb203b3735d772141c",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_threads_used": 1,
+    "gpu_used": false,
+    "ram_visible_wsl_gib": 15
+  },
+  "hypothesis": "The safe packed-u64 Rust engine produces exactly the same finite center stream and statistics as the independent coordinate engine while requiring less time for this workload.",
+  "interpretation": "Both Rust engines produced 5032 ones, discrepancy 64, and the same FNV-1a stream hash on every run. The packed engine's observed median was 41.7575 times lower than the coordinate engine's median for this exact 10000-bit release workload.",
+  "limitations": [
+    "This benchmark covers a 10000-bit finite prefix on one CPU.",
+    "The engines have different representations but perform the same center-stream and statistics operation.",
+    "The ratio is an empirical measurement, not an asymptotic theorem.",
+    "The FNV-1a digest is a deterministic comparison aid, not a cryptographic proof."
+  ],
+  "parameters": {
+    "count": 10000,
+    "engines": ["coordinate-reference", "packed-u64"],
+    "repetitions": 7,
+    "stores_output": false,
+    "warmups_per_engine": 1
+  },
+  "proof_scope": "Exact finite equality of counts and deterministic stream digests across the measured Rust runs; performance is empirical.",
+  "question": "problem2",
+  "result_hashes": {
+    "benchmark_jsonl_sha256": "d5c2c16beca1e99c16827f5622a86dd9c666a114ded8e2ebef4a821623168b10",
+    "center_stream_fnv1a64": "81cc5a51e61d2597",
+    "trusted_center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860"
+  },
+  "result_summary": {
+    "coordinate_reference": {
+      "maximum_seconds": 0.137012486,
+      "mean_seconds": 0.133354793,
+      "median_seconds": 0.131838855,
+      "minimum_seconds": 0.130512621,
+      "samples_seconds": [0.130512621, 0.130730959, 0.131678017, 0.131838855, 0.135449923, 0.136260690, 0.137012486],
+      "standard_deviation_seconds": 0.002571398
+    },
+    "discrepancy": 64,
+    "observed_coordinate_to_packed_median_ratio": 41.757496239,
+    "ones": 5032,
+    "packed_u64": {
+      "maximum_seconds": 0.003576908,
+      "mean_seconds": 0.003205289,
+      "median_seconds": 0.003157250,
+      "minimum_seconds": 0.002943700,
+      "samples_seconds": [0.002943700, 0.002962320, 0.003122570, 0.003157250, 0.003314259, 0.003360019, 0.003576908],
+      "standard_deviation_seconds": 0.000210621
+    }
+  },
+  "runtime_seconds": 1.3,
+  "software": {
+    "crate": "rule30-core 0.1.0",
+    "profile": "release with thin LTO and one codegen unit",
+    "rust": "1.97.1",
+    "unsafe_code": false,
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:18:31.354319Z"
+}

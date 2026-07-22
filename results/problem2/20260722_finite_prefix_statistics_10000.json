@@ -1,0 +1,91 @@
+{
+  "backend": "python",
+  "command": "/usr/bin/time nice -n 10 .venv/bin/python experiments/problem2_balance/run_finite_prefix.py",
+  "experiment_id": "problem2-finite-prefix-statistics-10000-20260722T002055Z",
+  "git_commit": "dbc6d989df94f7459fb0ca3952e5335f8dd5679b",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_threads_used": 1,
+    "gpu_used": false,
+    "ram_visible_wsl_gib": 15
+  },
+  "hypothesis": "The reported finite balance and GF(2) linear-complexity values are reproducible on the trusted 10000-bit center prefix, together with explicitly descriptive block, run, correlation, dyadic, and entropy measurements.",
+  "interpretation": "The reported discrepancy checkpoints and Berlekamp-Massey complexities are reproduced exactly. Every additional measurement is descriptive for this identified finite input and is not interpreted as randomness, normality, limiting balance, or an infinite recurrence claim.",
+  "limitations": [
+    "The input contains only c_0 through c_9999.",
+    "Approximate entropy values are finite symbolic plug-in measurements, not randomness tests.",
+    "Autocorrelations are uncentered spin-product means, not Pearson correlations.",
+    "Linear complexity of finite prefixes does not rule out another exact representation.",
+    "No finite statistic proves limiting balance."
+  ],
+  "parameters": {
+    "approximate_entropy_pattern_lengths": [1, 2, 3, 4, 5, 6],
+    "block_widths": [1, 2, 3, 4, 5, 6, 7, 8],
+    "checkpoints": [10, 100, 1000, 10000],
+    "dyadic_widths": "all complete powers of two through 8192",
+    "lags": [1, 2, 3, 4, 5, 8, 16, 32, 64, 128],
+    "linear_prefixes": [1000, 2000, 5000]
+  },
+  "proof_scope": "Exact counts and integer statistics on the trusted finite input; floating-point normalizations are descriptive approximations of those finite quantities.",
+  "question": "problem2",
+  "result_hashes": {
+    "center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860",
+    "deterministic_payload_sha256": "2a75acac7da61241482449db03acc0ec94fa6cc384173b724b5cafa36dfee3a6"
+  },
+  "result_summary": {
+    "approximate_entropy_base2": [
+      {"pattern_length": 1, "value": 0.9999655165391435},
+      {"pattern_length": 2, "value": 0.9999615781729911},
+      {"pattern_length": 3, "value": 0.9997842836672204},
+      {"pattern_length": 4, "value": 0.99937085690385},
+      {"pattern_length": 5, "value": 0.9983250411356739},
+      {"pattern_length": 6, "value": 0.9961974460632712}
+    ],
+    "balance_checkpoints": [
+      {"discrepancy": 4, "n": 10, "ones": 7, "zeros": 3},
+      {"discrepancy": 4, "n": 100, "ones": 52, "zeros": 48},
+      {"discrepancy": -38, "n": 1000, "ones": 481, "zeros": 519},
+      {"discrepancy": 64, "n": 10000, "ones": 5032, "zeros": 4968}
+    ],
+    "block_count_ranges": [
+      {"maximum": 5032, "minimum": 4968, "observed_blocks": 2, "width": 1},
+      {"maximum": 2539, "minimum": 2476, "observed_blocks": 4, "width": 2},
+      {"maximum": 1282, "minimum": 1235, "observed_blocks": 8, "width": 3},
+      {"maximum": 665, "minimum": 608, "observed_blocks": 16, "width": 4},
+      {"maximum": 352, "minimum": 289, "observed_blocks": 32, "width": 5},
+      {"maximum": 196, "minimum": 131, "observed_blocks": 64, "width": 6},
+      {"maximum": 105, "minimum": 64, "observed_blocks": 128, "width": 7},
+      {"maximum": 55, "minimum": 20, "observed_blocks": 256, "width": 8}
+    ],
+    "gf2_linear_complexity": [
+      {"linear_complexity": 500, "prefix_length": 1000},
+      {"linear_complexity": 1000, "prefix_length": 2000},
+      {"linear_complexity": 2500, "prefix_length": 5000}
+    ],
+    "maximum_absolute_prefix_discrepancy": {
+      "absolute_discrepancy": 80,
+      "discrepancy": -80,
+      "n": 1462
+    },
+    "maximum_resident_set_kib": 23040,
+    "runs": {
+      "longest_one_run": 13,
+      "longest_zero_run": 12,
+      "run_count": 4985
+    },
+    "selected_spin_autocorrelation_numerators": {
+      "lag_1_over_9999": 31,
+      "lag_32_over_9968": 164,
+      "lag_128_over_9872": -100
+    }
+  },
+  "runtime_seconds": 1.20,
+  "software": {
+    "analysis": "rule30lab.statistics",
+    "numpy_used": false,
+    "python": "3.14.4",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:20:55.890370Z"
+}

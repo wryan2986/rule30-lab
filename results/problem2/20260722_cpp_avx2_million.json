@@ -1,0 +1,62 @@
+{
+  "backend": "cpp-avx2",
+  "command": "/usr/bin/time -v nice -n 10 rule30_cpp generate --count 1000000 --backend avx2 --format raw",
+  "experiment_id": "problem2-cpp-avx2-million-20260722T000130Z",
+  "git_commit": "4a6747c72862f960c45bf1873057d40d76f60575",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_instruction_set": "AVX2",
+    "cpu_threads_used": 1,
+    "gpu_used": false,
+    "ram_visible_wsl_gib": 15
+  },
+  "hypothesis": "The compiled packed AVX2 implementation reproduces the reported balance checkpoints and exact one-million-bit center prefix independently of the supplied Python implementation.",
+  "interpretation": "The compiled AVX2 engine exactly matches the immutable Python run's one-million-byte SHA-256 and all reported finite discrepancy checkpoints. This validates the implementation on this finite prefix but says nothing about limiting balance.",
+  "limitations": [
+    "Only one finite prefix was generated.",
+    "The timing is one low-priority run rather than a multi-repetition benchmark.",
+    "Matching implementations do not prove any infinite Rule 30 statement."
+  ],
+  "parameters": {
+    "checkpoints": [100, 1000, 10000, 100000, 1000000],
+    "chunk_size_bytes": 65536,
+    "count": 1000000,
+    "nice_adjustment": 10,
+    "prefix_convention": "c_0 through c_999999",
+    "raw_encoding": "one numeric byte 0x00 or 0x01 per bit"
+  },
+  "proof_scope": "Exact empirical equality and counts for the finite prefix c_0 through c_999999 only.",
+  "question": "problem2",
+  "related_records": [
+    "results/problem2/20260721_python_reference_million.json"
+  ],
+  "result_hashes": {
+    "center_u8_sha256": "6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669"
+  },
+  "result_summary": {
+    "checkpoints": [
+      {"count": 100, "discrepancy": 4, "ones": 52},
+      {"count": 1000, "discrepancy": -38, "ones": 481},
+      {"count": 10000, "discrepancy": 64, "ones": 5032},
+      {"count": 100000, "discrepancy": 196, "ones": 50098},
+      {"count": 1000000, "discrepancy": 1536, "ones": 500768}
+    ],
+    "discrepancy": 1536,
+    "maximum_resident_set_kib": 7296,
+    "ones": 500768,
+    "ones_fraction": 0.500768,
+    "output_bytes": 1000000,
+    "system_cpu_seconds": 1.33,
+    "user_cpu_seconds": 6.63,
+    "zeros": 499232
+  },
+  "runtime_seconds": 7.97,
+  "software": {
+    "algorithm": "rule30::stream_center_prefix with packed uint64_t rows and runtime-dispatched AVX2",
+    "compiler": "GCC 15.2.0",
+    "flags": "-O3 -DNDEBUG -std=c++20; -mavx2 only for avx2.cpp",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:01:30Z"
+}

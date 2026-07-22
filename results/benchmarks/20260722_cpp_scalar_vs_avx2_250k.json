@@ -1,0 +1,64 @@
+{
+  "backend": "cpp-scalar-and-cpp-avx2",
+  "command": "nice -n 10 rule30_cpp benchmark --count 250000 --backend BACKEND --warmup 1 --repetitions 7",
+  "experiment_id": "benchmark-cpp-scalar-avx2-250k-20260722T001948Z",
+  "git_commit": "4a6747c72862f960c45bf1873057d40d76f60575",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_instruction_set": "AVX2",
+    "cpu_threads_used_per_run": 1,
+    "gpu_used": false
+  },
+  "hypothesis": "The packed scalar and runtime-dispatched AVX2 C++ engines produce identical finite output, while AVX2 has lower measured generation time on this host.",
+  "interpretation": "Both engines produced 125305 ones, discrepancy 610, and byte-identical 250000-bit output. For this exact release workload, the scalar median was 1.123644087 s and the AVX2 median was 0.404739392 s, an observed 2.7762x ratio.",
+  "limitations": [
+    "This is a finite 250000-bit single-history workload on one CPU.",
+    "Each backend was measured in a separate low-priority process, sequentially.",
+    "Frequency scaling and other host activity were not disabled.",
+    "The measured ratio is not an asymptotic claim."
+  ],
+  "parameters": {
+    "backends": ["scalar", "avx2"],
+    "count": 250000,
+    "nice_adjustment": 10,
+    "operation": "generate_center_prefix_with_balance_summary_without_storing_output",
+    "repetitions_per_backend": 7,
+    "warmups_per_backend": 1
+  },
+  "proof_scope": "Exact finite scalar/AVX2 output equality for the separately generated 250000-byte prefix; performance is empirical.",
+  "question": "problem2",
+  "result_hashes": {
+    "avx2_benchmark_json_sha256": "8bd936a70c26f75741cdaeabbe4933f2db18b70219a5eeb4835c6c3629aad2ca",
+    "center_u8_sha256": "f9932c978617fd48798cd90b7190ae709dc96d40a0fe06db9e42cabe574e64d5",
+    "scalar_benchmark_json_sha256": "3af252ceceb7457de6de64b7aa3aa5617cd93d186745f3e023d6e453e2125456"
+  },
+  "result_summary": {
+    "avx2_seconds": {
+      "maximum": 0.415558787,
+      "mean": 0.405874738571,
+      "median": 0.404739392,
+      "minimum": 0.400122518,
+      "standard_deviation": 0.00509885083879
+    },
+    "discrepancy": 610,
+    "observed_scalar_to_avx2_median_ratio": 2.776216274,
+    "ones": 125305,
+    "output_bytes": 250000,
+    "scalar_seconds": {
+      "maximum": 1.14689504,
+      "mean": 1.12521590443,
+      "median": 1.123644087,
+      "minimum": 1.107032431,
+      "standard_deviation": 0.0125761046721
+    }
+  },
+  "runtime_seconds": 12.15,
+  "software": {
+    "algorithm": "packed uint64_t Rule 30 row evolution",
+    "compiler": "GCC 15.2.0",
+    "flags": "-O3 -DNDEBUG -std=c++20; -mavx2 isolated to avx2.cpp",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:19:48.798346Z"
+}
