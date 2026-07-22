@@ -1,0 +1,131 @@
+{
+  "backend": "python-exact-word-and-integer",
+  "experiment_id": "problem1-period-two-renewal-reduction-20260722T175537Z",
+  "git_commit": "36feaf89dc8586e72d3b8521f8d71cefb8399634",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_available_to_container": 5,
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 111208
+  },
+  "hypothesis": "Zero-emitting period-two inverse blocks obey an exact renewal law and reduce to a partial ordinary-integer recurrence whose continuation branch is fixed by x modulo 16.",
+  "interpretation": "The original target m-leading_t_run(H_m)->infinity is exactly equivalent to infinitely many nonzero emitted base-4 blocks. Any hypothetical final zero streak must follow the displayed partial integer recurrence forever while matching the unique period-two schedule branch.",
+  "limitations": [
+    "finite word exhaustion is not the proof of the all-width identities",
+    "the bounded actual path does not prove infinitely many renewals",
+    "long zero runs refute only small constant run bounds",
+    "the partial integer recurrence may have unclassified infinite orbits",
+    "the result does not exclude eventual center period two",
+    "the result does not prove Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "absolute_actual_blocks": 4096,
+    "absolute_maximum_word_length": 10,
+    "actual_blocks": 512,
+    "maximum_word_length": 8
+  },
+  "proof_scope": "The all-width renewal and integer identities are proved in proofs/informal/problem1_period_two_renewal_reduction.md. The script exhausts only the stated finite word lengths and actual path prefix as regression checks.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "9519b42eb3ba2a5c697c01aa799e50cc9964af888b1d9adb81bf82d4dbaafa6b",
+    "deterministic_stdout_sha256": "241cebc80da1b9f03f8d2085e4f9618ca86678f8fefdd6ae7222d59b02b3bf83",
+    "informal_proof_sha256": "5bd525791e377a795e00d635f0e20027d06af5b0325558e58687d6da32b281ee",
+    "scientific_certificate_sha256": "0dc5185a737fe2b41a9f49ed60a4793c27017de4bf1c06b444c482bb9021b9d9",
+    "test_source_sha256": "a7925bbe8df4aa4adbd0c07eeb4790cde603941bc1b5c64b75d6c7e33d128b2c"
+  },
+  "result_summary": {
+    "actual_alternating_path": {
+      "deficit_monotonicity_checked": true,
+      "first_leading_run_above_two": {
+        "block": 283,
+        "block_minus_leading_t_run": 280,
+        "emitted_block": 2,
+        "first_non_t": "u",
+        "leading_t_run": 3
+      },
+      "first_record_for_each_new_maximum": [
+        {
+          "block": 0,
+          "block_minus_leading_t_run": 0,
+          "emitted_block": 3,
+          "first_non_t": null,
+          "leading_t_run": 0
+        },
+        {
+          "block": 3,
+          "block_minus_leading_t_run": 2,
+          "emitted_block": 3,
+          "first_non_t": "u",
+          "leading_t_run": 1
+        },
+        {
+          "block": 11,
+          "block_minus_leading_t_run": 9,
+          "emitted_block": 3,
+          "first_non_t": "u",
+          "leading_t_run": 2
+        },
+        {
+          "block": 283,
+          "block_minus_leading_t_run": 280,
+          "emitted_block": 2,
+          "first_non_t": "u",
+          "leading_t_run": 3
+        }
+      ],
+      "leading_run_counts": {
+        "0": 407,
+        "1": 85,
+        "2": 19,
+        "3": 2
+      },
+      "maximum_block": 512,
+      "maximum_leading_t_run": 3,
+      "states_checked_inclusive": 513
+    },
+    "certificate_sha256": "0dc5185a737fe2b41a9f49ed60a4793c27017de4bf1c06b444c482bb9021b9d9",
+    "combined_section_11_transducer": [
+      {"input": "t", "next_state": [0, 0], "output": "t", "state": [0, 0]},
+      {"input": "p", "next_state": [1, 1], "output": "p", "state": [0, 0]},
+      {"input": "u", "next_state": [1, 1], "output": "p", "state": [0, 0]},
+      {"input": "t", "next_state": [0, 1], "output": "p", "state": [0, 1]},
+      {"input": "p", "next_state": [1, 0], "output": "u", "state": [0, 1]},
+      {"input": "u", "next_state": [1, 0], "output": "u", "state": [0, 1]},
+      {"input": "t", "next_state": [1, 1], "output": "p", "state": [1, 0]},
+      {"input": "p", "next_state": [0, 1], "output": "p", "state": [1, 0]},
+      {"input": "u", "next_state": [0, 0], "output": "t", "state": [1, 0]},
+      {"input": "t", "next_state": [1, 0], "output": "u", "state": [1, 1]},
+      {"input": "p", "next_state": [0, 0], "output": "t", "state": [1, 1]},
+      {"input": "u", "next_state": [0, 1], "output": "p", "state": [1, 1]}
+    ],
+    "exact_reductions": {
+      "deficit_law": "d_m=m-ell_m is unchanged on beta_m=0 and becomes m+1 on beta_m!=0",
+      "normalized_integer_law": "for beta=0, x'=Q(P(x>>2)); another zero is possible only for x=7 mod 16 with Q=U or x=11 mod 16 with Q=T, and every continuing step raises bit length by exactly two",
+      "renewal_law": "beta=0 extends the leading t run by one and preserves its first non-t letter; beta=1 resets to u; beta=2 or 3 resets to p"
+    },
+    "integer_continuation_table": [
+      {"successor_mod_4": {"t": 1, "u": 0}, "x_mod_16": 3, "x_shifted_mod_4": 0, "zero_continuation_q": null},
+      {"successor_mod_4": {"t": 2, "u": 3}, "x_mod_16": 7, "x_shifted_mod_4": 1, "zero_continuation_q": "u"},
+      {"successor_mod_4": {"t": 3, "u": 2}, "x_mod_16": 11, "x_shifted_mod_4": 2, "zero_continuation_q": "t"},
+      {"successor_mod_4": {"t": 0, "u": 1}, "x_mod_16": 15, "x_shifted_mod_4": 3, "zero_continuation_q": null}
+    ],
+    "word_reduction_checks": {
+      "all_checks_pass": true,
+      "beta_counts": {"0": 2460, "1": 2456, "2": 2460, "3": 2456},
+      "maximum_word_length": 8,
+      "non_all_t_words_checked": 9832,
+      "renewal_q_branches_checked": 19664,
+      "zero_emission_integer_q_branches_checked": 4920
+    }
+  },
+  "runtime_seconds": 0.85,
+  "software": {
+    "algorithm": "exact inverse-word section transducer, moving-fringe driver, and ordinary-integer recurrence",
+    "kernel": "Linux 6.12.13 x86_64",
+    "python": "3.13.5"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T17:55:37.576072Z"
+}
