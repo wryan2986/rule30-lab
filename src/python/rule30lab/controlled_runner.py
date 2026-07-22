@@ -71,6 +71,7 @@ _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-period-defect": frozenset(),
     "problem1-period-two": frozenset(),
     "problem1-two-adic-diagonal": frozenset(),
+    "problem1-inverse-lift-sections": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
     "problem2-conservation": frozenset(),
@@ -236,6 +237,26 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         (
             "The executable campaign alone covers only finite quotient widths.",
             "The rational countermodel has infinite spatial support.",
+        ),
+    ),
+    "problem1-inverse-lift-sections": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_inverse_lift_sections.py"
+        ),
+        "problem1",
+        (
+            "Audit exact inverse-lift branch recurrences and bounded section "
+            "closure on the period-two control trace."
+        ),
+        "finite-exhaustive",
+        (
+            "Every residue and continuation in the explicitly listed finite "
+            "quotients, depths, and lookahead."
+        ),
+        (
+            "Finite section growth does not prove unbounded state growth.",
+            "The complete finite-support period-two case remains open.",
         ),
     ),
     "problem2-finite-prefix": ExperimentSpec(

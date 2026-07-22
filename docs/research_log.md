@@ -138,3 +138,14 @@ inside the corresponding JSON records.
   `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`.
   Period two remains open, and the tested mechanisms do not justify larger
   horizons.
+- Derived an exact even/odd section-schedule recurrence for `Delta^(-1)` and
+  checked it against three independent finite inverse oracles. An independent
+  theory audit then supplied the stronger all-width obstruction: the zero-word
+  sections `Delta circ T^j` are pairwise distinct, so the full diagonal and
+  inverse-diagonal maps are not finite-state tree automorphisms. The bounded
+  period-two control reached section-schedule period 256 at depth 16 and
+  refuted simple block recurrences. A capped 256-bit probe found
+  `s_(2^k-1)=k mod 2` for `1<=k<=8`, but two natural global induction rules
+  already fail in that prefix; these results do not exclude eventual period
+  two. The next admitted target is a proved period-specific quotient, not a
+  larger universal section search.

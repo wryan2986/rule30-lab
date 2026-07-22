@@ -297,3 +297,54 @@ After these corrections, the finite claims are exact and the limitations are
 adequate. The pure alternating lift diagnostic and forced-boundary suffix test
 remain bounded observations. Eventual center period two is still open, and no
 larger period search is justified by this audit.
+
+## 2026-07-22 inverse-lift section addendum
+
+Two independent read-only reviews audited the new branch recurrence, with a
+separate direct finite-quotient implementation through width 12. The reviews
+confirmed
+
+`Delta(2S) = 2 Delta(T(S))`
+
+and its inverse form
+
+`Delta^(-1)(2C) = 2 T^(-1)(Delta^(-1)(C))`.
+
+The `T^(-1)` factor is essential. For example,
+`Delta^(-1)(1)=1/3` but `Delta^(-1)(2)=-2/3`, not `2/3`.
+
+The odd branch was checked especially carefully. It introduces the diagonal
+of the odd section map `P`, not another copy of `Delta_T`. At width four,
+`Delta_T(1)=11`, while replacing `Delta_P` by `Delta_T` in the proposed odd
+identity gives 3. The committed proof and analyzer use the correct auxiliary
+map and the closed three-map dynamics-section family.
+
+The strongest new statement is an all-width proof, not an extrapolation from
+section hashes. Iterating the even identity shows that the section of `Delta`
+at the input word `0^j` is `Delta circ T^j`. Bijectivity of `Delta` and the
+fact that `T^j(1)` has highest set bit `2j` make these sections pairwise
+distinct. The analogous inverse sections are also distinct. Thus the full
+diagonal and inverse-diagonal tree maps are not finite-state. This does not
+rule out a period-specific quotient that preserves only zero-tail detection.
+
+The bounded analyzer deliberately does not infer infinite state from finite
+fingerprints. Indeed, the zero-trace control's six-bit section tables repeat
+after eight depths even though the all-width sections are distinct; larger
+lookahead separates information hidden by the truncation. Conversely, all 17
+six-bit tables on the alternating trace being distinct proves only that exact
+finite statement. Schedule growth to period 256 at depth 16 is likewise not
+an unbounded-growth theorem.
+
+Finally, the exact alternating-prefix values reject only narrow block models:
+`S_2=3` while `E_2=1`, and `S_3=S_5=7` while the low three extension bits are
+0 and 6. These refute an independent repeated block and any fixed 2-adic
+block function of only `(S_m, m mod 2)`. They do not refute recurrences with
+additional or growing state, and they do not exclude eventual period two.
+
+The dyadic endpoint samples `s_(2^k-1)=k mod 2` through `k=8` were also
+audited as an induction candidate, not promoted to a theorem. Two tempting
+global recurrences fail inside the same trusted prefix: `s_(2n+1)=1-s_n`
+fails at `n=5` because `s_5=s_11=0`, and copying (or copied-complementing)
+the width-two extension predicts 5 (or 10) for the width-four extension,
+whose actual value is 12. No closed renormalized state for the endpoint law
+has yet been identified.

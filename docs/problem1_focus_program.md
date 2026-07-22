@@ -63,6 +63,16 @@ specific local/rapid-settling mechanisms failed their finite controls. This is
 a stopping barrier, not an exclusion of period two. See
 [`problem1_period_two_barrier.md`](../proofs/informal/problem1_period_two_barrier.md).
 
+The inverse lift now has an exact low-to-high branch recurrence. Its dynamics
+sections close on three maps, but the diagonal map does not: the section of
+`Delta` along `j` zero input bits is `Delta circ T^j`, and these sections are
+pairwise distinct. Thus neither `Delta` nor its inverse is a universal
+finite-state tree automorphism. On the alternating period-two control, the
+induced schedule already reaches period 256 by depth 16. This is a proved
+universal finite-state obstruction plus a finite period-specific diagnostic,
+not an exclusion of period two. See
+[`problem1_inverse_lift_sections.md`](../proofs/informal/problem1_inverse_lift_sections.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -96,6 +106,8 @@ time on:
 - ports of established experiments to additional backends;
 - repeated benchmarks without a changed algorithm;
 - fixed-width graphs offered without a depth-independent state theorem;
+- universal finite-state section searches for `Delta` or `Delta^(-1)`, which
+  are ruled out by the infinite-section theorem;
 - CLI, runner, dashboard, or documentation features beyond maintenance; or
 - broad Lean formalization of implementation details.
 
@@ -118,16 +130,15 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Work with the inverse lift
-   `S_m = Delta_m^(-1)(C mod 2^m)` for a symbolic rational periodic trace
-   `C`, and derive a recurrence that explicitly detects whether its bits can
-   become permanently zero.
-2. Seek a renormalized finite-support invariant; fixed-coordinate periods,
-   arbitrary-right columns, and forced-boundary settling are now rejected as
-   standalone mechanisms.
-3. Test only a concrete candidate recurrence or invariant against the exact
-   period-two controls before generalizing it to period `p`.
-4. Require a proved depth-independent state bound before any SAT, de Bruijn,
-   or transducer cycle is interpreted as an infinite argument.
-5. Do not authorize larger period or horizon boxes until one of the preceding
-   structural steps succeeds.
+1. Seek a **period-two-specific** quotient of the exact inverse-lift state
+   `(H,A)` that still detects a permanently zero spatial output. A universal
+   finite-state quotient cannot be the full section state.
+2. Attempt an algebraic induction for a concrete dyadic-index lift-bit
+   pattern before collecting any longer prefix; abandon the candidate at the
+   first exact counterexample.
+3. Classify zero-emitting cycles only after proving the selected quotient is
+   closed and depth-independent.
+4. Generalize to period `p` only if the period-two quotient or invariant is
+   exact; otherwise return to non-finite-state monotone or arithmetic tools.
+5. Formalize the branch recurrence or its first proof-relevant quotient only
+   after the informal invariant is stable.

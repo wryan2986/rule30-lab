@@ -202,6 +202,14 @@ complexity result.
   fixed-coordinate period bounds are mutually consistent when finite spatial
   support is dropped. See
   `proofs/informal/problem1_two_adic_diagonal_map.md`.
+- `partial-proof` (complete informal argument with three-oracle finite
+  regression checks): the inverse lift has exact even/odd section-schedule
+  recurrences. The dynamics sections close on three 2-adic maps, but the
+  section of `Delta` along `j` zero input bits is `Delta circ T^j`; these are
+  pairwise distinct because `T^j(1)` has highest set bit `2j`. Therefore both
+  `Delta` and `Delta^(-1)` have infinitely many tree sections and are not
+  universal finite-state tree automorphisms. See
+  `proofs/informal/problem1_inverse_lift_sections.md`.
 
 These results do not exclude any period greater than one or eventual
 periodicity in general.
@@ -245,6 +253,13 @@ periodicity in general.
   cone, arbitrary-neighbor zero-gap, and rapid forced-half-line settling
   mechanisms all failed their stated controls. Increasing only those bounds
   is not an admitted continuation.
+- Representing the full universal lift map as a finite-state tree
+  transducer is impossible: `Delta` and its inverse have infinitely many
+  distinct tree sections. The alternating
+  trace also refutes simple independent-block and
+  `(seed prefix, period phase)`-only block recurrences at widths two through
+  five. Only a proved period-specific quotient or a non-finite-state
+  invariant remains viable along this route.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
@@ -253,6 +268,8 @@ periodicity in general.
 
 - Can the 2-adic lift of every odd period-`p` trace for `p>=2` be proved to
   have infinitely many one bits?
+- Does the alternating period-two lift admit a closed quotient of its growing
+  section-schedule/postcomposition state that still detects zero output?
 - Can sideways reconstruction under an eventually periodic boundary be
   summarized by a rigorously depth-independent invariant or finite state?
 - Can the width-two nonperiodicity theorem be combined with phase-local
@@ -269,13 +286,14 @@ periodicity in general.
 Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
 Admission and stopping criteria are in `docs/problem1_focus_program.md`.
 
-1. Derive a symbolic recurrence for inverse lifts of rational periodic traces
-   that can distinguish infinitely many one bits from eventual spatial zero.
-2. Search for a renormalized invariant that uses complete finite support; the
-   period-two local and forced-boundary mechanisms are now exhausted.
-3. Use the exact period-defect and period-two controls only to test a concrete
-   candidate invariant, not to increase generic bounds.
-4. Encode a symbolic/SAT model only after proving a depth-independent state
-   bound or a finite front-state reduction.
-5. Formalize the next stable lift or finite-support lemma only after the
-   informal argument is complete.
+1. Derive a period-two-specific quotient or invariant of the exact inverse
+   section recurrence that detects permanently zero spatial output.
+2. Attempt a proof of the observed dyadic-index lift-bit pattern; do not
+   extend the prefix unless an algebraic induction identifies the needed
+   state.
+3. Classify zero-emitting cycles only after proving closure and a
+   depth-independent bound for the chosen quotient.
+4. If no such quotient closes, switch to arithmetic or monotone
+   finite-support tools rather than another section-fingerprint sweep.
+5. Formalize the branch recurrence or first proof-relevant quotient only
+   after its informal statement is stable.

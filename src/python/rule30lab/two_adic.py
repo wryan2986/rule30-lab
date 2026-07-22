@@ -36,6 +36,24 @@ def right_edge_step_mod(state: int, width: int) -> int:
     return (state ^ ((state << 1) | (state << 2))) & mask
 
 
+def right_edge_inverse_mod(state: int, width: int) -> int:
+    """Invert the right-edge recurrence modulo ``2**width``.
+
+    Output bit ``k`` of the forward map is input bit ``k`` XOR a
+    function of the two already-known lower input bits.  Solving from low
+    to high therefore gives the unique inverse without a table search.
+    """
+
+    width = _checked_width(width)
+    state = _checked_residue(state, width, name="state")
+    seed = 0
+    for position in range(width):
+        lower_toggle = (((seed << 1) | (seed << 2)) >> position) & 1
+        bit = ((state >> position) & 1) ^ lower_toggle
+        seed |= bit << position
+    return seed
+
+
 def diagonal_map_mod(seed: int, width: int) -> int:
     """Return the first ``width`` diagonal bits as one integer residue.
 
@@ -91,5 +109,6 @@ __all__ = [
     "inverse_diagonal_map_mod",
     "minus_one_third_mod",
     "plus_one_third_mod",
+    "right_edge_inverse_mod",
     "right_edge_step_mod",
 ]
