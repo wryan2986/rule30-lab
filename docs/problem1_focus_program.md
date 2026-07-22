@@ -134,6 +134,16 @@ graph-directed 2-adic set of dimension at most about `0.275732`. This still
 does not exclude isolated ordinary integers. See
 [`problem1_period_two_fringe_language.md`](../proofs/informal/problem1_period_two_fringe_language.md).
 
+The bounded-gap schedule now has an exact first-return system. At a `u` event,
+write the right fringe as `A=4z`; the next return time is determined solely by
+`z mod 16`. On the survivor side, writing `X=16y+7`, each return gap
+`r in {2,3,4,5}` fixes one exact residue `y mod 4^r`. Both ordinary finite
+return systems increase normalized bit length by exactly `2r`, so their degree
+difference is constant along later `u` returns. This is a genuine cocycle but
+a neutral one: it identifies high-front shape, rather than return time or
+degree, as the remaining obstruction. See
+[`problem1_period_two_first_return.md`](../proofs/informal/problem1_period_two_first_return.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -193,13 +203,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Derive an all-scale first-return map between successive `u` events, whose
-   exact return times are now known to lie in `{2,3,4,5}`.
-2. Seek a renormalization or cocycle coupling that return map to nonzero output
-   pairs of the schedule survivor; a longer fixed word list is not continuation.
-3. Prove any proposed return-state quotient is depth-independent before using
-   cycle classification as an infinite argument.
-4. If the return map does not close, transfer the self-trace and mismatch
-   valuation identities to an original-spacetime finite-support obstruction.
-5. Formalize the autonomous fringe, self-trace, and return identities only when
-   they enter a genuine infinite argument.
+1. Refine the neutral first-return degree cocycle to a high-front-shape
+   cocycle for the paired ordinary states `z_n` and `y_n`.
+2. Test whether the sixteen fringe return residues and four survivor return
+   cylinders admit a depth-independent coupled frontier quotient.
+3. Connect any frontier transition to a forced nonzero survivor output pair; a
+   longer return-gap list or larger residue table is not continuation.
+4. If the coupled frontier does not close, transfer the exact return patterns
+   to an original-spacetime finite-support obstruction.
+5. Formalize the first-return selector and degree identities only when they
+   enter a genuine infinite argument.
