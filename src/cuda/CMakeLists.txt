@@ -68,6 +68,18 @@ target_compile_options(
   rule30_cuda_sideways_benchmark PRIVATE -Wall -Wextra -Wpedantic
 )
 
+add_executable(
+  rule30_cuda_extended_period_search
+  extended_period_search.cpp
+)
+target_link_libraries(rule30_cuda_extended_period_search PRIVATE rule30::cuda)
+target_compile_features(
+  rule30_cuda_extended_period_search PRIVATE cxx_std_20
+)
+target_compile_options(
+  rule30_cuda_extended_period_search PRIVATE -Wall -Wextra -Wpedantic
+)
+
 if(BUILD_TESTING AND NOT TARGET rule30_cuda_tests)
   add_subdirectory(
     "${CMAKE_CURRENT_SOURCE_DIR}/../../tests/cuda"

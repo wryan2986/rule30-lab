@@ -71,3 +71,29 @@ add_test(
 set_tests_properties(
   rule30_cuda_generate_contract_gpu PROPERTIES SKIP_RETURN_CODE 77
 )
+
+add_executable(
+  rule30_cuda_extended_period_search_tests
+  test_extended_period_search.cpp
+)
+target_link_libraries(
+  rule30_cuda_extended_period_search_tests PRIVATE rule30::cuda
+)
+target_compile_features(
+  rule30_cuda_extended_period_search_tests PRIVATE cxx_std_20
+)
+target_compile_options(
+  rule30_cuda_extended_period_search_tests PRIVATE -Wall -Wextra -Wpedantic
+)
+
+add_test(
+  NAME rule30_cuda_extended_period_search_cpu
+  COMMAND rule30_cuda_extended_period_search_tests cpu
+)
+add_test(
+  NAME rule30_cuda_extended_period_search_gpu
+  COMMAND rule30_cuda_extended_period_search_tests gpu
+)
+set_tests_properties(
+  rule30_cuda_extended_period_search_gpu PROPERTIES SKIP_RETURN_CODE 77
+)

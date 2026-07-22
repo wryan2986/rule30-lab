@@ -35,6 +35,8 @@ nice -n 10 "${cuda_build}/tests/rule30_cuda_generate_contract_tests" \
   gpu \
   "${cuda_build}/rule30_cuda_generate" \
   "${repository_root}/tests/reference_vectors/center_c00000000_c00009999.u8"
+nice -n 10 \
+  "${cuda_build}/tests/rule30_cuda_extended_period_search_tests" gpu
 
 cmake --fresh -S . -B "${build_root}/sanitized" -G Ninja \
   -DCMAKE_BUILD_TYPE=Debug \
