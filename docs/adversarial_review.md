@@ -1,4 +1,8 @@
-# Final adversarial review
+# Internal automated adversarial review
+
+> **Review provenance:** this review was performed by a separate automated
+> OpenCode agent/context inside the project workflow. It is an internal challenge
+> review, not external human peer review or journal refereeing.
 
 Review date: 2026-07-22 UTC  
 Reviewed commit: `7941c5e4` (descendant of required baseline `6a93595`)  
