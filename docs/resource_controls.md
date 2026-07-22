@@ -25,8 +25,10 @@ environment's Python with isolated mode (`-I`), `stdin` attached to
 The fixed experiment scripts perform local computation; arbitrary executable
 or script selection is not available. Fixed read-only metadata probes are
 limited to `git rev-parse HEAD` and, when explicitly enabled, `nvidia-smi`.
-The runner also requires a completely clean tracked and untracked Git
-worktree before launch. Read-path options must resolve inside the repository.
+The runner also requires a clean tracked and untracked Git worktree before
+launch, excluding its explicitly ignored transient run artifacts. Read-path
+options must resolve inside the repository; abbreviated path-bearing options
+are rejected rather than delegated to argparse abbreviation.
 Generic child side-output options such as `--export-graphs-dir` are rejected
 because those files would bypass the parent's streamed-output budget.
 The child receives a small explicit environment without `LD_PRELOAD`; fixed
@@ -167,7 +169,7 @@ intercepted SIGINT or SIGTERM, 124 identifies wall timeout, and 125 identifies
 an output or GPU policy abort. A successful child and valid JSON return zero.
 The wall deadline remains active until both child pipes reach EOF, even if the
 direct child exits first; surviving pipe-inheriting descendants are terminated
-through the original process group. After `SIGKILL`, a final one-second
+through the original process group. After `SIGKILL`, a final 250-millisecond
 pipe-drain interval prevents an escaped or detached descriptor holder from
 blocking the parent indefinitely; EOF is not claimed when that fallback closes
 a pipe.
@@ -212,6 +214,11 @@ and `fsync`ed, then atomically replaced. The checkpoint uses
 `--overwrite` is explicit or the run is a validated restart of its own
 checkpoint.
 
+Raw stdout, stderr, checkpoints, and run records beneath `results/runs` are
+Git-ignored so an incomplete attempt can be resumed immediately. A reviewed
+strict record can be promoted deliberately with `git add -f`; ignored JSON is
+still checked by the repository-wide result-schema tests while present.
+
 Each file replacement is atomic and its temporary file is flushed and
 `fsync`ed. The four files are not one transactional unit, and directory
 `fsync` is not claimed; after abrupt power loss, inspect the terminal
@@ -219,8 +226,9 @@ checkpoint and hashes before trusting an artifact set.
 
 The strict record includes:
 
-- a full Git commit, a clean-worktree precondition, runner-module SHA-256, and
-  child-script SHA-256 values measured before and after execution;
+- a full Git commit, clean-worktree checks before and after execution,
+  runner-module SHA-256 before and after, and child-script SHA-256 before and
+  after;
 - logical child-argv SHA-256;
 - exact captured stdout/stderr SHA-256 and byte counts;
 - canonical parsed-child-JSON SHA-256 when output validation succeeds;

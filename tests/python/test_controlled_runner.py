@@ -167,6 +167,10 @@ def test_success_streams_atomic_artifacts_and_strict_record(
         "child_continuation_supported": False,
         "mode": "restart-child-from-beginning",
     }
+    assert record["software"]["repository_clean_before_run"] is True
+    assert record["software"]["repository_clean_after_run"] is True
+    assert record["software"]["git_commit_unchanged_during_run"] is True
+    assert record["software"]["runner_module_unchanged_during_run"] is True
     stdout_bytes = result.stdout_path.read_bytes()
     assert record["result_hashes"]["stdout_sha256"] == hashlib.sha256(
         stdout_bytes
@@ -232,6 +236,33 @@ subprocess.Popen(
     assert elapsed < 1.0
 
 
+def test_timeout_closes_pipes_held_by_detached_descendant(
+    harness: Harness,
+) -> None:
+    harness.add_script(
+        """
+import subprocess
+import sys
+
+subprocess.Popen(
+    [sys.executable, "-c", "import time; time.sleep(2)"],
+    stdout=sys.stdout,
+    stderr=sys.stderr,
+    start_new_session=True,
+)
+"""
+    )
+    started = time.monotonic()
+    result = runner.run_controlled_experiment(
+        harness.configuration(wall_seconds=0.06)
+    )
+    elapsed = time.monotonic() - started
+
+    assert result.outcome is runner.RunOutcome.TIMEOUT
+    assert elapsed < 1.0
+    assert "pipe-drain interval expired" in _record(result)["result_summary"]["reason"]
+
+
 @pytest.mark.parametrize(
     ("descriptor", "stdout_cap", "stderr_cap", "expected_path"),
     [
@@ -279,6 +310,18 @@ def test_address_space_setup_hook_uses_shared_primitive(
     setup()
 
     assert calls == [987654]
+
+
+def test_git_probes_ignore_parent_repository_overrides(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setenv("GIT_DIR", "/definitely/not/the/rule30/repository")
+    monkeypatch.setenv("GIT_WORK_TREE", "/tmp/not-the-rule30-worktree")
+    commit = runner._git_commit(runner.REPOSITORY_ROOT)
+    status = runner._git_worktree_status(runner.REPOSITORY_ROOT)
+    assert len(commit) == 40
+    assert all(character in "0123456789abcdef" for character in commit)
+    assert isinstance(status, str)
 
 
 def test_interruption_terminates_and_atomically_checkpoints(
@@ -410,6 +453,24 @@ def test_run_directory_and_child_side_outputs_are_confined(harness: Harness) -> 
                 child_args=("--export-graphs-dir", "../../outside")
             )
         )
+    with pytest.raises(runner.RunnerConfigurationError, match="abbreviated"):
+        runner.run_controlled_experiment(
+            harness.configuration(child_args=("--export", "../../outside"))
+        )
+
+
+def test_controlled_artifact_root_cannot_be_a_symlink(harness: Harness) -> None:
+    harness.add_script(_SUCCESS_SCRIPT)
+    outside = harness.repository.parent / "outside-runs"
+    outside.mkdir()
+    results = harness.repository / "results"
+    results.mkdir()
+    try:
+        (results / "runs").symlink_to(outside, target_is_directory=True)
+    except OSError as exc:
+        pytest.skip(f"symlink unavailable: {exc}")
+    with pytest.raises(runner.RunnerConfigurationError, match="must not contain a symlink"):
+        runner.run_controlled_experiment(harness.configuration())
 
 
 def test_symlinked_allowlisted_script_is_rejected(harness: Harness) -> None:
@@ -529,6 +590,60 @@ def test_empty_json_object_cannot_be_promoted_to_scientific_success(
     result = runner.run_controlled_experiment(harness.configuration())
     assert result.outcome is runner.RunOutcome.INVALID_OUTPUT
     assert _record(result)["status"] == "inconclusive"
+
+
+def test_scaling_style_subresults_without_child_hypothesis_are_validated(
+    harness: Harness,
+) -> None:
+    path = harness.repository / "scaling.json"
+    path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "question": "problem2",
+                "parameters": {"checkpoints": [10]},
+                "subresults": {"checkpoint_discrepancy": {"records": [1]}},
+                "status": "empirical",
+                "interpretation": "finite payload",
+                "proof_scope": "finite prefix",
+                "limitations": ["finite only"],
+            }
+        ),
+        encoding="utf-8",
+    )
+    spec = runner.ExperimentSpec(
+        Path("unused.py"),
+        "problem2",
+        "allowlist fallback hypothesis",
+        "empirical",
+        "finite prefix",
+        ("finite only",),
+    )
+    metadata, digest, error = runner._parse_child_json(path, spec)
+    assert error is None
+    assert metadata is not None
+    assert metadata["hypothesis"] is None
+    assert digest is not None
+
+
+def test_hollow_result_payload_is_rejected(harness: Harness) -> None:
+    harness.add_script(
+        """
+import json
+print(json.dumps({
+    "schema_version": 1,
+    "question": "problem2",
+    "hypothesis": "hollow",
+    "parameters": {},
+    "result_summary": None,
+    "status": "empirical",
+    "interpretation": "hollow",
+    "limitations": []
+}))
+"""
+    )
+    result = runner.run_controlled_experiment(harness.configuration())
+    assert result.outcome is runner.RunOutcome.INVALID_OUTPUT
 
 
 def test_computational_child_cannot_self_assign_proof_status(

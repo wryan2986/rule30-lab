@@ -61,7 +61,7 @@ MAX_STDOUT_CAP_BYTES = 64 * 1024 * 1024
 MAX_STDERR_CAP_BYTES = 64 * 1024 * 1024
 MAX_CHILD_ARGUMENTS = 128
 MAX_CHILD_ARGUMENT_BYTES = 16 * 1024
-POST_KILL_DRAIN_SECONDS = 1.0
+POST_KILL_DRAIN_SECONDS = 0.25
 _EXPERIMENT_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways": frozenset({"--trusted-center"}),
@@ -430,7 +430,15 @@ def _artifacts(config: RunnerConfiguration) -> RunArtifacts:
 
 
 def _controlled_run_root() -> Path:
-    return (REPOSITORY_ROOT / CONTROLLED_RUN_RELATIVE_ROOT).resolve()
+    repository = REPOSITORY_ROOT.resolve(strict=True)
+    current = repository
+    for part in CONTROLLED_RUN_RELATIVE_ROOT.parts:
+        current = current / part
+        if current.is_symlink():
+            raise RunnerConfigurationError(
+                "controlled artifact root must not contain a symlink"
+            )
+    return current
 
 
 def _require_within_repository(path_text: str, *, option: str) -> None:
@@ -452,6 +460,16 @@ def _validate_child_path_arguments(
     while index < len(child_args):
         argument = child_args[index]
         option, separator, inline_value = argument.partition("=")
+        guarded_options = read_options | _FORBIDDEN_SIDE_OUTPUT_OPTIONS
+        if (
+            option.startswith("--")
+            and option not in guarded_options
+            and any(full_option.startswith(option) for full_option in guarded_options)
+        ):
+            raise RunnerConfigurationError(
+                f"abbreviated path-bearing child option {option!r} is forbidden; "
+                "use the complete option name"
+            )
         if option in _FORBIDDEN_SIDE_OUTPUT_OPTIONS:
             raise RunnerConfigurationError(
                 f"{option} is disabled in the controlled runner because generic "
@@ -881,23 +899,29 @@ def _parse_child_json(
     scientific = outer.get("scientific_payload", outer)
     if not isinstance(scientific, dict):
         return None, None, "scientific_payload must be an object when present"
+    if scientific.get("schema_version") != 1:
+        return None, None, "child scientific payload must use schema_version 1"
     question = scientific.get("question")
     if question != spec.question:
         return None, None, (
             f"child question {question!r} does not match allowlist {spec.question!r}"
         )
     status = scientific.get("status")
-    if status not in ALLOWED_STATUSES:
-        return None, None, f"child status {status!r} is not allowed"
     if status in {"partial-proof", "rigorous-proof"}:
         return None, None, (
             "computational experiment children may not emit a proof status; "
             "proof records require a separate reviewed proof workflow"
         )
-    for field in ("hypothesis", "interpretation"):
-        value = scientific.get(field)
-        if not isinstance(value, str) or not value.strip():
-            return None, None, f"child {field} must be a nonempty string"
+    if status not in {spec.default_status, "inconclusive"}:
+        return None, None, f"child status {status!r} is not allowed"
+    hypothesis = scientific.get("hypothesis")
+    if hypothesis is not None and (
+        not isinstance(hypothesis, str) or not hypothesis.strip()
+    ):
+        return None, None, "child hypothesis must be omitted or a nonempty string"
+    interpretation = scientific.get("interpretation")
+    if not isinstance(interpretation, str) or not interpretation.strip():
+        return None, None, "child interpretation must be a nonempty string"
     if not isinstance(scientific.get("parameters"), dict):
         return None, None, "child parameters must be an object"
     limitations = scientific.get("limitations")
@@ -905,10 +929,20 @@ def _parse_child_json(
         isinstance(item, str) and item.strip() for item in limitations
     ):
         return None, None, "child limitations must be a list of nonempty strings"
-    if not any(
-        field in scientific
-        for field in ("result_summary", "results", "pure_period_search")
-    ):
+    result_payload = next(
+        (
+            scientific[field]
+            for field in (
+                "result_summary",
+                "results",
+                "subresults",
+                "pure_period_search",
+            )
+            if field in scientific
+        ),
+        None,
+    )
+    if not isinstance(result_payload, (dict, list)) or not result_payload:
         return None, None, "child JSON does not contain a recognized result payload"
     canonical_hash = _canonical_json_sha256(outer)
     metadata: dict[str, Any] = {
@@ -948,6 +982,13 @@ def _read_memory_total_bytes() -> int | None:
 
 
 def _git_commit(repository_root: Path) -> str:
+    git_environment = {
+        "PATH": "/usr/bin:/bin",
+        "LANG": "C",
+        "LC_ALL": "C",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_CONFIG_GLOBAL": "/dev/null",
+    }
     completed = subprocess.run(
         ("/usr/bin/git", "-C", str(repository_root), "rev-parse", "HEAD"),
         check=True,
@@ -955,6 +996,7 @@ def _git_commit(repository_root: Path) -> str:
         text=True,
         timeout=10,
         shell=False,
+        env=git_environment,
     )
     commit = completed.stdout.strip()
     if re.fullmatch(r"[0-9a-f]{40}", commit) is None:
@@ -963,6 +1005,13 @@ def _git_commit(repository_root: Path) -> str:
 
 
 def _git_worktree_status(repository_root: Path) -> str:
+    git_environment = {
+        "PATH": "/usr/bin:/bin",
+        "LANG": "C",
+        "LC_ALL": "C",
+        "GIT_CONFIG_NOSYSTEM": "1",
+        "GIT_CONFIG_GLOBAL": "/dev/null",
+    }
     completed = subprocess.run(
         (
             "/usr/bin/git",
@@ -977,6 +1026,7 @@ def _git_worktree_status(repository_root: Path) -> str:
         text=True,
         timeout=10,
         shell=False,
+        env=git_environment,
     )
     return completed.stdout
 
@@ -1012,7 +1062,10 @@ def _build_record(
     child_script_sha256_before: str,
     child_script_sha256_after: str,
     runner_module_sha256: str,
+    runner_module_sha256_after: str,
     git_commit: str,
+    git_commit_after: str,
+    repository_clean_after_run: bool,
     telemetry: _TelemetrySummary,
     resumed_from: dict[str, Any] | None,
 ) -> dict[str, Any]:
@@ -1084,6 +1137,7 @@ def _build_record(
         "child_script_sha256_before": child_script_sha256_before,
         "child_script_sha256_after": child_script_sha256_after,
         "runner_module_sha256": runner_module_sha256,
+        "runner_module_sha256_after": runner_module_sha256_after,
     }
     if canonical_child_json_sha256 is not None:
         result_hashes["canonical_child_json_sha256"] = canonical_child_json_sha256
@@ -1151,8 +1205,15 @@ def _build_record(
                 child_script_sha256_before == child_script_sha256_after
             ),
             "runner_module_sha256": runner_module_sha256,
+            "runner_module_sha256_after": runner_module_sha256_after,
+            "runner_module_unchanged_during_run": (
+                runner_module_sha256 == runner_module_sha256_after
+            ),
             "git_commit": git_commit,
+            "git_commit_after": git_commit_after,
+            "git_commit_unchanged_during_run": git_commit == git_commit_after,
             "repository_clean_before_run": True,
+            "repository_clean_after_run": repository_clean_after_run,
             "provenance_policy": (
                 "the complete tracked and untracked Git worktree was required "
                 "to be clean before the child was launched"
@@ -1470,14 +1531,25 @@ def run_controlled_experiment(config: RunnerConfiguration) -> RunResult:
         runtime_seconds = time.monotonic() - started_monotonic
         assert outcome is not None
         child_script_sha256_after = _file_sha256(script)
-        if (
-            outcome is RunOutcome.SUCCESS
-            and child_script_sha256_after != child_script_sha256_before
-        ):
+        runner_module_sha256_after = _file_sha256(Path(__file__).resolve())
+        git_commit_after = _git_commit(REPOSITORY_ROOT)
+        repository_clean_after_run = not bool(
+            _git_worktree_status(REPOSITORY_ROOT)
+        )
+        provenance_failures: list[str] = []
+        if child_script_sha256_after != child_script_sha256_before:
+            provenance_failures.append("allowlisted child script changed")
+        if runner_module_sha256_after != runner_module_sha256:
+            provenance_failures.append("controlled runner module changed")
+        if git_commit_after != git_commit:
+            provenance_failures.append("Git HEAD changed")
+        if not repository_clean_after_run:
+            provenance_failures.append("Git worktree became dirty")
+        if provenance_failures:
             outcome = RunOutcome.INVALID_OUTPUT
             reason = (
-                "allowlisted child script changed during execution; exact code "
-                "provenance is not stable"
+                "exact code provenance is not stable: "
+                + ", ".join(provenance_failures)
             )
         child_returncode = None if process is None else process.returncode
         terminal_state = "complete" if outcome is RunOutcome.SUCCESS else outcome.value
@@ -1517,7 +1589,10 @@ def run_controlled_experiment(config: RunnerConfiguration) -> RunResult:
             child_script_sha256_before=child_script_sha256_before,
             child_script_sha256_after=child_script_sha256_after,
             runner_module_sha256=runner_module_sha256,
+            runner_module_sha256_after=runner_module_sha256_after,
             git_commit=git_commit,
+            git_commit_after=git_commit_after,
+            repository_clean_after_run=repository_clean_after_run,
             telemetry=telemetry,
             resumed_from=resumed_from,
         )

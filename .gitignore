@@ -22,4 +22,5 @@ results/**/*.partial
 results/runs/**/*.stdout.data
 results/runs/**/*.stderr.log
 results/runs/**/*.checkpoint.state
+results/runs/**/*.record.json
 !results/**/.gitkeep
