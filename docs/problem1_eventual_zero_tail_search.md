@@ -116,6 +116,11 @@ sha256sum /tmp/rule30-eventual-zero-tail.json
 
 rule30 experiment controlled -- \
   --profile interactive \
-  --experiment-id p1-eventual-zero-tail-q4-p8-h2048-20260722 \
+  --experiment-id p1-eventual-zero-tail-final-20260722 \
   problem1-eventual-zero-tail
 ```
+
+The reviewed strict record is
+`results/runs/p1-eventual-zero-tail-final-20260722.record.json`. It was
+produced from clean commit `72376d40c075a07d36e2fafb09435e9718df2eb5`,
+completed in 16.856332 seconds, and captured the same standalone JSON hash.

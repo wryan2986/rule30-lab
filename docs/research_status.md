@@ -128,7 +128,9 @@ below use the definitions in `docs/experiment_protocol.md`.
   reconstructed one in each adjacent interval from `(64,128]` through
   `(1024,2048]`; the largest internal zero run observed was 22. The exact
   scientific certificate is
-  `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`.
+  `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`;
+  the strict controlled record is
+  `results/runs/p1-eventual-zero-tail-final-20260722.record.json`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or

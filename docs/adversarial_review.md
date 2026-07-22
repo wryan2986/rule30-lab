@@ -197,3 +197,29 @@ tests remains insufficient; the documented direct GPU contracts are the
 canonical device gate. Accepted limitations above—including unattested native
 build provenance, per-process memory limits, lack of a hostile-code sandbox,
 and unavailable CUDA memcheck—remain explicit.
+
+## 2026-07-22 Problem 1 refocus addendum
+
+This addendum reviewed source commit `72376d4`, the complete-tail experiment,
+the whole-tail equivalence proof, and the final strict controlled record. The
+lead review checked enumeration and multiplicity arithmetic, finite-trace
+deduplication scope, horizon conventions, certificate inputs, independent
+prefix reconstruction, resource caps, and every finite-versus-infinite status
+label. The complete Python suite passed 279 tests.
+
+A separate read-only reviewer independently checked the mathematical core and
+reported no flaw in these three statements:
+
+1. An eventually-zero reconstructed left tail is equivalent to a
+   finite-support configuration whose rightmost one is at coordinate zero.
+2. In right-edge coordinates,
+   `S_(t+1) = S_t XOR ((S_t << 1) OR (S_t << 2))`, and the fixed spatial
+   center at time `t` is bit `t` of `S_t`.
+3. Every fixed moving-frame bit `k` has period dividing `2^k`.
+
+The reviewer also confirmed the decisive limitation: fixed-coordinate
+periodicity does not imply anything sufficient about the growing diagonal
+`bit_t(T^t(S))`. The finite campaign's maximum internal zero run of 22 is not
+a uniform bound, and its zero counterexample-lead count is not evidence of an
+infinite quantifier. No prize problem is solved, and increasing only the
+finite horizon would not address the identified gap.

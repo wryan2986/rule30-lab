@@ -1,0 +1,181 @@
+{
+  "backend": "controlled-runner:python-packed-sideways",
+  "experiment_id": "p1-eventual-zero-tail-final-20260722",
+  "git_commit": "72376d40c075a07d36e2fafb09435e9718df2eb5",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "this local WSL/Linux instance only",
+    "gpu_telemetry": {
+      "enabled": false,
+      "note": "GPU state was not queried and no GPU setting was changed.",
+      "queried": false
+    },
+    "hardware_settings_changed": false,
+    "hostname": "WrightPc",
+    "kernel": "6.6.114.1-microsoft-standard-WSL2",
+    "linux_memory_total_bytes": 16730128384,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "An eventually periodic center trace with c0=1 cannot reconstruct an eventually-zero initial left half.",
+  "interpretation": "The allowlisted local child completed successfully; captured bytes and the parsed finite-scope JSON are identified by deterministic SHA-256 hashes.",
+  "limitations": [
+    "Finite interval occupancy does not prove infinitely many reconstructed ones.",
+    "Descriptions outside the finite box and depths beyond the final checkpoint remain open.",
+    "finite zero-run bounds do not prove infinitely many reconstructed ones",
+    "descriptions outside the finite preperiod/period box remain untreated",
+    "a later all-zero tail can begin after the final reconstruction horizon",
+    "a finite counterexample lead would require exact infinite verification",
+    "the experiment does not prove Rule 30 center nonperiodicity",
+    "No finite computation in this run proves an infinite Rule 30 statement.",
+    "The checkpoint records runner capture state only; this child does not support mid-script continuation and resume restarts it from the beginning.",
+    "NVIDIA telemetry, when enabled, is global device telemetry and is not attributed exclusively to this child."
+  ],
+  "parameters": {
+    "allowlisted_experiment": "problem1-eventual-zero-tail",
+    "child_arguments": [],
+    "child_argv": [
+      "/home/wryan/rule30-lab/.venv/bin/python",
+      "-I",
+      "/home/wryan/rule30-lab/experiments/problem1_nonperiodicity/search_eventual_zero_tail.py"
+    ],
+    "execution_policy": {
+      "linux_address_space_limit_applied_in_child": true,
+      "local_only": true,
+      "shell": false,
+      "stdin": "devnull",
+      "worker_environment_limit": 10
+    },
+    "resource_limits": {
+      "cpu_workers": 10,
+      "disk_reserve_bytes": 10737418240,
+      "gpu_abort_temperature_c": 84,
+      "gpu_memory_bytes": 4294967296,
+      "gpu_pause_temperature_c": 78,
+      "output_bytes": 1073741824,
+      "profile": "interactive",
+      "progress_seconds": 10.0,
+      "ram_bytes": 536870912,
+      "wall_seconds": 120.0
+    },
+    "resume": null,
+    "resume_semantics": {
+      "child_continuation_supported": false,
+      "mode": "restart-child-from-beginning"
+    },
+    "stderr_cap_bytes": 1048576,
+    "stdout_cap_bytes": 1048576,
+    "telemetry_enabled": false,
+    "telemetry_seconds": 5.0,
+    "termination_grace_seconds": 3.0
+  },
+  "proof_scope": "Only every description in the explicit finite preperiod/period box and every reconstructed depth through the final horizon.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_child_json_sha256": "8802c20c7cf7621de747dfea5854bc1a5bb73f3dfced82f02cbadc67cb316215",
+    "child_script_sha256_after": "c74f306c2d7652615378f4280b9268ba8c43d7d4ba12c2a436ff38fbb52d55d0",
+    "child_script_sha256_before": "c74f306c2d7652615378f4280b9268ba8c43d7d4ba12c2a436ff38fbb52d55d0",
+    "logical_argv_sha256": "9a92522108f8ef8f76d104347f9a8f43ca19807901c4fcdeee74ef46912feaf7",
+    "runner_module_sha256": "12735deef5c566e1aeb5a5dc181e3768c86c055a2a33964464e8844c0f4ec010",
+    "runner_module_sha256_after": "12735deef5c566e1aeb5a5dc181e3768c86c055a2a33964464e8844c0f4ec010",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "899806101fe059e7d358041e21cf61c248f1d38897d4e678315c088e34119647"
+  },
+  "result_summary": {
+    "artifacts": {
+      "checkpoint": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.checkpoint.state",
+      "record": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.record.json",
+      "stderr": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.stderr.log",
+      "stdout": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.stdout.data"
+    },
+    "child_json_valid": true,
+    "child_metadata": {
+      "backend": "python-packed-sideways",
+      "experiment_id": "problem1-eventual-zero-tail-search-v1",
+      "hypothesis": "An eventually periodic center trace with c0=1 cannot reconstruct an eventually-zero initial left half.",
+      "interpretation": "The campaign measures complete reconstructed prefixes and new-one occupancy across explicit extension intervals. A zero lead count is finite evidence only and cannot exclude an eventually-zero infinite tail outside this description box or beyond the final horizon.",
+      "limitations": [
+        "finite zero-run bounds do not prove infinitely many reconstructed ones",
+        "descriptions outside the finite preperiod/period box remain untreated",
+        "a later all-zero tail can begin after the final reconstruction horizon",
+        "a finite counterexample lead would require exact infinite verification",
+        "the experiment does not prove Rule 30 center nonperiodicity"
+      ],
+      "proof_scope": "Only every description in the explicit finite preperiod/period box and every reconstructed depth through the final horizon.",
+      "question": "problem1",
+      "schema_version": 1,
+      "scientific_payload_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ],
+      "status": "finite-exhaustive",
+      "top_level_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ]
+    },
+    "child_returncode": 0,
+    "outcome": "success",
+    "reason": null,
+    "stderr": {
+      "bytes_captured": 0,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.stderr.log",
+      "sha256_captured": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "truncated_by_cap": false
+    },
+    "stdout": {
+      "bytes_captured": 20781,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/p1-eventual-zero-tail-final-20260722.stdout.data",
+      "sha256_captured": "899806101fe059e7d358041e21cf61c248f1d38897d4e678315c088e34119647",
+      "truncated_by_cap": false
+    }
+  },
+  "runtime_seconds": 16.856331883000166,
+  "software": {
+    "child_script": "experiments/problem1_nonperiodicity/search_eventual_zero_tail.py",
+    "child_script_sha256_after": "c74f306c2d7652615378f4280b9268ba8c43d7d4ba12c2a436ff38fbb52d55d0",
+    "child_script_sha256_before": "c74f306c2d7652615378f4280b9268ba8c43d7d4ba12c2a436ff38fbb52d55d0",
+    "child_script_unchanged_during_run": true,
+    "git_commit": "72376d40c075a07d36e2fafb09435e9718df2eb5",
+    "git_commit_after": "72376d40c075a07d36e2fafb09435e9718df2eb5",
+    "git_commit_unchanged_during_run": true,
+    "provenance_policy": "all tracked and non-ignored untracked Git worktree entries were required to be clean before the child was launched",
+    "python_executable": "/home/wryan/rule30-lab/.venv/bin/python",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4",
+    "repository_clean_after_run": true,
+    "repository_clean_before_run": true,
+    "runner": "rule30lab.controlled_runner",
+    "runner_module_sha256": "12735deef5c566e1aeb5a5dc181e3768c86c055a2a33964464e8844c0f4ec010",
+    "runner_module_sha256_after": "12735deef5c566e1aeb5a5dc181e3768c86c055a2a33964464e8844c0f4ec010",
+    "runner_module_unchanged_during_run": true,
+    "runner_schema_version": 1
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T10:24:08.000293Z"
+}

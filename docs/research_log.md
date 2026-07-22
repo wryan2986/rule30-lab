@@ -85,3 +85,14 @@ inside the corresponding JSON records.
 - Froze broad infrastructure, Problems 2/3 parameter sweeps, and generic
   benchmarking. The active critical path is now the whole-tail Problem 1
   conjecture documented in `docs/problem1_focus_program.md`.
+- Added the complete reconstructed-tail campaign (`cf61640`). Its final strict
+  run on clean commit `72376d4` exhausted 7,905 descriptions (`q<=4`, `p<=8`)
+  through depth 2,048, found no interval-occupancy counterexample lead, and
+  reproduced stdout SHA-256
+  `899806101fe059e7d358041e21cf61c248f1d38897d4e678315c088e34119647`
+  in 16.856332 seconds.
+- Proved the exact whole-tail/finite-seed equivalence and right-edge recurrence
+  (`72376d4`). Exhaustive checks against a direct cell array, sideways
+  inversion, and every finite state through width 10 confirmed the indexing
+  and fixed-coordinate power-of-two period bound. The result exposes the
+  growing diagonal—not the fixed coordinates—as the unresolved obstruction.
