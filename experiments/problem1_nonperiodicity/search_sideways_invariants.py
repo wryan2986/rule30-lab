@@ -1062,6 +1062,13 @@ def build_summary(args: argparse.Namespace) -> dict[str, Any]:
                 "the right-neighbor transient to these structures is missing."
             ),
         },
+        "interpretation": (
+            "The exact image subshift and cyclic-pair certificates are genuine "
+            "bounded or conditional structure, while the tested local parity "
+            "and persistent one-bit summary families yielded no separating "
+            "invariant. None bridges eventual center periodicity to the required "
+            "right-neighbor behavior."
+        ),
         "limitations": [
             "bounded density widths do not exclude wider or nonlocal invariants",
             "bounded phase periods do not exclude more elaborate phase summaries",

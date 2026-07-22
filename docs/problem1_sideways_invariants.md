@@ -277,11 +277,11 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
 sha256sum /tmp/sideways-invariants-default.json
 ```
 
-With the implementation bytes documented here, the formatted JSON is 51,754
+With the implementation bytes documented here, the formatted JSON is 52,062
 bytes and has SHA-256
 
 ```text
-cf11013c9e10bde388b5ff2791ff8466217be0e79f3245ec4f2b757c48038906
+77932232f784d3760e5da98a4a34b4f1e3a27c1129befc4b1160a13116a47cdc
 ```
 
 The measured default run took 3.08 seconds and 36,216 KiB peak RSS on the
