@@ -24,6 +24,10 @@ below use the definitions in `docs/experiment_protocol.md`.
 - CUDA direct evolution, batched period evaluation, and batched sideways
   reconstruction agree exactly with independent CPU oracles on the tested
   counts, partial grids, word boundaries, and forced chunk boundaries.
+- The extended CPU/CUDA periodic-trace engine agrees exactly on 1,028,096
+  distinct finite traces in the box `q<=8`, `p<=12`, `H=64`. CUDA was slower
+  end to end for this workload, so this is a consistency result rather than an
+  acceleration claim.
 - The unified `rule30` CLI selects Python, C++ scalar/AVX2, Rust, and CUDA
   generation backends and exposes finite analysis, bounded-search,
   reproducibility, and controlled-experiment routes.
@@ -102,9 +106,22 @@ below use the definitions in `docs/experiment_protocol.md`.
 - A depth-5 finite 2-kernel fingerprint quotient had 63 sampled classes but
   failed closure at depth 6. This excludes only that finite quotient
   construction.
+- All 131,200 affine GF(2) binary-digit matrix models of dimensions one and
+  two were tested on the stated 64-bit training prefix; none fit. A short
+  eight-bit control admitted 192 fits, all refuted at the first held-out bit.
+  A 31-node multiscale finite 2-kernel refinement remained fully distinct at
+  128 observations but was not closed under child transitions.
 - Exact linear systems over both the rationals and GF(2) found no nontrivial
   member of the tested additive local conservation-law ansatz at widths 1
   through 5. A Rule 204 positive control verified the search machinery.
+- Sixteen wider bounded-degree polynomial density/flux systems—one-step
+  degrees two and three and two-step degree two—had zero excess after the full
+  representable coboundary quotient. All six matching Rule 204 controls had
+  excess nullity two.
+- The exact sideways image of adjacent temporal columns is the shift of finite
+  type forbidding `(2,0)`, `(2,1)`, `(3,2)`, and `(3,3)`. This is
+  depth-independent structure, but it does not distinguish an all-zero
+  reconstructed time-zero tail.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
@@ -123,6 +140,13 @@ complexity result.
   sideways step, bounded column/pair/triangle reconstruction, and the local
   and infinite-tail implication that consecutive true center values force the
   adjacent-left values false. The external width-two theorem is not formalized.
+- `partial-proof` (complete informal finite argument, with its local
+  injectivity premise checked in Lean): the first nonzero reconstructed-left
+  depth is exactly the
+  first center-prefix disagreement from the zero-left reference evolution.
+  Exhaustive checks covered all 262,142 traces through horizons zero to 16.
+  This shows that larger finite first-witness searches are prefix comparisons,
+  not independent evidence for nonperiodicity.
 
 These results do not exclude an all-zero tail, any period greater than one, or
 eventual periodicity in general.
@@ -149,6 +173,8 @@ eventual periodicity in general.
 - Small fixed-width sideways state graphs did not justify a state bound
   independent of reconstruction depth, so they cannot yet be promoted to a
   finite-state proof.
+- Extending first-nonzero sideways searches cannot advance the proof by itself:
+  the first witness is exactly the first trusted-prefix mismatch.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
@@ -168,13 +194,16 @@ eventual periodicity in general.
 
 ## Potential next experiments
 
-1. Search for a depth-independent invariant of periodic-boundary sideways
-   reconstruction and turn small-period failures into symbolic certificates.
-2. Use the CUDA batch engine to extend preperiod/period/horizon boxes while
-   retaining only compact incompatibility witnesses and exact coverage data.
-3. Extend conservation/telescoping searches to larger radii, polynomial
-   observables, and SAT/SMT formulations with independently checked witnesses.
-4. Run checkpointed multi-million-bit discrepancy and dyadic scaling studies
-   under the idle resource profile, without interpreting them as a proof.
-5. Enlarge exact automaton, transducer, recurrence, and 2-kernel searches with
-   strict training/held-out separation and active counterexample discovery.
+Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
+Admission and stopping criteria are in `docs/problem1_focus_program.md`.
+
+1. Search for eventually periodic traces whose reconstructed left prefixes
+   end in anomalously long zero runs after their last one, retaining only
+   counterexample leads and exact cross-horizon certificates.
+2. Derive a seam-aware recurrence or front constraint for the whole
+   reconstructed tail under periodic temporal forcing.
+3. Encode simultaneous eventual temporal periodicity and eventual spatial
+   zero as a symbolic/SAT problem, proving any finite state bound used.
+4. Test candidate monotone potentials against the exact four-block image
+   subshift and transient seams.
+5. Formalize only the smallest stable whole-tail lemma that emerges.

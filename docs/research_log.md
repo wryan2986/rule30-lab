@@ -74,3 +74,14 @@ inside the corresponding JSON records.
   direct GPU contracts, two sanitizer-enabled C++ tests, Rust format/clippy and
   22 tests, strict record validation, and Lean's three build jobs. The RTX 2060
   SUPER measured 40 C before and 41 C after; no hardware setting changed.
+- Completed the five follow-up campaigns: checkpointed discrepancy through
+  four million bits (`9d013b8`--`8c0ecb9`), bounded affine/2-kernel models
+  (`4834532`), polynomial conservation identities (`831b349`), exact sideways
+  invariants (`625d4c0`), and the extended CPU/CUDA periodic-trace campaign
+  (`1a57514`). Six strict controlled-run records were committed in `85033aa`.
+- Proved the finite sideways-prefix equivalence (`5b2fe0a`): the first
+  reconstructed one is exactly the first trusted-prefix mismatch. This
+  invalidates larger first-witness boxes as an independent research direction.
+- Froze broad infrastructure, Problems 2/3 parameter sweeps, and generic
+  benchmarking. The active critical path is now the whole-tail Problem 1
+  conjecture documented in `docs/problem1_focus_program.md`.
