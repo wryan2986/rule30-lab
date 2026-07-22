@@ -144,6 +144,17 @@ below use the definitions in `docs/experiment_protocol.md`.
   `-1/3,1/3` countermodel. Certificate:
   `b4ea4e5af4cd2318efd99a78a9a5ad9f4fa90d3c5952c072a46073528adc7670`;
   strict record: `results/runs/p1-two-adic-diagonal-20260722.record.json`.
+- The period-two mechanism audit exhausted all 32 five-cell assignments and
+  262,144 arbitrary adjacent-right traces through horizon 16, and compared
+  two independent 4,096-step forced-half-line evolutions. The exact phase
+  cones allow all four right pairs. The largest reconstructed zero runs were
+  eight and seven, but both witnesses fail local Rule 30 right-extension
+  checks, so they refute only an unconstrained-neighbor argument. The pure
+  alternating 1,024-bit inverse lift had 541 ones and no model in the stated
+  bounded spatial-period class; the forced zero right half matched no period
+  `1..256` in its final 1,024 samples. Certificate:
+  `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`;
+  strict record: `results/runs/p1-period-two-audit-20260722.record.json`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
@@ -228,6 +239,12 @@ periodicity in general.
   is a countermodel. Finite truncations of `-1/3` match arbitrarily long
   all-one diagonal prefixes, so horizon-by-horizon finite survivors cannot be
   compacted into one finite seed.
+- Period two does not inherit the period-one monotonicity. Its exact
+  zero-phase two-step right-neighbor update is a NOR of three spatial cells,
+  so it continually imports the farther-right tail. The complete five-cell
+  cone, arbitrary-neighbor zero-gap, and rapid forced-half-line settling
+  mechanisms all failed their stated controls. Increasing only those bounds
+  is not an admitted continuation.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
@@ -252,13 +269,13 @@ periodicity in general.
 Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
 Admission and stopping criteria are in `docs/problem1_focus_program.md`.
 
-1. Specialize the exact `p`-step cone constraint to period two and search for
-   a phase-local monotone quantity analogous to the period-one OR recurrence.
-2. Express the inverse 2-adic lift of a period-two trace and isolate the
-   finite-support condition rather than rechecking longer prefixes.
-3. Use the exact period-defect ANF only to test a concrete candidate invariant;
-   its full-cone growth already rules out a narrow local-phase shortcut.
+1. Derive a symbolic recurrence for inverse lifts of rational periodic traces
+   that can distinguish infinitely many one bits from eventual spatial zero.
+2. Search for a renormalized invariant that uses complete finite support; the
+   period-two local and forced-boundary mechanisms are now exhausted.
+3. Use the exact period-defect and period-two controls only to test a concrete
+   candidate invariant, not to increase generic bounds.
 4. Encode a symbolic/SAT model only after proving a depth-independent state
    bound or a finite front-state reduction.
-5. Formalize the next stable phase lemma only after the informal argument is
-   complete.
+5. Formalize the next stable lift or finite-support lemma only after the
+   informal argument is complete.

@@ -43,3 +43,4 @@ Reviewed controlled-run records for the defaults are stored at:
 
 - `results/runs/p1-period-defect-20260722.record.json`
 - `results/runs/p1-two-adic-diagonal-20260722.record.json`
+- `results/runs/p1-period-two-audit-20260722.record.json`

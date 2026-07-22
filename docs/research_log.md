@@ -126,3 +126,15 @@ inside the corresponding JSON records.
   SHA-256
   `7f1211fe815b8a82a56e5964428d24c8b063aeab935011e9051f2ea331a19f4c`.
   Independent immediate reruns reproduced both hashes exactly.
+- Completed the exact period-two pass in source commit `6372840`. Independent
+  review confirmed the phase equations and caught three pre-commit reporting
+  issues: horizon-dependent interpretation, an incompatible arbitrary-right
+  witness, and a vacuous generic period-test edge case. All were corrected and
+  297 Python tests passed.
+- The controlled period-two audit on clean commit `6372840` completed in
+  4.980335 seconds. Its stdout SHA-256
+  `fa46b34bfb1065456bdd229903e8a566d4a4a05e9bd4cbaab07c42f7ef247c58`
+  reproduced exactly on an immediate rerun; its scientific certificate is
+  `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`.
+  Period two remains open, and the tested mechanisms do not justify larger
+  horizons.
