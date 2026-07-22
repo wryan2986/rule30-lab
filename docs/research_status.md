@@ -33,6 +33,11 @@ below use the definitions in `docs/experiment_protocol.md`.
   termination, atomic checkpoints/records, and optional read-only GPU
   telemetry. Its limitations (including per-process rather than aggregate RAM
   control) are explicit in `docs/resource_controls.md`.
+- A production runner invocation on commit `6a93595` completed the exact
+  width-1-through-3 rational/GF(2) conservation search within a 120-second,
+  512-MiB-address-space envelope. Before/after Git, source, script, and runner
+  checks remained stable; its reviewed strict record is
+  `results/runs/controlled-p2-conservation-final-w1-w3-20260722.record.json`.
 - WSL sees the local RTX 2060 SUPER (8,192 MiB, compute capability 7.5) through
   the Windows driver. CUDA is compiled as native `sm_75` SASS; no Linux display
   driver or hardware-control setting was installed or changed.
@@ -58,6 +63,13 @@ below use the definitions in `docs/experiment_protocol.md`.
 - The finite spectral, block, run, entropy, dyadic-discrepancy, and selected
   correlation measurements are descriptive only. They do not establish
   randomness, normality, mixing, or limiting balance.
+- In the verified same-output matrix at `N=4,096`, all five Python coordinate,
+  C++ scalar, C++ AVX2, Rust packed, and CUDA direct streams matched the trusted
+  bytes before timing and in every warm-up/measured/profile run. Median
+  startup-inclusive subprocess times over five rotated repetitions were
+  3.195124 s, 0.005578 s, 0.004832 s, 0.004876 s, and 0.401417 s,
+  respectively. This ordering is empirical for one modest workload; it is not
+  a universal or asymptotic speed result.
 
 ## Finite exhaustive results
 

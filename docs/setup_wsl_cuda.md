@@ -88,9 +88,11 @@ C++ and CUDA release build targeting the detected Turing GPU:
 cmake --fresh -S . -B /tmp/rule30-lab-release -G Ninja \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \
+  -DCMAKE_CUDA_ARCHITECTURES=75 \
   -DRULE30_ENABLE_CUDA=ON
 nice -n 10 cmake --build /tmp/rule30-lab-release --parallel 2
-ctest --test-dir /tmp/rule30-lab-release --output-on-failure
+RULE30_REQUIRE_CUDA=1 \
+  ctest --test-dir /tmp/rule30-lab-release --output-on-failure
 ```
 
 Rust release binaries:

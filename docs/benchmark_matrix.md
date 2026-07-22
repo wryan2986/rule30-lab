@@ -122,6 +122,7 @@ cmake --fresh -S /home/wryan/rule30-lab \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
   -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \
+  -DCMAKE_CUDA_ARCHITECTURES=75 \
   -DRULE30_ENABLE_CUDA=ON
 nice -n 10 cmake --build /tmp/rule30-benchmark-matrix-build --parallel 2
 
@@ -154,10 +155,11 @@ nice -n 10 /home/wryan/rule30-lab/.venv/bin/python \
   --cuda-build-directory /tmp/rule30-benchmark-matrix-build \
   --rust-build-directory /tmp/rule30-benchmark-matrix-rust \
   --trusted-prefix /home/wryan/rule30-lab/tests/reference_vectors/center_c00000000_c00009999.u8 \
-  --count 4096 --warmups 1 --repetitions 3 \
+  --count 4096 --warmups 1 --repetitions 5 \
   --timeout-seconds 30 --max-capture-bytes 2097152 \
   --nice-level 10 --cuda-device 0 --cuda-threads 256 \
-  --cuda-memory-budget-mib 64 --cuda-output-budget-mib 16
+  --cuda-memory-budget-mib 64 --cuda-output-budget-mib 16 \
+  --output /home/wryan/rule30-lab/results/benchmarks/20260722_same_output_matrix_n4096.json
 ```
 
 The outer `nice` keeps the orchestrator polite; every measured child also has
@@ -178,13 +180,6 @@ Immediately before record construction, the driver repeats the HEAD,
 clean-worktree, relevant-tree, benchmark-script, executable, and trusted-vector
 checks; persistent output is refused if any changed.
 
-After committing this script and its tests, rebuild from that commit and rerun
-the exact command above with:
-
-```text
---output /home/wryan/rule30-lab/results/benchmarks/20260722_same_workload_matrix.json
-```
-
 The destination must be directly under `results/benchmarks`; an existing
 record is refused unless `--overwrite` is explicit. The write uses the
 repository's validated atomic experiment-record path. These checks provide
@@ -192,6 +187,35 @@ strong local provenance evidence but are not a cryptographically attested
 reproducible-build proof. The resulting top-level
 status is `empirical`; exact byte equality is scoped to the recorded finite
 runs, and performance conclusions remain workload- and machine-specific.
+
+## Recorded 2026-07-22 matrix
+
+The tracked record
+[`20260722_same_output_matrix_n4096.json`](../results/benchmarks/20260722_same_output_matrix_n4096.json)
+was run from clean commit
+`cefb2619ff7df9cb1ed0b627e9bd9cba6607b4ba` using freshly configured external
+build trees. Every preflight, warm-up, measured, and RSS-profile generation
+matched the trusted 4,096-byte prefix with SHA-256
+`c31df0a2310247e6452237d4b780467e31b86340ce2a6dd90b679dd94c8012ff`
+(2,028 ones and 2,068 zeros).
+
+Median startup-inclusive end-to-end generation times over five rotated runs
+were:
+
+| Backend | Median seconds | Minimum | Maximum |
+|---|---:|---:|---:|
+| C++ AVX2 | 0.004832 | 0.004723 | 0.005250 |
+| Rust packed | 0.004876 | 0.004715 | 0.004994 |
+| C++ scalar | 0.005578 | 0.005236 | 0.005693 |
+| CUDA direct | 0.401417 | 0.341460 | 0.438318 |
+| Python coordinate | 3.195124 | 3.169592 | 3.257848 |
+
+The deterministic statistics workload median was 1.062213 seconds and the
+bounded predictor workload median was 0.531320 seconds. GPU temperature was
+41 C before and after the matrix; no hardware setting was changed. At this
+small sequential generation size, CUDA context and dependent-launch overhead
+dominated. These measurements do not rank the implementations for different
+sizes or workloads and do not imply an asymptotic complexity claim.
 
 ## Tests
 
