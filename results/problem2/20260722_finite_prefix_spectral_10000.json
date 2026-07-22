@@ -1,0 +1,106 @@
+{
+  "backend": "python-numpy",
+  "command": "/usr/bin/time -f 'runtime_seconds=%e\\nmaximum_resident_set_kib=%M' -o /tmp/rule30_spectral_time.txt nice -n 10 .venv/bin/python experiments/problem2_balance/run_finite_prefix.py --spectral --spectral-top-k 8 > /tmp/rule30_spectral_payload.json",
+  "experiment_id": "problem2-finite-prefix-spectral-10000-20260722T005334Z",
+  "git_commit": "dbc6d989df94f7459fb0ca3952e5335f8dd5679b",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "gpu_used": false,
+    "logical_cpus_visible": 12,
+    "ram_visible_wsl_gib": 15.581
+  },
+  "hypothesis": "Compute a finite one-sided power-periodogram summary of the mean-centered spin encoding of the trusted 10000-bit Rule 30 center prefix and report its eight largest positive-frequency bins.",
+  "interpretation": "This is an empirical, descriptive Fourier summary of one identified finite prefix. The one-sided powers use mean-centered spins and Parseval normalization; their sum agrees with the finite population variance up to floating-point roundoff. Peak locations and spectral flatness are not interpreted as evidence of randomness, an asymptotic spectral law, or limiting balance.",
+  "limitations": [
+    "This periodogram is not a randomness test.",
+    "No finite periodogram establishes a spectral limit or asymptotic spectral type.",
+    "No spectral summary or finite prefix proves limiting balance.",
+    "The input contains only c_0 through c_9999.",
+    "Frequencies and powers are IEEE-754 floating-point descriptions of this finite input."
+  ],
+  "parameters": {
+    "frequency_units": "cycles_per_sample",
+    "input_encoding": "one_byte_per_bit_c_0_first",
+    "input_sample_count": 10000,
+    "mean_centered": true,
+    "normalization": "mean_centered_spin_one_sided_parseval",
+    "positive_frequency_top_k": 8,
+    "spectral": true,
+    "spin_encoding": {
+      "0": -1,
+      "1": 1
+    },
+    "transform": "numpy.fft.rfft"
+  },
+  "proof_scope": "No mathematical proof claim; descriptive floating-point measurements on the trusted finite 10000-bit prefix only.",
+  "question": "problem2",
+  "result_hashes": {
+    "center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860",
+    "deterministic_driver_stdout_sha256": "10060e90717b7b12bd4b1b228b789250f5fc1eae23979b765967266b196d30ad"
+  },
+  "result_summary": {
+    "deterministic_payload_hash_definition": "SHA-256 of the exact UTF-8 JSON stdout from the recorded driver command, including its final newline",
+    "maximum_resident_set_kib": 37368,
+    "normalization": "mean_centered_spin_one_sided_parseval",
+    "one_sided_power_sum": 0.99995904,
+    "repeat_driver_stdout_byte_identical": true,
+    "sample_count": 10000,
+    "spectral_flatness_positive_bins": 0.5698991557925661,
+    "spin_mean": 0.0064,
+    "spin_variance": 0.9999590400000001,
+    "top_bins": [
+      {
+        "bin": 2171,
+        "cycles_per_sample": 0.21710000000000002,
+        "power": 0.0019626448071369705
+      },
+      {
+        "bin": 884,
+        "cycles_per_sample": 0.0884,
+        "power": 0.0015309288560150665
+      },
+      {
+        "bin": 620,
+        "cycles_per_sample": 0.062,
+        "power": 0.001422047014217278
+      },
+      {
+        "bin": 4330,
+        "cycles_per_sample": 0.433,
+        "power": 0.0013877571698933508
+      },
+      {
+        "bin": 2870,
+        "cycles_per_sample": 0.28700000000000003,
+        "power": 0.0013113346951278365
+      },
+      {
+        "bin": 3860,
+        "cycles_per_sample": 0.386,
+        "power": 0.00130902765256283
+      },
+      {
+        "bin": 1364,
+        "cycles_per_sample": 0.1364,
+        "power": 0.0013034949905615797
+      },
+      {
+        "bin": 3089,
+        "cycles_per_sample": 0.3089,
+        "power": 0.0012776244881379816
+      }
+    ]
+  },
+  "runtime_seconds": 1.71,
+  "software": {
+    "analysis": "rule30lab.statistics.power_spectral_summary",
+    "linux_distribution": "Ubuntu 26.04 LTS",
+    "numpy": "2.4.2",
+    "python": "3.14.4",
+    "statistics_driver": "experiments/problem2_balance/run_finite_prefix.py",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "empirical",
+  "timestamp_utc": "2026-07-22T00:53:34.866132Z",
+  "working_directory": "/home/wryan/rule30-lab"
+}
