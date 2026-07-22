@@ -120,7 +120,10 @@ rule30 experiment controlled -- \
   problem1-eventual-zero-tail
 ```
 
-The reviewed strict record is
-`results/runs/p1-eventual-zero-tail-final-20260722.record.json`. It was
-produced from clean commit `72376d40c075a07d36e2fafb09435e9718df2eb5`,
-completed in 16.856332 seconds, and captured the same standalone JSON hash.
+Public, path-neutral provenance is manifest entry
+`p1-eventual-zero-tail-final-20260722` in
+[`docs/public_provenance/20260722_controlled_run_manifest.json`](public_provenance/20260722_controlled_run_manifest.json).
+The original local controlled run was produced from clean commit
+`72376d40c075a07d36e2fafb09435e9718df2eb5`, completed in 16.856332 seconds,
+and captured the same standalone JSON hash. Its machine-local operational record
+is intentionally not tracked.

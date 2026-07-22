@@ -214,11 +214,12 @@ hostile-code, network, cgroup, or aggregate-memory sandbox. See
 - `results/environment/`: detected WSL, CPU, RAM, GPU, driver, and tools.
 - `results/benchmarks/`: structured timing and correctness records.
 - `results/problem1/`, `problem2/`, `problem3/`: claim-scoped records.
-- `results/runs/`: reviewed controlled-run records; transient raw artifacts are
+- `docs/public_provenance/`: path-neutral certificate manifests for controlled
+  runs whose machine-local operational records under `results/runs/` remain
   intentionally ignored.
 - `proofs/informal/` and `proofs/lean/`: synchronized informal and formal work.
-- `docs/research_log.md` and `docs/adversarial_review.md`: dated history and
-  independent challenge review.
+- `docs/research_log.md` and `docs/adversarial_review.md`: dated history and an
+  internal automated challenge review performed in a separate agent context.
 
 ## Result language and limitations
 
@@ -239,5 +240,9 @@ remaining limitations include:
 - the controlled runner's RAM limit is per process, not aggregate cgroup RSS;
   and
 - Compute Sanitizer could not initialize under the current WSL/WDDM stack.
+
+A source archive produced with `git archive` omits `.git`. It can reproduce
+source-level algorithms and certificate hashes, but a full Git clone is required
+to validate commit existence, clean-tree state, and history-bound provenance.
 
 The repository uses the MIT license. See [LICENSE](LICENSE).

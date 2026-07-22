@@ -3,7 +3,9 @@
 Last updated: 2026-07-22 UTC.
 
 All three Rule 30 prize problems remain open in this repository. Status labels
-below use the definitions in `docs/experiment_protocol.md`.
+below use the definitions in `docs/experiment_protocol.md`. Public, path-neutral
+provenance for controlled runs whose machine-local records are intentionally
+untracked is in the [controlled-run manifest](public_provenance/20260722_controlled_run_manifest.json).
 
 ## Verified implementation facts
 
@@ -40,16 +42,17 @@ below use the definitions in `docs/experiment_protocol.md`.
 - A production runner invocation on commit `6a93595` completed the exact
   width-1-through-3 rational/GF(2) conservation search within a 120-second,
   512-MiB-address-space envelope. Before/after Git, source, script, and runner
-  checks remained stable; its reviewed strict record is
-  `results/runs/controlled-p2-conservation-final-w1-w3-20260722.record.json`.
+  checks remained stable. Public provenance is manifest entry
+  `controlled-p2-conservation-final-w1-w3-20260722`; the tracked width-1-through-5
+  result contains the same finite scientific scope.
 - WSL sees the local RTX 2060 SUPER (8,192 MiB, compute capability 7.5) through
   the Windows driver. CUDA is compiled as native `sm_75` SASS; no Linux display
   driver or hardware-control setting was installed or changed.
-- The latest clean-build gate on commit `a89246e` passed 279 Python tests, all
-  nine release C++/CUDA CTests plus every direct GPU contract, two
-  sanitizer-enabled C++ tests, Rust formatting/clippy and 22 tests, strict
-  structured-record checks, and the three-job Lean build. Post-gate GPU
-  telemetry was 41 C at 12.64 W.
+- The last recorded full cross-toolchain gate, on commit `a89246e`, passed
+  279 Python tests, all nine release C++/CUDA CTests plus every direct GPU
+  contract, two sanitizer-enabled C++ tests, Rust formatting/clippy and 22
+  tests, strict structured-record checks, and the three-job Lean build.
+  Post-gate GPU telemetry was 41 C at 12.64 W.
 
 ## Reproduced empirical observations
 
@@ -129,21 +132,20 @@ below use the definitions in `docs/experiment_protocol.md`.
   reconstructed one in each adjacent interval from `(64,128]` through
   `(1024,2048]`; the largest internal zero run observed was 22. The exact
   scientific certificate is
-  `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`;
-  the strict controlled record is
-  `results/runs/p1-eventual-zero-tail-final-20260722.record.json`.
+  `e957c1c5b919eb115c1f354122b0b1fffb614e665062ee52edb8e30109657c27`.
+  Public provenance is manifest entry `p1-eventual-zero-tail-final-20260722`.
 - The exact period-defect campaign exhausted all 174,760 radius-`p` cone
   assignments for `p=1..8` with two independent evaluators. Every tested
   constraint used all `2p+1` variables, uniquely solved the leftmost one, and
   had ANF degrees `2,3,5,7,9,11,13,15`. Certificate:
-  `1fea76c334d7f16c24fa27f2ca4af8f41e1a14bb11f4097b6fdf5479ab60fe0c`;
-  strict record: `results/runs/p1-period-defect-20260722.record.json`.
+  `1fea76c334d7f16c24fa27f2ca4af8f41e1a14bb11f4097b6fdf5479ab60fe0c`.
+  Public provenance is manifest entry `p1-period-defect-20260722`.
 - The finite 2-adic campaign exhausted 8,190 quotient points through width
   12. Every finite diagonal map was a unit-triangular permutation, both
   inverse directions matched, and every quotient verified the exact
   `-1/3,1/3` countermodel. Certificate:
-  `b4ea4e5af4cd2318efd99a78a9a5ad9f4fa90d3c5952c072a46073528adc7670`;
-  strict record: `results/runs/p1-two-adic-diagonal-20260722.record.json`.
+  `b4ea4e5af4cd2318efd99a78a9a5ad9f4fa90d3c5952c072a46073528adc7670`.
+  Public provenance is manifest entry `p1-two-adic-diagonal-20260722`.
 - The period-two mechanism audit exhausted all 32 five-cell assignments and
   262,144 arbitrary adjacent-right traces through horizon 16, and compared
   two independent 4,096-step forced-half-line evolutions. The exact phase
@@ -153,8 +155,8 @@ below use the definitions in `docs/experiment_protocol.md`.
   alternating 1,024-bit inverse lift had 541 ones and no model in the stated
   bounded spatial-period class; the forced zero right half matched no period
   `1..256` in its final 1,024 samples. Certificate:
-  `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`;
-  strict record: `results/runs/p1-period-two-audit-20260722.record.json`.
+  `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`.
+  Public provenance is manifest entry `p1-period-two-audit-20260722`.
 - The inverse-lift section campaign exhausted 2,046 quotient points through
   width 10 with three inverse oracles and 4,352 bounded continuation checks.
   On the alternating control, the exact section schedule reached period 256
@@ -162,9 +164,8 @@ below use the definitions in `docs/experiment_protocol.md`.
   capped 256-bit endpoint probe found
   `s_(2^k-1)=k mod 2` for exactly `1<=k<=8`; two simpler induction rules were
   refuted inside the same prefix. Certificate:
-  `9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d`;
-  strict record:
-  `results/runs/p1-inverse-lift-sections-20260722.record.json`.
+  `9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d`.
+  Public provenance is manifest entry `p1-inverse-lift-sections-20260722`.
 - The period-two quotient campaign checked 2,048 exact lift bits, 161 moving
   fringe blocks, 13 complete schedule states, all 16 assignments in the
   two-cell fringe relation, and the arithmetic support identities through 160
@@ -176,9 +177,8 @@ below use the definitions in `docs/experiment_protocol.md`.
   arithmetic criterion reduces infinite support to proving that
   `m-leading_t_run(H_m)` tends to infinity. Its finite checks do not prove
   that growth. Certificate:
-  `81593871f2305f0bf796ba596de2ce3285275084b0cfea0d5c155c80965d574c`;
-  strict record:
-  `results/runs/p1-period-two-quotient-20260722.record.json`.
+  `81593871f2305f0bf796ba596de2ce3285275084b0cfea0d5c155c80965d574c`.
+  Public provenance is manifest entry `p1-period-two-quotient-20260722`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
