@@ -62,9 +62,9 @@ software, runtime, result hashes, interpretation, status, proof scope, and
 limitations. Validation happens before atomic publication and again in the
 repository test suite.
 
-The controlled runner accepts only five fixed repository scripts. Read paths
-must remain within the repository, child side-output paths are rejected, and
-the destination remains under a non-symlink `results/runs`. Raw stdout,
+The controlled runner accepts only fixed, audited repository scripts. Read
+paths must remain within the repository, child side-output paths are rejected,
+and the destination remains under a non-symlink `results/runs`. Raw stdout,
 stderr, and checkpoints are kept separately from the interpreted record so a
 researcher can audit exact child bytes. Restart checkpoints preserve runner
 capture state; the current scientific scripts restart from the beginning

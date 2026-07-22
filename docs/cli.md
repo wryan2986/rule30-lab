@@ -196,10 +196,15 @@ finite held-out fit is not an infinite recurrence.
 | Name | Script |
 |---|---|
 | `problem1-sideways` | `experiments/problem1_nonperiodicity/run_sideways_search.py` |
+| `problem1-sideways-invariants` | `experiments/problem1_nonperiodicity/search_sideways_invariants.py` |
+| `problem1-sideways-prefix-equivalence` | `experiments/problem1_nonperiodicity/analyze_sideways_prefix_equivalence.py` |
+| `problem1-eventual-zero-tail` | `experiments/problem1_nonperiodicity/search_eventual_zero_tail.py` |
 | `problem2-finite-prefix` | `experiments/problem2_balance/run_finite_prefix.py` |
 | `problem2-scaling` | `experiments/problem2_balance/run_scaling_analysis.py` |
 | `problem2-conservation` | `experiments/problem2_balance/search_local_conservation.py` |
+| `problem2-polynomial-conservation` | `experiments/problem2_balance/search_polynomial_conservation.py` |
 | `problem3-exact-searches` | `experiments/problem3_complexity/run_exact_searches.py` |
+| `problem3-extended-model-searches` | `experiments/problem3_complexity/run_extended_model_searches.py` |
 
 No command string, shell syntax, or arbitrary script path is accepted. Child
 arguments are separate argv entries following `--`:

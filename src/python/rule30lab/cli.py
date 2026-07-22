@@ -93,6 +93,9 @@ EXPERIMENT_ALLOWLIST: Mapping[str, Path] = {
         "experiments/problem1_nonperiodicity/"
         "analyze_sideways_prefix_equivalence.py"
     ),
+    "problem1-eventual-zero-tail": Path(
+        "experiments/problem1_nonperiodicity/search_eventual_zero_tail.py"
+    ),
     "problem2-finite-prefix": Path(
         "experiments/problem2_balance/run_finite_prefix.py"
     ),

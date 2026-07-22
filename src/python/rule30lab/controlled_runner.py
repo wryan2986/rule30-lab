@@ -67,6 +67,7 @@ _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways": frozenset({"--trusted-center"}),
     "problem1-sideways-invariants": frozenset(),
     "problem1-sideways-prefix-equivalence": frozenset(),
+    "problem1-eventual-zero-tail": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
     "problem2-conservation": frozenset(),
@@ -155,6 +156,32 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         (
             "The computational cross-check does not prove the horizon-independent lemma.",
             "The finite lemma does not establish center nonperiodicity.",
+        ),
+    ),
+    "problem1-eventual-zero-tail": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "search_eventual_zero_tail.py"
+        ),
+        "problem1",
+        (
+            "Measure complete reconstructed-left prefixes for a bounded box "
+            "of eventually periodic center traces."
+        ),
+        "finite-exhaustive",
+        (
+            "Only the explicit finite description box and reconstruction "
+            "checkpoints emitted by the child."
+        ),
+        (
+            (
+                "Finite interval occupancy does not prove infinitely many "
+                "reconstructed ones."
+            ),
+            (
+                "Descriptions outside the finite box and depths beyond the "
+                "final checkpoint remain open."
+            ),
         ),
     ),
     "problem2-finite-prefix": ExperimentSpec(

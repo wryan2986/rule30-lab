@@ -14,6 +14,7 @@ only scientific child entry points are:
 | `problem1-sideways` | `experiments/problem1_nonperiodicity/run_sideways_search.py` | Problem 1 |
 | `problem1-sideways-invariants` | `experiments/problem1_nonperiodicity/search_sideways_invariants.py` | Problem 1 |
 | `problem1-sideways-prefix-equivalence` | `experiments/problem1_nonperiodicity/analyze_sideways_prefix_equivalence.py` | Problem 1 |
+| `problem1-eventual-zero-tail` | `experiments/problem1_nonperiodicity/search_eventual_zero_tail.py` | Problem 1 |
 | `problem2-finite-prefix` | `experiments/problem2_balance/run_finite_prefix.py` | Problem 2 |
 | `problem2-scaling` | `experiments/problem2_balance/run_scaling_analysis.py` | Problem 2 |
 | `problem2-conservation` | `experiments/problem2_balance/search_local_conservation.py` | Problem 2 |
