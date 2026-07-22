@@ -32,12 +32,15 @@
   "cross_checks": {
     "center_bits": [
       "coordinate-bytearray",
-      "supplied-packed-integer"
+      "supplied-packed-integer",
+      "cpp-packed-scalar",
+      "cpp-packed-avx2"
     ],
-    "compiled_backend_pending": true,
+    "compiled_backend_pending": false,
     "complete_rows": [
       "coordinate-bytearray",
-      "live-coordinate-set"
+      "live-coordinate-set",
+      "cpp-packed-scalar"
     ]
   },
   "files": {
@@ -60,6 +63,18 @@
   },
   "schema_version": 1,
   "source_git_commit": "a59f31b45226811f5f4f8d436f1ed82a7c20e7b0",
-  "status": "provisional-two-way",
+  "status": "trusted-three-implementation",
+  "validation": {
+    "compiler_matrices": [
+      "GCC 15.2 release AVX2",
+      "GCC 15.2 release scalar-only",
+      "GCC 15.2 ASan+UBSan",
+      "Clang 21.1.8 release AVX2"
+    ],
+    "git_commit": "4a6747c72862f960c45bf1873057d40d76f60575",
+    "million_center_sha256": "6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669",
+    "million_discrepancy": 1536,
+    "million_ones": 500768
+  },
   "supplied_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
 }
