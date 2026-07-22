@@ -1,7 +1,7 @@
 """Local-only, resource-bounded execution of repository experiments.
 
 The runner accepts an experiment *name*, never a script path.  Each child is
-one of five audited repository scripts and is started with an argument vector
+an audited repository script and is started with an argument vector
 without a shell.  Child stdout and stderr are streamed into bounded, atomic
 artifacts while the parent enforces wall-clock, address-space, disk, output,
 and optional read-only GPU-telemetry policies.
@@ -65,10 +65,14 @@ POST_KILL_DRAIN_SECONDS = 0.25
 _EXPERIMENT_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways": frozenset({"--trusted-center"}),
+    "problem1-sideways-invariants": frozenset(),
+    "problem1-sideways-prefix-equivalence": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
     "problem2-conservation": frozenset(),
+    "problem2-polynomial-conservation": frozenset(),
     "problem3-exact-searches": frozenset({"--input"}),
+    "problem3-extended-model-searches": frozenset({"--input"}),
 }
 _FORBIDDEN_SIDE_OUTPUT_OPTIONS = frozenset({"--export-graphs-dir"})
 
@@ -128,6 +132,31 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
             "Untested preperiods, periods, and reconstruction depths remain open.",
         ),
     ),
+    "problem1-sideways-invariants": ExperimentSpec(
+        Path("experiments/problem1_nonperiodicity/search_sideways_invariants.py"),
+        "problem1",
+        "Search bounded depth-independent invariants and exact cyclic-pair certificates for sideways evolution.",
+        "finite-exhaustive",
+        "Only the exact bounded ansatzes and finite cyclic models emitted by the child.",
+        (
+            "Bounded invariant families do not exhaust nonlocal or wider invariants.",
+            "The cyclic-pair model assumes both adjacent columns are exactly cyclic.",
+        ),
+    ),
+    "problem1-sideways-prefix-equivalence": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_sideways_prefix_equivalence.py"
+        ),
+        "problem1",
+        "Cross-check the finite identity between first sideways witnesses and first trusted-prefix mismatches.",
+        "finite-exhaustive",
+        "Only the exhaustive finite horizons and eventual-period description box emitted by the child.",
+        (
+            "The computational cross-check does not prove the horizon-independent lemma.",
+            "The finite lemma does not establish center nonperiodicity.",
+        ),
+    ),
     "problem2-finite-prefix": ExperimentSpec(
         Path("experiments/problem2_balance/run_finite_prefix.py"),
         "problem2",
@@ -161,6 +190,17 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
             "Other radii, rings, and nonlocal identities remain untested.",
         ),
     ),
+    "problem2-polynomial-conservation": ExperimentSpec(
+        Path("experiments/problem2_balance/search_polynomial_conservation.py"),
+        "problem2",
+        "Search exact bounded-degree polynomial density/flux identities after quotienting representable coboundaries.",
+        "finite-exhaustive",
+        "Only the exact fields, degrees, widths, and time displacements emitted by the child.",
+        (
+            "A bounded polynomial ansatz does not exhaust conservation identities.",
+            "A conserved quantity would still require a separate link to center discrepancy.",
+        ),
+    ),
     "problem3-exact-searches": ExperimentSpec(
         Path("experiments/problem3_complexity/run_exact_searches.py"),
         "problem3",
@@ -170,6 +210,17 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         (
             "Failure to find a predictor does not prove a computational lower bound.",
             "Finite 2-kernel or recurrence evidence does not prove nonautomaticity.",
+        ),
+    ),
+    "problem3-extended-model-searches": ExperimentSpec(
+        Path("experiments/problem3_complexity/run_extended_model_searches.py"),
+        "problem3",
+        "Search bounded affine GF(2) digit-matrix models and refine a finite multiscale 2-kernel quotient.",
+        "finite-exhaustive",
+        "Only the exact finite model IDs, prefix splits, and sampled kernel nodes emitted by the child.",
+        (
+            "Failed finite models do not prove nonautomaticity.",
+            "No result establishes a universal computational lower bound.",
         ),
     ),
 }

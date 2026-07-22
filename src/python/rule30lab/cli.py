@@ -86,6 +86,13 @@ EXPERIMENT_ALLOWLIST: Mapping[str, Path] = {
     "problem1-sideways": Path(
         "experiments/problem1_nonperiodicity/run_sideways_search.py"
     ),
+    "problem1-sideways-invariants": Path(
+        "experiments/problem1_nonperiodicity/search_sideways_invariants.py"
+    ),
+    "problem1-sideways-prefix-equivalence": Path(
+        "experiments/problem1_nonperiodicity/"
+        "analyze_sideways_prefix_equivalence.py"
+    ),
     "problem2-finite-prefix": Path(
         "experiments/problem2_balance/run_finite_prefix.py"
     ),
@@ -95,8 +102,14 @@ EXPERIMENT_ALLOWLIST: Mapping[str, Path] = {
     "problem2-conservation": Path(
         "experiments/problem2_balance/search_local_conservation.py"
     ),
+    "problem2-polynomial-conservation": Path(
+        "experiments/problem2_balance/search_polynomial_conservation.py"
+    ),
     "problem3-exact-searches": Path(
         "experiments/problem3_complexity/run_exact_searches.py"
+    ),
+    "problem3-extended-model-searches": Path(
+        "experiments/problem3_complexity/run_extended_model_searches.py"
     ),
 }
 

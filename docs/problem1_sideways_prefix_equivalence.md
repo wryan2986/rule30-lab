@@ -44,8 +44,8 @@ eventually periodic description in the box `q=0..8`, `p=1..12`, `H=64`, with
 - canonical description-certificate SHA-256
   `9248bbd4d7c9aa0fb5a242a0dd088a14629a8c5cbf98d727cae03938ba3c9460`.
 
-The deterministic formatted JSON is 7,549 bytes with SHA-256
-`16c457d62aa8998174558729045246c7afb9bf9fdb4c81514ead5df6ecebdd3f`.
+The deterministic formatted JSON is 9,010 bytes with SHA-256
+`1d530a4fa8f8e7f6da7692509a6d702035785e799aa2e20be3f5f798e518ea74`.
 
 ## Research consequence
 

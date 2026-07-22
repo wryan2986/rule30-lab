@@ -325,26 +325,54 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> None:
     args = _parser().parse_args()
+    exhaustive = exhaustive_equivalence(
+        args.max_exhaustive_horizon,
+        max_traces=args.max_exhaustive_traces,
+        max_logical_cell_updates=args.max_logical_cell_updates,
+    )
+    periodic = periodic_description_prefix_search(
+        args.max_preperiod,
+        args.max_period,
+        args.periodic_horizon,
+        max_descriptions=args.max_periodic_descriptions,
+    )
     result = {
+        "schema_version": 1,
         "experiment_id": "problem1-sideways-prefix-equivalence-v1",
         "question": "problem1",
-        "status": "finite-exhaustive",
-        "proof_status": "informal-rigorous-finite-lemma",
-        "claim": (
+        "hypothesis": (
             "For equal-length finite center traces with the same c0 and zero "
             "initial right half, the first nonzero reconstructed-left depth "
             "equals the first mismatch from the zero-left reference trace."
         ),
-        "exhaustive_cross_check": exhaustive_equivalence(
-            args.max_exhaustive_horizon,
-            max_traces=args.max_exhaustive_traces,
-            max_logical_cell_updates=args.max_logical_cell_updates,
+        "backend": "python-packed-sideways-and-direct-prefix",
+        "parameters": {
+            "max_exhaustive_horizon": args.max_exhaustive_horizon,
+            "maximum_preperiod": args.max_preperiod,
+            "maximum_period": args.max_period,
+            "periodic_horizon": args.periodic_horizon,
+            "resource_limits": {
+                "max_exhaustive_traces": args.max_exhaustive_traces,
+                "max_periodic_descriptions": args.max_periodic_descriptions,
+                "max_logical_cell_updates": args.max_logical_cell_updates,
+            },
+        },
+        "status": "finite-exhaustive",
+        "proof_scope": (
+            "The computational status covers only all binary traces through "
+            f"horizon {args.max_exhaustive_horizon} and the stated finite "
+            "eventual-period box. The separate informal causal/permutivity "
+            "proof states the finite identity for arbitrary horizon."
         ),
-        "eventually_periodic_prefix_search": periodic_description_prefix_search(
-            args.max_preperiod,
-            args.max_period,
-            args.periodic_horizon,
-            max_descriptions=args.max_periodic_descriptions,
+        "result_summary": {
+            "proof_status": "informal-rigorous-finite-lemma",
+            "exhaustive_cross_check": exhaustive,
+            "eventually_periodic_prefix_search": periodic,
+        },
+        "interpretation": (
+            "Finite sideways first-witness exclusions are exact certificates, "
+            "but they contain the same information as direct trusted-prefix "
+            "comparison. The stronger entire-tail question remains open."
         ),
         "limitations": [
             "The exhaustive cross-check has a finite horizon cap.",
