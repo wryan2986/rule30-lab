@@ -26,6 +26,15 @@
   "proof_scope": "Exact empirical result for the finite prefix c_0 through c_999999 only.",
   "question": "problem2",
   "reproduction_available_from_git_commit": "9bb5e7509afeb351da35c5fbb8676a6a8646abb4",
+  "reproduction_validation": {
+    "timestamp_utc": "2026-07-22T01:32:05Z",
+    "git_commit": "eb5593e131f725bdcc4eb55d90264a52bab0ad9c",
+    "wall_seconds": 147.58,
+    "maximum_resident_set_kib": 23056,
+    "exit_status": 0,
+    "complete_payload_sha256": "7f9b8d21d584cf1fcb44c849256b3a8064763ea40a13995bc4432932b7ece680",
+    "recorded_counts_and_center_hash_matched": true
+  },
   "result_hashes": {
     "center_u8_sha256": "6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669",
     "reference_source_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
