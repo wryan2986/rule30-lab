@@ -45,10 +45,14 @@ candidates and verifies an exact arithmetic support criterion. Their JSON
 status is `finite-exhaustive`; the all-width arguments are separately stated
 in `proofs/informal/` and no analyzer proves center nonperiodicity.
 
-Reviewed controlled-run records for the defaults are stored at:
+The original controlled-run records contain machine-local operational metadata
+and are intentionally untracked. Public certificate hashes, source commits,
+direct reproduction commands, and scope statements are stored in
+[`docs/public_provenance/20260722_controlled_run_manifest.json`](../../docs/public_provenance/20260722_controlled_run_manifest.json)
+under these entries:
 
-- `results/runs/p1-period-defect-20260722.record.json`
-- `results/runs/p1-two-adic-diagonal-20260722.record.json`
-- `results/runs/p1-period-two-audit-20260722.record.json`
-- `results/runs/p1-inverse-lift-sections-20260722.record.json`
-- `results/runs/p1-period-two-quotient-20260722.record.json`
+- `p1-period-defect-20260722`
+- `p1-two-adic-diagonal-20260722`
+- `p1-period-two-audit-20260722`
+- `p1-inverse-lift-sections-20260722`
+- `p1-period-two-quotient-20260722`
