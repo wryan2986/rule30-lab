@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import importlib.util
 import itertools
 import json
 import subprocess
@@ -41,6 +43,21 @@ EXPERIMENT_SCRIPT = (
     / "problem1_nonperiodicity"
     / "run_sideways_search.py"
 )
+GRAPH_ARTIFACT_DIRECTORY = REPOSITORY_ROOT / "results" / "problem1" / "graphs"
+
+
+def _load_experiment_module():
+    specification = importlib.util.spec_from_file_location(
+        "rule30_sideways_experiment_for_test", EXPERIMENT_SCRIPT
+    )
+    assert specification is not None
+    assert specification.loader is not None
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+EXPERIMENT = _load_experiment_module()
 
 
 def _direct_sideways_oracle(center: Sequence[int]) -> tuple[bytearray, bytearray]:
@@ -143,6 +160,99 @@ def test_true_trusted_trace_reconstructs_zero_left_tail() -> None:
     reconstructed = reconstruct_left_initial(trusted[: horizon + 1])
     assert len(reconstructed) == horizon
     assert reconstructed == bytearray(horizon)
+
+
+def test_true_prefix_then_zero_traces_and_certificate_match_independent_oracle() -> None:
+    trusted = TRUSTED_CENTER.read_bytes()
+    horizon = 16
+    prefix_lengths = (1, 2, 4, 8, 16)
+    result = EXPERIMENT.search_true_prefix_then_zero(
+        trusted,
+        prefix_lengths,
+        horizon,
+        limits=SidewaysLimits(),
+    )
+
+    expected_outcomes: list[int] = []
+    for prefix_length, report in zip(prefix_lengths, result["per_prefix"]):
+        expected_trace = bytearray(horizon + 1)
+        expected_trace[:prefix_length] = trusted[:prefix_length]
+        _, expected_left = _direct_sideways_oracle(expected_trace)
+        expected_first = next(
+            (
+                depth
+                for depth, bit in enumerate(expected_left, start=1)
+                if bit
+            ),
+            None,
+        )
+        expected_outcomes.append(0 if expected_first is None else expected_first)
+
+        constructed = EXPERIMENT._trusted_prefix_then_zero_trace(
+            trusted, prefix_length, horizon
+        )
+        assert constructed == expected_trace
+        assert report["prefix_length"] == prefix_length
+        assert report["zero_tail_start_time"] == prefix_length
+        assert report["observed_zero_tail_bit_count"] == horizon + 1 - prefix_length
+        assert report["candidate_trace_sha256_u8"] == hashlib.sha256(
+            expected_trace
+        ).hexdigest()
+        assert report["first_nonzero_reconstructed_left_depth"] == expected_first
+        assert report["nonzero_reconstructed_left_bits"] == sum(expected_left)
+        assert report["reconstructed_left_sha256_u8"] == hashlib.sha256(
+            expected_left
+        ).hexdigest()
+
+    assert decode_certificate_outcomes(result["certificate"]) == tuple(
+        expected_outcomes
+    )
+    assert result["candidate_descriptions"] == len(prefix_lengths)
+    assert result["finite_exclusion_witnesses"] == sum(
+        outcome > 0 for outcome in expected_outcomes
+    )
+    assert result["no_witness_through_horizon"] == expected_outcomes.count(0)
+
+
+def test_true_prefix_then_zero_validation_and_caps_fail_closed() -> None:
+    trusted = TRUSTED_CENTER.read_bytes()
+    with pytest.raises(ValueError, match="at least one"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted, (), 8, limits=SidewaysLimits()
+        )
+    with pytest.raises(ValueError, match="strictly increasing"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted, (2, 1), 8, limits=SidewaysLimits()
+        )
+    with pytest.raises(ValueError, match="finite trace length"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted, (10,), 8, limits=SidewaysLimits()
+        )
+
+    with pytest.raises(SidewaysResourceLimitError, match="candidate count"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted,
+            (1, 2),
+            8,
+            limits=SidewaysLimits(max_candidates=1),
+        )
+    charged_work = 2 * logical_reconstruction_work(8)
+    with pytest.raises(SidewaysResourceLimitError, match="logical prefix"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted,
+            (1, 2),
+            8,
+            limits=SidewaysLimits(
+                max_logical_cell_updates=charged_work - 1
+            ),
+        )
+    with pytest.raises(SidewaysResourceLimitError, match="certificate"):
+        EXPERIMENT.search_true_prefix_then_zero(
+            trusted,
+            (1, 2),
+            8,
+            limits=SidewaysLimits(max_certificate_bytes=1),
+        )
 
 
 def test_periodic_and_eventually_periodic_generators_use_c0_first() -> None:
@@ -268,6 +378,184 @@ def test_fixed_width_graph_has_proved_finite_bound_and_deterministic_hash() -> N
         truncated_periodic_state_graph((1,), width=5, limits=limits)
 
 
+def test_explicit_graph_edges_and_hashes_match_independent_rule30_oracle() -> None:
+    limits = SidewaysLimits()
+    first = EXPERIMENT._graph_artifact_payloads(2, 3, limits)
+    second = EXPERIMENT._graph_artifact_payloads(2, 3, limits)
+    assert first["dot_bytes"] == second["dot_bytes"]
+    assert first["readme_bytes"] == second["readme_bytes"]
+    assert first["checksums_bytes"] == second["checksums_bytes"]
+
+    metadata = first["metadata"]
+    assert metadata["graph_count"] == 6
+    assert "do not establish a depth-independent" in metadata["scope_warning"]
+    assert metadata["dot_file"]["sha256"] == hashlib.sha256(
+        first["dot_bytes"]
+    ).hexdigest()
+    assert "do not establish a depth-independent" in first[
+        "readme_bytes"
+    ].decode("utf-8")
+    assert first["checksums_bytes"].decode("ascii").splitlines() == [
+        f"{hashlib.sha256(first['dot_bytes']).hexdigest()}  {first['dot_name']}",
+        f"{hashlib.sha256(first['readme_bytes']).hexdigest()}  {first['readme_name']}",
+    ]
+
+    dot_text = first["dot_bytes"].decode("utf-8")
+    assert dot_text.count(" -> ") == sum(
+        graph["edge_count"] for graph in metadata["graphs"]
+    )
+    graph_set_digest = hashlib.sha256()
+    for graph in metadata["graphs"]:
+        period = bytes(int(bit) for bit in graph["period"])
+        width = graph["width"]
+        phase_bytes = max(1, (len(period).bit_length() + 7) // 8)
+        state_bytes = max(1, (width + 7) // 8)
+        encoded = bytearray()
+        graph_index = graph["graph_index"]
+        for phase, boundary in enumerate(period):
+            next_phase = (phase + 1) % len(period)
+            for state in range(1 << width):
+                cells = [(state >> position) & 1 for position in range(width)]
+                next_state = 0
+                for position in range(width):
+                    left = boundary if position == 0 else cells[position - 1]
+                    center = cells[position]
+                    right = cells[position + 1] if position + 1 < width else 0
+                    next_state |= (left ^ (center | right)) << position
+                encoded.extend(phase.to_bytes(phase_bytes, "little"))
+                encoded.extend(state.to_bytes(state_bytes, "little"))
+                encoded.extend(next_phase.to_bytes(phase_bytes, "little"))
+                encoded.extend(next_state.to_bytes(state_bytes, "little"))
+
+                source = (
+                    f"g{graph_index:03d}_phase{phase}_state{state:0{width}b}"
+                )
+                target = (
+                    f"g{graph_index:03d}_phase{next_phase}_state"
+                    f"{next_state:0{width}b}"
+                )
+                assert f'    "{source}" -> "{target}";' in dot_text
+
+        assert graph["canonical_transition_sha256"] == hashlib.sha256(
+            encoded
+        ).hexdigest()
+        graph_set_digest.update(graph["period_length"].to_bytes(4, "little"))
+        graph_set_digest.update(graph["word_index"].to_bytes(8, "little"))
+        graph_set_digest.update(hashlib.sha256(encoded).digest())
+    assert metadata["graph_set_sha256"] == graph_set_digest.hexdigest()
+
+
+def test_graph_artifact_export_is_atomic_deterministic_and_capped(tmp_path: Path) -> None:
+    limits = SidewaysLimits()
+    expected = EXPERIMENT._graph_artifact_payloads(2, 3, limits)
+    total_bytes = (
+        len(expected["dot_bytes"])
+        + len(expected["readme_bytes"])
+        + len(expected["checksums_bytes"])
+    )
+    output_directory = tmp_path / "graphs"
+    first = EXPERIMENT.export_graph_artifacts(
+        output_directory,
+        2,
+        3,
+        limits,
+        max_artifact_bytes=total_bytes,
+    )
+    second = EXPERIMENT.export_graph_artifacts(
+        output_directory,
+        2,
+        3,
+        limits,
+        max_artifact_bytes=total_bytes,
+    )
+    assert first == second
+    assert (output_directory / expected["dot_name"]).read_bytes() == expected[
+        "dot_bytes"
+    ]
+    assert (output_directory / expected["readme_name"]).read_bytes() == expected[
+        "readme_bytes"
+    ]
+    assert (
+        output_directory / expected["checksums_name"]
+    ).read_bytes() == expected["checksums_bytes"]
+
+    refused_directory = tmp_path / "refused"
+    with pytest.raises(SidewaysResourceLimitError, match="graph artifacts require"):
+        EXPERIMENT.export_graph_artifacts(
+            refused_directory,
+            2,
+            3,
+            limits,
+            max_artifact_bytes=total_bytes - 1,
+        )
+    assert not refused_directory.exists()
+
+
+def test_generated_width_four_graph_artifacts_match_the_generator_exactly() -> None:
+    expected = EXPERIMENT._graph_artifact_payloads(3, 4, SidewaysLimits())
+    dot = (GRAPH_ARTIFACT_DIRECTORY / expected["dot_name"]).read_bytes()
+    readme = (GRAPH_ARTIFACT_DIRECTORY / expected["readme_name"]).read_bytes()
+    checksums = (
+        GRAPH_ARTIFACT_DIRECTORY / expected["checksums_name"]
+    ).read_bytes()
+    assert dot == expected["dot_bytes"]
+    assert readme == expected["readme_bytes"]
+    assert checksums == expected["checksums_bytes"]
+    assert hashlib.sha256(dot).hexdigest() == (
+        "df172879dca9235124c7af604372adc4cfa7f67cb7036e4609ea7d4cf975b252"
+    )
+    assert hashlib.sha256(readme).hexdigest() == (
+        "c76957c0942999e2ca31a5af2b9cfbe43bb6601669ceb8b4a07e0c2d7959cd6f"
+    )
+    assert hashlib.sha256(checksums).hexdigest() == (
+        "7e845ff2e9ab6480819b32c6b60eef94fafe7a38369bd6c2efd6ca2961c1728c"
+    )
+
+
+def test_json_experiment_graph_export_option_reports_written_hashes(
+    tmp_path: Path,
+) -> None:
+    output_directory = tmp_path / "cli-graphs"
+    command = (
+        sys.executable,
+        str(EXPERIMENT_SCRIPT),
+        "--horizon",
+        "8",
+        "--max-period",
+        "2",
+        "--max-preperiod",
+        "1",
+        "--eventual-max-period",
+        "2",
+        "--graph-width",
+        "3",
+        "--graph-max-period",
+        "2",
+        "--true-prefix-lengths",
+        "1,2,4,8",
+        "--export-graphs-dir",
+        str(output_directory),
+    )
+    summary = json.loads(
+        subprocess.run(command, check=True, capture_output=True, text=True).stdout
+    )
+    artifacts = summary["fixed_width_state_graphs"]["explicit_artifacts"]
+    dot_path = Path(artifacts["dot_path"])
+    readme_path = Path(artifacts["readme_path"])
+    checksums_path = Path(artifacts["checksums_path"])
+    assert dot_path.parent == output_directory
+    assert readme_path.parent == output_directory
+    assert checksums_path.parent == output_directory
+    assert artifacts["dot_sha256"] == hashlib.sha256(dot_path.read_bytes()).hexdigest()
+    assert artifacts["readme_sha256"] == hashlib.sha256(
+        readme_path.read_bytes()
+    ).hexdigest()
+    assert artifacts["checksums_sha256"] == hashlib.sha256(
+        checksums_path.read_bytes()
+    ).hexdigest()
+    assert "do not establish a depth-independent" in artifacts["scope_warning"]
+
+
 def test_json_experiment_is_deterministic_for_small_parameters() -> None:
     command = (
         sys.executable,
@@ -284,6 +572,8 @@ def test_json_experiment_is_deterministic_for_small_parameters() -> None:
         "3",
         "--graph-max-period",
         "2",
+        "--true-prefix-lengths",
+        "1,2,4,8,16",
     )
     first = subprocess.run(command, check=True, capture_output=True, text=True).stdout
     second = subprocess.run(command, check=True, capture_output=True, text=True).stdout
@@ -292,3 +582,6 @@ def test_json_experiment_is_deterministic_for_small_parameters() -> None:
     assert record["status"] == "finite-exhaustive"
     assert record["question"] == "problem1"
     assert record["trusted_trace_check"]["nonzero_reconstructed_left_bits"] == 0
+    prefix_search = record["true_prefix_then_permanent_zero_search"]
+    assert prefix_search["parameters"]["prefix_lengths"] == [1, 2, 4, 8, 16]
+    assert decode_certificate_outcomes(prefix_search["certificate"]) == (1, 3, 4, 8, 16)

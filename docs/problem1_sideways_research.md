@@ -74,10 +74,14 @@ The focused test suite establishes:
   center vector `c_0,...,c_500`;
 - hand-checked periodic and preperiod-plus-period indexing;
 - certificate encode/decode and corruption detection;
+- independent cell-by-cell verification of true-prefix/permanent-zero traces
+  and their compact first-failure certificate;
 - fail-closed horizon, candidate, logical-work, certificate-size, and graph-size
   limits;
 - direct-cell agreement for every transition of the width-5 truncated state
-  model.
+  model;
+- independent reconstruction of every exported graph edge and canonical hash,
+  byte-for-byte determinism checks, and an artifact-output cap.
 
 The engine uses a conservative logical-work ledger. For horizon \(H\), one
 reconstruction is charged
@@ -142,6 +146,52 @@ The worst-case resource ledger charged 348,982,500 logical cell updates for
 this exhaustive search. This finite box says nothing about descriptions with
 \(m>3\), \(p>5\), or a witness first appearing beyond depth 500.
 
+### True prefix followed by a permanent-zero tail
+
+This baseline makes the earlier observation precise. For a listed prefix
+length \(L\), the candidate trace is defined for all times by
+
+\[
+\tilde c_t =
+\begin{cases}
+c_t, & 0 \leq t < L,\\
+0, & t \geq L,
+\end{cases}
+\]
+
+where the retained bits come from the trusted center vector. The finite run
+uses only \(\tilde c_0,\ldots,\tilde c_{500}\) and reconstructs left depths 1
+through 500. The default explicitly tested
+
+\[
+L \in \{1,2,4,8,16,32,64,128,256\}.
+\]
+
+Exact finite results:
+
+| Retained prefix length \(L\) | First nonzero reconstructed-left depth |
+|---:|---:|
+| 1 | 1 |
+| 2 | 3 |
+| 4 | 4 |
+| 8 | 8 |
+| 16 | 16 |
+| 32 | 33 |
+| 64 | 64 |
+| 128 | 128 |
+| 256 | 256 |
+
+All nine listed candidates therefore have finite incompatibility witnesses by
+depth 500. The ordered unsigned-varint certificate has 11 bytes and SHA-256
+`0f8c7be5f70fbc5333264ca50ddbd2c06fa420c8c021e79f6cd34699f793c0d5`.
+The conservative resource ledger charged 3,377,250 logical cell updates.
+
+This does not establish that every true prefix followed by zeros is
+incompatible: prefix lengths other than the nine listed values were not part
+of this baseline, and a finite reconstruction cannot exclude a witness first
+appearing below depth 500. Each nonzero bit above is an exact certificate only
+for its one fully specified candidate trace and finite depth.
+
 ### Compact certificates
 
 Each search emits one unsigned varint in deterministic candidate order:
@@ -170,6 +220,25 @@ The experiment exhaustively builds this finite functional graph, hashes every
 edge, computes indegrees and cycles, and follows the orbit from the all-zero
 right state. The default run built all 14 word-description graphs of lengths
 1 through 3 at width 4.
+
+The explicit artifact set contains 544 deterministically ordered edges (one
+outgoing edge for each of 544 nodes) across those 14 graphs:
+
+- [`fixed_width_periods_1_to_3_width_4.dot`](../results/problem1/graphs/fixed_width_periods_1_to_3_width_4.dot),
+  31,492 bytes, SHA-256
+  `df172879dca9235124c7af604372adc4cfa7f67cb7036e4609ea7d4cf975b252`;
+- [`README.md`](../results/problem1/graphs/README.md), which records ordering,
+  encoding, per-graph transition hashes, and the scope warning, SHA-256
+  `c76957c0942999e2ca31a5af2b9cfbe43bb6601669ceb8b4a07e0c2d7959cd6f`;
+- [`SHA256SUMS`](../results/problem1/graphs/SHA256SUMS), which checks the DOT
+  and README bytes, SHA-256
+  `7e845ff2e9ab6480819b32c6b60eef94fafe7a38369bd6c2efd6ca2961c1728c`.
+
+The canonical graph-set digest, computed from ordered graph descriptors and
+their canonical binary edge streams, is
+`5afe6043b2da1a5f912bc0ddcd706ab4e1b91c24be086c96eb0fc48b1c6bb5f6`.
+The artifact directory deliberately contains no JSON side manifest: JSON files
+under `results/` are reserved for strict experiment-record envelopes.
 
 This is not a depth-independent finite-state reduction of Problem 1. Its
 outer site \(W+1\) is forced to zero at every update. Width \(W=H\) safely
@@ -203,24 +272,47 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
 sha256sum /tmp/rule30-problem1-sideways-default.json
 ```
 
-For the code and parameters recorded on 2026-07-21, the complete formatted
-JSON SHA-256 was
-`dd800415557f9d84a3f3c40892802a95298308cd793509ba1af60746885a8c4c`.
-The run took 0.79 seconds and 21,720 KiB maximum resident memory on the recorded
-WSL environment. That timing is an empirical measurement, not part of the
-mathematical result.
+The current complete formatted default JSON SHA-256 is
+`de57a4feef2f5a8fde06873824a4a5114c06f2f0f7a1fac6ae14183e17c2a6d5`.
+
+Reproduce the default true-prefix baseline and regenerate the explicit graph
+artifacts with every relevant parameter stated:
+
+```bash
+cd /home/wryan/rule30-lab
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/run_sideways_search.py \
+  --horizon 500 \
+  --max-period 10 \
+  --max-preperiod 3 \
+  --eventual-max-period 5 \
+  --true-prefix-lengths 1,2,4,8,16,32,64,128,256 \
+  --graph-width 4 \
+  --graph-max-period 3 \
+  --export-graphs-dir results/problem1/graphs \
+  > /tmp/rule30-problem1-sideways-with-graphs.json
+sha256sum /tmp/rule30-problem1-sideways-with-graphs.json
+(cd results/problem1/graphs && sha256sum -c SHA256SUMS)
+```
+
+The formatted stdout SHA-256 from that exact command is
+`9330e80258e5dc57d30e354bfd9e59f86ddc0b31c9071dcc2652a431cdc85875`.
+The command atomically replaces only the named DOT, README, and checksum files
+after checking the combined artifact-byte cap.
 
 To select a different finite box, use explicit parameters, for example:
 
 ```bash
 .venv/bin/python experiments/problem1_nonperiodicity/run_sideways_search.py \
-  --horizon 800 --max-period 11 \
+  --horizon 600 --max-period 10 \
   --max-preperiod 4 --eventual-max-period 5
 ```
 
 The command fails before enumeration if the configured candidate, logical
-work, certificate, horizon, or finite-graph bound would be exceeded. Raise a
-bound explicitly only after checking the resulting finite workload.
+work, certificate, horizon, finite-graph, or graph-artifact byte bound would be
+exceeded. Every requested true-prefix length must be positive, strictly
+increasing, and at most \(H+1\). Raise a bound explicitly only after checking
+the resulting finite workload.
 
 ## Current limitations and next theory target
 
