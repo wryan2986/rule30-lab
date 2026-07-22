@@ -106,6 +106,19 @@ The consolidated command `nice -n 10 scripts/run_quality_gates.sh` rebuilds
 and tests Python, release C++/CUDA, sanitizer-enabled C++, Rust, and Lean. On
 this canonical workstation it deliberately fails if CUDA tests are skipped.
 
+## Official references
+
+- Microsoft: [Install WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
+  and [basic WSL commands](https://learn.microsoft.com/en-us/windows/wsl/basic-commands).
+- NVIDIA: [CUDA on WSL](https://docs.nvidia.com/cuda/wsl-user-guide/index.html),
+  the [CUDA 13.3 Linux installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html),
+  and [minor-version compatibility](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-compatibility.html).
+- Python: [`venv`](https://docs.python.org/3/library/venv.html).
+- CMake: [`cmake(1)`](https://cmake.org/cmake/help/latest/manual/cmake.1.html).
+- Rust: [Install Rust](https://rust-lang.org/install.html) and the
+  [Cargo installation guide](https://doc.rust-lang.org/stable/cargo/getting-started/installation.html).
+- Lean: [official Lean installation manual](https://lean-lang.org/install/manual/).
+
 ## WSL administrative note
 
 This distribution requires an interactive password for `sudo`. The initial
