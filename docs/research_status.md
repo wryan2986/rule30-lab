@@ -1,55 +1,164 @@
 # Research status
 
-Last updated: 2026-07-21.
+Last updated: 2026-07-22 UTC.
+
+All three Rule 30 prize problems remain open in this repository. Status labels
+below use the definitions in `docs/experiment_protocol.md`.
 
 ## Verified implementation facts
 
-- The supplied reference source is preserved unmodified at a recorded hash.
-- The Windows-provided CUDA driver sees one RTX 2060 SUPER in WSL.
-- Independent reference vectors have not yet passed the required three-way
-  comparison.
+- The supplied source is preserved byte-for-byte as
+  `src/python/rule30_research_reference.py`; its SHA-256 is
+  `358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01`.
+- Complete rows through time 255 and the first 10,000 center bits were frozen
+  only after agreement among the supplied implementation, an independently
+  indexed Python cell array, C++ scalar and AVX2 engines, and independent Rust
+  coordinate and packed engines. The 10,000-byte center-vector SHA-256 is
+  `61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860`.
+- The maintained C++20 engine uses packed `uint64_t` rows with explicit
+  inter-word carries, scalar fallback, runtime-dispatched AVX2, streaming
+  output, and checkpoint statistics. Boundary, partial-word, and sanitizer
+  tests pass.
+- The Rust implementation is independent, safe, packed, deterministic, and
+  contains no unsafe code. Its native generator agrees with the shared vectors.
+- CUDA direct evolution, batched period evaluation, and batched sideways
+  reconstruction agree exactly with independent CPU oracles on the tested
+  counts, partial grids, word boundaries, and forced chunk boundaries.
+- The unified `rule30` CLI selects Python, C++ scalar/AVX2, Rust, and CUDA
+  generation backends and exposes finite analysis, bounded-search,
+  reproducibility, and controlled-experiment routes.
+- The controlled experiment runner uses an immutable script allowlist, a clean
+  source-tree precondition, repository-confined paths, child-process
+  address-space and wall limits, exact streamed output caps, process-group
+  termination, atomic checkpoints/records, and optional read-only GPU
+  telemetry. Its limitations (including per-process rather than aggregate RAM
+  control) are explicit in `docs/resource_controls.md`.
+- WSL sees the local RTX 2060 SUPER (8,192 MiB, compute capability 7.5) through
+  the Windows driver. CUDA is compiled as native `sm_75` SASS; no Linux display
+  driver or hardware-control setting was installed or changed.
 
 ## Reproduced empirical observations
 
-None yet. Previously reported counts, discrepancies, linear complexities, and
-2-kernel prefix results remain unverified claims.
+- For `c_0` through `c_999999`, Python and C++ AVX2 independently produced the
+  same 1,000,000-byte file with SHA-256
+  `6fc1e4e2abfb382255b94955467f259be88c1044d09ec361c5039970985a1669`:
+  500,768 ones, 499,232 zeros, and `D(1,000,000)=1,536`.
+- The reported discrepancy checkpoints were reproduced exactly:
+  `D(100)=4`, `D(1,000)=-38`, `D(10,000)=64`,
+  `D(100,000)=196`, and `D(1,000,000)=1,536`.
+- The reported binary linear complexities were reproduced:
+  `L(1,000)=500`, `L(2,000)=1,000`, and `L(5,000)=2,500`.
+- The reported 64-bit 2-kernel prefixes were all distinct at levels 1 through
+  9. The same finite diagnostic was extended through level 13, where all
+  8,192 sampled residue-class prefixes were still distinct.
+- On the million-bit prefix, the greatest absolute prefix discrepancy was
+  1,744, first reached at `N=964,778`; there were 500,571 runs and the longest
+  run had length 22. A six-checkpoint log-log slope estimate was approximately
+  0.5205. That fit is `heuristic`, not an asymptotic bound.
+- The finite spectral, block, run, entropy, dyadic-discrepancy, and selected
+  correlation measurements are descriptive only. They do not establish
+  randomness, normality, mixing, or limiting balance.
 
 ## Finite exhaustive results
 
-None yet.
+- At sideways horizon 500, all 2,046 binary descriptions of pure periods 1
+  through 10 were checked. The only trace sequence reconstructing an all-zero
+  finite left tail was the constant-zero trace (represented redundantly by ten
+  words), and none of the survivors satisfied the seed condition `c_0=1`.
+- For preperiods 0 through 3 and periods 1 through 5, all 930 descriptions were
+  checked at horizon 500. The 20 zero-left survivors again described only the
+  constant-zero trace; none satisfied `c_0=1`.
+- For retained true-center prefix lengths
+  `1,2,4,8,16,32,64,128,256` followed by a permanent-zero tail, exact
+  sideways reconstruction through depth 500 found first nonzero initial-left
+  depths `1,3,4,8,16,33,64,128,256`, respectively. This is nine finite
+  candidate exclusions, not a statement about all prefix lengths.
+- Fourteen fixed-width, zero-outer-boundary functional graphs covering every
+  binary word description of lengths 1 through 3 at width 4 were explicitly
+  exported as 544 deterministic DOT edges with checksums. These graphs do not
+  provide a state bound independent of reconstruction depth.
+- All 5,898 labeled complete DFAOs with one through three states under the
+  recorded MSB-first binary-input convention were tested; none fit the 5,000
+  training bits.
+- All 4,096 canonical homogeneous GF(2) recurrences through order 12 were
+  tested; none fit the 5,000 training bits. Autonomous Boolean suffix-window
+  rules of widths 1 through 12 each have an explicit repeated-context conflict.
+- A depth-5 finite 2-kernel fingerprint quotient had 63 sampled classes but
+  failed closure at depth 6. This excludes only that finite quotient
+  construction.
+- Exact linear systems over both the rationals and GF(2) found no nontrivial
+  member of the tested additive local conservation-law ansatz at widths 1
+  through 5. A Rule 204 positive control verified the search machinery.
+
+Every item in this section is exhaustive only for its stated finite set. None
+is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
+complexity result.
 
 ## Partial mathematical results
 
-- `partial-proof`: the center sequence cannot be eventually constant one. The
-  local identity forces the adjacent-left column eventually zero, which would
-  make the width-two trace eventually constant; Kopra's Corollary 3.7 (a modern
-  route to Jen's width-two theorem) excludes this for Rule 30 and the
-  single-cell seed. The exact theorem, hypotheses, deduction, and citations are
-  recorded in `docs/theory_literature_review.md`. This does not exclude an
-  all-zero tail or any period greater than one.
+- `partial-proof`: the center sequence cannot be eventually constant one. If
+  `c_t=c_(t+1)=1`, the Rule 30 identity forces the adjacent-left bit at time
+  `t` to be zero. An all-one center tail would therefore make the adjacent
+  width-two trace eventually constant, contradicting Kopra's Corollary 3.7
+  (equivalently the applicable Jen result). The theorem hypotheses and exact
+  deduction are checked in `docs/theory_literature_review.md`.
+- Lean 4, without `sorry`, user axioms, or reported axiom dependencies, proves
+  the Rule 30 Boolean form, left-permutive inversion, correctness of one
+  sideways step, bounded column/pair/triangle reconstruction, and the local
+  and infinite-tail implication that consecutive true center values force the
+  adjacent-left values false. The external width-two theorem is not formalized.
+
+These results do not exclude an all-zero tail, any period greater than one, or
+eventual periodicity in general.
 
 ## Active conjectures
 
+- Any eventually periodic center trace compatible with the single-cell right
+  half reconstructs an initial left half that is not eventually zero.
 - The center sequence is not eventually periodic.
 - Its limiting one-frequency exists and equals one half.
-- The exact complexity question requires several separate formalizations; no
-  lower-bound conjecture is adopted without a fixed model.
+- There may be a sublinear exact representation of `c_n`, but no model is
+  favored; the three published Problem 3 formulations remain separate.
 
 ## Failed approaches
 
-None recorded yet.
+- Direct evolution of one history on CUDA was substantially slower than the
+  packed CPU at 32,768 bits because 32,767 dependent kernel launches dominate.
+- The bounded rational/GF(2) local-observable ansatz at widths 1 through 5
+  produced only the identified trivial/coboundary space.
+- The bounded DFAO, homogeneous GF(2), Boolean-window, and finite 2-kernel
+  searches above found no exact finite-prefix model in their stated classes.
+- A Berlekamp--Massey recurrence trained on 5,000 bits had order 2,500 and
+  first failed held-out validation at `n=5,003`.
+- Small fixed-width sideways state graphs did not justify a state bound
+  independent of reconstruction depth, so they cannot yet be promoted to a
+  finite-state proof.
+- NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
+  this WSL configuration. CUDA correctness tests still pass, but this is not a
+  successful memcheck result.
 
 ## Open questions
 
-- Which exact published theorem, if any, discharges the width-two deduction?
-- Can periodic-boundary sideways reconstruction be represented with a bounded
-  state independent of reconstruction depth?
-- Which precise Problem 3 formulation is intended by each published source?
+- Can sideways reconstruction under an eventually periodic boundary be
+  summarized by a rigorously depth-independent invariant or finite state?
+- Can the width-two nonperiodicity theorem be combined with a new local lemma
+  to exclude center periods other than the all-one tail?
+- Does a wider or nonlinear spacetime observable yield a telescoping identity
+  controlling center discrepancy?
+- Which exact Problem 3 formulation would the prize committee accept, and in
+  which machine model and input convention?
+- Are there exact morphic, algebraic, circuit, transducer, or compressed
+  spacetime representations outside the bounded classes already tested?
 
 ## Potential next experiments
 
-1. Freeze hand-derived rows and independently generated vectors.
-2. Reproduce the million-bit discrepancy checkpoints.
-3. Exhaust pure periods through 10 with an independently tested reconstruction.
-4. Extend 2-kernel prefix diagnostics with held-out lengths.
-5. Benchmark scalar cell-array versus packed row evolution before GPU work.
+1. Search for a depth-independent invariant of periodic-boundary sideways
+   reconstruction and turn small-period failures into symbolic certificates.
+2. Use the CUDA batch engine to extend preperiod/period/horizon boxes while
+   retaining only compact incompatibility witnesses and exact coverage data.
+3. Extend conservation/telescoping searches to larger radii, polynomial
+   observables, and SAT/SMT formulations with independently checked witnesses.
+4. Run checkpointed multi-million-bit discrepancy and dyadic scaling studies
+   under the idle resource profile, without interpreting them as a proof.
+5. Enlarge exact automaton, transducer, recurrence, and 2-kernel searches with
+   strict training/held-out separation and active counterexample discovery.
