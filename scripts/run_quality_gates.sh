@@ -22,6 +22,20 @@ cmake --fresh -S . -B "${build_root}/release" -G Ninja \
 nice -n 10 cmake --build "${build_root}/release" --parallel "${build_jobs}"
 nice -n 10 ctest --test-dir "${build_root}/release" --output-on-failure
 
+# CTest's SKIP_RETURN_CODE=77 is useful on machines without CUDA, but this
+# repository's canonical workstation has a known RTX 2060 SUPER.  Run every
+# GPU contract directly as well so a missing/inaccessible device is a hard
+# failure here rather than a successful skip.
+cuda_build="${build_root}/release/src/cuda"
+nice -n 10 "${cuda_build}/rule30_cuda_probe"
+nice -n 10 "${cuda_build}/tests/rule30_cuda_tests"
+nice -n 10 "${cuda_build}/tests/rule30_cuda_evolution_tests"
+nice -n 10 "${cuda_build}/tests/rule30_cuda_sideways_tests"
+nice -n 10 "${cuda_build}/tests/rule30_cuda_generate_contract_tests" \
+  gpu \
+  "${cuda_build}/rule30_cuda_generate" \
+  "${repository_root}/tests/reference_vectors/center_c00000000_c00009999.u8"
+
 cmake --fresh -S . -B "${build_root}/sanitized" -G Ninja \
   -DCMAKE_BUILD_TYPE=Debug \
   -DRULE30_ENABLE_AVX2=ON \
