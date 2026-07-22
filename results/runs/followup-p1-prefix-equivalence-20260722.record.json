@@ -1,0 +1,179 @@
+{
+  "backend": "controlled-runner:python-packed-sideways-and-direct-prefix",
+  "experiment_id": "followup-p1-prefix-equivalence-20260722",
+  "git_commit": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "this local WSL/Linux instance only",
+    "gpu_telemetry": {
+      "enabled": false,
+      "note": "GPU state was not queried and no GPU setting was changed.",
+      "queried": false
+    },
+    "hardware_settings_changed": false,
+    "hostname": "WrightPc",
+    "kernel": "6.6.114.1-microsoft-standard-WSL2",
+    "linux_memory_total_bytes": 16730128384,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "For equal-length finite center traces with the same c0 and zero initial right half, the first nonzero reconstructed-left depth equals the first mismatch from the zero-left reference trace.",
+  "interpretation": "The allowlisted local child completed successfully; captured bytes and the parsed finite-scope JSON are identified by deterministic SHA-256 hashes.",
+  "limitations": [
+    "The computational cross-check does not prove the horizon-independent lemma.",
+    "The finite lemma does not establish center nonperiodicity.",
+    "The exhaustive cross-check has a finite horizon cap.",
+    "The universal finite lemma does not imply center nonperiodicity.",
+    "A first reconstructed one proves only that a proposal differs from the trusted prefix.",
+    "Nothing here proves that a reconstructed left tail has infinitely many nonzero cells.",
+    "No finite computation in this run proves an infinite Rule 30 statement.",
+    "The checkpoint records runner capture state only; this child does not support mid-script continuation and resume restarts it from the beginning.",
+    "NVIDIA telemetry, when enabled, is global device telemetry and is not attributed exclusively to this child."
+  ],
+  "parameters": {
+    "allowlisted_experiment": "problem1-sideways-prefix-equivalence",
+    "child_arguments": [],
+    "child_argv": [
+      "/home/wryan/rule30-lab/.venv/bin/python",
+      "-I",
+      "/home/wryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_sideways_prefix_equivalence.py"
+    ],
+    "execution_policy": {
+      "linux_address_space_limit_applied_in_child": true,
+      "local_only": true,
+      "shell": false,
+      "stdin": "devnull",
+      "worker_environment_limit": 1
+    },
+    "resource_limits": {
+      "cpu_workers": 1,
+      "disk_reserve_bytes": 10737418240,
+      "gpu_abort_temperature_c": 84,
+      "gpu_memory_bytes": 4294967296,
+      "gpu_pause_temperature_c": 78,
+      "output_bytes": 33554432,
+      "profile": "interactive",
+      "progress_seconds": 10.0,
+      "ram_bytes": 2147483648,
+      "wall_seconds": 180.0
+    },
+    "resume": null,
+    "resume_semantics": {
+      "child_continuation_supported": false,
+      "mode": "restart-child-from-beginning"
+    },
+    "stderr_cap_bytes": 1048576,
+    "stdout_cap_bytes": 8388608,
+    "telemetry_enabled": false,
+    "telemetry_seconds": 5.0,
+    "termination_grace_seconds": 3.0
+  },
+  "proof_scope": "The computational status covers only all binary traces through horizon 16 and the stated finite eventual-period box. The separate informal causal/permutivity proof states the finite identity for arbitrary horizon.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_child_json_sha256": "67e25afadf3f39a31cd7fd54c92d4c21bcdb8a04b498992faac38ce77765dcc6",
+    "child_script_sha256_after": "adb963d46a2c355d95ff0e35e2ccbb617b826ecd5ef28ee206625cb21bc09b39",
+    "child_script_sha256_before": "adb963d46a2c355d95ff0e35e2ccbb617b826ecd5ef28ee206625cb21bc09b39",
+    "logical_argv_sha256": "3aeb4601aea9c6cc3a8b38c144ab3a6a35f6fb3e58783509a8a2eab510dcd5a0",
+    "runner_module_sha256": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_sha256_after": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "1d530a4fa8f8e7f6da7692509a6d702035785e799aa2e20be3f5f798e518ea74"
+  },
+  "result_summary": {
+    "artifacts": {
+      "checkpoint": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.checkpoint.state",
+      "record": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.record.json",
+      "stderr": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.stderr.log",
+      "stdout": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.stdout.data"
+    },
+    "child_json_valid": true,
+    "child_metadata": {
+      "backend": "python-packed-sideways-and-direct-prefix",
+      "experiment_id": "problem1-sideways-prefix-equivalence-v1",
+      "hypothesis": "For equal-length finite center traces with the same c0 and zero initial right half, the first nonzero reconstructed-left depth equals the first mismatch from the zero-left reference trace.",
+      "interpretation": "Finite sideways first-witness exclusions are exact certificates, but they contain the same information as direct trusted-prefix comparison. The stronger entire-tail question remains open.",
+      "limitations": [
+        "The exhaustive cross-check has a finite horizon cap.",
+        "The universal finite lemma does not imply center nonperiodicity.",
+        "A first reconstructed one proves only that a proposal differs from the trusted prefix.",
+        "Nothing here proves that a reconstructed left tail has infinitely many nonzero cells."
+      ],
+      "proof_scope": "The computational status covers only all binary traces through horizon 16 and the stated finite eventual-period box. The separate informal causal/permutivity proof states the finite identity for arbitrary horizon.",
+      "question": "problem1",
+      "schema_version": 1,
+      "scientific_payload_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ],
+      "status": "finite-exhaustive",
+      "top_level_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status"
+      ]
+    },
+    "child_returncode": 0,
+    "outcome": "success",
+    "reason": null,
+    "stderr": {
+      "bytes_captured": 0,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.stderr.log",
+      "sha256_captured": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "truncated_by_cap": false
+    },
+    "stdout": {
+      "bytes_captured": 9010,
+      "cap_bytes": 8388608,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/followup-p1-prefix-equivalence-20260722.stdout.data",
+      "sha256_captured": "1d530a4fa8f8e7f6da7692509a6d702035785e799aa2e20be3f5f798e518ea74",
+      "truncated_by_cap": false
+    }
+  },
+  "runtime_seconds": 4.627487833000032,
+  "software": {
+    "child_script": "experiments/problem1_nonperiodicity/analyze_sideways_prefix_equivalence.py",
+    "child_script_sha256_after": "adb963d46a2c355d95ff0e35e2ccbb617b826ecd5ef28ee206625cb21bc09b39",
+    "child_script_sha256_before": "adb963d46a2c355d95ff0e35e2ccbb617b826ecd5ef28ee206625cb21bc09b39",
+    "child_script_unchanged_during_run": true,
+    "git_commit": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+    "git_commit_after": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+    "git_commit_unchanged_during_run": true,
+    "provenance_policy": "all tracked and non-ignored untracked Git worktree entries were required to be clean before the child was launched",
+    "python_executable": "/home/wryan/rule30-lab/.venv/bin/python",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4",
+    "repository_clean_after_run": true,
+    "repository_clean_before_run": true,
+    "runner": "rule30lab.controlled_runner",
+    "runner_module_sha256": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_sha256_after": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_unchanged_during_run": true,
+    "runner_schema_version": 1
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T09:52:42.008372Z"
+}

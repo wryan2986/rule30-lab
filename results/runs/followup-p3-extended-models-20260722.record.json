@@ -1,0 +1,185 @@
+{
+  "backend": "controlled-runner:python",
+  "experiment_id": "followup-p3-extended-models-20260722",
+  "git_commit": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+  "hardware": {
+    "cpu_model": "AMD Ryzen 5 3600 6-Core Processor",
+    "execution_scope": "this local WSL/Linux instance only",
+    "gpu_telemetry": {
+      "enabled": false,
+      "note": "GPU state was not queried and no GPU setting was changed.",
+      "queried": false
+    },
+    "hardware_settings_changed": false,
+    "hostname": "WrightPc",
+    "kernel": "6.6.114.1-microsoft-standard-WSL2",
+    "linux_memory_total_bytes": 16730128384,
+    "logical_cpu_count": 12,
+    "machine": "x86_64",
+    "remote_compute_used": false
+  },
+  "hypothesis": "Determine whether any explicitly bounded affine GF(2) binary-digit matrix product fits the Rule 30 center prefix, and whether a deeper multiscale finite 2-kernel partition closes under child transitions.",
+  "interpretation": "The allowlisted local child completed successfully; captured bytes and the parsed finite-scope JSON are identified by deterministic SHA-256 hashes.",
+  "limitations": [
+    "Failed finite models do not prove nonautomaticity.",
+    "No result establishes a universal computational lower bound.",
+    "no finite search proves nonautomaticity",
+    "no failed model search proves another exact representation absent",
+    "finite held-out agreement does not establish an identity for all n",
+    "finite 2-kernel classes need not persist at greater depth",
+    "no result establishes an o(n) algorithm or an Omega(n) lower bound",
+    "No finite computation in this run proves an infinite Rule 30 statement.",
+    "The checkpoint records runner capture state only; this child does not support mid-script continuation and resume restarts it from the beginning.",
+    "NVIDIA telemetry, when enabled, is global device telemetry and is not attributed exclusively to this child."
+  ],
+  "parameters": {
+    "allowlisted_experiment": "problem3-extended-model-searches",
+    "child_arguments": [],
+    "child_argv": [
+      "/home/wryan/rule30-lab/.venv/bin/python",
+      "-I",
+      "/home/wryan/rule30-lab/experiments/problem3_complexity/run_extended_model_searches.py"
+    ],
+    "execution_policy": {
+      "linux_address_space_limit_applied_in_child": true,
+      "local_only": true,
+      "shell": false,
+      "stdin": "devnull",
+      "worker_environment_limit": 1
+    },
+    "resource_limits": {
+      "cpu_workers": 1,
+      "disk_reserve_bytes": 10737418240,
+      "gpu_abort_temperature_c": 84,
+      "gpu_memory_bytes": 4294967296,
+      "gpu_pause_temperature_c": 78,
+      "output_bytes": 33554432,
+      "profile": "interactive",
+      "progress_seconds": 10.0,
+      "ram_bytes": 2147483648,
+      "wall_seconds": 180.0
+    },
+    "resume": null,
+    "resume_semantics": {
+      "child_continuation_supported": false,
+      "mode": "restart-child-from-beginning"
+    },
+    "stderr_cap_bytes": 1048576,
+    "stdout_cap_bytes": 8388608,
+    "telemetry_enabled": false,
+    "telemetry_seconds": 5.0,
+    "termination_grace_seconds": 3.0
+  },
+  "proof_scope": "only the exact reported finite model-ID ranges, finite prefix comparisons, and finite 2-kernel partition/closure checks",
+  "question": "problem3",
+  "result_hashes": {
+    "canonical_child_json_sha256": "dd18b82643202576b973da95c1069baf8943d3cf0e55c8362ac29f640913a7e1",
+    "child_script_sha256_after": "78c7dd330b0c1fe55a387c02f8aae997becdf841271f747c14990330b292e1b3",
+    "child_script_sha256_before": "78c7dd330b0c1fe55a387c02f8aae997becdf841271f747c14990330b292e1b3",
+    "logical_argv_sha256": "7f2a3aa36c6252c8db9fafaf4820c3289849141469a61c8f08dc32674a6b65cb",
+    "runner_module_sha256": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_sha256_after": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "84fd11a8f8443d2481f5ea7b4a2941a3d8fb00ecd8ad40f4a510b49e969ebcd3"
+  },
+  "result_summary": {
+    "artifacts": {
+      "checkpoint": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.checkpoint.state",
+      "record": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.record.json",
+      "stderr": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.stderr.log",
+      "stdout": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.stdout.data"
+    },
+    "child_json_valid": true,
+    "child_metadata": {
+      "backend": "python",
+      "experiment_id": "problem3-extended-exact-model-searches-v1",
+      "hypothesis": "Determine whether any explicitly bounded affine GF(2) binary-digit matrix product fits the Rule 30 center prefix, and whether a deeper multiscale finite 2-kernel partition closes under child transitions.",
+      "interpretation": "The pilot is a counterexample-localization control, while the longer split is the substantive bounded affine search. No outcome proves or refutes automaticity or a complexity lower bound.",
+      "limitations": [
+        "no finite search proves nonautomaticity",
+        "no failed model search proves another exact representation absent",
+        "finite held-out agreement does not establish an identity for all n",
+        "finite 2-kernel classes need not persist at greater depth",
+        "no result establishes an o(n) algorithm or an Omega(n) lower bound"
+      ],
+      "proof_scope": "only the exact reported finite model-ID ranges, finite prefix comparisons, and finite 2-kernel partition/closure checks",
+      "question": "problem3",
+      "schema_version": 1,
+      "scientific_payload_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "input",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status",
+        "training_validation_protocol"
+      ],
+      "status": "finite-exhaustive",
+      "top_level_keys": [
+        "backend",
+        "experiment_id",
+        "hypothesis",
+        "input",
+        "interpretation",
+        "limitations",
+        "parameters",
+        "proof_scope",
+        "question",
+        "result_summary",
+        "schema_version",
+        "status",
+        "training_validation_protocol"
+      ]
+    },
+    "child_returncode": 0,
+    "outcome": "success",
+    "reason": null,
+    "stderr": {
+      "bytes_captured": 0,
+      "cap_bytes": 1048576,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.stderr.log",
+      "sha256_captured": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "truncated_by_cap": false
+    },
+    "stdout": {
+      "bytes_captured": 238006,
+      "cap_bytes": 8388608,
+      "capture_finalized": true,
+      "child_stream_eof_observed": true,
+      "destination": "/home/wryan/rule30-lab/results/runs/followup-p3-extended-models-20260722.stdout.data",
+      "sha256_captured": "84fd11a8f8443d2481f5ea7b4a2941a3d8fb00ecd8ad40f4a510b49e969ebcd3",
+      "truncated_by_cap": false
+    }
+  },
+  "runtime_seconds": 2.2882195490001322,
+  "software": {
+    "child_script": "experiments/problem3_complexity/run_extended_model_searches.py",
+    "child_script_sha256_after": "78c7dd330b0c1fe55a387c02f8aae997becdf841271f747c14990330b292e1b3",
+    "child_script_sha256_before": "78c7dd330b0c1fe55a387c02f8aae997becdf841271f747c14990330b292e1b3",
+    "child_script_unchanged_during_run": true,
+    "git_commit": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+    "git_commit_after": "3ed0e98e0f2854d6c08c60a3179a83064460bbb5",
+    "git_commit_unchanged_during_run": true,
+    "provenance_policy": "all tracked and non-ignored untracked Git worktree entries were required to be clean before the child was launched",
+    "python_executable": "/home/wryan/rule30-lab/.venv/bin/python",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4",
+    "repository_clean_after_run": true,
+    "repository_clean_before_run": true,
+    "runner": "rule30lab.controlled_runner",
+    "runner_module_sha256": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_sha256_after": "c372c81c7280f2467bd7f33825c28b008bbf4dd15efe1dd2bc139dda073a0fba",
+    "runner_module_unchanged_during_run": true,
+    "runner_schema_version": 1
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T09:52:39.948819Z"
+}
