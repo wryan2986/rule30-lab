@@ -42,16 +42,69 @@ CUDA 13.x minor-version compatibility range (`>= 580`); compiling explicit
 
 ## Project-local toolchains
 
-Python:
+Run every command below from `/home/wryan/rule30-lab`. The operating-system
+build prerequisites used by this checkout are Git, Python 3 with `venv`, GCC
+and G++, CMake, Ninja, GNU Make, Clang 21, `rustup`, and `elan`. Their detected
+versions are recorded in `results/environment/environment_report.md`.
+
+Create the pinned Python environment from the lock file:
 
 ```bash
 python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[dev,analysis]'
+.venv/bin/python -m pip install -e . --no-deps
+.venv/bin/python -m pip install -r requirements-dev.lock
 ```
 
-Rust and Lean downloads are stored below ignored `.toolchains/` directories.
-The pinned versions are in `rust-toolchain.toml` and
-`proofs/lean/lean-toolchain`.
+Bootstrap the pinned Rust toolchain without changing a global shell profile:
+
+```bash
+export RUSTUP_HOME="$PWD/.toolchains/rustup"
+export CARGO_HOME="$PWD/.toolchains/cargo"
+rustup toolchain install 1.97.1 --profile minimal \
+  --component clippy --component rustfmt
+cargo --version
+```
+
+Bootstrap Lean 4 and Lake in a project-local `ELAN_HOME`:
+
+```bash
+export ELAN_HOME="$PWD/.toolchains/elan"
+export PATH="$ELAN_HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+elan toolchain install leanprover/lean4:v4.30.0
+cd proofs/lean
+lake build
+cd ../..
+```
+
+The pinned versions are also declared by `rust-toolchain.toml` and
+`proofs/lean/lean-toolchain`. `.venv/` and `.toolchains/` are ignored and can
+be recreated from the tracked files.
+
+## Build commands
+
+C++ and CUDA release build targeting the detected Turing GPU:
+
+```bash
+cmake --fresh -S . -B /tmp/rule30-lab-release -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \
+  -DRULE30_ENABLE_CUDA=ON
+nice -n 10 cmake --build /tmp/rule30-lab-release --parallel 2
+ctest --test-dir /tmp/rule30-lab-release --output-on-failure
+```
+
+Rust release binaries:
+
+```bash
+env RUSTUP_HOME="$PWD/.toolchains/rustup" \
+  CARGO_HOME="$PWD/.toolchains/cargo" \
+  CARGO_TARGET_DIR=/tmp/rule30-lab-rust \
+  cargo build --offline --locked --release -p rule30-core --bins
+```
+
+The consolidated command `nice -n 10 scripts/run_quality_gates.sh` rebuilds
+and tests Python, release C++/CUDA, sanitizer-enabled C++, Rust, and Lean. On
+this canonical workstation it deliberately fails if CUDA tests are skipped.
 
 ## WSL administrative note
 

@@ -80,5 +80,11 @@ Result: 11 new packages, two shared CUDA config packages upgraded, 106 MB
 downloaded, and 436 MB installed. No Linux display or kernel driver was
 installed. `/usr/local/cuda` now selects `/usr/local/cuda-13.3`. A clean CMake
 compiler-ID build succeeded with nvcc 13.3.73, GCC 15.2, and architecture 75.
-The earlier 13.1 packages remain side-by-side temporarily for an auditable
-setup history; they are not selected by the CUDA alternative.
+The earlier 13.1 packages remain installed side-by-side for an auditable setup
+history, but they are not selected by `/usr/local/cuda`, CMake, the quality
+gates, or any documented command. They consume disk space only and do not load
+a Linux display driver. They were not removed automatically because package
+removal is a system-level destructive change outside the repository and the
+owner did not separately authorize that cleanup. Their exact installed package
+set is retained in this log so removal can be reviewed explicitly after the
+research handoff.
