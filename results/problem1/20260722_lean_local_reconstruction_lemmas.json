@@ -1,0 +1,55 @@
+{
+  "backend": "lean4-kernel",
+  "command": "env ELAN_HOME=.toolchains/elan PATH=.toolchains/elan/bin:$PATH lake build",
+  "experiment_id": "problem1-lean-local-reconstruction-lemmas-20260722T003648Z",
+  "git_commit": "adc51f99d89dde23d70de8395d095eb7a800f005",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "gpu_used": false
+  },
+  "hypothesis": "The stated local inversion, bounded triangular reconstruction, finite true-interval, and all-one-tail implications follow from the formal Rule 30 Boolean definition.",
+  "interpretation": "Lean's kernel accepted all listed theorem terms, and `#print axioms` reported no axiom dependencies for the reconstruction and finite/local tail theorems. These are rigorous proofs of their exact formal statements, not a proof that the Rule 30 center is nonperiodic.",
+  "limitations": [
+    "The bounded reconstruction theorem assumes boundary columns from a genuine Rule 30 strip.",
+    "No arbitrary-trace compatibility theorem is proved.",
+    "The width-two literature theorem is not formalized or imported.",
+    "The all-one-tail implication alone does not prove that such a tail is impossible.",
+    "No prize problem is solved by these local and bounded lemmas."
+  ],
+  "parameters": {
+    "boolean_rule": "left.xor (center || right)",
+    "proof_file": "proofs/lean/Rule30.lean",
+    "spatial_models": ["Int-indexed spacetime", "Nat-indexed right-to-left strip"]
+  },
+  "proof_scope": "Lean-kernel proofs of the named Boolean, local, finite triangular-region, finite-interval, and infinite-tail implication statements exactly as declared in Rule30.lean.",
+  "question": "problem1",
+  "result_hashes": {
+    "lake_manifest_sha256": "86bdd4a51225cdf9f9ee235decb53650026247867cb0d15a6bebdab8ddacd4f0",
+    "rule30_lean_sha256": "682c4e6187cf8971aa4055dea0d5c6cc6241c609cac6b33c5c2b223244453feb"
+  },
+  "result_summary": {
+    "axiom_dependencies": [],
+    "build_completed": true,
+    "theorems": [
+      "leftPermutiveInversion",
+      "sidewaysStep_recovers_left",
+      "localUpdate_sidewaysStep",
+      "true_center_true_next_forces_left_false",
+      "sidewaysColumn_of_evolution",
+      "reconstructionPair_bounded_correct",
+      "reconstructLeft_bounded_correct",
+      "consecutive_true_values_force_adjacent_left_false",
+      "true_closed_interval_forces_left_false_on_halfOpen_interval",
+      "true_tail_forces_adjacent_left_false_tail"
+    ]
+  },
+  "runtime_seconds": 3.7,
+  "software": {
+    "lake": "5.0.0",
+    "lean": "4.30.0",
+    "toolchain": "project-local elan",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "rigorous-proof",
+  "timestamp_utc": "2026-07-22T00:36:48.074701Z"
+}
