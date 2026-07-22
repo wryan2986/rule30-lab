@@ -80,6 +80,45 @@ def test_section_recurrence_matches_independent_inverse_exhaustively() -> None:
             assert module.diagonal_map_cell_array(recursive, width) == trace
 
 
+def test_exact_first_base_four_states_and_modulo_four_obstruction() -> None:
+    schedule = ("T",)
+    postcomposition: tuple[str, ...] = ()
+    for trace_bit in (1, 0):
+        first, schedule = module.advance_section_schedule(
+            schedule, trace_bit, maximum_period=64
+        )
+        postcomposition = module._inverse_word_section(
+            postcomposition, trace_bit
+        ) + (module._INVERSE_NAME[first],)
+    assert postcomposition == ("p", "u")
+    assert schedule == ("P", "U")
+
+    for trace_bit in (1, 0):
+        first, schedule = module.advance_section_schedule(
+            schedule, trace_bit, maximum_period=64
+        )
+        postcomposition = module._inverse_word_section(
+            postcomposition, trace_bit
+        ) + (module._INVERSE_NAME[first],)
+    assert postcomposition == ("u", "p", "p", "t")
+    assert schedule == ("U", "P", "P", "T")
+
+    p_squared = ("p", "p")
+    for low_bit in (0, 1):
+        assert module._inverse_word_root(p_squared, low_bit) == low_bit
+        first_section = module._inverse_word_section(p_squared, low_bit)
+        for high_bit in (0, 1):
+            assert module._inverse_word_root(first_section, high_bit) == high_bit
+
+    identity_11: tuple[str, ...] = ()
+    p_squared_11 = p_squared
+    for bit in (1, 1):
+        identity_11 = module._inverse_word_section(identity_11, bit)
+        p_squared_11 = module._inverse_word_section(p_squared_11, bit)
+    assert module._inverse_word_root(identity_11, 0) == 0
+    assert module._inverse_word_root(p_squared_11, 0) == 1
+
+
 def test_small_campaign_is_deterministic_and_fails_closed() -> None:
     arguments = {
         "maximum_width": 5,

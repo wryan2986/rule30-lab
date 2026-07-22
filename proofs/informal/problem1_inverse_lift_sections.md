@@ -173,7 +173,124 @@ recurrence implemented by
 Its accumulated map is represented as a composition of `{t,p,u}`; the
 section formulas above make every transition exact.
 
-## 4. The diagonal map is not finite-state
+## 4. Exact base-4 renormalization for the alternating trace
+
+Let
+
+\[
+A=-\frac13=1+4A,
+\]
+
+whose low-first temporal digits repeat the block `10`. For a schedule
+`W`, write `G_W=Delta_W^(-1)` and
+
+\[
+F_{H,W}=H\circ G_W.
+\]
+
+Let `rho(H)` be the root flip of `H`, and let `H_v` be its section at the
+input word `v`. Process one complete temporal block, first `1` and then `0`.
+All three forward maps have section `P` at input one, so the first transition
+appends `p=P^(-1)`. Applying the composition-section rule at the second bit
+then gives the exact block transition
+
+\[
+\boxed{H^+=H_{11}\,p\,q(W),}
+\]
+
+where composition is written outermost to innermost and
+
+\[
+q(W)=
+\begin{cases}
+u,&W_0=T,\\
+t,&W_0\in\{P,U\}.
+\end{cases}
+\]
+
+The new periodic schedule `W^+` is obtained by applying the exact one-bit
+schedule transition first at input one and then at input zero. Denote the
+combined state transition by
+
+\[
+\mathcal R(H,W)=(H^+,W^+).
+\]
+
+The two emitted spatial bits depend on `H` as
+
+\[
+\boxed{
+\beta(H)=
+(1\mathbin\oplus\rho(H))
++2(1\mathbin\oplus\rho(H_1)).
+}
+\]
+
+Because removing the temporal block `10` leaves `A` again, this proves the
+base-4 renormalization
+
+\[
+\boxed{
+F_{H,W}(A)=\beta(H)+4F_{\mathcal R(H,W)}(A).
+}
+\]
+
+Starting from `Q_0=(id,T^infinity)` and writing
+`Q_m=R^m(Q_0)`, the first two exact states are
+
+\[
+Q_1=(pu,(P,U)^\infty),
+\qquad
+Q_2=(uppt,(U,P,P,T)^\infty).
+\]
+
+Consequently, for `S=G_T(A)`,
+
+\[
+S=3+4\,pu\,G_{(P,U)^\infty}(A)
+\]
+
+and
+
+\[
+S=7+16\,uppt\,G_{(U,P,P,T)^\infty}(A).
+\]
+
+The temporal block repeats, but the inverse state does not.
+
+This also reformulates the dyadic endpoint conjecture exactly. Base-4 block
+`2^(k-1)-1` contains bit `2^k-1` as its high bit, so
+
+\[
+\boxed{
+\operatorname{bit}_{2^k-1}(S)
+=1\mathbin\oplus\rho((H_{2^{k-1}-1})_1).
+}
+\]
+
+An induction must therefore control the root activity of a selected section
+after `2^(k-1)` further applications of `R`. Each block transition replaces
+`H` by `H_11` before appending two known generators. Determining the state
+directly through depth `d` after `M` more blocks consequently calls for a
+portrait of the current `H` whose depth grows with `2M`; the changing schedule
+supplies an additional state. Group relations or a quotient could conceivably
+compress this information, but no closed quotient retaining the displayed
+root activity is known.
+
+A concrete fixed-depth obstruction is available. The identity automorphism
+and `p^2` act identically modulo four, but
+
+\[
+\rho((\mathrm{id})_{11})=0,
+\qquad
+\rho((p^2)_{11})=1.
+\]
+
+Indeed, `(p^2)_1=pu` and `(pu)_1=pt`, whose root action is a flip. Thus the
+modulo-four action of the accumulated automorphism cannot determine even the
+next depth-two-section activity required by the block recurrence.
+
+## 5. The diagonal map is not finite-state
 
 The iterated even identity gives an exact theorem, not merely a finite
 diagnostic. The tree section of `Delta_T` along the input word consisting of
@@ -202,7 +319,7 @@ finite-state either. This rules out a universal finite section family for the
 diagonal or inverse-diagonal map. It does not rule out a smaller quotient
 tailored to one periodic input word.
 
-## 5. What the period-two control shows
+## 6. What the period-two control shows
 
 For the pure alternating trace with low-first digits `1010...`, the bounded
 default audit follows this exact recurrence through 16 input bits. The
@@ -287,7 +404,7 @@ scale, so it escapes every fixed recovered prefix. The theorem therefore
 does not supply the missing endpoint induction. See Eric Rowland,
 [“Local Nested Structure in Rule 30”](https://doi.org/10.25088/ComplexSystems.16.3.239).
 
-## 6. Proof consequence
+## 7. Proof consequence
 
 The desired finite-support statement has become an exact transducer-output
 question: for an eventually periodic temporal input beginning with one, show

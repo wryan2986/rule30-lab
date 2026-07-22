@@ -348,3 +348,11 @@ fails at `n=5` because `s_5=s_11=0`, and copying (or copied-complementing)
 the width-two extension predicts 5 (or 10) for the width-four extension,
 whose actual value is 12. No closed renormalized state for the endpoint law
 has yet been identified.
+
+The exact base-4 reformulation sharpens that limitation. Every repeated
+temporal block `10` replaces the accumulated automorphism by a section at
+`11` and changes its schedule. A fixed low-bit action cannot retain enough
+information: the identity and `p^2` act identically modulo four, but their
+`11`-sections have root activities zero and one. Accordingly, the new block
+recurrence is a theorem, while closure of any period-two quotient remains an
+explicit missing premise.

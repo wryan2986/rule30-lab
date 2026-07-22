@@ -155,6 +155,16 @@ below use the definitions in `docs/experiment_protocol.md`.
   `1..256` in its final 1,024 samples. Certificate:
   `c152c25a32269dccfb2711e9e4efffcdf9a4313c3a2227bd08cefbebfc1208cf`;
   strict record: `results/runs/p1-period-two-audit-20260722.record.json`.
+- The inverse-lift section campaign exhausted 2,046 quotient points through
+  width 10 with three inverse oracles and 4,352 bounded continuation checks.
+  On the alternating control, the exact section schedule reached period 256
+  at depth 16 and all 17 six-bit section fingerprints were distinct. The
+  capped 256-bit endpoint probe found
+  `s_(2^k-1)=k mod 2` for exactly `1<=k<=8`; two simpler induction rules were
+  refuted inside the same prefix. Certificate:
+  `9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d`;
+  strict record:
+  `results/runs/p1-inverse-lift-sections-20260722.record.json`.
 
 Every item in this section is exhaustive only for its stated finite set. None
 is an infinite nonperiodicity, nonautomaticity, recurrence, balance, or
@@ -208,7 +218,10 @@ complexity result.
   section of `Delta` along `j` zero input bits is `Delta circ T^j`; these are
   pairwise distinct because `T^j(1)` has highest set bit `2j`. Therefore both
   `Delta` and `Delta^(-1)` have infinitely many tree sections and are not
-  universal finite-state tree automorphisms. See
+  universal finite-state tree automorphisms. For the alternating trace, the
+  same recurrence groups exactly into base-4 blocks via
+  `F_(H,W)(-1/3) = beta(H) + 4 F_(R(H,W))(-1/3)`; the transition consumes the
+  depth-two section `H_11` and changes the periodic schedule. See
   `proofs/informal/problem1_inverse_lift_sections.md`.
 
 These results do not exclude any period greater than one or eventual

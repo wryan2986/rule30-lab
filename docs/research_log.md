@@ -149,3 +149,18 @@ inside the corresponding JSON records.
   already fail in that prefix; these results do not exclude eventual period
   two. The next admitted target is a proved period-specific quotient, not a
   larger universal section search.
+- The strict inverse-lift run on clean source commit
+  `d9d1e8b085c408052e25c8b677164392b35d2056` completed in 1.280146 seconds.
+  It exhausted 2,046 quotient points and 4,352 continuation checks; its
+  stdout SHA-256
+  `f2c1510a14f2bc6a1bb379b8f759b81847eec65b4adb230fe6fb36010ed876fb`
+  reproduced exactly on an immediate direct rerun. The scientific
+  certificate is
+  `9c8e07018c54eb0271ab62fa90733ab91fdc2aa5c16d2d0509db339b1feb619d`.
+- A final symbolic pass used `-1/3=1+4(-1/3)` to group the inverse recurrence
+  into exact two-bit blocks. The resulting base-4 transition replaces the
+  accumulated map by a depth-two section and changes the periodic schedule.
+  It reformulates the dyadic endpoint conjecture exactly but does not close
+  an induction; even maps acting identically modulo four can have different
+  required depth-two-section activity. The final Python gate passed all 303
+  tests, including exact first-block and fixed-depth-obstruction regressions.
