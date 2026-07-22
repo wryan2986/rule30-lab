@@ -130,6 +130,19 @@ def test_resume_state_binds_all_scientific_configuration() -> None:
         )
 
 
+def test_checkpoint_path_requires_the_ignored_restart_suffix() -> None:
+    accepted = campaign.validate_checkpoint_path(
+        REPOSITORY_ROOT / "results/runs/example.checkpoint.state"
+    )
+    assert accepted.name == "example.checkpoint.state"
+    for path in (
+        REPOSITORY_ROOT / "results/runs/example.state",
+        REPOSITORY_ROOT / "results/problem2/example.checkpoint.state",
+    ):
+        with pytest.raises(campaign.CampaignError, match="checkpoint.state"):
+            campaign.validate_checkpoint_path(path)
+
+
 def test_fit_is_explicitly_heuristic_or_inconclusive() -> None:
     fit = campaign.discrepancy_fit(
         [

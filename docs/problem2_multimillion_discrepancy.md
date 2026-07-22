@@ -28,7 +28,7 @@ nice -n 10 .venv/bin/python \
   experiments/problem2_balance/run_multimillion_discrepancy.py \
   --cpp-executable /tmp/rule30-followup-build/src/cpp/rule30_cpp \
   --counts 1000000,2000000,4000000 \
-  --checkpoint-state results/runs/p2-multimillion-1m-2m-4m.state \
+  --checkpoint-state results/runs/p2-multimillion-1m-2m-4m.checkpoint.state \
   --record results/problem2/p2-multimillion-1m-2m-4m.json \
   --experiment-id p2-multimillion-1m-2m-4m \
   --timeout-seconds 300
@@ -37,6 +37,13 @@ nice -n 10 .venv/bin/python \
 If interrupted after one or more horizons, rerun the exact command with
 `--resume`. Checkpointing is between complete evolutions; it does not serialize
 and resume the middle of one Rule 30 history.
+
+The required `.checkpoint.state` suffix is covered by the repository ignore
+rule. This prevents the runner's own restart artifact from invalidating its
+post-run clean-tree provenance check. Top-level runtime is the sum of retained
+native subprocess elapsed times, including horizons completed before a resume;
+finalization and failed-publication overhead are reported separately or
+excluded explicitly.
 
 The record labels exact integer observations at the stated horizons and an
 overlap consistency classification. A log-log fit is labeled `heuristic`.

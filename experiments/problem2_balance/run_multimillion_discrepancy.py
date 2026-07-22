@@ -289,6 +289,19 @@ def validate_resume_state(
     return [dict(item) for item in completed]
 
 
+def validate_checkpoint_path(path: Path) -> Path:
+    resolved = path.resolve()
+    runs_root = (REPOSITORY_ROOT / "results" / "runs").resolve()
+    if resolved.parent != runs_root or not resolved.name.endswith(
+        ".checkpoint.state"
+    ):
+        raise CampaignError(
+            "checkpoint state must be directly under results/runs and end "
+            "with .checkpoint.state so it remains an ignored restart artifact"
+        )
+    return resolved
+
+
 def _git(arguments: Sequence[str]) -> bytes:
     environment = {
         "PATH": "/usr/bin:/bin",
@@ -427,10 +440,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     executable = args.cpp_executable.resolve(strict=True)
     if not executable.is_file() or not os.access(executable, os.X_OK):
         raise CampaignError("C++ executable must be an executable regular file")
-    checkpoint_path = args.checkpoint_state.resolve()
-    runs_root = (REPOSITORY_ROOT / "results" / "runs").resolve()
-    if checkpoint_path.parent != runs_root or checkpoint_path.suffix != ".state":
-        raise CampaignError("checkpoint state must be directly under results/runs")
+    checkpoint_path = validate_checkpoint_path(args.checkpoint_state)
     record_path = args.record.resolve()
     result_root = (REPOSITORY_ROOT / "results" / "problem2").resolve()
     if record_path.parent != result_root or record_path.suffix != ".json":
@@ -519,7 +529,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise CampaignError("repository provenance changed during the campaign")
     if file_sha256(executable) != executable_hash:
         raise CampaignError("native executable changed during the campaign")
-    runtime_seconds = time.monotonic() - campaign_start
+    finalization_invocation_seconds = time.monotonic() - campaign_start
+    runtime_seconds = math.fsum(
+        float(run["runtime_seconds"]) for run in completed_runs
+    )
     checkpoint_hash = file_sha256(checkpoint_path)
     timestamp = datetime.now(timezone.utc).isoformat(timespec="microseconds").replace(
         "+00:00", "Z"
@@ -554,6 +567,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             "script": str(SCRIPT_RELATIVE_PATH),
             "repository_clean_before_and_after": True,
             "script_matches_head": True,
+            "runtime_scope": (
+                "sum of native subprocess elapsed times retained across "
+                "checkpoint/resume attempts"
+            ),
+            "finalization_invocation_seconds": finalization_invocation_seconds,
         },
         "runtime_seconds": runtime_seconds,
         "result_hashes": {
@@ -577,6 +595,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         + [
             "native executable hashes and a clean source tree are provenance evidence, not build attestation",
             "checkpointing is between independent complete evolutions, not within a single evolution",
+            "top-level runtime sums native subprocess times and excludes failed-publication and orchestration overhead",
         ],
     }
     atomic_write_json(record_path, record)
