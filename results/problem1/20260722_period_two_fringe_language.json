@@ -1,0 +1,95 @@
+{
+  "backend": "python-exact-boolean-light-cones",
+  "experiment_id": "problem1-period-two-fringe-language-20260722T203642Z",
+  "git_commit": "584da0126cb4467c7ccb6a25c09cfc36dd81d7b6",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_available_to_container": 5,
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 111660
+  },
+  "hypothesis": "The period-two moving-fringe schedule obeys exact translation-invariant local language constraints that reduce the compatible zero-survivor set below the unrestricted schedule Cantor coding.",
+  "interpretation": "The actual auxiliary schedule is a bounded-gap aperiodic point of a strict subshift, and its zero survivor lies in a 2-adic subset of Hausdorff dimension at most about 0.275732. This is a structural restriction, not a finite-support exclusion.",
+  "limitations": [
+    "the dimension bound does not exclude isolated ordinary integers",
+    "short forbidden words do not determine the complete moving-fringe schedule language",
+    "the bounded language campaign does not prove the actual survivor has infinite support",
+    "the result does not exclude eventual center period two",
+    "the result does not prove Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_dependency_bits": 20,
+    "maximum_word_length": 10
+  },
+  "proof_scope": "The dependency-cone, self-trace, forbidden-word, width-two aperiodicity, and dimension deductions are stated in proofs/informal/problem1_period_two_fringe_language.md. The analyzer exhausts the finite Boolean cones used by the local deductions.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "044ba9cb5e37a733e01fa8c90d2477cb8eceb888d055397fd95d5627ed4d2618",
+    "deterministic_stdout_sha256": "eb8eb9eee941b0f8c53f0f76464f7ef4384271c6b855bad4679416cda65f6cf3",
+    "informal_proof_sha256": "552641834fc15a1378791ccd4d24d7b9d195a3b94505d33e987cdadf5df09091",
+    "scientific_certificate_sha256": "1f19ab4ecf3cf9c9a86f016bdafe23a31f84db4eff7b0c90fc5620d10d76a552",
+    "test_source_sha256": "63b6f433964cbf1cb4e3a1228866013144f062849a2c3b62287f935d277ed9c2"
+  },
+  "result_summary": {
+    "certificate_sha256": "1f19ab4ecf3cf9c9a86f016bdafe23a31f84db4eff7b0c90fc5620d10d76a552",
+    "exact_conclusions": {
+      "bounded_gaps": "every valid moving-fringe schedule avoids uu, ttttt, and ututtu; in particular u recurs with gaps between two and five",
+      "dimension_bound": "the corresponding survivor subset has 2-adic Hausdorff dimension at most log(lambda)/log(4), where lambda^3=lambda^2+1",
+      "self_trace": "under an alternating center, the branch-u indicator is exactly the even-time trace of cell -2"
+    },
+    "packed_map_crosscheck": {
+      "all_checks_pass": true,
+      "input_bits": 12,
+      "states_checked": 4096
+    },
+    "self_trace_identity": {
+      "adjacent_pair_trace": "[-1,0] equals (1,1) at time 2m and (1-1[q_m=u],0) at time 2m+1",
+      "all_checks_pass": true,
+      "exact_identity": "1[q_m=u] = x_-2(2m)",
+      "valid_local_assignments": [
+        {"branch": "t", "x_minus_1_even": 1, "x_minus_1_odd": 1, "x_minus_2_even": 0, "x_plus_1_even": 0, "x_plus_1_odd": 0, "x_plus_2_even": 1},
+        {"branch": "t", "x_minus_1_even": 1, "x_minus_1_odd": 1, "x_minus_2_even": 0, "x_plus_1_even": 1, "x_plus_1_odd": 0, "x_plus_2_even": 0},
+        {"branch": "t", "x_minus_1_even": 1, "x_minus_1_odd": 1, "x_minus_2_even": 0, "x_plus_1_even": 1, "x_plus_1_odd": 0, "x_plus_2_even": 1},
+        {"branch": "u", "x_minus_1_even": 1, "x_minus_1_odd": 0, "x_minus_2_even": 1, "x_plus_1_even": 0, "x_plus_1_odd": 1, "x_plus_2_even": 0}
+      ]
+    },
+    "sft_dimension_bound": {
+      "adjacency_characteristic_factor": "lambda^3-lambda^2-1",
+      "all_checks_pass": true,
+      "dominant_root": 1.4655712318767682,
+      "forbidden_words": ["uu", "ttttt", "ututtu"],
+      "survivor_2adic_dimension_upper_bound": 0.2757315448727979,
+      "topological_entropy_nats_per_branch": 0.38224508584003575
+    },
+    "trace_language": {
+      "all_checks_pass": true,
+      "all_scale_forbidden_words": ["uu", "ttttt", "ututtu"],
+      "gap_consequence": "successive u positions are separated by 2, 3, 4, or 5 blocks",
+      "initial_fringe_states_checked": 1048576,
+      "largest_dependency_bits": 20,
+      "levels": [
+        {"dependency_bits": 2, "language": ["t", "u"], "length": 1, "missing_words": 0, "realized_words": 2, "total_words": 2},
+        {"dependency_bits": 4, "language": ["tt", "tu", "ut"], "length": 2, "missing_words": 1, "realized_words": 3, "total_words": 4},
+        {"dependency_bits": 6, "language": ["ttt", "ttu", "tut", "utt", "utu"], "length": 3, "missing_words": 3, "realized_words": 5, "total_words": 8},
+        {"dependency_bits": 8, "language": ["tttt", "tttu", "ttut", "tutt", "tutu", "uttt", "uttu", "utut"], "length": 4, "missing_words": 8, "realized_words": 8, "total_words": 16},
+        {"dependency_bits": 10, "language": ["ttttu", "tttut", "ttutt", "ttutu", "tuttt", "tuttu", "tutut", "utttt", "utttu", "uttut", "ututt", "ututu"], "length": 5, "missing_words": 20, "realized_words": 12, "total_words": 32},
+        {"dependency_bits": 12, "language": ["ttttut", "tttutt", "tttutu", "ttuttt", "ttuttu", "ttutut", "tutttt", "tutttu", "tuttut", "tututt", "tututu", "uttttu", "utttut", "uttutt", "uttutu", "ututtt", "ututut"], "length": 6, "missing_words": 47, "realized_words": 17, "total_words": 64},
+        {"dependency_bits": 14, "language": null, "length": 7, "missing_words": 103, "realized_words": 25, "total_words": 128},
+        {"dependency_bits": 16, "language": null, "length": 8, "missing_words": 220, "realized_words": 36, "total_words": 256},
+        {"dependency_bits": 18, "language": null, "length": 9, "missing_words": 463, "realized_words": 49, "total_words": 512},
+        {"dependency_bits": 20, "language": null, "length": 10, "missing_words": 959, "realized_words": 65, "total_words": 1024}
+      ],
+      "maximum_length": 10
+    }
+  },
+  "runtime_seconds": 4.41,
+  "software": {
+    "algorithm": "complete Boolean dependency-cone enumeration and graph-directed entropy bound",
+    "kernel": "Linux 6.12.13 x86_64",
+    "python": "3.13.5"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T20:36:42Z"
+}
