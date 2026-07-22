@@ -1,0 +1,76 @@
+{
+  "backend": "python-exact-2adic-quotients",
+  "experiment_id": "problem1-period-two-2adic-zero-countermodels-20260722T181501Z",
+  "git_commit": "69adb86b5aeaa977ab81990843653a809a0006ad",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_available_to_container": 5,
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 110356
+  },
+  "hypothesis": "The partial period-two zero-streak map admits exact rational 2-adic fixed points, so low-residue dynamics alone cannot prove termination on finite-support states.",
+  "interpretation": "Any successful period-two exclusion must use eventual-zero binary support or mismatch with the actual moving-fringe schedule. It cannot follow from the partial zero-streak map on the full 2-adic state space alone.",
+  "limitations": [
+    "the fixed points are infinite-support 2-adic states, not finite integers",
+    "finite truncations shadow but do not remain on the fixed orbit forever",
+    "the actual period-two schedule is not constant t or constant u",
+    "the result does not construct a Rule 30 finite-seed counterexample",
+    "the result does not exclude eventual center period two",
+    "the result does not prove Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "absolute_maximum_width": 256,
+    "maximum_width": 64
+  },
+  "proof_scope": "The rational identities, branch uniqueness, and two-bit loss of 2-adic agreement are proved in proofs/informal/problem1_period_two_2adic_zero_countermodels.md. Finite quotients and ordinary truncations are regression checks.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "9e577223115f1a0e3dc16bf7c3d133f7544aaa1620104ac382f650f8400d4848",
+    "deterministic_stdout_sha256": "87c2b49987b4fd9663b6571d37a6eab73f7d711bba406ccc1f36c0deadcfae24",
+    "informal_proof_sha256": "b683a1cbc7f30239afbe507ac71985a078f7cbaee3d7ae8df99474739cf2b248",
+    "scientific_certificate_sha256": "c0d0de786dbffcdf6ed60b223ec6712f72c114129954921c9cf298ccd772f2b2",
+    "test_source_sha256": "f8099f1cb37929dd6c6c5ef608b8cfb9d264c942ed2513e5540789a1a28dee53"
+  },
+  "result_summary": {
+    "certificate_sha256": "c0d0de786dbffcdf6ed60b223ec6712f72c114129954921c9cf298ccd772f2b2",
+    "complete_deterministic_output_sha256": "87c2b49987b4fd9663b6571d37a6eab73f7d711bba406ccc1f36c0deadcfae24",
+    "exact_conclusions": [
+      "x=5/3 is the unique 2-adic fixed point in the constant-u branch cylinder x=7 mod 16",
+      "x=1/3 is the unique 2-adic fixed point in the constant-t branch cylinder x=11 mod 16",
+      "same-branch 2-adic agreement loses exactly two bits per zero step",
+      "finite truncations therefore shadow either fixed point for at least floor((N-4)/2)+1 zero steps",
+      "the partial integer map alone cannot support a uniform finite zero-run bound"
+    ],
+    "finite_truncation_samples": {
+      "t-branch fixed point": [
+        {"finite_residue": 11, "guaranteed_branch_prefix": "t", "guaranteed_zero_steps": 1, "observed_zero_steps": 1, "width": 4},
+        {"finite_residue": 171, "guaranteed_branch_prefix": "ttt", "guaranteed_zero_steps": 3, "observed_zero_steps": 3, "width": 8},
+        {"finite_residue": 43691, "guaranteed_branch_prefix": "ttttttt", "guaranteed_zero_steps": 7, "observed_zero_steps": 7, "width": 16},
+        {"finite_residue": 2863311531, "guaranteed_branch_prefix": "ttttttttttttttt", "guaranteed_zero_steps": 15, "observed_zero_steps": 15, "width": 32},
+        {"finite_residue": 12297829382473034411, "guaranteed_branch_prefix": "ttttttttttttttttttttttttttttttt", "guaranteed_zero_steps": 31, "observed_zero_steps": 31, "width": 64}
+      ],
+      "u-branch fixed point": [
+        {"finite_residue": 7, "guaranteed_branch_prefix": "u", "guaranteed_zero_steps": 1, "observed_zero_steps": 2, "width": 4},
+        {"finite_residue": 87, "guaranteed_branch_prefix": "uuu", "guaranteed_zero_steps": 3, "observed_zero_steps": 4, "width": 8},
+        {"finite_residue": 21847, "guaranteed_branch_prefix": "uuuuuuu", "guaranteed_zero_steps": 7, "observed_zero_steps": 8, "width": 16},
+        {"finite_residue": 1431655767, "guaranteed_branch_prefix": "uuuuuuuuuuuuuuu", "guaranteed_zero_steps": 15, "observed_zero_steps": 16, "width": 32},
+        {"finite_residue": 6148914691236517207, "guaranteed_branch_prefix": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu", "guaranteed_zero_steps": 31, "observed_zero_steps": 32, "width": 64}
+      ]
+    },
+    "finite_truncation_shadowing_formula": "at least floor((N-4)/2)+1 constant-branch zero steps",
+    "fixed_points": [
+      {"all_checks_pass": true, "denominator": 3, "name": "u-branch fixed point", "numerator": 5, "q_name": "u", "quotient_checks": 61, "quotient_widths_checked": [4, 64], "required_residue_mod_16": 7, "tail_denominator": 3, "tail_numerator": -1},
+      {"all_checks_pass": true, "denominator": 3, "name": "t-branch fixed point", "numerator": 1, "q_name": "t", "quotient_checks": 61, "quotient_widths_checked": [4, 64], "required_residue_mod_16": 11, "tail_denominator": 3, "tail_numerator": -2}
+    ]
+  },
+  "runtime_seconds": 0.52,
+  "software": {
+    "algorithm": "exact rational 2-adic quotient checks and finite truncation shadowing",
+    "kernel": "Linux 6.12.13 x86_64",
+    "python": "3.13.5"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T18:15:01Z"
+}
