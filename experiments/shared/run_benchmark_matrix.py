@@ -62,7 +62,7 @@ HARD_MAX_TIMEOUT_SECONDS = 300.0
 HARD_MAX_CAPTURE_BYTES = 16 * 1024 * 1024
 HARD_MAX_INPUT_BYTES = 1024 * 1024
 HARD_MAX_BINARY_BYTES = 512 * 1024 * 1024
-POST_KILL_DRAIN_SECONDS = 1.0
+POST_KILL_DRAIN_SECONDS = 0.25
 RSS_MARKER = "__RULE30_TARGET_MAX_RSS_KIB__="
 
 
@@ -111,6 +111,16 @@ def _file_sha256(path: Path, *, maximum_bytes: int) -> tuple[int, str]:
     if observed != size:
         raise MatrixError(f"file {path} changed size while it was hashed")
     return observed, digest.hexdigest()
+
+
+def _read_bounded_file(path: Path, *, maximum_bytes: int, name: str) -> bytes:
+    with path.open("rb") as stream:
+        data = stream.read(maximum_bytes + 1)
+    if len(data) > maximum_bytes:
+        raise MatrixError(
+            f"{name} exceeds the {maximum_bytes}-byte input cap"
+        )
+    return data
 
 
 def _positive_integer(text: str) -> int:
@@ -897,9 +907,61 @@ def benchmark_deterministic_json(
     if command.name == "statistics-existing-prefix":
         observed_count = input_record.get("count")
         observed_hash = input_record.get("sha256_u8")
+        expected_parameters = {
+            "checkpoints": [10, 100, 1000, 10000],
+            "block_widths": [1, 2, 3, 4, 5, 6, 7, 8],
+            "lags": [1, 2, 3, 4, 5, 8, 16, 32, 64, 128],
+            "linear_prefixes": [1000, 2000, 5000],
+            "approximate_entropy_pattern_lengths": [1, 2, 3, 4, 5, 6],
+            "dyadic_widths": [64, 256, 1024, 4096],
+            "max_table_entries": 1048576,
+            "max_block_width": 64,
+            "spectral": False,
+            "spectral_top_k": 8,
+        }
+        if parsed["parameters"] != expected_parameters:
+            raise MatrixError("statistics JSON parameters differ from the pinned contract")
     elif command.name == "bounded-predictor-search":
+        if len(expected_input) != 5000:
+            raise MatrixError("predictor benchmark requires exactly 5000 trusted bits")
         observed_count = input_record.get("used_bit_count")
         observed_hash = input_record.get("sha256_used_u8")
+        expected_parameters = {
+            "limit_bits": 5000,
+            "train_length": 2500,
+            "max_reported_errors": 8,
+            "dfao": {
+                "min_states": 1,
+                "max_states": 3,
+                "start_state": None,
+                "start_model_id": 0,
+                "max_models": 100000,
+                "max_state_count_cap": 16,
+            },
+            "two_kernel": {
+                "depth": 4,
+                "fingerprint_length": 64,
+                "max_nodes": 131071,
+                "max_fingerprint_bytes": 67108864,
+            },
+            "gf2": {
+                "max_order": 12,
+                "start_candidate_id": 0,
+                "max_candidates": 1000000,
+                "max_order_cap": 64,
+            },
+            "boolean_recurrence": {
+                "min_window": 1,
+                "max_window": 12,
+                "start_window": None,
+                "start_completion_id": 0,
+                "max_completions": 1000000,
+                "max_unseen_contexts": 20,
+                "max_table_entries": 1048576,
+            },
+        }
+        if parsed["parameters"] != expected_parameters:
+            raise MatrixError("predictor JSON parameters differ from the pinned contract")
         protocol = parsed.get("training_validation_protocol")
         completion = parsed["result_summary"].get("completion")
         if not isinstance(protocol, dict) or not isinstance(completion, dict):
@@ -908,6 +970,20 @@ def benchmark_deterministic_json(
             )
         if completion.get("all_requested_searches_completed") is not True:
             raise MatrixError("bounded predictor search did not complete every request")
+        expected_protocol = {
+            "training": {"start": 0, "stop": 2500},
+            "held_out": {"start": 2500, "stop": 5000},
+            "leakage_control": (
+                "all models and deterministic enumeration choices are fixed from "
+                "training bits before held-out bits are inspected"
+            ),
+            "deterministic_seed": 0,
+            "randomness_used": False,
+        }
+        if protocol != expected_protocol:
+            raise MatrixError("predictor training/held-out protocol differs from contract")
+        if not completion or any(value is not True for value in completion.values()):
+            raise MatrixError("one or more bounded predictor components did not complete")
     else:
         raise MatrixError(f"no semantic JSON contract for {command.name}")
     if observed_count != len(expected_input) or observed_hash != expected_hash:
@@ -1487,6 +1563,21 @@ def run_matrix(args: argparse.Namespace) -> dict[str, Any]:
         else _resolved_directory(args.rust_build_directory, name="Rust build directory")
     )
     if args.output is not None:
+        missing_tools = [
+            label
+            for key, label in (
+                ("cxx_compiler", "C++ compiler"),
+                ("rustc_executable", "rustc"),
+                ("cargo_executable", "Cargo"),
+                ("nvcc_executable", "nvcc"),
+            )
+            if optional_executables[key] is None
+        ]
+        if missing_tools:
+            raise MatrixError(
+                "persistent output requires explicit compiler tools: "
+                + ", ".join(missing_tools)
+            )
         if (
             cpp_build_directory is None
             or cuda_build_directory is None
@@ -1511,22 +1602,19 @@ def run_matrix(args: argparse.Namespace) -> dict[str, Any]:
         raise MatrixError(
             "persistent output requires the repository canonical trusted prefix"
         )
-    trusted_size = trusted_prefix.stat().st_size
-    if trusted_size > HARD_MAX_INPUT_BYTES:
-        raise MatrixError(
-            f"trusted prefix has {trusted_size} bytes; cap is {HARD_MAX_INPUT_BYTES}"
-        )
-    trusted_bits = trusted_prefix.read_bytes()
-    if len(trusted_bits) != trusted_size:
-        raise MatrixError("trusted prefix changed size while it was read")
+    trusted_bits = _read_bounded_file(
+        trusted_prefix,
+        maximum_bytes=HARD_MAX_INPUT_BYTES,
+        name="trusted prefix",
+    )
     _validate_numeric_bits(trusted_bits, len(trusted_bits), name="trusted prefix")
     if args.count > len(trusted_bits):
         raise MatrixError(
             f"count {args.count} exceeds trusted prefix length {len(trusted_bits)}"
         )
-    if len(trusted_bits) < 5_000:
+    if len(trusted_bits) < 10_000:
         raise MatrixError(
-            "trusted prefix must contain at least 5000 bits for the predictor workload"
+            "trusted prefix must contain at least 10000 bits for fixed statistics checkpoints"
         )
 
     environment = _environment()
@@ -1630,6 +1718,53 @@ def run_matrix(args: argparse.Namespace) -> dict[str, Any]:
     }
     if executable_metadata_after != executable_metadata_before:
         raise MatrixError("one or more benchmark executables changed during the run")
+    provenance_after = git_provenance(
+        git_executable=git_executable,
+        runner=runner,
+        environment=environment,
+    )
+    trusted_bits_after = _read_bounded_file(
+        trusted_prefix,
+        maximum_bytes=HARD_MAX_INPUT_BYTES,
+        name="trusted prefix",
+    )
+    provenance_stable = (
+        provenance_after["head_commit"] == provenance["head_commit"]
+        and provenance_after["script_sha256"] == provenance["script_sha256"]
+        and provenance_after["relevant_head_tree_ids"]
+        == provenance["relevant_head_tree_ids"]
+        and trusted_bits_after == trusted_bits
+    )
+    if args.output is not None and (
+        not provenance_stable
+        or not provenance_after["persistent_record_eligible"]
+    ):
+        raise MatrixError(
+            "source commit, worktree, relevant Git trees, benchmark script, or "
+            "trusted vector changed during the benchmark"
+        )
+    provenance["post_benchmark_verification"] = {
+        "head_commit": provenance_after["head_commit"],
+        "script_sha256": provenance_after["script_sha256"],
+        "worktree_clean": provenance_after["worktree_clean_before_benchmark"],
+        "relevant_head_tree_ids": provenance_after["relevant_head_tree_ids"],
+        "trusted_prefix_sha256": _sha256(trusted_bits_after),
+        "all_required_provenance_stable": provenance_stable,
+    }
+
+    cpp_build_info = cmake_build_metadata(cpp_build_directory)
+    cuda_build_info = cmake_build_metadata(cuda_build_directory)
+    if args.output is not None:
+        for name, metadata in (
+            ("C++", cpp_build_info),
+            ("CUDA", cuda_build_info),
+        ):
+            if not metadata.get("available") or not metadata.get(
+                "target_compile_commands"
+            ):
+                raise MatrixError(
+                    f"persistent output requires retained {name} compile commands"
+                )
 
     software: dict[str, Any] = {
         "platform": platform.platform(),
@@ -1651,8 +1786,8 @@ def run_matrix(args: argparse.Namespace) -> dict[str, Any]:
                 environment=environment,
             ),
         },
-        "cpp_build": cmake_build_metadata(cpp_build_directory),
-        "cuda_build": cmake_build_metadata(cuda_build_directory),
+        "cpp_build": cpp_build_info,
+        "cuda_build": cuda_build_info,
         "rust_release_profile": {
             "source": str(REPOSITORY_ROOT / "Cargo.toml"),
             "build_directory": (

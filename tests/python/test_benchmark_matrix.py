@@ -5,6 +5,7 @@ import json
 import math
 import subprocess
 import sys
+import time
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 
@@ -228,14 +229,65 @@ def test_deterministic_json_workload_is_repeated_and_hashed() -> None:
         "question": "problem3",
         "hypothesis": "bounded fixture",
         "backend": "python",
-        "parameters": {},
+        "parameters": {
+            "limit_bits": 5000,
+            "train_length": 2500,
+            "max_reported_errors": 8,
+            "dfao": {
+                "min_states": 1,
+                "max_states": 3,
+                "start_state": None,
+                "start_model_id": 0,
+                "max_models": 100000,
+                "max_state_count_cap": 16,
+            },
+            "two_kernel": {
+                "depth": 4,
+                "fingerprint_length": 64,
+                "max_nodes": 131071,
+                "max_fingerprint_bytes": 67108864,
+            },
+            "gf2": {
+                "max_order": 12,
+                "start_candidate_id": 0,
+                "max_candidates": 1000000,
+                "max_order_cap": 64,
+            },
+            "boolean_recurrence": {
+                "min_window": 1,
+                "max_window": 12,
+                "start_window": None,
+                "start_completion_id": 0,
+                "max_completions": 1000000,
+                "max_unseen_contexts": 20,
+                "max_table_entries": 1048576,
+            },
+        },
         "status": "finite-exhaustive",
         "input": {
-            "used_bit_count": 64,
-            "sha256_used_u8": hashlib.sha256(bytes(64)).hexdigest(),
+            "used_bit_count": 5000,
+            "sha256_used_u8": hashlib.sha256(bytes(5000)).hexdigest(),
         },
-        "training_validation_protocol": {"training": [0, 32], "held_out": [32, 64]},
-        "result_summary": {"completion": {"all_requested_searches_completed": True}},
+        "training_validation_protocol": {
+            "training": {"start": 0, "stop": 2500},
+            "held_out": {"start": 2500, "stop": 5000},
+            "leakage_control": (
+                "all models and deterministic enumeration choices are fixed from "
+                "training bits before held-out bits are inspected"
+            ),
+            "deterministic_seed": 0,
+            "randomness_used": False,
+        },
+        "result_summary": {
+            "completion": {
+                "all_requested_searches_completed": True,
+                "berlekamp_massey_candidate_checked": True,
+                "boolean_completed": True,
+                "dfao_completed": True,
+                "gf2_completed": True,
+                "kernel_construction_checked": True,
+            }
+        },
         "interpretation": "finite fixture",
         "proof_scope": "fixture only",
         "limitations": ["fixture only"],
@@ -254,7 +306,7 @@ def test_deterministic_json_workload_is_repeated_and_hashed() -> None:
             ),
         ),
         expected_question="problem3",
-        expected_input=bytes(64),
+        expected_input=bytes(5000),
         warmups=1,
         repetitions=3,
         time_executable=Path("/usr/bin/time"),
@@ -265,8 +317,39 @@ def test_deterministic_json_workload_is_repeated_and_hashed() -> None:
     assert report["protocol"]["all_outputs_matched_byte_for_byte"] is True
     assert report["deterministic_output"]["size_bytes"] == len(encoded)
     assert report["deterministic_output"]["reported_fields"]["completion"] == {
-        "all_requested_searches_completed": True
+        "all_requested_searches_completed": True,
+        "berlekamp_massey_candidate_checked": True,
+        "boolean_completed": True,
+        "dfao_completed": True,
+        "gf2_completed": True,
+        "kernel_construction_checked": True,
     }
+
+    bad_payload = json.loads(encoded)
+    bad_payload["parameters"]["dfao"]["max_states"] = 4
+    bad_runner = FakeRunner(
+        {"bounded-predictor-search": json.dumps(bad_payload, sort_keys=True).encode()}
+    )
+    with pytest.raises(MatrixError, match="parameters differ"):
+        benchmark_deterministic_json(
+            CommandSpec(
+                "bounded-predictor-search",
+                (
+                    "/usr/bin/nice",
+                    "-n",
+                    "10",
+                    "/fake/explicit-executable",
+                    "bounded-predictor-search",
+                ),
+            ),
+            expected_question="problem3",
+            expected_input=bytes(5000),
+            warmups=0,
+            repetitions=1,
+            time_executable=Path("/usr/bin/time"),
+            runner=bad_runner,  # type: ignore[arg-type]
+            environment={},
+        )
 
 
 def test_analysis_commands_pin_all_material_parameters(tmp_path: Path) -> None:
@@ -344,6 +427,25 @@ def test_process_runner_timeout_covers_pipe_inheriting_descendant(
             cwd=tmp_path,
             environment={"LC_ALL": "C"},
         )
+
+
+def test_process_runner_timeout_bounds_detached_pipe_holder(
+    tmp_path: Path,
+) -> None:
+    runner = ProcessRunner(timeout_seconds=0.05, max_capture_bytes=1024)
+    source = (
+        "import subprocess,sys;"
+        "subprocess.Popen([sys.executable,'-c','import time;time.sleep(2)'],"
+        "stdout=sys.stdout,stderr=sys.stderr,start_new_session=True)"
+    )
+    started = time.monotonic()
+    with pytest.raises(MatrixError, match="wall cap"):
+        runner.run(
+            (sys.executable, "-c", source),
+            cwd=tmp_path,
+            environment={"LC_ALL": "C"},
+        )
+    assert time.monotonic() - started < 1.0
 
 
 def test_process_runner_rejects_path_lookup() -> None:

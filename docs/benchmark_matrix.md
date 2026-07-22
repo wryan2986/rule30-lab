@@ -77,8 +77,10 @@ Both scripts emit deterministic JSON. The matrix establishes one untimed
 reference output, requires every warm-up and measured output to match it
 byte-for-byte, and records the exact argv, output byte count, and SHA-256. It
 also verifies required fields, question, status, input count/hash, and—in the
-predictor workload—complete bounded enumeration metadata. A failed bounded
-search has no universal or asymptotic interpretation.
+predictor workload—the complete pinned parameter map, exact training/held-out
+split, leakage-control statement, deterministic seed, and every component
+completion flag. A failed bounded search has no universal or asymptotic
+interpretation.
 
 ## Conservative controls
 
@@ -96,7 +98,9 @@ level 10. Hard caps prevent more than:
 
 stdout and stderr are drained concurrently from bounded pipes. A time or output
 violation kills the new process group, including surviving descendants that
-inherit a pipe after the direct child exits. Trusted inputs are capped at
+inherit a pipe after the direct child exits. A 250-millisecond post-kill drain
+cap prevents a detached pipe holder from blocking the orchestrator. Trusted
+inputs are capped at
 1 MiB, executable hashing is incremental and capped at 512 MiB, and captured
 bytes never exceed the exact combined cap. Commands are argument vectors whose
 executables must be absolute paths; the driver never invokes a shell.
@@ -170,6 +174,9 @@ repository as its source. Executable size and SHA-256 are measured before and
 after the matrix and must remain unchanged. Relevant Git tree IDs, exact
 executable hashes, retained CMake/Ninja flags, compiler versions, and the
 normalized performance environment are recorded.
+Immediately before record construction, the driver repeats the HEAD,
+clean-worktree, relevant-tree, benchmark-script, executable, and trusted-vector
+checks; persistent output is refused if any changed.
 
 After committing this script and its tests, rebuild from that commit and rerun
 the exact command above with:
