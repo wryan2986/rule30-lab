@@ -167,7 +167,10 @@ intercepted SIGINT or SIGTERM, 124 identifies wall timeout, and 125 identifies
 an output or GPU policy abort. A successful child and valid JSON return zero.
 The wall deadline remains active until both child pipes reach EOF, even if the
 direct child exits first; surviving pipe-inheriting descendants are terminated
-through the original process group.
+through the original process group. After `SIGKILL`, a final one-second
+pipe-drain interval prevents an escaped or detached descriptor holder from
+blocking the parent indefinitely; EOF is not claimed when that fallback closes
+a pipe.
 
 ## Optional read-only NVIDIA telemetry
 

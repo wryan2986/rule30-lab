@@ -61,6 +61,7 @@ MAX_STDOUT_CAP_BYTES = 64 * 1024 * 1024
 MAX_STDERR_CAP_BYTES = 64 * 1024 * 1024
 MAX_CHILD_ARGUMENTS = 128
 MAX_CHILD_ARGUMENT_BYTES = 16 * 1024
+POST_KILL_DRAIN_SECONDS = 1.0
 _EXPERIMENT_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}")
 _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways": frozenset({"--trusted-center"}),
@@ -1342,6 +1343,26 @@ def run_controlled_experiment(config: RunnerConfiguration) -> RunResult:
                         ):
                             _signal_process_group(process, signal.SIGKILL)
                             kill_sent = True
+                        elif (
+                            termination_started is not None
+                            and kill_sent
+                            and active
+                            and now - termination_started
+                            >= config.termination_grace_seconds
+                            + POST_KILL_DRAIN_SECONDS
+                        ):
+                            reason = (
+                                (reason + "; " if reason else "")
+                                + "bounded pipe-drain interval expired after process-group kill"
+                            )
+                            assert selector is not None
+                            for descriptor in list(active):
+                                _close_pipe(
+                                    selector,
+                                    active,
+                                    descriptor,
+                                    eof_observed=False,
+                                )
 
                     if now >= next_progress:
                         _emit_progress(
