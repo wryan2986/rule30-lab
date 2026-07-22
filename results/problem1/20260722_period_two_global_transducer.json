@@ -1,0 +1,126 @@
+{
+  "backend": "python-exact-finite-transducer",
+  "experiment_id": "problem1-period-two-global-transducer-20260722T232808Z",
+  "git_commit": "68f5c925fdd1456c0986c08774741b6f87c4a010",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 111120
+  },
+  "hypothesis": "The whole accumulated inverse word admits an exact finite transducer description, but any successful global invariant must go beyond additive letter weights and the currently known short fringe language.",
+  "interpretation": "The full growing middle is exactly a four-state right-to-left scan. Single-letter additive telescoping statistics are completely trivial, and the three known forbidden branch words alone permit ten consecutive zero pairs. The next proof attempt must couple a nonlinear or growing-memory transducer observable to the exact autonomous fringe orbit.",
+  "limitations": [
+    "does not classify nonlinear or growing-memory cocycles",
+    "does not claim the finite branch counterexample occurs in the exact fringe orbit",
+    "does not prove the alternating survivor has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_branch_counterexample_length": 40,
+    "maximum_word_length": 7
+  },
+  "proof_scope": "The four-state transducer identity and additive-cocycle classification are all-word statements proved in proofs/informal/problem1_period_two_global_transducer.md. The analyzer exhausts all words through length seven as an implementation cross-check and verifies one finite branch-language counterexample.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "6eed84ffe0df2c4ebbd55adedbd1d2272e3fed69528e6cf905c16cad3637c062",
+    "deterministic_stdout_sha256": "0aee09850083687cfd9aff502307cc85c9648a1adc8b21183b0ba626977fbffc",
+    "informal_proof_sha256": "a28f86208f93daf669e3fd674e40b6324567c2b214cb073d19fb97bd3f693f51",
+    "scientific_certificate_sha256": "b1bd896e91ab95e7392d0166be1592af8f5a0c77fa6b35281a4dd8fae9db7676",
+    "test_source_sha256": "750796b0f7d843f0482cdfdda6b58a8c7fa13736b6b92b81d617641b23d6ddaf"
+  },
+  "result_summary": {
+    "additive_cocycle_no_go": {
+      "all_checks_pass": true,
+      "complete_solution": {
+        "letter_weights": "a_t=a_p=a_u",
+        "state_potentials": "V_00=V_01=V_10=V_11"
+      },
+      "edge_equations": 12,
+      "interpretation": "the only additive word statistic is a multiple of word length; the only state potential is constant",
+      "nullity": 2,
+      "rank": 5,
+      "variables": [
+        "a_t",
+        "a_p",
+        "a_u",
+        "V_00",
+        "V_01",
+        "V_10",
+        "V_11"
+      ]
+    },
+    "block_recurrence": {
+      "all_checks_pass": true,
+      "exact_recurrence": "G_(m+1)=(G_m)|_11 p q_m",
+      "finite_support_target": "terminal scan state is eventually 00",
+      "output_pair": "terminal scan state equals G_m(11)",
+      "word_branch_cases_checked": 6560
+    },
+    "certificate_sha256": "b1bd896e91ab95e7392d0166be1592af8f5a0c77fa6b35281a4dd8fae9db7676",
+    "exact_conclusions": {
+      "additive_no_go": "no nontrivial single-letter additive cocycle telescopes the growing middle",
+      "global_reformulation": "the complete growing word is scanned by a four-state right-to-left transducer and finite support means its terminal state is eventually 00",
+      "short_language_no_go": "the forbidden words uu, ttttt, and ututtu are insufficient without the exact autonomous fringe orbit"
+    },
+    "short_language_counterexample": {
+      "all_checks_pass": true,
+      "avoids": [
+        "uu",
+        "ttttt",
+        "ututtu"
+      ],
+      "branch_word": "ttttututtttuttttututtttutututttuttuttutu",
+      "branch_word_length": 40,
+      "exact_conclusion": "the three known forbidden branch words alone do not bound survivor zero-pair runs",
+      "leading_t_runs_during_zero_pairs": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "longest_zero_pair_run": 10,
+      "scope_warning": "this finite branch word is not claimed to occur in the exact autonomous fringe orbit",
+      "zero_pair_run_end_zero_based": 39,
+      "zero_pair_run_start_zero_based": 30,
+      "zero_run_branch_suffix": "tuttuttutu"
+    },
+    "whole_word_transducer": {
+      "all_checks_pass": true,
+      "exact_identity": "right-to-left scan returns (G|_v, G(v)) for every binary pair v",
+      "maximum_word_length": 7,
+      "transition_table": [
+        {"incoming_pair": "00", "input_letter": "t", "output_letter": "t", "successor_pair": "00"},
+        {"incoming_pair": "00", "input_letter": "p", "output_letter": "p", "successor_pair": "11"},
+        {"incoming_pair": "00", "input_letter": "u", "output_letter": "p", "successor_pair": "11"},
+        {"incoming_pair": "01", "input_letter": "t", "output_letter": "p", "successor_pair": "01"},
+        {"incoming_pair": "01", "input_letter": "p", "output_letter": "u", "successor_pair": "10"},
+        {"incoming_pair": "01", "input_letter": "u", "output_letter": "u", "successor_pair": "10"},
+        {"incoming_pair": "10", "input_letter": "t", "output_letter": "p", "successor_pair": "11"},
+        {"incoming_pair": "10", "input_letter": "p", "output_letter": "p", "successor_pair": "01"},
+        {"incoming_pair": "10", "input_letter": "u", "output_letter": "t", "successor_pair": "00"},
+        {"incoming_pair": "11", "input_letter": "t", "output_letter": "u", "successor_pair": "10"},
+        {"incoming_pair": "11", "input_letter": "p", "output_letter": "t", "successor_pair": "00"},
+        {"incoming_pair": "11", "input_letter": "u", "output_letter": "p", "successor_pair": "01"}
+      ],
+      "word_pair_cases_checked": 13120
+    }
+  },
+  "runtime_seconds": 0.8,
+  "schema_version": 1,
+  "software": {
+    "implementation": "CPython",
+    "platform": "Linux-6.12.13-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-22T23:28:08Z"
+}

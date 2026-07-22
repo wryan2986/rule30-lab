@@ -153,6 +153,17 @@ successful continuation must bridge the entire growing middle, use a
 growing-width relation, or return to original spacetime. See
 [`problem1_period_two_frontier_gluing.md`](../proofs/informal/problem1_period_two_frontier_gluing.md).
 
+The complete growing inverse word now has an exact four-state right-to-left
+transducer. Starting from a binary pair `v`, one scan returns both `G|_v` and
+`G(v)`; finite support is therefore the assertion that the terminal state from
+`11` is eventually `00`. Exact rational classification shows every
+single-letter additive cocycle is trivial: all three letter weights coincide
+and every scan-state potential is constant. Moreover, a forty-branch word
+avoiding `uu`, `ttttt`, and `ututtu` still creates ten consecutive zero output
+pairs. Thus neither additive word counts nor those short forbidden factors can
+replace coupling to the exact autonomous fringe orbit. See
+[`problem1_period_two_global_transducer.md`](../proofs/informal/problem1_period_two_global_transducer.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -212,13 +223,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Seek a global quantity that bridges the full growing middle between the
-   fixed low return cylinder and the finite high edge.
-2. Test growing-width candidates whose observed width scales with cumulative
-   return length; fixed separated front windows are now ruled out as a proof.
-3. Transfer the exact return cylinders to an original-spacetime obstruction
-   coupling the left and right expanding edges.
-4. Connect any global transition to a forced nonzero survivor output pair; a
-   larger finite gluing table is not continuation.
-5. Formalize the gluing and return identities only when they enter a genuine
-   infinite argument.
+1. Build an exact coupled tile or transfer system containing both the autonomous
+   right-fringe recurrence and the four-state whole-word transducer.
+2. Search for a nonlinear or growing-memory cocycle across those two rows;
+   single-letter additive word weights are now completely classified and closed.
+3. Require any finite quotient to preserve the exact fringe recurrence, not
+   merely the forbidden factors `uu`, `ttttt`, and `ututtu`.
+4. Connect eventual terminal state `00` in the transducer to an
+   original-spacetime finite-support contradiction.
+5. Formalize the coupled recurrence only when it enters a genuine infinite
+   argument.

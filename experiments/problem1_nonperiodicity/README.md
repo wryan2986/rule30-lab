@@ -48,6 +48,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_first_return.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_frontier_gluing.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_global_transducer.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -72,9 +74,13 @@ derives the exact four-bit first-return selector at `u` events, the four
 variable-length survivor return cylinders, and the shared neutral degree
 cocycle. The twelfth proves the finite-prefix frontier-gluing obstruction:
 return cylinders constrain only low bits, while arbitrary high fronts and free
-middle words remain compatible. Their JSON status is `finite-exhaustive`; the
-all-width arguments are separately stated in `proofs/informal/` and no
-analyzer proves center nonperiodicity.
+middle words remain compatible. The thirteenth gives the exact four-state
+right-to-left transducer for the complete growing inverse word, proves that all
+single-letter additive cocycles are trivial, and records a branch word showing
+that the three known short schedule exclusions alone do not bound zero-pair
+runs. Their JSON status is `finite-exhaustive` or `partial-proof`; the all-width
+arguments are separately stated in `proofs/informal/` and no analyzer proves
+center nonperiodicity.
 
 Tracked results are:
 
@@ -85,6 +91,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_fringe_language.json`
 - `results/problem1/20260722_period_two_first_return.json`
 - `results/problem1/20260722_period_two_frontier_gluing.json`
+- `results/problem1/20260722_period_two_global_transducer.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
