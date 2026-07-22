@@ -252,4 +252,22 @@ theorem true_closed_interval_forces_left_false_on_halfOpen_interval
   · exact hTrue time hStart (Nat.le_of_lt hEnd)
   · exact hTrue (time + 1) (Nat.le_trans hStart (Nat.le_succ time)) hEnd
 
+/--
+Infinite-tail form of the same local implication: an all-`true` column tail
+forces the adjacent-left column to be `false` from the same starting time.
+This theorem does not itself contradict such a tail; that requires a separate
+width-two nonperiodicity theorem.
+-/
+theorem true_tail_forces_adjacent_left_false_tail
+    (x : Spacetime)
+    (hRule : EvolvesByRule30 x)
+    (position : Int)
+    (start : Nat)
+    (hTrue : ∀ time, start ≤ time → x position time = true) :
+    ∀ time, start ≤ time → x (position - 1) time = false := by
+  intro time hStart
+  apply consecutive_true_values_force_adjacent_left_false x hRule position time
+  · exact hTrue time hStart
+  · exact hTrue (time + 1) (Nat.le_trans hStart (Nat.le_succ time))
+
 end Rule30

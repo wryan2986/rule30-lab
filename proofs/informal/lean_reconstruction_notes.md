@@ -61,6 +61,11 @@ The new column and finite-region theorems are:
   column is `true` throughout the closed natural-number interval
   `[start, start + length]`, then the adjacent-left column is `false`
   throughout `[start, start + length)`.
+- `true_tail_forces_adjacent_left_false_tail`: if a genuine column is `true`
+  at every time from `start` onward, its adjacent-left column is `false` at
+  every time from that same `start` onward. The theorem is purely local and
+  does not import the separate width-two nonperiodicity result needed for a
+  contradiction.
 
 The interval endpoints are intentional: each forced-left conclusion at time
 `t` requires both center values at `t` and `t + 1`.
@@ -78,7 +83,7 @@ env \
 
 This was checked with Lean 4.30.0. The source contains no `sorry`,
 user-declared axioms, or unsound placeholders. Lean's `#print axioms` reports
-that each of the five new theorems listed above depends on no axioms.
+that each of the six new theorems listed above depends on no axioms.
 
 ## Scope and limitations
 
@@ -94,3 +99,5 @@ that each of the five new theorems listed above depends on no axioms.
 - The finite true-interval theorem does not import the literature theorem
   about width-two traces and does not derive an infinite-tail or global
   nonperiodicity conclusion.
+- The infinite-tail implication likewise does not prove that the hypothesized
+  true tail is impossible without the separately cited width-two theorem.
