@@ -26,11 +26,8 @@
   "proof_scope": "The dependency-cone, self-trace, forbidden-word, width-two aperiodicity, and dimension deductions are stated in proofs/informal/problem1_period_two_fringe_language.md. The analyzer exhausts the finite Boolean cones used by the local deductions.",
   "question": "problem1",
   "result_hashes": {
-    "analyzer_source_sha256": "044ba9cb5e37a733e01fa8c90d2477cb8eceb888d055397fd95d5627ed4d2618",
     "deterministic_stdout_sha256": "eb8eb9eee941b0f8c53f0f76464f7ef4384271c6b855bad4679416cda65f6cf3",
-    "informal_proof_sha256": "552641834fc15a1378791ccd4d24d7b9d195a3b94505d33e987cdadf5df09091",
-    "scientific_certificate_sha256": "1f19ab4ecf3cf9c9a86f016bdafe23a31f84db4eff7b0c90fc5620d10d76a552",
-    "test_source_sha256": "63b6f433964cbf1cb4e3a1228866013144f062849a2c3b62287f935d277ed9c2"
+    "scientific_certificate_sha256": "1f19ab4ecf3cf9c9a86f016bdafe23a31f84db4eff7b0c90fc5620d10d76a552"
   },
   "result_summary": {
     "certificate_sha256": "1f19ab4ecf3cf9c9a86f016bdafe23a31f84db4eff7b0c90fc5620d10d76a552",
