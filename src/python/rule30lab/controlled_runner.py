@@ -69,6 +69,7 @@ _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways-prefix-equivalence": frozenset(),
     "problem1-eventual-zero-tail": frozenset(),
     "problem1-period-defect": frozenset(),
+    "problem1-period-two": frozenset(),
     "problem1-two-adic-diagonal": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
@@ -201,6 +202,23 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
         (
             "Finite period bounds do not cover arbitrary eventual periods.",
             "Full-cone ANF growth does not exclude a nonlocal identity.",
+        ),
+    ),
+    "problem1-period-two": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_period_two.py"
+        ),
+        "problem1",
+        "Audit three concrete local mechanisms for excluding center period two.",
+        "finite-exhaustive",
+        (
+            "Only the exact cone and explicitly bounded reconstruction, "
+            "2-adic lift, and forced-half-line checks emitted by the child."
+        ),
+        (
+            "Finite failed mechanisms do not prove period two is possible.",
+            "The complete finite-support period-two case remains open.",
         ),
     ),
     "problem1-two-adic-diagonal": ExperimentSpec(

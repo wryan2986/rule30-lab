@@ -28,13 +28,16 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_defect.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
 `c_(t+p)=c_t`. The second exhausts finite 2-adic quotient maps and checks the
-exact `-1/3,1/3` countermodel. Their JSON status is `finite-exhaustive`; the
-all-width arguments are separately stated in `proofs/informal/` and neither
-analyzer proves center nonperiodicity.
+exact `-1/3,1/3` countermodel. The third audits three concrete mechanisms for
+the smallest unresolved period, two. Their JSON status is
+`finite-exhaustive`; the all-width arguments are separately stated in
+`proofs/informal/` and no analyzer proves center nonperiodicity.
 
 Reviewed controlled-run records for the defaults are stored at:
 

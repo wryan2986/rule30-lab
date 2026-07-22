@@ -56,6 +56,13 @@ both eventual constant tails for every finite seed. Therefore period one is
 closed, while every period at least two remains open. See
 [`problem1_period_one_exclusion.md`](../proofs/informal/problem1_period_one_exclusion.md).
 
+The first exact period-two pass is also complete. Its two phase equations
+leave the right pair unrestricted, the two-step right-boundary recurrence is
+a NOR of three spatial cells rather than a closed temporal map, and three
+specific local/rapid-settling mechanisms failed their finite controls. This is
+a stopping barrier, not an exclusion of period two. See
+[`problem1_period_two_barrier.md`](../proofs/informal/problem1_period_two_barrier.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -111,13 +118,16 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Treat period two as the next minimal unresolved case; derive its two phase
-   equations without assuming row periodicity or shift commutation.
-2. Search for a phase-local monotone quantity analogous to the period-one
-   right-neighbor OR recurrence.
-3. Express the same case as the inverse 2-adic lift of a period-two rational
-   trace, keeping eventual-zero spatial support explicit.
-4. Use the bounded ANF/defect analyzers only to falsify or certify a concrete
-   invariant, not to increase generic horizons.
-5. Reassess after one exact period-two pass before admitting any broader
-   period family.
+1. Work with the inverse lift
+   `S_m = Delta_m^(-1)(C mod 2^m)` for a symbolic rational periodic trace
+   `C`, and derive a recurrence that explicitly detects whether its bits can
+   become permanently zero.
+2. Seek a renormalized finite-support invariant; fixed-coordinate periods,
+   arbitrary-right columns, and forced-boundary settling are now rejected as
+   standalone mechanisms.
+3. Test only a concrete candidate recurrence or invariant against the exact
+   period-two controls before generalizing it to period `p`.
+4. Require a proved depth-independent state bound before any SAT, de Bruijn,
+   or transducer cycle is interpreted as an infinite argument.
+5. Do not authorize larger period or horizon boxes until one of the preceding
+   structural steps succeeds.

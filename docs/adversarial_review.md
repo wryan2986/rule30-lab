@@ -260,3 +260,40 @@ new local persistence lemma without `sorry` or axiom dependencies; it does not
 import Kopra's theorem. Therefore eventual center period one is rigorously
 excluded conditional on that published theorem, while every period at least
 two remains open.
+
+## 2026-07-22 period-two mechanism addendum
+
+The period-two analyzer and informal barrier proof were reviewed independently
+for five-cell indexing, phase conventions, forced-half-line evolution,
+resource caps, period-test vacuity, and global-compatibility assumptions. The
+review confirmed the eight phase words, their derived left-cell equations,
+and the exact two-step identity
+
+`x_1(t+2) = NOT (x_1(t) OR x_2(t) OR x_3(t))`
+
+at a zero-center phase.
+
+Three implementation/reporting issues were caught before commit:
+
+1. An early internal draft misplaced a return while adding the certificate,
+   which would have omitted reconstruction summaries. The return was fixed
+   and a test now checks the exact small-horizon maxima.
+2. The interpretation originally claimed the zero-run-seven candidate was
+   refuted even for smaller user-selected horizons where it was not. The text
+   is now generated from the observed maximum.
+3. The generic suffix-period helper permitted candidate periods at least as
+   long as the comparison window, making the comparison vacuous. It now fails
+   closed unless `maximum_period < window`, with a regression test.
+
+The reviewer also strengthened an important scope warning. The recorded
+horizon-16 arbitrary-right witness is locally incompatible with any Rule 30
+right-half continuation: at time two its zero center and one right neighbor
+would force that neighbor to remain one, but the supplied next value is zero.
+The analyzer now detects and reports the first such failure. Accordingly, the
+witness refutes only a proof that treats the neighboring column as arbitrary;
+it is not a finite-seed counterexample.
+
+After these corrections, the finite claims are exact and the limitations are
+adequate. The pure alternating lift diagnostic and forced-boundary suffix test
+remain bounded observations. Eventual center period two is still open, and no
+larger period search is justified by this audit.
