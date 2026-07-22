@@ -1,0 +1,343 @@
+{
+  "backend": "python",
+  "commands": {
+    "analysis_rerun": "/usr/bin/time -f 'wall_seconds=%e\\nmax_rss_kib=%M\\nexit_status=%x' -o /tmp/rule30-problem3-exact-searches.time nice -n 10 env PYTHONDONTWRITEBYTECODE=1 .venv/bin/python experiments/problem3_complexity/run_exact_searches.py > /tmp/rule30-problem3-exact-searches-record-rerun.json",
+    "hash_verification": "sha256sum /tmp/rule30-problem3-exact-searches-record-rerun.json",
+    "record_validation": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m pytest -p no:cacheprovider tests/python/test_result_records.py -q"
+  },
+  "experiment_id": "problem3-bounded-exact-searches-20260722T005350Z",
+  "git_commit": "953a2ae4e100d6b1208d52e6a27807a68cc50c8c",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3600 6-Core Processor",
+    "cpu_cores": 6,
+    "cpu_instruction_sets_relevant": [
+      "AVX",
+      "AVX2",
+      "BMI1",
+      "BMI2",
+      "POPCNT"
+    ],
+    "cpu_threads_available": 12,
+    "cpu_threads_used": 1,
+    "gpu": "NVIDIA GeForce RTX 2060 SUPER",
+    "gpu_compute_capability": "7.5",
+    "gpu_framebuffer_mib": 8192,
+    "gpu_windows_driver": "591.86",
+    "gpu_used": false,
+    "ram_visible_wsl_bytes_at_rerun": 16730124288,
+    "system": "Micro-Star International MS-7C96",
+    "virtualization": "Microsoft WSL2",
+    "windows_host": "Microsoft Windows 11 Home 10.0.26200.8655"
+  },
+  "hypothesis": "Determine whether any candidate in the explicitly bounded labeled-DFAO, finite 2-kernel quotient, homogeneous GF(2) recurrence, Berlekamp-Massey fitted-candidate, or Boolean window-recurrence searches fits the identified training prefix and, where applicable, a disjoint held-out prefix.",
+  "interpretation": "The finite-exhaustive status excludes only the explicitly enumerated DFAOs, canonical GF(2) recurrences, Boolean truth-table classes witnessed inconsistent at widths 1 through 12, and the stated finite 2-kernel quotient construction on the identified prefix. The Berlekamp-Massey result is a checked empirical candidate with a finite counterexample. None of these outcomes proves nonautomaticity, rules out another exact representation, or establishes a time lower bound.",
+  "limitations": [
+    "The input contains only c_0 through c_9999, split into 5,000 training and 5,000 held-out bits.",
+    "DFAO exhaustion covers only complete labeled automata with one through three states, initial state zero, and MSB-first canonical binary input.",
+    "The 2-kernel result concerns depth five and 64-bit sampled fingerprints; finite fingerprints are not infinite subsequences.",
+    "GF(2) exhaustion covers only canonical homogeneous recurrences through order 12.",
+    "Boolean recurrence witnesses cover only autonomous suffix-window tables of widths one through twelve.",
+    "The order-2,500 Berlekamp-Massey candidate is training-derived finite-prefix advice and is not an exhaustive search over unbounded recurrences.",
+    "No failed search proves nonautomaticity, nonexistence of another shortcut, o(n) impossibility, or an Omega(n) lower bound.",
+    "The natural-language and published-formula interpretations of Problem 3 remain separate.",
+    "GPU hardware was present but was not used for this analysis."
+  ],
+  "parameters": {
+    "boolean_recurrence": {
+      "max_completions": 1000000,
+      "max_table_entries": 1048576,
+      "max_unseen_contexts": 20,
+      "max_window": 12,
+      "min_window": 1,
+      "start_completion_id": 0,
+      "start_window": null
+    },
+    "dfao": {
+      "max_models": 100000,
+      "max_state_count_cap": 16,
+      "max_states": 3,
+      "min_states": 1,
+      "start_model_id": 0,
+      "start_state": null
+    },
+    "gf2": {
+      "max_candidates": 1000000,
+      "max_order": 12,
+      "max_order_cap": 64,
+      "start_candidate_id": 0
+    },
+    "index_and_model_conventions": {
+      "boolean_recurrence_index": "implicit sequential counter",
+      "dfao_binary_encoding": "canonical binary with n=0 encoded as 0 and no leading zeroes",
+      "dfao_digit_order": "most-significant first",
+      "dfao_initial_state": 0,
+      "gf2_recurrence_index": "implicit sequential counter",
+      "one_output_bit": "c_n",
+      "two_kernel_digit_order": "least-significant first",
+      "uniformity": "training-derived finite tables are advice, not proved uniform algorithms for all n"
+    },
+    "input_path": "/home/wryan/rule30-lab/tests/reference_vectors/center_c00000000_c00009999.u8",
+    "limit_bits": 10000,
+    "max_reported_errors": 8,
+    "nice_level": 10,
+    "search_controls": {
+      "boolean_max_reported_candidates": 8,
+      "boolean_max_reported_table_entries": 256,
+      "dfao_max_reported_fits": 1,
+      "dfao_stop_after_fits": 1,
+      "gf2_max_reported_fits": 1,
+      "gf2_stop_after_fits": 1
+    },
+    "split": {
+      "held_out": [
+        5000,
+        10000
+      ],
+      "training": [
+        0,
+        5000
+      ]
+    },
+    "training_validation_protocol": {
+      "deterministic_seed_placeholder": 0,
+      "randomness_used": false,
+      "selection_uses_held_out_bits": false
+    },
+    "two_kernel": {
+      "depth": 5,
+      "fingerprint_length": 64,
+      "max_fingerprint_bytes": 67108864,
+      "max_nodes": 131071
+    }
+  },
+  "proof_scope": "Exact bounded enumeration only for all 5,898 labeled complete DFAOs with one through three states and all 4,096 canonical homogeneous GF(2) recurrences through order 12; exact finite consistency witnesses for Boolean windows one through twelve; and exact construction/closure checking of the specified depth-5, 64-bit-fingerprint quotient. The Berlekamp-Massey candidate check is empirical and no result extends beyond the identified finite prefix or model classes.",
+  "question": "problem3",
+  "result_hashes": {
+    "deterministic_pretty_json_payload_sha256": "77b0c99eebc0503201cd550d111c6fcbd739692d749faa92ea2688134da51d2a",
+    "trusted_center_u8_sha256": "61de1c97dc3f80cb24d3a02207920bd442d6f530304497eee70189a039a47860"
+  },
+  "result_summary": {
+    "berlekamp_massey_candidate": {
+      "candidate_order": 2500,
+      "held_out_error_count": 2464,
+      "held_out_evaluated": 5000,
+      "held_out_first_counterexample": {
+        "expected": 1,
+        "index": 5003,
+        "index_binary": "1001110001011",
+        "predicted": 0
+      },
+      "method": "Berlekamp-Massey over GF(2) fitted on training bits only",
+      "status": "empirical",
+      "training_error_count": 0,
+      "training_evaluated": 2500
+    },
+    "boolean_window_recurrences": {
+      "all_widths_training_inconsistent": true,
+      "completion_space_examined_after_conflicts": 0,
+      "status": "finite-exhaustive",
+      "witnesses": [
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 2,
+          "first_output": 1,
+          "first_output_index": 1,
+          "window": 1,
+          "window_bits": "1"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 5,
+          "first_output": 0,
+          "first_output_index": 2,
+          "window": 2,
+          "window_bits": "11"
+        },
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 7,
+          "first_output": 1,
+          "first_output_index": 3,
+          "window": 3,
+          "window_bits": "110"
+        },
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 12,
+          "first_output": 1,
+          "first_output_index": 8,
+          "window": 4,
+          "window_bits": "1100"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 19,
+          "first_output": 0,
+          "first_output_index": 12,
+          "window": 5,
+          "window_bits": "01100"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 35,
+          "first_output": 0,
+          "first_output_index": 10,
+          "window": 6,
+          "window_bits": "110011"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 35,
+          "first_output": 0,
+          "first_output_index": 10,
+          "window": 7,
+          "window_bits": "1110011"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 35,
+          "first_output": 0,
+          "first_output_index": 10,
+          "window": 8,
+          "window_bits": "01110011"
+        },
+        {
+          "conflicting_output": 1,
+          "conflicting_output_index": 35,
+          "first_output": 0,
+          "first_output_index": 10,
+          "window": 9,
+          "window_bits": "101110011"
+        },
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 40,
+          "first_output": 1,
+          "first_output_index": 29,
+          "window": 10,
+          "window_bits": "1001110101"
+        },
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 158,
+          "first_output": 1,
+          "first_output_index": 33,
+          "window": 11,
+          "window_bits": "11101011100"
+        },
+        {
+          "conflicting_output": 0,
+          "conflicting_output_index": 158,
+          "first_output": 1,
+          "first_output_index": 33,
+          "window": 12,
+          "window_bits": "011101011100"
+        }
+      ],
+      "widths_checked": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "completion": {
+      "all_requested_searches_completed": true,
+      "berlekamp_massey_candidate_checked": true,
+      "boolean_completed": true,
+      "dfao_completed": true,
+      "gf2_completed": true,
+      "kernel_construction_checked": true
+    },
+    "finite_two_kernel_quotient": {
+      "accepted_from_training": false,
+      "closed_and_transition_consistent": false,
+      "first_structural_counterexample": {
+        "child_fingerprint_sha256": "89585ab74207821a56c4c14e36d7e70868b9cd67a9b04f963371bb18a70aeb2b",
+        "child_level": 6,
+        "child_residue": 0,
+        "input_digit": 0,
+        "kind": "child_fingerprint_not_closed",
+        "representative_level": 5,
+        "representative_residue": 0,
+        "state": 31
+      },
+      "quotient_state_count": 63,
+      "sampled_node_count_including_children": 127,
+      "status": "finite-exhaustive"
+    },
+    "labeled_dfaos": {
+      "models_examined": 5898,
+      "none_fit_training_prefix": true,
+      "state_summaries": [
+        {
+          "models_examined": 2,
+          "state_count": 1,
+          "training_fit_count": 0
+        },
+        {
+          "models_examined": 64,
+          "state_count": 2,
+          "training_fit_count": 0
+        },
+        {
+          "models_examined": 5832,
+          "state_count": 3,
+          "training_fit_count": 0
+        }
+      ],
+      "status": "finite-exhaustive",
+      "training_fit_count": 0
+    },
+    "rerun_measurements": {
+      "complete_payload_bytes": 115441,
+      "external_wall_seconds": 2.83,
+      "maximum_resident_set_kib": 22656,
+      "status": "empirical"
+    },
+    "short_homogeneous_gf2_recurrences": {
+      "candidate_space_size": 4096,
+      "candidates_examined": 4096,
+      "maximum_order": 12,
+      "status": "finite-exhaustive",
+      "training_fit_count": 0
+    },
+    "status_boundaries": {
+      "berlekamp_massey_fitted_candidate": "empirical",
+      "enumerated_model_spaces_and_stated_finite_checks": "finite-exhaustive",
+      "infinite_sequence_or_unbounded_model_claims": "not claimed",
+      "overall_record": "finite-exhaustive only within proof_scope"
+    },
+    "training_and_validation": {
+      "held_out_interval": "[5000,10000)",
+      "leakage_control": "models and deterministic enumeration choices fixed from training bits before held-out inspection",
+      "training_interval": "[0,5000)"
+    }
+  },
+  "runtime_seconds": 2.83,
+  "software": {
+    "analysis_modules": [
+      "experiments/problem3_complexity/run_exact_searches.py",
+      "rule30lab.predictor_search"
+    ],
+    "cuda_toolkit_present_but_unused": "13.3.73",
+    "git": "2.53.0",
+    "linux_distribution": "Ubuntu 26.04 LTS (Resolute Raccoon)",
+    "numpy_used": false,
+    "python": "3.14.4",
+    "source_document": "docs/problem3_searches.md",
+    "source_milestone": "953a2ae4e100d6b1208d52e6a27807a68cc50c8c",
+    "virtual_environment": "/home/wryan/rule30-lab/.venv",
+    "wsl_kernel": "6.6.114.1-microsoft-standard-WSL2"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-07-22T00:53:50.733389Z"
+}
