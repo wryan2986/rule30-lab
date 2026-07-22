@@ -100,3 +100,18 @@ inside the corresponding JSON records.
   release C++/CUDA CTests and every direct RTX 2060 contract, two sanitizer
   tests, Rust format/clippy and 22 tests, and the three-job Lean build all
   passed. Post-gate telemetry was 41 C at 12.64 W; no hardware control changed.
+- Derived the exact 2-adic diagonal map: it is a unit-triangular isometric
+  bijection, and eventually periodic traces are exactly its rational outputs.
+  The exact `-1/3 <-> 1/3` right-edge two-cycle maps to the period-one traces
+  `-1` and `1`, exposing finite spatial support as the hypothesis absent from
+  fixed-coordinate period arguments.
+- Audited the exact `p`-step center-period defect as a Boolean function of the
+  complete radius-`p` cone. The new two-oracle analyzer found no loss of cone
+  variables or linear-degree growth in its bounded range; this is a finite
+  barrier to a narrow local-phase shortcut, not an orbit theorem.
+- Strengthened the published-width-two deduction: an all-zero center tail
+  makes the right neighbor monotone and eventually constant, while an all-one
+  tail forces the left neighbor to zero. Thus eventual center period one is
+  excluded for every nonzero finite seed. Lean kernel-checks the new local
+  right-neighbor persistence lemma without axiom dependencies; the external
+  width-two theorem remains outside Lean.

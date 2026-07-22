@@ -35,7 +35,7 @@ This identity drives sideways reconstruction. Its local correctness is
 elementary; claims about an unbounded reconstructed half-line require separate
 arguments.
 
-## Eventually-all-one candidate lemma
+## Eventual period-one exclusion
 
 If `c_t = c_(t+1) = 1`, then at site zero
 
@@ -44,6 +44,17 @@ If `c_t = c_(t+1) = 1`, then at site zero
 ```
 
 so `x_-1(t) = 0`. Consequently, an eventually constant-one center tail forces
-the immediately adjacent left column to be eventually zero. This is a local
-partial lemma only. Any deduction using a published width-two theorem remains
-conditional until the exact theorem and all hypotheses are checked.
+the immediately adjacent left column to be eventually zero.
+
+If instead the center is zero from some time onward, its right neighbor obeys
+
+```text
+x_1(t+1) = x_1(t) OR x_2(t).
+```
+
+That binary column is nondecreasing and therefore eventually constant. In
+either case an adjacent width-two trace becomes eventually constant. Kopra's
+Corollary 3.7, whose hypotheses are checked in
+`docs/theory_literature_review.md`, rules this out for every nonzero finite
+seed. Thus an eventual period-one center is impossible. Periods two and above
+remain open.

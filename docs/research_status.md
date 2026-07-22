@@ -139,17 +139,22 @@ complexity result.
 
 ## Partial mathematical results
 
-- `partial-proof`: the center sequence cannot be eventually constant one. If
-  `c_t=c_(t+1)=1`, the Rule 30 identity forces the adjacent-left bit at time
-  `t` to be zero. An all-one center tail would therefore make the adjacent
-  width-two trace eventually constant, contradicting Kopra's Corollary 3.7
-  (equivalently the applicable Jen result). The theorem hypotheses and exact
-  deduction are checked in `docs/theory_literature_review.md`.
+- `partial-proof`: the center sequence cannot have eventual period one. An
+  all-one center tail forces the adjacent-left column to zero. For an all-zero
+  center tail, the adjacent-right column obeys
+  `x_1(t+1)=x_1(t) OR x_2(t)` and is therefore eventually constant. Either
+  case makes an adjacent width-two trace eventually constant, contradicting
+  Kopra's Corollary 3.7 (equivalently the applicable Jen result). This applies
+  to every nonzero finite seed. The hypotheses and both deductions are in
+  `proofs/informal/problem1_period_one_exclusion.md` and
+  `docs/theory_literature_review.md`.
 - Lean 4, without `sorry`, user axioms, or reported axiom dependencies, proves
   the Rule 30 Boolean form, left-permutive inversion, correctness of one
   sideways step, bounded column/pair/triangle reconstruction, and the local
   and infinite-tail implication that consecutive true center values force the
-  adjacent-left values false. The external width-two theorem is not formalized.
+  adjacent-left values false. It now also proves, without axiom dependencies,
+  that a right-neighbor one persists under an all-zero left-column tail. The
+  external width-two theorem is not formalized.
 - `partial-proof` (complete informal finite argument, with its local
   injectivity premise checked in Lean): the first nonzero reconstructed-left
   depth is exactly the
@@ -165,9 +170,18 @@ complexity result.
   the growing diagonal `bit_t(T^t(S))`. Every fixed bit `k` is periodic with
   period dividing `2^k`, but this does not control the growing diagonal. The
   proof is in `proofs/informal/problem1_whole_tail_equivalence.md`.
+- `partial-proof` (complete informal argument with exhaustive finite-quotient
+  regression checks): the growing-diagonal map `Delta` is a unit-triangular
+  isometric bijection of the 2-adic integers. Eventual temporal periodicity is
+  exactly rationality of `Delta(S)`. The exact cycle
+  `T(-1/3)=1/3`, `T(1/3)=-1/3` has
+  `Delta(-1/3)=-1` and `Delta(1/3)=1`, proving that periodic diagonals and all
+  fixed-coordinate period bounds are mutually consistent when finite spatial
+  support is dropped. See
+  `proofs/informal/problem1_two_adic_diagonal_map.md`.
 
-These results do not exclude an all-zero tail, any period greater than one, or
-eventual periodicity in general.
+These results do not exclude any period greater than one or eventual
+periodicity in general.
 
 ## Active conjectures
 
@@ -197,18 +211,23 @@ eventual periodicity in general.
   internal zero run increased from 19 to 22 and the extremal description
   changed. The data do not support a uniform bounded-gap claim, so merely
   increasing the reconstruction horizon is not an admitted continuation.
+- Fixed-coordinate power-of-two periods cannot by themselves contradict a
+  periodic growing diagonal: the exact infinite-support `-1/3,1/3` two-cycle
+  is a countermodel. Finite truncations of `-1/3` match arbitrarily long
+  all-one diagonal prefixes, so horizon-by-horizon finite survivors cannot be
+  compacted into one finite seed.
 - NVIDIA Compute Sanitizer could not initialize its WDDM debugger interface in
   this WSL configuration. CUDA correctness tests still pass, but this is not a
   successful memcheck result.
 
 ## Open questions
 
-- Can eventual periodicity of the growing diagonal `bit_t(T^t(S))` be made
-  incompatible with the power-of-two periods of every fixed moving-frame bit?
+- Can the 2-adic lift of every odd period-`p` trace for `p>=2` be proved to
+  have infinitely many one bits?
 - Can sideways reconstruction under an eventually periodic boundary be
   summarized by a rigorously depth-independent invariant or finite state?
-- Can the width-two nonperiodicity theorem be combined with a new local lemma
-  to exclude center periods other than the all-one tail?
+- Can the width-two nonperiodicity theorem be combined with phase-local
+  monotonicity or a renormalized invariant to exclude period two next?
 - Does a wider or nonlinear spacetime observable yield a telescoping identity
   controlling center discrepancy?
 - Which exact Problem 3 formulation would the prize committee accept, and in
@@ -221,13 +240,13 @@ eventual periodicity in general.
 Research is now focused on Problem 1; Problems 2 and 3 are regression-only.
 Admission and stopping criteria are in `docs/problem1_focus_program.md`.
 
-1. Derive exact phase constraints imposed by a hypothetical period on the
-   growing diagonal of the right-edge recurrence.
-2. Combine those constraints with fixed-coordinate power-of-two periodicity
-   and Rowland's local-nestedness theorem.
-3. Identify a contradiction or a precise barrier before authorizing another
-   finite parameter increase.
-4. Encode simultaneous eventual temporal periodicity and eventual spatial
-   zero as a symbolic/SAT problem only if a depth-independent state bound is
-   first proved.
-5. Formalize only the smallest stable diagonal lemma that emerges.
+1. Specialize the exact `p`-step cone constraint to period two and search for
+   a phase-local monotone quantity analogous to the period-one OR recurrence.
+2. Express the inverse 2-adic lift of a period-two trace and isolate the
+   finite-support condition rather than rechecking longer prefixes.
+3. Use the exact period-defect ANF only to test a concrete candidate invariant;
+   its full-cone growth already rules out a narrow local-phase shortcut.
+4. Encode a symbolic/SAT model only after proving a depth-independent state
+   bound or a finite front-state reduction.
+5. Formalize the next stable phase lemma only after the informal argument is
+   complete.

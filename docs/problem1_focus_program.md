@@ -43,6 +43,19 @@ Thus the focused conjecture uniformly strengthens the single-seed prize
 instance; it does not reduce it to a fixed finite-state system. See
 [`problem1_whole_tail_equivalence.md`](../proofs/informal/problem1_whole_tail_equivalence.md).
 
+The growing-diagonal map is now known to be a unit-triangular isometric
+bijection of the 2-adic integers. Eventual temporal periodicity is equivalent
+to a rational 2-adic output. The exact infinite-support cycle
+`-1/3 <-> 1/3` maps to the period-one traces `-1` and `1`, so nested
+fixed-coordinate periods alone cannot yield a contradiction. Finite spatial
+support is the essential missing property. See
+[`problem1_two_adic_diagonal_map.md`](../proofs/informal/problem1_two_adic_diagonal_map.md).
+
+The published width-two theorem plus local Rule 30 identities now excludes
+both eventual constant tails for every finite seed. Therefore period one is
+closed, while every period at least two remains open. See
+[`problem1_period_one_exclusion.md`](../proofs/informal/problem1_period_one_exclusion.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -98,11 +111,13 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Complete the terminal-zero campaign and retain its exact finite certificate.
-2. Use the right-edge recurrence to connect a claimed temporal period to the
-   power-of-two periods of fixed moving-frame coordinates.
-3. Look for an exact contradiction along the growing diagonal, or identify a
-   precise reason the nested-period argument cannot reach it.
-4. State and prove the smallest stable lemma, informally first and then in
-   Lean when useful.
-5. Reassess this proof route before authorizing any larger finite search.
+1. Treat period two as the next minimal unresolved case; derive its two phase
+   equations without assuming row periodicity or shift commutation.
+2. Search for a phase-local monotone quantity analogous to the period-one
+   right-neighbor OR recurrence.
+3. Express the same case as the inverse 2-adic lift of a period-two rational
+   trace, keeping eventual-zero spatial support explicit.
+4. Use the bounded ANF/defect analyzers only to falsify or certify a concrete
+   invariant, not to increase generic horizons.
+5. Reassess after one exact period-two pass before admitting any broader
+   period family.

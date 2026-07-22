@@ -277,4 +277,55 @@ theorem true_tail_forces_adjacent_left_false_tail
   · exact hTrue time hStart
   · exact hTrue (time + 1) (Nat.le_trans hStart (Nat.le_succ time))
 
+/-!
+## A false column tail and its right neighbor
+
+When the cell to the left is `false`, a `true` center remains `true` at the
+next step regardless of its right neighbor.  The separate published width-two
+theorem and the classical eventual-constancy deduction are not imported here.
+-/
+
+/-- With a `false` left input, a `true` center remains `true`. -/
+theorem false_left_true_center_stays_true_locally (right : Bool) :
+    localUpdate false true right = true := by
+  cases right <;> rfl
+
+/--
+If one column is `false` from `start` onward and its right neighbor is `true`
+at a later time, that right neighbor stays `true` at every subsequent offset.
+-/
+theorem false_left_tail_true_right_persists
+    (x : Spacetime)
+    (hRule : EvolvesByRule30 x)
+    (leftPosition rightPosition : Int)
+    (hAdjacent : rightPosition - 1 = leftPosition)
+    (start time : Nat)
+    (hFalse : ∀ later, start ≤ later → x leftPosition later = false)
+    (hStart : start ≤ time)
+    (hTrue : x rightPosition time = true) :
+    ∀ offset, x rightPosition (time + offset) = true := by
+  intro offset
+  induction offset with
+  | zero =>
+      exact hTrue
+  | succ offset ih =>
+      have hStartOffset : start ≤ time + offset :=
+        Nat.le_trans hStart (Nat.le_add_right time offset)
+      have hLeft : x leftPosition (time + offset) = false :=
+        hFalse (time + offset) hStartOffset
+      calc
+        x rightPosition (time + Nat.succ offset) =
+            x rightPosition ((time + offset) + 1) := by
+              rw [Nat.add_succ]
+        _ = localUpdate
+              (x (rightPosition - 1) (time + offset))
+              (x rightPosition (time + offset))
+              (x (rightPosition + 1) (time + offset)) :=
+            hRule rightPosition (time + offset)
+        _ = true := by
+              rw [hAdjacent, hLeft, ih]
+              exact
+                false_left_true_center_stays_true_locally
+                  (x (rightPosition + 1) (time + offset))
+
 end Rule30

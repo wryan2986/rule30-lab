@@ -148,7 +148,7 @@ The hypothesis check is direct:
 
 Thus Kopra's Corollary 3.7 applies to $x^*$: the trace $\operatorname{Tr}_{[-1,0]}(x^*)$ is not eventually periodic.
 
-### Rigorous partial consequence: the center cannot be eventually all one
+### Rigorous partial consequence: the center cannot have eventual period one
 
 Assume for contradiction that there is a $T$ such that $c_t=1$ for every $t\ge T$. For every $t\ge T$, the Rule 30 equation at the center gives
 
@@ -162,7 +162,27 @@ Therefore $F^t(x^*)_{-1}=0$ for every $t\ge T$. The adjacent trace at $[-1,0]$ i
 
 **Status:** rigorous partial theorem, conditional only on the cited published width-two theorem and the stated Rule 30 convention.
 
-**Scope:** this rules out an eventually constant-one center. It does **not** rule out an eventually constant-zero center, an eventual cycle of period greater than one, or eventual periodicity in general. It therefore does not solve Problem 1.
+The constant-zero case has a different local argument. Assume that
+\(c_t=0\) for every \(t\geq T\), and write \(r_t=F^t(x^*)_1\). Rule 30 at
+position one gives
+
+\[
+r_{t+1}=c_t\mathbin\oplus
+\bigl(r_t\lor F^t(x^*)_2\bigr)
+=r_t\lor F^t(x^*)_2.
+\]
+
+Hence \((r_t)_{t\geq T}\) is a nondecreasing binary sequence and is
+eventually constant. The adjacent trace on \([0,1]\) is then eventually a
+constant pair, contradicting the same corollary. Therefore the center cannot
+be eventually constant zero either.
+
+**Scope:** this rules out every eventual period-one center tail, for the
+single-cell seed and more generally for every nonzero finite-support initial
+configuration. It does **not** rule out an eventual cycle of period greater
+than one or eventual periodicity in general. It therefore does not solve
+Problem 1. The complete deduction is synchronized in
+`proofs/informal/problem1_period_one_exclusion.md`.
 
 ## Unresolved interpretation issues
 
@@ -184,10 +204,17 @@ Therefore $F^t(x^*)_{-1}=0$ for every $t\ge T$. The adjacent trace at $[-1,0]$ i
 4. Formalize in Lean the local Rule 30 identity, left-permutive inversion, the eventually-one implication for the left neighbor, and the final contradiction *assuming* the width-two theorem as a named hypothesis. Formalizing Kopra's entire dynamical theorem can be a later, separate project.
 5. Independently restate and check Kopra's definitions of $\mathcal L_0$, trace orientation, left spreading, and eventual periodicity against the repository's coordinate conventions. Add a small executable example confirming that `[-1,0]` is the intended adjacent trace.
 6. Obtain the complete 1986 Jen paper through a lawful library route and record the exact theorem/lemma pages. Compare it with Proposition 3 in the 1990 manuscript; treat this as bibliographic verification rather than a mathematical blocker.
-7. Do not generalize the eventually-all-one argument to other periods without a new lemma. In particular, the equation for an all-zero center tail yields equality of the left and right neighbors, not their periodicity.
+7. Do not generalize the period-one argument to higher periods without a new
+   lemma. The all-zero case uses monotonicity of the right neighbor after the
+   center XOR input vanishes; that monotonicity is absent for a nonconstant
+   periodic center.
 
 ## Bottom line
 
 The authoritative prize materials support precise formulations of Problems 1 and 2 but contain a substantive asymptotic-notation mismatch for Problem 3. The literal displayed Problem 3 predicate excludes every exact $O(n)$ algorithm; the surrounding prose most naturally asks whether any exact $o(n)$ shortcut exists. These must be tracked separately.
 
-The width-two literature result is applicable to the single-cell Rule 30 evolution. It rigorously proves the useful but limited statement that the center column cannot become permanently $1$. It does not establish full center-column nonperiodicity.
+The width-two literature result is applicable to the single-cell Rule 30
+evolution. Combined with the two local arguments above, it rigorously proves
+the useful but limited statement that the center column cannot become
+permanently zero or permanently one. It does not establish full center-column
+nonperiodicity.

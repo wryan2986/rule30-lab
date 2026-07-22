@@ -164,10 +164,10 @@ provenance.
 - **Problem 1:** the period/preperiod searches, prefix-then-zero exclusions,
   and fixed-width graphs quantify only over their stated finite descriptions,
   horizons, and widths. They do not supply a depth-independent finite-state
-  bound. The only infinite deduction is the narrow theorem that the center
-  cannot be eventually all one, conditional on the checked published
-  width-two theorem. It excludes neither an all-zero tail nor any period above
-  one.
+  bound. The width-two theorem plus two local deductions now excludes both
+  constant center tails, so eventual period one is impossible. This remains
+  conditional on the checked published width-two theorem and excludes no
+  period above one.
 - **Problem 2:** million-bit counts, discrepancies, correlations, spectral
   statistics, entropy estimates, and a fitted scaling exponent are finite or
   heuristic. They do not prove `D(N)=o(N)`, existence of a limit, balance,
@@ -225,3 +225,38 @@ periodicity does not imply anything sufficient about the growing diagonal
 a uniform bound, and its zero counterexample-lead count is not evidence of an
 infinite quantifier. No prize problem is solved, and increasing only the
 finite horizon would not address the identified gap.
+
+## 2026-07-22 2-adic and period-one addendum
+
+The next theory pass independently checked the right-edge recurrence on every
+finite quotient used by the analyzer and audited the infinite argument digit
+by digit. The resulting diagonal map is unit triangular: output digit `t` is
+input digit `t` XOR a function of lower digits. This proves finite-quotient
+bijection, compatible 2-adic inversion, and preservation of the first
+differing digit without extrapolating from a finite table.
+
+The review found and rejected one tempting but false intermediate identity.
+Right shift does **not** commute with the one-sided right-edge map `T`; at bit
+zero the fixed zero boundary breaks shift equivariance. For example, with
+`S=1`, `floor(T(S)/2)=3` while `T(floor(S/2))=0`. No committed proof uses that
+commutation. The exact `p`-step cone constraint was instead derived directly
+from `T^p` and checked by two independent evaluators.
+
+The rational countermodel was checked algebraically, not inferred from a long
+prefix. In 2-adic digits, `A=-1/3` has ones at even positions and `B=1/3` has
+digit zero and all positive odd digits set. Direct support calculations give
+`T(A)=B`, `T(B)=A`, `Delta(A)=-1`, and `Delta(B)=1`. Thus fixed-coordinate
+periods and periodic growing diagonals are consistent outside the
+finite-support class. The finite truncations `A mod 2^m` explain why a
+different finite seed can survive every all-one horizon; they do not produce
+one finite infinite-time counterexample.
+
+Finally, the period-one deduction was checked in both orientations. An
+all-one center tail forces the left neighbor to zero. An all-zero center tail
+makes the right-neighbor update `right_next = right OR far_right`, so that
+binary column is eventually constant. The intervals `[-1,0]` and `[0,1]` are
+both covered by Kopra's every-adjacent-width-two conclusion. Lean checks the
+new local persistence lemma without `sorry` or axiom dependencies; it does not
+import Kopra's theorem. Therefore eventual center period one is rigorously
+excluded conditional on that published theorem, while every period at least
+two remains open.

@@ -68,6 +68,8 @@ _READ_PATH_OPTIONS: Mapping[str, frozenset[str]] = {
     "problem1-sideways-invariants": frozenset(),
     "problem1-sideways-prefix-equivalence": frozenset(),
     "problem1-eventual-zero-tail": frozenset(),
+    "problem1-period-defect": frozenset(),
+    "problem1-two-adic-diagonal": frozenset(),
     "problem2-finite-prefix": frozenset({"--input"}),
     "problem2-scaling": frozenset({"--input"}),
     "problem2-conservation": frozenset(),
@@ -182,6 +184,40 @@ EXPERIMENT_ALLOWLIST: Mapping[str, ExperimentSpec] = {
                 "Descriptions outside the finite box and depths beyond the "
                 "final checkpoint remain open."
             ),
+        ),
+    ),
+    "problem1-period-defect": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_period_defect.py"
+        ),
+        "problem1",
+        (
+            "Audit exact finite Boolean constraints induced by candidate "
+            "center periods."
+        ),
+        "finite-exhaustive",
+        "Every Boolean assignment in each explicitly listed finite p-step cone.",
+        (
+            "Finite period bounds do not cover arbitrary eventual periods.",
+            "Full-cone ANF growth does not exclude a nonlocal identity.",
+        ),
+    ),
+    "problem1-two-adic-diagonal": ExperimentSpec(
+        Path(
+            "experiments/problem1_nonperiodicity/"
+            "analyze_two_adic_diagonal.py"
+        ),
+        "problem1",
+        (
+            "Audit finite quotients of the 2-adic diagonal bijection and "
+            "the rational infinite-support countermodel."
+        ),
+        "finite-exhaustive",
+        "Every residue modulo 2^m for each explicitly listed finite width m.",
+        (
+            "The executable campaign alone covers only finite quotient widths.",
+            "The rational countermodel has infinite spatial support.",
         ),
     ),
     "problem2-finite-prefix": ExperimentSpec(

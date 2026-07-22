@@ -19,3 +19,19 @@ The JSON includes compact first-failure certificates and labels the result
 
 See [`docs/problem1_sideways_research.md`](../../docs/problem1_sideways_research.md)
 for conventions, validation, exact default results, and limitations.
+
+Two focused exact analyzers support the current right-edge proof work:
+
+```bash
+cd /home/wryan/rule30-lab
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_defect.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_two_adic_diagonal.py
+```
+
+The first exhausts each listed radius-`p` Boolean cone for the condition
+`c_(t+p)=c_t`. The second exhausts finite 2-adic quotient maps and checks the
+exact `-1/3,1/3` countermodel. Their JSON status is `finite-exhaustive`; the
+all-width arguments are separately stated in `proofs/informal/` and neither
+analyzer proves center nonperiodicity.

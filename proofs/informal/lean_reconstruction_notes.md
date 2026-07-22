@@ -66,6 +66,12 @@ The new column and finite-region theorems are:
   every time from that same `start` onward. The theorem is purely local and
   does not import the separate width-two nonperiodicity result needed for a
   contradiction.
+- `false_left_true_center_stays_true_locally`: with a `false` left input, a
+  `true` center remains `true` independently of the right input.
+- `false_left_tail_true_right_persists`: for explicitly adjacent positions, if
+  the left column is `false` from `start` onward and the right column is `true`
+  at a later time, that right column remains `true` at every subsequent
+  offset. This is the stable local core of the eventual-zero-center argument.
 
 The interval endpoints are intentional: each forced-left conclusion at time
 `t` requires both center values at `t` and `t + 1`.
@@ -83,7 +89,8 @@ env \
 
 This was checked with Lean 4.30.0. The source contains no `sorry`,
 user-declared axioms, or unsound placeholders. Lean's `#print axioms` reports
-that each of the six new theorems listed above depends on no axioms.
+that each of the eight tail/reconstruction theorems listed above depends on no
+axioms.
 
 ## Scope and limitations
 
@@ -101,3 +108,6 @@ that each of the six new theorems listed above depends on no axioms.
   nonperiodicity conclusion.
 - The infinite-tail implication likewise does not prove that the hypothesized
   true tail is impossible without the separately cited width-two theorem.
+- The formal false-tail result proves persistence after a right-neighbor one;
+  the classical dichotomy “a one occurs or the column stays zero” and Kopra's
+  external width-two theorem remain in the synchronized informal proof.
