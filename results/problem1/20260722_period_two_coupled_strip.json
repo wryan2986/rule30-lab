@@ -1,0 +1,108 @@
+{
+  "backend": "python-exact-coupled-transfer",
+  "experiment_id": "problem1-period-two-coupled-strip-20260723T000255Z",
+  "git_commit": "46b554b96325e85bd1d0ea3920e6ad3629634ea3",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 111968
+  },
+  "hypothesis": "The autonomous fringe and whole-word transducer form one exact moving strip, and the universal rational nearest-neighbor coupled additive cocycle class can be decided completely.",
+  "interpretation": "The right fringe and schedule survivor are exactly the low and high halves of one moving right-edge Rule 30 row, and the reversed inverse word supplies a local width-growing transfer across that strip. The complete nearest-neighbor rational additive ansatz collapses to word length with constant fringe-head and terminal-pair potentials, so it cannot distinguish the branch or a zero output pair.",
+  "limitations": [
+    "the cocycle theorem covers only universal rational nearest-neighbor additive functionals",
+    "an invariant restricted to the unique actual fringe orbit may evade the local-head classification",
+    "nonlinear and growing-memory coupled invariants remain open",
+    "does not prove the alternating survivor has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "cocycle_classification_word_length": 3,
+    "maximum_block": 64,
+    "maximum_word_length": 5,
+    "total_width": 256
+  },
+  "proof_scope": "The moving-cut decomposition, coupled strip transfer, and nearest-neighbor rational cocycle classification are all-width/all-word statements proved in proofs/informal/problem1_period_two_coupled_strip.md. The analyzer independently checks 65 moving cuts, 5,824 transfer cases, and the exact rank-18 linear system.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "3e3c96830e3ea0ea98e42a6f9a115a3e4ce76b29e21628ae5ae79d97e1c59b63",
+    "deterministic_stdout_sha256": "4c6f2ea842d7d3b0e6db147d437c6e1a043785ac5d1161bfac5a16b68c81e20c",
+    "informal_proof_sha256": "959e7c3cdd1369556ef17856745bc41a93ff8c0d6c433e6d9363fc74b6b0728d",
+    "scientific_certificate_sha256": "9dd0339fb6ef06c9159e36219e8f3a0531378a6def36cfc38ed54600f1aaa3be",
+    "test_source_sha256": "6fcb0f8fdb6d1074f2f2f1708a3c704ebfcfb14fed1092467e73a33d26e461ec"
+  },
+  "result_summary": {
+    "certificate_sha256": "9dd0339fb6ef06c9159e36219e8f3a0531378a6def36cfc38ed54600f1aaa3be",
+    "coupled_pair_cocycle_no_go": {
+      "all_checks_pass": true,
+      "complete_solution": {
+        "boundary_sensitivity": "the increment cannot distinguish q=t from q=u or any terminal pair",
+        "fringe_head_potential": "P_00=P_01=P_10=P_11",
+        "terminal_pair_potential": "V_00=V_01=V_10=V_11",
+        "word_functional": "F(H)=c*len(H), up to an identically-zero nearest-neighbor coboundary"
+      },
+      "equations": 280,
+      "fringe_head_adjacency": {
+        "00": ["10", "11"],
+        "01": ["11"],
+        "10": ["01", "11"],
+        "11": ["00", "01"]
+      },
+      "maximum_word_length_needed": 3,
+      "nullity": 6,
+      "rank": 18,
+      "variables": [
+        "W_tt", "W_tp", "W_tu", "W_pt", "W_pp", "W_pu", "W_ut", "W_up", "W_uu",
+        "L_t", "L_p", "L_u", "R_t", "R_p", "R_u",
+        "P_00", "P_01", "P_10", "P_11",
+        "V_00", "V_01", "V_10", "V_11", "K"
+      ]
+    },
+    "coupled_transfer": {
+      "all_checks_pass": true,
+      "coupled_cases_checked": 5824,
+      "exact_fringe_update": "A_(m+1) is the autonomous two-step Rule 30 fringe map",
+      "exact_word_update": "reverse(G_(m+1)) = q_m p scan_11(reverse(G_m))",
+      "maximum_word_length": 5,
+      "right_boundary_output": "terminal scan state equals G_m(11)"
+    },
+    "exact_conclusions": {
+      "finite_shadow_cut": "the truncated seed evolves to the same fringe low half and the ordinary inverse-word state as its high half",
+      "moving_cut": "the reversed right fringe and future survivor are the exact low/high halves of one moving right-edge row",
+      "range_two_no_go": "no universal nearest-neighbor additive cocycle on the coupled head/word tiles distinguishes the fringe branch or reconstructed pair"
+    },
+    "moving_cut_identity": {
+      "all_checks_pass": true,
+      "exact_full_cut": "T^(2m)(S) = reverse_(2m)(A_m) + 2^(2m) X_m modulo 2^W",
+      "exact_truncated_cut": "T^(2m)(S mod 2^(2m)) = reverse_(2m)(A_m) + 2^(2m) H_m^(-1)(0)",
+      "inverse_lift_sha256": "084fd263c62f57455d87828fee0c3f31956ede4807e2a4770d80d60345fc6af6",
+      "maximum_block_inclusive": 64,
+      "moving_cuts_checked": 65,
+      "selected_rows": [
+        {"block":0,"fringe_width":0,"ordinary_shadow_bit_length":0,"q_name":"u","reversed_fringe_low_32":0,"seam_bits":0,"seed_pair":[1,1],"survivor_low_32":2294367943},
+        {"block":1,"fringe_width":2,"ordinary_shadow_bit_length":4,"q_name":"t","reversed_fringe_low_32":3,"seam_bits":2,"seed_pair":[1,0],"survivor_low_32":288770987},
+        {"block":2,"fringe_width":4,"ordinary_shadow_bit_length":7,"q_name":"t","reversed_fringe_low_32":7,"seam_bits":4,"seed_pair":[0,0],"survivor_low_32":2719810411},
+        {"block":3,"fringe_width":6,"ordinary_shadow_bit_length":9,"q_name":"t","reversed_fringe_low_32":63,"seam_bits":6,"seed_pair":[1,1],"survivor_low_32":3840626171},
+        {"block":4,"fringe_width":8,"ordinary_shadow_bit_length":16,"q_name":"u","reversed_fringe_low_32":7,"seam_bits":8,"seed_pair":[0,1],"survivor_low_32":2958804871},
+        {"block":8,"fringe_width":16,"ordinary_shadow_bit_length":31,"q_name":"t","reversed_fringe_low_32":51015,"seam_bits":16,"seed_pair":[1,0],"survivor_low_32":288770987},
+        {"block":16,"fringe_width":32,"ordinary_shadow_bit_length":64,"q_name":"t","reversed_fringe_low_32":1792437447,"seam_bits":32,"seed_pair":[0,0],"survivor_low_32":2719810411},
+        {"block":32,"fringe_width":64,"ordinary_shadow_bit_length":127,"q_name":"u","reversed_fringe_low_32":629446343,"seam_bits":64,"seed_pair":[1,0],"survivor_low_32":2958804871},
+        {"block":64,"fringe_width":128,"ordinary_shadow_bit_length":256,"q_name":"t","reversed_fringe_low_32":3231835847,"seam_bits":128,"seed_pair":[1,0],"survivor_low_32":288770987}
+      ],
+      "terminal_pair_identity": "G_m(11) equals seed bits (2m,2m+1)",
+      "total_width": 256
+    }
+  },
+  "runtime_seconds": 0.97,
+  "schema_version": 1,
+  "software": {
+    "implementation": "CPython",
+    "platform": "Linux-6.12.13-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:02:55Z"
+}
