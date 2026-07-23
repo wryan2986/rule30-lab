@@ -1,0 +1,76 @@
+{
+  "backend": "python-exact-characteristic-front-functional-graph",
+  "experiment_id": "problem1-period-two-characteristic-front-20260723T000000Z",
+  "git_commit": "850ac3d13dd7f5a57e26b53ea9fe6da088e049d2",
+  "hardware": {
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 116532
+  },
+  "hypothesis": "A seam lag growing with frontier width might yield an exact recurrence linking finite support to the opposite characteristic boundary.",
+  "interpretation": "The high frontier of every ordinary zero-tail state is exactly a shifted Rule 30 evolution and every fixed frontier window is eventually dyadically periodic. This supplies a genuine growing-lag recurrence but does not couple it to the aperiodic low schedule across the right-permutive middle.",
+  "limitations": [
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity",
+    "finite functional graphs are exhausted only through prefix width 16",
+    "the all-width dyadic recurrence is the proof-note induction, not an inference from finite cycle data",
+    "neither characteristic boundary alone bridges the growing middle"
+  ],
+  "parameters": {
+    "integer_width": 18,
+    "prefix_width": 16
+  },
+  "proof_scope": "The reversal conjugacy, branch-independent safe high prefix, and dyadic temporal-period induction are all-width statements proved in proofs/informal/problem1_period_two_characteristic_front.md. Integer and finite-prefix graph campaigns are exact bounded regression checks.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "3fa636b8c5f392d1cdd8c2ead2fc8308ef394e87cea95939ee3ab1119625b24e",
+    "deterministic_stdout_sha256": "4e1907ce9d33d5b9c6e4c68938a57798834c35cec493750e0f99022c6cf141a9",
+    "informal_proof_sha256": "e489a67e21a0fa073d1f6b6fb7f1ce18341ded1430f44670aa774586096d57ea",
+    "scientific_certificate_sha256": "3e3611a49344c449c65671878d1931eae7ba37a1f219c6e68ba9e587e8051898",
+    "test_source_sha256": "ac8a84f0810feaa41e0ced060881f29d1d4192ef9d81325d600aef1df73f6d10"
+  },
+  "result_summary": {
+    "certificate_sha256": "3e3611a49344c449c65671878d1931eae7ba37a1f219c6e68ba9e587e8051898",
+    "exact_conclusions": {
+      "characteristic_self_embedding": "the schedule-independent high frontier of every ordinary zero-tail state is an exact shifted Rule 30 orbit",
+      "dyadic_front_recurrence": "every fixed high-front window is eventually periodic with a power-of-two period",
+      "remaining_target": "a cross-characteristic quantity spanning both boundaries",
+      "two_boundary_strip": "a dyadically recurrent high boundary and aperiodic low fringe coexist across a growing right-permutive interior"
+    },
+    "prefix_periods": {
+      "all_observed_periods_powers_of_two": true,
+      "exact_inductive_bound": "column j is eventually periodic with period dividing 2^(j+1); a width-r prefix therefore has dyadic eventual period dividing 2^r",
+      "finite_maximum_cycle_period": 4,
+      "finite_maximum_preperiod_seen": 13,
+      "maximum_prefix_width": 16
+    },
+    "reversal_conjugacy": {
+      "all_checks_pass": true,
+      "identity": "front(T(x)) = E(front(x))",
+      "maximum_integer_width": 18,
+      "ordinary_states_checked": 262143
+    },
+    "zero_tail_front": {
+      "all_checks_pass": true,
+      "boundary_layer": "only the final four low-end positions can depend on q",
+      "branch_counts": {
+        "t": 16384,
+        "u": 16383
+      },
+      "exact_safe_prefix": "all front positions j <= degree(x)-2",
+      "high_front_bits_compared": 491520,
+      "zero_branch_states_checked": 32767
+    }
+  },
+  "runtime_seconds": 2.71,
+  "schema_version": 1,
+  "software": {
+    "implementation": "CPython",
+    "platform": "Linux-6.12.13-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:00:00Z"
+}
