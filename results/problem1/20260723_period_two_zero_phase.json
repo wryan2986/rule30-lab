@@ -39,6 +39,16 @@
       },
       "zero_words_checked": 2460
     },
+    "restricted_additive_probe": {
+      "checked_normalized_word_length": 10,
+      "equations": 7359,
+      "variables": ["w_t", "w_p", "w_u", "c_t", "c_u"],
+      "rank": 4,
+      "nullity": 1,
+      "only_solution": "w_t=w_p=w_u=c_t=c_u",
+      "interpretation": "the only additive letter-weight increment on checked continuing-zero transitions is normalized word length",
+      "scope_warning": "bounded exact coefficient evidence for this restricted ansatz, not an all-width no-go theorem"
+    },
     "terminal_head": {
       "all_checks_pass": true,
       "exact_identity": "head((G|_11)pq)=h(G(11))",
