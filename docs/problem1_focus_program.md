@@ -164,6 +164,26 @@ pairs. Thus neither additive word counts nor those short forbidden factors can
 replace coupling to the exact autonomous fringe orbit. See
 [`problem1_period_two_global_transducer.md`](../proofs/informal/problem1_period_two_global_transducer.md).
 
+The fringe and survivor are now identified as the two halves of one exact
+moving right-edge row:
+`T^(2m)(S)=reverse_(2m)(A_m)+2^(2m)X_m`. Reversing the accumulated inverse
+word gives a width-growing local strip transfer whose fringe boundary inserts
+`q_m,p`, whose complete old word is scanned by the four-state transducer, and
+whose opposite terminal state is the next seed pair. The first universal
+nearest-neighbor rational cocycle on these coupled tiles is completely
+trivial: its word functional is only a multiple of width, while both the
+fringe-head and terminal-pair potentials are constant. See
+[`problem1_period_two_coupled_strip.md`](../proofs/informal/problem1_period_two_coupled_strip.md).
+
+The first nonlinear whole-word class is also closed. Over `GF(2)`, let a
+candidate cocycle be any quadratic polynomial in the parities of all inverse-
+word factors of lengths one through three. Exact coefficient elimination,
+performed separately for fixed boundary branches `t` and `u`, forces the
+terminal-pair potential to be constant. An arbitrary potential on the exact
+current fringe state changes each fixed-state equation only by a scalar and
+therefore cannot evade this theorem. See
+[`problem1_period_two_quadratic_parity.md`](../proofs/informal/problem1_period_two_quadratic_parity.md).
+
 ## Admitted work
 
 A proposed task is on the critical path only if both possible outcomes inform
@@ -223,13 +243,14 @@ mathematical obstruction. Merely increasing a bound is not continuation.
 
 ## Immediate sequence
 
-1. Build an exact coupled tile or transfer system containing both the autonomous
-   right-fringe recurrence and the four-state whole-word transducer.
-2. Search for a nonlinear or growing-memory cocycle across those two rows;
-   single-letter additive word weights are now completely classified and closed.
-3. Require any finite quotient to preserve the exact fringe recurrence, not
-   merely the forbidden factors `uu`, `ttttt`, and `ututtu`.
-4. Connect eventual terminal state `00` in the transducer to an
-   original-spacetime finite-support contradiction.
-5. Formalize the coupled recurrence only when it enters a genuine infinite
-   argument.
+1. Search algebraic degree at least three or factor range at least four only
+   when the ansatz uses information not reducible to global factor counts.
+2. Prefer a growing-memory observable that records factor arrangement across
+   the complete moving row; quadratic factor-count parity is now closed through
+   range three.
+3. Preserve the exact fringe recurrence rather than replacing it by local
+   forbidden words or a fixed head quotient.
+4. Connect any surviving nonlinear quantity to eventual terminal state `00`
+   and hence to finite initial support through the moving-cut identity.
+5. Stop fixed-range coefficient sweeps if the next range only repeats the same
+   constant-terminal no-go without a general induction mechanism.

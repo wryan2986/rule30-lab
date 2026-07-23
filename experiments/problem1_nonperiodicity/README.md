@@ -52,6 +52,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_global_transducer.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_coupled_strip.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_quadratic_parity.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -83,7 +85,10 @@ that the three known short schedule exclusions alone do not bound zero-pair
 runs. The fourteenth identifies the fringe and survivor as the two halves of
 one moving right-edge row, verifies the exact width-growing coupled transfer,
 and completely classifies the universal rational nearest-neighbor coupled
-cocycle ansatz. Their JSON status is `finite-exhaustive` or `partial-proof`;
+cocycle ansatz. The fifteenth exactly eliminates quadratic `GF(2)` cocycles
+built from factor-count parities through range three and proves that their
+terminal-pair potential is forced constant, even with an arbitrary exact-fringe
+state potential. Their JSON status is `finite-exhaustive` or `partial-proof`;
 the all-width arguments are separately stated in `proofs/informal/` and no
 analyzer proves center nonperiodicity.
 
@@ -98,6 +103,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_frontier_gluing.json`
 - `results/problem1/20260722_period_two_global_transducer.json`
 - `results/problem1/20260722_period_two_coupled_strip.json`
+- `results/problem1/20260722_period_two_quadratic_parity.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
