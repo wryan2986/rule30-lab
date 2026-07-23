@@ -265,6 +265,11 @@ At the default limits the deterministic counts are:
 
 These are implementation checks for the all-word table arguments above.
 
+A separate exact linear-algebra probe of continuing-zero transitions through
+normalized word length ten found no branch-sensitive additive letter-weight
+law: the only solution is the trivial length increment. This is a negative
+bounded diagnostic, not an all-width no-go theorem.
+
 ## 8. Research consequence
 
 The final-zero hypothesis is no longer an undifferentiated growing-word
@@ -285,8 +290,10 @@ The next admissible target is correspondingly narrower:
 > actual fringe driver.
 
 A fixed numerical bound on zero-run length is unnecessary and unsupported.
-A useful continuation should instead derive a return-map obstruction,
-monotone quantity, or forbidden cycle inside each of the two fibers.
+The restricted additive probe also says that plain letter weights are not a
+promising route. A useful continuation should instead derive a nonlinear
+return-map obstruction, a growing-memory quantity, or a forbidden cycle inside
+each of the two fibers.
 
 ## 9. Scientific boundary
 
