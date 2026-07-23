@@ -54,6 +54,10 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_coupled_strip.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_quadratic_parity.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_arrangement_cocycles.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_dual_multiscale.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -88,7 +92,11 @@ and completely classifies the universal rational nearest-neighbor coupled
 cocycle ansatz. The fifteenth exactly eliminates quadratic `GF(2)` cocycles
 built from factor-count parities through range three and proves that their
 terminal-pair potential is forced constant, even with an arbitrary exact-fringe
-state potential. Their JSON status is `finite-exhaustive` or `partial-proof`;
+state potential. The sixteenth closes geometric position-weighted and
+invertible ordered-product edge cocycles. The seventeenth proves that the
+invertible dual is self-replicating and level-transitive on every scan-state
+level, then measures maximal section growth on the actual period-two word
+through depth eight. Their JSON status is `finite-exhaustive` or `partial-proof`;
 the all-width arguments are separately stated in `proofs/informal/` and no
 analyzer proves center nonperiodicity.
 
@@ -104,6 +112,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_global_transducer.json`
 - `results/problem1/20260722_period_two_coupled_strip.json`
 - `results/problem1/20260722_period_two_quadratic_parity.json`
+- `results/problem1/20260723_period_two_dual_multiscale.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
