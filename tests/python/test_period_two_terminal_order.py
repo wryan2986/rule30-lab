@@ -35,13 +35,7 @@ def test_actual_path_known_records() -> None:
         "start_block_zero_based": 2948,
         "end_block_zero_based": 2952,
     }
-    assert [record["run_length"] for record in result["record_zero_runs"]] == [
-        1,
-        2,
-        3,
-        4,
-        5,
-    ]
+    assert [record["run_length"] for record in result["record_zero_runs"]] == [1, 2, 3, 4, 5]
 
 
 def test_nonzero_terminal_resets_order() -> None:
@@ -54,8 +48,7 @@ def test_nonzero_terminal_resets_order() -> None:
 def test_campaign_certificate_is_stable_except_runtime() -> None:
     first = mod.run_campaign(maximum_word_length=5, actual_blocks=128)
     second = mod.run_campaign(maximum_word_length=5, actual_blocks=128)
+    assert first["certificate_sha256"] == second["certificate_sha256"]
     first.pop("runtime_seconds")
     second.pop("runtime_seconds")
-    first.pop("certificate_sha256")
-    second.pop("certificate_sha256")
     assert first == second
