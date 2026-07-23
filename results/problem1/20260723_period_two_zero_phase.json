@@ -1,0 +1,95 @@
+{
+  "backend": "python-exact-whole-word-transducer",
+  "experiment_id": "problem1-period-two-zero-phase-20260723T000000Z",
+  "hypothesis": "A terminal-zero island may preserve a complete-word phase that reduces the final-tail problem to fixed transducer fibers.",
+  "interpretation": "The terminal pair determines the next word head. Every zero step deletes one fixed p/u phase letter from the normalized word, and every consecutive zero island remains in that phase. The phase is the normalized ordinary state's bit-length parity.",
+  "limitations": [
+    "does not prove resets occur infinitely often",
+    "does not exclude infinite orbits in either fixed terminal fiber",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_driver_depth": 5,
+    "maximum_word_length": 8
+  },
+  "proof_scope": "The terminal-head identity, zero-step deletion recurrence, fixed-phase theorem, and arithmetic parity interpretation are all-word statements proved in proofs/informal/problem1_period_two_zero_phase.md. Exhaustive campaigns are bounded regression checks.",
+  "question": "problem1",
+  "result_summary": {
+    "certificate_sha256": "ef2e3fdde0008c885e27cdafce9c57e261760b1cdb60bf5ee86172df5a6618be",
+    "exact_conclusions": {
+      "arithmetic_phase": "the phase is exactly the parity of the normalized ordinary state's bit length",
+      "final_tail_reduction": "a final zero tail must remain forever in one of two fixed terminal fibers, with one phase letter deleted per block",
+      "fixed_zero_phase": "every consecutive terminal-zero island has one fixed p/u phase",
+      "remaining_target": "exclude infinite actual-fringe-driven orbits in both fixed terminal fibers",
+      "terminal_head_code": "the terminal pair determines the next complete-word head letter"
+    },
+    "phase_parity": {
+      "all_checks_pass": true,
+      "counts": {
+        "p:0": 1232,
+        "u:1": 1228
+      },
+      "exact_reason": "p(0)=3 has bit length 2, u(0)=1 has bit length 1, and every subsequent forward generator raises positive bit length by 2",
+      "maximum_word_length": 8,
+      "phase_bit_length_parity": {
+        "p": "even",
+        "u": "odd"
+      },
+      "zero_words_checked": 2460
+    },
+    "terminal_head": {
+      "all_checks_pass": true,
+      "exact_identity": "head((G|_11)pq)=h(G(11))",
+      "head_code": {
+        "00": "t",
+        "01": "p",
+        "10": "u",
+        "11": "p"
+      },
+      "maximum_word_length": 8,
+      "terminal_counts_before_branch_duplication": {
+        "00": 2460,
+        "01": 2460,
+        "10": 2460,
+        "11": 2461
+      },
+      "word_branch_cases_checked": 19682
+    },
+    "zero_deletion": {
+      "all_checks_pass": true,
+      "continuing_zero_cases": {
+        "p": 590,
+        "u": 636
+      },
+      "exact_deletion": "if G=t^ell a B and G(11)=00, then U_q(G)=t^(ell+1) U_q(B)",
+      "maximum_word_length": 8,
+      "phase_counts_before_branch_duplication": {
+        "p": 1232,
+        "u": 1228
+      },
+      "phase_propagation": "the normalized word after every zero output begins with the same phase a in {p,u}",
+      "tail_terminal_by_phase": {
+        "p": "11",
+        "u": "10"
+      },
+      "zero_word_branch_cases_checked": 4920
+    },
+    "zero_island_drivers": {
+      "all_checks_pass": true,
+      "exact_conclusion": "every finite consecutive-zero prefix remains in its initial p/u phase",
+      "maximum_driver_depth": 5,
+      "maximum_initial_word_length": 5,
+      "surviving_prefixes_by_phase": {
+        "p": 73,
+        "u": 88
+      },
+      "surviving_zero_prefixes": 161,
+      "zero_driver_steps_checked": 7358
+    }
+  },
+  "schema_version": 1,
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:00:00Z"
+}
