@@ -62,6 +62,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_multitime_bulk.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_characteristic_front.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_terminal_order.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -105,7 +107,11 @@ transfer has a branch-independent radius-two bulk, exact radius-`2k` causal
 cones, and constructive block surjectivity from iterated right permutivity.
 The nineteenth identifies the opposite characteristic frontier with an exact
 shifted Rule 30 evolution and proves that every fixed high-front window is
-eventually periodic with a power-of-two period. Their JSON status is
+eventually periodic with a power-of-two period. The twentieth proves the exact
+nonlinear terminal-zero/leading-`t` order cocycle across the complete word and
+reformulates finite support as eventual unit-slope growth of that order. Its
+bounded actual-orbit campaign also records zero-pair runs of lengths one
+through five, so no small numerical run bound is claimed. Their JSON status is
 `finite-exhaustive` or `partial-proof`; the all-width arguments are separately
 stated in `proofs/informal/` and no analyzer proves center nonperiodicity.
 
@@ -124,6 +130,7 @@ Tracked results are:
 - `results/problem1/20260723_period_two_dual_multiscale.json`
 - `results/problem1/20260723_period_two_multitime_bulk.json`
 - `results/problem1/20260723_period_two_characteristic_front.json`
+- `results/problem1/20260723_period_two_terminal_order.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
