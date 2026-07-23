@@ -1,0 +1,84 @@
+{
+  "backend": "python-exact-dual-tree-action",
+  "experiment_id": "problem1-period-two-dual-multiscale-20260723T000000Z",
+  "git_commit": "3b089975536377c29176b96c45ef3424a7f27e52",
+  "hardware": {
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 170356
+  },
+  "hypothesis": "A recursively composed section state might close at bounded size and distinguish eventual terminal 00.",
+  "interpretation": "The dual is exactly self-replicating and level-transitive, while the actual word already realizes maximal iterated-section growth through depth eight. The universal section tower expands rather than closing; a useful recursive observable must quotient it using actual-orbit or multi-time structure.",
+  "limitations": [
+    "does not prove the scan-state semigroup is free",
+    "the ordered-pair orbit law is checked only through depth four",
+    "the actual section-growth campaign is finite through depth eight",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "actual_blocks": [4, 8, 16, 32],
+    "actual_section_depth": 8,
+    "maximum_level_depth": 8,
+    "maximum_pair_depth": 4
+  },
+  "proof_scope": "The self-replication witnesses and level-transitivity induction are all-depth statements proved in proofs/informal/problem1_period_two_dual_multiscale.md. Level orbits through depth eight, ordered-pair orbits through depth four, and actual section growth through depth eight are exact finite checks.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "debd8e1e9a598ea163644bb4388d4f560cf6d79b33d3425564b1734bac1da03f",
+    "deterministic_stdout_sha256": "e1c35bb3a6975bcbeabaf9a20246606c733dce869a805b86375dec292ac34f00",
+    "informal_proof_sha256": "6c9df1ede383aa3307a494d33cc76ec023cd48d33b7990bd145bad3da648ded3",
+    "scientific_certificate_sha256": "0efa9c6f8d8a8252adfc4cf67e681e19f9c52449cc74ba14a8119db29e3948c4",
+    "test_source_sha256": "62611a16a3523ee80e15c4e937473cb3e80ce10e41fe73d9344dd7789e12bace"
+  },
+  "result_summary": {
+    "actual_section_growth": {
+      "blocks": {
+        "16": {"full_through_depth": 6, "maximum_possible": [4,16,64,256,1024,4096,16384,65536], "section_orbit_sizes": [4,16,64,256,1024,4096,16378,65413], "word_length": 32},
+        "32": {"full_through_depth": 8, "maximum_possible": [4,16,64,256,1024,4096,16384,65536], "section_orbit_sizes": [4,16,64,256,1024,4096,16384,65536], "word_length": 64},
+        "4": {"full_through_depth": 2, "maximum_possible": [4,16,64,256,1024,4096,16384,65536], "section_orbit_sizes": [4,16,62,200,394,491,514,517], "word_length": 8},
+        "8": {"full_through_depth": 4, "maximum_possible": [4,16,64,256,1024,4096,16384,65536], "section_orbit_sizes": [4,16,64,256,1003,3695,11426,26043], "word_length": 16}
+      },
+      "finite_conclusion": "the actual block-32 word realizes all 4^d iterated sections through d=8",
+      "maximum_depth": 8,
+      "scientific_boundary": "finite section growth does not prove all-depth freeness or infinite support"
+    },
+    "certificate_sha256": "0efa9c6f8d8a8252adfc4cf67e681e19f9c52449cc74ba14a8119db29e3948c4",
+    "exact_conclusions": {
+      "boundary_orbits": "every infinite scan-state word has a dual orbit with all 4^d prefixes at every depth d",
+      "dual_level_transitivity": "the invertible dual acts transitively on every finite level Q^d",
+      "multiscale_no_closure": "the natural exact section hierarchy does not collapse to a small universal level orbit",
+      "next_target": "use a quotient special to the unique actual fringe orbit or a multi-time seam identity, not the full universal section tower"
+    },
+    "level_orbits": {"all_levels_full": true, "maximum_depth": 8, "orbit_sizes": {"1":4,"2":16,"3":64,"4":256,"5":1024,"6":4096,"7":16384,"8":65536}},
+    "pair_orbits": {
+      "finite_pattern": "2d ordered-pair orbits at depth d through the checked range",
+      "levels": {
+        "1": {"all_orbits_root_separating": true, "orbit_sizes": [4,8], "ordered_pair_orbits": 2},
+        "2": {"all_orbits_root_separating": true, "orbit_sizes": [16,32,64,128], "ordered_pair_orbits": 4},
+        "3": {"all_orbits_root_separating": true, "orbit_sizes": [64,128,256,512,1024,2048], "ordered_pair_orbits": 6},
+        "4": {"all_orbits_root_separating": true, "orbit_sizes": [256,512,1024,2048,4096,8192,16384,32768], "ordered_pair_orbits": 8}
+      },
+      "maximum_depth": 4,
+      "scientific_boundary": "the 2d pair-orbit law is finite evidence, not an all-depth theorem here"
+    },
+    "self_replication": {
+      "all_checks_pass": true,
+      "boundary_conclusion": "every dual boundary orbit has all 4^d possible depth-d prefixes",
+      "exact_conclusion": "the dual action is self-replicating and level-transitive on Q^d for every d>=1",
+      "root_four_cycle": {"generator": "u", "permutation": [3,2,0,1]},
+      "stabilizer_section_witnesses": {
+        "p": {"all_sections": ["p","u","p","t"], "root_permutation": [0,1,3,2], "section_at_00": "p", "word": "ppT"},
+        "t": {"all_sections": ["t","p","p","u"], "root_permutation": [0,1,3,2], "section_at_00": "t", "word": "t"},
+        "u": {"all_sections": ["u","p","t","p"], "root_permutation": [0,1,3,2], "section_at_00": "u", "word": "tPttP"}
+      }
+    }
+  },
+  "runtime_seconds": 1.32,
+  "schema_version": 1,
+  "software": {"implementation": "CPython", "platform": "Linux-6.12.13-x86_64-with-glibc2.41", "python": "3.13.5"},
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:00:00Z"
+}
