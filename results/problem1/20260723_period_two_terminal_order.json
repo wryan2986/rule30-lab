@@ -65,13 +65,13 @@
         "driver_prefix_steps_checked": 90114,
         "maximum_branch_word_length": 12
     },
-    "certificate_sha256": "8f847f6d5e9f466549bf631591e6c313b14411ee245fd98051ca31d7e7841652",
+    "certificate_sha256": "9de7542e574a49438058cb6f9c07f105f5270ca24b24fcdfb9537ce266d393e1",
     "exact_conclusions": {
         "finite_support_reformulation": "eventual terminal 00 is equivalent to eventual unit-slope divergence of the leading-t order",
         "nonlinear_cross_word_bridge": "the terminal pair at one boundary exactly increments or resets the leading-t order at the opposite word boundary",
         "remaining_target": "prove that the zero-initialized coupled fringe orbit resets the leading-t order infinitely often"
     },
-    "runtime_seconds": 10.618911,
+    "runtime_seconds": 10.194562,
     "terminal_order_cocycle": {
         "all_checks_pass": true,
         "branch_independent": true,
