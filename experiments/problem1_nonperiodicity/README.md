@@ -66,6 +66,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_terminal_order.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_dual_cut.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_zero_phase.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -117,9 +119,14 @@ pair word after a cut is the dual action of the complete past accumulated word
 on a state word generated solely by the future schedule. A length-`L` zero run
 is exactly a depth-`L` match with the unique past preimage of `00^L`. Its
 bounded actual-orbit campaign records runs through length five, while an
-independent 20,000-block extension finds a length-six run. Their JSON status is
-`finite-exhaustive` or `partial-proof`; the all-width arguments are separately
-stated in `proofs/informal/` and no analyzer proves center nonperiodicity.
+independent 20,000-block extension finds a length-six run. The twenty-second
+proves that the terminal pair determines the next word head, derives the exact
+zero-step deletion recurrence, and shows that every zero island has a fixed
+`p` or `u` phase equal to the normalized ordinary state's bit-length parity. A
+final zero tail must therefore stay forever in one of two fixed terminal
+fibers. Their JSON status is `finite-exhaustive` or `partial-proof`; the
+all-width arguments are separately stated in `proofs/informal/` and no analyzer
+proves center nonperiodicity.
 
 Tracked results are:
 
@@ -138,6 +145,7 @@ Tracked results are:
 - `results/problem1/20260723_period_two_characteristic_front.json`
 - `results/problem1/20260723_period_two_terminal_order.json`
 - `results/problem1/20260723_period_two_dual_cut.json`
+- `results/problem1/20260723_period_two_zero_phase.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
