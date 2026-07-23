@@ -58,6 +58,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_arrangement_cocycles.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_dual_multiscale.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_multitime_bulk.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -96,9 +98,12 @@ state potential. The sixteenth closes geometric position-weighted and
 invertible ordered-product edge cocycles. The seventeenth proves that the
 invertible dual is self-replicating and level-transitive on every scan-state
 level, then measures maximal section growth on the actual period-two word
-through depth eight. Their JSON status is `finite-exhaustive` or `partial-proof`;
-the all-width arguments are separately stated in `proofs/informal/` and no
-analyzer proves center nonperiodicity.
+through depth eight. The eighteenth proves that every fixed-lag two-seam
+transfer has a branch-independent radius-two bulk, exact radius-`2k` causal
+cones, and constructive block surjectivity from iterated right permutivity.
+Their JSON status is `finite-exhaustive` or `partial-proof`; the all-width
+arguments are separately stated in `proofs/informal/` and no analyzer proves
+center nonperiodicity.
 
 Tracked results are:
 
@@ -113,6 +118,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_coupled_strip.json`
 - `results/problem1/20260722_period_two_quadratic_parity.json`
 - `results/problem1/20260723_period_two_dual_multiscale.json`
+- `results/problem1/20260723_period_two_multitime_bulk.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,

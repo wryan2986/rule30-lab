@@ -1,0 +1,95 @@
+{
+  "backend": "python-exact-boolean-exhaustion",
+  "experiment_id": "problem1-period-two-multitime-bulk-20260723T000000Z",
+  "git_commit": "76024f8082470474da0bfa29ad9fe56c06fd2573",
+  "hardware": {
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 110296
+  },
+  "hypothesis": "A fixed-lag comparison of two moving seams might bridge the free middle and distinguish an eventually finite survivor.",
+  "interpretation": "The opposite occurs: the schedule affects only a boundary cone, while the common interior is a right-permutive radius-two cellular rule. Every finite later middle word remains constructively realizable at fixed lag.",
+  "limitations": [
+    "does not address lags that grow with the seam or state width",
+    "does not classify nonlocal or actual-orbit-specific quantities",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_lag": 3,
+    "maximum_target_width": 5,
+    "one_step_input_width": 14
+  },
+  "proof_scope": "The branch-independent radius-two bulk rule, the radius-2k causal-cone theorem, iterated right permutivity, and constructive block-surjectivity theorem are all-width statements proved in proofs/informal/problem1_period_two_multitime_bulk.md. The listed residue, cone, and target campaigns are exact bounded checks of the implementation.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "7f9febeeb8bb45b98942b06e1d2089719f2d60440e9482ea4c5c283c79d94fd4",
+    "deterministic_stdout_sha256": "1d996084d25815b5ad1c066f6d7d6ddb42f505d20261ef3ae34ea14e5fd8c363",
+    "informal_proof_sha256": "c052c748dabd57dda4fe44f8ed31c490975b907bb31e6fd83e7ae4ba729e6d27",
+    "scientific_certificate_sha256": "49a0222646e78a4999ecf422e2112e604c7549df9af8e084b87d5d00e3b2515f",
+    "test_source_sha256": "961f2c3a818ae5161376fe1d30e61413ace1d7d127a22d7932122e1b90d16db7"
+  },
+  "result_summary": {
+    "block_surjectivity": {
+      "all_checks_pass": true,
+      "constructive_checks": 558,
+      "exact_conclusion": "Phi^k is right permutive in the extreme input bit i+2k; therefore every finite later interior word is realizable after fixing all other bits in its dependency rectangle",
+      "maximum_lag": 3,
+      "maximum_target_width": 5,
+      "rows": [
+        {"checks": 6, "contexts": 3, "lag": 1, "target_width": 1, "targets_per_context": 2},
+        {"checks": 12, "contexts": 3, "lag": 1, "target_width": 2, "targets_per_context": 4},
+        {"checks": 24, "contexts": 3, "lag": 1, "target_width": 3, "targets_per_context": 8},
+        {"checks": 48, "contexts": 3, "lag": 1, "target_width": 4, "targets_per_context": 16},
+        {"checks": 96, "contexts": 3, "lag": 1, "target_width": 5, "targets_per_context": 32},
+        {"checks": 6, "contexts": 3, "lag": 2, "target_width": 1, "targets_per_context": 2},
+        {"checks": 12, "contexts": 3, "lag": 2, "target_width": 2, "targets_per_context": 4},
+        {"checks": 24, "contexts": 3, "lag": 2, "target_width": 3, "targets_per_context": 8},
+        {"checks": 48, "contexts": 3, "lag": 2, "target_width": 4, "targets_per_context": 16},
+        {"checks": 96, "contexts": 3, "lag": 2, "target_width": 5, "targets_per_context": 32},
+        {"checks": 6, "contexts": 3, "lag": 3, "target_width": 1, "targets_per_context": 2},
+        {"checks": 12, "contexts": 3, "lag": 3, "target_width": 2, "targets_per_context": 4},
+        {"checks": 24, "contexts": 3, "lag": 3, "target_width": 3, "targets_per_context": 8},
+        {"checks": 48, "contexts": 3, "lag": 3, "target_width": 4, "targets_per_context": 16},
+        {"checks": 96, "contexts": 3, "lag": 3, "target_width": 5, "targets_per_context": 32}
+      ]
+    },
+    "certificate_sha256": "49a0222646e78a4999ecf422e2112e604c7549df9af8e084b87d5d00e3b2515f",
+    "exact_conclusions": {
+      "bounded_lag_no_go": "a fixed k-block seam comparison leaves a constructively free interior; no bounded-lag local identity can bridge arbitrary low and high boundary data",
+      "bulk_ca": "the normalized zero recurrence has one branch-independent radius-two bulk cellular rule outside its four-bit boundary layer",
+      "next_target": "use lags growing with the seam width, a nonlocal spacetime quantity, or a theorem special to the actual fringe orbit"
+    },
+    "multitime_cones": {
+      "all_checks_pass": true,
+      "exact_conclusion": "after k scheduled zero steps, every output bit i>=2k+2 is independent of the intervening branch word and depends only on initial bits i-2k through i+2k via Phi^k",
+      "lag_rows": [
+        {"branch_words": 2, "checks": 64, "input_cone_width": 5, "lag": 1, "safe_output_index": 4},
+        {"branch_words": 4, "checks": 2048, "input_cone_width": 9, "lag": 2, "safe_output_index": 6},
+        {"branch_words": 8, "checks": 65536, "input_cone_width": 13, "lag": 3, "safe_output_index": 8}
+      ],
+      "maximum_lag": 3,
+      "total_cone_checks": 67648
+    },
+    "one_step_bulk": {
+      "all_checks_pass": true,
+      "bulk_bit_checks": 262144,
+      "bulk_rule_anf": "a + b + a*b + a*c + b*c + a*b*c + a*d + b*d + a*b*d + e",
+      "bulk_truth_table_hex": "0x696969aa",
+      "exact_boundary_statement": "for every q in {t,u} and every i>=4, R_q(x)_i=Phi(x_(i-2),...,x_(i+2))",
+      "input_width": 14,
+      "right_permutivity_checks": 16
+    }
+  },
+  "runtime_seconds": 0.40942,
+  "schema_version": 1,
+  "software": {
+    "implementation": "CPython",
+    "platform": "Linux-6.12.13-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:00:00Z"
+}
