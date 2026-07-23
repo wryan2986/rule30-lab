@@ -64,6 +64,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_characteristic_front.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_terminal_order.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_dual_cut.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -109,9 +111,13 @@ The nineteenth identifies the opposite characteristic frontier with an exact
 shifted Rule 30 evolution and proves that every fixed high-front window is
 eventually periodic with a power-of-two period. The twentieth proves the exact
 nonlinear terminal-zero/leading-`t` order cocycle across the complete word and
-reformulates finite support as eventual unit-slope growth of that order. Its
-bounded actual-orbit campaign also records zero-pair runs of lengths one
-through five, so no small numerical run bound is claimed. Their JSON status is
+reformulates finite support as eventual unit-slope growth of that order. The
+twenty-first proves the exact all-depth past/future factorization: the terminal
+pair word after a cut is the dual action of the complete past accumulated word
+on a state word generated solely by the future schedule. A length-`L` zero run
+is exactly a depth-`L` match with the unique past preimage of `00^L`. Its
+bounded actual-orbit campaign records runs through length five, while an
+independent 20,000-block extension finds a length-six run. Their JSON status is
 `finite-exhaustive` or `partial-proof`; the all-width arguments are separately
 stated in `proofs/informal/` and no analyzer proves center nonperiodicity.
 
@@ -131,6 +137,7 @@ Tracked results are:
 - `results/problem1/20260723_period_two_multitime_bulk.json`
 - `results/problem1/20260723_period_two_characteristic_front.json`
 - `results/problem1/20260723_period_two_terminal_order.json`
+- `results/problem1/20260723_period_two_dual_cut.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
