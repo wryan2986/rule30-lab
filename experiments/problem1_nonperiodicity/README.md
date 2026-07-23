@@ -50,6 +50,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_frontier_gluing.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_global_transducer.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_coupled_strip.py
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -78,9 +80,12 @@ middle words remain compatible. The thirteenth gives the exact four-state
 right-to-left transducer for the complete growing inverse word, proves that all
 single-letter additive cocycles are trivial, and records a branch word showing
 that the three known short schedule exclusions alone do not bound zero-pair
-runs. Their JSON status is `finite-exhaustive` or `partial-proof`; the all-width
-arguments are separately stated in `proofs/informal/` and no analyzer proves
-center nonperiodicity.
+runs. The fourteenth identifies the fringe and survivor as the two halves of
+one moving right-edge row, verifies the exact width-growing coupled transfer,
+and completely classifies the universal rational nearest-neighbor coupled
+cocycle ansatz. Their JSON status is `finite-exhaustive` or `partial-proof`;
+the all-width arguments are separately stated in `proofs/informal/` and no
+analyzer proves center nonperiodicity.
 
 Tracked results are:
 
@@ -92,6 +97,7 @@ Tracked results are:
 - `results/problem1/20260722_period_two_first_return.json`
 - `results/problem1/20260722_period_two_frontier_gluing.json`
 - `results/problem1/20260722_period_two_global_transducer.json`
+- `results/problem1/20260722_period_two_coupled_strip.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
