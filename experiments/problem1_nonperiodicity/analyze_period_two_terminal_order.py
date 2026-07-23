@@ -266,11 +266,11 @@ def run_campaign(
             ),
         },
     }
-    payload["runtime_seconds"] = round(time.perf_counter() - started, 6)
     digest = hashlib.sha256()
     digest.update(b"rule30-period-two-terminal-order-v1\0")
     digest.update(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode())
     payload["certificate_sha256"] = digest.hexdigest()
+    payload["runtime_seconds"] = round(time.perf_counter() - started, 6)
     return payload
 
 
