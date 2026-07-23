@@ -96,11 +96,13 @@ complete table it emits `t`. Every one of the `ell` leading input `t` letters is
 then processed in state `00`, emits `t`, and leaves the state at `00`. Hence
 `S` begins with exactly `ell+1` letters `t`.
 
-It cannot begin with more. The next emitted position comes from the second
-letter of `K`, if present, rather than from the leading `t` block; the first
-non-`t` input letter is exactly the unique extra boundary position identified
-above. Appending `p q` to the right end does not change the leading run, so
-`ord_t(S p q)=ell+1`.
+It cannot begin with more. If the next emitted position, coming from the
+second letter of `K`, were also `t`, then that transition would leave scan
+state `00`: every transducer transition that emits `t` has successor `00`. The
+first letter of `K` would then be a `p` or `u` processed with incoming state
+`00`, and the table says it would emit `p`, not `t`. This contradicts the
+extra leading `t` already identified. Appending `p q` to the right end does not
+change the leading run, so `ord_t(S p q)=ell+1`.
 
 Now suppose `e` is not `00`. If `S` began with `t`, then either the first input
 letter of `G` were a leading `t` processed in state `00`, or the first input
