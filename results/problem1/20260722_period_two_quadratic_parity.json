@@ -1,0 +1,199 @@
+{
+  "backend": "python-exact-gf2-bitset-elimination",
+  "experiment_id": "problem1-period-two-quadratic-parity-20260723T013244Z",
+  "git_commit": "4e553d233b1f5ccefcd397e68f6187577890cfd7",
+  "hardware": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cpu_threads_used": 1,
+    "environment": "isolated Linux CPU sandbox",
+    "gpu_used": false,
+    "maximum_resident_set_kib": 112808
+  },
+  "hypothesis": "A nonlinear quadratic GF(2) cocycle built from complete factor-count parities might distinguish terminal output pair 00 after rational additive cocycles fail.",
+  "interpretation": "Exact coefficient elimination shows that every degree-at-most-two polynomial in the parities of all inverse-word factors through range three has constant terminal-pair potential in any all-word one-step cocycle identity. This remains true with an arbitrary potential on the exact current fringe state, so this nonlinear finite-memory class cannot distinguish finite support.",
+  "limitations": [
+    "covers algebraic degree at most two only",
+    "covers factor-count parities of factors of length at most three only",
+    "does not cover observables depending on factor arrangement beyond global counts",
+    "does not cover growing memory or range increasing with strip width",
+    "does not prove the alternating survivor has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "coefficient_field": "GF(2)",
+    "maximum_algebraic_degree": 2,
+    "maximum_factor_range": 3,
+    "maximum_word_lengths_by_range": {
+      "1": 5,
+      "2": 6,
+      "3": 7
+    }
+  },
+  "proof_scope": "The finite GF(2) systems are coefficient proofs of all-word no-go statements: any proposed identity in the stated class must satisfy the finite subsystem, whose exact row space contains every terminal-potential difference V_s+V_11. The analyzer independently cross-checks factor parities by direct and streaming implementations and freezes exact row counts and ranks.",
+  "question": "problem1",
+  "result_hashes": {
+    "analyzer_source_sha256": "f5b9d5d499d4bde5421f75df86e7bb642b4c00a42cba9f661b82a3500df8f26f",
+    "deterministic_stdout_sha256": "0ced70041908444c191c07ae6d0eaab6ec5d4c3006ac9500d4aefd959261d69e",
+    "informal_proof_sha256": "774718251f92e9d32378eb193d68274a3ae9c69b0409993af13817f3f3cf47d4",
+    "scientific_certificate_sha256": "d4142a5983335cc782f6fab6e410ddc41ea048bf98db2437e3405b0ee95dfa0e",
+    "test_source_sha256": "9bca94194b80c0fa8dc90c4939762e432001b48035812293389dcd0b1c5d49c3"
+  },
+  "result_summary": {
+    "certificate_sha256": "d4142a5983335cc782f6fab6e410ddc41ea048bf98db2437e3405b0ee95dfa0e",
+    "exact_conclusions": {
+      "actual_orbit_scope": "allowing an arbitrary potential on the exact current fringe state only changes the branch equation by a scalar and therefore does not evade the fixed-branch theorem",
+      "nonlinear_no_go": "quadratic parity functionals of factor counts through range three cannot distinguish terminal 00 from a nonzero output pair",
+      "remaining_target": "higher algebraic degree, factor range at least four, genuinely growing memory, or a non-factor-based nonlinear observable"
+    },
+    "ranges": [
+      {
+        "all_checks_pass": true,
+        "combined_branch_system": {
+          "equations": 87,
+          "nullity": 2,
+          "rank": 10,
+          "terminal_equalities_forced": {
+            "00": true,
+            "01": true,
+            "10": true
+          },
+          "terminal_potential": "V_00=V_01=V_10=V_11",
+          "variables": 12
+        },
+        "exact_conclusion": "every degree-at-most-two GF(2) polynomial in factor-count parities of this range has terminal-pair potential constant in any all-word one-step cocycle identity",
+        "factor_parity_features": 3,
+        "fixed_branch_systems": {
+          "t": {
+            "equations": 44,
+            "nullity": 2,
+            "rank": 9,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 11
+          },
+          "u": {
+            "equations": 43,
+            "nullity": 2,
+            "rank": 9,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 11
+          }
+        },
+        "maximum_factor_range": 1,
+        "maximum_word_length_needed": 5,
+        "quadratic_monomials": 6
+      },
+      {
+        "all_checks_pass": true,
+        "combined_branch_system": {
+          "equations": 1843,
+          "nullity": 15,
+          "rank": 69,
+          "terminal_equalities_forced": {
+            "00": true,
+            "01": true,
+            "10": true
+          },
+          "terminal_potential": "V_00=V_01=V_10=V_11",
+          "variables": 84
+        },
+        "exact_conclusion": "every degree-at-most-two GF(2) polynomial in factor-count parities of this range has terminal-pair potential constant in any all-word one-step cocycle identity",
+        "factor_parity_features": 12,
+        "fixed_branch_systems": {
+          "t": {
+            "equations": 920,
+            "nullity": 15,
+            "rank": 68,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 83
+          },
+          "u": {
+            "equations": 923,
+            "nullity": 15,
+            "rank": 68,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 83
+          }
+        },
+        "maximum_factor_range": 2,
+        "maximum_word_length_needed": 6,
+        "quadratic_monomials": 78
+      },
+      {
+        "all_checks_pass": true,
+        "combined_branch_system": {
+          "equations": 6422,
+          "nullity": 204,
+          "rank": 582,
+          "terminal_equalities_forced": {
+            "00": true,
+            "01": true,
+            "10": true
+          },
+          "terminal_potential": "V_00=V_01=V_10=V_11",
+          "variables": 786
+        },
+        "exact_conclusion": "every degree-at-most-two GF(2) polynomial in factor-count parities of this range has terminal-pair potential constant in any all-word one-step cocycle identity",
+        "factor_parity_features": 39,
+        "fixed_branch_systems": {
+          "t": {
+            "equations": 3211,
+            "nullity": 204,
+            "rank": 581,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 785
+          },
+          "u": {
+            "equations": 3211,
+            "nullity": 204,
+            "rank": 581,
+            "terminal_equalities_forced": {
+              "00": true,
+              "01": true,
+              "10": true
+            },
+            "terminal_potential": "V_00=V_01=V_10=V_11",
+            "variables": 785
+          }
+        },
+        "maximum_factor_range": 3,
+        "maximum_word_length_needed": 7,
+        "quadratic_monomials": 780
+      }
+    ]
+  },
+  "runtime_seconds": 6.07,
+  "schema_version": 1,
+  "software": {
+    "implementation": "CPython",
+    "platform": "Linux-6.12.13-x86_64-with-glibc2.41",
+    "python": "3.13.5"
+  },
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T01:32:44Z"
+}
