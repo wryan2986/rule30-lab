@@ -1,0 +1,88 @@
+{
+    "actual_path": {
+        "all_checks_pass": true,
+        "blocks": 10000,
+        "exact_interpretation": "leading-t order equals the length of the immediately preceding consecutive terminal-00 run",
+        "final_leading_t_order": 0,
+        "final_word_length": 20000,
+        "longest_zero_pair_run": {
+            "end_block_zero_based": 2952,
+            "length": 5,
+            "start_block_zero_based": 2948
+        },
+        "pair_counts": {
+            "00": 2486,
+            "01": 2569,
+            "10": 2470,
+            "11": 2475
+        },
+        "record_zero_runs": [
+            {
+                "branch_context": "utttututtttut",
+                "context_end_block_exclusive": 13,
+                "context_start_block": 0,
+                "end_block_zero_based": 2,
+                "run_length": 1,
+                "start_block_zero_based": 2
+            },
+            {
+                "branch_context": "utttututtttututtttutu",
+                "context_end_block_exclusive": 21,
+                "context_start_block": 0,
+                "end_block_zero_based": 10,
+                "run_length": 2,
+                "start_block_zero_based": 9
+            },
+            {
+                "branch_context": "ttuttttuttttuttttuttttu",
+                "context_end_block_exclusive": 293,
+                "context_start_block": 270,
+                "end_block_zero_based": 282,
+                "run_length": 3,
+                "start_block_zero_based": 280
+            },
+            {
+                "branch_context": "uttttuttttuttttuttttuttt",
+                "context_end_block_exclusive": 1082,
+                "context_start_block": 1058,
+                "end_block_zero_based": 1071,
+                "run_length": 4,
+                "start_block_zero_based": 1068
+            },
+            {
+                "branch_context": "uttttuttttuttttuttttutttt",
+                "context_end_block_exclusive": 2963,
+                "context_start_block": 2938,
+                "end_block_zero_based": 2952,
+                "run_length": 5,
+                "start_block_zero_based": 2948
+            }
+        ],
+        "scope_warning": "bounded actual-path data neither bounds zero runs nor proves that nonzero terminal pairs occur infinitely often"
+    },
+    "all_driver_run_counter": {
+        "all_checks_pass": true,
+        "driver_prefix_steps_checked": 90114,
+        "maximum_branch_word_length": 12
+    },
+    "certificate_sha256": "8f847f6d5e9f466549bf631591e6c313b14411ee245fd98051ca31d7e7841652",
+    "exact_conclusions": {
+        "finite_support_reformulation": "eventual terminal 00 is equivalent to eventual unit-slope divergence of the leading-t order",
+        "nonlinear_cross_word_bridge": "the terminal pair at one boundary exactly increments or resets the leading-t order at the opposite word boundary",
+        "remaining_target": "prove that the zero-initialized coupled fringe orbit resets the leading-t order infinitely often"
+    },
+    "runtime_seconds": 10.618911,
+    "terminal_order_cocycle": {
+        "all_checks_pass": true,
+        "branch_independent": true,
+        "exact_identity": "ord_t((G|_11)pq)=ord_t(G)+1 when G(11)=00, and 0 otherwise",
+        "maximum_word_length": 8,
+        "terminal_counts_before_branch_duplication": {
+            "00": 2460,
+            "01": 2460,
+            "10": 2460,
+            "11": 2461
+        },
+        "word_branch_cases_checked": 19682
+    }
+}
