@@ -76,9 +76,23 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_canonical_relations.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_complete_local_quotient.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_actual_witness_distance.py
+
 g++ -O3 -std=c++20 \
   experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.cpp \
   -o /tmp/rule30-arithmetic-quotient && /tmp/rule30-arithmetic-quotient 26
+
+g++ -O3 -std=c++20 \
+  experiments/problem1_nonperiodicity/analyze_period_two_complete_local_quotient.cpp \
+  -o /tmp/rule30-complete-local-quotient && /tmp/rule30-complete-local-quotient
+
+g++ -O3 -std=c++20 \
+  experiments/problem1_nonperiodicity/analyze_period_two_actual_witness_distance.cpp \
+  -o /tmp/rule30-actual-witness-distance && \
+  /tmp/rule30-actual-witness-distance 12 20
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -149,7 +163,13 @@ through normalized length 26. The twenty-sixth proves three state-conditioned
 arithmetic relations, constructs a terminating canonical reduction and a
 six-state automaton with growth root given by
 `lambda^3-2 lambda^2-lambda+1`, and improves the generic almost-sure complexity
-constant to `log(2)/log(lambda)`. Their JSON status is `finite-exhaustive` or
+constant to `log(2)/log(lambda)`. The twenty-seventh constructs complete local
+same-length relation tables through span five and proves by an exact 112-step
+row-sum certificate that the canonical witness language has growth rate below
+two. The twenty-eighth identifies phase witness complexity with directed
+positive-generator distance to the actual survivor residue modulo `4^L` and
+uses sparse bidirectional search to compute both phase distances exactly
+through depth twenty. Their JSON status is `finite-exhaustive` or
 `partial-proof`; the all-width arguments are separately stated in
 `proofs/informal/` and no analyzer proves center nonperiodicity.
 
@@ -175,6 +195,8 @@ Tracked results are:
 - `results/problem1/20260724_period_two_witness_complexity.json`
 - `results/problem1/20260724_period_two_arithmetic_quotient.json`
 - `results/problem1/20260724_period_two_canonical_relations.json`
+- `results/problem1/20260724_period_two_complete_local_quotient.json`
+- `results/problem1/20260724_period_two_actual_witness_distance.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
