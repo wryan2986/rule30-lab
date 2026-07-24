@@ -1,0 +1,42 @@
+{
+  "backend": "python-exact-tables-and-cpp-exact-automaton",
+  "exact_results": {
+    "canonical_reduction": "every normalized word has a same-length span-s locally lex-minimal representative",
+    "equal_length_locality": "length-m equality is decided exactly modulo 4^m",
+    "regular_language_bound": "the span-s canonical language bounds each fixed-phase arithmetic image",
+    "span_five_allowed_transitions": 42453,
+    "span_five_maximum_112_step_continuations": "5184503427587892562141101478138477",
+    "span_five_phase_p_length_18": 148083,
+    "span_five_phase_u_length_18": 131940,
+    "span_five_reachable_states": 21615,
+    "span_five_strictly_below_binary": true,
+    "two_to_112": "5192296858534827628530496329220096"
+  },
+  "experiment_id": "problem1-period-two-complete-local-quotient-v1",
+  "hypothesis": "Complete same-length local arithmetic identities yield a finite canonical-language quotient whose span-five growth is strictly below the binary schedule rate.",
+  "numerical_results": {
+    "span_five_generic_complexity_rate": 1.011938638805349,
+    "span_five_growth_root": 1.9837114825718762,
+    "span_four_growth_root": 2.0263795123992168,
+    "span_one_growth_root": 2.414213562373095,
+    "span_three_growth_root": 2.0837007908733396,
+    "span_two_growth_root": 2.211188613748176
+  },
+  "parameters": {
+    "certificate_steps": 112,
+    "cpp_modulus": 1024,
+    "cpp_span": 5,
+    "python_absolute_span": 4,
+    "python_default_span": 3
+  },
+  "question": "problem1",
+  "schema_version": 1,
+  "scope_warning": "The below-binary theorem is a generic counting result. It does not prove witness complexity diverges on the deterministic zero-initialized fringe schedule, exclude eventual center period two, or solve Rule 30 center nonperiodicity.",
+  "status": "partial-proof",
+  "validation": {
+    "cpp_output_sha256": "21bea71c57525235aafa41eec7b88c25304995015291aa79c773bcd4d3ec2043",
+    "focused_tests": "6 passed",
+    "python_default_certificate_sha256": "7cff92eabff299c41c71d1a5146ddcc330ae555684bfe22afa33e299edb194fd",
+    "python_span_four_certificate_sha256": "4a932f079b300cb1391a53c00a75bed3fe5e22499bfb53c944a6cc90f1979edb"
+  }
+}
