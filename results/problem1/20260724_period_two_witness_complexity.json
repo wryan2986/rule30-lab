@@ -1,0 +1,95 @@
+{
+  "backend": "python-exact-dual-schreier-graph",
+  "experiment_id": "problem1-period-two-witness-complexity-20260724T000000Z",
+  "hypothesis": "Finite-depth phase universality can be sharpened into a monotone witness-complexity criterion whose boundedness is exactly finite support.",
+  "interpretation": "Minimum normalized phase witness lengths are monotone; boundedness is equivalent to one finite word killing the complete future boundary. Counting gives an almost-sure linear lower bound log(2)/log(3).",
+  "limitations": [
+    "does not prove witness complexity diverges for the actual zero-initialized fringe schedule",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_depth": 10
+  },
+  "proof_scope": "Monotonicity, the boundedness criterion, counting theorem, and almost-sure lower bound are all-depth proofs in proofs/informal/problem1_period_two_witness_complexity.md. Schreier-graph values are bounded exact computations.",
+  "question": "problem1",
+  "result_summary": {
+    "actual_boundary_prefix": [
+      "11",
+      "10",
+      "00",
+      "11",
+      "01",
+      "10",
+      "00",
+      "10",
+      "10",
+      "00"
+    ],
+    "actual_driver_prefix": "utttututt",
+    "certificate_sha256": "8a3dc9cc58bce4f441505523c228e1cacf99c730c802ffbe0218f967b50dcfaa",
+    "counting_checks": {
+      "all_checks_pass": true,
+      "driver_prefix_counts_by_depth": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32
+      ],
+      "either_phase_bound": "# {drivers: kappa(L)<=N} <= 3^N-1",
+      "maximum_checked_depth": 6,
+      "phase_bound": "# {drivers: kappa_a(L)<=N} <= (3^N-1)/2"
+    },
+    "exact_conclusions": {
+      "almost_sure_linear_bound": "for Bernoulli-almost every schedule and each phase a, liminf kappa_a(q,L)/L >= log(2)/log(3)",
+      "boundedness_criterion": "a finite normalized phase-a word kills the full infinite boundary iff sup_L kappa_a(q,L) is finite",
+      "counting_bound": "at depth L, at most (3^N-1)/2 schedule prefixes have phase-a witness complexity at most N",
+      "monotonicity": "kappa_a(q,L+1) >= kappa_a(q,L)",
+      "remaining_target": "prove both phase complexities diverge on the exact zero-initialized fringe schedule"
+    },
+    "linear_rate_log3_2": 0.6309297535714574,
+    "minimum_normalized_length": [
+      1,
+      2,
+      2,
+      7,
+      8,
+      12,
+      13,
+      14,
+      17,
+      17
+    ],
+    "minimum_p_phase_length": [
+      1,
+      3,
+      7,
+      8,
+      8,
+      12,
+      13,
+      17,
+      17,
+      17
+    ],
+    "minimum_u_phase_length": [
+      2,
+      2,
+      2,
+      7,
+      12,
+      14,
+      14,
+      14,
+      18,
+      19
+    ],
+    "scope_warning": "the depth campaign is finite and does not prove divergence for the actual schedule"
+  },
+  "schema_version": 1,
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-24T00:00:00Z"
+}
