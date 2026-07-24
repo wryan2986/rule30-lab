@@ -74,6 +74,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_witness_complexity.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_canonical_relations.py
 g++ -O3 -std=c++20 \
   experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.cpp \
   -o /tmp/rule30-arithmetic-quotient && /tmp/rule30-arithmetic-quotient 26
@@ -143,7 +145,11 @@ and records exact actual-prefix values through depth ten. The twenty-fifth
 factors normalized words through their ordinary arithmetic states, proves a
 Pell-growth bound with rate `1+sqrt(2)`, improves the almost-sure complexity
 constant to `log(2)/log(1+sqrt(2))`, and extends exact actual-prefix exclusions
-through normalized length 26. Their JSON status is `finite-exhaustive` or
+through normalized length 26. The twenty-sixth proves three state-conditioned
+arithmetic relations, constructs a terminating canonical reduction and a
+six-state automaton with growth root given by
+`lambda^3-2 lambda^2-lambda+1`, and improves the generic almost-sure complexity
+constant to `log(2)/log(lambda)`. Their JSON status is `finite-exhaustive` or
 `partial-proof`; the all-width arguments are separately stated in
 `proofs/informal/` and no analyzer proves center nonperiodicity.
 
@@ -168,6 +174,7 @@ Tracked results are:
 - `results/problem1/20260723_period_two_phase_universality.json`
 - `results/problem1/20260724_period_two_witness_complexity.json`
 - `results/problem1/20260724_period_two_arithmetic_quotient.json`
+- `results/problem1/20260724_period_two_canonical_relations.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
