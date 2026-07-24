@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof",
+  "result": "period-two-actual-gap-two-cylinder",
+  "all_width_theorems": [
+    "at any u return A=4z, two consecutive gap-two returns occur exactly when z mod 64 is 28, 44, or 60",
+    "the five-letter word ututu depends on only z mod 256 and its twelve witnesses factor through those three mod-64 classes"
+  ],
+  "python_full_blocks": 200000,
+  "python_full_certificate": "3e2d486a99756228f5a51b713c801dd24418ca35dadae9b09983263d6140b9c9",
+  "python_test_blocks": 5000,
+  "python_test_certificate": "5bd0b5af84355bf8773fb2099a67a72e37157d9b2458fac876d4489144bb2e78",
+  "cpp_blocks": 200000,
+  "cpp_output_sha256": "6035229e3adfaa5d97974ca5531e579d7254b98ba0b76cc73a34166703149c91",
+  "actual_campaign": {
+    "return_count": 42854,
+    "gap_counts": {"2": 21, "3": 7102, "4": 1, "5": 35729},
+    "return_residue_counts_mod_64": {
+      "0": 1,
+      "3": 7101,
+      "11": 21458,
+      "24": 20,
+      "35": 1,
+      "43": 14251,
+      "56": 1,
+      "63": 21
+    },
+    "bad_cylinder_visits": 0,
+    "consecutive_gap_two_count": 0,
+    "last_gap_two_start": 144
+  },
+  "validation": {
+    "python_tests": "6 passed",
+    "python_runtime_seconds": 5.29,
+    "python_peak_rss_kib": 110764,
+    "cpp_runtime_seconds": 3.26,
+    "cpp_peak_rss_kib": 4140
+  },
+  "limitations": [
+    "The zero-initialized actual orbit is checked only through 200000 blocks.",
+    "No all-time proof excludes the three bad return-coordinate cylinders from the actual orbit.",
+    "No all-depth positivity theorem is proved for actual return penalties.",
+    "No exclusion of eventual center period two is proved.",
+    "Rule 30 center nonperiodicity is not solved."
+  ]
+}
