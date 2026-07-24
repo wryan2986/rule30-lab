@@ -1,0 +1,106 @@
+{
+  "backend": "python-exact-dual-tree-action",
+  "experiment_id": "problem1-period-two-phase-universality-20260723T000000Z",
+  "hypothesis": "A fixed p/u zero phase might forbid some finite future branch drivers or finite dual-depth zero targets.",
+  "interpretation": "Both fixed phases realize every finite future driver. Positive level transitivity supplies a zero-target witness, and a finite-order p or u identity prefix sets either requested phase without changing the depth-L action.",
+  "limitations": [
+    "the phase-padded witness depends on the requested depth",
+    "does not construct one ordinary finite word surviving an infinite driver",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "maximum_depth": 7
+  },
+  "proof_scope": "Positive level transitivity and finite-order phase padding give the all-depth finite-phase universality theorem in proofs/informal/problem1_period_two_phase_universality.md. The breadth-first campaigns are bounded constructive verification.",
+  "question": "problem1",
+  "result_summary": {
+    "certificate_sha256": "0cc889ae19213ffb06de8a1bf907761f5451b1111801ee07194ace498592193b",
+    "exact_conclusions": {
+      "finite_phase_universality": "both fixed phases realize every finite future driver prefix",
+      "no_finite_language_obstruction": "no forbidden finite branch word, finite dual-depth mismatch, or finite phase cylinder can exclude a final zero tail",
+      "remaining_target": "an infinite actual-orbit argument must prevent one compatible sequence of finite phase witnesses from converging to an ordinary finite state"
+    },
+    "phase_padded_driver_universality": {
+      "all_checks_pass": true,
+      "depths": [
+        {
+          "depth": 1,
+          "driver_prefix_length": 0,
+          "driver_words_checked": 1,
+          "maximum_phase_padded_witness_length": {"p": 3, "u": 5},
+          "phase_orders": {"p": 2, "u": 4},
+          "witnesses_by_phase": {"p": 1, "u": 1}
+        },
+        {
+          "depth": 2,
+          "driver_prefix_length": 1,
+          "driver_words_checked": 2,
+          "maximum_phase_padded_witness_length": {"p": 11, "u": 11},
+          "phase_orders": {"p": 8, "u": 8},
+          "witnesses_by_phase": {"p": 2, "u": 2}
+        },
+        {
+          "depth": 3,
+          "driver_prefix_length": 2,
+          "driver_words_checked": 4,
+          "maximum_phase_padded_witness_length": {"p": 22, "u": 38},
+          "phase_orders": {"p": 16, "u": 32},
+          "witnesses_by_phase": {"p": 4, "u": 4}
+        },
+        {
+          "depth": 4,
+          "driver_prefix_length": 3,
+          "driver_words_checked": 8,
+          "maximum_phase_padded_witness_length": {"p": 41, "u": 73},
+          "phase_orders": {"p": 32, "u": 64},
+          "witnesses_by_phase": {"p": 8, "u": 8}
+        },
+        {
+          "depth": 5,
+          "driver_prefix_length": 4,
+          "driver_words_checked": 16,
+          "maximum_phase_padded_witness_length": {"p": 75, "u": 75},
+          "phase_orders": {"p": 64, "u": 64},
+          "witnesses_by_phase": {"p": 16, "u": 16}
+        },
+        {
+          "depth": 6,
+          "driver_prefix_length": 5,
+          "driver_words_checked": 32,
+          "maximum_phase_padded_witness_length": {"p": 143, "u": 271},
+          "phase_orders": {"p": 128, "u": 256},
+          "witnesses_by_phase": {"p": 32, "u": 32}
+        },
+        {
+          "depth": 7,
+          "driver_prefix_length": 6,
+          "driver_words_checked": 64,
+          "maximum_phase_padded_witness_length": {"p": 273, "u": 529},
+          "phase_orders": {"p": 256, "u": 512},
+          "witnesses_by_phase": {"p": 64, "u": 64}
+        }
+      ],
+      "exact_conclusion": "for every finite future driver and each phase p/u, a finite accumulated word of that phase realizes the complete terminal-zero prefix",
+      "total_phase_padded_witnesses": 254
+    },
+    "positive_level_transitivity": {
+      "all_checks_pass": true,
+      "exact_reason": "the existing self-replication theorem gives level transitivity; on each finite level generator inverses are positive powers, so the positive monoid has the same orbit",
+      "levels": [
+        {"depth": 1, "level_size": 4, "maximum_witness_length": 2, "mean_witness_length": 1.0, "states_reaching_zero": 4},
+        {"depth": 2, "level_size": 16, "maximum_witness_length": 4, "mean_witness_length": 2.4375, "states_reaching_zero": 16},
+        {"depth": 3, "level_size": 64, "maximum_witness_length": 6, "mean_witness_length": 4.1875, "states_reaching_zero": 64},
+        {"depth": 4, "level_size": 256, "maximum_witness_length": 10, "mean_witness_length": 6.29296875, "states_reaching_zero": 256},
+        {"depth": 5, "level_size": 1024, "maximum_witness_length": 12, "mean_witness_length": 8.3017578125, "states_reaching_zero": 1024},
+        {"depth": 6, "level_size": 4096, "maximum_witness_length": 16, "mean_witness_length": 10.367919921875, "states_reaching_zero": 4096},
+        {"depth": 7, "level_size": 16384, "maximum_witness_length": 18, "mean_witness_length": 12.635986328125, "states_reaching_zero": 16384}
+      ]
+    },
+    "scope_warning": "the witness depends on the requested depth; finite-depth universality does not construct one ordinary word surviving an infinite driver"
+  },
+  "schema_version": 1,
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-23T00:00:00Z"
+}
