@@ -1,0 +1,106 @@
+{
+  "backend": "python-exact-integer-sets-plus-independent-cpp64",
+  "experiment_id": "problem1-period-two-arithmetic-quotient-20260724T000000Z",
+  "hypothesis": "Normalized witness words collapse to an arithmetic quotient with sub-ternary growth that sharpens witness-complexity counting and extends actual-prefix exclusions.",
+  "limitations": [
+    "does not prove witness complexity diverges for the actual schedule",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "cpp_maximum_length": 26,
+    "python_maximum_length": 16,
+    "survivor_bits": 64
+  },
+  "proof_scope": "The parity transition, Pell bounds, driver-prefix counting, and improved almost-sure rate are all-width statements proved in proofs/informal/problem1_period_two_arithmetic_quotient.md. Enumerations are bounded exact campaigns.",
+  "question": "problem1",
+  "result_summary": {
+    "actual_survivor_residue_hex": "0x7fe13f3088c146c7",
+    "cpp64_extension": {
+      "actual_prefix_consequences": {
+        "kappa_p_depth_11": 21,
+        "kappa_p_depth_12_lower_bound": 27,
+        "kappa_u_depth_11": 26,
+        "kappa_u_depth_12_lower_bound": 27,
+        "kappa_unrestricted_depth_11": 21,
+        "kappa_unrestricted_depth_12_lower_bound": 27
+      },
+      "phase_p_selected_rows": [
+        {
+          "best_complete_pair_depth": 10,
+          "best_matching_bits": 21,
+          "distinct_cumulative_states": 544978,
+          "distinct_exact_length_states": 239086,
+          "maximum_length": 20
+        },
+        {
+          "best_complete_pair_depth": 11,
+          "best_matching_bits": 22,
+          "distinct_cumulative_states": 965961,
+          "distinct_exact_length_states": 420983,
+          "maximum_length": 21
+        },
+        {
+          "best_complete_pair_depth": 11,
+          "best_matching_bits": 23,
+          "distinct_cumulative_states": 15821030,
+          "distinct_exact_length_states": 6702315,
+          "maximum_length": 26
+        }
+      ],
+      "phase_u_selected_rows": [
+        {
+          "best_complete_pair_depth": 10,
+          "best_matching_bits": 21,
+          "distinct_cumulative_states": 7745997,
+          "distinct_exact_length_states": 3302371,
+          "maximum_length": 25
+        },
+        {
+          "best_complete_pair_depth": 11,
+          "best_matching_bits": 22,
+          "distinct_cumulative_states": 13450673,
+          "distinct_exact_length_states": 5704676,
+          "maximum_length": 26
+        }
+      ],
+      "reproduction": "g++ -O3 -std=c++20 experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.cpp -o /tmp/arithq && /tmp/arithq 26"
+    },
+    "exact_conclusions": {
+      "almost_sure_rate": "liminf kappa_a(q,L)/L >= log(2)/log(1+sqrt(2)) for Bernoulli-almost every schedule",
+      "cumulative_pell_bound": "phase-a arithmetic witness states of length at most N are at most (P_(N+1)+P_N-1)/2",
+      "improved_counting": "the cumulative Pell bound also bounds driver prefixes with kappa_a(q,L)<=N",
+      "pell_bound": "phase-a exact-length-n arithmetic witness states are at most the Pell number P_n"
+    },
+    "improved_almost_sure_linear_rate": 0.7864397013573949,
+    "python_default": {
+      "certificate_sha256": "a6d42f7408445d0735613a9c48a469d675293b650bcb5f7ea33791493a4acc30",
+      "phase_p_length_16": {
+        "best_complete_pair_depth": 7,
+        "best_matching_bits": 15,
+        "distinct_cumulative_states": 52446,
+        "distinct_exact_length_states": 23751
+      },
+      "phase_u_length_16": {
+        "best_complete_pair_depth": 8,
+        "best_matching_bits": 16,
+        "distinct_cumulative_states": 43970,
+        "distinct_exact_length_states": 19982
+      }
+    },
+    "validation": {
+      "cpp_output_sha256": "2d3fcc2c8e0ec655f609f1b6c5e2c2d128ec49bd247e27a945facddefc1c1913",
+      "focused_tests": "6 passed",
+      "source_hashes": {
+        "cpp_extension_sha256": "a2005321be5b47a16617c4dec79d26dd0efecbfa195d902f4ce3e26ab0e9ab8a",
+        "proof_sha256": "a326abb813d7fb5710e177abffbd8c78581503f98b5e1a50c2e0c55628de5dfa",
+        "python_analyzer_sha256": "0e8b99fc315a0a13dcd30e4a08fea8852c49831e747cad444428898687b52117"
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_snapshot_commit": "c2c9cdab38fe99808c53d95da464c45101a7aa8e",
+  "status": "partial-proof",
+  "timestamp_utc": "2026-07-24T00:00:00Z"
+}
