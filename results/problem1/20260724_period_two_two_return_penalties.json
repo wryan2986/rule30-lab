@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof",
+  "result": "period-two-two-return-penalties",
+  "all_width_theorems": [
+    "Delta_(a,j)=kappa_a(L_(j+2))-kappa_a(L_j)=delta_(a,j)+delta_(a,j+1)",
+    "Delta_(a,j)=0 iff two consecutive single-return penalties both vanish",
+    "eventual positive two-return penalties imply kappa_a(L_J) >= kappa_a(L_J0)+floor((J-J0)/2)"
+  ],
+  "python_default_maximum_final_depth": 9,
+  "python_default_certificate": "38a6af0857a65d9b90a55b683ad0a93fe1a17dbaf0e67e6894141cdc81acc7a5",
+  "python_test_maximum_final_depth": 8,
+  "python_test_certificate": "acf4eef630117b9fd955cafeeaf4f217f090a139993554e5ee85427b348e6d88",
+  "cpp_maximum_final_depth": 14,
+  "cpp_totals": {
+    "locally_allowed_gap_pairs": 15,
+    "phase_gap_pair_cases": 828,
+    "zero_two_return_penalties": 0
+  },
+  "minimum_penalty_by_gap_pair": {
+    "2,2": {"p": 1, "u": 3},
+    "2,3": {"p": null, "u": null, "reason": "forbidden factor ututtu"},
+    "2,4": {"p": 6, "u": 8},
+    "2,5": {"p": 12, "u": 12},
+    "3,2": {"p": 5, "u": 5},
+    "3,3": {"p": 11, "u": 10},
+    "3,4": {"p": 11, "u": 11},
+    "3,5": {"p": 15, "u": 18},
+    "4,2": {"p": 8, "u": 10},
+    "4,3": {"p": 8, "u": 12},
+    "4,4": {"p": 12, "u": 14},
+    "4,5": {"p": 15, "u": 17},
+    "5,2": {"p": 8, "u": 9},
+    "5,3": {"p": 15, "u": 15},
+    "5,4": {"p": 18, "u": 17},
+    "5,5": {"p": 18, "u": 22}
+  },
+  "cpp_output_sha256": "3b44722eb4de7717868ecf3b0b5084a1e5aed0b69a9aa226987828ab8031555e",
+  "validation": {
+    "python_tests": "6 passed",
+    "cpp_runtime_seconds": 10.03,
+    "cpp_peak_rss_kib": 1401448
+  },
+  "limitations": [
+    "No all-depth proof that consecutive zero return penalties are impossible.",
+    "No divergence theorem for either actual phase distance.",
+    "No proof that the alternating inverse lift has infinite support.",
+    "No exclusion of eventual center period two.",
+    "No solution of Rule 30 center nonperiodicity."
+  ]
+}
