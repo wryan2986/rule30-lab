@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof",
+  "result": "period-two-witness-lift-profiles",
+  "all_width_theorems": [
+    "min_r Lambda_a(L,r) = kappa_a(L)",
+    "Lambda_a(L,actual_next_pair) = kappa_a(L+1)",
+    "plateau iff the actual next pair minimizes the lift profile"
+  ],
+  "profile_depth": 12,
+  "actual_distance_extension": {
+    "21": {"kappa_p": 49, "kappa_u": 52, "kappa": 49},
+    "22": {"kappa_p": 51, "kappa_u": 52, "kappa": 51}
+  },
+  "search_state_counts": {
+    "21": {
+      "reverse": 13631511,
+      "forward_p": 5235201,
+      "forward_u": 23270776
+    },
+    "22": {
+      "reverse": 40441421,
+      "forward_p": 5235201,
+      "forward_u": 7745997
+    }
+  },
+  "python_default_certificate": "c1aeb1408d1f4253b5080c5a3a4fae55789fc43e6e38612430f73a91ebb1330f",
+  "python_test_certificate": "8cbb471a6ee29272f7ba9813af2b74ce1dc85ce1e1fbacc6b047a44fc287581b",
+  "cpp_output_sha256": "afff2e5b5db2ec4822869a887524b780c847211f948170b56ad682b44adec61b",
+  "validation": {
+    "python_tests": "6 passed",
+    "cpp_profile_base_depth": 12,
+    "cpp_actual_maximum_depth": 22,
+    "controlled_peak_rss_kib": 802748
+  },
+  "limitations": [
+    "No divergence theorem for the actual phase distances.",
+    "No proof that the alternating inverse lift has infinite support.",
+    "No exclusion of eventual center period two.",
+    "No solution of Rule 30 center nonperiodicity."
+  ]
+}
