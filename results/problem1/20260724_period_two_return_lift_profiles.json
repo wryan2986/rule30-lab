@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof",
+  "result": "period-two-return-lift-profiles",
+  "all_width_theorems": [
+    "min_c Gamma_a(j,c) = kappa_a(L_j)",
+    "Gamma_a(j,c_j) = kappa_a(L_(j+1))",
+    "delta_(a,j) = kappa_a(L_(j+1))-kappa_a(L_j)",
+    "kappa_a(L_J) = kappa_a(L_0)+sum_(j<J) delta_(a,j)",
+    "kappa_a is bounded iff all sufficiently late return penalties vanish"
+  ],
+  "actual_return_intervals": [
+    {
+      "driver": [0, 4],
+      "depth": [1, 5],
+      "gap": 4,
+      "actual_code": 177,
+      "actual_digits": [1, 0, 3, 2],
+      "p_penalty": 7,
+      "u_penalty": 10,
+      "p_profile_sha256": "22563c5fe73cef8a58b6f65f102e806366e9c870178c4d27496d4c39394e934c",
+      "u_profile_sha256": "f0c20b5dc3184a1e5918af4f8a63c9af8c7a759e721dd19add3ebca3140a3c4a"
+    },
+    {
+      "driver": [4, 6],
+      "depth": [5, 7],
+      "gap": 2,
+      "actual_code": 1,
+      "actual_digits": [1, 0],
+      "p_penalty": 5,
+      "u_penalty": 2,
+      "p_profile_sha256": "f98f0079b706f8035d1a97eedbdbc628192c9982fb5de8510e960b2e1b758516",
+      "u_profile_sha256": "a6b537beabaa639e6f367648748657a4128e9c48565c47b467271b91a5c223ba"
+    },
+    {
+      "driver": [6, 11],
+      "depth": [7, 12],
+      "gap": 5,
+      "actual_code": 773,
+      "actual_digits": [1, 1, 0, 0, 3],
+      "p_penalty": 15,
+      "u_penalty": 13,
+      "p_profile_sha256": "3036116417f16ce951a2d98a06f3c1cf99dde0f80ff8828af11145cd07a3d691",
+      "u_profile_sha256": "02a1902d2b509068cad5c5acb641edf0fe23cf9a4e552977dbeaae10796bc708"
+    }
+  ],
+  "cumulative_penalties_through_depth_12": {
+    "p": 27,
+    "u": 25
+  },
+  "python_default_certificate": "52dcb40543f16d4eef6784919156683e15ba4938f87a4425e234dcc6fb193bbf",
+  "cpp_output_sha256": "1ea5b2f91313a88ed8e53086413c41f7e0b6feeead48606fd6b0e37a1c585fdf",
+  "validation": {
+    "python_tests": "6 passed",
+    "cpp_return_profiles": 3,
+    "cpp_peak_rss_kib": 150540
+  },
+  "limitations": [
+    "No theorem that positive return penalties recur infinitely often.",
+    "No divergence theorem for either actual phase complexity.",
+    "No proof that the alternating inverse lift has infinite support.",
+    "No exclusion of eventual center period two.",
+    "No solution of Rule 30 center nonperiodicity."
+  ]
+}
