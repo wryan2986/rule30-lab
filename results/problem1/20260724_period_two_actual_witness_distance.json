@@ -1,0 +1,46 @@
+{
+  "backend": "python-reference-and-cpp-sparse-bidirectional-bfs",
+  "experiment_id": "problem1-period-two-actual-witness-distance-v1",
+  "hypothesis": "Actual phase witness complexity can be computed exactly as a positive-generator distance to the schedule-survivor residue modulo 4^L.",
+  "parameters": {
+    "cpp_maximum_depth": 20,
+    "cpp_minimum_depth": 12,
+    "python_maximum_depth": 12
+  },
+  "proof_scope": "The distance identity and each listed finite quotient distance are exact. No divergence or center-nonperiodicity conclusion is claimed.",
+  "question": "problem1",
+  "result_summary": {
+    "cpp_output_sha256": "ea6c9d16dcfd1b233dcf089fbbdba06828d7e9f2d0d1dc3c5ccea4f9aabc809b",
+    "depth_20_exact": {
+      "kappa": 47,
+      "kappa_p": 47,
+      "kappa_u": 49
+    },
+    "exact_identity": "kappa_p(L)=1+d_L(3,X_L), kappa_u(L)=1+d_L(1,X_L)",
+    "python_certificate_sha256": "fafe057b3a193a61af2ef4a3107b2c43029e6f2222a4fb32efb0dd71e0071f18",
+    "rows": [
+      {"depth": 1, "kappa": 1, "kappa_p": 1, "kappa_u": 2, "target_hex": "0x3"},
+      {"depth": 2, "kappa": 2, "kappa_p": 3, "kappa_u": 2, "target_hex": "0x7"},
+      {"depth": 3, "kappa": 2, "kappa_p": 7, "kappa_u": 2, "target_hex": "0x7"},
+      {"depth": 4, "kappa": 7, "kappa_p": 8, "kappa_u": 7, "target_hex": "0xc7"},
+      {"depth": 5, "kappa": 8, "kappa_p": 8, "kappa_u": 12, "target_hex": "0x2c7"},
+      {"depth": 6, "kappa": 12, "kappa_p": 12, "kappa_u": 14, "target_hex": "0x6c7"},
+      {"depth": 7, "kappa": 13, "kappa_p": 13, "kappa_u": 14, "target_hex": "0x46c7"},
+      {"depth": 8, "kappa": 14, "kappa_p": 17, "kappa_u": 14, "target_hex": "0x46c7"},
+      {"depth": 9, "kappa": 17, "kappa_p": 17, "kappa_u": 18, "target_hex": "0x146c7"},
+      {"depth": 10, "kappa": 17, "kappa_p": 17, "kappa_u": 19, "target_hex": "0x146c7"},
+      {"depth": 11, "kappa": 21, "kappa_p": 21, "kappa_u": 26, "target_hex": "0x146c7"},
+      {"depth": 12, "kappa": 27, "kappa_p": 28, "kappa_u": 27, "target_hex": "0xc146c7"},
+      {"depth": 13, "kappa": 30, "kappa_p": 30, "kappa_u": 30, "target_hex": "0xc146c7"},
+      {"depth": 14, "kappa": 30, "kappa_p": 33, "kappa_u": 30, "target_hex": "0x8c146c7"},
+      {"depth": 15, "kappa": 30, "kappa_p": 34, "kappa_u": 30, "target_hex": "0x8c146c7"},
+      {"depth": 16, "kappa": 30, "kappa_p": 36, "kappa_u": 30, "target_hex": "0x88c146c7"},
+      {"depth": 17, "kappa": 40, "kappa_p": 40, "kappa_u": 40, "target_hex": "0x88c146c7"},
+      {"depth": 18, "kappa": 40, "kappa_p": 40, "kappa_u": 42, "target_hex": "0x88c146c7"},
+      {"depth": 19, "kappa": 42, "kappa_p": 42, "kappa_u": 42, "target_hex": "0x3088c146c7"},
+      {"depth": 20, "kappa": 47, "kappa_p": 47, "kappa_u": 49, "target_hex": "0x3088c146c7"}
+    ]
+  },
+  "schema_version": 1,
+  "status": "partial-proof"
+}
