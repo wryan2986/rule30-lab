@@ -72,6 +72,11 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_phase_universality.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
   experiments/problem1_nonperiodicity/analyze_period_two_witness_complexity.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python \
+  experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.py
+g++ -O3 -std=c++20 \
+  experiments/problem1_nonperiodicity/analyze_period_two_arithmetic_quotient.cpp \
+  -o /tmp/rule30-arithmetic-quotient && /tmp/rule30-arithmetic-quotient 26
 ```
 
 The first exhausts each listed radius-`p` Boolean cone for the condition
@@ -134,9 +139,13 @@ driver. Thus no finite forbidden branch word, finite dual depth, or finite
 phase cylinder can settle the final-tail problem. The twenty-fourth defines
 minimum phase witness complexity, proves its monotonicity and exact boundedness
 criterion, derives finite-word counting and almost-sure linear lower bounds,
-and records exact actual-prefix values through depth ten. Their JSON status is
-`finite-exhaustive` or `partial-proof`; the all-width arguments are separately
-stated in `proofs/informal/` and no analyzer proves center nonperiodicity.
+and records exact actual-prefix values through depth ten. The twenty-fifth
+factors normalized words through their ordinary arithmetic states, proves a
+Pell-growth bound with rate `1+sqrt(2)`, improves the almost-sure complexity
+constant to `log(2)/log(1+sqrt(2))`, and extends exact actual-prefix exclusions
+through normalized length 26. Their JSON status is `finite-exhaustive` or
+`partial-proof`; the all-width arguments are separately stated in
+`proofs/informal/` and no analyzer proves center nonperiodicity.
 
 Tracked results are:
 
@@ -158,6 +167,7 @@ Tracked results are:
 - `results/problem1/20260723_period_two_zero_phase.json`
 - `results/problem1/20260723_period_two_phase_universality.json`
 - `results/problem1/20260724_period_two_witness_complexity.json`
+- `results/problem1/20260724_period_two_arithmetic_quotient.json`
 
 The original controlled-run records contain machine-local operational metadata
 and are intentionally untracked. Public certificate hashes, source commits,
