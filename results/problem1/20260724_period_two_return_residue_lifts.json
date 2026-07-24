@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment_id": "problem1-period-two-return-residue-lifts-v1",
+  "question": "problem1",
+  "status": "partial-proof",
+  "parameters": {
+    "outcome_modulus_bits": 6,
+    "exact_dependency_coordinate_bits": 16,
+    "states_exhausted": 65536
+  },
+  "exact_results": {
+    "next_return_outcome": "(gap, next_z mod 64)",
+    "sufficient_precision": "z mod 2^16",
+    "precision_is_minimal": true,
+    "lower_precision_witnesses": "explicit for every k from 6 through 15",
+    "universal_closure_from_zero_size": 25,
+    "universal_closure_bad_residues": [28, 44, 60],
+    "mod_64_invariant_no_go": true
+  },
+  "validation": {
+    "python_tests": "6 passed",
+    "python_certificate_sha256": "0cebdaf943c77e8479198e07c98ab32e8a3b82e80013756cf5d7585fdfd69436",
+    "cpp_output_sha256": "b2a4500505862d2adb25fcb00c057ef9d6c1307c4326134924105053c2702ca4",
+    "cpp_runtime_seconds": 0.01,
+    "cpp_peak_rss_kib": 5828
+  },
+  "scientific_boundary": "The exact relation rules out mod-64 lift-invariant proofs. It does not determine the unique higher-bit actual return orbit, prove permanent avoidance of the bad cylinders, exclude eventual center period two, or solve Rule 30 center nonperiodicity."
+}
