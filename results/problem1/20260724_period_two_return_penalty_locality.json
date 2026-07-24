@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof",
+  "result": "period-two-return-penalty-locality",
+  "all_width_theorems": [
+    "return penalties are nonnegative by quotient projection",
+    "if every non-two actual return has positive phase penalty, bounded phase complexity forces eventual gap two",
+    "eventual gap two makes the branch schedule eventually periodic and is incompatible with an ordinary finite survivor"
+  ],
+  "python_default_maximum_final_depth": 9,
+  "python_default_certificate": "8e727ab4b9f74d27e3099933fd5e835bf7a5d80c1a002dfd88d18bebd99afb07",
+  "cpp_maximum_final_depth": 12,
+  "cpp_summary": {
+    "gap_2": {
+      "p": {"candidates": 93, "zero": 4, "positive": 89},
+      "u": {"candidates": 93, "zero": 10, "positive": 83}
+    },
+    "gap_3": {
+      "p": {"candidates": 35, "zero": 0, "minimum_penalty": 1},
+      "u": {"candidates": 35, "zero": 0, "minimum_penalty": 3}
+    },
+    "gap_4": {
+      "p": {"candidates": 42, "zero": 0, "minimum_penalty": 4},
+      "u": {"candidates": 42, "zero": 0, "minimum_penalty": 5}
+    },
+    "gap_5": {
+      "p": {"candidates": 28, "zero": 0, "minimum_penalty": 6},
+      "u": {"candidates": 28, "zero": 0, "minimum_penalty": 7}
+    }
+  },
+  "actual_exact_return_count": 6,
+  "actual_return_end_depth": 21,
+  "actual_phase_penalties_all_positive": true,
+  "cpp_output_sha256": "89b4e681eeccfde0ebdb4a385886a3e951b416ce04ccb32e89cad077c343f277",
+  "validation": {
+    "python_tests": "6 passed",
+    "cpp_runtime_seconds": 0.39,
+    "cpp_peak_rss_kib": 112488
+  },
+  "limitations": [
+    "No all-depth proof that gap 3, 4, or 5 has positive penalty.",
+    "No divergence theorem for either actual phase distance.",
+    "No proof that the alternating inverse lift has infinite support.",
+    "No exclusion of eventual center period two.",
+    "No solution of Rule 30 center nonperiodicity."
+  ]
+}
