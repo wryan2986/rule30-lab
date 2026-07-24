@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "problem": "Rule 30 Problem 1",
+  "date": "2026-07-24",
+  "status": "partial-proof-and-exact-counterexample",
+  "result": "period-two-prebranch-minimizer-counterexample",
+  "all_width_theorems": [
+    "a length-L zero-survivor residue modulo 4^L fixes only branches q_0 through q_(L-2); the final branch q_(L-1) is invisible at that depth",
+    "ordinary phase frontiers have intrinsic complexity because phase-p outputs at level k have bit length 2k and phase-u outputs have bit length 2k-1",
+    "a zero two-return penalty is equivalent to a base-minimal ordinary frontier output matching the two visible return blocks before the final return branch"
+  ],
+  "counterexample": {
+    "phase": "u",
+    "complexity": 25,
+    "state_decimal": 489092214423035,
+    "state_hex": "0x1bcd3a7b3fdfb",
+    "bit_length": 49,
+    "forced_zero_schedule": "tutututttutututt",
+    "base_word_depth_12": "tutututttutu",
+    "middle_word_depth_14": "tutututttututu",
+    "final_word_depth_16": "tutututttutututu",
+    "residue_depth_12_hex": "0xb3fdfb",
+    "residue_depth_14_hex": "0x7b3fdfb",
+    "residue_depth_16_hex": "0xa7b3fdfb",
+    "exact_complexities": "kappa_u(12)=kappa_u(14)=kappa_u(16)=25",
+    "return_penalties": [0, 0],
+    "two_return_penalty": 0,
+    "known_local_exclusions_avoided": ["uu", "ttttt", "ututtu"]
+  },
+  "cpp_campaign": {
+    "maximum_complexity": 25,
+    "phase_p_outputs_checked": 9118715,
+    "phase_u_outputs_checked": 7745997,
+    "total_distinct_phase_outputs_checked": 16864712,
+    "eligible_outputs_mod_4_eq_3": 4831012,
+    "maximum_complete_zero_schedule_length": 19,
+    "schedule_cap": 48,
+    "locally_admissible_two_return_zero_candidates": 1,
+    "first_counterexample_complexity": 25,
+    "output_sha256": "0f3100fd829868be70f1f7695c2db3091705e4f8117ae31b80bc790ebc2aa526",
+    "runtime_seconds": 2.96,
+    "peak_rss_kib": 295984
+  },
+  "python_default": {
+    "maximum_complexity": 18,
+    "certificate_sha256": "625890fb11d44ce090fd3f711767956c4608c409cd3f310f829cd3f54049ce67"
+  },
+  "tests": {
+    "result": "6 passed",
+    "test_campaign_certificate_sha256": "def883f8e5ebf9e80280826db499112f89603705fe172a3b35e742c090fa5fea"
+  },
+  "research_consequence": "The universal isolated-zero lemma is false even under all three known local schedule exclusions. Any successful proof must use an actual-orbit-specific coupled invariant rather than generic local admissibility.",
+  "limitations": [
+    "The counterexample schedule is not the actual zero-initialized moving-fringe schedule.",
+    "No actual return penalty is shown to vanish.",
+    "No finite actual period-two survivor is constructed.",
+    "Eventual center period two is not excluded or established.",
+    "Rule 30 center nonperiodicity is not solved."
+  ]
+}
