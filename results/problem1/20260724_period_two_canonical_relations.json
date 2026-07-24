@@ -1,0 +1,66 @@
+{
+  "backend": "python-exact-arithmetic-quotient",
+  "experiment_id": "problem1-period-two-canonical-relations-20260724T000000Z",
+  "hypothesis": "State-conditioned arithmetic relations reduce normalized witness growth below the Pell quotient.",
+  "limitations": [
+    "does not prove actual witness-complexity divergence",
+    "does not prove the alternating inverse lift has infinite support",
+    "does not exclude eventual center period two",
+    "does not solve Rule 30 center nonperiodicity"
+  ],
+  "parameters": {
+    "conditional_relation_state_limit": 65536,
+    "maximum_rewrite_length": 9,
+    "maximum_state_length": 18
+  },
+  "proof_scope": "The three conditional identities, terminating reduction, six-state automaton, characteristic polynomial, growth bound, and almost-sure rate are all-width statements proved in proofs/informal/problem1_period_two_canonical_relations.md. Exhaustive campaigns are bounded regression checks.",
+  "question": "problem1",
+  "result_summary": {
+    "canonical_automaton": {
+      "adjacency_matrix": [
+        [1, 1, 0, 0, 1, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 1, 1, 0, 0, 1],
+        [0, 0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0]
+      ],
+      "almost_sure_rate_log_root_2": 0.8561738916759662,
+      "characteristic_polynomial": "lambda^3 (lambda^3-2 lambda^2-lambda+1)",
+      "dominant_root": 2.2469796037174667,
+      "states": [[0, 0], [1, 0], [2, 0], [2, 1], [3, 0], [3, 2]]
+    },
+    "canonical_reduction": {
+      "all_checks_pass": true,
+      "maximum_normalized_length": 9,
+      "maximum_rewrite_steps": 8,
+      "words_changed": 17618,
+      "words_checked": 19682
+    },
+    "certificate_sha256": "713a91dd3a69fbbcbcbfd946bbaba3a15e61c55e80d034ca7e4799fad98300a0",
+    "conditional_relations": {
+      "all_checks_pass": true,
+      "conditional_identity_checks": 65536,
+      "states_checked": 65536
+    },
+    "exact_conclusions": {
+      "canonical_representatives": "every normalized arithmetic witness has a same-length representative accepted by the six-state automaton",
+      "growth_bound": "phase arithmetic-image growth is O(lambda^N), lambda largest root of lambda^3-2lambda^2-lambda+1",
+      "improved_generic_rate": "Bernoulli-almost surely liminf kappa_a(q,L)/L >= log(2)/log(lambda)",
+      "remaining_target": "prove divergence for the one deterministic zero-initialized fringe schedule"
+    },
+    "final_state_count_row": {
+      "length": 18,
+      "p": {
+        "canonical_automaton_bound": 928607,
+        "distinct_arithmetic_states": 75905
+      },
+      "u": {
+        "canonical_automaton_bound": 744685,
+        "distinct_arithmetic_states": 64247
+      }
+    }
+  },
+  "schema_version": 1,
+  "status": "partial-proof"
+}
