@@ -1,0 +1,52 @@
+{
+  "status": "exact-recursive-membership-and-finite-exhaustion",
+  "title": "Exact recursive base-four lifts of ordinary phase frontiers",
+  "date": "2026-07-25",
+  "theorem": {
+    "membership": "For y=4h+e, y is in O_(a,k+1) iff some parent digit d has e in C_d and the exact candidate parent Q_d(h) is in O_(a,k).",
+    "parent_digit_contributions": {
+      "0": [0, 1, 3],
+      "1": [2, 3],
+      "2": [1, 2, 3],
+      "3": [0, 1]
+    },
+    "fiber_alphabet": ["0000", "0011", "1011", "1100", "1111"],
+    "pairing_lemma": "A phase-frontier output ending in base-four digit 2 always has the same-quotient digit-3 mate."
+  },
+  "python_campaign": {
+    "default_maximum_complexity": 16,
+    "default_certificate_sha256": "0aa325f03d0e9f7c0640e7ca64d05a6f4e1c3db6558497ba7db7374d81f1319d",
+    "full_maximum_complexity": 20,
+    "full_certificate_sha256": "fade2444b1eb34d57b7136087fe0bba6f4627bdfc79edb440b2f4ef7a744de7e",
+    "focused_tests": 7,
+    "focused_tests_passed": 7
+  },
+  "cpp_campaign": {
+    "maximum_complexity": 25,
+    "phase_p_outputs_checked": 9118715,
+    "phase_u_outputs_checked": 7745997,
+    "total_outputs_checked": 16864712,
+    "quotients_checked": 9678827,
+    "candidate_parent_checks": 38715308,
+    "fiber_counts": {
+      "0000": 4611229,
+      "0011": 236587,
+      "1011": 1314110,
+      "1100": 809199,
+      "1111": 2707702
+    },
+    "phase_p_checksum": "0xc3cd6a1adc0cce8d",
+    "phase_u_checksum": "0xcbfbcf8505202141",
+    "output_sha256": "dce662d2d25f9347c1e727d743bf2d4cd65170eaa6994b2fdf9086da18c66f76",
+    "runtime_seconds": 7.25,
+    "peak_rss_kib": 103936
+  },
+  "known_counterexample": {
+    "phase": "u",
+    "complexity": 25,
+    "state_hex": "0x1bcd3a7b3fdfb",
+    "recursive_cache_entries": 767,
+    "recovered_generator_word": "uuuuttttutuptuputtputtpuu"
+  },
+  "scientific_boundary": "This theorem decides ordinary phase-frontier membership exactly. It does not prove recurring positive actual return penalties, phase-complexity divergence, exclusion of eventual center period two, or Rule 30 center nonperiodicity."
+}
