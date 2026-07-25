@@ -1,0 +1,52 @@
+{
+  "status": "partial-proof",
+  "title": "Exact complete-return-word precision",
+  "date": "2026-07-24",
+  "theorem": {
+    "statement": "For every realized finite return-gap word of total block span B and every target width k>=4B+5, the conditioned final return-coordinate map modulo 2^k requires exactly k+2B source-coordinate bits.",
+    "upper_bound": "The B-block radius-2 causal cone determines k final coordinate bits from k+2B source bits.",
+    "lower_witness": "For the least cylinder representative c<2^(2B), the pair c and c+2^(k+2B-1) realizes the same complete return word and its final coordinates differ modulo 2^k exactly in bit k-1.",
+    "consequence": "Conditioning on the complete finite return word does not reduce the eventual exact precision loss of two source bits per fringe block."
+  },
+  "exhaustive_campaign": {
+    "maximum_total_span": 10,
+    "source_coordinates_exhausted": 1048576,
+    "realized_return_words": 41,
+    "word_counts_by_total_span": {
+      "2": 1,
+      "3": 1,
+      "4": 2,
+      "5": 2,
+      "6": 4,
+      "7": 5,
+      "8": 7,
+      "9": 8,
+      "10": 11
+    },
+    "word_counts_by_return_count": {
+      "1": 4,
+      "2": 15,
+      "3": 16,
+      "4": 5,
+      "5": 1
+    },
+    "witness_widths_per_word": 5,
+    "witness_checks": 205,
+    "python_default_certificate_sha256": "af27f91cb19657ea5562ede19c72c5d201dbded8a98b60289e77b4d6085d0542",
+    "python_span_10_certificate_sha256": "728324c02d0fbccf59b618665cd4b374fdcddaca7afcb2af0540a9bd54b1d57d",
+    "cpp_output_sha256": "8eadaf91a7b7f3636b7feb709044cf3493241ef332772ede283eaa93a19f4484",
+    "cpp_checksum": "0x0abbb2413a747675"
+  },
+  "performance": {
+    "python_span_10_runtime_seconds": 4.76,
+    "python_span_10_peak_rss_kib": 110616,
+    "cpp_runtime_seconds": 0.06,
+    "cpp_peak_rss_kib": 3748
+  },
+  "validation": {
+    "focused_python_tests": 7,
+    "focused_python_tests_passed": 7,
+    "independent_implementations": ["Python", "C++20"]
+  },
+  "scientific_boundary": "This theorem applies to every finite realized return word. It does not determine the unique infinite zero-initialized orbit, prove permanent avoidance of consecutive gap-two cylinders, prove phase-witness complexity divergence, exclude eventual center period two, or solve Rule 30 center nonperiodicity."
+}
