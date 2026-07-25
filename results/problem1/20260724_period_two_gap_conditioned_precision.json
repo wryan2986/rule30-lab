@@ -1,0 +1,59 @@
+{
+  "status": "partial-proof",
+  "title": "Exact gap-conditioned first-return precision",
+  "date": "2026-07-24",
+  "theorem": {
+    "statement": "For every return gap r in {2,3,4,5} and every target width k>=5, the conditioned map z -> R(z) mod 2^k requires exactly k+2r source-coordinate bits.",
+    "gap_specific_losses": {
+      "2": 4,
+      "3": 6,
+      "4": 8,
+      "5": 10
+    },
+    "consequence": "Knowing the realized return gap does not reduce the exact causal-cone precision budget. A fixed-width suffix cannot be made exact by carrying the gap sequence alongside it."
+  },
+  "exhaustive_campaign": {
+    "target_widths": [5, 6, 7, 8, 9, 10],
+    "return_gaps": [2, 3, 4, 5],
+    "levels": 24,
+    "total_source_states_exhausted": 2741760,
+    "python_full_certificate_sha256": "578039c7c492b2347441a3374fe56014c8325c3d353851aa9f82838db55989a9",
+    "python_default_certificate_sha256": "c012d44526c3309387ae1e4984ef41ece5cf676a547754481aafe8eadf2852c2",
+    "cpp_output_sha256": "6b7b80bb5ea608e7de0a1b285c22ec7c1a6c9c6956bb8b637bf10347db7967a7",
+    "cpp_runtime_seconds": 0.01,
+    "cpp_peak_rss_kib": 3580
+  },
+  "uniform_witness_families": [
+    {
+      "gap": 2,
+      "start_target_width": 7,
+      "base_z": 4,
+      "stable_response_support": [-4, -3, 0, 4]
+    },
+    {
+      "gap": 3,
+      "start_target_width": 7,
+      "base_z": 1,
+      "stable_response_support": [-6, -5, -2, 3, 6]
+    },
+    {
+      "gap": 4,
+      "start_target_width": 6,
+      "base_z": 0,
+      "stable_response_support": [-8, -7, -4, 0, 1, 2, 8]
+    },
+    {
+      "gap": 5,
+      "start_target_width": 13,
+      "base_z": 7,
+      "stable_response_support": [-10, -9, -6, -1, 1, 2, 3, 4, 6, 7, 10]
+    }
+  ],
+  "validation": {
+    "focused_python_tests": 7,
+    "focused_python_tests_passed": 7,
+    "uniform_target_widths_checked_through": 40,
+    "independent_implementations": ["Python", "C++20"]
+  },
+  "scientific_boundary": "This theorem ranges over all compatible return coordinates. It does not determine the unique zero-initialized actual orbit, prove permanent avoidance of consecutive gap-two cylinders, prove phase-witness complexity divergence, exclude eventual center period two, or solve Rule 30 center nonperiodicity."
+}
