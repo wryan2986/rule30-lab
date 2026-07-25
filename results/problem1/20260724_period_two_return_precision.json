@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "experiment_id": "problem1-period-two-return-precision-v1",
+  "question": "problem1",
+  "status": "partial-proof",
+  "title": "Exact worst-case precision loss in the period-two first-return map",
+  "exact_results": {
+    "gap_conditioned_upper_bound": "a gap-r return determines k successor bits from k+2r source-coordinate bits",
+    "worst_case_theorem": "for every k>=4, (rho(z),R(z) mod 2^k) is determined by z mod 2^(k+10), and 2^(k+9) never suffices",
+    "iterated_budget": "along gaps r_0,...,r_(J-1), k final bits are determined by k+2*sum(r_i) initial bits",
+    "uniform_lower_bound_family": {
+      "range": "k>=13",
+      "left_z": 7,
+      "right_z": "7+2^(k+9)",
+      "common_gap": 5,
+      "successor_first_difference_bit": "k-1"
+    },
+    "five_block_isolated_impulse_support": [-10, -9, -6, -1, 1, 2, 3, 4, 6, 7, 10]
+  },
+  "finite_witness_bases": {
+    "4": 203,
+    "5": 407,
+    "6": 16191,
+    "7": 23,
+    "8": 199,
+    "9": 415,
+    "10": 11,
+    "11": 7,
+    "12": 15
+  },
+  "controlled_validation": {
+    "python_exhaustive_target_bits": [4, 5, 6, 7, 8, 9, 10],
+    "total_cpp_states_exhausted": 2080768,
+    "python_tests": "7 passed",
+    "python_test_certificate_sha256": "8c27ba880121f2b5e2d5190e7c9f2d5bb7e3961594397cfe78127c69d6c72ed5",
+    "python_full_certificate_sha256": "c206fe50ae8924380ce40db2187aa7d73b4e3415ecc16df697d83e1a3022715e",
+    "python_full_json_sha256": "ce92c660c7932b0ff3aa0d0cd92dac079d63f576727e625784d2fb6564f40cf9",
+    "cpp_output_sha256": "2bc9bdb1fc1692e0a2725d9a30c717fdc1c14c9ca1e3e4815b6f1024f25cc613",
+    "python_runtime_seconds": 2.8,
+    "python_peak_rss_kib": 110428,
+    "cpp_runtime_seconds": 0.01,
+    "cpp_peak_rss_kib": 3592
+  },
+  "research_consequence": "No deterministic fixed-width suffix quotient can propagate the full first-return coordinate. Continuation must retain growing high-front information or a special global invariant of the zero-initialized orbit.",
+  "scientific_boundary": "This result does not determine the unique actual higher-bit orbit, prove permanent avoidance of the consecutive-gap-two cylinders, exclude eventual center period two, or solve Rule 30 center nonperiodicity."
+}
