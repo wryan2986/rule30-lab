@@ -1,0 +1,69 @@
+{
+  "cpp_campaign": {
+    "fiber_histogram": {
+      "2": 1045786,
+      "3": 1314110,
+      "4": 2707702
+    },
+    "generator_identity_checks": 50594136,
+    "maximum_complexity": 25,
+    "output_sha256": "c3de4b488927b3284626acd5e9e63152d424c55edbc459de02ac336263fc4e0e",
+    "peak_rss_kib": 88796,
+    "phase_p_outputs_checked": 9118715,
+    "phase_u_outputs_checked": 7745997,
+    "projected_parents": 5067598,
+    "projection_violations": 0,
+    "runtime_seconds": 0.77,
+    "total_outputs_checked": 16864712,
+    "uncovered_preceding_outputs": 4611229
+  },
+  "date": "2026-07-25",
+  "known_counterexample_ancestry": [
+    {
+      "ancestor_hex": "0x1bcd3a7",
+      "depth": 12,
+      "residual_complexity": 13
+    },
+    {
+      "ancestor_hex": "0x1bcd3a",
+      "depth": 14,
+      "residual_complexity": 11
+    },
+    {
+      "ancestor_hex": "0x1bcd3",
+      "depth": 16,
+      "residual_complexity": 9
+    }
+  ],
+  "projection_identity": {
+    "0": "G_g(4r)>>2=t(r)",
+    "1": "G_g(4r+1)>>2=u(r)",
+    "2": "G_g(4r+2)>>2=p(r)",
+    "3": "G_g(4r+3)>>2=p(r)",
+    "independent_of_g": true
+  },
+  "python_campaign": {
+    "default_certificate_sha256": "8434a652065aea04ab71c196d7406ec0afd4251680dc07f4c773a223396a5e24",
+    "default_maximum_complexity": 16,
+    "full_certificate_sha256": "711c29f1b185c611549e140dc1f7cf0391a5840a40c8c33703c919bbfa900337",
+    "full_maximum_complexity": 20
+  },
+  "research_consequence": "Every minimizer candidate decomposes into a low survivor cylinder and a necessary residual phase-frontier ancestor, but the ancestor alone does not determine a valid lift.",
+  "scientific_boundary": "This theorem does not prove recurring positive actual return penalties, phase-complexity divergence, exclusion of eventual center period two, or Rule 30 center nonperiodicity.",
+  "status": "partial-proof",
+  "theorem": {
+    "fiber_bound": "Every nonempty one-level projection fiber contains between two and four outputs.",
+    "iterated_projection": "For every 0<=L<k, x in O_(a,k) implies x>>(2L) in O_(a,k-L).",
+    "minimizer_coupling": "A complexity-k phase output in a depth-L survivor cylinder has aligned high quotient in O_(a,k-L) whenever L<k.",
+    "one_level_projection": "For every phase a in {p,u} and k>=2, x in O_(a,k) implies x>>2 in O_(a,k-1)."
+  },
+  "title": "Phase-frontier projection tower and minimizer high ancestors",
+  "validation": {
+    "focused_python_tests": 7,
+    "focused_python_tests_passed": 7,
+    "independent_implementations": [
+      "Python",
+      "C++20"
+    ]
+  }
+}
