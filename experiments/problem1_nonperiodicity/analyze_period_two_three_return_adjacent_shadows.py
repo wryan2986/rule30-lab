@@ -5,8 +5,8 @@ For phase a and exact complexity k, let P_(a,k) be the set of forced-zero
 schedule prefixes realized by ordinary phase outputs. Let T_(a,k) be the set of
 prefixes that occur immediately before an admissible three-return continuation.
 A three-return zero-penalty plateau can begin at complexity k only if its base
-prefix lies in T_(a,k) but not in P_(a,k-1). Thus the all-depth obstruction is
-exactly the adjacent-level inclusion T_(a,k) subset P_(a,k-1).
+prefix lies in T_(a,k) but not in P_(a,k-1). Therefore the all-depth inclusion
+T_(a,k) subset P_(a,k-1) is a sufficient obstruction to every such plateau.
 
 The controlled campaign exhausts all ordinary phase outputs through a configured
 complexity and checks the inclusion for every state, cut, and admissible gap
