@@ -1,0 +1,50 @@
+{
+  "status": "partial-proof",
+  "title": "Lossless renormalized high-front permutation",
+  "date": "2026-07-24",
+  "theorem": {
+    "renormalized_map": "H(x)=F(x)>>2",
+    "triangular_rule": "H(x)_j=x_j xor psi_j(x_(j+1),x_(j+2),x_(j+3),x_(j+4))",
+    "shell_permutation": "H is a permutation on every fixed positive bit-length shell",
+    "semiconjugacy": "F^B(s)>>(m+2B)=H^B(s>>m)",
+    "return_bridge": "for a finite return history of total span B, final R satisfies R>>2B=H^B(z)",
+    "lossless_consequence": "the aligned final high front recovers the complete earlier coordinate and, by replay, the complete return history",
+    "cycle_consequence": "every finite-shell cycle length is a power of two"
+  },
+  "python_campaign": {
+    "default_max_bits": 14,
+    "default_shell_states": 16383,
+    "default_formula_checks": 16383,
+    "default_inverse_checks": 32766,
+    "default_truncation_checks": 24564,
+    "default_semiconjugacy_checks": 18423,
+    "default_return_bridge_checks": 2047,
+    "default_certificate_sha256": "ae54a368999a0467f5a86a67073a235f669365d71a634621504b3e5b93417229",
+    "full_max_bits": 18,
+    "full_shell_states": 262143,
+    "full_certificate_sha256": "d727f809ce87915663b195cfd708b67b6449877024d406d205c92974fba90632",
+    "full_runtime_seconds": 5.52,
+    "full_peak_rss_kib": 110120,
+    "maximum_cycle_at_width_18": 512
+  },
+  "cpp_campaign": {
+    "maximum_shell_bits": 20,
+    "shell_states": 1048575,
+    "formula_checks": 1048575,
+    "inverse_checks": 2097150,
+    "truncation_checks": 245745,
+    "semiconjugacy_checks": 180213,
+    "return_bridge_checks": 16383,
+    "maximum_cycle_at_width_20": 1024,
+    "checksum": "0x22f63fd9df108f13",
+    "output_sha256": "0d1f0d5837ab1a71ee143f633bae9d5993d320e249b2a5b9fb2c782b32834bde",
+    "runtime_seconds": 0.40,
+    "peak_rss_kib": 3948
+  },
+  "validation": {
+    "focused_python_tests": 7,
+    "focused_python_tests_passed": 7,
+    "independent_implementations": ["Python", "C++20"]
+  },
+  "scientific_boundary": "The theorem identifies a lossless growing high-front code. It does not prove actual return-penalty recurrence, phase-witness complexity divergence, exclusion of eventual center period two, or Rule 30 center nonperiodicity."
+}
