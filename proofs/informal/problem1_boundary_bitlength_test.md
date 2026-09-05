@@ -107,3 +107,10 @@ Independent final review by Dewey accepted the arithmetic reformulation,
 the degree identity, and these proof/evidence boundaries without correction.
 The two elementary identities are `partial-proof` statements; they do not
 upgrade the status of the open bit-length-only candidate.
+
+Subsequent partial structural progress:
+`problem1_finite_schedule_repetition_bound.md` proves the boundary exclusion
+for an occurrence whose whole prefix has a period p with observed motif
+length B>=2p+1. It uses low-bit congruence together with the degree law, not
+the degree law alone. The unrestricted bit-length-only candidate remains
+open; the fixed integer box was not enlarged.

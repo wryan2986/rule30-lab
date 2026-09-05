@@ -178,6 +178,15 @@ schedule has not been proved eventually periodic. A finite-support
 counterexample would necessarily be coded by a genuinely aperiodic branch
 schedule.
 
+Update (2026-09-05, `partial-proof`):
+`problem1_finite_schedule_repetition_bound.md` quantifies the size/congruence
+obstruction. A finite integer of complexity k cannot have a p-periodic
+observed prefix longer than k+2p-2. More generally, unbounded periodic-factor
+excess n-m-2p excludes finite support, where n is factor length and m its
+starting position. That note gives an explicit aperiodic admissible example
+meeting the criterion; no such unbounded-excess property is proved for the
+actual moving fringe.
+
 ## 6. Exact explanation of the seven-block shadow
 
 For the actual alternating moving fringe, starting at block two the branch

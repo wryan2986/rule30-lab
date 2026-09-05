@@ -11,7 +11,45 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
-Newest exact reduction (`partial-proof`, independently reviewed): read
+Newest all-depth result (`partial-proof`, independently reviewed): read
+`proofs/informal/problem1_finite_schedule_repetition_bound.md` first.
+
+- For a positive finite integer of complexity k=ceil(bitlen/2)>=2, two
+  orbit tails at i<j sharing r observed branches satisfy r<=k+j-2. The
+  proof compares exact congruence modulo 2^(2r+2), valid even for terminal
+  endpoints, with bitlen(x_j)=bitlen(x)+2j.
+- Any p-periodic observed prefix of length n therefore has n<=k+2p-2.
+  A periodic factor of length n starting at m has n-m-2p<=k-2. Thus
+  unbounded such repetition excess on an infinite auxiliary schedule
+  excludes a finite integer survivor, even without eventual periodicity.
+  An explicit aperiodic admissible example W_0=uttt,
+  W_(h+1)=W_h^3 utttt has unbounded excess. It is NOT the actual fringe.
+- An occurrence of observed motif length B at cut c whose WHOLE observed
+  prefix is p-periodic satisfies c<=k+2p-B-2. For B>=2p+1 this proves
+  B_all on that subclass, even without frontier membership. Gaps (p,p,2)
+  give c<=k-4; equal local gaps alone do not imply prefix periodicity.
+  If periodicity starts at m, the bound is c<=k+2m+2p-B-2 instead.
+- Exact scope obstruction: this short-period certificate forces the three
+  observed u's to lie at c,c+p,c+2p, so it can cover only the four canonical
+  labels with r0=r1, never the other 11. The known p15/0x37b38787/cut0
+  gap242 occurrence is outside it (motif ututttut has least period6).
+  This is a certificate limitation, not a counterexample to B_all.
+- Reused exactly x=4,...,4095: 2,186 tail pairs, 1,391 prefix-period
+  instances, 2,964 periodic factors; no violation or equality. Full cell
+  replay and all counts agree. Occurrence coverage is only x903/cut0;
+  positive-m occurrence cases are absent. W_0,...,W_4 also checked.
+- Muse attempt terminated HTTP 429. Default contributor Dewey implemented
+  and independently derived the bounds; fresh reviewer Averroes checked
+  the full proof and aperiodic construction. Atomic records are
+  `results/problem1/20260905_finite_schedule_repetition_{primary,independent}.json`.
+
+The unresolved issue is still exclusion of arbitrary critical-cut prefixes.
+No all-depth repetition property is known for the actual fringe; the old
+seven-block mirage is not revived. A larger repetition scan is not the next
+step. This criterion requires a structural recurrence forcing unbounded
+excess, or a different invariant for prefixes outside its boundary subclass.
+
+Previous exact reduction (`partial-proof`, independently reviewed): read
 `proofs/informal/problem1_canonical_return_boundary.md` first.
 
 - Canonical third gap 2 reduces the 56 labels to 15 while preserving the

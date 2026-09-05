@@ -182,6 +182,12 @@ does NOT preserve its depth or signed mass. The localization theorem therefore
 does not reduce signed-cancellation tests to these five cuts. It reduces
 boundary-occurrence existence, which is the separate obstruction to inclusion.
 
+Subsequent restricted exclusion (`partial-proof`):
+`problem1_finite_schedule_repetition_bound.md` proves that an occurrence
+of motif length B with a p-periodic WHOLE observed prefix obeys
+`c<=k+2p-B-2`. Hence B>=2p+1 excludes its boundary case. This does not
+cover arbitrary prefixes or follow merely from equal local return gaps.
+
 ## 5. Sharper conditional prefix bound
 
 **Lemma.** Every admissible word of length b+16 has an occurrence at a cut

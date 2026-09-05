@@ -1,0 +1,303 @@
+{
+  "backend": "cell-arrays-odd-section-difference-valuations-word-tiling",
+  "experiment_id": "20260905_finite_schedule_repetition_independent",
+  "git_commit": "3486ee324985f211b1ff7a77dc95bee8a1144c6d",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The finite-integer schedule size/congruence bounds and their periodic-factor/boundary consequences hold on the admitted observations.",
+  "interpretation": "All contributed counts and finite inequalities independently agree; no equality or counterexample found. Constructed prefixes meet the stated finite checks.",
+  "limitations": [
+    "No larger frontier or integer census.",
+    "No assertion that actual moving fringe has unbounded repetition excess.",
+    "Muse attempt terminatedHTTP429; default contributor and lead performed these checks."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "all_observed_tail_pairs": true,
+    "all_periods_of_all_observed_factors": true,
+    "canonical_scope_check": "all15 canonical motifs",
+    "constructed_word_levels": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "cpu_workers": 1,
+    "horizon": "k+14",
+    "wall_limit_seconds": 120,
+    "x_max": 4095,
+    "x_min": 4
+  },
+  "proof_scope": "Only declared finite observations and constructed words; all-depth results require the separate proofs.",
+  "question": "problem1",
+  "result_hashes": {
+    "primary_raw_sha256": "05c5fa42286f6416d033c666c93487b7d67df9155d64b4ffcdb903c6d61eea85",
+    "result_sha256": "5b54e9cf2e99c18042236d5d4453a9d0f850b11a34ad0fc1a737c19d92b8800e",
+    "source_sha256": "9bee9babb4ad8ca3850ca95d1705c2eaf4a5616f6b0ac680328efe0330f73ddd"
+  },
+  "result_summary": {
+    "all_orbits_agree": true,
+    "canonical_certificate_coverage": [
+      {
+        "certificate_periods": [
+          2
+        ],
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "least_period": 2,
+        "motif": "ututut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "least_period": 6,
+        "motif": "ututttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          2,
+          5,
+          2
+        ],
+        "least_period": 7,
+        "motif": "ututtttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          3,
+          2,
+          2
+        ],
+        "least_period": 5,
+        "motif": "uttutut"
+      },
+      {
+        "certificate_periods": [
+          3
+        ],
+        "gaps": [
+          3,
+          3,
+          2
+        ],
+        "least_period": 3,
+        "motif": "uttuttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          3,
+          4,
+          2
+        ],
+        "least_period": 7,
+        "motif": "uttutttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          3,
+          5,
+          2
+        ],
+        "least_period": 8,
+        "motif": "uttuttttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          4,
+          2,
+          2
+        ],
+        "least_period": 6,
+        "motif": "utttutut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          4,
+          3,
+          2
+        ],
+        "least_period": 7,
+        "motif": "utttuttut"
+      },
+      {
+        "certificate_periods": [
+          4
+        ],
+        "gaps": [
+          4,
+          4,
+          2
+        ],
+        "least_period": 4,
+        "motif": "utttutttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          4,
+          5,
+          2
+        ],
+        "least_period": 9,
+        "motif": "utttuttttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          5,
+          2,
+          2
+        ],
+        "least_period": 7,
+        "motif": "uttttutut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          5,
+          3,
+          2
+        ],
+        "least_period": 8,
+        "motif": "uttttuttut"
+      },
+      {
+        "certificate_periods": [],
+        "gaps": [
+          5,
+          4,
+          2
+        ],
+        "least_period": 9,
+        "motif": "uttttutttut"
+      },
+      {
+        "certificate_periods": [
+          5
+        ],
+        "gaps": [
+          5,
+          5,
+          2
+        ],
+        "least_period": 5,
+        "motif": "uttttuttttut"
+      }
+    ],
+    "case_counts": {
+      "A": 2186,
+      "B": 1391,
+      "B_suffix": 2964,
+      "C": 1,
+      "C_suffix": 1,
+      "D": 2964,
+      "general": 3,
+      "general_suffix": 3
+    },
+    "completed": true,
+    "constructed_words": [
+      {
+        "gap4_count": 1,
+        "gap5_count": 0,
+        "length": 4,
+        "level": 0,
+        "terminal_gap5_run": 0,
+        "word": "uttt"
+      },
+      {
+        "gap4_count": 3,
+        "gap5_count": 1,
+        "length": 17,
+        "level": 1,
+        "terminal_gap5_run": 1,
+        "word": "utttutttutttutttt"
+      },
+      {
+        "gap4_count": 9,
+        "gap5_count": 4,
+        "length": 56,
+        "level": 2,
+        "terminal_gap5_run": 2,
+        "word": "utttutttutttuttttutttutttutttuttttutttutttutttuttttutttt"
+      },
+      {
+        "gap4_count": 27,
+        "gap5_count": 13,
+        "length": 173,
+        "level": 3,
+        "terminal_gap5_run": 3,
+        "word": "utttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttt"
+      },
+      {
+        "gap4_count": 81,
+        "gap5_count": 40,
+        "length": 524,
+        "level": 4,
+        "terminal_gap5_run": 4,
+        "word": "utttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttutttutttutttuttttutttutttutttuttttutttutttutttuttttuttttuttttutttt"
+      }
+    ],
+    "counterexamples": [],
+    "difference_congruence_checks": 2186,
+    "equality_counts": {
+      "A": 0,
+      "B": 0,
+      "B_suffix": 0,
+      "C": 0,
+      "C_suffix": 0,
+      "D": 0,
+      "general": 0,
+      "general_suffix": 0
+    },
+    "forced_transitions": 1039,
+    "orbit_rows_sha256": "4d5c041202a5bc91d738e95f3d3900e06219dd45f5d29bc411d8be0c15c77ede",
+    "positive_tail_congruence_checks": 568,
+    "scanned_count": 4092
+  },
+  "runtime_seconds": 0.07573058700654656,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Independent replay of the admitted repetition observables, same x4..4095.\nCell-array odd sections, actual difference valuations, word tiling periods,\nand parsed u gaps. Also the explicitly admitted W0..W4 constructed words.\nNo actual-fringe search, frontier census, or input-box extension.\n\"\"\"\nimport datetime,hashlib,importlib.util,json,os,platform,resource,signal,subprocess,sys,tempfile,time\nfrom pathlib import Path\nROOT=Path('/home/ryan/rule30-lab'); START=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')));signal.alarm(120)\nDIR=Path('/tmp/rule30-repetition-9dlBa7')\nraw=(DIR/'result.json').read_bytes(); primary=json.loads(raw)\nsha=lambda b:hashlib.sha256(b).hexdigest()\npayload=primary.copy(); claimed=payload.pop('payload_sha256_excluding_this_field')\nassert sha(json.dumps(payload,sort_keys=True,separators=(',',':')).encode())==claimed\nassert sha(primary['executed_source_utf8'].encode())==primary['source_sha256']\nassert (DIR/'search.py').read_text()==primary['executed_source_utf8']\nspec=importlib.util.spec_from_file_location('contributed',DIR/'search.py')\ncontributed=importlib.util.module_from_spec(spec);spec.loader.exec_module(contributed)\n\ndef bits(n): return [(n>>j)&1 for j in range(n.bit_length())]\ndef integer(a): return sum(v<<j for j,v in enumerate(a))\ndef Tcells(a):\n    a=a+[0,0];out=[]\n    for j in range(len(a)):\n        left=a[j-1] if j else 0;far=a[j-2] if j>=2 else 0\n        out.append(a[j] ^ int(bool(left or far)))\n    while out and not out[-1]:out.pop()\n    return out\n\ndef orbit(x,h):\n    a=bits(x);states=[x];word=''\n    for _ in range(h):\n        low=a[:4]+[0]*max(0,4-len(a))\n        if low==[1,1,1,0]:letter='u'\n        elif low==[1,1,0,1]:letter='t'\n        else:break\n        # P(z) is the odd section of T; independent of packed parity toggles.\n        middle=Tcells([1]+a[2:])[1:]\n        a=Tcells(middle)\n        if letter=='u':a[0]^=1\n        states.append(integer(a));word+=letter\n    return states,word\n\ndef clean(w):return all(b not in w for b in ('uu','ttttt','ututtu'))\ndef period(w,p):return w==(w[:p]*((len(w)+p-1)//p))[:len(w)]\ndef occurrences(w):\n    us=[i for i,c in enumerate(w) if c=='u']\n    out=[]\n    for j in range(len(us)-2):\n        c,u1,u2=us[j:j+3];a,b=u1-c,u2-u1\n        if a not in range(2,6) or b not in range(2,6):continue\n        for d in range(2,6):\n            end=u2+d\n            if end<=len(w) and w[u2+1:end]=='t'*(d-1) and clean(w[:end]+'u'):\n                out.append((c,(a,b,d),end))\n    return out\n\nassert orbit(7,16)==([7,27,111],'ut')\nassert orbit(11,16)==([11,51],'t')\nassert occurrences('ututu')==[]\nassert occurrences('ututut')==[(0,(2,2,2),6)]\nnames=['A','B','B_suffix','C','C_suffix','general','general_suffix','D']\ncounts={n:0 for n in names};equal={n:0 for n in names}\ntransitions=0;rows=[];congruences=0;positive_congruences=0\n\ndef check(name,lhs,rhs):\n    counts[name]+=1;equal[name]+=int(lhs==rhs)\n    assert lhs<=rhs,(name,x,lhs,rhs)\n\nfor x in range(4,4096):\n    k=(x.bit_length()+1)//2;states,w=orbit(x,k+14)\n    other=contributed.orbit(x,k+14)\n    assert states==other[0] and w==other[2],x\n    L=len(w);transitions+=L;rows.append([x,states,w])\n    for j,v in enumerate(states):assert v.bit_length()==x.bit_length()+2*j\n    for i in range(L+1):\n        for j in range(i+1,L+1):\n            r=0\n            for a,b in zip(w[i:],w[j:]):\n                if a!=b:break\n                r+=1\n            D=states[j]-states[i]\n            assert D>0 and D%(4**(r+1))==0,(x,i,j,r,D)\n            valuation=(D & -D).bit_length()-1\n            assert 2*r+2<=valuation<D.bit_length()\n            assert r<=(D.bit_length()-3)//2\n            congruences+=1;positive_congruences+=int(r>0)\n            check('A',r,k+j-2)\n    for n in range(1,L+1):\n        for p in range(1,n+1):\n            if period(w[:n],p):check('B',n,k+2*p-2)\n    for m in range(L):\n        for n in range(1,L-m+1):\n            for p in range(1,n+1):\n                if period(w[m:m+n],p):\n                    check('B_suffix',n,k+m+2*p-2)\n                    check('D',n-m-2*p,k-2)\n    for c,g,end in occurrences(w):\n        B=end-c\n        for p in range(1,end+1):\n            if period(w[:end],p):\n                check('general',c,k+2*p-B-2)\n                if B>=2*p+1:assert c<=k-3\n        if g[0]==g[1] and g[2]==2 and period(w[:end],g[0]):\n            check('C',c,k-4)\n        for m in range(c+1):\n            for p in range(1,end-m+1):\n                if period(w[m:end],p):check('general_suffix',c,k+2*m+2*p-B-2)\n            if g[0]==g[1] and g[2]==2 and period(w[m:end],g[0]):\n                check('C_suffix',c,k+2*m-4)\nfor n in names:\n    assert counts[n]==primary['candidate_statistics'][n]['cases'],(n,counts[n])\n    assert equal[n]==primary['candidate_statistics'][n]['equality_count']\nassert transitions==primary['counts']['forced_transitions']==1039\n# Deterministic constructed-word check, levels explicitly admitted in the note.\nW='uttt';construction=[]\nfor h in range(5):\n    tokens=W.split('u')[1:]\n    gaps=[len(t)+1 for t in tokens]\n    assert set(gaps)<=set((4,5)) and clean(W)\n    assert gaps.count(4)==3**h and gaps.count(5)==(3**h-1)//2\n    endrun=0\n    for v in reversed(gaps):\n        if v!=5:break\n        endrun+=1\n    assert endrun==h\n    assert len(W)==(13*3**h-5)//2\n    if h:\n        assert W==previous*3+'utttt'\n        cube=W[:3*len(previous)]\n        assert period(cube,len(previous))\n        assert len(cube)-2*len(previous)==len(previous)\n    construction.append({'level':h,'word':W,'length':len(W),'gap4_count':gaps.count(4),'gap5_count':gaps.count(5),'terminal_gap5_run':endrun})\n    previous=W;W=W*3+'utttt'\n# Scope check: all 15 canonical motifs from the already verified word language.\ncoverage=[]\nfor a in range(2,6):\n    for b in range(2,6):\n        if (a,b)==(2,3):continue\n        motif='u'+'t'*(a-1)+'u'+'t'*(b-1)+'ut'\n        assert clean(motif+'u')\n        ps=[p for p in range(1,len(motif)+1) if period(motif,p)]\n        certified=[p for p in ps if len(motif)>=2*p+1]\n        assert bool(certified)==(a==b)\n        assert not certified or certified==[a]\n        coverage.append({'gaps':[a,b,2],'motif':motif,'least_period':min(ps),'certificate_periods':certified})\nassert len(coverage)==15 and sum(bool(r['certificate_periods']) for r in coverage)==4\nassert next(r for r in coverage if r['gaps']==[2,4,2])['least_period']==6\nsummary={'scanned_count':len(rows),'all_orbits_agree':True,'forced_transitions':transitions,\n 'case_counts':counts,'equality_counts':equal,'difference_congruence_checks':congruences,\n 'positive_tail_congruence_checks':positive_congruences,'counterexamples':[],\n 'constructed_words':construction,'canonical_certificate_coverage':coverage,'orbit_rows_sha256':sha(json.dumps(rows,separators=(',',':')).encode()),'completed':True}\nsource=Path(__file__).read_text()\nbase={'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'The finite-integer schedule size/congruence bounds and their periodic-factor/boundary consequences hold on the admitted observations.',\n 'parameters':{'x_min':4,'x_max':4095,'horizon':'k+14','all_observed_tail_pairs':True,'all_periods_of_all_observed_factors':True,'constructed_word_levels':list(range(5)),'canonical_scope_check':'all15 canonical motifs','wall_limit_seconds':120,'address_space_bytes':1024**3,'cpu_workers':1},\n 'hardware':primary['hardware'],'software':{'python':sys.version,'platform':platform.platform()},\n 'runtime_seconds':time.monotonic()-START,'status':'finite-exhaustive',\n 'proof_scope':'Only declared finite observations and constructed words; all-depth results require the separate proofs.',\n 'interpretation':'All contributed counts and finite inequalities independently agree; no equality or counterexample found. Constructed prefixes meet the stated finite checks.',\n 'limitations':['No larger frontier or integer census.','No assertion that actual moving fringe has unbounded repetition excess.','Muse attempt terminatedHTTP429; default contributor and lead performed these checks.']}\nrecord={**base,'experiment_id':'20260905_finite_schedule_repetition_independent',\n 'backend':'cell-arrays-odd-section-difference-valuations-word-tiling',\n 'source_text':source,'result_summary':summary,\n 'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),'primary_raw_sha256':sha(raw)}}\nwrapped={**base,'experiment_id':'20260905_finite_schedule_repetition_primary',\n 'backend':'contributed-packed-per-bit-and-literal-period-check',\n 'parameters':primary['parameters'],'runtime_seconds':primary['timings']['search_wall_seconds'],\n 'software':primary['software'],'contributed_record':primary,\n 'result_summary':{'result':primary['result'],'counts':primary['counts'],'case_counts':counts,'equality_counts':equal},\n 'result_hashes':{'original_record_sha256':sha(raw),'source_sha256':primary['source_sha256'],'contributed_payload_sha256':claimed},\n 'interpretation':'Contributed fixed-box checks passed; independent replay and constructed-word checks are recorded separately.',\n 'proof_scope':'Only the observed schedules for x4..4095 through their k+14 horizons.',\n 'integration_note':'Original contribution retained unchanged. Constructed-word and 15-motif scope checks belong only to independent record.'}\n# Preserve exact pre-proof admission text if its hash matches the worker record.\nnote=(ROOT/'proofs/informal/problem1_finite_schedule_repetition_bound.md').read_text()\nadmission=note.split('\\n## 1.')[0]\nif sha(admission.encode())==primary['admission_sha256']:\n    wrapped['admission_text']=admission\n\ndef atomic(name,r):\n    dest=ROOT/'results/problem1'/name\n    fd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(r,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,dest)\natomic('20260905_finite_schedule_repetition_primary.json',wrapped)\natomic('20260905_finite_schedule_repetition_independent.json',record)\nsignal.alarm(0)\nprint(json.dumps({k:v for k,v in summary.items() if k not in ('constructed_words','canonical_certificate_coverage')},sort_keys=True))\nprint('constructed_lengths',[r['length'] for r in construction]);print('seconds',record['runtime_seconds'])\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T16:02:50.385121+00:00"
+}
