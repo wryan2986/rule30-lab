@@ -1,0 +1,1411 @@
+{
+  "backend": "python-exact-independent-oracle-existing-frontiers",
+  "experiment_id": "20260905_signed_ancestor_valuation",
+  "git_commit": "b86a0ea892549287d4431fce69d29a743855bf9b",
+  "hardware": {
+    "cpu_count": 1,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 46952
+  },
+  "hypothesis": "Every stripped ancestor of an admissible three-return cylinder satisfies v2(N) != v2(2*O).",
+  "interpretation": "All tested ancestor nodes and all 19 arithmetic rows satisfy unequal valuations. Finite-only evidence inside the stated bounds; no general invariant is claimed and no cap increase follows.",
+  "limitations": [
+    "Finite-only; no all-depth invariant is claimed.",
+    "No census-cap increase; frontiers only to existing k16/18.",
+    "A failure refutes only the ALL-ancestor extension unless the node is itself in the 19 occurrences.",
+    "Beliefs are distinct-endpoint dominant adjacent-shadow beliefs per the independent oracle."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "closure_cylinders": 17,
+    "closure_nodes": 25,
+    "cpus": 1,
+    "domain_max_complexity": 16,
+    "named_ancestors": [
+      [
+        "u",
+        18,
+        "0x642e4d2f1",
+        3
+      ],
+      [
+        "u",
+        18,
+        "0x6473d46ab",
+        5
+      ]
+    ],
+    "named_max_complexity": 18,
+    "no_new_census": true,
+    "order": "k,phase,depth,state then named order",
+    "stop_at_first_failure": true,
+    "strict_ancestors": 8,
+    "total_nodes_planned": 27,
+    "wall_limit_seconds": 120,
+    "zero_valuation_encoding": null
+  },
+  "proof_scope": "25-node k<=16 ancestor closure (17 cylinders + 8 strict) + 2 named k18 ancestors in fixed order, stop at first failure; plus 19-row arithmetic replay with no frontier counts.",
+  "question": "problem1",
+  "replay_source": "#!/usr/bin/env python3\n\"\"\"Bounded arithmetic falsification sidecar: valuation gate on stripped ancestors.\n\nADMISSION (written before execution; AGENTS.md rule 9):\nThe lead hypothesizes a stronger induction-friendly extension: EVERY stripped\nancestor of an admissible three-return cylinder satisfies v2(N) != v2(2O),\nwhere N = number of distinct concrete dominant belief endpoints, O = number\nof odd-defect endpoints, S = E - O with E even-defect count, v2 the 2-adic\nvaluation with v2(0) = infinity. For positive N, unequal valuations imply\nS != 0 by the elementary valuation law for a difference.\n\nHow either outcome changes the whole-tail argument:\n- FAILURE on any tested ancestor node REFUTES this extension at that node.\n  It does NOT refute the actual-occurrence-only valuation candidate, and does\n  NOT refute signed nonvanishing or Problem 1, UNLESS the failing node is\n  itself one of the 19 full-domain occurrences (then the occurrence-only\n  candidate falls with it). A failure closes the induction-friendly extension\n  route and forces any future invariant to exclude or partition that node.\n- SUCCESS on all tested nodes is FINITE-ONLY evidence inside the stated\n  bounds (25-node k<=16 ancestor closure + two named k18 ancestors + 19-row\n  arithmetic replay). It authorizes NO cap increase and proves NO general\n  invariant; it merely keeps the extension open as a candidate for structural\n  work along the forced schedule, the current bottleneck of the Problem 1\n  three-return signed-mass step.\nIf neither outcome would change the argument, this run would not occur; here\nboth outcomes discriminate the extension route, so the bounded test proceeds.\n\nScope (frozen): exactly 25 ancestor-closure nodes of the existing 19-row\nfull-domain records (17 distinct cylinders + 8 strict stripped ancestors,\nverified below to total 25 distinct), then TWO named k18 ancestor nodes\n(u,18,0x642e4d2f1,L3) and (u,18,0x6473d46ab,L5) in that order. Test order is\n(k,phase,depth,state) on the 25, then named order. Stop at first valuation\nfailure. Separately replay the 19-row arithmetic inequality from canonical\nnormalized rows with no frontier counts. Preexisting independent signed-mass\noracle only (direct/recursive agreement); small independent Boolean generator\ncheck; no compiled backend; no new census beyond existing k16/18 frontiers.\nOne CPU, 120 s wall limit, 1 GiB address space. Owns only\nresults/problem1/20260905_signed_ancestor_valuation.json plus /tmp scripts.\n\"\"\"\nfrom __future__ import annotations\nimport datetime, hashlib, importlib.util, json, os, platform, resource, signal, subprocess, sys, tempfile, time\nfrom pathlib import Path\n\nROOT = Path(\"/home/ryan/rule30-lab\")\nORACLE_PATH = ROOT / \"scripts/check_three_return_signed_mass_independent.py\"\nPRIMARY = \"results/problem1/20260905_three_return_signed_mass.json\"\nINDEP = \"results/problem1/20260905_three_return_signed_mass_independent.json\"\nOUT = ROOT / \"results/problem1/20260905_signed_ancestor_valuation.json\"\nNAMED = [(\"u\", 18, 0x642E4D2F1, 3), (\"u\", 18, 0x6473D46AB, 5)]\n\nstarted = time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\ndef _handler(signum, frame):\n    raise TimeoutError(\"wall limit 120s exceeded\")\nsignal.signal(signal.SIGALRM, _handler)\nsignal.alarm(120)\n\nspec = importlib.util.spec_from_file_location(\"ancestor_oracle\", ORACLE_PATH)\noracle = importlib.util.module_from_spec(spec)\nsys.modules[\"ancestor_oracle\"] = oracle\nspec.loader.exec_module(oracle)\n\n# Small independent Boolean frontier check (no compiled backend).\nassert oracle.gen_t(1) == 7 and oracle.gen_u(1) == 6 and oracle.gen_t(3) == 13\nboolean_cases = 0\nfor x in range(1, 256):\n    assert oracle.gen_t(x) == oracle.gen_t_bitwise(x)\n    boolean_cases += 1\nsmall = oracle.build_frontiers(\"u\", 6)\nassert [len(small[k]) for k in range(1, 6)] == [1, 2, 4, 9, 18]\nsmall_belief_checks = 0\nfor k in range(2, 7):\n    for x in small[k]:\n        for depth in range(1, k):\n            a = oracle.belief_direct(small, k, x, depth, [])\n            b = oracle.belief_recursive(small, k, x, depth, [])\n            assert a == b\n            small_belief_checks += 1\n\ndef v2(n):\n    return None if n == 0 else (n & -n).bit_length() - 1\n\n# Canonical 19-row arithmetic replay (no frontier counts).\npa = json.loads((ROOT / PRIMARY).read_text())[\"result\"][\"occurrences\"]\nib = json.loads((ROOT / INDEP).read_text())[\"result_summary\"][\"occurrences\"]\nassert len(pa) == len(ib) == 19\ndef key_primary(r):\n    return (r[\"complexity\"], r[\"phase\"], r[\"state_hex\"], r[\"cut\"], r[\"depth\"], tuple(r[\"gaps\"]))\ndef key_indep(r):\n    return (r[\"complexity\"], r[\"phase\"], r[\"state\"], r[\"cut\"], r[\"depth\"], tuple(r[\"gaps\"]))\nma = {}\nfor r in pa:\n    ma[key_primary(r)] = r\nmb = {}\nfor r in ib:\n    mb[key_indep(r)] = r\nassert set(ma) == set(mb) and len(ma) == 19\ncanon = []\nrow_mismatch = None\nfor k in sorted(ma):\n    x, y = ma[k], mb[k]\n    N, S = x[\"dominant_shadows\"], x[\"signed_mass\"]\n    if (N, S, x[\"same_cylinder\"]) != (y[\"belief_size\"], y[\"mass\"], y[\"same_cylinder\"]):\n        row_mismatch = {\"key\": [str(t) for t in k], \"primary\": [N, S], \"independent\": [y[\"belief_size\"], y[\"mass\"]]}\n        break\n    E = sum(v for cost, v in x[\"defect_histogram\"].items() if int(cost) % 2 == 0)\n    O = sum(v for cost, v in x[\"defect_histogram\"].items() if int(cost) % 2 == 1)\n    assert (N + S) % 2 == 0 and (N - S) % 2 == 0\n    assert (E, O) == ((N + S) // 2, (N - S) // 2)\n    canon.append({\"complexity\": k[0], \"phase\": k[1], \"state_hex\": k[2], \"cut\": k[3], \"depth\": k[4],\n                    \"gaps\": list(k[5]), \"N\": N, \"E\": E, \"O\": O, \"S\": S,\n                    \"v2_N\": v2(N), \"v2_2O\": v2(2 * O), \"unequal\": v2(N) != v2(2 * O)})\narith_counter = [r for r in canon if not r[\"unequal\"]] if row_mismatch is None else []\n\n# Derive 25-node ancestor closure from the 19 occurrence rows.\ncyl_map = {}\nfor r in pa:\n    ck = (r[\"phase\"], r[\"complexity\"], r[\"state_hex\"], r[\"cut\"], r[\"depth\"])\n    cyl_map.setdefault(ck, {\"gaps_list\": []})\n    cyl_map[ck][\"gaps_list\"].append(list(r[\"gaps\"]))\nassert len(cyl_map) == 17, len(cyl_map)\nocc_nodes = set((ph, k, int(sh, 16), d) for (ph, k, sh, c, d) in cyl_map)\nstrict = {}\nfor (ph, k, sh, c, d) in cyl_map:\n    x = int(sh, 16)\n    for s in range(1, d):\n        node = (ph, k - s, x >> (2 * s), d - s)\n        wit = {\"phase\": ph, \"complexity\": k, \"state_hex\": sh, \"cut\": c, \"depth\": d,\n               \"gaps_list\": cyl_map[(ph, k, sh, c, d)][\"gaps_list\"]}\n        strict.setdefault(node, []).append(wit)\nassert len(strict) == 8, len(strict)\nassert not (set(strict) & occ_nodes), \"strict ancestor overlaps an occurrence node\"\nnodes25 = []\nfor (ph, k, sh, c, d) in cyl_map:\n    x = int(sh, 16)\n    nodes25.append({\"phase\": ph, \"complexity\": k, \"state_hex\": sh, \"state_int\": x,\n                      \"depth\": d, \"cut\": c, \"kind\": \"cylinder\",\n                      \"in19\": True,\n                      \"witness\": {\"phase\": ph, \"complexity\": k, \"state_hex\": sh, \"cut\": c,\n                                    \"depth\": d, \"gaps_list\": cyl_map[(ph, k, sh, c, d)][\"gaps_list\"]}})\nfor (ph, k, xi, d), wits in strict.items():\n    assert len(wits) == 1\n    nodes25.append({\"phase\": ph, \"complexity\": k, \"state_hex\": hex(xi), \"state_int\": xi,\n                      \"depth\": d, \"cut\": d - 1, \"kind\": \"strict-ancestor\",\n                      \"in19\": False, \"witness\": wits[0]})\nassert len(nodes25) == 25\nnodes25.sort(key=lambda n: (n[\"complexity\"], n[\"phase\"], n[\"depth\"], n[\"state_int\"]))\n# Named k18 ancestors with prior-cone-note witnesses.\nnamed_nodes = [\n    {\"phase\": \"u\", \"complexity\": 18, \"state_hex\": hex(0x642E4D2F1), \"state_int\": 0x642E4D2F1,\n     \"depth\": 3, \"cut\": 2, \"kind\": \"named-ancestor\", \"in19\": False,\n     \"witness\": {\"phase\": \"u\", \"complexity\": 19, \"state_hex\": hex(0x190B934BC7), \"cut\": 3,\n                   \"depth\": 4, \"gaps_list\": [[2, 2, 2]],\n                   \"note\": \"strip one low digit (verified ancestry, prior cone note)\"}},\n    {\"phase\": \"u\", \"complexity\": 18, \"state_hex\": hex(0x6473D46AB), \"state_int\": 0x6473D46AB,\n     \"depth\": 5, \"cut\": 4, \"kind\": \"named-ancestor\", \"in19\": False,\n     \"witness\": {\"phase\": \"u\", \"complexity\": 18, \"state_hex\": hex(0x6473D46AB), \"cut\": 4,\n                   \"depth\": 5, \"gaps_list\": [[2, 2, 2]],\n                   \"note\": \"itself admissible (verified ancestry, prior cone note)\"}},\n]\nfor i, (ph, k, xi, d) in enumerate(NAMED):\n    n = named_nodes[i]\n    assert (n[\"phase\"], n[\"complexity\"], n[\"state_int\"], n[\"depth\"]) == (ph, k, xi, d)\n\n# Frontiers to existing caps only (k<=18); no new census, no occurrence sweep.\nfrontiers = {a: oracle.build_frontiers(a, 18) for a in (\"p\", \"u\")}\nfor n in nodes25 + named_nodes:\n    assert n[\"state_int\"] in frontiers[n[\"phase\"]][n[\"complexity\"]], n\n    assert 1 <= n[\"depth\"] < n[\"complexity\"], n\n\ntested_rows = []\nfirst_failure = None\nfor idx, n in enumerate(nodes25 + named_nodes):\n    ph, k, xi, d = n[\"phase\"], n[\"complexity\"], n[\"state_int\"], n[\"depth\"]\n    bh = []\n    b1 = oracle.belief_direct(frontiers[ph], k, xi, d, bh)\n    b2 = oracle.belief_recursive(frontiers[ph], k, xi, d, bh)\n    assert b1 == b2, (ph, k, hex(xi), d)\n    N = len(b1)\n    E = sum(1 for c in b1.values() if c % 2 == 0)\n    O = N - E\n    S = E - O\n    assert S == oracle.signed_mass(b1) and N == E + O and E - O == S\n    hist = {}\n    for c in b1.values():\n        hist[str(c)] = hist.get(str(c), 0) + 1\n    row = {\"seq\": idx, \"phase\": ph, \"complexity\": k, \"state_hex\": n[\"state_hex\"],\n           \"depth\": d, \"cut\": n[\"cut\"], \"kind\": n[\"kind\"], \"in19\": n[\"in19\"],\n           \"witness\": n[\"witness\"], \"N\": N, \"E\": E, \"O\": O, \"S\": S,\n           \"v2_N\": v2(N), \"v2_2O\": v2(2 * O), \"unequal\": v2(N) != v2(2 * O),\n           \"defect_histogram\": hist}\n    tested_rows.append(row)\n    if not row[\"unequal\"]:\n        first_failure = row\n        break\n\nelapsed = time.monotonic() - started\ntry:\n    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\nexcept Exception:\n    peak = -1\ntry:\n    cpu = next(s.split(\":\", 1)[1].strip() for s in Path(\"/proc/cpuinfo\").read_text().splitlines() if s.startswith(\"model name\"))\nexcept Exception:\n    cpu = \"unknown\"\ncommit = subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=str(ROOT), text=True).strip()\npayload = {\n    \"nodes_ordered_25_plus_2\": [{\"seq\": r[\"seq\"], \"phase\": r[\"phase\"], \"complexity\": r[\"complexity\"],\n        \"state_hex\": r[\"state_hex\"], \"depth\": r[\"depth\"], \"cut\": r[\"cut\"], \"kind\": r[\"kind\"],\n        \"in19\": r[\"in19\"], \"witness\": r[\"witness\"], \"N\": r[\"N\"], \"E\": r[\"E\"], \"O\": r[\"O\"],\n        \"S\": r[\"S\"], \"v2_N\": r[\"v2_N\"], \"v2_2O\": r[\"v2_2O\"], \"unequal\": r[\"unequal\"],\n        \"defect_histogram\": r[\"defect_histogram\"]} for r in tested_rows],\n    \"nodes_planned\": 27, \"nodes_tested\": len(tested_rows),\n    \"cylinders\": 17, \"strict_ancestors\": 8, \"named\": 2,\n    \"first_failure\": first_failure,\n    \"arithmetic_19\": {\"rows_matched\": len(canon), \"row_mismatch\": row_mismatch,\n                         \"counterexamples\": arith_counter, \"rows\": canon},\n    \"verification\": {\"boolean_generator_cases\": boolean_cases,\n                       \"direct_recursive_small_beliefs\": small_belief_checks,\n                       \"frontier_belief_agreement\": len(tested_rows)}}\nembed = Path(__file__).read_text()\nhashes = {}\nfor p in [PRIMARY, INDEP, \"scripts/check_three_return_signed_mass_independent.py\",\n          \"src/python/rule30_research_reference.py\"]:\n    h = hashlib.sha256()\n    with open(ROOT / p, \"rb\") as f:\n        for ch in iter(lambda: f.read(1 << 20), b\"\"):\n            h.update(ch)\n    hashes[p] = h.hexdigest()\nhashes[\"embedded_source_sha256\"] = hashlib.sha256(embed.encode()).hexdigest()\nhashes[\"payload_sha256\"] = hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode()).hexdigest()\nif row_mismatch is not None:\n    status = \"inconclusive\"\n    interp = \"Source-row mismatch suspends the arithmetic conclusion pending correction; no valuation finding is drawn.\"\nelif first_failure is not None:\n    status = \"refuted\"\n    interp = (\"A tested ancestor node has equal valuations, refuting the ALL-ancestor extension at that node. \"\n              \"The occurrence-only candidate is refuted only if in19 is true for that node. Finite scope only.\")\nelif arith_counter:\n    status = \"refuted\"\n    interp = \"Arithmetic replay refutes the occurrence-only valuation candidate on an existing row. Finite scope only.\"\nelse:\n    status = \"finite-exhaustive\"\n    interp = (\"All tested ancestor nodes and all 19 arithmetic rows satisfy unequal valuations. \"\n              \"Finite-only evidence inside the stated bounds; no general invariant is claimed and no cap increase follows.\")\nrecord = {\n    \"experiment_id\": \"20260905_signed_ancestor_valuation\",\n    \"timestamp_utc\": datetime.datetime.now(datetime.timezone.utc).isoformat(),\n    \"git_commit\": commit, \"question\": \"problem1\",\n    \"hypothesis\": \"Every stripped ancestor of an admissible three-return cylinder satisfies v2(N) != v2(2*O).\",\n    \"backend\": \"python-exact-independent-oracle-existing-frontiers\",\n    \"parameters\": {\"closure_cylinders\": 17, \"strict_ancestors\": 8, \"closure_nodes\": 25,\n        \"named_ancestors\": [[\"u\", 18, \"0x642e4d2f1\", 3], [\"u\", 18, \"0x6473d46ab\", 5]],\n        \"total_nodes_planned\": 27, \"order\": \"k,phase,depth,state then named order\",\n        \"stop_at_first_failure\": True, \"domain_max_complexity\": 16, \"named_max_complexity\": 18,\n        \"wall_limit_seconds\": 120, \"address_space_bytes\": 1024**3, \"cpus\": 1,\n        \"zero_valuation_encoding\": None, \"no_new_census\": True},\n    \"software\": {\"python\": sys.version, \"platform\": platform.platform()},\n    \"hardware\": {\"cpu_model\": cpu, \"machine\": platform.machine(), \"cpu_count\": 1,\n                   \"peak_rss_kib\": peak},\n    \"runtime_seconds\": elapsed, \"result_hashes\": hashes, \"result_summary\": payload,\n    \"replay_source\": embed, \"status\": status,\n    \"proof_scope\": \"25-node k<=16 ancestor closure (17 cylinders + 8 strict) + 2 named k18 ancestors in fixed order, stop at first failure; plus 19-row arithmetic replay with no frontier counts.\",\n    \"interpretation\": interp,\n    \"limitations\": [\"Finite-only; no all-depth invariant is claimed.\",\n        \"No census-cap increase; frontiers only to existing k16/18.\",\n        \"A failure refutes only the ALL-ancestor extension unless the node is itself in the 19 occurrences.\",\n        \"Beliefs are distinct-endpoint dominant adjacent-shadow beliefs per the independent oracle.\"]}\nfd, tmp = tempfile.mkstemp(dir=str(OUT.parent), prefix=OUT.name + \".\", suffix=\".tmp\")\nwith os.fdopen(fd, \"w\") as f:\n    json.dump(record, f, sort_keys=True, indent=2)\n    f.write(\"\\n\")\n    f.flush()\n    os.fsync(f.fileno())\nos.replace(tmp, OUT)\nsignal.alarm(0)\nprint(json.dumps({\"status\": status, \"nodes_tested\": len(tested_rows),\n    \"first_failure\": first_failure, \"arith_counterexamples\": arith_counter,\n    \"rows\": [(r[\"seq\"], r[\"phase\"], r[\"complexity\"], r[\"state_hex\"], r[\"depth\"],\n                r[\"N\"], r[\"E\"], r[\"O\"], r[\"S\"], r[\"v2_N\"], r[\"v2_2O\"]) for r in tested_rows]}, indent=2))\n",
+  "result_hashes": {
+    "embedded_source_sha256": "e7c9dda0be7b0edf6628d219d7f11866520e589790ab5194fbf9c49cf8181e6e",
+    "payload_sha256": "367904744bde219c849c5f7e24b24333db246d3260f3111b7d8dfab57f9d8e88",
+    "results/problem1/20260905_three_return_signed_mass.json": "d83cae40491896201294a1243de1ed94a609a7fb638ce0f13967df395209ba7c",
+    "results/problem1/20260905_three_return_signed_mass_independent.json": "dae42f686d438cdad070542716efa4d76b77bbce402d9f8af84fb4a824e12569",
+    "scripts/check_three_return_signed_mass_independent.py": "2abcac4632f54d0d4598a98694737b86cc9a2616002c573abcdde1a183ad1d68",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "arithmetic_19": {
+      "counterexamples": [],
+      "row_mismatch": null,
+      "rows": [
+        {
+          "E": 162,
+          "N": 162,
+          "O": 0,
+          "S": 162,
+          "complexity": 12,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xc84387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 1
+        },
+        {
+          "E": 580,
+          "N": 580,
+          "O": 0,
+          "S": 580,
+          "complexity": 14,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xde68387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 2
+        },
+        {
+          "E": 84,
+          "N": 134,
+          "O": 50,
+          "S": 34,
+          "complexity": 14,
+          "cut": 1,
+          "depth": 2,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x642fdfb",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 1
+        },
+        {
+          "E": 1079,
+          "N": 1079,
+          "O": 0,
+          "S": 1079,
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            4,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0x37b38787",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 0
+        },
+        {
+          "E": 1079,
+          "N": 1079,
+          "O": 0,
+          "S": 1079,
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            4,
+            3
+          ],
+          "phase": "p",
+          "state_hex": "0x37b38787",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 0
+        },
+        {
+          "E": 901,
+          "N": 1223,
+          "O": 322,
+          "S": 579,
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x191cc387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 0
+        },
+        {
+          "E": 901,
+          "N": 1223,
+          "O": 322,
+          "S": 579,
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd90387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 0
+        },
+        {
+          "E": 901,
+          "N": 1223,
+          "O": 322,
+          "S": 579,
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            4
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd90387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 0
+        },
+        {
+          "E": 30,
+          "N": 54,
+          "O": 24,
+          "S": 6,
+          "complexity": 15,
+          "cut": 2,
+          "depth": 3,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd9c36b",
+          "unequal": true,
+          "v2_2O": 4,
+          "v2_N": 1
+        },
+        {
+          "E": 1978,
+          "N": 2679,
+          "O": 701,
+          "S": 1277,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            4,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787",
+          "unequal": true,
+          "v2_2O": 1,
+          "v2_N": 0
+        },
+        {
+          "E": 119,
+          "N": 216,
+          "O": 97,
+          "S": 22,
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps": [
+            4,
+            2,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787",
+          "unequal": true,
+          "v2_2O": 1,
+          "v2_N": 3
+        },
+        {
+          "E": 1978,
+          "N": 1978,
+          "O": 0,
+          "S": 1978,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xc8e78387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 1
+        },
+        {
+          "E": 1978,
+          "N": 1978,
+          "O": 0,
+          "S": 1978,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "p",
+          "state_hex": "0xdece4387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 1
+        },
+        {
+          "E": 1650,
+          "N": 2248,
+          "O": 598,
+          "S": 1052,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x642e4387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 3
+        },
+        {
+          "E": 1650,
+          "N": 1650,
+          "O": 0,
+          "S": 1650,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x642fc387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 1
+        },
+        {
+          "E": 288,
+          "N": 449,
+          "O": 161,
+          "S": 127,
+          "complexity": 16,
+          "cut": 1,
+          "depth": 2,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x6f34fdfb",
+          "unequal": true,
+          "v2_2O": 1,
+          "v2_N": 0
+        },
+        {
+          "E": 1650,
+          "N": 2248,
+          "O": 598,
+          "S": 1052,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 3
+        },
+        {
+          "E": 103,
+          "N": 185,
+          "O": 82,
+          "S": 21,
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387",
+          "unequal": true,
+          "v2_2O": 2,
+          "v2_N": 0
+        },
+        {
+          "E": 1650,
+          "N": 1650,
+          "O": 0,
+          "S": 1650,
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "phase": "u",
+          "state_hex": "0x6f670387",
+          "unequal": true,
+          "v2_2O": null,
+          "v2_N": 1
+        }
+      ],
+      "rows_matched": 19
+    },
+    "cylinders": 17,
+    "first_failure": null,
+    "named": 2,
+    "nodes_ordered_25_plus_2": [
+      {
+        "E": 162,
+        "N": 162,
+        "O": 0,
+        "S": 162,
+        "complexity": 12,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 162
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 0,
+        "state_hex": "0xc84387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 12,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc84387"
+        }
+      },
+      {
+        "E": 257,
+        "N": 357,
+        "O": 100,
+        "S": 157,
+        "complexity": 13,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 257,
+          "1": 100
+        },
+        "depth": 1,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 1,
+        "state_hex": "0x190bf7e",
+        "unequal": true,
+        "v2_2O": 3,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 14,
+          "cut": 1,
+          "depth": 2,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x642fdfb"
+        }
+      },
+      {
+        "E": 257,
+        "N": 357,
+        "O": 100,
+        "S": 157,
+        "complexity": 13,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 257,
+          "1": 100
+        },
+        "depth": 1,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 2,
+        "state_hex": "0x1bd9c36",
+        "unequal": true,
+        "v2_2O": 3,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 15,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd9c36b"
+        }
+      },
+      {
+        "E": 580,
+        "N": 917,
+        "O": 337,
+        "S": 243,
+        "complexity": 14,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 580,
+          "1": 337
+        },
+        "depth": 1,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "p",
+        "seq": 3,
+        "state_hex": "0xc85f878",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              4,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787"
+        }
+      },
+      {
+        "E": 580,
+        "N": 580,
+        "O": 0,
+        "S": 580,
+        "complexity": 14,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 580
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 4,
+        "state_hex": "0xde68387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 2,
+        "witness": {
+          "complexity": 14,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xde68387"
+        }
+      },
+      {
+        "E": 488,
+        "N": 770,
+        "O": 282,
+        "S": 206,
+        "complexity": 14,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 488,
+          "1": 282
+        },
+        "depth": 1,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 5,
+        "state_hex": "0x6f65c38",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387"
+        }
+      },
+      {
+        "E": 84,
+        "N": 134,
+        "O": 50,
+        "S": 34,
+        "complexity": 14,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 84,
+          "1": 50
+        },
+        "depth": 2,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 6,
+        "state_hex": "0x642fdfb",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 14,
+          "cut": 1,
+          "depth": 2,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x642fdfb"
+        }
+      },
+      {
+        "E": 93,
+        "N": 143,
+        "O": 50,
+        "S": 43,
+        "complexity": 14,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 84,
+          "1": 50,
+          "2": 9
+        },
+        "depth": 2,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 7,
+        "state_hex": "0x6f670da",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 15,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd9c36b"
+        }
+      },
+      {
+        "E": 1079,
+        "N": 1079,
+        "O": 0,
+        "S": 1079,
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1079
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 8,
+        "state_hex": "0x37b38787",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              4,
+              2
+            ],
+            [
+              2,
+              4,
+              3
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0x37b38787"
+        }
+      },
+      {
+        "E": 439,
+        "N": 497,
+        "O": 58,
+        "S": 381,
+        "complexity": 15,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 262,
+          "1": 58,
+          "2": 177
+        },
+        "depth": 2,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "p",
+        "seq": 9,
+        "state_hex": "0x3217e1e1",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              4,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787"
+        }
+      },
+      {
+        "E": 901,
+        "N": 1223,
+        "O": 322,
+        "S": 579,
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 10,
+        "state_hex": "0x191cc387",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x191cc387"
+        }
+      },
+      {
+        "E": 901,
+        "N": 1223,
+        "O": 322,
+        "S": 579,
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 11,
+        "state_hex": "0x1bcd3f7e",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 1,
+          "depth": 2,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f34fdfb"
+        }
+      },
+      {
+        "E": 901,
+        "N": 1223,
+        "O": 322,
+        "S": 579,
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 12,
+        "state_hex": "0x1bd90387",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 15,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              2,
+              2,
+              4
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd90387"
+        }
+      },
+      {
+        "E": 372,
+        "N": 415,
+        "O": 43,
+        "S": 329,
+        "complexity": 15,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 224,
+          "1": 43,
+          "2": 148
+        },
+        "depth": 2,
+        "in19": false,
+        "kind": "strict-ancestor",
+        "phase": "u",
+        "seq": 13,
+        "state_hex": "0x1bd970e1",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387"
+        }
+      },
+      {
+        "E": 30,
+        "N": 54,
+        "O": 24,
+        "S": 6,
+        "complexity": 15,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 25,
+          "1": 24,
+          "2": 5
+        },
+        "depth": 3,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 14,
+        "state_hex": "0x1bd9c36b",
+        "unequal": true,
+        "v2_2O": 4,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 15,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x1bd9c36b"
+        }
+      },
+      {
+        "E": 1978,
+        "N": 2679,
+        "O": 701,
+        "S": 1277,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978,
+          "1": 701
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 15,
+        "state_hex": "0xc85f8787",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              4,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787"
+        }
+      },
+      {
+        "E": 1978,
+        "N": 1978,
+        "O": 0,
+        "S": 1978,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 16,
+        "state_hex": "0xc8e78387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc8e78387"
+        }
+      },
+      {
+        "E": 1978,
+        "N": 1978,
+        "O": 0,
+        "S": 1978,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 17,
+        "state_hex": "0xdece4387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xdece4387"
+        }
+      },
+      {
+        "E": 119,
+        "N": 216,
+        "O": 97,
+        "S": 22,
+        "complexity": 16,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 90,
+          "1": 6,
+          "2": 29,
+          "3": 91
+        },
+        "depth": 3,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "p",
+        "seq": 18,
+        "state_hex": "0xc85f8787",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 3,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              4,
+              2,
+              2
+            ]
+          ],
+          "phase": "p",
+          "state_hex": "0xc85f8787"
+        }
+      },
+      {
+        "E": 1650,
+        "N": 2248,
+        "O": 598,
+        "S": 1052,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 19,
+        "state_hex": "0x642e4387",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 3,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x642e4387"
+        }
+      },
+      {
+        "E": 1650,
+        "N": 1650,
+        "O": 0,
+        "S": 1650,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 20,
+        "state_hex": "0x642fc387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x642fc387"
+        }
+      },
+      {
+        "E": 1650,
+        "N": 2248,
+        "O": 598,
+        "S": 1052,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 21,
+        "state_hex": "0x6f65c387",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 3,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387"
+        }
+      },
+      {
+        "E": 1650,
+        "N": 1650,
+        "O": 0,
+        "S": 1650,
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 22,
+        "state_hex": "0x6f670387",
+        "unequal": true,
+        "v2_2O": null,
+        "v2_N": 1,
+        "witness": {
+          "complexity": 16,
+          "cut": 0,
+          "depth": 1,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f670387"
+        }
+      },
+      {
+        "E": 288,
+        "N": 449,
+        "O": 161,
+        "S": 127,
+        "complexity": 16,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 288,
+          "1": 161
+        },
+        "depth": 2,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 23,
+        "state_hex": "0x6f34fdfb",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 1,
+          "depth": 2,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f34fdfb"
+        }
+      },
+      {
+        "E": 103,
+        "N": 185,
+        "O": 82,
+        "S": 21,
+        "complexity": 16,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 76,
+          "1": 3,
+          "2": 27,
+          "3": 79
+        },
+        "depth": 3,
+        "in19": true,
+        "kind": "cylinder",
+        "phase": "u",
+        "seq": 24,
+        "state_hex": "0x6f65c387",
+        "unequal": true,
+        "v2_2O": 2,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 16,
+          "cut": 2,
+          "depth": 3,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "phase": "u",
+          "state_hex": "0x6f65c387"
+        }
+      },
+      {
+        "E": 161,
+        "N": 405,
+        "O": 244,
+        "S": -83,
+        "complexity": 18,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 133,
+          "1": 110,
+          "2": 28,
+          "3": 134
+        },
+        "depth": 3,
+        "in19": false,
+        "kind": "named-ancestor",
+        "phase": "u",
+        "seq": 25,
+        "state_hex": "0x642e4d2f1",
+        "unequal": true,
+        "v2_2O": 3,
+        "v2_N": 0,
+        "witness": {
+          "complexity": 19,
+          "cut": 3,
+          "depth": 4,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "note": "strip one low digit (verified ancestry, prior cone note)",
+          "phase": "u",
+          "state_hex": "0x190b934bc7"
+        }
+      },
+      {
+        "E": 11,
+        "N": 20,
+        "O": 9,
+        "S": 2,
+        "complexity": 18,
+        "cut": 4,
+        "defect_histogram": {
+          "0": 10,
+          "1": 8,
+          "2": 1,
+          "3": 1
+        },
+        "depth": 5,
+        "in19": false,
+        "kind": "named-ancestor",
+        "phase": "u",
+        "seq": 26,
+        "state_hex": "0x6473d46ab",
+        "unequal": true,
+        "v2_2O": 1,
+        "v2_N": 2,
+        "witness": {
+          "complexity": 18,
+          "cut": 4,
+          "depth": 5,
+          "gaps_list": [
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "note": "itself admissible (verified ancestry, prior cone note)",
+          "phase": "u",
+          "state_hex": "0x6473d46ab"
+        }
+      }
+    ],
+    "nodes_planned": 27,
+    "nodes_tested": 27,
+    "strict_ancestors": 8,
+    "verification": {
+      "boolean_generator_cases": 255,
+      "direct_recursive_small_beliefs": 289,
+      "frontier_belief_agreement": 27
+    }
+  },
+  "runtime_seconds": 0.4962783419759944,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T12:38:48.125136+00:00"
+}
