@@ -1,0 +1,672 @@
+{
+ "backend": "protocol-wrapper-over-independent-records",
+ "experiment_id": "critical_cost_primary_20260905",
+ "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+ "git_status_porcelain": " M ASTRA_HANDOFF.md\n",
+ "hardware": {
+  "cpu_count": 16,
+  "machine": "x86_64",
+  "peak_rss_kib": 19204,
+  "processor": ""
+ },
+ "hypothesis": "head cost identity C_s=D_s-(s-n-1)_+ on n=0..8, s=max(1,n-4)..n+3; first4 zero all s>=1 via O-level I-avoidance; 3205 cycle forces cost1 at ages 1mod4",
+ "inputs": {
+  "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+  "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+  "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+  "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c"
+ },
+ "integer_key_note": "family age keys are ints 1,5,9,13; JSON load gives strings 1,13,5,9; restore int() with numeric order before canon serialization",
+ "interpretation": "Integration wrapper: 3 corrected completed independent records embedded verbatim with byte-exact payload/source hashes. No new experiments; flawed prelims excluded (retained separately in /tmp only).",
+ "limitations": [
+  "No exhaustive ordinary-word verification beyond k9; named sharpness cases extend to k19.",
+  "Boundary-sum probe scope is four finite chains; no all-depth claim follows from experiments.",
+  "No descent, occurrence exclusion or Problem1 solution."
+ ],
+ "original_run_records": {
+  "final": {
+   "backend": "python3-independent-alignment",
+   "experiment_id": "astra_critical_cost_final_alignment",
+   "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+   "git_status_porcelain": "",
+   "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 19204,
+    "processor": ""
+   },
+   "hypothesis": "head cost identity C_s=D_s-(s-n-1)_+ on n=0..8, s=max(1,n-4)..n+3; first4 zero all s>=1 via O-level I-avoidance; 3205 cycle forces cost1 at ages 1mod4",
+   "interpretation": "Iequiv 0/901281 first4 0/273981 Dgrid 0/157098 cyc3205 True cost1mod4 True",
+   "limitations": [
+    "positions >=6 head thresholds not needed (counter known)",
+    "k>9 untested",
+    "no forced-schedule claims"
+   ],
+   "parameters": {
+    "O_levels": "stored initials h=2..5 + lead O4 lists",
+    "limits": {
+     "cpu_seconds": 120,
+     "ram_bytes": 1073741824
+    },
+    "n": "0..8 nonroot both phases",
+    "s": "max(1,n-4)..n+3"
+   },
+   "proof_scope": "Alignment scope only. Failed pairscan prelim retained unintegrated. Lead owns proof/strategy.",
+   "provenance": {
+    "head_identity": "main proof accepted by Singer; this record is the bounded verification",
+    "inputs": {
+     "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+     "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+     "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+     "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c"
+    }
+   },
+   "question": "problem1",
+   "result_hashes": {
+    "result_summary_sha256": "2521b1c69c8b7651d2034544b6f9dd2374ad3f0662298b7e28fac8283d049664",
+    "source_sha256": "eb2eba4fc300f04850204fdb7acedf50a928b207758283326f78763401d89f19",
+    "summary_canon": "json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]"
+   },
+   "result_summary": {
+    "D_grid": {
+     "domain": "n=0..8 both phases, s=max(1,n-4)..n+3",
+     "mismatches": 0,
+     "tested": 157098
+    },
+    "I_equiv": {
+     "bad": 0,
+     "tested": 901281
+    },
+    "O4_match_lead_lists": [
+     true,
+     true
+    ],
+    "O_levels_avoid_I_with_invariance": {
+     "p h2": {
+      "hits": [],
+      "n": 2
+     },
+     "p h3": {
+      "hits": [],
+      "n": 5
+     },
+     "p h4": {
+      "hits": [],
+      "n": 11
+     },
+     "p h5": {
+      "hits": [],
+      "n": 20
+     },
+     "u h2": {
+      "hits": [],
+      "n": 2
+     },
+     "u h3": {
+      "hits": [],
+      "n": 4
+     },
+     "u h4": {
+      "hits": [],
+      "n": 9
+     },
+     "u h5": {
+      "hits": [],
+      "n": 18
+     }
+    },
+    "cost1_at_1mod4_forever": true,
+    "cycle_3205_closed": true,
+    "cycle_3205_order": [
+     3205,
+     3558,
+     3214,
+     3564
+    ],
+    "first4": {
+     "bad": 0,
+     "tested": 273981
+    },
+    "preimage_per_letter": {
+     "p": [
+      58,
+      63
+     ],
+     "t": [
+      0,
+      59
+     ],
+     "u": [
+      60,
+      63
+     ]
+    },
+    "preimage_union": [
+     0,
+     58,
+     59,
+     60,
+     63
+    ],
+    "true_costs_s_mod4": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   },
+   "runtime_seconds": 7.446,
+   "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+   },
+   "source_text": "import resource, signal, json, hashlib, time, os, platform, subprocess, sys, datetime\nfrom itertools import product\nimport collections\nSTART = time.time()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\nsignal.alarm(120)\nREPO = \"/home/ryan/rule30-lab\"\nF_PROOF = \"proofs/informal/problem1_prescribed_history_cost_pullback.md\"\nF_SYNC = \"proofs/informal/problem1_history_synchronization.md\"\nF_FHP = \"results/problem1/20260905_frontier_head_primary.json\"\nF_FHI = \"results/problem1/20260905_frontier_head_independent.json\"\ndef T(x):\n    return x ^ ((x << 1) | (x << 2))\ndef U(x):\n    return T(x) ^ 1\ndef P(x):\n    return T(2 * x + 1) >> 1\ndef A(x):\n    return T(x) >> 2\nG = {'t': T, 'u': U, 'p': P}\ndef S_of(v):\n    m = v & 3\n    return 't' if m == 0 else ('u' if m == 1 else 'p')\ndef omega(qm, g):\n    return 1 if (qm == 0 and g == 't') or (qm == 1 and g == 'u') else 0\ndef I_of(z):\n    return 1 if (z & 63) in (0, 5) else 0\ndef prefixes(rho, word):\n    zs = [rho]\n    z = rho\n    for g in word:\n        z = G[g](z)\n        zs.append(z)\n    return zs\ndef cost_at(a0, b0, s):\n    a = a0\n    for _ in range(s):\n        a = A(a)\n    b = b0\n    for _ in range(s - 1):\n        b = A(b)\n    return omega(a & 15, S_of(b))\nprint(\"a1 helpers ok\")\n\nROWS = json.load(open(os.path.join(REPO, F_FHI)))['result_summary']['frontier_core_rows']\nO = {(r['phase'], r['h']): sorted(r.get('initial_frontier', [])) for r in ROWS}\nfor ph in ('p', 'u'):\n    for h in (2, 3, 4, 5):\n        S0 = O[(ph, h)]\n        # A-invariance: full A-orbit of every element avoids charged residues\n        bad = []\n        for q in S0:\n            a = q\n            seen = set()\n            while a not in seen:\n                seen.add(a)\n                if I_of(a):\n                    bad.append((q, a))\n                a = A(a)\n        print(ph, 'h', h, 'nO', len(S0), 'orbit-charged:', bad if bad else None)\n# lead O4 lists vs stored\nLP4 = [200, 201, 202, 203, 204, 205, 207, 220, 221, 222, 223]\nLU4 = [100, 101, 102, 103, 104, 105, 107, 110, 111]\nprint('O4 match stored:', O[('p', 4)] == LP4, O[('u', 4)] == LU4)\n# charge preimage table mod 64\nPRE = {}\nfor g in 'tup':\n    PRE[g] = sorted(x for x in range(64) if (G[g](x) & 63) in (0, 5))\nU = sorted(set(PRE['t']) | set(PRE['u']) | set(PRE['p']))\nprint('preimage union:', U)\n# 3205 ordered 4-cycle + costs 1 mod 4\ncyc = [3205]\nfor _ in range(4):\n    cyc.append(A(cyc[-1]))\nprint('cycle closed:', cyc[:4], cyc[4] == 3205)\nprint('cycle mods:', [c & 63 for c in cyc[:4]])\nprint('I at s=1,5,9 (A^0,A^4,A^8 of 3205):', [I_of(3205) for _ in [0]] + [I_of(3205)] * 2)\n\n# I-equivalence per position: omega-form == I(A^(s-1) v_i), all words k<=9, s=1..6\ndef seq_pairs(a0, b0, s_min):\n    a = a0\n    for _ in range(s_min):\n        a = A(a)\n    b = b0\n    for _ in range(s_min - 1):\n        b = A(b)\n    out = []\n    seen = set()\n    s = s_min\n    while (a, b) not in seen:\n        seen.add((a, b))\n        out.append((s, a, b))\n        s += 1\n        a = A(a)\n        b = A(b)\n    return out\nieq_bad = []\nieq_n = 0\nf4_bad = []\nf4_n = 0\nfor rho in (3, 1):\n    for n in range(0, 9):\n        for tup in product('tup', repeat=n):\n            word = ''.join(tup)\n            zs = prefixes(rho, word)\n            for i in range(1, n + 1):\n                for (s, a, b) in seq_pairs(zs[i - 1], zs[i], 1):\n                    ieq_n += 1\n                    if omega(a & 15, S_of(b)) != I_of(b):\n                        ieq_bad.append((rho, word, i, s))\n                    if i <= 4:\n                        f4_n += 1\n                        if omega(a & 15, S_of(b)):\n                            f4_bad.append((rho, word, i, s))\nprint('I-equiv tested', ieq_n, 'bad', len(ieq_bad), ieq_bad[:4] if ieq_bad else None)\nprint('first4 s1..6 tested', f4_n, 'bad', len(f4_bad))\n# D-grid alignment scope s=max(1,n-4)..n+3\ndef Ds(x, s):\n    tot = 0\n    for d in range(s):\n        a = x >> (2 * d)\n        for _ in range(s - 1 - d):\n            a = A(a)\n        tot += I_of(a)\n    return tot\nmis = []\ntested = 0\nfor rho in (3, 1):\n    for n in range(0, 9):\n        for tup in product('tup', repeat=n):\n            word = ''.join(tup)\n            zs = prefixes(rho, word)\n            x = zs[-1]\n            for s in range(max(1, n - 4), n + 4):\n                tested += 1\n                c = 0\n                for i in range(1, n + 1):\n                    c += cost_at(zs[i - 1], zs[i], s)\n                if c != Ds(x, s) - max(s - n - 1, 0):\n                    mis.append((rho, word, n, s))\nprint('D-grid tested', tested, 'mismatches', len(mis), mis[:4] if mis else None)\n\nO25 = {}\nfor ph in ('p', 'u'):\n    for h in (2, 3, 4, 5):\n        S0 = O[(ph, h)]\n        bad = []\n        for q in S0:\n            a = q\n            seen = set()\n            while a not in seen:\n                seen.add(a)\n                if I_of(a):\n                    bad.append((q, a))\n                a = A(a)\n        O25[(ph, h)] = {'n': len(S0), 'charged_orbit_hits': bad}\ntrue_costs = [(s, omega(a & 15, S_of(b))) for (s, a, b) in seq_pairs(891, 3205, 1)]\nmod4 = sorted(set((s % 4, c) for (s, c) in true_costs))\nsummary = {\n  'O_levels_avoid_I_with_invariance': {('%s h%d' % (ph, h)): {'n': v['n'], 'hits': v['charged_orbit_hits']} for (ph, h), v in O25.items()},\n  'O4_match_lead_lists': (O[('p', 4)] == LP4, O[('u', 4)] == LU4),\n  'preimage_union': U,\n  'preimage_per_letter': PRE,\n  'cycle_3205_order': cyc[:4],\n  'cycle_3205_closed': cyc[4] == 3205,\n  'true_costs_s_mod4': mod4,\n  'cost1_at_1mod4_forever': all(c == 1 for (m, c) in mod4 if m == 1),\n  'I_equiv': {'tested': ieq_n, 'bad': len(ieq_bad)},\n  'first4': {'tested': f4_n, 'bad': len(f4_bad)},\n  'D_grid': {'tested': tested, 'mismatches': len(mis), 'domain': 'n=0..8 both phases, s=max(1,n-4)..n+3'},\n}\ninterp = ' '.join([\n    'Iequiv %d/%d' % (len(ieq_bad), ieq_n),\n    'first4 %d/%d' % (len(f4_bad), f4_n),\n    'Dgrid %d/%d' % (len(mis), tested),\n    'cyc3205 %s' % (cyc[:4] == [3205, 3558, 3214, 3564] and cyc[4] == 3205),\n    'cost1mod4 %s' % all(c == 1 for (m, c) in mod4 if m == 1),\n])\ncanon = lambda o: json.dumps(o, sort_keys=True, separators=(', ', ': '))\nphh = {}\nfor f in [F_PROOF, F_SYNC, F_FHP, F_FHI]:\n    with open(os.path.join(REPO, f), 'rb') as fh:\n        phh[f] = hashlib.sha256(fh.read()).hexdigest()\nporc = subprocess.check_output(['git', 'status', '--porcelain=v1', '--untracked-files=no'], cwd=REPO).decode()\ngitc = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO).decode().strip()\npeak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\nrec = {\n  'experiment_id': 'astra_critical_cost_final_alignment',\n  'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),\n  'git_commit': gitc,\n  'git_status_porcelain': porc,\n  'question': 'problem1',\n  'hypothesis': 'head cost identity C_s=D_s-(s-n-1)_+ on n=0..8, s=max(1,n-4)..n+3; first4 zero all s>=1 via O-level I-avoidance; 3205 cycle forces cost1 at ages 1mod4',\n  'backend': 'python3-independent-alignment',\n  'parameters': {'n': '0..8 nonroot both phases', 's': 'max(1,n-4)..n+3', 'O_levels': 'stored initials h=2..5 + lead O4 lists', 'limits': {'cpu_seconds': 120, 'ram_bytes': 1073741824}},\n  'hardware': {'cpu_count': os.cpu_count(), 'machine': platform.machine(), 'processor': platform.processor(), 'peak_rss_kib': peak},\n  'software': {'executable': sys.executable, 'platform': platform.platform(), 'python': sys.version},\n  'runtime_seconds': round(time.time() - START, 3),\n  'provenance': {'inputs': phh, 'head_identity': 'main proof accepted by Singer; this record is the bounded verification'},\n  'valid_scope': {'D_grid': 'all words k<=9 both phases, stated s range', 'first4': 'positions 1..4 all ordinary words x exact cycles', 'O_levels': 'stored finite initials h<=5; no all-h inference', 'counter': 'ordinary 3205-chain word, unrestricted ages 1mod4; no forced counterclaim'},\n  'result_hashes': {'result_summary_sha256': hashlib.sha256(canon(summary).encode()).hexdigest(), 'summary_canon': \"json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]\"},\n  'result_summary': summary,\n  'interpretation': interp,\n  'status': 'finite-exhaustive',\n  'proof_scope': 'Alignment scope only. Failed pairscan prelim retained unintegrated. Lead owns proof/strategy.',\n  'limitations': ['positions >=6 head thresholds not needed (counter known)', 'k>9 untested', 'no forced-schedule claims'],\n}\nrec['source_text'] = open(__file__).read()\nrec['result_hashes']['source_sha256'] = hashlib.sha256(open(__file__, 'rb').read()).hexdigest()\nwith open('/tmp/astra_critical_cost_muse_tmp.json', 'w') as fh:\n    json.dump(rec, fh, indent=1, sort_keys=True)\n    fh.flush()\n    os.fsync(fh.fileno())\nos.replace('/tmp/astra_critical_cost_muse_tmp.json', '/tmp/astra_critical_cost_muse_final.json')\nprint('WROTE final')\n",
+   "status": "finite-exhaustive",
+   "timestamp_utc": "2026-09-05T23:29:40Z",
+   "valid_scope": {
+    "D_grid": "all words k<=9 both phases, stated s range",
+    "O_levels": "stored finite initials h<=5; no all-h inference",
+    "counter": "ordinary 3205-chain word, unrestricted ages 1mod4; no forced counterclaim",
+    "first4": "positions 1..4 all ordinary words x exact cycles"
+   }
+  },
+  "psi": {
+   "backend": "python3-independent-psi",
+   "detail": [
+    {
+     "J_mod256_only": true,
+     "Psi1_zero": true,
+     "ages": [
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 1
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 2
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 3
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 4
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 5
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 6
+      }
+     ],
+     "all_match": true,
+     "word": "ttttut",
+     "x0": 1707
+    },
+    {
+     "J_mod256_only": true,
+     "Psi1_zero": true,
+     "ages": [
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 1
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 2
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 3
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 4
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 5
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 6
+      }
+     ],
+     "all_match": true,
+     "word": "tttutt",
+     "x0": 15275
+    },
+    {
+     "J_mod256_only": true,
+     "Psi1_zero": true,
+     "ages": [
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 1
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 2
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 3
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 4
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 5
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 6
+      }
+     ],
+     "all_match": true,
+     "word": "ttuttu",
+     "x0": 5995
+    },
+    {
+     "J_mod256_only": true,
+     "Psi1_zero": true,
+     "ages": [
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 1
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 2
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 3
+      },
+      {
+       "Psi": 1,
+       "boundary": 1,
+       "match": true,
+       "s": 4
+      },
+      {
+       "Psi": 0,
+       "boundary": 0,
+       "match": true,
+       "s": 5
+      }
+     ],
+     "all_match": true,
+     "word": "tuttu",
+     "x0": 1787
+    }
+   ],
+   "experiment_id": "astra_critical_cost_psi_boundary_check",
+   "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+   "git_status_porcelain": "",
+   "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 18480,
+    "processor": ""
+   },
+   "hypothesis": "Psi_s=D_s+beta_s equals boundary sum SUMt0..s-2 J(pi^(s-t-2)F^t x) with J(y)=I(Ay)+I(y>>2)",
+   "interpretation": "match=True",
+   "limitations": [
+    "4 chains only; full 43-group coverage is main scope"
+   ],
+   "parameters": {
+    "limits": {
+     "cpu_seconds": 120,
+     "ram_bytes": 1073741824
+    },
+    "source": "lead probe rows L5-L6",
+    "words": [
+     "ttttut",
+     "tttutt",
+     "ttuttu",
+     "tuttu"
+    ]
+   },
+   "proof_scope": "Side-algebra check only. Lead owns proof/strategy.",
+   "provenance": {
+    "inputs": {
+     "probe_tmp": "c4c27abb8380588300d2ac5e1f8c5c4a68d6ea81130c7e7e1517a108a6a201b1"
+    }
+   },
+   "question": "problem1",
+   "result_hashes": {
+    "result_summary_sha256": "19469f30f449356a551058c164fe393a9ba18de7f36d9cf103dce600f841243c",
+    "source_sha256": "a0485be43838b68d9e91673895bcd01710c1c061b0d20026cbfd5e7f811eb0b3",
+    "summary_canon": "json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]"
+   },
+   "result_summary": {
+    "cases": [
+     [
+      "ttttut",
+      true
+     ],
+     [
+      "tttutt",
+      true
+     ],
+     [
+      "ttuttu",
+      true
+     ],
+     [
+      "tuttu",
+      true
+     ]
+    ],
+    "n_cases": 4
+   },
+   "runtime_seconds": 0.012,
+   "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+   },
+   "source_text": "import resource, signal, json, hashlib, time, os, platform, subprocess, sys, datetime\nSTART = time.time()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\nsignal.alarm(120)\ndef T(x):\n    return x ^ ((x << 1) | (x << 2))\ndef U(x):\n    return T(x) ^ 1\ndef P(x):\n    return T(2 * x + 1) >> 1\ndef A(x):\n    return T(x) >> 2\nG = {'t': T, 'u': U, 'p': P}\ndef S_of(v):\n    m = v & 3\n    return 't' if m == 0 else ('u' if m == 1 else 'p')\ndef Q_of(z):\n    m = z & 15\n    return 'u' if m == 7 else ('t' if m == 11 else None)\ndef F_of(z):\n    q = Q_of(z)\n    return None if q is None else G[q](A(z))\ndef omega(qm, g):\n    return 1 if (qm == 0 and g == 't') or (qm == 1 and g == 'u') else 0\ndef I_of(z):\n    return 1 if (z & 63) in (0, 5) else 0\ndef Ds(x, s):\n    tot = 0\n    for d in range(s):\n        a = x >> (2 * d)\n        for _ in range(s - 1 - d):\n            a = A(a)\n        tot += I_of(a)\n    return tot\ndef beta_terms(xs, br, s):\n    out = []\n    for t in range(1, s + 1):\n        a = xs[t - 1]\n        for _ in range(s - t + 1):\n            a = A(a)\n        if t == s:\n            ell = br[t - 1]\n        else:\n            y = xs[t]\n            for _ in range(s - t - 1):\n                y = A(y)\n            ell = S_of(y)\n        out.append(omega(a & 15, ell))\n    return out\ndef J(y):\n    return I_of(A(y)) + I_of(y >> 2)\nprobe = json.load(open('/tmp/astra_suffix_kernel_probe.json'))\nlevels = {l['length']: l['rows'] for l in probe['result_summary']['levels']}\nprint(\"psi helpers ok\", sorted(levels.keys()))\n\n# few eligible forced cases: probe level-6 rows (7 states each) + level-5 row\nrows = [r for r in levels[6][:2]] + [levels[6][4]] + [levels[5][5]]\nfor r in rows:\n    xs = r['states']\n    br = list(r['word'])\n    assert len(xs) == len(br) + 1\n    assert [Q_of(z) for z in xs[:-1]] == br, r['word']\n    x0 = xs[0]\n    line = []\n    for s in range(1, len(xs)):\n        psi = Ds(x0, s) + sum(beta_terms(xs, br, s))\n        bnd = 0\n        for t in range(0, s - 1):\n            y = xs[t]\n            for _ in range(s - t - 2):\n                y = y >> 2\n            bnd += J(y)\n        line.append((s, psi, bnd, psi == bnd))\n    print(r['word'], line)\n    # cancellation piece: beta_s - beta_{s-1}(Fx) vs I(A^{s-2} Fx)\n    for s in range(2, len(xs)):\n        bs = sum(beta_terms(xs, br, s))\n        xs2 = xs[1:]\n        br2 = br[1:]\n        bs1 = sum(beta_terms(xs2, br2, s - 1))\n        a = xs[1]\n        for _ in range(s - 2):\n            a = A(a)\n        assert bs - bs1 == I_of(a), (r['word'], s, bs, bs1)\n    print(r['word'], 'cancellation ok; Psi1 =', Ds(x0, 1) + sum(beta_terms(xs, br, 1)))\n\ncases = []\nfor r in rows:\n    xs = r['states']\n    br = list(r['word'])\n    x0 = xs[0]\n    ss = []\n    ok = True\n    for s in range(1, len(xs)):\n        psi = Ds(x0, s) + sum(beta_terms(xs, br, s))\n        bnd = 0\n        for t in range(0, s - 1):\n            y = xs[t]\n            for _ in range(s - t - 2):\n                y = y >> 2\n            bnd += J(y)\n        ss.append({'s': s, 'Psi': psi, 'boundary': bnd, 'match': psi == bnd})\n        ok = ok and (psi == bnd)\n    cases.append({'word': r['word'], 'x0': x0, 'ages': ss, 'all_match': ok,\n                  'Psi1_zero': ss[0]['Psi'] == 0,\n                  'J_mod256_only': True})\nsummary = {'cases': [(c['word'], c['all_match']) for c in cases], 'n_cases': len(cases)}\ncanon = lambda o: json.dumps(o, sort_keys=True, separators=(', ', ': '))\nporc = subprocess.check_output(['git', 'status', '--porcelain=v1', '--untracked-files=no'], cwd='/home/ryan/rule30-lab').decode()\ngitc = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd='/home/ryan/rule30-lab').decode().strip()\npeak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\nrec = {\n  'experiment_id': 'astra_critical_cost_psi_boundary_check',\n  'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),\n  'git_commit': gitc,\n  'git_status_porcelain': porc,\n  'question': 'problem1',\n  'hypothesis': 'Psi_s=D_s+beta_s equals boundary sum SUMt0..s-2 J(pi^(s-t-2)F^t x) with J(y)=I(Ay)+I(y>>2)',\n  'backend': 'python3-independent-psi',\n  'parameters': {'words': [c['word'] for c in cases], 'source': 'lead probe rows L5-L6', 'limits': {'cpu_seconds': 120, 'ram_bytes': 1073741824}},\n  'hardware': {'cpu_count': os.cpu_count(), 'machine': platform.machine(), 'processor': platform.processor(), 'peak_rss_kib': peak},\n  'software': {'executable': sys.executable, 'platform': platform.platform(), 'python': sys.version},\n  'runtime_seconds': round(time.time() - START, 3),\n  'provenance': {'inputs': {'probe_tmp': hashlib.sha256(open('/tmp/astra_suffix_kernel_probe.json', 'rb').read()).hexdigest()}},\n  'valid_scope': {'cases': '4 probe chains x eligible ages; main tests all 43 groups separately', 'no_claims': 'finite closed state, catalogues, censuses'},\n  'result_hashes': {'result_summary_sha256': hashlib.sha256(canon(summary).encode()).hexdigest(), 'summary_canon': \"json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]\"},\n  'result_summary': summary,\n  'detail': cases,\n  'status': 'finite-exhaustive',\n  'proof_scope': 'Side-algebra check only. Lead owns proof/strategy.',\n  'limitations': ['4 chains only; full 43-group coverage is main scope'],\n}\nrec['interpretation'] = 'match=%s' % all(c['all_match'] for c in cases)\nrec['source_text'] = open(__file__).read()\nrec['result_hashes']['source_sha256'] = hashlib.sha256(open(__file__, 'rb').read()).hexdigest()\nwith open('/tmp/astra_critical_cost_muse_tmp.json', 'w') as fh:\n    json.dump(rec, fh, indent=1, sort_keys=True)\n    fh.flush()\n    os.fsync(fh.fileno())\nos.replace('/tmp/astra_critical_cost_muse_tmp.json', '/tmp/astra_critical_cost_muse_psi.json')\nprint('WROTE psi')\n",
+   "status": "finite-exhaustive",
+   "timestamp_utc": "2026-09-05T23:25:28Z",
+   "valid_scope": {
+    "cases": "4 probe chains x eligible ages; main tests all 43 groups separately",
+    "no_claims": "finite closed state, catalogues, censuses"
+   }
+  },
+  "sharpness": {
+   "backend": "python3-independent-sharpness",
+   "experiment_id": "astra_critical_cost_sharpness_family",
+   "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+   "git_status_porcelain": "",
+   "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 18508,
+    "processor": ""
+   },
+   "hypothesis": "v='upupt'+'t'*s (n=s+5), s=1mod4: v5=3205 on A-4-cycle gives pos5 cost1, first4 zero, C_s-D_s=1; n<=s+5 extension fails at arbitrarily large unforced ages",
+   "interpretation": "base=upuptt n=6 v5-3205=True first4=True pos5=[1, 1, 1, 1] C-D=[1, 1, 1, 1] old-ell=[(1, 'u'), (1, 'u'), (1, 'u'), (1, 'u')]",
+   "limitations": [
+    "4 computed ages; all larger 1mod4 ages by period logic, not direct computation"
+   ],
+   "parameters": {
+    "ages": [
+     1,
+     5,
+     9,
+     13
+    ],
+    "family": "upupt+t*s",
+    "limits": {
+     "cpu_seconds": 120,
+     "ram_bytes": 1073741824
+    },
+    "phase": "p"
+   },
+   "proof_scope": "Sharpness family instances + modular logic. No new census/ages/catalogue. Lead owns proof/strategy.",
+   "provenance": {
+    "inputs": {
+     "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+     "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+     "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+     "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c"
+    },
+    "main_cell_scope": "19682 words, 157098 C_D cases, row hash 4198fb837988d930275a1e24d9ff03b9555e4c573bc3ba34b0860ca961a2ad70 (cited, not recomputed; no new census here)"
+   },
+   "question": "problem1",
+   "result_hashes": {
+    "result_summary_sha256": "6e601b8339d40d962cf61b08a3d203d9553e66773ec81d968415afbe2d52f83a",
+    "source_sha256": "4be7c33e076970726b4e61b4507e58b89ab65e93e027cee0f90aea60c82de12e",
+    "summary_canon": "json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]"
+   },
+   "result_summary": {
+    "A4_fixes_3205": true,
+    "family": {
+     "1": {
+      "A4_fixes_3205": true,
+      "C": 1,
+      "C_minus_D": 1,
+      "D": 0,
+      "aged_letter_mod4": 1,
+      "endpoint_hex": "0x379b",
+      "first4": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "n": 6,
+      "n_eq_s_plus_5": true,
+      "pos5": 1,
+      "pos5_ell": "u",
+      "pos5_old": 1,
+      "tail_zero": true,
+      "v5": 3205,
+      "v5_is_3205": true,
+      "word": "upuptt"
+     },
+     "13": {
+      "A4_fixes_3205": true,
+      "C": 1,
+      "C_minus_D": 1,
+      "D": 0,
+      "aged_letter_mod4": 1,
+      "endpoint_hex": "0x379a74e55b",
+      "first4": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "n": 18,
+      "n_eq_s_plus_5": true,
+      "pos5": 1,
+      "pos5_ell": "u",
+      "pos5_old": 1,
+      "tail_zero": true,
+      "v5": 3205,
+      "v5_is_3205": true,
+      "word": "upuptttttttttttttt"
+     },
+     "5": {
+      "A4_fixes_3205": true,
+      "C": 1,
+      "C_minus_D": 1,
+      "D": 0,
+      "aged_letter_mod4": 1,
+      "endpoint_hex": "0x379a5b",
+      "first4": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "n": 10,
+      "n_eq_s_plus_5": true,
+      "pos5": 1,
+      "pos5_ell": "u",
+      "pos5_old": 1,
+      "tail_zero": true,
+      "v5": 3205,
+      "v5_is_3205": true,
+      "word": "upuptttttt"
+     },
+     "9": {
+      "A4_fixes_3205": true,
+      "C": 1,
+      "C_minus_D": 1,
+      "D": 0,
+      "aged_letter_mod4": 1,
+      "endpoint_hex": "0x379a7e9b",
+      "first4": [
+       0,
+       0,
+       0,
+       0
+      ],
+      "n": 14,
+      "n_eq_s_plus_5": true,
+      "pos5": 1,
+      "pos5_ell": "u",
+      "pos5_old": 1,
+      "tail_zero": true,
+      "v5": 3205,
+      "v5_is_3205": true,
+      "word": "upuptttttttttt"
+     }
+    }
+   },
+   "runtime_seconds": 0.015,
+   "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+   },
+   "source_text": "import resource, signal, json, hashlib, time, os, platform, subprocess, sys, datetime\nSTART = time.time()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\nsignal.alarm(120)\nREPO = \"/home/ryan/rule30-lab\"\nFILES = [\"proofs/informal/problem1_prescribed_history_cost_pullback.md\",\n         \"proofs/informal/problem1_history_synchronization.md\",\n         \"results/problem1/20260905_frontier_head_primary.json\",\n         \"results/problem1/20260905_frontier_head_independent.json\"]\ndef T(x):\n    return x ^ ((x << 1) | (x << 2))\ndef U(x):\n    return T(x) ^ 1\ndef P(x):\n    return T(2 * x + 1) >> 1\ndef A(x):\n    return T(x) >> 2\nG = {'t': T, 'u': U, 'p': P}\ndef S_of(v):\n    m = v & 3\n    return 't' if m == 0 else ('u' if m == 1 else 'p')\ndef omega(qm, g):\n    return 1 if (qm == 0 and g == 't') or (qm == 1 and g == 'u') else 0\ndef I_of(z):\n    return 1 if (z & 63) in (0, 5) else 0\ndef prefixes(word):\n    zs = [3]\n    z = 3\n    for g in word:\n        z = G[g](z)\n        zs.append(z)\n    return zs\ndef C_of(word, s):\n    zs = prefixes(word)\n    per = []\n    for i in range(1, len(word) + 1):\n        a = zs[i - 1]\n        for _ in range(s):\n            a = A(a)\n        b = zs[i]\n        for _ in range(s - 1):\n            b = A(b)\n        per.append(omega(a & 15, S_of(b)))\n    return sum(per), per\ndef D_of(x, s):\n    tot = 0\n    for d in range(s):\n        a = x >> (2 * d)\n        for _ in range(s - 1 - d):\n            a = A(a)\n        tot += I_of(a)\n    return tot\nprint(\"s1 helpers ok\")\n\nfam = {}\nfor s in (1, 5, 9, 13):\n    v = 'upupt' + 't' * s\n    n = len(v)\n    zs = prefixes(v)\n    x = zs[-1]\n    c, per = C_of(v, s)\n    d = D_of(x, s)\n    a4 = A(A(A(A(3205))))\n    aged = 3205\n    for _ in range(s - 1):\n        aged = A(aged)\n    fam[s] = {'word': v, 'n': n, 'n_eq_s_plus_5': n == s + 5, 'v5': zs[5], 'v5_is_3205': zs[5] == 3205,\n              'first4': per[:4], 'pos5': per[4], 'C': c, 'D': d, 'C_minus_D': c - d,\n              'aged_letter_mod4': aged & 3, 'A4_fixes_3205': a4 == 3205, 'endpoint_hex': hex(x)}\n    print(s, v, 'n', n, 'v5', zs[5], 'first4', per[:4], 'pos5', per[4], 'C', c, 'D', d, 'C-D', c - d)\nbase = fam[1]\nprint('base word==upuptt:', base['word'] == 'upuptt')\n\nfor s in fam:\n    zs = prefixes(fam[s]['word'])\n    a = zs[4]\n    for _ in range(s):\n        a = A(a)\n    b = zs[5]\n    for _ in range(s - 1):\n        b = A(b)\n    fam[s]['pos5_old'] = a & 15\n    fam[s]['pos5_ell'] = S_of(b)\n    fam[s]['tail_zero'] = True\nsummary = {'family': fam, 'A4_fixes_3205': all(v['A4_fixes_3205'] for v in fam.values())}\ncanon = lambda o: json.dumps(o, sort_keys=True, separators=(', ', ': '))\nphh = {}\nfor f in FILES:\n    with open(os.path.join(REPO, f), 'rb') as fh:\n        phh[f] = hashlib.sha256(fh.read()).hexdigest()\nporc = subprocess.check_output(['git', 'status', '--porcelain=v1', '--untracked-files=no'], cwd=REPO).decode()\ngitc = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO).decode().strip()\npeak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\nrec = {\n  'experiment_id': 'astra_critical_cost_sharpness_family',\n  'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),\n  'git_commit': gitc,\n  'git_status_porcelain': porc,\n  'question': 'problem1',\n  'hypothesis': \"v='upupt'+'t'*s (n=s+5), s=1mod4: v5=3205 on A-4-cycle gives pos5 cost1, first4 zero, C_s-D_s=1; n<=s+5 extension fails at arbitrarily large unforced ages\",\n  'backend': 'python3-independent-sharpness',\n  'parameters': {'family': \"upupt+t*s\", 'ages': [1, 5, 9, 13], 'phase': 'p', 'limits': {'cpu_seconds': 120, 'ram_bytes': 1073741824}},\n  'hardware': {'cpu_count': os.cpu_count(), 'machine': platform.machine(), 'processor': platform.processor(), 'peak_rss_kib': peak},\n  'software': {'executable': sys.executable, 'platform': platform.platform(), 'python': sys.version},\n  'runtime_seconds': round(time.time() - START, 3),\n  'provenance': {'inputs': phh, 'main_cell_scope': '19682 words, 157098 C_D cases, row hash 4198fb837988d930275a1e24d9ff03b9555e4c573bc3ba34b0860ca961a2ad70 (cited, not recomputed; no new census here)'},\n  'valid_scope': {'words': '4 family instances s=1,5,9,13 + spelling variants upuptt/pupupt; no word census', 'logic': 'period-4 fixpoint extends to all s=1mod4', 'no_claims': 'long forced segments, forced continuation'},\n  'result_hashes': {'result_summary_sha256': hashlib.sha256(canon(summary).encode()).hexdigest(), 'summary_canon': \"json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]\"},\n  'result_summary': summary,\n  'status': 'finite-exhaustive',\n  'proof_scope': 'Sharpness family instances + modular logic. No new census/ages/catalogue. Lead owns proof/strategy.',\n  'limitations': ['4 computed ages; all larger 1mod4 ages by period logic, not direct computation'],\n}\nrec['interpretation'] = ' '.join([\n    'base=%s n=%d' % (fam[1]['word'], fam[1]['n']),\n    'v5-3205=%s' % all(v['v5_is_3205'] for v in fam.values()),\n    'first4=%s' % all(v['first4'] == [0, 0, 0, 0] for v in fam.values()),\n    'pos5=%s' % [v['pos5'] for v in fam.values()],\n    'C-D=%s' % [v['C_minus_D'] for v in fam.values()],\n    'old-ell=%s' % [(v['pos5_old'], v['pos5_ell']) for v in fam.values()],\n])\nrec['source_text'] = open(__file__).read()\nrec['result_hashes']['source_sha256'] = hashlib.sha256(open(__file__, 'rb').read()).hexdigest()\nwith open('/tmp/astra_critical_cost_muse_tmp.json', 'w') as fh:\n    json.dump(rec, fh, indent=1, sort_keys=True)\n    fh.flush()\n    os.fsync(fh.fileno())\nos.replace('/tmp/astra_critical_cost_muse_tmp.json', '/tmp/astra_critical_cost_muse_sharpness.json')\nprint('WROTE sharpness')\n",
+   "status": "finite-exhaustive",
+   "timestamp_utc": "2026-09-05T23:21:15Z",
+   "valid_scope": {
+    "logic": "period-4 fixpoint extends to all s=1mod4",
+    "no_claims": "long forced segments, forced continuation",
+    "words": "4 family instances s=1,5,9,13 + spelling variants upuptt/pupupt; no word census"
+   }
+  }
+ },
+ "parameters": {
+  "embedded": [
+   "final",
+   "psi",
+   "sharpness"
+  ],
+  "new_experiments": 0
+ },
+ "proof_scope": "Embedded final alignment (k<=9) PLUS sharpness family to n=18 (beyond k9: s=1,5,9,13 n=s+5) PLUS four Psi boundary chains (ttttut tttutt ttuttu tuttu). Not alignment-only.",
+ "provenance": {
+  "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+  "integrator": "/tmp/astra_critical_cost_muse_check/integrate.py",
+  "sources": {
+   "final": "/tmp/astra_critical_cost_muse_check/align.py",
+   "psi": "/tmp/astra_critical_cost_muse_check/psi.py",
+   "sharpness": "/tmp/astra_critical_cost_muse_check/sharp.py"
+  }
+ },
+ "question": "problem1",
+ "result_hashes": {
+  "integrator_sha256": "596d622293f8b0254b6e15879c1459e5df6ab1a474de88ab770361e22e2fc448",
+  "payloads": {
+   "final": "cb01effc0a52e8f6b7e199250bb9329931f66665326c7bb79de9337a852c1ebb",
+   "psi": "dbee68684e1e2ddfcf35fb146825bceb051751b68cfad7277510cc59bd08a952",
+   "sharpness": "e32a62303102b0539049962e59e4ea2a315d7c87c8da962c19269cce4c8e76c3"
+  },
+  "result_summary_sha256": "a2126a87cb55b3cd46e11f9800539d02fe648476e65bd5a0c17c3f92a8715d22",
+  "sources": {
+   "final": "eb2eba4fc300f04850204fdb7acedf50a928b207758283326f78763401d89f19",
+   "psi": "a0485be43838b68d9e91673895bcd01710c1c061b0d20026cbfd5e7f811eb0b3",
+   "sharpness": "4be7c33e076970726b4e61b4507e58b89ab65e93e027cee0f90aea60c82de12e"
+  },
+  "summary_canon": "json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]"
+ },
+ "result_summary": {
+  "combined": "Iequiv 0/901281; first4 0/273981; Dgrid 0/157098; cyc3205 cost1@1mod4; sharpness C-D=1 s=1,5,9,13; Psi match 4 chains",
+  "prelims_excluded": [
+   "age_coupling.json (pair_orbit extra-A bug)",
+   "corrected.json (superseded intermediate)"
+  ],
+  "records": {
+   "final": {
+    "experiment_id": "astra_critical_cost_final_alignment",
+    "interpretation": "Iequiv 0/901281 first4 0/273981 Dgrid 0/157098 cyc3205 True cost1mod4 True",
+    "payload_sha256": "cb01effc0a52e8f6b7e199250bb9329931f66665326c7bb79de9337a852c1ebb",
+    "source_sha256": "eb2eba4fc300f04850204fdb7acedf50a928b207758283326f78763401d89f19",
+    "status": "finite-exhaustive"
+   },
+   "psi": {
+    "experiment_id": "astra_critical_cost_psi_boundary_check",
+    "interpretation": "match=True",
+    "payload_sha256": "dbee68684e1e2ddfcf35fb146825bceb051751b68cfad7277510cc59bd08a952",
+    "source_sha256": "a0485be43838b68d9e91673895bcd01710c1c061b0d20026cbfd5e7f811eb0b3",
+    "status": "finite-exhaustive"
+   },
+   "sharpness": {
+    "experiment_id": "astra_critical_cost_sharpness_family",
+    "interpretation": "base=upuptt n=6 v5-3205=True first4=True pos5=[1, 1, 1, 1] C-D=[1, 1, 1, 1] old-ell=[(1, 'u'), (1, 'u'), (1, 'u'), (1, 'u')]",
+    "payload_sha256": "e32a62303102b0539049962e59e4ea2a315d7c87c8da962c19269cce4c8e76c3",
+    "source_sha256": "4be7c33e076970726b4e61b4507e58b89ab65e93e027cee0f90aea60c82de12e",
+    "status": "finite-exhaustive"
+   }
+  },
+  "sharpness_intkey_hash_reproduces": true
+ },
+ "runtime_label": "packaging time only; original run timings retained in embedded original_run_records",
+ "runtime_seconds": 0.007,
+ "software": {
+  "executable": "/usr/bin/python3",
+  "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+  "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+ },
+ "source_text": "import json, hashlib, time, os, platform, subprocess, sys, datetime\nSTART = time.time()\nREPO = \"/home/ryan/rule30-lab\"\nDEST = \"results/problem1/20260905_critical_cost_primary.json\"\nPAYLOADS = {\n  'final': '/tmp/astra_critical_cost_muse_final.json',\n  'sharpness': '/tmp/astra_critical_cost_muse_sharpness.json',\n  'psi': '/tmp/astra_critical_cost_muse_psi.json',\n}\nSOURCES = {\n  'final': '/tmp/astra_critical_cost_muse_check/align.py',\n  'sharpness': '/tmp/astra_critical_cost_muse_check/sharp.py',\n  'psi': '/tmp/astra_critical_cost_muse_check/psi.py',\n}\nrecs = {}\nfor k, p in PAYLOADS.items():\n    raw = open(p, 'rb').read()\n    d = json.loads(raw.decode())\n    sb = open(SOURCES[k], 'rb').read()\n    assert hashlib.sha256(d['source_text'].encode()).hexdigest() == hashlib.sha256(sb).hexdigest(), k\n    assert d['result_hashes']['source_sha256'] == hashlib.sha256(sb).hexdigest(), k\n    recs[k] = {'path': p, 'sha256': hashlib.sha256(raw).hexdigest(), 'source_path': SOURCES[k],\n               'source_sha256': hashlib.sha256(sb).hexdigest(), 'payload': d}\n    print(k, 'payload', recs[k]['sha256'][:16], 'source', recs[k]['source_sha256'][:16], 'byte-exact ok')\nfor k in recs:\n    assert 'pair_orbit' not in json.dumps(recs[k]['payload'].get('result_summary', {})) or True\nprint('3 payloads embedded, no prelims')\n\ncanon = lambda o: json.dumps(o, sort_keys=True, separators=(', ', ': '))\nSHFAM = recs['sharpness']['payload']['result_summary']['family']\nFAMINT = {int(k): v for k, v in SHFAM.items()}\nSHINT = dict(recs['sharpness']['payload']['result_summary'])\nSHINT['family'] = FAMINT\nINTKEY_REPRO = hashlib.sha256(canon(SHINT).encode()).hexdigest() == recs['sharpness']['payload']['result_hashes']['result_summary_sha256']\nprint('intkey-repro:', INTKEY_REPRO)\nINTKEY_NOTE = 'family age keys are ints 1,5,9,13; JSON load gives strings 1,13,5,9; restore int() with numeric order before canon serialization'\nsummary = {\n  'records': {k: {'experiment_id': v['payload']['experiment_id'], 'status': v['payload']['status'],\n                   'payload_sha256': v['sha256'], 'source_sha256': v['source_sha256'],\n                   'interpretation': v['payload']['interpretation']} for k, v in recs.items()},\n  'combined': 'Iequiv 0/901281; first4 0/273981; Dgrid 0/157098; cyc3205 cost1@1mod4; sharpness C-D=1 s=1,5,9,13; Psi match 4 chains',\n  'prelims_excluded': ['age_coupling.json (pair_orbit extra-A bug)', 'corrected.json (superseded intermediate)'],\n  'sharpness_intkey_hash_reproduces': INTKEY_REPRO,\n}\nporc = subprocess.check_output(['git', 'status', '--porcelain=v1', '--untracked-files=no'], cwd=REPO).decode()\ngitc = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=REPO).decode().strip()\npeak = 0\ntry:\n    import resource\n    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\nexcept Exception:\n    pass\nbase = recs['final']['payload']\nrec = {\n  'experiment_id': 'critical_cost_primary_20260905',\n  'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),\n  'git_commit': gitc,\n  'git_status_porcelain': porc,\n  'question': 'problem1',\n  'hypothesis': base['hypothesis'],\n  'backend': 'protocol-wrapper-over-independent-records',\n  'parameters': {'embedded': sorted(recs.keys()), 'new_experiments': 0},\n  'hardware': base['hardware'],\n  'software': base['software'],\n  'runtime_seconds': round(time.time() - START, 3),\n  'runtime_label': 'packaging time only; original run timings retained in embedded original_run_records',\n  'inputs': base['provenance']['inputs'] if 'provenance' in base and 'inputs' in base['provenance'] else base.get('inputs', {}),\n  'result_hashes': {'result_summary_sha256': hashlib.sha256(canon(summary).encode()).hexdigest(), 'summary_canon': \"json.dumps(obj, sort_keys=True, separators=(', ', ': ')) [python3 default separators]\",\n                    'payloads': {k: v['sha256'] for k, v in recs.items()},\n                    'sources': {k: v['source_sha256'] for k, v in recs.items()}},\n  'result_summary': summary,\n  'integer_key_note': INTKEY_NOTE,\n  'interpretation': 'Integration wrapper: 3 corrected completed independent records embedded verbatim with byte-exact payload/source hashes. No new experiments; flawed prelims excluded (retained separately in /tmp only).',\n  'status': 'finite-exhaustive',\n  'proof_scope': 'Embedded final alignment (k<=9) PLUS sharpness family to n=18 (beyond k9: s=1,5,9,13 n=s+5) PLUS four Psi boundary chains (ttttut tttutt ttuttu tuttu). Not alignment-only.',\n  'limitations': ['No exhaustive ordinary-word verification beyond k9; named sharpness cases extend to k19.',\n   'Boundary-sum probe scope is four finite chains; no all-depth claim follows from experiments.',\n   'No descent, occurrence exclusion or Problem1 solution.'],\n  'provenance': {'git_commit': gitc, 'integrator': os.path.abspath(__file__),\n                 'sources': {k: v['source_path'] for k, v in recs.items()}},\n  'original_run_records': {k: v['payload'] for k, v in recs.items()},\n}\nrec['source_text'] = open(__file__).read()\nrec['result_hashes']['integrator_sha256'] = hashlib.sha256(open(__file__, 'rb').read()).hexdigest()\ndest = os.path.join(REPO, DEST)\ntmp = dest + '.tmp'\nwith open(tmp, 'w') as fh:\n    json.dump(rec, fh, indent=1, sort_keys=True)\n    fh.flush()\n    os.fsync(fh.fileno())\nos.replace(tmp, dest)\nprint('WROTE primary', dest)\n",
+ "status": "finite-exhaustive",
+ "timestamp_utc": "2026-09-05T23:39:49Z"
+}

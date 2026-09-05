@@ -1,0 +1,79 @@
+{
+  "backend": "python-packed-prefix-cost-and-direct-history-replay",
+  "experiment_id": "problem1-critical-cost-portable-verification-20260905",
+  "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 483576
+  },
+  "hypothesis": "Independent packed replay and portable provenance reproduce the declared critical-cost certificates.",
+  "inputs": {
+    "proofs/informal/problem1_born_suffix_schedule_cost.md": "4f0ead4d977d70ad4cef9e08084dc522ae72c23be55a36ee4f5c0aeb4a6bee99",
+    "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+    "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+    "results/problem1/20260905_born_suffix_kernel_probe.json": "c4c27abb8380588300d2ac5e1f8c5c4a68d6ea81130c7e7e1517a108a6a201b1",
+    "results/problem1/20260905_critical_cost_independent.json": "5f08635c695462dbf36a46e01d0578d20031e970bacb2296a3a3ea69750adcb6",
+    "results/problem1/20260905_critical_cost_primary.json": "8845999cf96957e8dde339d1dcce2301cb14deaae3fe713a21d2015e443948a0",
+    "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+    "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "interpretation": "All declared checks pass. The C/D row hash matches the cell record; Muse contributes aggregate agreement, not a separate matching row hash.",
+  "limitations": [
+    "No exhaustive verification beyond the declared word/age domain.",
+    "Stored schedule groups are checked; the complete665 forced-row hash is not regenerated.",
+    "No return descent, occurrence exclusion or Problem1 proof."
+  ],
+  "parameters": {
+    "C_D_domain": "both phases; n0..8; s=max(1,n-4)..n+3",
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "group_scope": "all43 stored groups, listed endpoint memberships and listed history examples; no full forced-row hash replay",
+    "psi_scope": "four stored probe chains through terminal age",
+    "sharpness_ages": [
+      1,
+      5,
+      9,
+      13
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Finite certificate verification only; all-depth arguments are in the accompanying proof note.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "6b21b1e29f6437556bc16239a0e49cafc773f1a7572fcad478e85a99be568a6e",
+    "source_sha256": "0824bac79279cb55d54fbdbc0bd0be8e03cf7b2d6e5213178c6aaf42baacafb9"
+  },
+  "result_summary": {
+    "C_D_row_sha256": "4198fb837988d930275a1e24d9ff03b9555e4c573bc3ba34b0860ca961a2ad70",
+    "C_D_rows_recomputed": 157098,
+    "J_table_modulus": 256,
+    "base_frontiers_checked": 10,
+    "completed": true,
+    "failures": [],
+    "immutable_reference_verified": true,
+    "ordinary_words": 19682,
+    "original_payload_source_summary_input_hashes_verified": true,
+    "psi_ages_including_terminal": 23,
+    "psi_probe_chains": 4,
+    "recorded_endpoint_memberships_checked": 51,
+    "recorded_history_examples_checked": 51,
+    "schedule_groups_checked": 43,
+    "sharpness_family_ages": [
+      1,
+      5,
+      9,
+      13
+    ]
+  },
+  "runtime_seconds": 2.6881784319411963,
+  "serialization_notes": "Original Muse summaries use spaced sort_keys JSON; sharpness family age keys restored to int before original summary/payload reconstruction. Muse probe_tmp maps to the committed born_suffix_kernel_probe record.",
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import copy,datetime,functools,hashlib,itertools,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_CPU,(120,120));resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));signal.alarm(120)\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_critical_cost_verification.json')))\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(o):return json.dumps(o,sort_keys=True,separators=(',',':')).encode()\ndef spaced(o):return json.dumps(o,sort_keys=True).encode()\ninputs={}\ndef read(p):\n b=(ROOT/p).read_bytes();inputs[p]=sha(b);return json.loads(b)\nprimary=read('results/problem1/20260905_critical_cost_primary.json');ind=read('results/problem1/20260905_critical_cost_independent.json');m=ind['result_summary']\nprobe_path='results/problem1/20260905_born_suffix_kernel_probe.json';probe=read(probe_path)\ndef check_inputs(mapping):\n for p,h in mapping.items():\n  if p=='probe_tmp':p=probe_path\n  actual=sha((ROOT/p).read_bytes());assert actual==h,(p,actual,h);inputs[p]=actual\ncheck_inputs(primary['inputs']);check_inputs(ind['inputs'])\nassert sha(primary['source_text'].encode())==primary['result_hashes']['integrator_sha256']\nassert sha(spaced(primary['result_summary']))==primary['result_hashes']['result_summary_sha256']\nassert sha(ind['source_text'].encode())==ind['result_hashes']['source_sha256']\nassert sha(canon(m))==ind['result_hashes']['result_summary_sha256']\nfor name,original in primary['original_run_records'].items():\n r=copy.deepcopy(original)\n if name=='sharpness':r['result_summary']['family']={int(k):v for k,v in r['result_summary']['family'].items()}\n assert sha(json.dumps(r,indent=1,sort_keys=True).encode())==primary['result_hashes']['payloads'][name],name\n assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']==primary['result_hashes']['sources'][name]\n assert sha(spaced(r['result_summary']))==r['result_hashes']['result_summary_sha256'],name\n check_inputs(r.get('provenance',{}).get('inputs',{}))\nreference='src/python/rule30_research_reference.py';inputs[reference]=sha((ROOT/reference).read_bytes());assert inputs[reference]=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\ndef T(x):return x^((x<<1)|(x<<2))\ndef A(x):return T(x)>>2\ndef G(g,x):return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\n@functools.lru_cache(None)\ndef Ap(x,s):\n for _ in range(s):x=A(x)\n return x\ndef I(x):return int(x%64 in (0,5))\ndef J(x):return I(A(x))+I(x>>2)\ndef D(x,s):return sum(I(Ap(x>>(2*d),s-1-d)) for d in range(s))\ndef pref(root,w):\n v=[root]\n for g in w:v.append(G(g,v[-1]))\n return v\ndef omega(x,g):return int((x%16,g) in [(0,'t'),(1,'u')])\ndef H(root,w):return ''.join('tupp'[x%4] for x in pref(root,w)[1:])\ndef W(root,w):return sum(omega(x,g) for x,g in zip(pref(root,w),w))\ndef gate(x):return 'u' if x%16==7 else 't' if x%16==11 else None\ndef orbit(x,s):\n xs=[x];word=''\n for _ in range(s):\n  g=gate(x);assert g;word+=g;x=G(g,A(x));xs.append(x)\n return xs,word\ndef beta(xs,word,s):\n return sum(omega(Ap(xs[t-1],s-t+1),word[t-1] if t==s else 'tupp'[Ap(xs[t],s-t-1)%4]) for t in range(1,s+1))\n# Exact same finite row domain/order as cell record; costs pulled from original prefixes.\nhashrows=hashlib.sha256();nrows=words=0\nfor phase,root in [('p',3),('u',1)]:\n for n in range(9):\n  for letters in itertools.product('tup',repeat=n):\n   w=''.join(letters);vs=pref(root,w);x=vs[-1];words+=1\n   for s in range(max(1,n-4),n+4):\n    c=sum(I(Ap(v,s-1)) for v in vs[1:]);ds=D(x,s);pad=max(s-n-1,0)\n    assert c==ds-pad\n    hashrows.update(canon([phase,n,w,x,s,c,ds,pad])+b'\\n');nrows+=1\nassert words==m['word_count']==19682 and nrows==m['C_D_cases']==157098\nassert hashrows.hexdigest()==m['C_D_row_sha256']\nassert primary['original_run_records']['final']['result_summary']['D_grid']=={'tested':nrows,'mismatches':0,'domain':'n=0..8 both phases, s=max(1,n-4)..n+3'}\nfor phase,root in [('p',3),('u',1)]:\n level={root}\n for k in range(1,6):\n  assert sorted(level)==m['base_frontiers_k1_to5'][phase+str(k)]\n  assert not any(I(x) for x in level) and {A(x) for x in level}<=level\n  level={G(g,x) for x in level for g in 'tup'}\npre={str(z):{g:[x for x in range(64) if G(g,x)%64==z] for g in 'tup'} for z in [0,5]}\nassert pre==m['charge_preimage_table_mod64']\nassert [J(q) for q in range(256)]==m['boundary_J_table_mod256']\ncyc=[3205]\nfor _ in range(4):cyc.append(A(cyc[-1]))\nassert cyc==m['sharpness']['A_cycle']==[3205,3558,3214,3564,3205]\nexamples=endpoint_memberships=0\nfor row in m['schedule_groups']:\n s=row['s'];q=row['q'];xs,word=orbit(q,s+1);assert word==row['branches']\n ds=D(q,s);b=beta(xs,word,s);boundary=[{'t':t,'quotient_mod256':(xs[t]>>(2*(s-t-2)))%256,'J':J(xs[t]>>(2*(s-t-2)))} for t in range(s-1)]\n assert (ds,b,ds+b)==(row['D'],row['beta'],row['W_plus_padding'])\n assert boundary==row['boundary_terms'] and sum(t['J'] for t in boundary)==ds+b\n for x in row['endpoints']:\n  assert x%(1<<(2*s+4))==q;assert orbit(x,s+1)[1]==word;endpoint_memberships+=1\n for ex in row['examples']:\n  root=3 if ex['phase']=='p' else 1;w=ex['word_from_zero'][1:];n=len(w);x=pref(root,w)[-1]\n  assert x==ex['endpoint'] and n==ex['n'];fw=w;hw=w;exxs,eword=orbit(x,s+1)\n  for t in range(s):fw=H(root,fw)+eword[t];hw=H(root,hw)\n  pad=max(s-n-1,0);assert pref(root,fw)[-1]==exxs[s]\n  assert (W(root,hw),W(root,fw),pad)==(ex['C'],ex['W'],ex['padding'])\n  assert W(root,fw)+pad==ds+b;examples+=1\nassert len(m['schedule_groups'])==43 and sum(r['histories'] for r in m['schedule_groups'])==665\nfor key,row in primary['original_run_records']['sharpness']['result_summary']['family'].items():\n s=int(key);w='upupt'+'t'*s;vs=pref(3,w);hw=w\n for _ in range(s):hw=H(3,hw)\n costs=[omega(x,g) for x,g in zip(pref(3,hw),hw)]\n assert w==row['word'] and hex(vs[-1])==row['endpoint_hex'] and len(w)==row['n']==s+5\n assert costs[:4]==row['first4']==[0]*4 and costs[4]==row['pos5']==1\n assert sum(costs)==row['C'] and D(vs[-1],s)==row['D'] and sum(costs)-D(vs[-1],s)==1\nprobe_rows={r['word']:r for level in probe['result_summary']['levels'] for r in level['rows']};psiages=0\nfor row in primary['original_run_records']['psi']['detail']:\n xs,word=orbit(row['x0'],len(row['word']));assert word==row['word'] and xs==probe_rows[word]['states']\n for age in row['ages']:\n  s=age['s'];val=D(xs[0],s)+beta(xs,word,s);bs=sum(J(xs[t]>>(2*(s-t-2))) for t in range(s-1))\n  assert val==bs==age['Psi']==age['boundary'] and age['match'];psiages+=1\nsummary={'completed':True,'failures':[],'C_D_rows_recomputed':nrows,'C_D_row_sha256':hashrows.hexdigest(),'ordinary_words':words,'schedule_groups_checked':43,'recorded_endpoint_memberships_checked':endpoint_memberships,'recorded_history_examples_checked':examples,'sharpness_family_ages':[1,5,9,13],'psi_probe_chains':4,'psi_ages_including_terminal':psiages,'base_frontiers_checked':10,'J_table_modulus':256,'original_payload_source_summary_input_hashes_verified':True,'immutable_reference_verified':True}\nsource=pathlib.Path(__file__).read_bytes()\nrecord={'experiment_id':'problem1-critical-cost-portable-verification-20260905','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'Independent packed replay and portable provenance reproduce the declared critical-cost certificates.','backend':'python-packed-prefix-cost-and-direct-history-replay','parameters':{'C_D_domain':'both phases; n0..8; s=max(1,n-4)..n+3','group_scope':'all43 stored groups, listed endpoint memberships and listed history examples; no full forced-row hash replay','sharpness_ages':[1,5,9,13],'psi_scope':'four stored probe chains through terminal age','cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,'inputs':inputs,'source_text':source.decode(),'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},'result_summary':summary,'status':'finite-exhaustive','interpretation':'All declared checks pass. The C/D row hash matches the cell record; Muse contributes aggregate agreement, not a separate matching row hash.','proof_scope':'Finite certificate verification only; all-depth arguments are in the accompanying proof note.','limitations':['No exhaustive verification beyond the declared word/age domain.','Stored schedule groups are checked; the complete665 forced-row hash is not regenerated.','No return descent, occurrence exclusion or Problem1 proof.'],'serialization_notes':'Original Muse summaries use spaced sort_keys JSON; sharpness family age keys restored to int before original summary/payload reconstruction. Muse probe_tmp maps to the committed born_suffix_kernel_probe record.'}\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT);print(json.dumps(summary))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T23:44:24.204124+00:00"
+}

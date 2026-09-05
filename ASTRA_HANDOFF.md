@@ -11,6 +11,60 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest critical-cost identity: read
+`proofs/informal/problem1_critical_cost_schedule_identity.md` first,
+then the born-suffix and synchronization definitions below.
+Here n=k-1 is the ORIGINAL nonroot history length and s>=1 is age.
+
+- `partial-proof` (all-depth): the first min(n,4) ORIGINAL positions
+  have zero W* cost after EVERY positive scanner age. The proof uses
+  exact ordinary levels through5 and their A-invariance; no eventual
+  stabilization or larger periodic-core conjecture is needed.
+- With I(z)=1 for z=0,5 mod64 and pi(z)=z>>2, put
+  D_s(x)=sum_(d=0..s-1) I(A^(s-1-d)(pi^d(x))). For n<=s+4,
+  C_s=D_s-max(s-n-1,0). The padding correction matters for short
+  initial histories. Both D_s and beta_s are determined by s+1
+  OBSERVED branches. Consequently normalized C_s and W*(v_s) agree
+  across endpoints, phases and initial lengths with the same schedule.
+  At c=s=k-5, k>=6, padding is0 in both phases. This determines
+  costs one cut before the prior full-history synchronization bound;
+  it does not identify full histories or prove occurrence exclusion.
+- `partial-proof` (all-depth): with only s defined forced steps,
+  D_s+beta_s=sum_(t=0..s-2) J(pi^(s-t-2)(F^t(x))), where
+  J(y)=I(A(y))+I(pi(y)). The aged-birth term cancels in the one-step
+  recurrence. J uses8 bits, but its arguments sample the full orbit
+  at varying projection depths. No closed256-state dynamics or
+  return descent follows from this nonnegative boundary sum.
+- The unrestricted fifth-position extension is `refuted` at every
+  age1 mod4 by rooted word pupupt: its fifth endpoint3205 lies on
+  the exact A-cycle3205,3558,3214,3564. Appending s copies of t
+  gives n=s+5 and C_s-D_s=1 for EVERY s=1 mod4. This does not
+  refute an extension restricted to sufficiently long forced histories.
+- `finite-exhaustive`: the cell implementation checks19,682 words
+  through k9,157,098 C/D cases and1,564,800 positional identities.
+  Its665 eligible forced cases form43 observed-schedule groups;
+  three span both phases and six span different initial lengths.
+  Muse independently checks157,098 C/D cases,901,281 positional
+  indicator comparisons and273,981 first-four cycle pairs, plus
+  named sharpness ages1,5,9,13 and four boundary-sum probe chains.
+  These finite checks support the separate algebraic proofs.
+  The portable packed verifier matches the157,098-row C/D hash,
+  checks all43 stored groups and their listed examples/endpoints,
+  replays23 probe ages, and verifies provenance hashes. It does not
+  claim a replay of the complete665-row forced hash.
+  Records: `results/problem1/20260905_critical_cost_` followed by
+  `{primary,independent,verification}.json`.
+
+Final adversarial mathematical and five-file integration reviews accepted
+the checkpoint with no remaining corrections.
+
+Next: seek an inequality for this boundary sum over genuine return
+blocks, retaining ORIGINAL length and all actual-gate requirements.
+Unrestricted descent and unrestricted fifth-position erasure are already
+refuted. No larger frontier or short-word atlas is justified without a
+new discriminating hypothesis. B_all, actual near-boundary three-return
+exclusion, signed nonvanishing and Problem 1 remain open.
+
 Newest appended-suffix schedule theorem: read
 `proofs/informal/problem1_born_suffix_schedule_cost.md` first, then the
 cost-pullback definitions below.

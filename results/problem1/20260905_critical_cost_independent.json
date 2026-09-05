@@ -1,0 +1,2594 @@
+{
+  "backend": "python-cell-rule-direct-history-and-diagonal-formula",
+  "experiment_id": "problem1-critical-cost-independent-20260905",
+  "git_commit": "db5282b1db51deeae2778123487b2ff2886cdba8",
+  "hardware": {
+    "affinity_used": [
+      0
+    ],
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 479932
+  },
+  "hypothesis": "Four initial positions are always free after H; near the original length, corrected total cost depends only on the observed forced schedule.",
+  "inputs": {
+    "proofs/informal/problem1_born_suffix_schedule_cost.md": "4f0ead4d977d70ad4cef9e08084dc522ae72c23be55a36ee4f5c0aeb4a6bee99",
+    "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+    "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30"
+  },
+  "interpretation": "All declared finite identities agree. The proof uses exact projection and the invariant finite base frontiers, not extrapolation from this cap.",
+  "limitations": [
+    "No descent, occurrence-cut exclusion or physical realization theorem.",
+    "Sharpness concerns unrestricted scanner histories; pupupt has no initial forced gate.",
+    "Schedule functions retain unbounded prefix length; no fixed finite-state quotient is claimed."
+  ],
+  "parameters": {
+    "C_D_ages": "max(1,n-4)..n+3 inclusive",
+    "address_space_bytes": 1073741824,
+    "boundary_J_modulus": 256,
+    "boundary_sum_scope": "same665 eligible forced cases; count computed in summary",
+    "cpu_seconds_limit": 120,
+    "extension_counter": {
+      "n": 6,
+      "phase": "p",
+      "s": 1,
+      "word_from_zero": "pupuptt"
+    },
+    "forced_gate_limit": "n+4, stopping at first undefined step",
+    "head_cost_ages": "1..n+3 inclusive",
+    "nonroot_lengths": [
+      0,
+      8
+    ],
+    "phases": [
+      "p",
+      "u"
+    ],
+    "sharpness_fixed_word_ages": [
+      1,
+      5,
+      9
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "All ordinary words k<=9 in the declared age ranges, eligible finite forced prefixes, and existing small periodic cores.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "8078a983004e5f86386db4bf315051f82ca4990dab894b92e24349a29b738d88",
+    "source_sha256": "e20124973600f8ad94fda17e763460f71a3ee2d8dd6fab3e647b4c9ed23a148f"
+  },
+  "result_summary": {
+    "C_D_cases": 157098,
+    "C_D_row_sha256": "4198fb837988d930275a1e24d9ff03b9555e4c573bc3ba34b0860ca961a2ad70",
+    "base_frontiers_k1_to5": {
+      "p1": [
+        3
+      ],
+      "p2": [
+        12,
+        13
+      ],
+      "p3": [
+        50,
+        51,
+        52,
+        53,
+        55
+      ],
+      "p4": [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        207,
+        220,
+        221,
+        222,
+        223
+      ],
+      "p5": [
+        800,
+        801,
+        802,
+        803,
+        804,
+        805,
+        807,
+        880,
+        881,
+        882,
+        883,
+        884,
+        885,
+        886,
+        887,
+        888,
+        889,
+        891,
+        894,
+        895
+      ],
+      "u1": [
+        1
+      ],
+      "u2": [
+        6,
+        7
+      ],
+      "u3": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "u4": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        107,
+        110,
+        111
+      ],
+      "u5": [
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        408,
+        409,
+        411,
+        414,
+        415,
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        447
+      ]
+    },
+    "boundary_J_table_mod256": [
+      2,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "boundary_sum_cases_checked": 665,
+    "charge_preimage_table_mod64": {
+      "0": {
+        "p": [
+          63
+        ],
+        "t": [
+          0
+        ],
+        "u": [
+          63
+        ]
+      },
+      "5": {
+        "p": [
+          58
+        ],
+        "t": [
+          59
+        ],
+        "u": [
+          60
+        ]
+      }
+    },
+    "completed": true,
+    "failures": [],
+    "forced_row_sha256": "8055b3aa8fb9a8ea556b19543ee3424a802c8a0b656372af3ea41636f2f82843",
+    "forced_schedule_cases": 665,
+    "groups_with_both_phases": 3,
+    "groups_with_multiple_initial_lengths": 6,
+    "position_cost_identities_checked": 1564800,
+    "schedule_group_count": 43,
+    "schedule_groups": [
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [],
+        "branches": "tt",
+        "endpoints": [
+          107,
+          1771
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 107,
+            "n": 3,
+            "padding": 0,
+            "phase": "u",
+            "s": 1,
+            "word_from_zero": "utup"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 1771,
+            "n": 5,
+            "padding": 0,
+            "phase": "u",
+            "s": 1,
+            "word_from_zero": "ututtp"
+          }
+        ],
+        "histories": 6,
+        "phase_lengths": [
+          [
+            "u",
+            3
+          ],
+          [
+            "u",
+            5
+          ]
+        ],
+        "q": 43,
+        "s": 1
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [],
+        "branches": "tu",
+        "endpoints": [
+          443,
+          891,
+          3579
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 891,
+            "n": 4,
+            "padding": 0,
+            "phase": "p",
+            "s": 1,
+            "word_from_zero": "pupup"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3579,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 1,
+            "word_from_zero": "pttuut"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 443,
+            "n": 4,
+            "padding": 0,
+            "phase": "u",
+            "s": 1,
+            "word_from_zero": "uuttu"
+          }
+        ],
+        "histories": 12,
+        "phase_lengths": [
+          [
+            "p",
+            4
+          ],
+          [
+            "p",
+            5
+          ],
+          [
+            "u",
+            4
+          ]
+        ],
+        "q": 59,
+        "s": 1
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [],
+        "branches": "ut",
+        "endpoints": [
+          7,
+          1607
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 7,
+            "n": 1,
+            "padding": 0,
+            "phase": "u",
+            "s": 1,
+            "word_from_zero": "ut"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 1607,
+            "n": 5,
+            "padding": 0,
+            "phase": "u",
+            "s": 1,
+            "word_from_zero": "uutttu"
+          }
+        ],
+        "histories": 15,
+        "phase_lengths": [
+          [
+            "u",
+            1
+          ],
+          [
+            "u",
+            5
+          ]
+        ],
+        "q": 7,
+        "s": 1
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [],
+        "branches": "uu",
+        "endpoints": [
+          3223
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3223,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 1,
+            "word_from_zero": "putptt"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ]
+        ],
+        "q": 23,
+        "s": 1
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 107,
+            "t": 0
+          }
+        ],
+        "branches": "ttu",
+        "endpoints": [
+          107
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 107,
+            "n": 3,
+            "padding": 0,
+            "phase": "u",
+            "s": 2,
+            "word_from_zero": "utup"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "u",
+            3
+          ]
+        ],
+        "q": 107,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 0
+          }
+        ],
+        "branches": "tut",
+        "endpoints": [
+          3579,
+          7163
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3579,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 2,
+            "word_from_zero": "pttuut"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 7163,
+            "n": 6,
+            "padding": 0,
+            "phase": "u",
+            "s": 2,
+            "word_from_zero": "uutuutp"
+          }
+        ],
+        "histories": 6,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ],
+          [
+            "u",
+            6
+          ]
+        ],
+        "q": 251,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 0
+          }
+        ],
+        "branches": "tuu",
+        "endpoints": [
+          6459,
+          12859
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 12859,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 2,
+            "word_from_zero": "ptutpuu"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 6459,
+            "n": 6,
+            "padding": 0,
+            "phase": "u",
+            "s": 2,
+            "word_from_zero": "ututptt"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ],
+          [
+            "u",
+            6
+          ]
+        ],
+        "q": 59,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 0
+          }
+        ],
+        "branches": "utt",
+        "endpoints": [
+          7111
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 7111,
+            "n": 6,
+            "padding": 0,
+            "phase": "u",
+            "s": 2,
+            "word_from_zero": "uuuuptt"
+          }
+        ],
+        "histories": 4,
+        "phase_lengths": [
+          [
+            "u",
+            6
+          ]
+        ],
+        "q": 199,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 0
+          }
+        ],
+        "branches": "utu",
+        "endpoints": [
+          14215
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 14215,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 2,
+            "word_from_zero": "puptttt"
+          }
+        ],
+        "histories": 6,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ]
+        ],
+        "q": 135,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 0
+          }
+        ],
+        "branches": "uut",
+        "endpoints": [
+          3223
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3223,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 2,
+            "word_from_zero": "putptt"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ]
+        ],
+        "q": 151,
+        "s": 2
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 218,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 1
+          }
+        ],
+        "branches": "ttut",
+        "endpoints": [
+          28523
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 28523,
+            "n": 7,
+            "padding": 0,
+            "phase": "u",
+            "s": 3,
+            "word_from_zero": "utttuuuu"
+          }
+        ],
+        "histories": 30,
+        "phase_lengths": [
+          [
+            "u",
+            7
+          ]
+        ],
+        "q": 875,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 154,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 1
+          }
+        ],
+        "branches": "ttuu",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 619,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 190,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 1
+          }
+        ],
+        "branches": "tutt",
+        "endpoints": [
+          57083
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 57083,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "ptuuuuuu"
+          }
+        ],
+        "histories": 8,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 763,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 126,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 1
+          }
+        ],
+        "branches": "tutu",
+        "endpoints": [
+          3579
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3579,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "pttuut"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ]
+        ],
+        "q": 507,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 206,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 1
+          }
+        ],
+        "branches": "tuut",
+        "endpoints": [
+          28475
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 28475,
+            "n": 7,
+            "padding": 0,
+            "phase": "u",
+            "s": 3,
+            "word_from_zero": "utttttup"
+          }
+        ],
+        "histories": 18,
+        "phase_lengths": [
+          [
+            "u",
+            7
+          ]
+        ],
+        "q": 827,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 142,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 87,
+            "t": 1
+          }
+        ],
+        "branches": "tuuu",
+        "endpoints": [
+          12859,
+          56891
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 12859,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "ptutpuu"
+          },
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56891,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "pttuputp"
+          }
+        ],
+        "histories": 12,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ],
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 571,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 177,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 171,
+            "t": 1
+          }
+        ],
+        "branches": "uttt",
+        "endpoints": [
+          57031
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 57031,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "ptutputu"
+          }
+        ],
+        "histories": 8,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 711,
+        "s": 3
+      },
+      {
+        "D": 1,
+        "W_plus_padding": 1,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 1,
+            "quotient_mod256": 241,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 107,
+            "t": 1
+          }
+        ],
+        "branches": "uttu",
+        "endpoints": [
+          7111,
+          28615
+        ],
+        "examples": [
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 7111,
+            "n": 6,
+            "padding": 0,
+            "phase": "u",
+            "s": 3,
+            "word_from_zero": "uuuuptt"
+          },
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 28615,
+            "n": 7,
+            "padding": 0,
+            "phase": "u",
+            "s": 3,
+            "word_from_zero": "ututptuu"
+          }
+        ],
+        "histories": 12,
+        "phase_lengths": [
+          [
+            "u",
+            6
+          ],
+          [
+            "u",
+            7
+          ]
+        ],
+        "q": 967,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 225,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 1
+          }
+        ],
+        "branches": "utut",
+        "endpoints": [
+          14215
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 14215,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "puptttt"
+          }
+        ],
+        "histories": 6,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ]
+        ],
+        "q": 903,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 33,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 1
+          }
+        ],
+        "branches": "utuu",
+        "endpoints": [
+          51335
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 51335,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "pupttuut"
+          }
+        ],
+        "histories": 4,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 135,
+        "s": 3
+      },
+      {
+        "D": 1,
+        "W_plus_padding": 1,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 1,
+            "quotient_mod256": 21,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 1
+          }
+        ],
+        "branches": "uuut",
+        "endpoints": [
+          51287
+        ],
+        "examples": [
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 51287,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 3,
+            "word_from_zero": "putttptt"
+          }
+        ],
+        "histories": 18,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 87,
+        "s": 3
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 230,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 206,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 2
+          }
+        ],
+        "branches": "ttuut",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 3691,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 223,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 225,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 2
+          }
+        ],
+        "branches": "tutut",
+        "endpoints": [
+          3579
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3579,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "pttuut"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ]
+        ],
+        "q": 3579,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 159,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 33,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 2
+          }
+        ],
+        "branches": "tutuu",
+        "endpoints": [
+          227835
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 227835,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "puttttpup"
+          }
+        ],
+        "histories": 68,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 2555,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 179,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 165,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 2
+          }
+        ],
+        "branches": "tuutu",
+        "endpoints": [
+          228155
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 228155,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "pupuptttt"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 2875,
+        "s": 4
+      },
+      {
+        "D": 1,
+        "W_plus_padding": 1,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 35,
+            "t": 0
+          },
+          {
+            "J": 1,
+            "quotient_mod256": 21,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 2
+          }
+        ],
+        "branches": "tuuut",
+        "endpoints": [
+          12859
+        ],
+        "examples": [
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 12859,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "ptutpuu"
+          }
+        ],
+        "histories": 8,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ]
+        ],
+        "q": 571,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 188,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 218,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 2
+          }
+        ],
+        "branches": "uttut",
+        "endpoints": [
+          7111
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 7111,
+            "n": 6,
+            "padding": 0,
+            "phase": "u",
+            "s": 4,
+            "word_from_zero": "uuuuptt"
+          }
+        ],
+        "histories": 4,
+        "phase_lengths": [
+          [
+            "u",
+            6
+          ]
+        ],
+        "q": 3015,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 120,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 190,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 2
+          }
+        ],
+        "branches": "ututt",
+        "endpoints": [
+          14215
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 14215,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "puptttt"
+          }
+        ],
+        "histories": 6,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ]
+        ],
+        "q": 1927,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 56,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 126,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 2
+          }
+        ],
+        "branches": "ututu",
+        "endpoints": [
+          205703
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 205703,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "pttttttup"
+          }
+        ],
+        "histories": 42,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 903,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 8,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 206,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 151,
+            "t": 2
+          }
+        ],
+        "branches": "utuut",
+        "endpoints": [
+          102535
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 102535,
+            "n": 8,
+            "padding": 0,
+            "phase": "u",
+            "s": 4,
+            "word_from_zero": "utttutpup"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "u",
+            8
+          ]
+        ],
+        "q": 135,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 133,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 229,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 2
+          }
+        ],
+        "branches": "uuutt",
+        "endpoints": [
+          51287
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 51287,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 4,
+            "word_from_zero": "putttptt"
+          }
+        ],
+        "histories": 18,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 2135,
+        "s": 4
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 121,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 179,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 165,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 3
+          }
+        ],
+        "branches": "ttuutu",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 5,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 7787,
+        "s": 5
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 55,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 120,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 190,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 3
+          }
+        ],
+        "branches": "tututt",
+        "endpoints": [
+          3579
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 3579,
+            "n": 5,
+            "padding": 0,
+            "phase": "p",
+            "s": 5,
+            "word_from_zero": "pttuut"
+          }
+        ],
+        "histories": 2,
+        "phase_lengths": [
+          [
+            "p",
+            5
+          ]
+        ],
+        "q": 3579,
+        "s": 5
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 231,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 200,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 142,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 87,
+            "t": 3
+          }
+        ],
+        "branches": "tutuuu",
+        "endpoints": [
+          227835
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 227835,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 5,
+            "word_from_zero": "puttttpup"
+          }
+        ],
+        "histories": 68,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 14843,
+        "s": 5
+      },
+      {
+        "D": 1,
+        "W_plus_padding": 1,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 1,
+            "quotient_mod256": 236,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 105,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 225,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 3
+          }
+        ],
+        "branches": "tuutut",
+        "endpoints": [
+          228155
+        ],
+        "examples": [
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 228155,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 5,
+            "word_from_zero": "pupuptttt"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 15163,
+        "s": 5
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 200,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 133,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 229,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 3
+          }
+        ],
+        "branches": "tuuutt",
+        "endpoints": [
+          12859
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 12859,
+            "n": 6,
+            "padding": 0,
+            "phase": "p",
+            "s": 5,
+            "word_from_zero": "ptutpuu"
+          }
+        ],
+        "histories": 8,
+        "phase_lengths": [
+          [
+            "p",
+            6
+          ]
+        ],
+        "q": 12859,
+        "s": 5
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 66,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 115,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 229,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 199,
+            "t": 3
+          }
+        ],
+        "branches": "utuutt",
+        "endpoints": [
+          102535
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 102535,
+            "n": 8,
+            "padding": 0,
+            "phase": "u",
+            "s": 5,
+            "word_from_zero": "utttutpup"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "u",
+            8
+          ]
+        ],
+        "q": 4231,
+        "s": 5
+      },
+      {
+        "D": 1,
+        "W_plus_padding": 1,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 222,
+            "t": 0
+          },
+          {
+            "J": 1,
+            "quotient_mod256": 236,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 105,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 225,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 251,
+            "t": 4
+          }
+        ],
+        "branches": "ttuutut",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 1,
+            "W": 1,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 6,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 56939,
+        "s": 6
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 123,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 154,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 56,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 126,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 4
+          }
+        ],
+        "branches": "tuututu",
+        "endpoints": [
+          228155
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 228155,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 6,
+            "word_from_zero": "pupuptttt"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 31547,
+        "s": 6
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 1,
+        "beta": 1,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 144,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 28,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 185,
+            "t": 2
+          },
+          {
+            "J": 1,
+            "quotient_mod256": 241,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 107,
+            "t": 4
+          }
+        ],
+        "branches": "utuuttu",
+        "endpoints": [
+          102535
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 1,
+            "endpoint": 102535,
+            "n": 8,
+            "padding": 0,
+            "phase": "u",
+            "s": 6,
+            "word_from_zero": "utttutpup"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "u",
+            8
+          ]
+        ],
+        "q": 36999,
+        "s": 6
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 55,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 123,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 154,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 56,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 126,
+            "t": 4
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 135,
+            "t": 5
+          }
+        ],
+        "branches": "ttuututu",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 7,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 56939,
+        "s": 7
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 222,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 230,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 206,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 159,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 33,
+            "t": 4
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 5
+          }
+        ],
+        "branches": "tuututuu",
+        "endpoints": [
+          228155
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 228155,
+            "n": 8,
+            "padding": 0,
+            "phase": "p",
+            "s": 7,
+            "word_from_zero": "pupuptttt"
+          }
+        ],
+        "histories": 28,
+        "phase_lengths": [
+          [
+            "p",
+            8
+          ]
+        ],
+        "q": 228155,
+        "s": 7
+      },
+      {
+        "D": 0,
+        "W_plus_padding": 0,
+        "beta": 0,
+        "boundary_terms": [
+          {
+            "J": 0,
+            "quotient_mod256": 13,
+            "t": 0
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 222,
+            "t": 1
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 230,
+            "t": 2
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 206,
+            "t": 3
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 159,
+            "t": 4
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 33,
+            "t": 5
+          },
+          {
+            "J": 0,
+            "quotient_mod256": 59,
+            "t": 6
+          }
+        ],
+        "branches": "ttuututuu",
+        "endpoints": [
+          56939
+        ],
+        "examples": [
+          {
+            "C": 0,
+            "W": 0,
+            "endpoint": 56939,
+            "n": 7,
+            "padding": 0,
+            "phase": "p",
+            "s": 8,
+            "word_from_zero": "pttttuut"
+          }
+        ],
+        "histories": 10,
+        "phase_lengths": [
+          [
+            "p",
+            7
+          ]
+        ],
+        "q": 56939,
+        "s": 8
+      }
+    ],
+    "sharpness": {
+      "A_cycle": [
+        3205,
+        3558,
+        3214,
+        3564,
+        3205
+      ],
+      "H1_costs": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "H1_word_from_zero": "ptptpu",
+      "endpoint": 3205,
+      "existing_cycle_charges_through_width16": [
+        {
+          "value": 3205,
+          "width": 12
+        }
+      ],
+      "one_position_extension_counter": {
+        "C": 1,
+        "D": 0,
+        "endpoint": 14235,
+        "gap": 1,
+        "n": 6,
+        "s": 1,
+        "word_from_zero": "pupuptt"
+      },
+      "phase": "p",
+      "positive_ages_checked": [
+        {
+          "I_A_sminus1_endpoint": 1,
+          "last_cost": 1,
+          "s": 1
+        },
+        {
+          "I_A_sminus1_endpoint": 1,
+          "last_cost": 1,
+          "s": 5
+        },
+        {
+          "I_A_sminus1_endpoint": 1,
+          "last_cost": 1,
+          "s": 9
+        }
+      ],
+      "prefixes": [
+        3,
+        12,
+        55,
+        200,
+        891,
+        3205
+      ],
+      "word_from_zero": "pupupt"
+    },
+    "word_count": 19682
+  },
+  "runtime_seconds": 6.410638569039293,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import collections,datetime,functools,hashlib,itertools,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_critical_cost_independent.json')))\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));resource.setrlimit(resource.RLIMIT_CPU,(120,120));signal.alarm(120)\naff=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{aff[0]})\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef sha(x):return hashlib.sha256(x).hexdigest()\n@functools.lru_cache(None)\ndef T(x):\n    b=[(x>>j)&1 for j in range(x.bit_length()+2)]\n    return sum((b[j]^((b[j-1] if j>=1 else 0)|(b[j-2] if j>=2 else 0)))<<j for j in range(len(b)))\ndef A(x):return T(x)>>2\ndef G(g,x):return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\nS='tupp';L='tup'\ndef I(x):return int(x%64 in [0,5])\ndef gate(x):return 'u' if x%16==7 else 't' if x%16==11 else None\ndef F(x):\n    g=gate(x);assert g;return G(g,G('p',x>>2))\ndef omega(x,g):return int((x%16==0 and g=='t') or (x%16==1 and g=='u'))\ndef wordstate(root,w):\n    x=root;pref=[x];costs=[]\n    for g in w:costs.append(omega(x,g));x=G(g,x);pref.append(x)\n    return x,pref,costs\ndef H(root,w):return ''.join(S[x%4] for x in wordstate(root,w)[1][1:])\n@functools.lru_cache(None)\ndef powerA(x,r):\n    for _ in range(r):x=A(x)\n    return x\ndef J(x):return I(A(x))+I(x>>2)\ndef D(x,s):return sum(I(powerA(x>>(2*d),s-1-d)) for d in range(s))\ndef beta(xs,branches,s):\n    cost=0\n    for t in range(1,s+1):\n        old=powerA(xs[t-1],s-t+1)\n        letter=branches[t-1] if t==s else S[powerA(xs[t],s-t-1)%4]\n        cost+=omega(old,letter)\n    return cost\n@functools.lru_cache(None)\ndef forced(x,maxsteps):\n    xs=[x];letters=''\n    for _ in range(maxsteps):\n        g=gate(x)\n        if g is None:break\n        letters+=g;x=F(x);xs.append(x)\n    return xs,letters\nbase={};word_count=cases=forced_cases=identity_positions=0;rowhash=hashlib.sha256();fhash=hashlib.sha256();groups={};C_groups={}\nfor phase,root in [('p',3),('u',1)]:\n    level=[('',root)]\n    for n in range(9):\n        if n<=4:\n            front=sorted({x for _,x in level});assert all(not I(x) for x in front)\n            assert {A(x) for x in front}<=set(front);base[phase+str(n+1)]=front\n        for w,x in level:\n            word_count+=1;current=w;original_pref=wordstate(root,w)[1]\n            xs,branches=forced(x,n+4);fw=w;forced_words={0:w}\n            for age in range(1,min(n+3,len(branches))+1):\n                fw=H(root,fw)+branches[age-1];assert wordstate(root,fw)[0]==xs[age];forced_words[age]=fw\n            for s in range(1,n+4):\n                current=H(root,current);end,pref,costs=wordstate(root,current)\n                assert end==powerA(x,s)\n                expect=[I(powerA(v,s-1)) for v in original_pref[1:]]\n                assert costs==expect and not any(costs[:4]);identity_positions+=n\n                if s<max(1,n-4):continue\n                C=sum(costs);ds=D(x,s);phantom=max(s-n-1,0)\n                assert C==ds-phantom\n                q=x% (1<<(2*s+4));assert ds==D(q,s)\n                rowhash.update(canon([phase,n,w,x,s,C,ds,phantom])+b'\\n');cases+=1\n                if len(branches)<s+1:continue\n                sig=branches[:s+1];actual=wordstate(root,forced_words[s]);W=sum(actual[2]);born=beta(xs,branches,s)\n                assert W==C+born\n                qxs,qsig=forced(q,s+1);assert qsig==sig and beta(qxs,qsig,s)==born\n                assert W+phantom==D(q,s)+beta(qxs,qsig,s)\n                boundary=[{'t':t,'quotient_mod256':(xs[t]>>(2*(s-t-2)))%256,'J':J(xs[t]>>(2*(s-t-2)))} for t in range(s-1)]\n                assert sum(t['J'] for t in boundary)==W+phantom\n                key=(s,sig)\n                if key not in groups:groups[key]={'s':s,'branches':sig,'q':q,'W_plus_padding':W+phantom,'D':ds,'beta':born,'boundary_terms':boundary,'phase_lengths':set(),'endpoints':set(),'histories':0,'examples':{}}\n                group=groups[key];assert group['boundary_terms']==boundary\n                assert (group['q'],group['W_plus_padding'],group['D'],group['beta'])==(q,W+phantom,ds,born)\n                group['phase_lengths'].add((phase,n));group['endpoints'].add(x);group['histories']+=1\n                group['examples'].setdefault(phase+str(n),{'phase':phase,'n':n,'word_from_zero':phase+w,'endpoint':x,'s':s,'C':C,'W':W,'padding':phantom})\n                fhash.update(canon([phase,n,w,x,s,sig,C,W,born,phantom])+b'\\n');forced_cases+=1\n        if n<8:level=[(w+g,G(g,x)) for w,x in level for g in L]\ngroup_rows=[]\nfor key,g in sorted(groups.items()):\n    row=dict(g);row['phase_lengths']=[list(p) for p in sorted(g['phase_lengths'])];row['endpoints']=sorted(g['endpoints']);row['examples']=list(g['examples'].values());group_rows.append(row)\npreimage_table={str(target):{g:[q for q in range(64) if G(g,q)%64==target] for g in L} for target in [0,5]}\nsharp_word='upupt';z,pref,cost=wordstate(3,sharp_word);assert pref==[3,12,55,200,891,3205]\ncycle=[z]\nfor _ in range(4):cycle.append(A(cycle[-1]))\nassert cycle==[3205,3558,3214,3564,3205]\nh1=H(3,sharp_word);_,_,hcost=wordstate(3,h1);assert hcost[:4]==[0]*4 and hcost[4]==1\nsharps=[{'s':s,'I_A_sminus1_endpoint':I(powerA(z,s-1)),'last_cost':wordstate(3,functools.reduce(lambda w,_:H(3,w),range(s),sharp_word))[2][-1]} for s in [1,5,9]]\nassert all(r['last_cost']==r['I_A_sminus1_endpoint']==1 for r in sharps)\nextended='upuptt';extended_x,_,_=wordstate(3,extended);extended_H=H(3,extended)\nextended_C=sum(wordstate(3,extended_H)[2]);extended_D=D(extended_x,1)\nassert extended_C-extended_D==1\ncore=json.loads((ROOT/'results/problem1/20260905_frontier_head_independent.json').read_bytes())['result_summary']\ncore_charges=[{'width':r['width'],'value':v} for r in core['cycle_rows'] for c in r['cycles'] for v in c if I(v)]\nassert core_charges==[{'width':12,'value':3205}]\ninputs={p:sha((ROOT/p).read_bytes()) for p in ['proofs/informal/problem1_history_synchronization.md','proofs/informal/problem1_born_suffix_schedule_cost.md','results/problem1/20260905_frontier_head_independent.json']}\nsummary={'completed':True,'failures':[],'base_frontiers_k1_to5':base,'charge_preimage_table_mod64':preimage_table,'boundary_J_table_mod256':[J(q) for q in range(256)],'boundary_sum_cases_checked':forced_cases,\n 'word_count':word_count,'C_D_cases':cases,'C_D_row_sha256':rowhash.hexdigest(),'position_cost_identities_checked':identity_positions,\n 'forced_schedule_cases':forced_cases,'forced_row_sha256':fhash.hexdigest(),'schedule_groups':group_rows,'schedule_group_count':len(group_rows),\n 'groups_with_both_phases':sum(len({p for p,n in g['phase_lengths']})==2 for g in group_rows),\n 'groups_with_multiple_initial_lengths':sum(len({n for p,n in g['phase_lengths']})>1 for g in group_rows),\n 'sharpness':{'phase':'p','word_from_zero':'p'+sharp_word,'prefixes':pref,'endpoint':z,'H1_word_from_zero':'p'+h1,'H1_costs':hcost,'A_cycle':cycle,'positive_ages_checked':sharps,'existing_cycle_charges_through_width16':core_charges,'one_position_extension_counter':{'s':1,'n':6,'word_from_zero':'p'+extended,'endpoint':extended_x,'C':extended_C,'D':extended_D,'gap':extended_C-extended_D}}}\nsource=pathlib.Path(__file__).read_bytes();record={'experiment_id':'problem1-critical-cost-independent-20260905','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1',\n 'hypothesis':'Four initial positions are always free after H; near the original length, corrected total cost depends only on the observed forced schedule.',\n 'backend':'python-cell-rule-direct-history-and-diagonal-formula','parameters':{'nonroot_lengths':[0,8],'phases':['p','u'],'C_D_ages':'max(1,n-4)..n+3 inclusive','head_cost_ages':'1..n+3 inclusive','forced_gate_limit':'n+4, stopping at first undefined step','sharpness_fixed_word_ages':[1,5,9],'extension_counter':{'phase':'p','n':6,'s':1,'word_from_zero':'pupuptt'},'boundary_J_modulus':256,'boundary_sum_scope':'same665 eligible forced cases; count computed in summary','cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},\n 'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count(),'affinity_used':sorted(os.sched_getaffinity(0)),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},'runtime_seconds':time.monotonic()-START,\n 'inputs':inputs,'source_text':source.decode(),'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},'result_summary':summary,\n 'status':'finite-exhaustive','interpretation':'All declared finite identities agree. The proof uses exact projection and the invariant finite base frontiers, not extrapolation from this cap.',\n 'proof_scope':'All ordinary words k<=9 in the declared age ranges, eligible finite forced prefixes, and existing small periodic cores.',\n 'limitations':['No descent, occurrence-cut exclusion or physical realization theorem.','Sharpness concerns unrestricted scanner histories; pupupt has no initial forced gate.','Schedule functions retain unbounded prefix length; no fixed finite-state quotient is claimed.']}\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT)\nprint(json.dumps({k:v for k,v in summary.items() if k not in ['schedule_groups','base_frontiers_k1_to5']}))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T23:25:49.073068+00:00"
+}
