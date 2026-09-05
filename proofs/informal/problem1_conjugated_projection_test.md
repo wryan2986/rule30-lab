@@ -286,3 +286,10 @@ base-cylinder congruence. First test the named failures above with exact
 representation witnesses; do not infer universal failure from one chosen
 representation. An all-depth selection rule, or a precise obstruction to
 such a rule, would be needed before this could replace the failed map.
+
+Subsequent checkpoint: `problem1_generator_deletion_test.md` gives an exact
+all-representation deletion criterion. Both initial counterexamples above
+have deletion shadows, but the already known deeper occurrence
+u18/0x6473d46ab/cut4 refutes this construction even over all288 of its
+representations. The earlier suggestion is therefore no longer untested
+or a surviving universal candidate; adjacent inclusion remains open.

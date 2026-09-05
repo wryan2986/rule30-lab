@@ -1,0 +1,3271 @@
+{
+  "backend": "signed-bit-inverse-and-bottom-up-ancestor-graph",
+  "experiment_id": "20260905_generator_deletion_deep_independent",
+  "git_commit": "636cf2480176833e0c7eaafe1d329a68f0b72b01",
+  "hardware": {
+    "cpu_affinity": [
+      0
+    ],
+    "cpu_description": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "hypothesis": "Every genuine three-return occurrence admits one noninitial generator deletion in some representation preserving its base-cylinder residue.",
+  "input": {
+    "path": "proofs/informal/problem1_return_valuation_falsification.md",
+    "sha256": "121106e69350db5147ebc3cd2150e4edee216ef8f6d0c47cc7d8bb2c4c9d2b87"
+  },
+  "interpretation": "A negative existential verdict refutes the single-deletion certificate class on that genuine occurrence, not arbitrary adjacent shadows.",
+  "limitations": [
+    "No conclusion about other occurrences or longer block rewrites.",
+    "No full frontier enumeration."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "all_representations": "only if the chosen word fails: exact ancestor DAG with fixed phase root; no frontier enumeration",
+    "chosen_deletion_moduli": "m=1,...,2c+2; every noninitial position",
+    "cpu_workers": 1,
+    "input": "only the previously documented u18 cut4 occurrence from the valuation falsification note",
+    "targets": [
+      {
+        "cut": 4,
+        "k": 18,
+        "phase": "u",
+        "x_hex": "0x6473d46ab"
+      }
+    ],
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Exactly one named deeper occurrence and all noninitial deletions in its named word; all ordinary representations only if the chosen word fails.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "92a0f907671a015aff190d925068e0632758024b3381b3f1b7a48831b164a582",
+    "source_sha256": "d030574941a08897d64f1bf29c934074696ff1e68563ac68475c46d2d6ba73fb"
+  },
+  "result_summary": {
+    "completed": true,
+    "criterion_checks": 170,
+    "existential_fail": 1,
+    "existential_pass": 0,
+    "row_count": 1,
+    "rows": [
+      {
+        "all_representation_H": 3,
+        "chosen_deletions": [
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 2,
+            "prefix_state": 1,
+            "preserves_target": false,
+            "short_state": 6723310164,
+            "short_word": "utuuttuupupuuupup"
+          },
+          {
+            "difference_valuation": 2,
+            "generator": "t",
+            "position_1_based": 3,
+            "prefix_state": 6,
+            "preserves_target": false,
+            "short_state": 7462945095,
+            "short_word": "uuuuttuupupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 4,
+            "prefix_state": 26,
+            "preserves_target": false,
+            "short_state": 7462764390,
+            "short_word": "uututtuupupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 5,
+            "prefix_state": 103,
+            "preserves_target": false,
+            "short_state": 7462764390,
+            "short_word": "uututtuupupuuupup"
+          },
+          {
+            "difference_valuation": 4,
+            "generator": "t",
+            "position_1_based": 6,
+            "prefix_state": 440,
+            "preserves_target": false,
+            "short_state": 7462954139,
+            "short_word": "uutuutuupupuuupup"
+          },
+          {
+            "difference_valuation": 4,
+            "generator": "t",
+            "position_1_based": 7,
+            "prefix_state": 1608,
+            "preserves_target": false,
+            "short_state": 7462954139,
+            "short_word": "uutuutuupupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 8,
+            "prefix_state": 7160,
+            "preserves_target": false,
+            "short_state": 7462897038,
+            "short_word": "uutuuttupupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 9,
+            "prefix_state": 25609,
+            "preserves_target": false,
+            "short_state": 7462897038,
+            "short_word": "uutuuttupupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "p",
+            "position_1_based": 10,
+            "prefix_state": 113726,
+            "preserves_target": false,
+            "short_state": 7462897038,
+            "short_word": "uutuuttuuupuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 11,
+            "prefix_state": 410817,
+            "preserves_target": false,
+            "short_state": 7462896176,
+            "short_word": "uutuuttuuppuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "p",
+            "position_1_based": 12,
+            "prefix_state": 1826630,
+            "preserves_target": false,
+            "short_state": 7462896176,
+            "short_word": "uutuuttuupuuuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 13,
+            "prefix_state": 6562009,
+            "preserves_target": false,
+            "short_state": 7462895962,
+            "short_word": "uutuuttuupupuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 14,
+            "prefix_state": 29156142,
+            "preserves_target": false,
+            "short_state": 7462895962,
+            "short_word": "uutuuttuupupuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 15,
+            "prefix_state": 105328083,
+            "preserves_target": false,
+            "short_state": 7462895962,
+            "short_word": "uutuuttuupupuupup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "p",
+            "position_1_based": 16,
+            "prefix_state": 467259964,
+            "preserves_target": false,
+            "short_state": 7462895962,
+            "short_word": "uutuuttuupupuuuup"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "u",
+            "position_1_based": 17,
+            "prefix_state": 1680752327,
+            "preserves_target": false,
+            "short_state": 7462895960,
+            "short_word": "uutuuttuupupuuupp"
+          },
+          {
+            "difference_valuation": 0,
+            "generator": "p",
+            "position_1_based": 18,
+            "prefix_state": 7462895960,
+            "preserves_target": false,
+            "short_state": 7462895960,
+            "short_word": "uutuuttuupupuuupu"
+          }
+        ],
+        "cut": 4,
+        "existential_deletion": false,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 18,
+        "marked_position_1_based": 6,
+        "maximizing_deletion": {
+          "difference_valuation": 4,
+          "preserves_target": false,
+          "state": 7462954139,
+          "state_hex": "0x1bcd3a49b",
+          "word": "uutuututtttuuupup"
+        },
+        "maximizing_word": "uutuuttuttttuuupup",
+        "node_count": 140,
+        "nodes": [
+          {
+            "H": -1,
+            "inverses": {},
+            "level": 1,
+            "marked_position_1_based": null,
+            "maximizing_word": "u",
+            "parents": [],
+            "representation_count": 1,
+            "state": 1
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5,
+              "t": -4,
+              "u": -5
+            },
+            "level": 2,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 4
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -6,
+              "t": -5,
+              "u": -4
+            },
+            "level": 2,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5
+          },
+          {
+            "H": -1,
+            "inverses": {
+              "p": 1,
+              "t": -6,
+              "u": 1
+            },
+            "level": 2,
+            "marked_position_1_based": null,
+            "maximizing_word": "uu",
+            "parents": [
+              [
+                "u",
+                1
+              ],
+              [
+                "p",
+                1
+              ]
+            ],
+            "representation_count": 2,
+            "state": 6
+          },
+          {
+            "H": 1,
+            "inverses": {
+              "p": 5,
+              "t": 6,
+              "u": 5
+            },
+            "level": 3,
+            "marked_position_1_based": 3,
+            "maximizing_word": "uut",
+            "parents": [
+              [
+                "t",
+                6
+              ],
+              [
+                "u",
+                5
+              ],
+              [
+                "p",
+                5
+              ]
+            ],
+            "representation_count": 2,
+            "state": 26
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -13,
+              "t": 4,
+              "u": -13
+            },
+            "level": 3,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                4
+              ]
+            ],
+            "representation_count": 0,
+            "state": 28
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -65,
+              "t": -64,
+              "u": -65
+            },
+            "level": 4,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 64
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -69,
+              "t": -68,
+              "u": -69
+            },
+            "level": 4,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 68
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -82,
+              "t": -81,
+              "u": -80
+            },
+            "level": 4,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 81
+          },
+          {
+            "H": 1,
+            "inverses": {
+              "p": 28,
+              "t": -95,
+              "u": 26
+            },
+            "level": 4,
+            "marked_position_1_based": 3,
+            "maximizing_word": "uutu",
+            "parents": [
+              [
+                "u",
+                26
+              ],
+              [
+                "p",
+                28
+              ]
+            ],
+            "representation_count": 2,
+            "state": 103
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -373,
+              "t": -372,
+              "u": -373
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 436
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -374,
+              "t": -373,
+              "u": -372
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 437
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 81,
+              "t": -374,
+              "u": 81
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                81
+              ],
+              [
+                "p",
+                81
+              ]
+            ],
+            "representation_count": 0,
+            "state": 438
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -372,
+              "t": 81,
+              "u": -374
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                81
+              ]
+            ],
+            "representation_count": 0,
+            "state": 439
+          },
+          {
+            "H": 1,
+            "inverses": {
+              "p": 103,
+              "t": -376,
+              "u": 103
+            },
+            "level": 5,
+            "marked_position_1_based": 3,
+            "maximizing_word": "uutuu",
+            "parents": [
+              [
+                "u",
+                103
+              ],
+              [
+                "p",
+                103
+              ]
+            ],
+            "representation_count": 4,
+            "state": 440
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 64,
+              "t": -195,
+              "u": -194
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "p",
+                64
+              ]
+            ],
+            "representation_count": 0,
+            "state": 451
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -206,
+              "t": -205,
+              "u": 68
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                68
+              ]
+            ],
+            "representation_count": 0,
+            "state": 477
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -215,
+              "t": -206,
+              "u": -215
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 478
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -353,
+              "t": -224,
+              "u": -353
+            },
+            "level": 5,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 480
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1282,
+              "t": -1281,
+              "u": -1280
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1281
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1316,
+              "t": -1311,
+              "u": -1318
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1319
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1342,
+              "t": -1341,
+              "u": -1356
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1357
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1351,
+              "t": -1342,
+              "u": -1351
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1358
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1356,
+              "t": -1351,
+              "u": -1342
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1359
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -913,
+              "t": -912,
+              "u": -913
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1424
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -917,
+              "t": -916,
+              "u": -917
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1428
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -916,
+              "t": -911,
+              "u": -918
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1431
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1401,
+              "t": -920,
+              "u": -1401
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1432
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1402,
+              "t": -1401,
+              "u": -920
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1433
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1383,
+              "t": -1246,
+              "u": -1383
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1518
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1388,
+              "t": -1383,
+              "u": -1246
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1519
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -945,
+              "t": -1392,
+              "u": -945
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1520
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 477,
+              "t": 478,
+              "u": 477
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                478
+              ],
+              [
+                "u",
+                477
+              ],
+              [
+                "p",
+                477
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1570
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 480,
+              "t": 477,
+              "u": 478
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                477
+              ],
+              [
+                "u",
+                478
+              ],
+              [
+                "p",
+                480
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1571
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 439,
+              "t": 440,
+              "u": 439
+            },
+            "level": 6,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuut",
+            "parents": [
+              [
+                "t",
+                440
+              ],
+              [
+                "u",
+                439
+              ],
+              [
+                "p",
+                439
+              ]
+            ],
+            "representation_count": 4,
+            "state": 1608
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 437,
+              "t": 438,
+              "u": 437
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                438
+              ],
+              [
+                "u",
+                437
+              ],
+              [
+                "p",
+                437
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1610
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 451,
+              "t": 436,
+              "u": 451
+            },
+            "level": 6,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                436
+              ],
+              [
+                "u",
+                451
+              ],
+              [
+                "p",
+                451
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1612
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1518,
+              "t": 1519,
+              "u": 1520
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1519
+              ],
+              [
+                "u",
+                1520
+              ],
+              [
+                "p",
+                1518
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6673
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1431,
+              "t": 1432,
+              "u": 1431
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1432
+              ],
+              [
+                "u",
+                1431
+              ],
+              [
+                "p",
+                1431
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6888
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1570,
+              "t": 1571,
+              "u": 1428
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1571
+              ],
+              [
+                "u",
+                1428
+              ],
+              [
+                "p",
+                1570
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6893
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1433,
+              "t": 1570,
+              "u": 1433
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1570
+              ],
+              [
+                "u",
+                1433
+              ],
+              [
+                "p",
+                1433
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6894
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1359,
+              "t": 1424,
+              "u": 1359
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1424
+              ],
+              [
+                "u",
+                1359
+              ],
+              [
+                "p",
+                1359
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6896
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1424,
+              "t": 1357,
+              "u": 1358
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1357
+              ],
+              [
+                "u",
+                1358
+              ],
+              [
+                "p",
+                1424
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6899
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5893,
+              "t": -5892,
+              "u": -5893
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 6916
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5894,
+              "t": -5893,
+              "u": -5892
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 6917
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1281,
+              "t": -5894,
+              "u": 1281
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                1281
+              ],
+              [
+                "p",
+                1281
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6918
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5999,
+              "t": 1610,
+              "u": -5999
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1610
+              ]
+            ],
+            "representation_count": 0,
+            "state": 7158
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1612,
+              "t": -5999,
+              "u": 1610
+            },
+            "level": 7,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                1610
+              ],
+              [
+                "p",
+                1612
+              ]
+            ],
+            "representation_count": 0,
+            "state": 7159
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 1319,
+              "t": 1608,
+              "u": 1319
+            },
+            "level": 7,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuutt",
+            "parents": [
+              [
+                "t",
+                1608
+              ],
+              [
+                "u",
+                1319
+              ],
+              [
+                "p",
+                1319
+              ]
+            ],
+            "representation_count": 4,
+            "state": 7160
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -21203,
+              "t": -21202,
+              "u": -21203
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 21458
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -20325,
+              "t": -20324,
+              "u": -20325
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 21476
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 7158,
+              "t": 7159,
+              "u": 7160
+            },
+            "level": 8,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttu",
+            "parents": [
+              [
+                "t",
+                7159
+              ],
+              [
+                "u",
+                7160
+              ],
+              [
+                "p",
+                7158
+              ]
+            ],
+            "representation_count": 4,
+            "state": 25609
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6896,
+              "t": 6893,
+              "u": 6894
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6893
+              ],
+              [
+                "u",
+                6894
+              ],
+              [
+                "p",
+                6896
+              ]
+            ],
+            "representation_count": 0,
+            "state": 25875
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6917,
+              "t": 6918,
+              "u": 6917
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6918
+              ],
+              [
+                "u",
+                6917
+              ],
+              [
+                "p",
+                6917
+              ]
+            ],
+            "representation_count": 0,
+            "state": 25882
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6888,
+              "t": 6917,
+              "u": 6918
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6917
+              ],
+              [
+                "u",
+                6918
+              ],
+              [
+                "p",
+                6888
+              ]
+            ],
+            "representation_count": 0,
+            "state": 25883
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6899,
+              "t": 6916,
+              "u": 6899
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6916
+              ],
+              [
+                "u",
+                6899
+              ],
+              [
+                "p",
+                6899
+              ]
+            ],
+            "representation_count": 0,
+            "state": 25884
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -24116,
+              "t": 6673,
+              "u": -24118
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6673
+              ]
+            ],
+            "representation_count": 0,
+            "state": 26231
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -24153,
+              "t": -24120,
+              "u": -24153
+            },
+            "level": 8,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 26232
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -96065,
+              "t": -96064,
+              "u": -96065
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 113472
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -96080,
+              "t": -96083,
+              "u": -96082
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 113491
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 25883,
+              "t": 25884,
+              "u": 25883
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                25884
+              ],
+              [
+                "u",
+                25883
+              ],
+              [
+                "p",
+                25883
+              ]
+            ],
+            "representation_count": 0,
+            "state": 113508
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 25882,
+              "t": 25883,
+              "u": 25884
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                25883
+              ],
+              [
+                "u",
+                25884
+              ],
+              [
+                "p",
+                25882
+              ]
+            ],
+            "representation_count": 0,
+            "state": 113509
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -96095,
+              "t": 25882,
+              "u": -96095
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                25882
+              ]
+            ],
+            "representation_count": 0,
+            "state": 113510
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -96056,
+              "t": -96091,
+              "u": -96090
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 113531
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 25875,
+              "t": -96092,
+              "u": 25875
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                25875
+              ],
+              [
+                "p",
+                25875
+              ]
+            ],
+            "representation_count": 0,
+            "state": 113532
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 26231,
+              "t": 26232,
+              "u": 26231
+            },
+            "level": 9,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                26232
+              ],
+              [
+                "u",
+                26231
+              ],
+              [
+                "p",
+                26231
+              ]
+            ],
+            "representation_count": 0,
+            "state": 113544
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 25609,
+              "t": 21458,
+              "u": 25609
+            },
+            "level": 9,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuu",
+            "parents": [
+              [
+                "t",
+                21458
+              ],
+              [
+                "u",
+                25609
+              ],
+              [
+                "p",
+                25609
+              ]
+            ],
+            "representation_count": 8,
+            "state": 113726
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 21476,
+              "t": 25609,
+              "u": 21458
+            },
+            "level": 9,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttut",
+            "parents": [
+              [
+                "t",
+                25609
+              ],
+              [
+                "u",
+                21458
+              ],
+              [
+                "p",
+                21476
+              ]
+            ],
+            "representation_count": 4,
+            "state": 113727
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -335870,
+              "t": -335869,
+              "u": -335884
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 335885
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -335879,
+              "t": -335870,
+              "u": -335879
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 335886
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -335884,
+              "t": -335879,
+              "u": -335870
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 335887
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -324074,
+              "t": -324073,
+              "u": -324072
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 340585
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -324147,
+              "t": -324146,
+              "u": -324147
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 340594
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -324080,
+              "t": -324147,
+              "u": -324146
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 340595
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 113531,
+              "t": 113532,
+              "u": 113531
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                113532
+              ],
+              [
+                "u",
+                113531
+              ],
+              [
+                "p",
+                113531
+              ]
+            ],
+            "representation_count": 0,
+            "state": 410756
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 113509,
+              "t": 113510,
+              "u": 113509
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                113510
+              ],
+              [
+                "u",
+                113509
+              ],
+              [
+                "p",
+                113509
+              ]
+            ],
+            "representation_count": 0,
+            "state": 410810
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 113544,
+              "t": 113509,
+              "u": 113510
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                113509
+              ],
+              [
+                "u",
+                113510
+              ],
+              [
+                "p",
+                113544
+              ]
+            ],
+            "representation_count": 0,
+            "state": 410811
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 113491,
+              "t": 113508,
+              "u": 113491
+            },
+            "level": 10,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                113508
+              ],
+              [
+                "u",
+                113491
+              ],
+              [
+                "p",
+                113491
+              ]
+            ],
+            "representation_count": 0,
+            "state": 410812
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 113726,
+              "t": 113727,
+              "u": 113472
+            },
+            "level": 10,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttutt",
+            "parents": [
+              [
+                "t",
+                113727
+              ],
+              [
+                "u",
+                113472
+              ],
+              [
+                "p",
+                113726
+              ]
+            ],
+            "representation_count": 12,
+            "state": 410817
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 410811,
+              "t": 410812,
+              "u": 410811
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                410812
+              ],
+              [
+                "u",
+                410811
+              ],
+              [
+                "p",
+                410811
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826628
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 410817,
+              "t": 410810,
+              "u": 410817
+            },
+            "level": 11,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttu",
+            "parents": [
+              [
+                "t",
+                410810
+              ],
+              [
+                "u",
+                410817
+              ],
+              [
+                "p",
+                410817
+              ]
+            ],
+            "representation_count": 24,
+            "state": 1826630
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 410812,
+              "t": 410817,
+              "u": 410810
+            },
+            "level": 11,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttt",
+            "parents": [
+              [
+                "t",
+                410817
+              ],
+              [
+                "u",
+                410810
+              ],
+              [
+                "p",
+                410812
+              ]
+            ],
+            "representation_count": 12,
+            "state": 1826631
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 340594,
+              "t": 340595,
+              "u": 410756
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                340595
+              ],
+              [
+                "u",
+                410756
+              ],
+              [
+                "p",
+                340594
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826717
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 340585,
+              "t": 340594,
+              "u": 340585
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                340594
+              ],
+              [
+                "u",
+                340585
+              ],
+              [
+                "p",
+                340585
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826718
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 410756,
+              "t": 340585,
+              "u": 340594
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                340585
+              ],
+              [
+                "u",
+                340594
+              ],
+              [
+                "p",
+                410756
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826719
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531937,
+              "t": -1531936,
+              "u": -1531937
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826848
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531945,
+              "t": -1531944,
+              "u": -1531945
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826856
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531946,
+              "t": -1531945,
+              "u": -1531944
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826857
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531944,
+              "t": -1531947,
+              "u": -1531946
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826859
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531933,
+              "t": -1531948,
+              "u": -1531933
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826860
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -1531948,
+              "t": -1531943,
+              "u": -1531934
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 1826863
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 335887,
+              "t": -1531952,
+              "u": 335887
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "u",
+                335887
+              ],
+              [
+                "p",
+                335887
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826864
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 335885,
+              "t": 335886,
+              "u": 335885
+            },
+            "level": 11,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                335886
+              ],
+              [
+                "u",
+                335885
+              ],
+              [
+                "p",
+                335885
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1826866
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5344524,
+              "t": -5344519,
+              "u": -5344510
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479695
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5344489,
+              "t": -5344488,
+              "u": -5344489
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479784
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5344496,
+              "t": -5344563,
+              "u": -5344562
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479795
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5208965,
+              "t": -5208964,
+              "u": -5208965
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479812
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5208966,
+              "t": -5208965,
+              "u": -5208964
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479813
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -5344639,
+              "t": -5208966,
+              "u": -5344639
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 5479814
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826863,
+              "t": 1826864,
+              "u": 1826863
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826864
+              ],
+              [
+                "u",
+                1826863
+              ],
+              [
+                "p",
+                1826863
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562000
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826859,
+              "t": 1826860,
+              "u": 1826859
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826860
+              ],
+              [
+                "u",
+                1826859
+              ],
+              [
+                "p",
+                1826859
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562004
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 1826630,
+              "t": 1826631,
+              "u": 1826856
+            },
+            "level": 12,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttutttt",
+            "parents": [
+              [
+                "t",
+                1826631
+              ],
+              [
+                "u",
+                1826856
+              ],
+              [
+                "p",
+                1826630
+              ]
+            ],
+            "representation_count": 36,
+            "state": 6562009
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826857,
+              "t": 1826866,
+              "u": 1826857
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826866
+              ],
+              [
+                "u",
+                1826857
+              ],
+              [
+                "p",
+                1826857
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562014
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826628,
+              "t": 1826857,
+              "u": 1826866
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826857
+              ],
+              [
+                "u",
+                1826866
+              ],
+              [
+                "p",
+                1826628
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562015
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826719,
+              "t": 1826848,
+              "u": 1826719
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826848
+              ],
+              [
+                "u",
+                1826719
+              ],
+              [
+                "p",
+                1826719
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562016
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826717,
+              "t": 1826718,
+              "u": 1826717
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826718
+              ],
+              [
+                "u",
+                1826717
+              ],
+              [
+                "p",
+                1826717
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562018
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1826848,
+              "t": 1826717,
+              "u": 1826718
+            },
+            "level": 12,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1826717
+              ],
+              [
+                "u",
+                1826718
+              ],
+              [
+                "p",
+                1826848
+              ]
+            ],
+            "representation_count": 0,
+            "state": 6562019
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 5479813,
+              "t": 5479814,
+              "u": 5479813
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                5479814
+              ],
+              [
+                "u",
+                5479813
+              ],
+              [
+                "p",
+                5479813
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29155994
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 5479784,
+              "t": 5479813,
+              "u": 5479814
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                5479813
+              ],
+              [
+                "u",
+                5479814
+              ],
+              [
+                "p",
+                5479784
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29155995
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 5479795,
+              "t": 5479812,
+              "u": 5479795
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                5479812
+              ],
+              [
+                "u",
+                5479795
+              ],
+              [
+                "p",
+                5479795
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29155996
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6562014,
+              "t": 6562015,
+              "u": 6562016
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6562015
+              ],
+              [
+                "u",
+                6562016
+              ],
+              [
+                "p",
+                6562014
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29156129
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 6562018,
+              "t": 6562019,
+              "u": 6562004
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6562019
+              ],
+              [
+                "u",
+                6562004
+              ],
+              [
+                "p",
+                6562018
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29156141
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 6562009,
+              "t": 6562018,
+              "u": 6562009
+            },
+            "level": 13,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttu",
+            "parents": [
+              [
+                "t",
+                6562018
+              ],
+              [
+                "u",
+                6562009
+              ],
+              [
+                "p",
+                6562009
+              ]
+            ],
+            "representation_count": 72,
+            "state": 29156142
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 5479695,
+              "t": 6562000,
+              "u": 5479695
+            },
+            "level": 13,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                6562000
+              ],
+              [
+                "u",
+                5479695
+              ],
+              [
+                "p",
+                5479695
+              ]
+            ],
+            "representation_count": 0,
+            "state": 29156144
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 29156144,
+              "t": 29156141,
+              "u": 29156142
+            },
+            "level": 14,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttuu",
+            "parents": [
+              [
+                "t",
+                29156141
+              ],
+              [
+                "u",
+                29156142
+              ],
+              [
+                "p",
+                29156144
+              ]
+            ],
+            "representation_count": 72,
+            "state": 105328083
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 29155995,
+              "t": 29155996,
+              "u": 29155995
+            },
+            "level": 14,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                29155996
+              ],
+              [
+                "u",
+                29155995
+              ],
+              [
+                "p",
+                29155995
+              ]
+            ],
+            "representation_count": 0,
+            "state": 105328100
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 29155994,
+              "t": 29155995,
+              "u": 29155996
+            },
+            "level": 14,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                29155995
+              ],
+              [
+                "u",
+                29155996
+              ],
+              [
+                "p",
+                29155994
+              ]
+            ],
+            "representation_count": 0,
+            "state": 105328101
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 29156129,
+              "t": 29155994,
+              "u": 29156129
+            },
+            "level": 14,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                29155994
+              ],
+              [
+                "u",
+                29156129
+              ],
+              [
+                "p",
+                29156129
+              ]
+            ],
+            "representation_count": 0,
+            "state": 105328102
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 105328101,
+              "t": 105328102,
+              "u": 105328101
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                105328102
+              ],
+              [
+                "u",
+                105328101
+              ],
+              [
+                "p",
+                105328101
+              ]
+            ],
+            "representation_count": 0,
+            "state": 467259962
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 105328083,
+              "t": 105328100,
+              "u": 105328083
+            },
+            "level": 15,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttuuu",
+            "parents": [
+              [
+                "t",
+                105328100
+              ],
+              [
+                "u",
+                105328083
+              ],
+              [
+                "p",
+                105328083
+              ]
+            ],
+            "representation_count": 144,
+            "state": 467259964
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300866,
+              "t": -392300865,
+              "u": -392300864
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798337
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300881,
+              "t": -392300880,
+              "u": -392300881
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798352
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300885,
+              "t": -392300884,
+              "u": -392300885
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798356
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300886,
+              "t": -392300885,
+              "u": -392300884
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798357
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300879,
+              "t": -392300886,
+              "u": -392300879
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798358
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300884,
+              "t": -392300879,
+              "u": -392300886
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798359
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300857,
+              "t": -392300888,
+              "u": -392300857
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798360
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300896,
+              "t": -392300771,
+              "u": -392300770
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798371
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300423,
+              "t": -392300926,
+              "u": -392300423
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798414
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": -392300428,
+              "t": -392300423,
+              "u": -392300926
+            },
+            "level": 15,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [],
+            "representation_count": 0,
+            "state": 467798415
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 467798359,
+              "t": 467798360,
+              "u": 467798359
+            },
+            "level": 16,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                467798360
+              ],
+              [
+                "u",
+                467798359
+              ],
+              [
+                "p",
+                467798359
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1680752296
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 467798357,
+              "t": 467798358,
+              "u": 467798357
+            },
+            "level": 16,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                467798358
+              ],
+              [
+                "u",
+                467798357
+              ],
+              [
+                "p",
+                467798357
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1680752298
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 467798360,
+              "t": 467798357,
+              "u": 467798358
+            },
+            "level": 16,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                467798357
+              ],
+              [
+                "u",
+                467798358
+              ],
+              [
+                "p",
+                467798360
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1680752299
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 467798371,
+              "t": 467798356,
+              "u": 467798371
+            },
+            "level": 16,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                467798356
+              ],
+              [
+                "u",
+                467798371
+              ],
+              [
+                "p",
+                467798371
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1680752300
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 467798414,
+              "t": 467798415,
+              "u": 467798352
+            },
+            "level": 16,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                467798415
+              ],
+              [
+                "u",
+                467798352
+              ],
+              [
+                "p",
+                467798414
+              ]
+            ],
+            "representation_count": 0,
+            "state": 1680752305
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 467259964,
+              "t": 467798337,
+              "u": 467259962
+            },
+            "level": 16,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttuuup",
+            "parents": [
+              [
+                "t",
+                467798337
+              ],
+              [
+                "u",
+                467259962
+              ],
+              [
+                "p",
+                467259964
+              ]
+            ],
+            "representation_count": 144,
+            "state": 1680752327
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1680752298,
+              "t": 1680752299,
+              "u": 1680752300
+            },
+            "level": 17,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1680752299
+              ],
+              [
+                "u",
+                1680752300
+              ],
+              [
+                "p",
+                1680752298
+              ]
+            ],
+            "representation_count": 0,
+            "state": 7462895957
+          },
+          {
+            "H": null,
+            "inverses": {
+              "p": 1680752305,
+              "t": 1680752298,
+              "u": 1680752305
+            },
+            "level": 17,
+            "marked_position_1_based": null,
+            "maximizing_word": null,
+            "parents": [
+              [
+                "t",
+                1680752298
+              ],
+              [
+                "u",
+                1680752305
+              ],
+              [
+                "p",
+                1680752305
+              ]
+            ],
+            "representation_count": 0,
+            "state": 7462895958
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 1680752327,
+              "t": 1680752296,
+              "u": 1680752327
+            },
+            "level": 17,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttuuupu",
+            "parents": [
+              [
+                "t",
+                1680752296
+              ],
+              [
+                "u",
+                1680752327
+              ],
+              [
+                "p",
+                1680752327
+              ]
+            ],
+            "representation_count": 288,
+            "state": 7462895960
+          },
+          {
+            "H": 3,
+            "inverses": {
+              "p": 7462895960,
+              "t": 7462895957,
+              "u": 7462895958
+            },
+            "level": 18,
+            "marked_position_1_based": 6,
+            "maximizing_word": "uutuuttuttttuuupup",
+            "parents": [
+              [
+                "t",
+                7462895957
+              ],
+              [
+                "u",
+                7462895958
+              ],
+              [
+                "p",
+                7462895960
+              ]
+            ],
+            "representation_count": 288,
+            "state": 26965001899
+          }
+        ],
+        "original_word": "uutuuttuupupuuupup",
+        "phase": "u",
+        "reachable_node_count": 20,
+        "representation_count": 288,
+        "representation_factorization": {
+          "all_words_replayed": true,
+          "blocks": [
+            [
+              "u"
+            ],
+            [
+              "u",
+              "p"
+            ],
+            [
+              "t"
+            ],
+            [
+              "u"
+            ],
+            [
+              "u",
+              "p"
+            ],
+            [
+              "t"
+            ],
+            [
+              "t"
+            ],
+            [
+              "u"
+            ],
+            [
+              "tt",
+              "up",
+              "pp"
+            ],
+            [
+              "tt",
+              "up",
+              "pp"
+            ],
+            [
+              "u",
+              "p"
+            ],
+            [
+              "u"
+            ],
+            [
+              "u",
+              "p"
+            ],
+            [
+              "p"
+            ],
+            [
+              "u",
+              "p"
+            ],
+            [
+              "p"
+            ]
+          ],
+          "completeness": "288 distinct valid words equals independently computed count of all fixed-phase representations.",
+          "every_word_max_T_input_valuation": 3,
+          "exact_T_input_values": [
+            {
+              "hex": "0x6",
+              "valuation": 1,
+              "value": 6
+            },
+            {
+              "hex": "0x1b8",
+              "valuation": 3,
+              "value": 440
+            },
+            {
+              "hex": "0x648",
+              "valuation": 3,
+              "value": 1608
+            },
+            {
+              "hex": "0x6409",
+              "valuation": 0,
+              "value": 25609
+            },
+            {
+              "hex": "0x1bc3f",
+              "valuation": 0,
+              "value": 113727
+            },
+            {
+              "hex": "0x644c1",
+              "valuation": 0,
+              "value": 410817
+            },
+            {
+              "hex": "0x1bdf47",
+              "valuation": 0,
+              "value": 1826631
+            }
+          ],
+          "word_count": 288,
+          "words_sha256": "0d543f978a6c16089bc4e3b9cbccb21e53921d2be734d55fd958d19362692714"
+        },
+        "required_valuation": 9,
+        "w": "tttt",
+        "x_hex": "0x6473d46ab"
+      }
+    ]
+  },
+  "runtime_seconds": 0.04155363200698048,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Exact independent single-deletion check on the one admitted deeper occurrence.\n\nSigned bit inverses plus a bottom-up forward pass over the finite ancestor\ngraph; no complete frontier enumeration. Run from the repository root.\n\"\"\"\nimport datetime, hashlib, json, os, platform, resource, signal, subprocess\nimport sys, tempfile, time\nfrom functools import lru_cache\nfrom pathlib import Path\n\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve()\nSTART=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')))\nsignal.alarm(120)\nos.sched_setaffinity(0,{min(os.sched_getaffinity(0))})\nsha=lambda b:hashlib.sha256(b).hexdigest()\ninput_path=ROOT/'proofs/informal/problem1_return_valuation_falsification.md'\ninput_bytes=input_path.read_bytes()\ntargets=[{'phase':'u','k':18,'x_hex':'0x6473d46ab','cut':4,'w':'tttt','gaps':[2,2,2],'original_witness':'uutuuttuupupuuupup'}]\nassert targets[0]['x_hex'] in input_bytes.decode() and targets[0]['original_witness'] in input_bytes.decode()\n\ndef forward(g,n):\n    if n<0:\n        a=-1-n\n        t=a ^ ((2*a+1)&(4*a+3))\n    else:\n        bits=[(n>>i)&1 for i in range(n.bit_length())]+[0,0]\n        t=0\n        for i,b in enumerate(bits):\n            t|=(b ^ ((bits[i-1] if i>=1 else 0)|(bits[i-2] if i>=2 else 0)))<<i\n    if g=='t':return t\n    if g=='u':return t^1\n    return t^1^(2 if n%2==0 else 0)\n\n@lru_cache(None)\ndef inverse(g,n):\n    assert n>=0\n    # Entire output length, followed by its exact eventual constant tail.\n    L=max(n.bit_length(),2 if g=='p' else 1 if g=='u' else 0)\n    bits=[]\n    for i in range(L):\n        b=(n>>i)&1\n        if i==0:b^=int(g!='t')\n        elif i==1 and g=='p':b^=1\n        else:b^=(bits[i-1] if i else 0)|(bits[i-2] if i>=2 else 0)\n        bits.append(b)\n    low=sum(b<<i for i,b in enumerate(bits))\n    v=low-(1<<L) if any(bits[-2:]) else low\n    assert forward(g,v)==n\n    return v\n\ndef replay(word):\n    states=[0]\n    for g in word:states.append(forward(g,states[-1]))\n    return states\n\ndef val(n):\n    assert n>0\n    return (n&-n).bit_length()-1\n\ndef forced(n):\n    r=n%16\n    if r not in (7,11):return None\n    q='u' if r==7 else 't'\n    return q,forward(q,forward('p',n>>2))\n\nfor g,v,n in [('t',0,0),('t',-1,1),('u',0,1),('p',-1,0),('p',0,3),('t',2,14),('p',3,12)]:\n    assert forward(g,v)==n and inverse(g,n)==v\n\nrows=[]\nfor target in targets:\n    a=target['phase'];k=target['k'];x=int(target['x_hex'],16)\n    c=target['cut'];m=2*c+2;threshold=m-1\n    original=target['original_witness'];states=replay(original)\n    assert original[0]==a and len(original)==k and states[-1]==x\n    E=''.join('u'+'t'*(r-1) for r in target['gaps'])\n    observed=target['w']+E\n    assert all(b not in observed+'u' for b in ('uu','ttttt','ututtu'))\n    n=x\n    for q in observed:\n        got=forced(n);assert got is not None and got[0]==q;n=got[1]\n    deletions=[]\n    for i in range(1,k):\n        short=original[:i]+original[i+1:];y=replay(short)[-1]\n        predicted=val(states[i])+1 if original[i]=='t' else 0\n        assert val(abs(x-y))==predicted\n        for bits in range(1,m+1):\n            assert ((x-y)%2**bits==0)==(original[i]=='t' and states[i]%2**(bits-1)==0)\n        deletions.append({'position_1_based':i+1,'generator':original[i],\n          'prefix_state':states[i],'short_word':short,'short_state':y,\n          'difference_valuation':predicted,'preserves_target':predicted>=m})\n    successful=next((d for d in deletions if d['preserves_target']),None)\n    if successful is not None:\n        # The admission requires no all-representation graph once this word succeeds.\n        rows.append({'phase':a,'k':k,'x_hex':hex(x),'cut':c,'w':target['w'],'gaps':target['gaps'],\n          'original_word':original,'chosen_deletions':deletions,'required_valuation':threshold,\n          'all_representation_H':None,'representation_count':None,'existential_deletion':True,\n          'maximizing_word':None,'marked_position_1_based':successful['position_1_based'],\n          'maximizing_deletion':None,'successful_chosen_deletion':successful,\n          'node_count':0,'reachable_node_count':0,'nodes':[],\n          'scope':'A chosen-word witness proves existence; all-representation maximum was not computed.'})\n        continue\n    # Build only ancestors of this named endpoint, using exact signed inverses.\n    # Bottom-up reachability ignores nodes with no path from the fixed root.\n    pending=[(k,x)];nodes={}\n    while pending:\n        level,n=pending.pop()\n        if (level,n) in nodes:continue\n        assert n>0 and n.bit_length()==2*level-int(a=='u')\n        node={'level':level,'state':n,'inverses':{},'parents':[]}\n        if level>1:\n            for g in 'tup':\n                v=inverse(g,n);node['inverses'][g]=v\n                if v>0 and v.bit_length()==2*(level-1)-int(a=='u'):\n                    node['parents'].append([g,v]);pending.append((level-1,v))\n        nodes[level,n]=node\n    for (level,n),node in sorted(nodes.items()):\n        count=0;H=-1;best=None;mark=None\n        if level==1:\n            if n==({'p':3,'u':1}[a]):count=1;best=a\n        else:\n            for g,v in node['parents']:\n                parent=nodes[level-1,v]\n                if not parent['representation_count']:continue\n                count+=parent['representation_count']\n                score=max(parent['H'],val(v) if g=='t' else -1)\n                if best is None or score>H:\n                    H=score;best=parent['maximizing_word']+g\n                    mark=level if g=='t' and val(v)>parent['H'] else parent['marked_position_1_based']\n        node.update({'representation_count':count,'H':H if count else None,\n          'maximizing_word':best,'marked_position_1_based':mark})\n        if count:assert replay(best)[-1]==n\n    top=nodes[k,x];assert top['representation_count']>0\n    best=top['maximizing_word'];mark=top['marked_position_1_based']\n    shortened=None\n    if mark is not None:\n        short=best[:mark-1]+best[mark:];sy=replay(short)[-1]\n        assert val(abs(x-sy))==top['H']+1\n        shortened={'word':short,'state':sy,'state_hex':hex(sy),'difference_valuation':top['H']+1,\n          'preserves_target':(x-sy)%2**m==0}\n    row={'phase':a,'k':k,'x_hex':hex(x),'cut':c,'w':target['w'],'gaps':target['gaps'],\n      'original_word':original,'chosen_deletions':deletions,'required_valuation':threshold,\n      'all_representation_H':top['H'],'representation_count':top['representation_count'],\n      'existential_deletion':top['H']>=threshold,'maximizing_word':best,\n      'marked_position_1_based':mark,'maximizing_deletion':shortened,\n      'node_count':len(nodes),'reachable_node_count':sum(bool(n['representation_count']) for n in nodes.values()),\n      'nodes':[node for key,node in sorted(nodes.items())]}\n    rows.append(row)\n\n# Compact factorization of the exact same endpoint's representation graph.\nfrom itertools import product\nblocks=[['u'],['u','p'],['t'],['u'],['u','p'],['t'],['t'],['u'],\n ['tt','up','pp'],['tt','up','pp'],['u','p'],['u'],['u','p'],['p'],['u','p'],['p']]\nlanguage={''.join(parts) for parts in product(*blocks)}\nassert len(language)==288 and rows[0]['representation_count']==288\ninput_values=set()\nfor word in sorted(language):\n    st=replay(word)\n    assert len(word)==18 and word[0]=='u' and st[-1]==0x6473d46ab\n    valuations=[val(st[i]) for i in range(1,len(word)) if word[i]=='t']\n    assert max(valuations)==3\n    input_values.update(st[i] for i in range(1,len(word)) if word[i]=='t')\nassert input_values=={0x6,0x1b8,0x648,0x6409,0x1bc3f,0x644c1,0x1bdf47}\nrows[0]['representation_factorization']={'blocks':blocks,'word_count':len(language),\n 'words_sha256':sha(('\\n'.join(sorted(language))+'\\n').encode()),\n 'all_words_replayed':True,'every_word_max_T_input_valuation':3,\n 'exact_T_input_values':[{'value':v,'hex':hex(v),'valuation':val(v)} for v in sorted(input_values)],\n 'completeness':'288 distinct valid words equals independently computed count of all fixed-phase representations.'}\nsummary={'rows':rows,'row_count':len(rows),'completed':True,\n 'criterion_checks':sum(len(r['chosen_deletions'])*(2*r['cut']+2) for r in rows),\n 'existential_pass':sum(r['existential_deletion'] for r in rows),\n 'existential_fail':sum(not r['existential_deletion'] for r in rows)}\nsource=Path(__file__).read_text()\nrecord={'experiment_id':'20260905_generator_deletion_deep_independent',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'Every genuine three-return occurrence admits one noninitial generator deletion in some representation preserving its base-cylinder residue.',\n 'backend':'signed-bit-inverse-and-bottom-up-ancestor-graph',\n 'parameters':{'input':'only the previously documented u18 cut4 occurrence from the valuation falsification note',\n  'targets':[{'phase':r['phase'],'k':r['k'],'x_hex':r['x_hex'],'cut':r['cut']} for r in rows],\n  'chosen_deletion_moduli':'m=1,...,2c+2; every noninitial position',\n  'all_representations':'only if the chosen word fails: exact ancestor DAG with fixed phase root; no frontier enumeration',\n  'cpu_workers':1,'wall_limit_seconds':120,'address_space_bytes':1024**3},\n 'hardware':{'machine':platform.machine(),'processor':platform.processor(),\n  'cpu_affinity':sorted(os.sched_getaffinity(0)),'cpu_description':next((v.split(':',1)[1].strip() for v in Path('/proc/cpuinfo').read_text().splitlines() if v.startswith('model name')),None)},\n 'software':{'python':sys.version,'platform':platform.platform()},\n 'runtime_seconds':time.monotonic()-START,'status':'finite-exhaustive',\n 'proof_scope':'Exactly one named deeper occurrence and all noninitial deletions in its named word; all ordinary representations only if the chosen word fails.',\n 'interpretation':'A negative existential verdict refutes the single-deletion certificate class on that genuine occurrence, not arbitrary adjacent shadows.',\n 'limitations':['No conclusion about other occurrences or longer block rewrites.','No full frontier enumeration.'],\n 'source_text':source,'input':{'path':str(input_path.relative_to(ROOT)),'sha256':sha(input_bytes)},\n 'result_summary':summary,'result_hashes':{'source_sha256':sha(source.encode()),\n 'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode())}}\ndest=ROOT/'results/problem1/20260905_generator_deletion_deep_independent.json'\nfd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\nwith os.fdopen(fd,'w') as f:\n    json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,dest)\nsignal.alarm(0)\nprint(json.dumps({'rows':[{k:r[k] for k in ('x_hex','all_representation_H','required_valuation','representation_count','node_count','reachable_node_count','existential_deletion','maximizing_word','maximizing_deletion')} for r in rows],\n 'criterion_checks':summary['criterion_checks'],'seconds':record['runtime_seconds']},sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T17:47:08.335861+00:00"
+}

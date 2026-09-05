@@ -11,6 +11,48 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest certificate-class obstruction (`refuted`): read
+`proofs/informal/problem1_generator_deletion_test.md` first.
+
+- Exact all-depth deletion law (`partial-proof`): deleting a noninitial
+  generator from a representation preserves the residue modulo 2^m iff
+  it is T and its positive input is divisible by 2^(m-1). Common suffixes
+  preserve the first differing bit. U/P deletion always changes parity.
+- The maximum H over T-input valuations on ALL root-reaching ordinary
+  representations has an exact phase-gated predecessor recursion. A
+  single-deletion shadow at cut c exists iff H>=2c+1. For odd x such a
+  deletion also forces c<=k-4, one cut stronger than B_all. This is a
+  conditional theorem, not a proved occurrence bound.
+- Both initial map counterexamples admit single-deletion shadows. For
+  u14/0x642fdfb/cut1 delete position7 of its chosen word. For
+  p16/0xc85f8787/cut2 the chosen word fails, but another of its216
+  representations works; its global H is7. Failure of one representation
+  must therefore not be mistaken for failure over all representations.
+- The preselected deeper genuine occurrence u18/0x6473d46ab/cut4,
+  w=tttt, gap222 REFUTES the universal single-deletion construction:
+  every one of its288 representations has H=3, below the required9.
+  Exact word language: u A t u A t t u D D A u A p A p, where
+  A={u,p}, D={tt,up,pp}. The two independent graphs agree on all140
+  nodes,417 inverse attempts,20 reachable nodes, counts and maxima.
+- Muse independently reviewed the all-depth criterion, phase scope and
+  conditional cut bound without tools. Dewey implemented exact partial
+  inverses and certificates; lead signed-inverse/bottom-up replay agreed
+  node by node and verified the288-word factorization. Only two initial
+  endpoints and one already documented deeper endpoint were checked.
+  Fresh reviewer Ramanujan accepted the mathematical scope and factorization;
+  its comparison-script portability correction is incorporated.
+  Four atomic records: `results/problem1/20260905_generator_deletion`
+  followed by `{,_deep}_{primary,independent}.json`.
+
+Next untested route: a specified shorter contiguous generator-block
+replacement, first on the same288-word failure family. A successful finite
+rewrite would need an all-depth selection rule. Single deletion is now
+refuted, not a surviving conjecture. Adjacent inclusion, B_all and signed
+nonvanishing remain open; this occurrence still has signed mass2.
+The strongest bottleneck remains all-depth critical-cut exclusion or an
+invariant of return-conditioned endpoint correlations. No larger census
+or proof of eventual-alternation exclusion follows from these results.
+
 Newest completed falsification (`refuted`): read
 `proofs/informal/problem1_conjugated_projection_test.md` first.
 
