@@ -11,6 +11,60 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest appended-suffix schedule theorem: read
+`proofs/informal/problem1_born_suffix_schedule_cost.md` first, then the
+cost-pullback definitions below.
+
+- `partial-proof`: for residue memory b>=2, the first s+d OBSERVED
+  branches determine the full ordered born-letter/residue vector at
+  time s, with d=ceil((b-2)/2). For W*, d=1. Its appended cost beta_s
+  is exactly the sum of a uniform score K over suffixes of lengths
+  2..s+1 of that observed word. The score's memory is not proved bounded.
+  An unobserved admissibility u cannot replace the extra actual gate.
+- Zero-at-birth does NOT imply zero after aging. The continuing ordinary
+  zero-suffix claim is now `refuted`: original p,k14,0xc8e176b, word
+  putpupupttuuuu; and u,k15,0x190b976b, word utttttuutupupup; both
+  execute admissible ttuttu and have beta_5=1 with an actual next u.
+  No reselection is used. These cuts5 precede k-4=10/11 and do not
+  refute the near-boundary three-return restriction or physical scope.
+- `finite-exhaustive` short atlas: K=0 on all admissible words of
+  lengths2..5. Its positive length6 words are exactly ttuttu,tutttu,
+  uttttu. Exact cylinders turn this into an all-input BOUNDED-TIME
+  theorem: beta_s=0 for s<=4 with s+1 admissible observed branches,
+  and time5 is the earliest possible positive beta in that domain.
+  For any age>=5, one of those last-six patterns gives beta_s>=1;
+  no converse or absence of longer-score contributions is asserted.
+- The least residue representative5995 is NOT ordinary, nor are the
+  first16 lifts tested. The exact ordinary graph nonetheless realizes
+  its class modulo16384 in both phases, with shortest nonroot lengths
+  13/14. Do not confuse the class with the integer. The graph has
+  16384 vertices and49152 edges; no ordinary-frontier cap was increased.
+- The corrected cost C_s=W*(v_s)-beta_s=W*(H^s(v)) lies in[0,n],
+  with n the ORIGINAL word length, but universal strict return descent
+  is also `refuted`: prior cut1 examples give p0->2 and u0->0.
+  Subtracting the suffix does not repair that unrestricted claim.
+- Muse and independent cell implementations agree on27 old rows,14
+  new ordinary state/count tables and two new time-five born vectors.
+  The cell implementation independently checks41 full48-component
+  decompositions. The portable verifier checks both parent-array replays,
+  all graph distances, the complete short atlas,16 inverse rejection
+  trees and provenance hashes. An original false probe-match flag is
+  explicitly corrected as an overwritten-variable reporting error;
+  both independent replays verify the intended5995 orbit.
+  Records: `results/problem1/20260905_born_suffix_` followed by
+  `{kernel_probe,primary,independent,verification}.json`.
+
+Final review accepted the mathematical and finite conclusions; its
+two reporting clarifications are incorporated above and in the note.
+The complete six-file checkpoint subsequently passed final review with
+no remaining corrections.
+
+Next: control original-position cost jointly with the unbounded suffix
+score when elapsed time is comparable to INITIAL word length. Neither
+discarding beta nor merely subtracting it supplies descent. Do not
+extend the short atlas only to collect more patterns. B_all, actual
+near-boundary three-return exclusion, signed nonvanishing and P1 remain open.
+
 Newest exact fixed-age cost pullback: read
 `proofs/informal/problem1_prescribed_history_cost_pullback.md` first,
 then the definitions in `problem1_history_synchronization.md`.

@@ -1,0 +1,1682 @@
+{
+  "backend": "python-cell-rule-branch-cylinder-lifting",
+  "experiment_id": "problem1-suffix-kernel-cylinder-probe-20260905",
+  "git_commit": "96a48d23a9ca9b0dbc1414aab3d02b06f24f473b",
+  "hardware": {
+    "affinity_used": [
+      0
+    ],
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 471072
+  },
+  "hypothesis": "Every aged born letter has W* cost0 when its following forced step exists and the full observed branch prefix is admissible.",
+  "inputs": {
+    "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+    "proofs/informal/problem1_zero_cost_return_language.md": "42385f0e5884cc7379bb53a8a77b65fc23e880e3955bcb5626a78c1e2e554c99"
+  },
+  "interpretation": "A positive cylinder refutes universal suffix-zero on this finite-integer forced domain; absence would be finite-only evidence.",
+  "limitations": [
+    "No ordinary-frontier census or physical-membership claim.",
+    "Representatives and their precision cylinders are finite-prefix objects.",
+    "No unobserved admissibility letter is treated as an observed gate."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "forbidden_factors": [
+      "uu",
+      "ttttt",
+      "ututtu"
+    ],
+    "maximum_observed_length": 10,
+    "minimum_tested_length": 2,
+    "wall_seconds_limit": 120,
+    "word_order": "length then t,u lexicographic"
+  },
+  "proof_scope": "All admissible branch words at the completed lengths and exact coset lifts; no ordinary membership assumption.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "c88b9c804feea74a06c5f846d6ec85d5fe533b1a0346c491d80c98880e1b6840",
+    "source_sha256": "aae26a35cd97e94f90c81b748f0ff18b2006f5f389a7209702712e3e26e7dbf8"
+  },
+  "result_summary": {
+    "completed": true,
+    "declared_max_observed_length": 10,
+    "failures": [],
+    "first_positive_oldest_term": {
+      "age": 5,
+      "oldest_cost": 1,
+      "oldest_letter": "u",
+      "oldest_old_prefix_mod16": 1,
+      "representative": 5995,
+      "states": [
+        5995,
+        26363,
+        103367,
+        409963,
+        1644155,
+        6563111,
+        26329347
+      ],
+      "word": "ttuttu"
+    },
+    "last_completed_length": 6,
+    "level_counts": {
+      "1": 2,
+      "2": 3,
+      "3": 5,
+      "4": 8,
+      "5": 12,
+      "6": 17
+    },
+    "levels": [
+      {
+        "length": 1,
+        "modulus": 16,
+        "rows": [
+          {
+            "representative": 11,
+            "word": "t"
+          },
+          {
+            "representative": 7,
+            "word": "u"
+          }
+        ]
+      },
+      {
+        "length": 2,
+        "modulus": 64,
+        "rows": [
+          {
+            "age": 1,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 43,
+            "states": [
+              43,
+              203,
+              803
+            ],
+            "word": "tt"
+          },
+          {
+            "age": 1,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 1,
+            "representative": 59,
+            "states": [
+              59,
+              215,
+              887
+            ],
+            "word": "tu"
+          },
+          {
+            "age": 1,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 6,
+            "representative": 7,
+            "states": [
+              7,
+              27,
+              111
+            ],
+            "word": "ut"
+          }
+        ]
+      },
+      {
+        "length": 3,
+        "modulus": 256,
+        "rows": [
+          {
+            "age": 2,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 10,
+            "representative": 171,
+            "states": [
+              171,
+              811,
+              3211,
+              12819
+            ],
+            "word": "ttt"
+          },
+          {
+            "age": 2,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 14,
+            "representative": 107,
+            "states": [
+              107,
+              443,
+              1783,
+              7119
+            ],
+            "word": "ttu"
+          },
+          {
+            "age": 2,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 1,
+            "representative": 251,
+            "states": [
+              251,
+              839,
+              3531,
+              14307
+            ],
+            "word": "tut"
+          },
+          {
+            "age": 2,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 10,
+            "representative": 199,
+            "states": [
+              199,
+              811,
+              3211,
+              12819
+            ],
+            "word": "utt"
+          },
+          {
+            "age": 2,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 14,
+            "representative": 135,
+            "states": [
+              135,
+              827,
+              3223,
+              12807
+            ],
+            "word": "utu"
+          }
+        ]
+      },
+      {
+        "length": 4,
+        "modulus": 1024,
+        "rows": [
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 683,
+            "states": [
+              683,
+              3243,
+              12843,
+              51275,
+              205699
+            ],
+            "word": "tttt"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 9,
+            "representative": 939,
+            "states": [
+              939,
+              3435,
+              14203,
+              57063,
+              227827
+            ],
+            "word": "tttu"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 0,
+            "representative": 875,
+            "states": [
+              875,
+              3579,
+              14215,
+              57083,
+              227783
+            ],
+            "word": "ttut"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 763,
+            "states": [
+              763,
+              3271,
+              12843,
+              51275,
+              205699
+            ],
+            "word": "tutt"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 9,
+            "representative": 507,
+            "states": [
+              507,
+              1671,
+              7099,
+              28535,
+              113903
+            ],
+            "word": "tutu"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 711,
+            "states": [
+              711,
+              3243,
+              12843,
+              51275,
+              205699
+            ],
+            "word": "uttt"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 9,
+            "representative": 967,
+            "states": [
+              967,
+              3435,
+              14203,
+              57063,
+              227827
+            ],
+            "word": "uttu"
+          },
+          {
+            "age": 3,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 0,
+            "representative": 903,
+            "states": [
+              903,
+              3579,
+              14215,
+              57083,
+              227783
+            ],
+            "word": "utut"
+          }
+        ]
+      },
+      {
+        "length": 5,
+        "modulus": 4096,
+        "rows": [
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 6,
+            "representative": 1707,
+            "states": [
+              1707,
+              7083,
+              28523,
+              113915,
+              456263,
+              1821963
+            ],
+            "word": "ttttu"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 15,
+            "representative": 2987,
+            "states": [
+              2987,
+              13163,
+              51707,
+              204935,
+              822075,
+              3281559
+            ],
+            "word": "tttut"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 12,
+            "representative": 1899,
+            "states": [
+              1899,
+              6907,
+              28359,
+              114091,
+              455659,
+              1825051
+            ],
+            "word": "ttutt"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 8,
+            "representative": 875,
+            "states": [
+              875,
+              3579,
+              14215,
+              57083,
+              227783,
+              912619
+            ],
+            "word": "ttutu"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 10,
+            "representative": 2811,
+            "states": [
+              2811,
+              12999,
+              51371,
+              205099,
+              822795,
+              3282867
+            ],
+            "word": "tuttt"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 6,
+            "representative": 1787,
+            "states": [
+              1787,
+              7111,
+              28523,
+              113915,
+              456263,
+              1821963
+            ],
+            "word": "tuttu"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 15,
+            "representative": 3579,
+            "states": [
+              3579,
+              14215,
+              57083,
+              227783,
+              912619,
+              3643995
+            ],
+            "word": "tutut"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 10,
+            "representative": 2759,
+            "states": [
+              2759,
+              12971,
+              51371,
+              205099,
+              822795,
+              3282867
+            ],
+            "word": "utttt"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 6,
+            "representative": 1735,
+            "states": [
+              1735,
+              7083,
+              28523,
+              113915,
+              456263,
+              1821963
+            ],
+            "word": "utttu"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "p",
+            "oldest_old_prefix_mod16": 15,
+            "representative": 3015,
+            "states": [
+              3015,
+              13163,
+              51707,
+              204935,
+              822075,
+              3281559
+            ],
+            "word": "uttut"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 12,
+            "representative": 1927,
+            "states": [
+              1927,
+              6907,
+              28359,
+              114091,
+              455659,
+              1825051
+            ],
+            "word": "ututt"
+          },
+          {
+            "age": 4,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 8,
+            "representative": 903,
+            "states": [
+              903,
+              3579,
+              14215,
+              57083,
+              227783,
+              912619
+            ],
+            "word": "ututu"
+          }
+        ]
+      },
+      {
+        "length": 6,
+        "modulus": 16384,
+        "rows": [
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 2,
+            "representative": 1707,
+            "states": [
+              1707,
+              7083,
+              28523,
+              113915,
+              456263,
+              1821963,
+              7300979
+            ],
+            "word": "ttttut"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 4,
+            "representative": 15275,
+            "states": [
+              15275,
+              55147,
+              227067,
+              913351,
+              3644523,
+              14601915,
+              58303927
+            ],
+            "word": "tttutt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 8,
+            "representative": 2987,
+            "states": [
+              2987,
+              13163,
+              51707,
+              204935,
+              822075,
+              3281559,
+              13164679
+            ],
+            "word": "tttutu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 1899,
+            "states": [
+              1899,
+              6907,
+              28359,
+              114091,
+              455659,
+              1825051,
+              7287855
+            ],
+            "word": "ttuttt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 1,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 1,
+            "representative": 5995,
+            "states": [
+              5995,
+              26363,
+              103367,
+              409963,
+              1644155,
+              6563111,
+              26329347
+            ],
+            "word": "ttuttu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 2,
+            "representative": 875,
+            "states": [
+              875,
+              3579,
+              14215,
+              57083,
+              227783,
+              912619,
+              3643995
+            ],
+            "word": "ttutut"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 11003,
+            "states": [
+              11003,
+              51911,
+              205483,
+              820395,
+              3291179,
+              13131467,
+              52664739
+            ],
+            "word": "tutttt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 1,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 1,
+            "representative": 15099,
+            "states": [
+              15099,
+              54983,
+              227243,
+              913003,
+              3645243,
+              14600599,
+              58302535
+            ],
+            "word": "tutttu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 2,
+            "representative": 1787,
+            "states": [
+              1787,
+              7111,
+              28523,
+              113915,
+              456263,
+              1821963,
+              7300979
+            ],
+            "word": "tuttut"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 4,
+            "representative": 3579,
+            "states": [
+              3579,
+              14215,
+              57083,
+              227783,
+              912619,
+              3643995,
+              14601759
+            ],
+            "word": "tututt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 8,
+            "representative": 15867,
+            "states": [
+              15867,
+              54151,
+              225787,
+              916103,
+              3638971,
+              14613431,
+              58312575
+            ],
+            "word": "tututu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 1,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 1,
+            "representative": 15047,
+            "states": [
+              15047,
+              54955,
+              227243,
+              913003,
+              3645243,
+              14600599,
+              58302535
+            ],
+            "word": "uttttu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 2,
+            "representative": 1735,
+            "states": [
+              1735,
+              7083,
+              28523,
+              113915,
+              456263,
+              1821963,
+              7300979
+            ],
+            "word": "utttut"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 4,
+            "representative": 15303,
+            "states": [
+              15303,
+              55147,
+              227067,
+              913351,
+              3644523,
+              14601915,
+              58303927
+            ],
+            "word": "uttutt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "t",
+            "oldest_old_prefix_mod16": 8,
+            "representative": 3015,
+            "states": [
+              3015,
+              13163,
+              51707,
+              204935,
+              822075,
+              3281559,
+              13164679
+            ],
+            "word": "uttutu"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 5,
+            "representative": 1927,
+            "states": [
+              1927,
+              6907,
+              28359,
+              114091,
+              455659,
+              1825051,
+              7287855
+            ],
+            "word": "ututtt"
+          },
+          {
+            "age": 5,
+            "oldest_cost": 0,
+            "oldest_letter": "u",
+            "oldest_old_prefix_mod16": 2,
+            "representative": 903,
+            "states": [
+              903,
+              3579,
+              14215,
+              57083,
+              227783,
+              912619,
+              3643995
+            ],
+            "word": "ututut"
+          }
+        ]
+      }
+    ],
+    "lift_trials": [
+      [
+        "t",
+        11,
+        0,
+        11,
+        null
+      ],
+      [
+        "t",
+        11,
+        1,
+        27,
+        null
+      ],
+      [
+        "t",
+        11,
+        2,
+        43,
+        "t"
+      ],
+      [
+        "t",
+        11,
+        3,
+        59,
+        "u"
+      ],
+      [
+        "u",
+        7,
+        0,
+        7,
+        "t"
+      ],
+      [
+        "u",
+        7,
+        1,
+        23,
+        "u"
+      ],
+      [
+        "u",
+        7,
+        2,
+        39,
+        null
+      ],
+      [
+        "u",
+        7,
+        3,
+        55,
+        null
+      ],
+      [
+        "tt",
+        43,
+        0,
+        43,
+        null
+      ],
+      [
+        "tt",
+        43,
+        1,
+        107,
+        "u"
+      ],
+      [
+        "tt",
+        43,
+        2,
+        171,
+        "t"
+      ],
+      [
+        "tt",
+        43,
+        3,
+        235,
+        null
+      ],
+      [
+        "tu",
+        59,
+        0,
+        59,
+        "u"
+      ],
+      [
+        "tu",
+        59,
+        1,
+        123,
+        null
+      ],
+      [
+        "tu",
+        59,
+        2,
+        187,
+        null
+      ],
+      [
+        "tu",
+        59,
+        3,
+        251,
+        "t"
+      ],
+      [
+        "ut",
+        7,
+        0,
+        7,
+        null
+      ],
+      [
+        "ut",
+        7,
+        1,
+        71,
+        null
+      ],
+      [
+        "ut",
+        7,
+        2,
+        135,
+        "u"
+      ],
+      [
+        "ut",
+        7,
+        3,
+        199,
+        "t"
+      ],
+      [
+        "ttt",
+        171,
+        0,
+        171,
+        null
+      ],
+      [
+        "ttt",
+        171,
+        1,
+        427,
+        null
+      ],
+      [
+        "ttt",
+        171,
+        2,
+        683,
+        "t"
+      ],
+      [
+        "ttt",
+        171,
+        3,
+        939,
+        "u"
+      ],
+      [
+        "ttu",
+        107,
+        0,
+        107,
+        null
+      ],
+      [
+        "ttu",
+        107,
+        1,
+        363,
+        null
+      ],
+      [
+        "ttu",
+        107,
+        2,
+        619,
+        "u"
+      ],
+      [
+        "ttu",
+        107,
+        3,
+        875,
+        "t"
+      ],
+      [
+        "tut",
+        251,
+        0,
+        251,
+        null
+      ],
+      [
+        "tut",
+        251,
+        1,
+        507,
+        "u"
+      ],
+      [
+        "tut",
+        251,
+        2,
+        763,
+        "t"
+      ],
+      [
+        "tut",
+        251,
+        3,
+        1019,
+        null
+      ],
+      [
+        "utt",
+        199,
+        0,
+        199,
+        null
+      ],
+      [
+        "utt",
+        199,
+        1,
+        455,
+        null
+      ],
+      [
+        "utt",
+        199,
+        2,
+        711,
+        "t"
+      ],
+      [
+        "utt",
+        199,
+        3,
+        967,
+        "u"
+      ],
+      [
+        "utu",
+        135,
+        0,
+        135,
+        "u"
+      ],
+      [
+        "utu",
+        135,
+        1,
+        391,
+        null
+      ],
+      [
+        "utu",
+        135,
+        2,
+        647,
+        null
+      ],
+      [
+        "utu",
+        135,
+        3,
+        903,
+        "t"
+      ],
+      [
+        "tttt",
+        683,
+        0,
+        683,
+        null
+      ],
+      [
+        "tttt",
+        683,
+        1,
+        1707,
+        "u"
+      ],
+      [
+        "tttt",
+        683,
+        2,
+        2731,
+        "t"
+      ],
+      [
+        "tttt",
+        683,
+        3,
+        3755,
+        null
+      ],
+      [
+        "tttu",
+        939,
+        0,
+        939,
+        null
+      ],
+      [
+        "tttu",
+        939,
+        1,
+        1963,
+        "u"
+      ],
+      [
+        "tttu",
+        939,
+        2,
+        2987,
+        "t"
+      ],
+      [
+        "tttu",
+        939,
+        3,
+        4011,
+        null
+      ],
+      [
+        "ttut",
+        875,
+        0,
+        875,
+        "u"
+      ],
+      [
+        "ttut",
+        875,
+        1,
+        1899,
+        "t"
+      ],
+      [
+        "ttut",
+        875,
+        2,
+        2923,
+        null
+      ],
+      [
+        "ttut",
+        875,
+        3,
+        3947,
+        null
+      ],
+      [
+        "tutt",
+        763,
+        0,
+        763,
+        null
+      ],
+      [
+        "tutt",
+        763,
+        1,
+        1787,
+        "u"
+      ],
+      [
+        "tutt",
+        763,
+        2,
+        2811,
+        "t"
+      ],
+      [
+        "tutt",
+        763,
+        3,
+        3835,
+        null
+      ],
+      [
+        "tutu",
+        507,
+        0,
+        507,
+        null
+      ],
+      [
+        "tutu",
+        507,
+        1,
+        1531,
+        null
+      ],
+      [
+        "tutu",
+        507,
+        2,
+        2555,
+        "u"
+      ],
+      [
+        "tutu",
+        507,
+        3,
+        3579,
+        "t"
+      ],
+      [
+        "uttt",
+        711,
+        0,
+        711,
+        null
+      ],
+      [
+        "uttt",
+        711,
+        1,
+        1735,
+        "u"
+      ],
+      [
+        "uttt",
+        711,
+        2,
+        2759,
+        "t"
+      ],
+      [
+        "uttt",
+        711,
+        3,
+        3783,
+        null
+      ],
+      [
+        "uttu",
+        967,
+        0,
+        967,
+        null
+      ],
+      [
+        "uttu",
+        967,
+        1,
+        1991,
+        "u"
+      ],
+      [
+        "uttu",
+        967,
+        2,
+        3015,
+        "t"
+      ],
+      [
+        "uttu",
+        967,
+        3,
+        4039,
+        null
+      ],
+      [
+        "utut",
+        903,
+        0,
+        903,
+        "u"
+      ],
+      [
+        "utut",
+        903,
+        1,
+        1927,
+        "t"
+      ],
+      [
+        "utut",
+        903,
+        2,
+        2951,
+        null
+      ],
+      [
+        "utut",
+        903,
+        3,
+        3975,
+        null
+      ],
+      [
+        "ttttu",
+        1707,
+        0,
+        1707,
+        "t"
+      ],
+      [
+        "ttttu",
+        1707,
+        1,
+        5803,
+        "u"
+      ],
+      [
+        "ttttu",
+        1707,
+        2,
+        9899,
+        null
+      ],
+      [
+        "ttttu",
+        1707,
+        3,
+        13995,
+        null
+      ],
+      [
+        "tttut",
+        2987,
+        0,
+        2987,
+        "u"
+      ],
+      [
+        "tttut",
+        2987,
+        1,
+        7083,
+        null
+      ],
+      [
+        "tttut",
+        2987,
+        2,
+        11179,
+        null
+      ],
+      [
+        "tttut",
+        2987,
+        3,
+        15275,
+        "t"
+      ],
+      [
+        "ttutt",
+        1899,
+        0,
+        1899,
+        "t"
+      ],
+      [
+        "ttutt",
+        1899,
+        1,
+        5995,
+        "u"
+      ],
+      [
+        "ttutt",
+        1899,
+        2,
+        10091,
+        null
+      ],
+      [
+        "ttutt",
+        1899,
+        3,
+        14187,
+        null
+      ],
+      [
+        "ttutu",
+        875,
+        0,
+        875,
+        "t"
+      ],
+      [
+        "ttutu",
+        875,
+        1,
+        4971,
+        null
+      ],
+      [
+        "ttutu",
+        875,
+        2,
+        9067,
+        null
+      ],
+      [
+        "ttutu",
+        875,
+        3,
+        13163,
+        "u"
+      ],
+      [
+        "tuttt",
+        2811,
+        0,
+        2811,
+        null
+      ],
+      [
+        "tuttt",
+        2811,
+        1,
+        6907,
+        null
+      ],
+      [
+        "tuttt",
+        2811,
+        2,
+        11003,
+        "t"
+      ],
+      [
+        "tuttt",
+        2811,
+        3,
+        15099,
+        "u"
+      ],
+      [
+        "tuttu",
+        1787,
+        0,
+        1787,
+        "t"
+      ],
+      [
+        "tuttu",
+        1787,
+        1,
+        5883,
+        "u"
+      ],
+      [
+        "tuttu",
+        1787,
+        2,
+        9979,
+        null
+      ],
+      [
+        "tuttu",
+        1787,
+        3,
+        14075,
+        null
+      ],
+      [
+        "tutut",
+        3579,
+        0,
+        3579,
+        "t"
+      ],
+      [
+        "tutut",
+        3579,
+        1,
+        7675,
+        null
+      ],
+      [
+        "tutut",
+        3579,
+        2,
+        11771,
+        null
+      ],
+      [
+        "tutut",
+        3579,
+        3,
+        15867,
+        "u"
+      ],
+      [
+        "utttt",
+        2759,
+        0,
+        2759,
+        null
+      ],
+      [
+        "utttt",
+        2759,
+        1,
+        6855,
+        null
+      ],
+      [
+        "utttt",
+        2759,
+        2,
+        10951,
+        "t"
+      ],
+      [
+        "utttt",
+        2759,
+        3,
+        15047,
+        "u"
+      ],
+      [
+        "utttu",
+        1735,
+        0,
+        1735,
+        "t"
+      ],
+      [
+        "utttu",
+        1735,
+        1,
+        5831,
+        "u"
+      ],
+      [
+        "utttu",
+        1735,
+        2,
+        9927,
+        null
+      ],
+      [
+        "utttu",
+        1735,
+        3,
+        14023,
+        null
+      ],
+      [
+        "uttut",
+        3015,
+        0,
+        3015,
+        "u"
+      ],
+      [
+        "uttut",
+        3015,
+        1,
+        7111,
+        null
+      ],
+      [
+        "uttut",
+        3015,
+        2,
+        11207,
+        null
+      ],
+      [
+        "uttut",
+        3015,
+        3,
+        15303,
+        "t"
+      ],
+      [
+        "ututt",
+        1927,
+        0,
+        1927,
+        "t"
+      ],
+      [
+        "ututt",
+        1927,
+        1,
+        6023,
+        "u"
+      ],
+      [
+        "ututt",
+        1927,
+        2,
+        10119,
+        null
+      ],
+      [
+        "ututt",
+        1927,
+        3,
+        14215,
+        null
+      ],
+      [
+        "ututu",
+        903,
+        0,
+        903,
+        "t"
+      ],
+      [
+        "ututu",
+        903,
+        1,
+        4999,
+        null
+      ],
+      [
+        "ututu",
+        903,
+        2,
+        9095,
+        null
+      ],
+      [
+        "ututu",
+        903,
+        3,
+        13191,
+        "u"
+      ]
+    ],
+    "stopping_rule": "Complete each admissible length in order; stop at first positive oldest-born cost or length10."
+  },
+  "runtime_seconds": 0.014440485974773765,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import datetime,hashlib,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nROOT=pathlib.Path('/home/ryan/rule30-lab');OUT=pathlib.Path('/tmp/astra_suffix_kernel_probe.json')\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));resource.setrlimit(resource.RLIMIT_CPU,(120,120));signal.alarm(120)\naff=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{aff[0]})\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef sha(x):return hashlib.sha256(x).hexdigest()\ndef T(x):\n    bits=[(x>>j)&1 for j in range(x.bit_length()+2)]\n    return sum((bits[j]^((bits[j-1] if j>=1 else 0)|(bits[j-2] if j>=2 else 0)))<<j for j in range(len(bits)))\ndef A(x):return T(x)>>2\ndef G(g,x):return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\ndef gate(x):return 'u' if x%16==7 else 't' if x%16==11 else None\ndef orbit(x,word):\n    states=[x]\n    for g in word:\n        assert gate(x)==g;x=G(g,G('p',x>>2));states.append(x)\n    return states\ndef admissible(w):return not any(b in w for b in ['uu','ttttt','ututtu'])\ndef omega(x,g):return int((x%16==0 and g=='t') or (x%16==1 and g=='u'))\nS='tupp';CAP=10\nlevels=[{'length':1,'modulus':16,'rows':[{'word':'t','representative':11},{'word':'u','representative':7}]}]\nparents=[('t',11),('u',7)];trials=[];witness=None\nfor length in range(2,CAP+1):\n    oldmod=1<<(2*(length-1)+2);rows=[];children=[]\n    for prefix,q in parents:\n        branches={}\n        for j in range(4):\n            v=q+j*oldmod;past=orbit(v,prefix);g=gate(past[-1])\n            trials.append([prefix,q,j,v,g])\n            if g:\n                assert g not in branches;branches[g]=v\n        assert set(branches)=={'t','u'}\n        for g in 'tu':\n            word=prefix+g;v=branches[g]\n            if not admissible(word):continue\n            states=orbit(v,word);age=length-1;a=v\n            for _ in range(age):a=A(a)\n            if age==1:ell=word[0]\n            else:\n                y=states[1]\n                for _ in range(age-2):y=A(y)\n                ell=S[y%4]\n            cost=omega(a,ell)\n            row={'word':word,'representative':v,'states':states,'age':age,'oldest_old_prefix_mod16':a%16,'oldest_letter':ell,'oldest_cost':cost}\n            rows.append(row);children.append((word,v))\n    rows.sort(key=lambda r:tuple('tu'.index(c) for c in r['word']))\n    levels.append({'length':length,'modulus':1<<(2*length+2),'rows':rows})\n    positives=[r for r in rows if r['oldest_cost']]\n    if positives:witness=positives[0];break\n    parents=children\nsummary={'completed':True,'failures':[],'declared_max_observed_length':CAP,'last_completed_length':levels[-1]['length'],\n 'levels':levels,'lift_trials':trials,'level_counts':{str(x['length']):len(x['rows']) for x in levels},'first_positive_oldest_term':witness,\n 'stopping_rule':'Complete each admissible length in order; stop at first positive oldest-born cost or length10.'}\nsource=pathlib.Path(__file__).read_bytes();inputs={p:sha((ROOT/p).read_bytes()) for p in ['proofs/informal/problem1_prescribed_history_cost_pullback.md','proofs/informal/problem1_zero_cost_return_language.md']}\nrecord={'experiment_id':'problem1-suffix-kernel-cylinder-probe-20260905','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1',\n 'hypothesis':'Every aged born letter has W* cost0 when its following forced step exists and the full observed branch prefix is admissible.',\n 'backend':'python-cell-rule-branch-cylinder-lifting','parameters':{'maximum_observed_length':CAP,'minimum_tested_length':2,'word_order':'length then t,u lexicographic','forbidden_factors':['uu','ttttt','ututtu'],'cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},\n 'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count(),'affinity_used':sorted(os.sched_getaffinity(0)),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},'runtime_seconds':time.monotonic()-START,\n 'source_text':source.decode(),'inputs':inputs,'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},'result_summary':summary,\n 'status':'finite-exhaustive','interpretation':'A positive cylinder refutes universal suffix-zero on this finite-integer forced domain; absence would be finite-only evidence.',\n 'proof_scope':'All admissible branch words at the completed lengths and exact coset lifts; no ordinary membership assumption.',\n 'limitations':['No ordinary-frontier census or physical-membership claim.','Representatives and their precision cylinders are finite-prefix objects.','No unobserved admissibility letter is treated as an observed gate.']}\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT)\nprint(json.dumps({'last_length':summary['last_completed_length'],'counts':summary['level_counts'],'witness':witness,'runtime_seconds':record['runtime_seconds']}))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T22:29:18.992735+00:00"
+}
