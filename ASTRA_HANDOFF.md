@@ -11,6 +11,60 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest exact zero-cost language and counterexamples: read
+`proofs/informal/problem1_zero_cost_return_language.md` first, with the
+prescribed-history definitions in `problem1_history_synchronization.md`.
+
+- `partial-proof`: a verified r-branch word has exactly one input residue
+  class modulo2^(2r+2). Sufficiency propagates gate precision; necessity
+  pulls back the terminal mod4 agreement through the exact valuation law.
+  The appended admissibility u is UNOBSERVED, so ututut needs14 bits,
+  not a seventh gate. Its residue representative is903, still nonordinary.
+- For nonnegative edge weights of residue memory b, zero-cost ordinary
+  histories with that finite branch word are EXACTLY paths in a graph
+  modulo2^max(b,2r+2), retaining only zero-weight edges. This is an
+  all-history-length reduction, not a future-orbit quotient or a census.
+- W*=count_(0,T)+count_(1,U), residues mod16, is now `refuted` as a
+  universal strictly decreasing potential. The shortest zero-cost words
+  in the per-phase ututut languages are p12:putptttttptu at0xc84387,
+  with W*0->1, and u15:utututupupuuttt at0x191cc387, with W*0->0.
+  Both are genuine cut0/gap222 ordinary occurrences. Minimality is only
+  within the zero-cost languages, not among all descent counterexamples.
+- Taking the minimum V_a(x)=min_w W*(w) over ALL ordinary representations
+  does not repair strict descent: the witnesses prove initial V=0 and
+  final V>=0. In u the final minimum is exactly0. That u endpoint is
+  F(0x642fdfb), so requiring once-forced-reachable ENDPOINTS does not
+  rescue V either. Arbitrary canonical selectors are not ruled out.
+- Crucial limit (`partial-proof`): neither new ZERO WORD is a positive-
+  time prescribed descendant. H_u of a nonempty history begins P, but
+  the u witness begins T after its root. If H_p begins U, its second
+  letter must be P (old prefixes13 then50/51); the p witness begins UT.
+  Their lengths put both letters before the final append. The same u
+  ENDPOINT has an induced representation with W*=2, which is different
+  from the new zero word. Restricted prescribed-history/synchronized
+  descent remains open; later minimization over all words changes scope.
+- `finite-exhaustive`: forward searches visit3,011/9,720 states; the
+  independent reverse certificate checks all16,384 vertices and47,104
+  permitted edges. Root distances11/14 certify shortest zero-cost words.
+  All14 witness states,12 forced transitions, edge tables and old u-state
+  linkage agree. No frontier sets, other motifs or LP were generated.
+  Records: `results/problem1/20260905_zero_cost_return_`
+  followed by `{primary,independent,verification}.json`.
+
+Fresh adversarial review accepted the mathematical claims and scopes.
+Its verification correction is incorporated: the old induced W*=2 is
+checked against all48 modulo16 counts and an independent word replay,
+rather than the coarser modulo4 table. The refreshed verifier passes;
+final read-only review accepted the correction and all five checkpoint
+files without remaining corrections.
+
+Next target: the zero-cost language of H(v)+Q with an ACTUAL preceding
+forced step, followed by ututut. Prove sufficient residue precision and
+output-edge costs before constructing the finite graph. This addresses
+the surviving prescribed-history restriction; another arbitrary zero-cost
+word would not. B_all, synchronized near-boundary occurrence exclusion,
+signed nonvanishing and the whole-tail problem remain open.
+
 Newest all-depth synchronization theorem: read
 `proofs/informal/problem1_history_synchronization.md` first, with scanner
 definitions in `problem1_frontier_head_dynamics.md`.

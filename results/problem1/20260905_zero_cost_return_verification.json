@@ -1,0 +1,116 @@
+{
+  "backend": "python-finite-distance-certificate-and-record-comparison",
+  "experiment_id": "problem1-zero-cost-return-verification-20260905",
+  "git_commit": "5d30b069a70145da53b81ec3a958e95d500cc9d4",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpus": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The forward and reverse graph certificates and exact return witnesses agree, including the representation/image scope.",
+  "interpretation": "All finite certificates pass; the accompanying language and image-grammar proofs supply the general quantifier interpretation.",
+  "limitations": [
+    "Minimality is only in the zero-W* language, per phase.",
+    "Graph edges are ordinary generator extensions, not forced-time transitions.",
+    "No descent claim for prescribed positive-time/synchronized histories is refuted by their zero-word representatives.",
+    "Portable replay reads committed files and supports RULE30_REPLAY_ROOT/OUTPUT."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "inputs": [
+      "results/problem1/20260905_zero_cost_return_primary.json",
+      "results/problem1/20260905_zero_cost_return_independent.json",
+      "results/problem1/20260905_history_potential_primary.json"
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Fixed16384-state graph, two shortest zero-cost histories and their fixed six-step blocks.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_file_sha256": "95d30c7f5f6b7ff9276a268a55eaf7505b6228d17900bc761933dc516ac0f325",
+    "primary_file_sha256": "6a24f2e55f162cac5a0eaa10c84de01792bea6f0607b9be85ca17306366c626d",
+    "result_summary_sha256": "155ce60f23f4dc7e8401de6454cc3211b02f2c4437a8fee1c1b277c31fc4d870",
+    "source_sha256": "6930fd2d73b880fc40724149c87d0ca589d2b924ed05ea598d6095bb7761effc"
+  },
+  "result_summary": {
+    "W_star_values": {
+      "p": [
+        0,
+        1
+      ],
+      "u": [
+        0,
+        0
+      ]
+    },
+    "all_vertices_can_reach_target": true,
+    "completed": true,
+    "edge_count_tables_compared": 14,
+    "failures": [],
+    "forward_edges_checked": 23407,
+    "forward_nodes_checked": 12731,
+    "graph_edges_verified": 47104,
+    "graph_vertices_verified": 16384,
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "minimized_endpoint_potential": {
+      "basis": "Nonnegativity and displayed zero/upper-bound attainers; not an enumeration of all representations.",
+      "final_value_bounds": {
+        "p": [
+          0,
+          1
+        ],
+        "u": [
+          0,
+          0
+        ]
+      },
+      "initial_values": {
+        "p": 0,
+        "u": 0
+      }
+    },
+    "one_step_image_prefix_obstructions_verified": true,
+    "original_payload_source_raw_and_input_hashes_verified": true,
+    "per_phase_minimal_zero_cost_lengths": {
+      "p": 11,
+      "u": 14
+    },
+    "reverse_distance_certificate_verified": true,
+    "u_endpoint_is_prior_forced_successor": true,
+    "u_prescribed_and_zero_word_have_same_endpoint": true,
+    "u_prescribed_initial_W_star_mod16": 2,
+    "witness_forced_steps_compared": 12,
+    "witness_states_compared": 14
+  },
+  "runtime_seconds": 0.2903560029808432,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import collections,copy,datetime,hashlib,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_zero_cost_return_verification.json')))\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));resource.setrlimit(resource.RLIMIT_CPU,(120,120));signal.alarm(120)\naff=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{aff[0]})\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef originalbytes(x):return (json.dumps(x,sort_keys=True,indent=2)+'\\n').encode()\nbase=ROOT/'results/problem1';pp=base/'20260905_zero_cost_return_primary.json';ip=base/'20260905_zero_cost_return_independent.json'\np=json.loads(pp.read_bytes());i=json.loads(ip.read_bytes());s=i['result_summary'];data=p['result_summary']['data'];oldr=p['original_run_record']\nfor r in [p,i]:\n    assert sha(canon(r['result_summary']))==r['result_hashes']['result_summary_sha256']\n    assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\nassert p['result_summary']['completed'] and s['completed'] and not s['failures']\nassert p['git_commit']==i['git_commit']==oldr['git_commit']\nassert sha(originalbytes(oldr))==p['integration']['original_record_sha256']\nassert sha(originalbytes(data))==p['integration']['original_raw_sha256']==oldr['result_hashes']['raw_data_sha256']\nassert sha(oldr['executed_source_utf8'].encode())==oldr['result_hashes']['executed_source_sha256']\nassert sha(canon(oldr['result_summary']))==oldr['result_hashes']['normalized_summary_sha256']\nq=copy.deepcopy(oldr);h=q.pop('payload_sha256_excluding_this_field');assert sha(canon(q))==h\nfor path,info in i['inputs'].items():assert sha((ROOT/path).read_bytes())==info['sha256']\npriorpath=base/'20260905_history_potential_primary.json';priorbytes=priorpath.read_bytes();prior=json.loads(priorbytes)\nassert sha(priorbytes)==oldr['inputs']['operative_stored903_certificate']['sha256']\nassert data['input903_six_step_certificate']==prior['result_summary']['data']['scope903']['fixed_motif']\nassert sha(canon(data['input903_six_step_certificate']))==oldr['inputs']['operative_stored903_certificate']['selected_certificate_sha256']\n\nMOD=1<<14;TARGET=903;LETTERS='tup';S=('t','u','p','p')\ndef G(g,v):\n    t=v^((v<<1)|(v<<2));return t if g=='t' else t^1 if g=='u' else t^1^(2 if v%2==0 else 0)\ndef forbidden(q,g):return (q%16==0 and g=='t') or (q%16==1 and g=='u')\nedges=[];graph=[];distance=s['reverse_distances'];assert len(distance)==MOD and distance[TARGET]==0\nassert all(d>=0 and (d==0)==(q==TARGET) for q,d in enumerate(distance))\nfor q in range(MOD):\n    row=[]\n    for g in LETTERS:\n        if not forbidden(q,g):\n            y=G(g,q)%MOD;row.append((g,y));edges.append([q,g,y]);assert distance[q]<=distance[y]+1\n    if q!=TARGET:assert any(distance[y]==distance[q]-1 for g,y in row)\n    graph.append(row)\nassert len(edges)==47104==s['zero_cost_edges'] and sha(canon(edges))==s['graph_edge_hash']\nassert {str(k):v for k,v in collections.Counter(distance).items()}==s['distance_histogram']\niw={r['phase']:r for r in s['witnesses']};pw={r['phase']:r for r in data['witnesses']}\nvisited=traversed=0\nfor b in data['phase_graphs']:\n    a=b['phase'];w=iw[a];nodes=b['nodes'];visited+=len(nodes)\n    assert b['status']=='target_found' and len({r[0] for r in nodes})==len(nodes)==b['visited_node_count']\n    assert sha(canon(nodes))==b['visited_discovery_table_sha256']\n    assert sha(canon(sorted(r[0] for r in nodes)))==b['visited_sorted_residues_sha256']\n    assert nodes[0]==[w['root'],-1,-1,0]\n    for idx,(q,parent,gi,d) in enumerate(nodes[1:],1):\n        assert 0<=parent<idx and d==nodes[parent][3]+1\n        assert not forbidden(nodes[parent][0],LETTERS[gi]) and G(LETTERS[gi],nodes[parent][0])%MOD==q\n    tested=set();skipped=set()\n    for src,gi,q,dest,fresh in b['traversed_edges']:\n        assert (src,gi) not in tested;tested.add((src,gi));traversed+=1\n        assert not forbidden(nodes[src][0],LETTERS[gi])\n        assert q==G(LETTERS[gi],nodes[src][0])%MOD==nodes[dest][0]\n    for src,gi in b['forbidden_edges']:\n        assert forbidden(nodes[src][0],LETTERS[gi]);skipped.add((src,gi))\n    expected={(idx,gi) for idx,mask in b['expanded_rows'] for gi in range(3) if mask&(1<<gi)}\n    assert tested.isdisjoint(skipped) and tested|skipped==expected\n    assert b['target_distance']==distance[w['root']]==w['nonroot_length']\n    assert b['shortest_zero_cost_rooted_word']==w['word_from_zero']\n    assert [nodes[j][0] for j in b['target_path_node_indices']]==w['residue_path']\n    q=w['root'];chosen=''\n    while q!=TARGET:\n        g,q=next((g,y) for g,y in graph[q] if distance[y]==distance[q]-1);chosen+=g\n    assert a+chosen==w['word_from_zero']\nassert traversed==23407\n\nedgekeys=[str(q)+g for q in range(16) for g in LETTERS];state_count=step_count=0\nfor a,w in iw.items():\n    r=pw[a];states=w['states'];assert len(states)==7\n    assert r['initial_word']==w['word_from_zero'] and r['initial_integer_hex']==hex(w['original_x'])\n    assert r['complexity']==w['k'] and r['nonroot_length']==w['nonroot_length']\n    assert r['states_hex']==[state['endpoint_hex'] for state in states]\n    assert [int(x,16) for x in r['initial_prefixes_from_zero_hex'][1:]]==states[0]['prefix_endpoints']\n    assert r['actual_observed_branches']=='ututut' and r['admissibility_word']=='utututu' and not r['appended_final_u_observed']\n    for t,state in enumerate(states):\n        c=r['initial_counts'] if t==0 else r['steps'][t-1]['new_counts'];state_count+=1\n        assert c['counts48']==[state['edge_counts'][e] for e in edgekeys]\n        assert c['Wstar']==state['W_star']\n    for t,row in enumerate(r['steps']):\n        assert row['old_word'][1:]==states[t]['word_after_root'] and row['old_endpoint_hex']==states[t]['endpoint_hex']\n        assert row['new_word'][1:]==states[t+1]['word_after_root'] and row['new_endpoint_hex']==states[t+1]['endpoint_hex']\n        assert row['branch']==states[t]['branch']=='ututut'[t]\n        assert [int(v,16) for v in row['new_word_prefixes_from_zero_hex'][1:]]==states[t+1]['prefix_endpoints'];step_count+=1\n    assert r['delta48']==[states[6]['edge_counts'][e]-states[0]['edge_counts'][e] for e in edgekeys]\n    assert w['W_star_values']==[0,1 if a=='p' else 0]\nassert data['input903_six_step_certificate']['states']==s['representative_gate_check']['states']\n# Exact low-level image grammar: no new history search.\nu_first=[G(g,1) for g in LETTERS];p_first=[G(g,3) for g in LETTERS];p_next=[G(g,13) for g in LETTERS]\nassert u_first==[7,6,6] and {S[v%4] for v in u_first}=={'p'}\nassert {v for v in p_first if S[v%4]=='u'}=={13}\nassert p_next==[51,50,50] and {S[v%4] for v in p_next}=={'p'}\nassert iw['u']['states'][0]['word_after_root'].startswith('t')\nassert iw['p']['states'][0]['word_after_root'].startswith('ut')\nassert all(w['nonroot_length']>=3 for w in iw.values())\noldblock=prior['result_summary']['data']['genuine']['six_step_block']\noldstep=prior['result_summary']['data']['genuine']['full_seven_step_history_replay']['steps'][0]\nassert oldblock['initial_endpoint']==oldstep['new_endpoint']==iw['u']['original_x']\nx=oldstep['old_endpoint'];assert x==0x642fdfb and x%16==11\nassert G('t',G('p',x>>2))==iw['u']['original_x']\nold_rows=prior['result_summary']['data']['mod16']['all48_edge_rows']\nassert len(old_rows)==48\nold_counts=[0]*48;old_prefix=1\nassert oldblock['initial_word'][0]=='u'\nfor letter in oldblock['initial_word'][1:]:\n    old_counts[3*(old_prefix%16)+LETTERS.index(letter)]+=1\n    old_prefix=G(letter,old_prefix)\nassert old_prefix==iw['u']['original_x']\nfor index,row in enumerate(old_rows):\n    assert row['index']==index and row['old_prefix_mod16']==index//3\n    assert row['input_letter']==LETTERS[index%3] and row['initial_count']==old_counts[index]\nassert old_counts[0]+old_counts[4]==2\nassert oldblock['final_word'][1:]==iw['u']['states'][6]['word_after_root']\nref=sha((ROOT/'src/python/rule30_research_reference.py').read_bytes());assert ref=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\nsummary={'completed':True,'failures':[],'graph_vertices_verified':MOD,'graph_edges_verified':len(edges),\n         'reverse_distance_certificate_verified':True,'all_vertices_can_reach_target':True,\n         'forward_nodes_checked':visited,'forward_edges_checked':traversed,\n         'per_phase_minimal_zero_cost_lengths':{'p':distance[3],'u':distance[1]},\n         'witness_states_compared':state_count,'witness_forced_steps_compared':step_count,'edge_count_tables_compared':state_count,\n         'W_star_values':{'p':[0,1],'u':[0,0]},'one_step_image_prefix_obstructions_verified':True,\n         'u_prescribed_initial_W_star_mod16':old_counts[0]+old_counts[4],\n         'u_endpoint_is_prior_forced_successor':True,'u_prescribed_and_zero_word_have_same_endpoint':True,\n         'minimized_endpoint_potential':{'initial_values':{'p':0,'u':0},'final_value_bounds':{'p':[0,1],'u':[0,0]},\n                                       'basis':'Nonnegativity and displayed zero/upper-bound attainers; not an enumeration of all representations.'},\n         'original_payload_source_raw_and_input_hashes_verified':True,'immutable_reference_sha256':ref}\nsource=pathlib.Path(__file__).read_bytes()\nrecord={'experiment_id':'problem1-zero-cost-return-verification-20260905',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1',\n 'hypothesis':'The forward and reverse graph certificates and exact return witnesses agree, including the representation/image scope.',\n 'backend':'python-finite-distance-certificate-and-record-comparison',\n 'parameters':{'inputs':[str(pp.relative_to(ROOT)),str(ip.relative_to(ROOT)),str(priorpath.relative_to(ROOT))],\n               'cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},\n 'hardware':i['hardware'],'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},\n 'runtime_seconds':time.monotonic()-START,'source_text':source.decode(),'result_summary':summary,\n 'result_hashes':{'primary_file_sha256':sha(pp.read_bytes()),'independent_file_sha256':sha(ip.read_bytes()),\n                  'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},\n 'status':'finite-exhaustive','interpretation':'All finite certificates pass; the accompanying language and image-grammar proofs supply the general quantifier interpretation.',\n 'proof_scope':'Fixed16384-state graph, two shortest zero-cost histories and their fixed six-step blocks.',\n 'limitations':['Minimality is only in the zero-W* language, per phase.',\n                'Graph edges are ordinary generator extensions, not forced-time transitions.',\n                'No descent claim for prescribed positive-time/synchronized histories is refuted by their zero-word representatives.',\n                'Portable replay reads committed files and supports RULE30_REPLAY_ROOT/OUTPUT.']}\nOUT.parent.mkdir(parents=True,exist_ok=True)\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT);print(json.dumps(summary,sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T21:59:59.605002+00:00"
+}
