@@ -1,0 +1,67 @@
+{
+  "backend": "python-exact-integers-cellarray",
+  "experiment_id": "20260905_hand27_physical_alternation_no_belief",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 19848
+  },
+  "hypothesis": "Physical x=27 with genuine 1010 centers has empty dominant belief and length-1 forced schedule.",
+  "interpretation": "Physical membership plus one-block alternation does not imply dominant nonempty; full three-return constraint needed. Not a nonvanishing counterexample (belief empty, occurrence absent).",
+  "limitations": [
+    "Single case only; no all-depth claim."
+  ],
+  "parameters": {
+    "S": 3,
+    "address_space_bytes": 1073741824,
+    "t_max": 6,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Single named case S=3, t<=6, exact integer arithmetic throughout.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "2c9e2435f2fc89827ffdec8988513f9a50a586a57238d4506c44b38a1e38afab",
+    "source_sha256": "c7090cf1b3996940bc3bc56d6e0c87647f035fe7c94db616be3ce89a227f029f"
+  },
+  "result_summary": {
+    "Ou2": [
+      6,
+      7
+    ],
+    "Ou3": [
+      24,
+      25,
+      26,
+      27
+    ],
+    "R3": 221,
+    "S": 3,
+    "X_dec": 27,
+    "X_hex": "0x1b",
+    "centers_3_6": [
+      1,
+      0,
+      1,
+      0
+    ],
+    "dominant_belief_empty": true,
+    "fiber_current_1111": true,
+    "fiber_shadow_1100": true,
+    "forced_schedule": "t",
+    "forced_successor": 111,
+    "is_three_return_occurrence": false,
+    "n": 3,
+    "signed_mass_empty": 0,
+    "successor_mod16": 15
+  },
+  "runtime_seconds": 0.00586417003069073,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import json, os, sys, time, tempfile, hashlib, platform, resource, subprocess, datetime\nt0 = time.monotonic(); ROOT = '/home/ryan/rule30-lab'\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\ndef T(S): return S ^ ((S << 1) | (S << 2))\ndef P(R): return (T(1 + 2*R) - 1)//2\ndef U(S): return T(S) ^ 1\ndef f(a, b, c): return a ^ (b | c)\nOu2 = {T(1), U(1), P(1)}\nassert Ou2 == {6, 7}, Ou2\nOu3 = {g(x) for x in Ou2 for g in (T, P, U)}\nassert Ou3 == {24, 25, 26, 27}, Ou3\nR = 3\nfor _ in range(3): R = T(R)\nassert R == 221, R\nX = R >> 3\nassert X == 27 and X.bit_length() == 5\nOFF, SZ = 10, 40\ndef step(row):\n    out = [0]*SZ\n    for i in range(1, SZ-1): out[i] = f(row[i-1], row[i], row[i+1])\n    return out\nr = [0]*SZ\nfor k in range(4): r[OFF-k] = (3 >> k) & 1\nrows = [r]\nfor _ in range(6): rows.append(step(rows[-1]))\ncenters = [rows[t][OFF] for t in range(7)]\nassert centers[3:7] == [1, 0, 1, 0], centers\ndef fiber(next_level, q): return frozenset(d for d in range(4) if 4*q+d in next_level)\nassert fiber(Ou3, 6) == frozenset((0, 1, 2, 3))\nassert fiber(Ou2, 1) == frozenset((2, 3))\nmod = 4**1; low = X & (mod-1)\nbelief = {}\nfor y in Ou2:\n    if (y & (mod-1)) != low: continue\n    cur = fiber(Ou3, X >> 2); sh = fiber(Ou2, y >> 2)\n    if cur <= sh: belief[y] = 0 if sh == frozenset((0,1,2,3)) else 1\nassert belief == {}, belief\nsched = []\nst = X\nwhile True:\n    rr = st & 15\n    if rr == 7: b = 'u'\n    elif rr == 11: b = 't'\n    else: break\n    st = (U if b == 'u' else T)(P((st - 3) >> 2))\n    sched.append(b)\nassert ''.join(sched) == 't' and st == 111, (sched, st)\nassert (111 & 15) == 15\ncpu = next((l.split(':',1)[1].strip() for l in open('/proc/cpuinfo').read().splitlines() if l.startswith('model name')), 'unknown')\nsrc = open(__file__).read()\nsummary = {'S': 3, 'n': 3, 'R3': 221, 'X_hex': hex(X), 'X_dec': X, 'centers_3_6': [1, 0, 1, 0],\n 'Ou2': sorted(Ou2), 'Ou3': sorted(Ou3), 'fiber_current_1111': True, 'fiber_shadow_1100': True,\n 'dominant_belief_empty': True, 'signed_mass_empty': 0, 'forced_schedule': 't', 'forced_successor': 111,\n 'successor_mod16': 15, 'is_three_return_occurrence': False}\nrec = {'experiment_id': '20260905_hand27_physical_alternation_no_belief', 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),\n 'question': 'problem1', 'hypothesis': 'Physical x=27 with genuine 1010 centers has empty dominant belief and length-1 forced schedule.',\n 'backend': 'python-exact-integers-cellarray', 'parameters': {'S': 3, 't_max': 6, 'wall_limit_seconds': 120, 'address_space_bytes': 1073741824},\n 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software': {'python': sys.version, 'platform': platform.platform()}, 'runtime_seconds': time.monotonic()-t0,\n 'result_hashes': {'source_sha256': hashlib.sha256(src.encode()).hexdigest(), 'result_sha256': hashlib.sha256(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()},\n 'source_text': src, 'result_summary': summary,\n 'interpretation': 'Physical membership plus one-block alternation does not imply dominant nonempty; full three-return constraint needed. Not a nonvanishing counterexample (belief empty, occurrence absent).',\n 'status': 'finite-exhaustive', 'proof_scope': 'Single named case S=3, t<=6, exact integer arithmetic throughout.',\n 'limitations': ['Single case only; no all-depth claim.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='rec_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/hand27_check.json')\nprint('hand27 pass: X=27 belief={} sigma=t stop15')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:47:19.069495+00:00"
+}

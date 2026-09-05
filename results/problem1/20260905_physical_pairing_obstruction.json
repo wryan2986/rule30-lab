@@ -1,0 +1,158 @@
+{
+  "backend": "python-packed-and-cellarray",
+  "enforcement": {
+    "address_space_limit_applied": true,
+    "alarm_seconds": 115,
+    "budget_bytes": 1073741824,
+    "deadline": "SIGALRM at 115s plus cooperative checks plus outer timeout",
+    "soft_bytes": 1073741824
+  },
+  "experiment_id": "physical-pairing-obstruction",
+  "git_branch": "research/astra-next",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "git_dirty": true,
+  "git_status": "?? .worktrees/\n?? ASTRA_GOAL.md\n?? proofs/informal/problem1_physical_frontier_restriction.md\n?? proofs/informal/problem1_signed_count_transfer.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_physical_pairing_obstruction.json\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? scripts/check_physical_pairing_obstruction.py\n?? tests/python/test_physical_pairing_obstruction.py",
+  "hardware": {
+    "architecture": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "memory_total_kib": 31766236
+  },
+  "hypothesis": "The named state 0x642fdfb is not physically realizable as X=T^n(S)>>n for any odd positive finite seed S with s=bitlen(S)<=13 at n=27-s (the n>=s regime forced by the membership lemma).",
+  "interpretation": "No hit is exact named nonrealizability in the n>=s regime only, never a universal no-go. A hit refutes bare physical exclusion; its alternation and schedule behavior are assessed separately in the record.",
+  "limitations": [
+    "n>=s regime only; other regimes and states not searched",
+    "single local process; cooperative 120s wall budget plus outer timeout; 1GiB cap in CLI runs",
+    "finite enumeration only; no infinite conclusion"
+  ],
+  "parameters": {
+    "memory_budget_kib": 1048576,
+    "s_max": 13,
+    "schedule": "tutututu",
+    "seeds": 4096,
+    "target_hex": "0x642fdfb",
+    "target_sum": 27,
+    "time_budget_seconds": 120.0
+  },
+  "peak_rss_kib": 22924,
+  "proof_scope": "exact enumeration of all 4096 odd seeds s<=13 at n=27-s",
+  "question": "problem1",
+  "result": {
+    "cross_checks": 6,
+    "hit_count": 0,
+    "hits": [],
+    "order": [
+      "s ascending",
+      "seed ascending"
+    ],
+    "per_width": [
+      {
+        "hits": 0,
+        "n": 26,
+        "s": 1,
+        "seeds": 1
+      },
+      {
+        "hits": 0,
+        "n": 25,
+        "s": 2,
+        "seeds": 1
+      },
+      {
+        "hits": 0,
+        "n": 24,
+        "s": 3,
+        "seeds": 2
+      },
+      {
+        "hits": 0,
+        "n": 23,
+        "s": 4,
+        "seeds": 4
+      },
+      {
+        "hits": 0,
+        "n": 22,
+        "s": 5,
+        "seeds": 8
+      },
+      {
+        "hits": 0,
+        "n": 21,
+        "s": 6,
+        "seeds": 16
+      },
+      {
+        "hits": 0,
+        "n": 20,
+        "s": 7,
+        "seeds": 32
+      },
+      {
+        "hits": 0,
+        "n": 19,
+        "s": 8,
+        "seeds": 64
+      },
+      {
+        "hits": 0,
+        "n": 18,
+        "s": 9,
+        "seeds": 128
+      },
+      {
+        "hits": 0,
+        "n": 17,
+        "s": 10,
+        "seeds": 256
+      },
+      {
+        "hits": 0,
+        "n": 16,
+        "s": 11,
+        "seeds": 512
+      },
+      {
+        "hits": 0,
+        "n": 15,
+        "s": 12,
+        "seeds": 1024
+      },
+      {
+        "hits": 0,
+        "n": 14,
+        "s": 13,
+        "seeds": 2048
+      }
+    ],
+    "s_max": 13,
+    "seeds_enumerated": 4096,
+    "stopping": "full enumeration of all 4096; no bound increase",
+    "target_hex": "0x642fdfb",
+    "target_sum": 27
+  },
+  "result_hashes": {
+    "certificate_sha256": "5795b5f69eb5cb4a1aca880bca497d6c5f66d63b816598e378179e0f82181a59"
+  },
+  "result_summary": {
+    "hit_count": 0,
+    "seeds_enumerated": 4096
+  },
+  "runtime_seconds": 0.01793559396173805,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4"
+  },
+  "source_hashes": {
+    "analyzer_sha256": "d0b213b86b1863d93866886b4e9bb5a11b73ccca5443f6919136826a42407899",
+    "test_sha256": "c5eec25ff27e7794f72195cc3b5daf647881f85a8f2a50337ab826aed301ebb0"
+  },
+  "sources": [
+    "proofs/informal/problem1_three_return_boundary_sufficiency.md",
+    "proofs/informal/problem1_signed_belief_pairing_obstruction.md"
+  ],
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:31:15Z",
+  "worktree": "/home/ryan/rule30-lab"
+}

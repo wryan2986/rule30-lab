@@ -1,0 +1,91 @@
+{
+  "backend": "python-cellarray-vs-packed-exhaustive",
+  "experiment_id": "20260905_physical_named_0x642fdfb",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 19792
+  },
+  "hypothesis": "x=0x642fdfb has no late physical representation among all 4096 odd S with s<=13 at n=27-s.",
+  "interpretation": "Zero hits: this generic pairing obstruction is absent from the late physical domain; sampled agreement was not relied upon.",
+  "limitations": [
+    "Late representations (n>=s) only.",
+    "Single named x; no all-depth claim."
+  ],
+  "parameters": {
+    "S_odd_range": [
+      1,
+      8191
+    ],
+    "address_space_bytes": 1073741824,
+    "degree": 27,
+    "order": "S-ascending-full-edge-compare",
+    "t_max": 26,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "All 4096 odd seeds, full packed-vs-cellarray edge agreement at every time step; no sampling.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "58622f0269ef685b16089760312930867dbc5ae3a2887cbcf458e1c5c0457e93",
+    "source_sha256": "c9590d2d7bce94176268ae551f8d7ce65c05b7ad9230e83d8e69e323ec67bbb8"
+  },
+  "result_summary": {
+    "R6_witnesses": {
+      "0x32": [
+        [
+          3,
+          4
+        ],
+        [
+          7,
+          3
+        ]
+      ],
+      "0x37": [
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          3
+        ]
+      ]
+    },
+    "T4_9_dec": 3289,
+    "T4_9_hex": "0xcd9",
+    "X_of_S9_dec": 205,
+    "all_degree_27": true,
+    "expected_widths_match": true,
+    "hits": [],
+    "nohits": true,
+    "per_width_counts": {
+      "01": 1,
+      "02": 1,
+      "03": 2,
+      "04": 4,
+      "05": 8,
+      "06": 16,
+      "07": 32,
+      "08": 64,
+      "09": 128,
+      "10": 256,
+      "11": 512,
+      "12": 1024,
+      "13": 2048
+    },
+    "seeds": 4096,
+    "target_degree": 27,
+    "target_hex": "0x642fdfb"
+  },
+  "runtime_seconds": 1.3897400330752134,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import json, os, sys, time, tempfile, hashlib, platform, resource, subprocess, datetime\nt0 = time.monotonic(); ROOT = '/home/ryan/rule30-lab'\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\ndef T(S): return S ^ ((S << 1) | (S << 2))\ndef f(a, b, c): return a ^ (b | c)\nrow = 1\nfor want in (1, 7, 25, 111, 401):\n    assert row == want, (row, want)\n    row = T(row)\nTARGET = 0x642fdfb\nassert TARGET.bit_length() == 27\nOFF, SZ = 50, 110\ndef step(row):\n    out = [0]*SZ\n    for i in range(1, SZ-1): out[i] = f(row[i-1], row[i], row[i+1])\n    return out\nwidths = {}; hits = []; checked = 0\nfor S in range(1, 8192, 2):\n    s = S.bit_length(); n = 27 - s\n    widths[\"%02d\" % s] = widths.get(\"%02d\" % s, 0) + 1\n    r = [0]*SZ\n    for k in range(20): r[OFF-k] = (S >> k) & 1\n    Rt = S\n    for t in range(n+1):\n        Et = 0\n        for k in range(2*t+14): Et |= (r[OFF+t-k] << k)\n        assert Et == Rt, (S, t)\n        if t == n:\n            X = Rt >> n\n            assert X.bit_length() == 27, (S, X)\n            if X == TARGET: hits.append([S, n])\n        r = step(r); Rt = T(Rt)\n    checked += 1\nassert checked == 4096, checked\nexp_widths = {'01': 1, '02': 1}\nexp_widths.update({'%02d' % s: 2**(s-2) for s in range(3, 14)})\nassert widths == exp_widths, widths\nR4_9 = T(T(T(T(9)))); X9 = R4_9 >> 4\nassert X9 == 205\nR6wit = {}\nfor S in (1, 3, 5, 7):\n    s = S.bit_length(); n = 6 - s; Rn = S\n    for _ in range(n): Rn = T(Rn)\n    R6wit.setdefault(hex(Rn >> n), []).append([S, n])\nprint('checked=%d hits=%d widths_ok=True T4(9)=%d/%s X=%d' % (checked, len(hits), R4_9, hex(R4_9), X9))\nprint('R6 witnesses:', json.dumps(R6wit))\nassert not hits\ncpu = next((l.split(':',1)[1].strip() for l in open('/proc/cpuinfo').read().splitlines() if l.startswith('model name')), 'unknown')\nsrc = open(__file__).read()\nsummary = {'target_hex': hex(TARGET), 'target_degree': 27, 'seeds': 4096, 'per_width_counts': widths,\n 'expected_widths_match': True, 'hits': hits, 'nohits': True, 'all_degree_27': True,\n 'T4_9_dec': R4_9, 'T4_9_hex': hex(R4_9), 'X_of_S9_dec': X9, 'R6_witnesses': R6wit}\nrec = {'experiment_id': '20260905_physical_named_0x642fdfb', 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),\n 'question': 'problem1', 'hypothesis': 'x=0x642fdfb has no late physical representation among all 4096 odd S with s<=13 at n=27-s.',\n 'backend': 'python-cellarray-vs-packed-exhaustive', 'parameters': {'S_odd_range': [1, 8191], 'degree': 27, 't_max': 26, 'order': 'S-ascending-full-edge-compare', 'wall_limit_seconds': 120, 'address_space_bytes': 1073741824},\n 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software': {'python': sys.version, 'platform': platform.platform()}, 'runtime_seconds': time.monotonic()-t0,\n 'result_hashes': {'source_sha256': hashlib.sha256(src.encode()).hexdigest(), 'result_sha256': hashlib.sha256(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()},\n 'source_text': src, 'result_summary': summary,\n 'interpretation': 'Zero hits: this generic pairing obstruction is absent from the late physical domain; sampled agreement was not relied upon.',\n 'status': 'finite-exhaustive', 'proof_scope': 'All 4096 odd seeds, full packed-vs-cellarray edge agreement at every time step; no sampling.',\n 'limitations': ['Late representations (n>=s) only.', 'Single named x; no all-depth claim.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='rec_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/physical_named_independent.json')\nprint('wrote /tmp/physical_named_independent.json')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:29:19.532764+00:00"
+}

@@ -1,0 +1,165 @@
+{
+  "backend": "python-cellarray-vs-packed-exhaustive-box",
+  "experiment_id": "20260905_physical_projection_box",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 19804
+  },
+  "hypothesis": "Physical half-row projection pi(R_d) stays in R_{d-2} for d>=4 (S=1 hand row, CA cross-check, box d<=12).",
+  "interpretation": "Pass supports attempting stripped-digit induction on the physical domain; failure blocks that shortcut (physical-only invariants may still survive).",
+  "limitations": [
+    "Box d<=12 only; no projection-closure claim.",
+    "No claim every degree-d integer is physical."
+  ],
+  "parameters": {
+    "S_odd_below": 64,
+    "address_space_bytes": 1073741824,
+    "d_range": [
+      4,
+      12
+    ],
+    "order": "d-ascending-then-x-ascending-stop-first",
+    "t_max": 11,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Exact R_2..R_12 from all odd S<64; first-failure search d=4..12. No larger box.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "dbc06c7e721ebee0daca629b6ab8bb0a8f327d7100c1c69b044167609a852c0c",
+    "source_sha256": "05975182cb7fde0fedeca0d94b20de32221b7da6c34edaba1945a2cca4835f76"
+  },
+  "result_summary": {
+    "R_sets": {
+      "02": [
+        3
+      ],
+      "03": [
+        6
+      ],
+      "04": [
+        12,
+        13
+      ],
+      "05": [
+        25,
+        27
+      ],
+      "06": [
+        50,
+        55
+      ],
+      "07": [
+        100,
+        111
+      ],
+      "08": [
+        200,
+        205,
+        221,
+        222
+      ],
+      "09": [
+        400,
+        401,
+        441,
+        444,
+        445
+      ],
+      "10": [
+        801,
+        802,
+        803,
+        805,
+        807,
+        882,
+        886,
+        889,
+        891,
+        895
+      ],
+      "11": [
+        1600,
+        1602,
+        1605,
+        1607,
+        1614,
+        1779,
+        1782,
+        1783,
+        1788,
+        1789
+      ],
+      "12": [
+        3200,
+        3201,
+        3202,
+        3203,
+        3204,
+        3205,
+        3210,
+        3214,
+        3219,
+        3229,
+        3552,
+        3553,
+        3558,
+        3559,
+        3564,
+        3565,
+        3566,
+        3567,
+        3576,
+        3578
+      ]
+    },
+    "ca_agree": true,
+    "first_failure": {
+      "d": 8,
+      "lower_R": [
+        50,
+        55
+      ],
+      "pi_hex": "0x33",
+      "witnesses": [
+        [
+          9,
+          4
+        ]
+      ],
+      "x": 205,
+      "x_hex": "0xcd"
+    },
+    "hand_row_S1": [
+      1,
+      7,
+      25,
+      111,
+      401
+    ],
+    "hypothesis_holds_to_12": false,
+    "sizes": {
+      "02": 1,
+      "03": 1,
+      "04": 2,
+      "05": 2,
+      "06": 2,
+      "07": 2,
+      "08": 4,
+      "09": 5,
+      "10": 10,
+      "11": 10,
+      "12": 20
+    }
+  },
+  "runtime_seconds": 0.015098041039891541,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import json, os, sys, time, tempfile, hashlib, platform, resource, subprocess, datetime\nt0 = time.monotonic(); ROOT = '/home/ryan/rule30-lab'\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\ndef T(S): return S ^ ((S << 1) | (S << 2))\ndef f(a, b, c): return a ^ (b | c)\nrow = 1\nfor want in (1, 7, 25, 111, 401):\n    assert row == want, (row, want)\n    row = T(row)\nOFF, SZ, TMAX = 40, 120, 11\ndef step(row):\n    out = [0]*SZ\n    for i in range(1, SZ-1): out[i] = f(row[i-1], row[i], row[i+1])\n    return out\nfor S in range(1, 64, 2):\n    r = [0]*SZ\n    for k in range(20): r[OFF-k] = (S >> k) & 1\n    Rt = S\n    for t in range(TMAX+1):\n        Et = 0\n        for k in range(t+21): Et |= (r[OFF+t-k] << k)\n        assert Et == Rt, (S, t, hex(Et), hex(Rt))\n        r = step(r); Rt = T(Rt)\nprint('CA-vs-packed agree: odd S<64, t<=11')\nimport math\nR = {}\nwit = {}\nfor d in range(2, 13):\n    Sd = {}\n    for S in range(1, 64, 2):\n        s = S.bit_length()\n        if s > d // 2: continue\n        n = d - s\n        Rn = S\n        for _ in range(n): Rn = T(Rn)\n        X = Rn >> n\n        assert X.bit_length() == d, (S, n, X)\n        Sd.setdefault(X, []).append([S, n])\n    R[d] = sorted(Sd); wit[d] = Sd\nprint('sizes:', {d: len(R[d]) for d in R})\nfound = None\nfor d in range(4, 13):\n    Rd2 = set(R[d-2])\n    for x in R[d]:\n        if (x >> 2) not in Rd2:\n            found = {'d': d, 'x_hex': hex(x), 'x': x, 'pi_hex': hex(x >> 2),\n                     'witnesses': wit[d][x], 'lower_R': R[d-2]}\n            break\n    if found: break\nprint('first failure:', None if not found else (found['d'], found['x_hex']))\ncpu = next((l.split(':',1)[1].strip() for l in open('/proc/cpuinfo').read().splitlines() if l.startswith('model name')), 'unknown')\nsrc = open(__file__).read()\nsummary = {'hand_row_S1': [1, 7, 25, 111, 401], 'ca_agree': True, 'sizes': {'%02d' % d: len(R[d]) for d in R},\n 'R_sets': {'%02d' % d: R[d] for d in R}, 'first_failure': found, 'hypothesis_holds_to_12': found is None}\nrec = {'experiment_id': '20260905_physical_projection_box', 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),\n 'question': 'problem1', 'hypothesis': 'Physical half-row projection pi(R_d) stays in R_{d-2} for d>=4 (S=1 hand row, CA cross-check, box d<=12).',\n 'backend': 'python-cellarray-vs-packed-exhaustive-box', 'parameters': {'d_range': [4, 12], 'S_odd_below': 64, 't_max': 11, 'order': 'd-ascending-then-x-ascending-stop-first', 'wall_limit_seconds': 120, 'address_space_bytes': 1073741824},\n 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software': {'python': sys.version, 'platform': platform.platform()}, 'runtime_seconds': time.monotonic()-t0,\n 'result_hashes': {'source_sha256': hashlib.sha256(src.encode()).hexdigest(), 'result_sha256': hashlib.sha256(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()},\n 'source_text': src, 'result_summary': summary,\n 'interpretation': 'Pass supports attempting stripped-digit induction on the physical domain; failure blocks that shortcut (physical-only invariants may still survive).',\n 'status': 'finite-exhaustive', 'proof_scope': 'Exact R_2..R_12 from all odd S<64; first-failure search d=4..12. No larger box.',\n 'limitations': ['Box d<=12 only; no projection-closure claim.', 'No claim every degree-d integer is physical.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='rec_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/physproj_check.json')\nprint('wrote /tmp/physproj_check.json')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:26:26.388625+00:00"
+}
