@@ -1,0 +1,351 @@
+{
+  "backend": "python-direct-and-recursive",
+  "enforcement": {
+    "address_space_limit_applied": true,
+    "alarm_seconds": 115,
+    "budget_bytes": 1073741824,
+    "deadline": "SIGALRM at 115s plus cooperative monotonic checks plus outer timeout wrapper",
+    "soft_bytes": 1073741824
+  },
+  "experiment_id": "period-two-signed-slice-transfer-check",
+  "git_branch": "research/astra-next",
+  "git_commit": "a49f624342c434aab29f95b6ad1ffe1107e8e22d",
+  "git_dirty": true,
+  "git_status": "M ASTRA_HANDOFF.md\n?? .worktrees/\n?? proofs/informal/problem1_signed_slice_convex_obstruction.md\n?? proofs/informal/problem1_signed_slice_joint_transfer.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? proofs/informal/problem1_three_return_boundary_review.md\n?? results/problem1/20260905_boundary_convex_ancestry_replay.json\n?? results/problem1/20260905_signed_slice_convex_obstruction.json\n?? results/problem1/20260905_signed_slice_transfer_check.json\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? scripts/check_signed_slice_convex_obstruction.py\n?? src/python/period_two_signed_slice_transfer_check.py\n?? tests/python/test_period_two_signed_slice_transfer_check.py",
+  "hardware": {
+    "architecture": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "memory_total_kib": 31766236
+  },
+  "hypothesis": "Closure: for fixed phase, parent complexity/depth, adjoined digit, local current mask and full five-component parent slice vector determine the child slice vector; stronger key adds the high current mask and the outgoing fiber of the child.",
+  "interpretation": "A base- or strong-key collision is an exact finite counterexample that refutes the universal deterministic vector-closure claim; it does not rule out a preserved region under multiple successors, the signed-mass certificate, or Problem 1. The domain-specific closure on stripped three-return ancestors stays unresolved: absence of a collision through k<=16 is finite evidence only. The universal colliding pair is outside the finite k<=16 stripped-ancestor box; that does not show anything about the all-depth ancestor domain.",
+  "limitations": [
+    "finite caps; finite absence leaves the domain-specific closure unresolved (a domain collision would refute it)",
+    "single local process; cooperative 120s wall budget plus outer timeout wrapper; 1GiB address-space cap enforced in CLI runs",
+    "occurrences with L>=k are outside the proposed domain and counted as excluded, not successes",
+    "schedules reaching the forced-schedule cap are counted as truncated and force inconclusive, never presented as exhaustive",
+    "empty-belief transitions included; see endpoint counts in witnesses",
+    "no sibling k>=17 sign-witness recomputation (lead reviews separately)"
+  ],
+  "parameters": {
+    "domain_max_k": 16,
+    "levels_built": 16,
+    "memory_budget_kib": 1048576,
+    "oracle_k": 8,
+    "schedule_cap": 64,
+    "time_budget_seconds": 120.0,
+    "universal_parent_cap": 9
+  },
+  "peak_rss_kib": 49148,
+  "proof_scope": "bounded boxes only: universal parents 2<=k<=9; stripped ancestors of the full three-return domain 2<=k<=16",
+  "question": "problem1",
+  "result": {
+    "base_collision": {
+      "first": {
+        "Sc": 1,
+        "Sp": 3,
+        "Vc": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "Vp": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "child_L": 2,
+        "child_endpoints": 1,
+        "child_hex": "0x3208",
+        "child_k": 7,
+        "digit": 0,
+        "high_mask": "1111",
+        "m": "1011",
+        "next_mask": "1011",
+        "next_mask_source": "levels",
+        "parent_L": 1,
+        "parent_endpoints": 3,
+        "parent_hex": "0xc82",
+        "parent_k": 6,
+        "phase": "p"
+      },
+      "second": {
+        "Sc": 1,
+        "Sp": 3,
+        "Vc": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Vp": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "child_L": 2,
+        "child_endpoints": 1,
+        "child_hex": "0x3220",
+        "child_k": 7,
+        "digit": 0,
+        "high_mask": "1111",
+        "m": "1011",
+        "next_mask": "1011",
+        "next_mask_source": "levels",
+        "parent_L": 1,
+        "parent_endpoints": 3,
+        "parent_hex": "0xc88",
+        "parent_k": 6,
+        "phase": "p"
+      }
+    },
+    "completed_through_cap": true,
+    "domain_ancestors": 25,
+    "domain_base_collision": null,
+    "domain_occurrences": 19,
+    "domain_strong_collision": null,
+    "domain_transitions": 8,
+    "domain_transitions_total": 8,
+    "excluded_depth_ge_k": 0,
+    "halt_reason": null,
+    "lift_disagreements": 0,
+    "lift_identity_rows": 15582,
+    "oracle_states_compared": 576,
+    "order": [
+      "parent-k ascending",
+      "phase p then u",
+      "parent-L ascending",
+      "parent state ascending",
+      "digit 0..3"
+    ],
+    "recursive_outgoing_fiber_checks": 155,
+    "stopping": "first collision per key or cap; no cap increase",
+    "strong_collision": {
+      "first": {
+        "Sc": 1,
+        "Sp": 3,
+        "Vc": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "Vp": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "child_L": 2,
+        "child_endpoints": 1,
+        "child_hex": "0x3208",
+        "child_k": 7,
+        "digit": 0,
+        "high_mask": "1111",
+        "m": "1011",
+        "next_mask": "1011",
+        "next_mask_source": "levels",
+        "parent_L": 1,
+        "parent_endpoints": 3,
+        "parent_hex": "0xc82",
+        "parent_k": 6,
+        "phase": "p"
+      },
+      "second": {
+        "Sc": 1,
+        "Sp": 3,
+        "Vc": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "Vp": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "child_L": 2,
+        "child_endpoints": 1,
+        "child_hex": "0x3220",
+        "child_k": 7,
+        "digit": 0,
+        "high_mask": "1111",
+        "m": "1011",
+        "next_mask": "1011",
+        "next_mask_source": "levels",
+        "parent_L": 1,
+        "parent_endpoints": 3,
+        "parent_hex": "0xc88",
+        "parent_k": 6,
+        "phase": "p"
+      }
+    },
+    "truncated_schedules": 0,
+    "two_step_obstruction": {
+      "branches": [
+        {
+          "child_Vc": [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "child_hex": "0x3208",
+          "grandchild_hex": "0xc820",
+          "grandchild_signed_mass": -1,
+          "grandparent_hex": "0xc82"
+        },
+        {
+          "child_Vc": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "child_hex": "0x3220",
+          "grandchild_hex": "0xc880",
+          "grandchild_signed_mass": 1,
+          "grandparent_hex": "0xc88"
+        }
+      ],
+      "child_tables": {
+        "0x3208": [
+          {
+            "cost": 0,
+            "endpoint_hex": "0xc88",
+            "next_mask": "1011"
+          }
+        ],
+        "0x3220": [
+          {
+            "cost": 0,
+            "endpoint_hex": "0xc80",
+            "next_mask": "1111"
+          }
+        ]
+      },
+      "grandchild_tables": {
+        "0xc820": [
+          {
+            "cost": 1,
+            "endpoint_hex": "0x3220",
+            "next_mask": "1011"
+          }
+        ],
+        "0xc880": [
+          {
+            "cost": 0,
+            "endpoint_hex": "0x3200",
+            "next_mask": "1100"
+          }
+        ]
+      },
+      "parent_tables": {
+        "0xc82": [
+          {
+            "cost": 0,
+            "endpoint_hex": "0x322",
+            "next_mask": "1111"
+          },
+          {
+            "cost": 0,
+            "endpoint_hex": "0x372",
+            "next_mask": "0000"
+          },
+          {
+            "cost": 0,
+            "endpoint_hex": "0x376",
+            "next_mask": "0000"
+          }
+        ],
+        "0xc88": [
+          {
+            "cost": 0,
+            "endpoint_hex": "0x320",
+            "next_mask": "1111"
+          },
+          {
+            "cost": 0,
+            "endpoint_hex": "0x370",
+            "next_mask": "0000"
+          },
+          {
+            "cost": 0,
+            "endpoint_hex": "0x374",
+            "next_mask": "0000"
+          }
+        ]
+      },
+      "scope": "universal box only (not a domain claim)",
+      "two_step_key": {
+        "Vp": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "digits": [
+          0,
+          0
+        ],
+        "grandparent_L": 1,
+        "grandparent_k": 6,
+        "masks": [
+          "1011",
+          "1011"
+        ],
+        "phase": "p"
+      },
+      "verified": true
+    },
+    "universal_belief_pair_checks": 26710,
+    "universal_transitions": 484,
+    "universal_transitions_total": 15582
+  },
+  "result_hashes": {
+    "certificate_sha256": "29f625557e29b96d85531fc333ee493da605c365c4152c49194dfd8c6be69563"
+  },
+  "result_summary": {
+    "base_collision_found": true,
+    "completed_through_cap": true,
+    "domain_base_collision_found": false,
+    "domain_strong_collision_found": false,
+    "domain_transitions": 8,
+    "domain_transitions_total": 8,
+    "strong_collision_found": true,
+    "truncated_schedules": 0,
+    "universal_transitions": 484,
+    "universal_transitions_total": 15582
+  },
+  "runtime_seconds": 3.7167593350168318,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4"
+  },
+  "source_hashes": {
+    "analyzer_sha256": "d4537ce3b995c7e197cd4607ee035927b4d060eee846f59adc253496683f570d",
+    "lift_recursion_sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "test_sha256": "30f4126b8640b9a302fe65b2a72eba9d74117a56c325b08da48661b774e76e04"
+  },
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T11:50:55Z",
+  "worktree": "/home/ryan/rule30-lab"
+}
