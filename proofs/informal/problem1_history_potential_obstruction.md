@@ -7,6 +7,14 @@ derived and adversarially reviewed.
 Base checkpoint: `fb39f7bb01374b69c4a42b47799784658eb72d07`.
 Problem 1 and all-occurrence boundary bounds remain open.
 
+Follow-up: `problem1_history_synchronization.md` proves all-depth loss of
+initial-representation ambiguity under the prescribed scanner/forced
+update. It does not canonicalize every representation of a later endpoint.
+The old sixteen-state count of (0,T) fails strict descent on the named
+u18 block (0->0), while count_(0,T)+count_(1,U) decreases2->0 on both
+named blocks. The latter is a finite surviving candidate, not a universal
+descent theorem.
+
 ## Bottleneck and route selection
 
 The latest dominant-empty boundary theorem requires L<=k-4 for a

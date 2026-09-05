@@ -11,6 +11,60 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest all-depth synchronization theorem: read
+`proofs/informal/problem1_history_synchronization.md` first, with scanner
+definitions in `problem1_frontier_head_dynamics.md`.
+
+- `partial-proof`: for n=k-1 nonroot history letters, every scanner pass
+  makes one more trailing letter depend only on the ORIGINAL endpoint x.
+  Precisely, the ith letter of H^r(w) is S_(A^(r-1)v_i mod4); using
+  pi^(n-i)x=A^(n-i)v_i gives an endpoint formula when i>=n-r+1.
+  Hence all initial representations of x coalesce by r=n.
+- Under defined forced steps w->H(w)Q, an appended letter's birth prefix
+  is F^t(x) and its later prefix is A^(r-t)F^t(x). The whole appended
+  suffix is independent of the initial representation. Only the first
+  max(n-r,0) original letters can remain ambiguous.
+- Periodic-core bijectivity accelerates this to
+  R(h)=max(n-h,1+max tau_(a,j),j=2..h+1). The proved h3 bounds are
+  p:max(k-4,5), u:max(k-4,4). Thus at cut c=k-4 (L=k-3), the start of
+  the new dominant-empty layer, initial representations have already
+  synchronized for p,k>=9 and u,k>=8, conditional on the segment existing.
+  This does NOT prove occurrence exclusion or termination.
+- Synchronization concerns only the prescribed descendants of histories
+  of fixed original (x,phase,k), at elapsed time r. It neither forgets x
+  nor canonicalizes ALL representations of the later endpoint F^r(x).
+  Later reselection remains outside the theorem; a growing word remains.
+- `finite-exhaustive`: both implementations agree on19,682 words through
+  k9,1,138 endpoint groups and9,096 complete endpoint/age image sets;
+  all167,306 iterate and634,776 suffix-position checks pass. The first
+  one-pass failure is p5,x802: nonroot tttu and tutt give H images upup
+  and uppp, coalescing at2. Max ages0,1,1,1,2,3,3,3,4 in both phases
+  are finite data, not an all-depth growth law. No cap was increased.
+- The certified u18/0x6473d46ab/cut4/gap222 probe refutes strict block
+  descent of the earlier16-state count W_0t: it stays0->0. The two-edge
+  count W*=count_(0,T)+count_(1,U), residues modulo16, has2->0 on BOTH
+  the oldu14 and newu18 blocks. It is nonnegative on every history, but
+  universal descent remains `inconclusive`. No LP or new occurrence
+  census was needed. The same ten-step orbit verifies225 formula letters
+  and242 prefix identities for the forced-history extension.
+- Muse independently derived the synchronization proof and checked the
+  scopes. Fresh adversarial review accepted the core/forced indices and
+  the distinction between initial-history synchronization and later
+  endpoint canonicalization. Original sources, runner/data/input hashes
+  and independent portable verification are retained in
+  `results/problem1/20260905_history_synchronization_`
+  followed by `{primary,independent,verification}.json`.
+
+Final read-only review explicitly accepted all synchronization formulas,
+the complete finite comparisons and provenance chains without corrections.
+
+Next: falsify W* on another already certified block, and seek descent or
+a forbidden return pattern on the explicit synchronized family. Keep k
+the INITIAL complexity and state whether later history reselection is
+allowed. Do not fit a coalescence law by increasing the cap. Genuine
+occurrence exclusion, B_all, signed nonvanishing and the whole-tail
+question remain open.
+
 Newest history-potential obstruction: read
 `proofs/informal/problem1_history_potential_obstruction.md` first, followed
 by the scanner definitions in `problem1_frontier_head_dynamics.md`.

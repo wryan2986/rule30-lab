@@ -1,0 +1,123 @@
+{
+  "backend": "python-record-comparison-and-cell-formula-replay",
+  "experiment_id": "problem1-history-synchronization-verification-20260905",
+  "git_commit": "d399db5af183bfda440857e0ddf1bb51d74d59a7",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpus": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The two independent synchronization records agree, and the named forced-prefix formula and finite candidate weights are exact.",
+  "interpretation": "All finite comparisons pass; universal synchronization follows from the separate structural proof, and universal descent remains open.",
+  "limitations": [
+    "No new occurrence search or alternateu18 representations.",
+    "All-word image sets are compared after removing the retained phase root; counts are not signed endpoint masses.",
+    "The two-edge functional is checked on two named blocks only.",
+    "Portable replay reads committed files only via RULE30_REPLAY_ROOT and writes RULE30_REPLAY_OUTPUT."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "inputs": [
+      "results/problem1/20260905_history_synchronization_primary.json",
+      "results/problem1/20260905_history_synchronization_independent.json",
+      "results/problem1/20260905_history_potential_primary.json"
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Complete stored endpoint image sets plus the admitted fixed ten-step orbit and two saved48-edge vectors.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_file_sha256": "5ac932faaca9ddc167981acbc578abc55b8fb0e08c6581493f9f7da367c9d5a2",
+    "primary_file_sha256": "58f4181d7d2dab229ff8aad37251d70febd161e30aca5be771cd5e7cd66a8ef5",
+    "result_summary_sha256": "603f1cde05ce80d4e55efd878510d05ad5bb1c7e904f2f024b0b1cedcdd9b1ed",
+    "source_sha256": "443cf982b57f8f4ee7dd7be1b5942f3d8f32d1a52e19a3fc9c05a770789e392b"
+  },
+  "result_summary": {
+    "accelerated_endpoint_bounds_compared": 2255,
+    "completed": true,
+    "distinct_image_sets_compared": 9096,
+    "endpoint_groups_compared": 1138,
+    "failures": [],
+    "first_one_pass_failure": {
+      "k": 5,
+      "phase": "p",
+      "x": 802
+    },
+    "forced_formula_letters_verified": 225,
+    "forced_prefix_values_verified": 242,
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "one_pass_failure_groups_compared": 394,
+    "ordinary_words": 19682,
+    "original_records_hash_chains_checked": 3,
+    "shared_input_linkage_checked": true,
+    "suffix_position_checks_agree": 634776,
+    "two_edge_candidate": {
+      "all_other_coefficients": 0,
+      "coefficients_one_at": [
+        "0t",
+        "1u"
+      ],
+      "named_case_values": [
+        {
+          "W_0t_plus_1u_values": [
+            2,
+            0
+          ],
+          "W_0t_values": [
+            2,
+            0
+          ],
+          "case": "u14"
+        },
+        {
+          "W_0t_plus_1u_values": [
+            2,
+            0
+          ],
+          "W_0t_values": [
+            0,
+            0
+          ],
+          "case": "u18"
+        }
+      ],
+      "universal_descent_claimed": false
+    },
+    "u18_edge_counts_compared": 48,
+    "u18_forced_updates_compared": 10,
+    "u18_states_compared": 11,
+    "unique_images_in_compared_sets": 28835,
+    "word_iterate_checks_agree": 167306
+  },
+  "runtime_seconds": 0.31118441792204976,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import copy,datetime,functools,hashlib,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_history_synchronization_verification.json')))\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));resource.setrlimit(resource.RLIMIT_CPU,(120,120));signal.alarm(120)\naff=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{aff[0]})\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef originalbytes(x):return (json.dumps(x,sort_keys=True,indent=2)+'\\n').encode()\nbase=ROOT/'results/problem1';pp=base/'20260905_history_synchronization_primary.json';ip=base/'20260905_history_synchronization_independent.json'\np=json.loads(pp.read_bytes());ind=json.loads(ip.read_bytes());s=ind['result_summary']\nfor r in [p,ind]:\n    assert sha(canon(r['result_summary']))==r['result_hashes']['result_summary_sha256']\n    assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\nassert p['result_summary']['completed'] and s['completed'] and s['first_suffix_failure'] is None\nrecords=p['original_run_records'];data=p['result_summary']['data'];hashes=p['integration']['original_file_hashes']\nfor name,r in records.items():\n    assert r['git_commit']==p['git_commit']==ind['git_commit']\n    assert r['result_summary']['completion_status']=='complete'\n    assert sha(originalbytes(r))==hashes[name]['original_record_sha256']\n    assert sha(originalbytes(data[name]))==hashes[name]['original_raw_sha256']==r['result_hashes']['raw_data_sha256']\n    assert sha(r['executed_source_utf8'].encode())==r['result_hashes']['executed_source_sha256']\n    assert sha(canon(r['result_summary']))==r['result_hashes']['normalized_summary_sha256']\n    q=copy.deepcopy(r);h=q.pop('payload_sha256_excluding_this_field');assert sha(canon(q))==h\n    if 'runner_source_utf8' in r:assert sha(r['runner_source_utf8'].encode())==r['runner_source_sha256']\nassert records['one_pass']['inputs']['completed_partB_record']['sha256']==hashes['synchronization']['original_record_sha256']\nassert records['one_pass']['inputs']['completed_partB_raw_data']['sha256']==hashes['synchronization']['original_raw_sha256']\nfor info in ind['inputs'].values():assert sha((ROOT/info['path']).read_bytes())==info['sha256']\npriorpath=base/'20260905_history_potential_primary.json';prior=json.loads(priorpath.read_bytes())\nprior16=prior['original_run_records']['mod16']\nassert sha(originalbytes(prior16))==records['u18']['inputs']['u14_prior48_counts']['sha256']\nassert records['synchronization']['inputs']['existing_frontiers_and_small_image_ages']['sha256']==ind['inputs']['frontier_record']['sha256']\n\nir={(r['phase'],r['k'],r['x']):r for r in s['rows']};pr={}\nimage_sets=0;unique_images=0;originalwords=0;bounds=0\nfor c in data['synchronization']['phase_level_certificates']:\n    a,k=c['phase'],c['k'];assert c['ordinary_word_count']==3**(k-1)\n    for row in c['endpoints']:\n        key=(a,k,row['x']);pr[key]=row;r=ir[key]\n        assert row['representation_count']==r['representation_count']\n        assert row['first_coalescence_age']==r['first_coalescence_age']\n        assert row['image_word_counts_by_age']==r['distinct_counts_by_r']\n        assert row['canonical_word_at_n'][1:]==r['canonical_at_n']\n        assert row['basic_bound_pass']\n        for age,words in enumerate(row['distinct_H_words_by_age']):\n            assert sha(canon(words))==row['image_word_set_hashes_by_age'][age]\n            assert all(w[0]==a for w in words)\n            stripped=[w[1:] for w in words]\n            assert sha(canon(stripped))==r['image_set_hashes_by_r'][age]\n            image_sets+=1;unique_images+=len(words)\n        originalwords+=len(row['distinct_H_words_by_age'][0])\n        assert len(row['stronger_bounds'])==len(r['accelerated_bounds'])\n        for a1,b1 in zip(row['stronger_bounds'],r['accelerated_bounds']):\n            assert (a1['h'],a1['R'],a1['effective_r'],a1['pass'])==(b1['h'],b1['R'],b1['checked_at'],b1['pass']);bounds+=1\nassert pr.keys()==ir.keys() and len(pr)==1138 and originalwords==s['ordinary_words_checked']==19682\nsyncsummary=records['synchronization']['result_summary']\nassert syncsummary['coverage_counts']['H_iterate_endpoint_checks']==s['word_iterates_checked']==167306\nassert syncsummary['coverage_counts']['suffix_letter_positions_checked']==s['suffix_positions_checked']==634776\nfor key in ['first_suffix_counterexample','first_basic_sync_counterexample','first_stronger_sync_counterexample','first_endpoint_identity_counterexample']:assert syncsummary[key] is None\nfailures=[{'phase':a,'k':k,'x':x,'first_coalescence_age':r['first_coalescence_age']} for (a,k,x),r in ir.items() if k>=2 and r['distinct_counts_by_r'][1]>1]\nfailures.sort(key=lambda r:(r['k'],r['phase'],r['x']))\nassert failures==data['one_pass']['all_failure_group_keys'] and len(failures)==394\nassert (failures[0]['phase'],failures[0]['k'],failures[0]['x'])==('p',5,802)\nfor cov in syncsummary['phase_level_coverage']:\n    match=next(r for r in s['level_counts'] if r['phase']==cov['phase'] and r['k']==cov['k'])\n    assert (cov['words'],cov['endpoints'],cov['maximum_coalescence_age'])==(match['words'],match['endpoints'],match['max_coalescence_age'])\n\n@functools.lru_cache(None)\ndef T(v):\n    b=[int(d) for d in bin(v)[2:][::-1]]+[0,0]\n    return sum(((b[j]+int(bool((b[j-1] if j else 0) or (b[j-2] if j>1 else 0))))%2)*2**j for j in range(len(b)))\ndef G(g,v):\n    if g=='p':return T(2*v+1)//2\n    t=T(v);return t if g=='t' else t+1 if t%2==0 else t-1\ndef power(v,r):\n    for _ in range(r):v=T(v)//4\n    return v\ndef prefix_values(w,root):\n    v=root;out=[]\n    for g in w:v=G(g,v);out.append(v)\n    return out\ndef H(w,root):return ''.join(('t','u','p','p')[v%4] for v in prefix_values(w,root))\ndiag=records['one_pass']['result_summary']['first_counterexample']\nfor w,image in zip(diag['initial_words'],diag['H_images']):\n    assert prefix_values(w[1:],3)[-1]==802\n    assert 'p'+H(w[1:],3)==image\n    assert prefix_values(image[1:],3)[-1]==891\nassert len({H(H(w[1:],3),3) for w in diag['initial_words']})==1\n\nprobe=s['u18_probe'];states=probe['states'];a=data['u18'];assert len(states)==11 and len(a['steps'])==10\nfor t,row in enumerate(a['steps']):\n    assert row['old_word'][1:]==states[t]['word_after_root'] and row['old_endpoint']==states[t]['endpoint']\n    assert row['new_word'][1:]==states[t+1]['word_after_root'] and row['new_endpoint']==states[t+1]['endpoint']\n    assert row['branch']==states[t]['branch']\nfor row in a['all48_rows']:\n    e=str(row['residue'])+row['letter']\n    assert (row['count_at_cut4'],row['count_at_cut10'],row['delta'])==(states[4]['edge_counts'][e],states[10]['edge_counts'][e],probe['edge_delta'][e])\nassert probe['observed_branches']=='ttttututut' and probe['admissibility_word']=='ttttutututu'\n# Exact formula replay on the already admitted ten-step orbit, no new transitions.\nv=prefix_values(states[0]['word_after_root'],1);n=len(v);letter_checks=prefix_checks=0\nfor r,state in enumerate(states):\n    actual=prefix_values(state['word_after_root'],1)\n    expected_prefixes=[power(z,r) for z in v]+[power(states[t]['endpoint'],r-t) for t in range(1,r+1)]\n    assert actual==expected_prefixes;prefix_checks+=len(actual)\n    if r:\n        first=''.join(('t','u','p','p')[power(z,r-1)%4] for z in v)\n        tail=''.join(states[t-1]['branch'] if t==r else ('t','u','p','p')[power(states[t]['endpoint'],r-t-1)%4] for t in range(1,r+1))\n        assert first+tail==state['word_after_root'];letter_checks+=len(first+tail)\nold=json.loads((ROOT/ind['inputs']['prior_u14']['path']).read_bytes())['result_summary']['mod16_scope_check']\ncandidate_rows=[]\nfor name,left,right in [('u14',old['initial_edge_counts'],old['final_edge_counts']),('u18',states[4]['edge_counts'],states[10]['edge_counts'])]:\n    values=[left['0t']+left['1u'],right['0t']+right['1u']];assert values==[2,0]\n    candidate_rows.append({'case':name,'W_0t_values':[left['0t'],right['0t']],'W_0t_plus_1u_values':values})\nrefhash=sha((ROOT/'src/python/rule30_research_reference.py').read_bytes());assert refhash=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\nsummary={'completed':True,'failures':[],'ordinary_words':originalwords,'endpoint_groups_compared':len(pr),\n         'distinct_image_sets_compared':image_sets,'unique_images_in_compared_sets':unique_images,\n         'word_iterate_checks_agree':167306,'suffix_position_checks_agree':634776,'accelerated_endpoint_bounds_compared':bounds,\n         'one_pass_failure_groups_compared':394,'first_one_pass_failure':{'phase':'p','k':5,'x':802},\n         'u18_states_compared':11,'u18_forced_updates_compared':10,'u18_edge_counts_compared':48,\n         'forced_formula_letters_verified':letter_checks,'forced_prefix_values_verified':prefix_checks,\n         'two_edge_candidate':{'coefficients_one_at':['0t','1u'],'all_other_coefficients':0,'named_case_values':candidate_rows,\n                               'universal_descent_claimed':False},\n         'original_records_hash_chains_checked':3,'shared_input_linkage_checked':True,'immutable_reference_sha256':refhash}\nsource=pathlib.Path(__file__).read_bytes()\nrecord={'experiment_id':'problem1-history-synchronization-verification-20260905',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1',\n 'hypothesis':'The two independent synchronization records agree, and the named forced-prefix formula and finite candidate weights are exact.',\n 'backend':'python-record-comparison-and-cell-formula-replay',\n 'parameters':{'inputs':[str(pp.relative_to(ROOT)),str(ip.relative_to(ROOT)),str(priorpath.relative_to(ROOT))],\n               'cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},\n 'hardware':ind['hardware'],'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},\n 'runtime_seconds':time.monotonic()-START,'source_text':source.decode(),'result_summary':summary,\n 'result_hashes':{'primary_file_sha256':sha(pp.read_bytes()),'independent_file_sha256':sha(ip.read_bytes()),\n                  'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},\n 'status':'finite-exhaustive','interpretation':'All finite comparisons pass; universal synchronization follows from the separate structural proof, and universal descent remains open.',\n 'proof_scope':'Complete stored endpoint image sets plus the admitted fixed ten-step orbit and two saved48-edge vectors.',\n 'limitations':['No new occurrence search or alternateu18 representations.',\n                'All-word image sets are compared after removing the retained phase root; counts are not signed endpoint masses.',\n                'The two-edge functional is checked on two named blocks only.',\n                'Portable replay reads committed files only via RULE30_REPLAY_ROOT and writes RULE30_REPLAY_OUTPUT.']}\nOUT.parent.mkdir(parents=True,exist_ok=True)\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());temp=f.name\nos.replace(temp,OUT);print(json.dumps(summary,sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T21:14:47.923981+00:00"
+}

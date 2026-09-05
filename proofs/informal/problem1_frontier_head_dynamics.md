@@ -416,6 +416,14 @@ three-return descent for four-state additive history potentials bounded
 below on all ordinary histories, via a genuine cycle-circulation witness.
 The same witness does not exclude sixteen-state additive potentials.
 
+The subsequent `problem1_history_synchronization.md` proves that each
+scanner pass makes another trailing letter independent of the INITIAL
+representation, with acceleration from the periodic head cores. The same
+conclusion extends to a defined forced segment. This synchronizes the
+prescribed descendants of histories of fixed original x,phase,k; it is
+not a unique normal form for all histories of the later endpoint and does
+not prove that the growing forced process terminates.
+
 The longer proof target is the history scanner with its forced append and
 mod-16 stopping gate. For a starting ordinary word of complexity k, an
 all-depth boundary proof must exclude a three-return occurrence at any
