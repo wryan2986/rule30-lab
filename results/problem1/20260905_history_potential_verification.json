@@ -1,0 +1,90 @@
+{
+  "backend": "python-exact-record-and-certificate-comparison",
+  "experiment_id": "problem1-history-potential-verification-20260905",
+  "git_commit": "fb39f7bb01374b69c4a42b47799784658eb72d07",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpus": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "Independent fixed-history records agree and the complete original provenance chain is intact.",
+  "interpretation": "All named comparisons pass; the general no-go requires the separate pumping argument.",
+  "limitations": [
+    "No global minimality or alternate-representation check.",
+    "The903 motif is irrelevant to the no-go and was not replayed here; its ordinary nonmembership is checked.",
+    "No universal sixteen-state potential or occurrence bound is established.",
+    "Replay reads committed records only and supports RULE30_REPLAY_ROOT/OUTPUT."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "input_files": [
+      "results/problem1/20260905_history_potential_primary.json",
+      "results/problem1/20260905_history_potential_independent.json"
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Eight genuine states, seven updates, complete4/16-state counts and rejection certificates, not a new occurrence search.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_file_sha256": "0b26f5af69a4d6f3cde868d3fd25901f3e7e87fb36cd271f5eabe9296a904ea9",
+    "primary_file_sha256": "bbdd3db08fea8df535931549775307910798c1cef6d457d12348a6fa7f427f6a",
+    "result_summary_sha256": "84801e645c7e4d9ac94eb3354b13ef491a548a90cfef601693e1c5c2a64e5138",
+    "source_sha256": "12d6bca36897d492c9b5f221ba272adcf504356ef4f68c52c1aeac735185292d"
+  },
+  "result_summary": {
+    "coarsening_verified": true,
+    "completed": true,
+    "cycle_decompositions_agree": true,
+    "failures": [],
+    "first_refined_count_change": [
+      2,
+      0
+    ],
+    "four_state_count_tables_compared": 8,
+    "four_state_delta_edges_compared": 12,
+    "genuine_forced_updates_compared": 7,
+    "genuine_states_compared": 8,
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "original_records_and_payloads_checked": 3,
+    "refined_negative_edges": [
+      "0t",
+      "3u",
+      "15p"
+    ],
+    "scope903_last_generator_rejections": 33,
+    "single_step_control_corrected": true,
+    "sixteen_state_edges_compared": 48,
+    "source_raw_input_and_summary_hashes_validated": true
+  },
+  "runtime_seconds": 0.014382540946826339,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import copy, datetime, hashlib, json, os, pathlib, platform, resource, signal, subprocess, sys, tempfile, time\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_history_potential_verification.json')))\nSTART=time.monotonic(); resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));resource.setrlimit(resource.RLIMIT_CPU,(120,120));signal.alarm(120)\naff=sorted(os.sched_getaffinity(0));os.sched_setaffinity(0,{aff[0]})\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef originalbytes(x):return (json.dumps(x,sort_keys=True,indent=2)+'\\n').encode()\nbase=ROOT/'results/problem1';pp=base/'20260905_history_potential_primary.json';ip=base/'20260905_history_potential_independent.json'\np=json.loads(pp.read_bytes());i=json.loads(ip.read_bytes())\nfor r in [p,i]:\n    assert sha(canon(r['result_summary']))==r['result_hashes']['result_summary_sha256']\n    assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\nassert p['result_summary']['completed'] and i['result_summary']['completed'] and not i['result_summary']['failures']\nrecords=p['original_run_records'];data=p['result_summary']['data'];hashes=p['integration']['original_file_hashes']\nfor name,r in records.items():\n    assert r['git_commit']==p['git_commit']==i['git_commit']\n    assert r['result_summary']['completion_status']=='complete'\n    assert sha(originalbytes(r))==hashes[name]['record_sha256']\n    rawhash=sha(originalbytes(data[name]));assert rawhash==hashes[name]['raw_sha256']==r['result_hashes']['raw_data_sha256']\n    assert sha(r['executed_source_utf8'].encode())==hashes[name]['source_sha256']==r['result_hashes']['executed_source_sha256']\n    assert sha(canon(r['result_summary']))==r['result_hashes']['normalized_summary_sha256']\n    q=copy.deepcopy(r);digest=q.pop('payload_sha256_excluding_this_field');assert sha(canon(q))==digest\nassert records['mod16']['inputs']['operative_prior_record']['sha256']==hashes['genuine']['record_sha256']\nassert records['genuine']['inputs']['operative_903_scopecheck']['sha256']==hashes['scope903']['record_sha256']\nassert records['genuine']['inputs']['operative_903_scopecheck']['raw_sha256']==hashes['scope903']['raw_sha256']\nfor info in i['inputs'].values():assert sha((ROOT/info['path']).read_bytes())==info['sha256']\nassert records['scope903']['inputs']['operative_frontiers']['sha256']==i['inputs']['frontier_record']['sha256']\n\ns=i['result_summary'];journey=data['genuine']['full_seven_step_history_replay'];states=s['states']\nedgelabels=[str(r)+g for r in range(4) for g in 'tup']\ndef compare(word,endpoint,counts,state):\n    assert word[0]=='u' and word[1:]==state['history'] and endpoint==state['endpoint']\n    assert counts['letters_excluding_fixed_root']==[state['letter_counts'][g] for g in 'tup']\n    assert counts['edges']==[state['edge_counts'][e] for e in edgelabels]\n    assert counts['endpoint_mod4']==state['terminal_residue']\nassert len(journey['steps'])==7 and len(states)==8\ncompare(journey['initial_word'],journey['initial_endpoint'],journey['initial_counts'],states[0])\nfor t,row in enumerate(journey['steps']):\n    compare(row['old_word'],row['old_endpoint'],row['old_counts'],states[t])\n    compare(row['new_word'],row['new_endpoint'],row['new_counts'],states[t+1])\n    assert row['appended_branch']==states[t]['observed_branch']\n    assert row['scanner_word'][1:]+row['appended_branch']==states[t+1]['history']\n    assert row['forced_step']['next_x']==states[t+1]['endpoint']\nblock=data['genuine']['six_step_block']\nassert block['branches']=='ututut' and block['full_observed_prefix']==s['observed_prefix']=='tututut'\nassert block['admissibility_word_with_unobserved_final_u']=='tutututu'\nassert block['letter_delta']==[s['letter_delta'][g] for g in 'tup']\nassert block['edge_delta']==[s['edge_delta'][e] for e in edgelabels]\nassert block['signed_vertex_balance']==[0]*4\nrecon={e:0 for e in edgelabels}\nfor c in block['nonnegative_cycle_decomposition']:\n    for edge in c['edge_indices']:recon[edgelabels[edge]]+=c['multiplicity']\nassert recon==s['edge_delta']\nfor c in s['cycle_decomposition']:\n    for e in c['edges']:recon[e]-=c['multiplicity']\nassert not any(recon.values())\n\nmod16=data['mod16'];scope=s['mod16_scope_check'];coarse0={e:0 for e in edgelabels};coarse1=coarse0.copy()\nassert len(mod16['all48_edge_rows'])==48\nfor row in mod16['all48_edge_rows']:\n    e=str(row['old_prefix_mod16'])+row['input_letter'];c=str(row['old_prefix_mod16']%4)+row['input_letter']\n    assert row['initial_count']==scope['initial_edge_counts'][e]\n    assert row['final_count']==scope['final_edge_counts'][e]\n    assert row['delta']==scope['delta'][e]\n    coarse0[c]+=row['initial_count'];coarse1[c]+=row['final_count']\nassert coarse0==states[1]['edge_counts'] and coarse1==states[7]['edge_counts']\nassert scope['negative_edges']==['0t','3u','15p']\nassert [scope['initial_edge_counts']['0t'],scope['final_edge_counts']['0t']]==[2,0]\nassert mod16['count_potential_certificate']['initial_potential']==2\nassert mod16['count_potential_certificate']['final_potential']==0\n\ndef cellT(v):\n    b=[int(x) for x in bin(v)[2:][::-1]]+[0,0]\n    return sum(((b[j]+int(bool((b[j-1] if j else 0) or (b[j-2] if j>1 else 0))))%2)*2**j for j in range(len(b)))\ndef cellG(g,v):\n    if g=='p':return cellT(2*v+1)//2\n    t=cellT(v)\n    return t if g=='t' else t+1 if t%2==0 else t-1\nold=data['scope903'];query=next(row for row in old['recursive_predecessor_queries'] if row['target']==903)\nassert len(query['direct_edges'])==33\nassert {(r['parent'],r['letter']) for r in query['direct_edges']}=={(v,g) for v in s['scope_rejection_903']['O_p4'] for g in 'tup'}\nfor row in query['direct_edges']:assert row['child']==cellG(row['letter'],row['parent'])!=903 and not row['matches_target']\nassert records['scope903']['result_summary']['ordinary_membership'] is False\nassert not s['scope_rejection_903']['in_frontier'] and not s['scope_rejection_903']['projected_head_in_frontier']\nhand=data['genuine']['handcheck_7_to_27'];assert hand['initial_word']=='ut' and hand['final_word']=='upu'\nassert hand['initial_endpoint']==7 and hand['final_endpoint']==27\nassert s['single_step_scope_check']['initial']=='t' and s['single_step_scope_check']['final']=='pu'\nreference=sha((ROOT/'src/python/rule30_research_reference.py').read_bytes())\nassert reference=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\nsummary={'completed':True,'failures':[],'genuine_states_compared':8,'genuine_forced_updates_compared':7,\n         'four_state_count_tables_compared':8,'four_state_delta_edges_compared':12,\n         'cycle_decompositions_agree':True,'sixteen_state_edges_compared':48,\n         'refined_negative_edges':['0t','3u','15p'],'first_refined_count_change':[2,0],\n         'coarsening_verified':True,'scope903_last_generator_rejections':33,\n         'single_step_control_corrected':True,'original_records_and_payloads_checked':3,\n         'source_raw_input_and_summary_hashes_validated':True,'immutable_reference_sha256':reference}\nsource=pathlib.Path(__file__).read_bytes()\nrecord={'experiment_id':'problem1-history-potential-verification-20260905',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'Independent fixed-history records agree and the complete original provenance chain is intact.',\n 'backend':'python-exact-record-and-certificate-comparison',\n 'parameters':{'input_files':[str(pp.relative_to(ROOT)),str(ip.relative_to(ROOT))],'cpu_seconds_limit':120,'address_space_bytes':1<<30,'wall_seconds_limit':120},\n 'hardware':i['hardware'],'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},\n 'runtime_seconds':time.monotonic()-START,'source_text':source.decode(),'result_summary':summary,\n 'result_hashes':{'primary_file_sha256':sha(pp.read_bytes()),'independent_file_sha256':sha(ip.read_bytes()),'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},\n 'status':'finite-exhaustive','interpretation':'All named comparisons pass; the general no-go requires the separate pumping argument.',\n 'proof_scope':'Eight genuine states, seven updates, complete4/16-state counts and rejection certificates, not a new occurrence search.',\n 'limitations':['No global minimality or alternate-representation check.','The903 motif is irrelevant to the no-go and was not replayed here; its ordinary nonmembership is checked.',\n                'No universal sixteen-state potential or occurrence bound is established.','Replay reads committed records only and supports RULE30_REPLAY_ROOT/OUTPUT.']}\nOUT.parent.mkdir(parents=True,exist_ok=True)\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());temp=f.name\nos.replace(temp,OUT);print(json.dumps(summary,sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T20:50:29.765793+00:00"
+}

@@ -1,0 +1,588 @@
+{
+  "backend": "python-cell-array-odd-section-full-prefix-scanner",
+  "experiment_id": "problem1-history-potential-independent-20260905",
+  "git_commit": "fb39f7bb01374b69c4a42b47799784658eb72d07",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpus": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The prescribed history update across the named genuine three-return block has a nonnegative letter or residue-edge count difference.",
+  "inputs": {
+    "frontier_record": {
+      "path": "results/problem1/20260905_frontier_head_primary.json",
+      "sha256": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c"
+    },
+    "witness_note": {
+      "path": "proofs/informal/problem1_generator_deletion_test.md",
+      "role": "fixed-word provenance",
+      "sha256": "67c95bae63ec24e1613045b4ef8524eb4be118b396534622bfbec130780cf200"
+    }
+  },
+  "interpretation": "Exact named history trajectory and circulation check; any general potential-class obstruction needs a separate proof.",
+  "limitations": [
+    "No alternate representations were enumerated.",
+    "903 is not an ordinary-frontier occurrence.",
+    "No signed mass, whole-tail theorem, or occurrence-bound claim follows from the computation.",
+    "Counts are history-edge counts, never distinct-endpoint counts."
+  ],
+  "parameters": {
+    "additional_residue_memory_check": 16,
+    "additional_scope_checks": [
+      7,
+      903
+    ],
+    "address_space_bytes": 1073741824,
+    "comparison_times": [
+      1,
+      7
+    ],
+    "cpu_seconds_limit": 120,
+    "fixed_original_state": 105053691,
+    "history_from_zero": "uuuuputptuutuu",
+    "maximum_observed_branches": 7,
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Only the fixed certified history, its seven forced steps and two stated scope checks.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "c522cf11637ab3abf5b3b4ffcd90fc320724da5c3663553d31618ededdc487b3",
+    "source_sha256": "5562da78968fecb2d235a9810165eeee5822ba0b1703a4b2c85f481159e45034"
+  },
+  "result_summary": {
+    "comparison_times": [
+      1,
+      7
+    ],
+    "completed": true,
+    "cut": 1,
+    "cycle_decomposition": [
+      {
+        "edges": [
+          "0p",
+          "3p"
+        ],
+        "multiplicity": 1
+      },
+      {
+        "edges": [
+          "0t"
+        ],
+        "multiplicity": 1
+      },
+      {
+        "edges": [
+          "1p",
+          "2u",
+          "3t"
+        ],
+        "multiplicity": 1
+      }
+    ],
+    "edge_delta": {
+      "0p": 1,
+      "0t": 1,
+      "0u": 0,
+      "1p": 1,
+      "1t": 0,
+      "1u": 0,
+      "2p": 0,
+      "2t": 0,
+      "2u": 1,
+      "3p": 1,
+      "3t": 1,
+      "3u": 0
+    },
+    "edge_delta_divergence": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    "failures": [],
+    "gaps": [
+      2,
+      2,
+      2
+    ],
+    "k": 14,
+    "letter_delta": {
+      "p": 3,
+      "t": 2,
+      "u": 1
+    },
+    "mod16_scope_check": {
+      "delta": {
+        "0p": 0,
+        "0t": -2,
+        "0u": 0,
+        "10p": 0,
+        "10t": 0,
+        "10u": 0,
+        "11p": 1,
+        "11t": 0,
+        "11u": 0,
+        "12p": 0,
+        "12t": 1,
+        "12u": 0,
+        "13p": 0,
+        "13t": 0,
+        "13u": 0,
+        "14p": 0,
+        "14t": 0,
+        "14u": 0,
+        "15p": -1,
+        "15t": 1,
+        "15u": 1,
+        "1p": 1,
+        "1t": 0,
+        "1u": 0,
+        "2p": 0,
+        "2t": 0,
+        "2u": 0,
+        "3p": 1,
+        "3t": 0,
+        "3u": -1,
+        "4p": 1,
+        "4t": 1,
+        "4u": 0,
+        "5p": 0,
+        "5t": 0,
+        "5u": 0,
+        "6p": 0,
+        "6t": 0,
+        "6u": 1,
+        "7p": 0,
+        "7t": 0,
+        "7u": 0,
+        "8p": 0,
+        "8t": 1,
+        "8u": 0,
+        "9p": 0,
+        "9t": 0,
+        "9u": 0
+      },
+      "final_edge_counts": {
+        "0p": 1,
+        "0t": 0,
+        "0u": 0,
+        "10p": 0,
+        "10t": 0,
+        "10u": 0,
+        "11p": 1,
+        "11t": 0,
+        "11u": 0,
+        "12p": 1,
+        "12t": 1,
+        "12u": 0,
+        "13p": 0,
+        "13t": 0,
+        "13u": 0,
+        "14p": 1,
+        "14t": 0,
+        "14u": 0,
+        "15p": 0,
+        "15t": 1,
+        "15u": 1,
+        "1p": 2,
+        "1t": 1,
+        "1u": 0,
+        "2p": 0,
+        "2t": 0,
+        "2u": 0,
+        "3p": 1,
+        "3t": 0,
+        "3u": 0,
+        "4p": 1,
+        "4t": 1,
+        "4u": 0,
+        "5p": 0,
+        "5t": 0,
+        "5u": 0,
+        "6p": 1,
+        "6t": 0,
+        "6u": 1,
+        "7p": 1,
+        "7t": 0,
+        "7u": 0,
+        "8p": 0,
+        "8t": 1,
+        "8u": 1,
+        "9p": 1,
+        "9t": 1,
+        "9u": 0
+      },
+      "first_negative_edge": "0t",
+      "initial_edge_counts": {
+        "0p": 1,
+        "0t": 2,
+        "0u": 0,
+        "10p": 0,
+        "10t": 0,
+        "10u": 0,
+        "11p": 0,
+        "11t": 0,
+        "11u": 0,
+        "12p": 1,
+        "12t": 0,
+        "12u": 0,
+        "13p": 0,
+        "13t": 0,
+        "13u": 0,
+        "14p": 1,
+        "14t": 0,
+        "14u": 0,
+        "15p": 1,
+        "15t": 0,
+        "15u": 0,
+        "1p": 1,
+        "1t": 1,
+        "1u": 0,
+        "2p": 0,
+        "2t": 0,
+        "2u": 0,
+        "3p": 0,
+        "3t": 0,
+        "3u": 1,
+        "4p": 0,
+        "4t": 0,
+        "4u": 0,
+        "5p": 0,
+        "5t": 0,
+        "5u": 0,
+        "6p": 1,
+        "6t": 0,
+        "6u": 0,
+        "7p": 1,
+        "7t": 0,
+        "7u": 0,
+        "8p": 0,
+        "8t": 0,
+        "8u": 1,
+        "9p": 1,
+        "9t": 1,
+        "9u": 0
+      },
+      "interpretation": "A negative edge defines a nonnegative counting functional decreasing on this pair only; no universal descent claim.",
+      "negative_edges": [
+        "0t",
+        "3u",
+        "15p"
+      ],
+      "nonnegative_delta": false,
+      "terminal_residues": [
+        7,
+        7
+      ]
+    },
+    "nonnegative_edge_delta": true,
+    "nonnegative_letter_delta": true,
+    "observed_prefix": "tututut",
+    "original_word_from_zero": "uuuuputptuutuu",
+    "phase": "u",
+    "root": 1,
+    "scope_rejection_903": {
+      "O_p4": [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        207,
+        220,
+        221,
+        222,
+        223
+      ],
+      "O_p5": [
+        800,
+        801,
+        802,
+        803,
+        804,
+        805,
+        807,
+        880,
+        881,
+        882,
+        883,
+        884,
+        885,
+        886,
+        887,
+        888,
+        889,
+        891,
+        894,
+        895
+      ],
+      "T129": 903,
+      "in_frontier": false,
+      "k_from_bitwidth": 5,
+      "phase_from_bitwidth": "p",
+      "projected_head_in_frontier": false,
+      "projected_level4_head": 225,
+      "x": 903
+    },
+    "single_step_scope_check": {
+      "F_x": 27,
+      "final": "pu",
+      "initial": "t",
+      "letter_delta": {
+        "p": 1,
+        "t": -1,
+        "u": 1
+      },
+      "x": 7
+    },
+    "states": [
+      {
+        "edge_counts": {
+          "0p": 2,
+          "0t": 1,
+          "0u": 0,
+          "1p": 0,
+          "1t": 0,
+          "1u": 3,
+          "2p": 0,
+          "2t": 0,
+          "2u": 3,
+          "3p": 0,
+          "3t": 2,
+          "3u": 2
+        },
+        "endpoint": 105053691,
+        "endpoint_hex": "0x642fdfb",
+        "history": "uuuputptuutuu",
+        "letter_counts": {
+          "p": 2,
+          "t": 3,
+          "u": 8
+        },
+        "observed_branch": "t",
+        "terminal_residue": 3,
+        "time": 0
+      },
+      {
+        "edge_counts": {
+          "0p": 2,
+          "0t": 2,
+          "0u": 1,
+          "1p": 2,
+          "1t": 2,
+          "1u": 0,
+          "2p": 2,
+          "2t": 0,
+          "2u": 0,
+          "3p": 2,
+          "3t": 0,
+          "3u": 1
+        },
+        "endpoint": 421315463,
+        "endpoint_hex": "0x191cc387",
+        "history": "pptpttpuppuppt",
+        "letter_counts": {
+          "p": 8,
+          "t": 4,
+          "u": 2
+        },
+        "observed_branch": "u",
+        "terminal_residue": 3,
+        "time": 1
+      },
+      {
+        "edge_counts": {
+          "0p": 1,
+          "0t": 3,
+          "0u": 1,
+          "1p": 3,
+          "1t": 0,
+          "1u": 0,
+          "2p": 0,
+          "2t": 1,
+          "2u": 3,
+          "3p": 2,
+          "3t": 1,
+          "3u": 0
+        },
+        "endpoint": 1680752123,
+        "endpoint_hex": "0x642e3dfb",
+        "history": "puptttptptupupu",
+        "letter_counts": {
+          "p": 6,
+          "t": 5,
+          "u": 4
+        },
+        "observed_branch": "t",
+        "terminal_residue": 3,
+        "time": 2
+      },
+      {
+        "edge_counts": {
+          "0p": 1,
+          "0t": 1,
+          "0u": 1,
+          "1p": 3,
+          "1t": 3,
+          "1u": 0,
+          "2p": 2,
+          "2t": 0,
+          "2u": 1,
+          "3p": 2,
+          "3t": 2,
+          "3u": 0
+        },
+        "endpoint": 6741250951,
+        "endpoint_hex": "0x191cf5387",
+        "history": "ppttttpuppptuppt",
+        "letter_counts": {
+          "p": 8,
+          "t": 6,
+          "u": 2
+        },
+        "observed_branch": "u",
+        "terminal_residue": 3,
+        "time": 3
+      },
+      {
+        "edge_counts": {
+          "0p": 1,
+          "0t": 0,
+          "0u": 2,
+          "1p": 4,
+          "1t": 0,
+          "1u": 0,
+          "2p": 0,
+          "2t": 2,
+          "2u": 4,
+          "3p": 3,
+          "3t": 1,
+          "3u": 0
+        },
+        "endpoint": 26892095995,
+        "endpoint_hex": "0x642e4d1fb",
+        "history": "pupupupptpttupupu",
+        "letter_counts": {
+          "p": 8,
+          "t": 3,
+          "u": 6
+        },
+        "observed_branch": "t",
+        "terminal_residue": 3,
+        "time": 4
+      },
+      {
+        "edge_counts": {
+          "0p": 4,
+          "0t": 2,
+          "0u": 1,
+          "1p": 2,
+          "1t": 2,
+          "1u": 0,
+          "2p": 2,
+          "2t": 0,
+          "2u": 0,
+          "3p": 3,
+          "3t": 0,
+          "3u": 2
+        },
+        "endpoint": 107859702407,
+        "endpoint_hex": "0x191cf07287",
+        "history": "pptupptpupppptuppt",
+        "letter_counts": {
+          "p": 11,
+          "t": 4,
+          "u": 3
+        },
+        "observed_branch": "u",
+        "terminal_residue": 3,
+        "time": 5
+      },
+      {
+        "edge_counts": {
+          "0p": 2,
+          "0t": 2,
+          "0u": 1,
+          "1p": 3,
+          "1t": 1,
+          "1u": 0,
+          "2p": 0,
+          "2t": 2,
+          "2u": 3,
+          "3p": 3,
+          "3t": 2,
+          "3u": 0
+        },
+        "endpoint": 430274623675,
+        "endpoint_hex": "0x642e5db8bb",
+        "history": "puptpttptptpttupupu",
+        "letter_counts": {
+          "p": 8,
+          "t": 7,
+          "u": 4
+        },
+        "observed_branch": "t",
+        "terminal_residue": 3,
+        "time": 6
+      },
+      {
+        "edge_counts": {
+          "0p": 3,
+          "0t": 3,
+          "0u": 1,
+          "1p": 3,
+          "1t": 2,
+          "1u": 0,
+          "2p": 2,
+          "2t": 0,
+          "2u": 1,
+          "3p": 3,
+          "3t": 1,
+          "3u": 1
+        },
+        "endpoint": 1725756603703,
+        "endpoint_hex": "0x191cf1bfd37",
+        "history": "ppttpupttpupppptuppt",
+        "letter_counts": {
+          "p": 11,
+          "t": 6,
+          "u": 3
+        },
+        "terminal_residue": 3,
+        "time": 7
+      }
+    ],
+    "unobserved_appended_admissibility_letter": "u"
+  },
+  "runtime_seconds": 0.015345241059549153,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import datetime, hashlib, json, os, pathlib, platform, resource, signal, subprocess, sys, tempfile, time\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT','/tmp/astra_history_potential_independent.json'))\nSTART=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30)); resource.setrlimit(resource.RLIMIT_CPU,(120,120)); signal.alarm(120)\naff=sorted(os.sched_getaffinity(0)); os.sched_setaffinity(0,{aff[0]})\ndef sha(b): return hashlib.sha256(b).hexdigest()\ndef canon(x): return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef T(v):\n    a=[int(b) for b in bin(v)[2:][::-1]]+[0,0]\n    return sum(((a[i]+int(bool((a[i-1] if i else 0) or (a[i-2] if i>=2 else 0))))%2)*2**i for i in range(len(a)))\ndef G(g,v):\n    if g=='t': return T(v)\n    if g=='u':\n        t=T(v); return t+1 if t%2==0 else t-1\n    return T(2*v+1)//2\ndef evaluate(w,root):\n    n=root\n    for g in w: n=G(g,n)\n    return n\ndef H(w,root):\n    n=root; out=[]\n    for g in w:\n        n=G(g,n); out.append(('t','u','p','p')[n%4])\n    return ''.join(out)\ndef count(w,root,modulus=4):\n    edges={str(r)+g:0 for r in range(modulus) for g in 'tup'}\n    n=root\n    for g in w:\n        edges[str(n%modulus)+g]+=1; n=G(g,n)\n    return edges\ndef letters(w): return {g:w.count(g) for g in 'tup'}\ndef nextres(r,g): return G(g,r)%4\ndef decompose(delta):\n    if any(v<0 for v in delta.values()): return None\n    remaining=dict(delta); cycles=[]\n    while any(remaining.values()):\n        start=next(int(e[0]) for e in sorted(remaining) if remaining[e])\n        path=[]; seen={}; v=start\n        while v not in seen:\n            seen[v]=len(path)\n            edge=next(e for e in sorted(remaining) if int(e[0])==v and remaining[e])\n            path.append(edge); v=nextres(v,edge[1])\n        cyc=path[seen[v]:]\n        multiplicity=min(remaining[e] for e in cyc)\n        for e in cyc: remaining[e]-=multiplicity\n        cycles.append({'multiplicity':multiplicity,'edges':cyc})\n    return cycles\n\nword_from_zero='uuuuputptuutuu'; root=1; w=word_from_zero[1:]\nassert evaluate(w,root)==int('642fdfb',16)\nstates=[]\nfor r in range(8):\n    n=evaluate(w,root)\n    row={'time':r,'history':w,'endpoint':n,'endpoint_hex':hex(n),\n         'terminal_residue':n%4,'letter_counts':letters(w),'edge_counts':count(w,root)}\n    states.append(row)\n    if r==7: break\n    q={7:'u',11:'t'}.get(n%16); assert q is not None\n    row['observed_branch']=q\n    a=T(n)//4; transformed=H(w,root)\n    assert evaluate(transformed,root)==a\n    # Forced map independently uses Q(P(pi n)), not its A-squared factorization.\n    forced=G(q,G('p',n//4))\n    w=transformed+q; assert evaluate(w,root)==forced\nbranches=''.join(s['observed_branch'] for s in states[:-1])\nassert branches=='tututut'\nassert all(bad not in branches+'u' for bad in ['uu','ttttt','ututtu'])\ninitial,final=states[1],states[7]\ndelta={e:final['edge_counts'][e]-initial['edge_counts'][e] for e in initial['edge_counts']}\nldelta={g:final['letter_counts'][g]-initial['letter_counts'][g] for g in 'tup'}\ndiv={r:0 for r in range(4)}\nfor e,n in delta.items():\n    div[int(e[0])]+=n; div[nextres(int(e[0]),e[1])]-=n\nassert not any(div.values())\ncycles=decompose(delta)\nif cycles is not None:\n    recon={e:0 for e in delta}\n    for cyc in cycles:\n        for e in cyc['edges']: recon[e]+=cyc['multiplicity']\n    assert recon==delta\n\ninitial16,final16=count(initial['history'],root,16),count(final['history'],root,16)\ndelta16={e:final16[e]-initial16[e] for e in initial16}\nnegative16=[e for e in initial16 if delta16[e]<0]\nscope16={'initial_edge_counts':initial16,'final_edge_counts':final16,'delta':delta16,\n         'nonnegative_delta':not negative16,'negative_edges':negative16,\n         'first_negative_edge':negative16[0] if negative16 else None,\n         'terminal_residues':[initial['endpoint']%16,final['endpoint']%16],\n         'interpretation':'A negative edge defines a nonnegative counting functional decreasing on this pair only; no universal descent claim.'}\n\nheadpath=ROOT/'results/problem1/20260905_frontier_head_primary.json'\nhb=headpath.read_bytes(); heads=json.loads(hb)['result_summary']['head_data']['frontiers']\nscopecheck={'x':903,'phase_from_bitwidth':'p','k_from_bitwidth':5,\n            'in_frontier':903 in heads['p']['5'],'projected_level4_head':903//4,\n            'projected_head_in_frontier':903//4 in heads['p']['4'],\n            'T129':T(129),'O_p4':heads['p']['4'],'O_p5':heads['p']['5']}\nassert not scopecheck['in_frontier'] and not scopecheck['projected_head_in_frontier']\nstepword=H('t',1)+'u'\nassert stepword=='pu' and evaluate('t',1)==7 and evaluate(stepword,1)==27\nsummary={'completed':True,'failures':[],'root':root,'original_word_from_zero':word_from_zero,\n         'phase':'u','k':14,'cut':1,'gaps':[2,2,2], 'observed_prefix':branches,\n         'unobserved_appended_admissibility_letter':'u','states':states,\n         'comparison_times':[1,7], 'letter_delta':ldelta,'edge_delta':delta,\n         'nonnegative_letter_delta':all(v>=0 for v in ldelta.values()),\n         'nonnegative_edge_delta':all(v>=0 for v in delta.values()),\n         'edge_delta_divergence':div,'cycle_decomposition':cycles,'mod16_scope_check':scope16,\n         'scope_rejection_903':scopecheck,'single_step_scope_check':{'initial':'t','final':stepword,'x':7,'F_x':27,'letter_delta':{'t':-1,'u':1,'p':1}}}\nsource=pathlib.Path(__file__).read_bytes()\ndoc=ROOT/'proofs/informal/problem1_generator_deletion_test.md'\nrecord={'experiment_id':'problem1-history-potential-independent-20260905',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'The prescribed history update across the named genuine three-return block has a nonnegative letter or residue-edge count difference.',\n 'backend':'python-cell-array-odd-section-full-prefix-scanner',\n 'parameters':{'fixed_original_state':int('642fdfb',16),'history_from_zero':word_from_zero,\n               'comparison_times':[1,7],'maximum_observed_branches':7,'additional_scope_checks':[7,903],\n               'additional_residue_memory_check':16,\n               'cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},\n 'hardware':{'cpu_model':next(line.split(':',1)[1].strip() for line in pathlib.Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')),\n             'logical_cpus':os.cpu_count(),'original_affinity':aff,'executed_affinity':[aff[0]],\n             'physical_memory_bytes':os.sysconf('SC_PAGE_SIZE')*os.sysconf('SC_PHYS_PAGES')},\n 'software':{'python':sys.version,'platform':platform.platform(),'executable':sys.executable},\n 'runtime_seconds':time.monotonic()-START,'source_text':source.decode(),\n 'inputs':{'frontier_record':{'path':str(headpath.relative_to(ROOT)),'sha256':sha(hb)},\n           'witness_note':{'path':str(doc.relative_to(ROOT)),'sha256':sha(doc.read_bytes()),'role':'fixed-word provenance'}},\n 'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},\n 'result_summary':summary,'status':'finite-exhaustive',\n 'interpretation':'Exact named history trajectory and circulation check; any general potential-class obstruction needs a separate proof.',\n 'proof_scope':'Only the fixed certified history, its seven forced steps and two stated scope checks.',\n 'limitations':['No alternate representations were enumerated.','903 is not an ordinary-frontier occurrence.',\n                'No signed mass, whole-tail theorem, or occurrence-bound claim follows from the computation.',\n                'Counts are history-edge counts, never distinct-endpoint counts.']}\nOUT.parent.mkdir(parents=True,exist_ok=True)\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n    json.dump(record,f,sort_keys=True,indent=2); f.write('\\n'); f.flush(); os.fsync(f.fileno()); temp=f.name\nos.replace(temp,OUT)\nprint(json.dumps({'path':str(OUT),'letter_delta':ldelta,'edge_delta':delta,'cycles':cycles,\n                  'initial_word':initial['history'],'final_word':final['history'],\n                  'negative_mod16_edges':negative16,'negative_mod16_deltas':{e:delta16[e] for e in negative16}}))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T20:43:36.060712+00:00"
+}

@@ -11,6 +11,51 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest history-potential obstruction: read
+`proofs/informal/problem1_history_potential_obstruction.md` first, followed
+by the scanner definitions in `problem1_frontier_head_dynamics.md`.
+
+- The universal four-state additive descent class is `refuted`: fixed
+  real edge weights indexed by (old prefix modulo4,input generator),
+  a uniform lower bound over ALL ordinary histories, and strict decrease
+  on every genuine three-return block under the prescribed history update.
+  Negative individual weights are allowed. Pumping forces nonnegative
+  reachable cycle weights, so a nonnegative circulation cannot decrease.
+- The genuine u14/0x642fdfb/cut1/gap222 witness, from-zero word
+  uuuuputptuutuu, supplies exactly such a circulation. After the first t,
+  its nonroot history is pptpttpuppuppt; after the following ututut it is
+  ppttpupttpupppptuppt. The added edges decompose into cycles (0,t),
+  (0,p)(3,p), and (1,p)(2,u)(3,t). Their weights sum to a nonnegative
+  block change for EVERY potential in the stated class (`partial-proof`).
+  This also excludes representation-independent endpoint potentials in
+  that class, but not phase-p-only or selected-history claims.
+- The same pair does NOT exclude the sixteen-state additive class.
+  Its refined edge counts fall on (0,t):2->0, (3,u):1->0 and (15,p):1->0.
+  Counting (0,t) modulo16 is nonnegative on all histories and decreases
+  on this pair. No universal descent property for that count is claimed.
+  All48 refined counts coarsen to the verified12-edge circulation.
+- Two preliminary examples were rejected before proof adoption:903 has
+  no ordinary representation (head225 absent from p4; all33 last edges
+  fail), and7->27 has history t->pu, not u->pu, so it alone supplies no
+  letter-weight obstruction. The genuine witness is separately verified.
+- `finite-exhaustive`: two implementations agree on eight genuine states,
+  seven updates, all count tables and the cycle certificate; no alternate
+  representations or new occurrence census. Muse independently derived
+  the pumping argument and checked the scopes. Fresh adversarial review
+  accepted the proof with an incorporated clarification: changing any
+  premise, not merely state memory, can escape this specific no-go.
+  Final read-only integration review approved all shared finite fields,
+  provenance chains, timing and portable verification without corrections.
+  Records: `results/problem1/20260905_history_potential_`
+  followed by `{primary,independent,verification}.json`.
+
+Next test: falsify the concrete sixteen-state count candidate on another
+already certified block, or test simultaneous additive constraints on a
+few named blocks with exact rational certificates. Do not enlarge an
+occurrence census or infer universal descent from this one decreasing
+instance. B_all, the dominant-empty-layer occurrence exclusion, signed
+nonvanishing and the whole-tail target remain open.
+
 Newest dominant-boundary theorem: read
 `proofs/informal/problem1_cyclic_seed_boundary.md` first, followed by its
 dependency `proofs/informal/problem1_frontier_head_dynamics.md`.

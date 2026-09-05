@@ -407,12 +407,14 @@ core, with a constructive frontier membership certificate for every core
 point. None of this proves the return-conditioned cancellation hyperplane
 is avoided, or proves the all-cuts boundary bound B_all.
 
-The first targeted use should be the dominant-shadow seeds y>>2L. For
-residual complexity s=k-1-L>=1, apply the exact head theorem to restrict
-those seeds to A^L(O_(a,s)), then compare the highest-position current and
-shadow fiber masks at s=1,2. This may strengthen the known empty-belief
-boundary; no such strengthening is established in this checkpoint. It is
-a small structural test on already computed core data, not a larger census.
+The proposed first use on dominant-shadow seeds is now completed in
+`problem1_cyclic_seed_boundary.md`: the exact aged-seed restriction gives
+stronger dominant-empty layers at residual levels1,2. It does not improve
+the raw-shadow or occurrence bounds. The subsequent note
+`problem1_history_potential_obstruction.md` refutes universal strict
+three-return descent for four-state additive history potentials bounded
+below on all ordinary histories, via a genuine cycle-circulation witness.
+The same witness does not exclude sixteen-state additive potentials.
 
 The longer proof target is the history scanner with its forced append and
 mod-16 stopping gate. For a starting ordinary word of complexity k, an
