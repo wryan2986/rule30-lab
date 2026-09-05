@@ -1,0 +1,123 @@
+{
+  "backend": "lead-independent-literal-motifs-versus-prefix-positions",
+  "experiment_id": "20260905_canonical_return_words",
+  "git_commit": "d8f7bba154342b46cc421737c50b773e04bb3f2b",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64"
+  },
+  "hypothesis": "Literal full-domain occurrence cuts equal canonical cuts; occurrence at cut >=b equals the longest-admissible-prefix third-u criterion and is determined within cuts b..b+4 and first b+16 symbols.",
+  "interpretation": "No discrepancy in canonicalization, prefix criterion, localization, or conditional word-length bound. General statements require the separate proofs.",
+  "limitations": [
+    "No Rule 30 frontier states are enumerated.",
+    "Does not prove B_all, signed nonvanishing, or exclusion of eventual period two.",
+    "Independent of earlier row comparison, but both comparisons executed by lead; Muse proof review is separate."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "all_admissible_words_max_length": 22,
+    "all_binary_words_max_length": 12,
+    "cpu_workers": 1,
+    "thresholds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Only the two declared finite word sets and thresholds 0..6.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "9afb7d2539534f5a5c76b82448485bc2e273454933674d36e24fb2571e04e6c8",
+    "source_sha256": "fa94e337b46d190d9704c7673678823e76a611cefbfac3e2c81e53ce1d8dcc93"
+  },
+  "result_summary": {
+    "admissible_words_by_length": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      12,
+      17,
+      26,
+      38,
+      56,
+      81,
+      120,
+      175,
+      257,
+      376,
+      552,
+      808,
+      1185,
+      1736,
+      2545,
+      3729,
+      5466,
+      8010
+    ],
+    "admissible_words_total": 25208,
+    "binary_words_by_length": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256,
+      512,
+      1024,
+      2048,
+      4096
+    ],
+    "binary_words_total": 8191,
+    "canonical_motifs": 15,
+    "completed": true,
+    "discrepancies": 0,
+    "distinct_occurrence_cuts_summed_admissible": 97507,
+    "distinct_occurrence_cuts_summed_binary": 869,
+    "hand_cases": {
+      "": [],
+      "ttttuttttuttttu": [],
+      "ttttuttttuttttut": [
+        4
+      ],
+      "tttuttttuttttut": [
+        3
+      ],
+      "ttuttttuttttut": [
+        2
+      ],
+      "tuttttuttttut": [
+        1
+      ],
+      "uttttuttttut": [
+        0
+      ],
+      "ututut": [
+        0
+      ],
+      "utututu": [
+        0
+      ],
+      "uututut": []
+    },
+    "original_motifs": 56,
+    "threshold_checks": 233793
+  },
+  "runtime_seconds": 5.754142043064348,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Fixed admission in problem1_canonical_return_boundary.md.\nCompare literal 56-motif occurrence definition to canonical cuts and independent\nprefix-position predicate. All admissible words <=22, all binary words <=12,\nthresholds 0..6. Either discrepancy corrects an exact claimed reduction.\nLocal one CPU; 120 seconds, 1 GiB; no frontier census.\n\"\"\"\nimport datetime, hashlib, itertools, json, os, platform, resource, signal\nimport subprocess, sys, tempfile, time\nfrom pathlib import Path\nROOT=Path('/home/ryan/rule30-lab')\nSTART=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')))\nsignal.alarm(120)\nBAD=('uu','ttttt','ututtu')\ndef clean(w): return all(p not in w for p in BAD)\nMOTIFS=[]\nfor g in itertools.product(range(2,6),repeat=3):\n    e=''.join('u'+'t'*(r-1) for r in g)\n    if clean(e+'u'): MOTIFS.append((g,e))\nassert len(MOTIFS)==56\nassert sum(g[2]==2 for g,e in MOTIFS)==15\n\ndef literal(w):\n    full=set(); canonical=set()\n    for c,ch in enumerate(w):\n        if ch!='u': continue\n        for g,e in MOTIFS:\n            end=c+len(e)\n            if w.startswith(e,c) and clean(w[:end]+'u'):\n                full.add(c)\n                if g[2]==2: canonical.add(c)\n    return full,canonical\n\ndef prefix(w):\n    a=''\n    for ch in w:\n        nxt=a+ch\n        if not clean(nxt): break\n        a=nxt\n    return a\n\n# Hand-derived seams: invisible last u, terminal third u, every cut offset.\nHAND={'':set(),'ututut':{0},'utututu':{0},'ttttu'*3:set(),\n      'ttttu'*3+'t':{4},'uututut':set()}\nfor j in range(5): HAND['t'*j+'u'+'t'*4+'u'+'t'*4+'ut']={j}\nfor w,expected in HAND.items(): assert literal(w)==(expected,expected),(w,literal(w),expected)\n\ndef check(w):\n    full,can=literal(w)\n    assert full==can,('canonical',w,full,can)\n    a=prefix(w)\n    for b in range(7):\n        present=any(c>=b for c in full)\n        us=[i for i in range(b,len(a)) if a[i]=='u']\n        criterion=len(us)>=3 and us[2]+1<len(a)\n        assert present==criterion,('prefix',w,b,full,a)\n        local={c for c in can if b<=c<=b+4}\n        assert present==bool(local),('window',w,b,full)\n        # Literal replay on the claimed observation horizon, not a derived test.\n        horizon=any(c>=b for c in literal(w[:b+16])[0]) if len(w)>b+16 else present\n        assert present==horizon,('horizon',w,b)\n        if len(w)==b+16 and clean(w): assert present,('bound',w,b)\n    return len(full)\n\ncounts_adm=[]; labels_adm=0; level=['']\nfor n in range(23):\n    counts_adm.append(len(level))\n    for w in level: labels_adm+=check(w)\n    if n<22: level=[w+c for w in level for c in 'tu' if clean(w+c)]\ncounts_bin=[]; labels_bin=0\nfor n in range(13):\n    counts_bin.append(2**n)\n    for chars in itertools.product('tu',repeat=n): labels_bin+=check(''.join(chars))\nsummary={'admissible_words_by_length':counts_adm,'admissible_words_total':sum(counts_adm),\n         'binary_words_by_length':counts_bin,'binary_words_total':sum(counts_bin),\n         'threshold_checks':7*(sum(counts_adm)+sum(counts_bin)),\n         'distinct_occurrence_cuts_summed_admissible':labels_adm,\n         'distinct_occurrence_cuts_summed_binary':labels_bin,\n         'hand_cases':{w:sorted(v) for w,v in HAND.items()},\n         'canonical_motifs':15,'original_motifs':56,'discrepancies':0,'completed':True}\nsha=lambda b:hashlib.sha256(b).hexdigest()\nsource=Path(__file__).read_text()\ncpu=next(l.split(':',1)[1].strip() for l in Path('/proc/cpuinfo').read_text().splitlines() if l.startswith('model name'))\nrecord={'experiment_id':'20260905_canonical_return_words',\n 'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'Literal full-domain occurrence cuts equal canonical cuts; occurrence at cut >=b equals the longest-admissible-prefix third-u criterion and is determined within cuts b..b+4 and first b+16 symbols.',\n 'backend':'lead-independent-literal-motifs-versus-prefix-positions',\n 'parameters':{'all_admissible_words_max_length':22,'all_binary_words_max_length':12,'thresholds':list(range(7)),'wall_limit_seconds':120,'address_space_bytes':1024**3,'cpu_workers':1},\n 'hardware':{'cpu_model':cpu,'machine':platform.machine()},\n 'software':{'python':sys.version,'platform':platform.platform()},\n 'runtime_seconds':time.monotonic()-START,'source_text':source,\n 'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode())},\n 'result_summary':summary,'status':'finite-exhaustive',\n 'proof_scope':'Only the two declared finite word sets and thresholds 0..6.',\n 'interpretation':'No discrepancy in canonicalization, prefix criterion, localization, or conditional word-length bound. General statements require the separate proofs.',\n 'limitations':['No Rule 30 frontier states are enumerated.','Does not prove B_all, signed nonvanishing, or exclusion of eventual period two.','Independent of earlier row comparison, but both comparisons executed by lead; Muse proof review is separate.']}\ndest=ROOT/'results/problem1/20260905_canonical_return_words.json'\nfd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\nwith os.fdopen(fd,'w') as f:\n    json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,dest)\nsignal.alarm(0)\nprint(json.dumps(summary,sort_keys=True));print('runtime_seconds',record['runtime_seconds'])\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T15:05:20.158237+00:00"
+}

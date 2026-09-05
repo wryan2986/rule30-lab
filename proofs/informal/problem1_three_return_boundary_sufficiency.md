@@ -257,6 +257,12 @@ observed u's in a 20-letter window. This does not establish a sharp threshold
 for the original occurrence convention, whose final u need only be admissible,
 not observed.
 
+Update (2026-09-05, `partial-proof`):
+`problem1_canonical_return_boundary.md` exploits that unobserved final u
+to sharpen the conditional admissible-prefix bound to k+13 and to reduce
+the full boundary exclusion to five cuts. The k+17 bound above remains
+valid; neither note proves the boundary hypothesis itself.
+
 ## Scientific boundary and verification
 
 Unconditional all-depth progress is the actual-half-row frontier-membership

@@ -1,0 +1,505 @@
+{
+  "backend": "fixed-record-canonical-key-comparison",
+  "experiment_id": "20260905_canonical_return_rows",
+  "git_commit": "d8f7bba154342b46cc421737c50b773e04bb3f2b",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64"
+  },
+  "hypothesis": "Every stored full-domain occurrence has a same-cylinder canonical last-gap-two representative with the identical certificate.",
+  "interpretation": "The 19 old labels reduce to 17 unchanged base cylinders in this box; the all-depth proof requires the word argument.",
+  "limitations": [
+    "Original input record was pre-existing and untracked; all used rows are embedded here.",
+    "No all-depth boundary exclusion or signed-nonvanishing claim."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "phase": [
+      "p",
+      "u"
+    ],
+    "source_max_k": 16,
+    "source_rows": 19,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "All 19 stored labeled occurrences only; no new frontier computation.",
+  "question": "problem1",
+  "result_hashes": {
+    "input_record_sha256": "d83cae40491896201294a1243de1ed94a609a7fb638ce0f13967df395209ba7c",
+    "result_sha256": "8c0626dbbe801cbc92e5a763a8c89b08576e3f29b097cca33cdceef8fbf1eea2",
+    "source_sha256": "7e70a8220a322e4f4ea940ea8eb4d24a41b044e2fdfc3f6bae317172cd35a14c"
+  },
+  "result_summary": {
+    "all_certificates_preserved": true,
+    "canonical_representatives": 17,
+    "changed_labels": [
+      {
+        "canonical": [
+          "p",
+          15,
+          "0x37b38787",
+          0,
+          2,
+          4,
+          2
+        ],
+        "original": [
+          "p",
+          15,
+          "0x37b38787",
+          0,
+          2,
+          4,
+          3
+        ]
+      },
+      {
+        "canonical": [
+          "u",
+          15,
+          "0x1bd90387",
+          0,
+          2,
+          2,
+          2
+        ],
+        "original": [
+          "u",
+          15,
+          "0x1bd90387",
+          0,
+          2,
+          2,
+          4
+        ]
+      }
+    ],
+    "distinct_cylinders": 17,
+    "source_labeled_occurrences": 19,
+    "source_rows": [
+      {
+        "base_prefix": "",
+        "complexity": 12,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 162
+        },
+        "depth": 1,
+        "dominant_shadows": 162,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 332,
+        "signed_mass": 162,
+        "state_hex": "0xc84387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 14,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 580
+        },
+        "depth": 1,
+        "dominant_shadows": 580,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 1133,
+        "signed_mass": 580,
+        "state_hex": "0xde68387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "t",
+        "complexity": 14,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 84,
+          "1": 50
+        },
+        "depth": 2,
+        "dominant_shadows": 134,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 215,
+        "signed_mass": 34,
+        "state_hex": "0x642fdfb",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1079
+        },
+        "depth": 1,
+        "dominant_shadows": 1079,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 2083,
+        "signed_mass": 1079,
+        "state_hex": "0x37b38787",
+        "target_E": "ututttut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1079
+        },
+        "depth": 1,
+        "dominant_shadows": 1079,
+        "gaps": [
+          2,
+          4,
+          3
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 2083,
+        "signed_mass": 1079,
+        "state_hex": "0x37b38787",
+        "target_E": "ututttutt"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "dominant_shadows": 1223,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 1731,
+        "signed_mass": 579,
+        "state_hex": "0x191cc387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "dominant_shadows": 1223,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 1731,
+        "signed_mass": 579,
+        "state_hex": "0x1bd90387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 15,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "dominant_shadows": 1223,
+        "gaps": [
+          2,
+          2,
+          4
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 1731,
+        "signed_mass": 579,
+        "state_hex": "0x1bd90387",
+        "target_E": "utututtt"
+      },
+      {
+        "base_prefix": "tt",
+        "complexity": 15,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 25,
+          "1": 24,
+          "2": 5
+        },
+        "depth": 3,
+        "dominant_shadows": 54,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 80,
+        "signed_mass": 6,
+        "state_hex": "0x1bd9c36b",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978,
+          "1": 701
+        },
+        "depth": 1,
+        "dominant_shadows": 2679,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 3809,
+        "signed_mass": 1277,
+        "state_hex": "0xc85f8787",
+        "target_E": "ututttut"
+      },
+      {
+        "base_prefix": "ut",
+        "complexity": 16,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 90,
+          "1": 6,
+          "2": 29,
+          "3": 91
+        },
+        "depth": 3,
+        "dominant_shadows": 216,
+        "gaps": [
+          4,
+          2,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 252,
+        "signed_mass": 22,
+        "state_hex": "0xc85f8787",
+        "target_E": "utttutut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978
+        },
+        "depth": 1,
+        "dominant_shadows": 1978,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 3809,
+        "signed_mass": 1978,
+        "state_hex": "0xc8e78387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1978
+        },
+        "depth": 1,
+        "dominant_shadows": 1978,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "p",
+        "recursive_checked": true,
+        "same_cylinder": 3809,
+        "signed_mass": 1978,
+        "state_hex": "0xdece4387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "dominant_shadows": 2248,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 3190,
+        "signed_mass": 1052,
+        "state_hex": "0x642e4387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "dominant_shadows": 1650,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 3190,
+        "signed_mass": 1650,
+        "state_hex": "0x642fc387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "t",
+        "complexity": 16,
+        "cut": 1,
+        "defect_histogram": {
+          "0": 288,
+          "1": 161
+        },
+        "depth": 2,
+        "dominant_shadows": 449,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 711,
+        "signed_mass": 127,
+        "state_hex": "0x6f34fdfb",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "dominant_shadows": 2248,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 3190,
+        "signed_mass": 1052,
+        "state_hex": "0x6f65c387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "ut",
+        "complexity": 16,
+        "cut": 2,
+        "defect_histogram": {
+          "0": 76,
+          "1": 3,
+          "2": 27,
+          "3": 79
+        },
+        "depth": 3,
+        "dominant_shadows": 185,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 216,
+        "signed_mass": 21,
+        "state_hex": "0x6f65c387",
+        "target_E": "ututut"
+      },
+      {
+        "base_prefix": "",
+        "complexity": 16,
+        "cut": 0,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "dominant_shadows": 1650,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "phase": "u",
+        "recursive_checked": true,
+        "same_cylinder": 3190,
+        "signed_mass": 1650,
+        "state_hex": "0x6f670387",
+        "target_E": "ututut"
+      }
+    ]
+  },
+  "runtime_seconds": 0.007729843026027083,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Admission: canonicalize the 19 existing full-domain labeled occurrences.\n\nNo frontier search. A missing canonical representative or changed cylinder\ncertificate falsifies the proposed reduction in this finite box. 120s, 1 GiB.\n\"\"\"\nimport datetime\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport signal\nimport subprocess\nimport tempfile\nimport time\nimport sys\n\nstart=time.monotonic()\nroot=Path('/home/ryan/rule30-lab')\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\ndef timeout(*args): raise TimeoutError('120-second cap')\nsignal.signal(signal.SIGALRM,timeout);signal.alarm(120)\npath=root/'results/problem1/20260905_three_return_signed_mass.json'\nrows=json.loads(path.read_text())['result']['occurrences']\nassert len(rows)==19\ndef key(row):\n    return (row['phase'],row['complexity'],row['state_hex'],row['cut'],*row['gaps'])\nlookup={key(row):row for row in rows}\nassert len(lookup)==19\nchanged=[]\nfor row in rows:\n    k=key(row)\n    canonical=lookup[k[:-1]+(2,)]\n    for field in ('phase','complexity','state_hex','cut','depth',\n                  'signed_mass','dominant_shadows','same_cylinder','defect_histogram'):\n        assert row[field]==canonical[field],(k,field)\n    if row['gaps'][-1]!=2:\n        changed.append({'original':list(k),'canonical':list(key(canonical))})\nrepresentatives=[row for row in rows if row['gaps'][-1]==2]\nassert len(representatives)==17\nassert len({key(row)[:4] for row in rows})==17\nsummary={'source_labeled_occurrences':19,'canonical_representatives':17,\n         'distinct_cylinders':17,'changed_labels':changed,\n         'all_certificates_preserved':True,'source_rows':rows}\nsha=lambda data:hashlib.sha256(data).hexdigest()\nsource=Path(__file__).read_text()\ncpu=next(line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()\n         if line.startswith('model name'))\nrecord={'experiment_id':'20260905_canonical_return_rows',\n        'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n        'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),\n        'question':'problem1','hypothesis':'Every stored full-domain occurrence has a same-cylinder canonical last-gap-two representative with the identical certificate.',\n        'backend':'fixed-record-canonical-key-comparison',\n        'parameters':{'phase':['p','u'],'source_max_k':16,'source_rows':19,\n                      'wall_limit_seconds':120,'address_space_bytes':1024**3},\n        'hardware':{'cpu_model':cpu,'machine':platform.machine()},\n        'software':{'python':sys.version,'platform':platform.platform()},\n        'runtime_seconds':time.monotonic()-start,'source_text':source,\n        'result_hashes':{'source_sha256':sha(source.encode()),\n            'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),\n            'input_record_sha256':sha(path.read_bytes())},\n        'result_summary':summary,'status':'finite-exhaustive',\n        'proof_scope':'All 19 stored labeled occurrences only; no new frontier computation.',\n        'interpretation':'The 19 old labels reduce to 17 unchanged base cylinders in this box; the all-depth proof requires the word argument.',\n        'limitations':['Original input record was pre-existing and untracked; all used rows are embedded here.',\n                       'No all-depth boundary exclusion or signed-nonvanishing claim.']}\ndest=root/'results/problem1/20260905_canonical_return_rows.json'\nfd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\nwith os.fdopen(fd,'w') as f:\n    json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,dest);signal.alarm(0)\nprint('19 labels -> 17 canonical representatives, preserving all cylinder certificates.')\nprint(changed)\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T14:33:16.138033+00:00"
+}

@@ -11,7 +11,39 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
-Latest result: **both valuation conjectures are refuted**. Read
+Newest exact reduction (`partial-proof`, independently reviewed): read
+`proofs/informal/problem1_canonical_return_boundary.md` first.
+
+- Canonical third gap 2 reduces the 56 labels to 15 while preserving the
+  exact set of state/cut cylinders, their beliefs, signed masses, and
+  ancestor closure. It changes an admissibility label, not physical returns.
+- At any threshold b, an occurrence at ANY cut >=b exists iff the longest
+  admissible prefix has three u's at/after b and an observed t after the
+  third. This localizes the occurrence to one of b,...,b+4 using at most
+  b+16 observed symbols, for finite or infinite schedules, including those
+  becoming inadmissible. The appended final u remains unobserved.
+- Consequently B_all is equivalent to exclusion at just five cuts
+  k-2,...,k+2, depths k-1,...,k+3, using the first k+14 branches. The
+  four depths >=k are not silently dropped. B_all would imply a maximum
+  admissible prefix length k+13, sharpening the earlier conditional k+17.
+  Moving cuts does NOT preserve signed mass: this localization is only
+  for boundary existence. The quantifier over every k remains open.
+- Lead checks: all 25,208 admissible words through length 22; all 8,191
+  binary words through length 12; b=0,...,6. All 233,793 threshold checks
+  pass. The existing 19 rows reduce to 17 unchanged cylinder certificates.
+  Atomic records: `results/problem1/20260905_canonical_return_{rows,words}.json`.
+- Two Muse reviews terminated with provider HTTP 429 and supplied no
+  completed check. A fallback default reviewer independently accepted the
+  combinatorial proofs. It flagged the same caveat corrected by the lead:
+  continuation-stability applies only after the full horizon is observed,
+  not when extending a shorter terminated word.
+
+B_all, signed nonvanishing, and general eventual periods remain open. The
+strongest next boundary target is an all-depth exclusion of these five
+moving cut positions, retaining ordinary-frontier membership. This exact
+reduction does not authorize a larger census.
+
+Previous result: **both valuation conjectures are refuted**. Read
 `proofs/informal/problem1_return_valuation_falsification.md` first.
 
 - Actual occurrence: u/k17/`0x190b9fdfb`, L2, cut1, gap222. E=525,
