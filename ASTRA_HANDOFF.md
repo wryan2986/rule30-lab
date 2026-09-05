@@ -11,6 +11,53 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest exact fixed-age cost pullback: read
+`proofs/informal/problem1_prescribed_history_cost_pullback.md` first,
+then the definitions in `problem1_history_synchronization.md`.
+
+- `partial-proof`: after s prescribed updates, a nonnegative additive
+  history cost equals original-edge costs
+  omega(A^s(q),S_(A^(s-1)G_g(q) mod4)) plus an explicit nonnegative
+  born-suffix term beta_s(z). The note gives the exact birth-prefix
+  indices. For fixed s,r,b, modulus2^(2s+max(b,2r+2)) gives an EXACT
+  zero-cost language at every original word length, including a finite
+  filter on the observed schedule. This is not one fixed graph for
+  ages growing with initial complexity.
+- `partial-proof`: a permitted forced append always contributes0 to
+  W*, so beta_1=0. Its pulled-back original edges of cost1 modulo64
+  are precisely (0,t),(58,p),(59,t),(60,u),(63,u),(63,p).
+- The once-prescribed strict-descent restriction is now `refuted`,
+  as is universal nonincrease. Genuine cut1/gap222 witnesses have
+  ORIGINAL p,k19,z0x32173ffdfb, word pttutututpttututtuu, and
+  u,k16,z0x6f34fdfb, word utttttuttttputut. Both execute tututut;
+  tutututu is admissible with its last u UNOBSERVED. The ACTUAL
+  time1 histories have W*=0, rising to2 (p) and1 (u) at time7.
+  No history reselection is used.
+- A scope trap was caught before adoption: raw residue9879 has a
+  valid preceding u plus ututut, but the complete prefix contains uu.
+  It is rejected. Only65019/t survives full-prefix admission. The
+  fixed65536-state graph is unchanged by that filter.
+- `finite-exhaustive`: independent forward/reverse methods agree on
+  root distances18/15, all65536 vertices and190464 allowed edges;
+  these distances minimize predecessor length only in this zero-cost
+  language. All73365 retained forward nodes,167670 attempted edges,
+  16 witness states,14 updates and complete48-count tables agree.
+  Muse checked the derivation; a separate worker supplied the forward
+  certificates. Fresh mathematical review accepted the fixed-age proof. Original
+  source/raw/input and reused-u hashes pass portable verification.
+  Records: `results/problem1/20260905_once_prescribed_zero_`
+  followed by `{primary,independent,verification}.json`.
+
+Final read-only review accepted all five cost-pullback checkpoint files,
+including finite comparisons, reuse provenance and hash linkage, without
+remaining corrections.
+
+Next: seek a structural relation between prescribed age and INITIAL
+word length, or a justified new potential. Do not automatically increase
+the graph's tested age. These cut1 witnesses precede the critical
+c=k-4 layers and do not refute the near-boundary synchronized restriction.
+B_all, occurrence exclusion, signed nonvanishing and Problem 1 remain open.
+
 Newest exact zero-cost language and counterexamples: read
 `proofs/informal/problem1_zero_cost_return_language.md` first, with the
 prescribed-history definitions in `problem1_history_synchronization.md`.
