@@ -1,0 +1,954 @@
+{
+  "backend": "contributed-packed-per-bit-table-and-intertwining-check",
+  "experiment_id": "20260905_rounded_projection_primary",
+  "git_commit": "a427c0d5ba744e7b5aac06df6d047aa8730c3606",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The root-preserving digit deletion obeys the stated two-letter table, intertwines on equal pairs, and stops at the first original schedule change.",
+  "integration_note": "4092 generic per-input rows omitted from normalized record; executed source, exact parameters, counts, original stream/artifact hashes and historical replays retained. Every omitted orbit independently replayed in companion record. Membership certificates are theorem-derived.",
+  "interpretation": "All tables, intertwining checks, projected stops, and old occurrence replays agree. No three-return continuation survives projection in these rows.",
+  "limitations": [
+    "No new frontier census or larger integer box.",
+    "Original historical membership is supplied by committed records; lower membership for starting-t rows follows from projection plus digit-2 pairing, not a new census.",
+    "Five positive-cut rows fail the base prefix; no cut-zero membership conclusion follows.",
+    "Muse attempt terminated with a provider tool-routing error and supplied no completed check."
+  ],
+  "original_limits": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds": 120,
+    "cpus": 1,
+    "enforcement": "sched_setaffinity; RLIMIT_CPU; RLIMIT_AS; outer GNU timeout",
+    "local_only": true,
+    "wall_seconds": 120
+  },
+  "original_timings": {
+    "finished_computation_utc": "2026-09-05T16:34:37.361768+00:00",
+    "peak_rss_bytes": 23511040,
+    "pre_serialization_cpu_seconds": 0.122527953,
+    "pre_serialization_wall_seconds": 0.12841707898769528,
+    "search_cpu_seconds": 0.118772916,
+    "search_wall_seconds": 0.12053991004358977,
+    "started_utc": "2026-09-05T16:34:37.233373+00:00"
+  },
+  "parameters": {
+    "F": "Q(P(x>>2))",
+    "P": "T(v)^1^(2 if v even else 0)",
+    "R": "(x>>2)|3",
+    "T": "v^((v<<1)|(v<<2))",
+    "U": "T(v)^1",
+    "box_horizon": "k+14",
+    "branch": "current x mod16:7->u/Q=U,11->t/Q=T,otherwise stop",
+    "coupling_scope": "every observed equal pair; mixed pairs independently checked to project to stopping states",
+    "first_change_scope": "initial constant run then observed change, for every original box input and historical row",
+    "forbidden_factors": [
+      "uu",
+      "ttttt",
+      "ututtu"
+    ],
+    "historical_horizon": "exact original len(wE(g)); appended final u checked only for admissibility",
+    "historical_order": "original embedded order; verified complexity,phase,numeric state,cut,gaps ascending",
+    "historical_rows": 19,
+    "input_max": 4095,
+    "input_min": 4,
+    "k": "(bit_length(x)+1)//2",
+    "projected_horizon": "ell when original first change occurs after ell letters",
+    "selection": "first historical row starting t, in admitted original order",
+    "table": {
+      "tt": {
+        "R_x_mod16": 11,
+        "x_mod64": 43
+      },
+      "tu": {
+        "R_x_mod16": 15,
+        "x_mod64": 59
+      },
+      "ut": {
+        "R_x_mod16": 3,
+        "x_mod64": 7
+      },
+      "uu": {
+        "R_x_mod16": 7,
+        "x_mod64": 23
+      }
+    },
+    "table_scope": "initial biconditional for every input; table at every observed adjacent pair",
+    "triples": [
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        4
+      ],
+      [
+        2,
+        2,
+        5
+      ],
+      [
+        2,
+        4,
+        2
+      ],
+      [
+        2,
+        4,
+        3
+      ],
+      [
+        2,
+        4,
+        4
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        2,
+        5,
+        3
+      ],
+      [
+        2,
+        5,
+        4
+      ],
+      [
+        2,
+        5,
+        5
+      ],
+      [
+        3,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        4
+      ],
+      [
+        3,
+        2,
+        5
+      ],
+      [
+        3,
+        3,
+        2
+      ],
+      [
+        3,
+        3,
+        3
+      ],
+      [
+        3,
+        3,
+        4
+      ],
+      [
+        3,
+        3,
+        5
+      ],
+      [
+        3,
+        4,
+        2
+      ],
+      [
+        3,
+        4,
+        3
+      ],
+      [
+        3,
+        4,
+        4
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        3
+      ],
+      [
+        3,
+        5,
+        4
+      ],
+      [
+        3,
+        5,
+        5
+      ],
+      [
+        4,
+        2,
+        2
+      ],
+      [
+        4,
+        2,
+        4
+      ],
+      [
+        4,
+        2,
+        5
+      ],
+      [
+        4,
+        3,
+        2
+      ],
+      [
+        4,
+        3,
+        3
+      ],
+      [
+        4,
+        3,
+        4
+      ],
+      [
+        4,
+        3,
+        5
+      ],
+      [
+        4,
+        4,
+        2
+      ],
+      [
+        4,
+        4,
+        3
+      ],
+      [
+        4,
+        4,
+        4
+      ],
+      [
+        4,
+        4,
+        5
+      ],
+      [
+        4,
+        5,
+        2
+      ],
+      [
+        4,
+        5,
+        3
+      ],
+      [
+        4,
+        5,
+        4
+      ],
+      [
+        4,
+        5,
+        5
+      ],
+      [
+        5,
+        2,
+        2
+      ],
+      [
+        5,
+        2,
+        4
+      ],
+      [
+        5,
+        2,
+        5
+      ],
+      [
+        5,
+        3,
+        2
+      ],
+      [
+        5,
+        3,
+        3
+      ],
+      [
+        5,
+        3,
+        4
+      ],
+      [
+        5,
+        3,
+        5
+      ],
+      [
+        5,
+        4,
+        2
+      ],
+      [
+        5,
+        4,
+        3
+      ],
+      [
+        5,
+        4,
+        4
+      ],
+      [
+        5,
+        4,
+        5
+      ],
+      [
+        5,
+        5,
+        2
+      ],
+      [
+        5,
+        5,
+        3
+      ],
+      [
+        5,
+        5,
+        4
+      ],
+      [
+        5,
+        5,
+        5
+      ]
+    ]
+  },
+  "proof_scope": "Declared finite observations only; infinite-survivor intersection and all-depth statements require the symbolic proof.",
+  "question": "problem1",
+  "result_hashes": {
+    "historical_input_sha256": "f2a9f6f4ca792f3e2396dc7c0c5ffea056ffe3b8b70c61d57d4b14ed50083efb",
+    "original_payload_sha256": "cc0eabf6cfe449a30f69d8241b4a833f862e7c1886a8920d659b01d6dfab3b09",
+    "original_record_sha256": "1ecbd0a0987b858c6927d8115c96eaa53641ad079ac261fdb2084c6cb4d511f6",
+    "result_sha256": "0d364941a7549f4158ed2660195ce2822c3928594f288639a078b1d5c310830f",
+    "source_sha256": "70f1ae2a1edee4338c673a4e3242af46b91ae01273066a467536f1f4b0b98794"
+  },
+  "result_summary": {
+    "counts": {
+      "box_all_adjacent_pair_cases": {
+        "tt": 130,
+        "tu": 130,
+        "ut": 137,
+        "uu": 130
+      },
+      "box_complete_projection_word_histogram": {
+        "": 128,
+        "t": 16,
+        "tt": 4,
+        "ttt": 1,
+        "u": 16,
+        "uu": 4,
+        "uuu": 1,
+        "uuuu": 1
+      },
+      "box_equal_pair_intertwining_checks": 260,
+      "box_first_change_cases": 171,
+      "box_horizons_reached": 0,
+      "box_initial_two_letter_cases": {
+        "tt": 64,
+        "tu": 64,
+        "ut": 64,
+        "uu": 64
+      },
+      "box_inputs": 4092,
+      "box_mixed_pair_stop_checks": 267,
+      "box_original_transitions": 1039,
+      "box_projected_transitions": 58,
+      "historical_all_adjacent_pair_cases": {
+        "tt": 12,
+        "tu": 43,
+        "ut": 59,
+        "uu": 0
+      },
+      "historical_complete_projection_word_histogram": {
+        "": 18,
+        "t": 1
+      },
+      "historical_equal_pair_intertwining_checks": 12,
+      "historical_first_change_cases": 19,
+      "historical_initial_two_letter_cases": {
+        "tt": 1,
+        "tu": 2,
+        "ut": 16,
+        "uu": 0
+      },
+      "historical_mixed_pair_stop_checks": 102,
+      "historical_original_transitions": 133,
+      "historical_projected_transitions": 1,
+      "historical_rows": 19,
+      "historical_starting_t_rows": 3,
+      "historical_starting_u_rows": 16
+    },
+    "historical_replays": [
+      {
+        "R_orbit": [
+          3281123
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3210e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 12,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 0,
+        "x_hex": "0xc84387"
+      },
+      {
+        "R_orbit": [
+          58302691
+        ],
+        "R_word": "",
+        "R_x_hex": "0x379a0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 14,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 1,
+        "x_hex": "0xde68387"
+      },
+      {
+        "R_orbit": [
+          26263423
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190bf7f",
+        "cut": 1,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 14,
+        "lower_membership_certificate": {
+          "R_x": 26263423,
+          "R_x_hex": "0x190bf7f",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 6565855,
+          "h_hex": "0x642fdf",
+          "lower_complexity": 13,
+          "original_complexity": 14,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 105053691,
+          "z": 26263422,
+          "z_digit_mod4": 2,
+          "z_hex": "0x190bf7e"
+        },
+        "observed_word": "tututut",
+        "phase": "u",
+        "source_row_index": 2,
+        "x_hex": "0x642fdfb"
+      },
+      {
+        "R_orbit": [
+          233628131
+        ],
+        "R_word": "",
+        "R_x_hex": "0xdece1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttut",
+        "phase": "p",
+        "source_row_index": 3,
+        "x_hex": "0x37b38787"
+      },
+      {
+        "R_orbit": [
+          233628131
+        ],
+        "R_word": "",
+        "R_x_hex": "0xdece1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          3
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttutt",
+        "phase": "p",
+        "source_row_index": 4,
+        "x_hex": "0x37b38787"
+      },
+      {
+        "R_orbit": [
+          105328867
+        ],
+        "R_word": "",
+        "R_x_hex": "0x64730e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 5,
+        "x_hex": "0x191cc387"
+      },
+      {
+        "R_orbit": [
+          116801763
+        ],
+        "R_word": "",
+        "R_x_hex": "0x6f640e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 6,
+        "x_hex": "0x1bd90387"
+      },
+      {
+        "R_orbit": [
+          116801763
+        ],
+        "R_word": "",
+        "R_x_hex": "0x6f640e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          4
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "utututtt",
+        "phase": "u",
+        "source_row_index": 7,
+        "x_hex": "0x1bd90387"
+      },
+      {
+        "R_orbit": [
+          116814043,
+          466435967
+        ],
+        "R_word": "t",
+        "R_x_hex": "0x6f670db",
+        "cut": 2,
+        "ell": 2,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": {
+          "R_x": 116814043,
+          "R_x_hex": "0x6f670db",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 29203510,
+          "h_hex": "0x1bd9c36",
+          "lower_complexity": 14,
+          "original_complexity": 15,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 467256171,
+          "z": 116814042,
+          "z_digit_mod4": 2,
+          "z_hex": "0x6f670da"
+        },
+        "observed_word": "ttututut",
+        "phase": "u",
+        "source_row_index": 8,
+        "x_hex": "0x1bd9c36b"
+      },
+      {
+        "R_orbit": [
+          840425955
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3217e1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttut",
+        "phase": "p",
+        "source_row_index": 9,
+        "x_hex": "0xc85f8787"
+      },
+      {
+        "R_orbit": [
+          840425955
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3217e1e3",
+        "cut": 2,
+        "ell": 1,
+        "gaps": [
+          4,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttutut",
+        "phase": "p",
+        "source_row_index": 10,
+        "x_hex": "0xc85f8787"
+      },
+      {
+        "R_orbit": [
+          842653923
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3239e0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 11,
+        "x_hex": "0xc8e78387"
+      },
+      {
+        "R_orbit": [
+          934514915
+        ],
+        "R_word": "",
+        "R_x_hex": "0x37b390e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 12,
+        "x_hex": "0xdece4387"
+      },
+      {
+        "R_orbit": [
+          420188387
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190b90e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 13,
+        "x_hex": "0x642e4387"
+      },
+      {
+        "R_orbit": [
+          420212963
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190bf0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 14,
+        "x_hex": "0x642fc387"
+      },
+      {
+        "R_orbit": [
+          466435967
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bcd3f7f",
+        "cut": 1,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": {
+          "R_x": 466435967,
+          "R_x_hex": "0x1bcd3f7f",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 116608991,
+          "h_hex": "0x6f34fdf",
+          "lower_complexity": 15,
+          "original_complexity": 16,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 1865743867,
+          "z": 466435966,
+          "z_digit_mod4": 2,
+          "z_hex": "0x1bcd3f7e"
+        },
+        "observed_word": "tututut",
+        "phase": "u",
+        "source_row_index": 15,
+        "x_hex": "0x6f34fdfb"
+      },
+      {
+        "R_orbit": [
+          467235043
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd970e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 16,
+        "x_hex": "0x6f65c387"
+      },
+      {
+        "R_orbit": [
+          467235043
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd970e3",
+        "cut": 2,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "utututut",
+        "phase": "u",
+        "source_row_index": 17,
+        "x_hex": "0x6f65c387"
+      },
+      {
+        "R_orbit": [
+          467255523
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd9c0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 18,
+        "x_hex": "0x6f670387"
+      }
+    ],
+    "original_box_check_stream_sha256": "05447adc17cd4cb5ef7e45cf8cd5530236fae9e77e72292c1d9b55a9c321e3f3",
+    "selected_starting_t_example": {
+      "R_orbit": [
+        26263423
+      ],
+      "R_word": "",
+      "R_x_hex": "0x190bf7f",
+      "cut": 1,
+      "ell": 1,
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "k": 14,
+      "lower_membership_certificate": {
+        "R_x": 26263423,
+        "R_x_hex": "0x190bf7f",
+        "conclusion": "R(x) in O_(phase,k-1)",
+        "frontier_enumeration_performed": false,
+        "h": 6565855,
+        "h_hex": "0x642fdf",
+        "lower_complexity": 13,
+        "original_complexity": 14,
+        "phase": "u",
+        "premises": [
+          "historical row records x in O_(phase,k)",
+          "ordinary projection: x>>2 in O_(phase,k-1)",
+          "ordinary projection: x>>4 in O_(phase,k-2)",
+          "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+        ],
+        "status": "theorem-derived, conditional on recorded original membership",
+        "x": 105053691,
+        "z": 26263422,
+        "z_digit_mod4": 2,
+        "z_hex": "0x190bf7e"
+      },
+      "observed_word": "tututut",
+      "phase": "u",
+      "source_row_index": 2,
+      "x_hex": "0x642fdfb"
+    },
+    "violations": []
+  },
+  "runtime_seconds": 0.12053991004358977,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "uname": [
+      "Linux",
+      "Home-Server",
+      "7.0.0-30-generic",
+      "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+      "x86_64",
+      ""
+    ]
+  },
+  "source_text": "#!/usr/bin/env python3\n\"\"\"Bounded literal boundary search. All writes are confined beside this source.\"\"\"\nimport datetime\nimport hashlib\nimport itertools\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/ryan/rule30-lab')\nOUT = Path(__file__).resolve().parent\nSTART_WALL = time.monotonic()\nSTART_CPU = time.process_time()\nSTART_UTC = datetime.datetime.now(datetime.timezone.utc).isoformat()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\nORIGINAL_AFFINITY = sorted(os.sched_getaffinity(0))\nos.sched_setaffinity(0, {ORIGINAL_AFFINITY[0]})\n\n\ndef admissible(word):\n    return all(factor not in word for factor in ('uu', 'ttttt', 'ututtu'))\n\n\ndef motif(g):\n    return ''.join('u' + 't' * (r - 1) for r in g)\n\n\nTRIPLES = tuple(g for g in itertools.product(range(2, 6), repeat=3)\n                if admissible(motif(g) + 'u'))\nassert len(TRIPLES) == 56\n\n\ndef T(v):\n    return v ^ ((v << 1) | (v << 2))\n\n\ndef P(v):\n    return T(v) ^ 1 ^ (2 if v % 2 == 0 else 0)\n\n\ndef T_bitwise(v):\n    # Independent scalar local-rule implementation, including the high boundary.\n    result = 0\n    for i in range(v.bit_length() + 2):\n        a = (v >> i) & 1\n        b = (v >> (i - 1)) & 1 if i >= 1 else 0\n        c = (v >> (i - 2)) & 1 if i >= 2 else 0\n        result += (a ^ (b | c)) << i\n    return result\n\n\ndef step(x):\n    residue = x % 16\n    if residue not in (7, 11):\n        return None\n    branch = 'u' if residue == 7 else 't'\n    shifted = x >> 2\n    middle = P(shifted)\n    y = T(middle) ^ (1 if branch == 'u' else 0)\n    middle_independent = T_bitwise(shifted) ^ 1 ^ (2 if shifted % 2 == 0 else 0)\n    y_independent = T_bitwise(middle_independent) ^ int(branch == 'u')\n    assert middle == middle_independent and y == y_independent\n    return {'x': x, 'residue_mod_16': residue, 'branch': branch,\n            'x_shift_2': shifted, 'P_value': middle, 'next_x': y}\n\n\ndef orbit(x, horizon):\n    states, steps, letters = [x], [], []\n    for _ in range(horizon):\n        item = step(states[-1])\n        if item is None:\n            return states, steps, ''.join(letters), 'nonforcing_residue'\n        steps.append(item)\n        letters.append(item['branch'])\n        states.append(item['next_x'])\n    return states, steps, ''.join(letters), 'observation_horizon'\n\n\ndef first_literal(word, b):\n    # Entire prefix is checked, including the seam before the first return.\n    # The appended final u is checked for admissibility only, never observation.\n    for cut in range(b, len(word)):\n        for g in TRIPLES:\n            E = motif(g)\n            end = cut + len(E)\n            if end <= len(word) and word[cut:end] == E:\n                completed = word[:end] + 'u'\n                if admissible(completed):\n                    return {'cut': cut, 'g': list(g), 'w': word[:cut], 'E': E,\n                            'observed_prefix': word[:end],\n                            'observed_prefix_length': end,\n                            'admissibility_word_with_unobserved_final_u': completed}\n    return None\n\n\ndef atomic_bytes(path, data):\n    fd, tmp = tempfile.mkstemp(prefix=path.name + '.', dir=path.parent)\n    try:\n        with os.fdopen(fd, 'wb') as f:\n            f.write(data)\n            f.flush()\n            os.fsync(f.fileno())\n        os.replace(tmp, path)\n        dirfd = os.open(path.parent, os.O_DIRECTORY)\n        try:\n            os.fsync(dirfd)\n        finally:\n            os.close(dirfd)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef R(x):\n    return (x >> 2) | 3\n\n\ndef main():\n    table = {'ut': (7, 3), 'uu': (23, 7), 'tt': (43, 11), 'tu': (59, 15)}\n    residue_to_pair = {v[0]: q for q, v in table.items()}\n    for x, y, rx in [(7, 27, 3), (23, 103, 7), (43, 203, 11), (59, 215, 15)]:\n        assert step(x)['next_x'] == y and R(x) == rx\n    assert first_literal('ututu', 0) is None\n    assert first_literal('ututut', 0)['g'] == [2, 2, 2]\n    admission_path = ROOT / 'proofs/informal/problem1_rounded_projection_obstruction.md'\n    row_path = ROOT / 'results/problem1/20260905_canonical_return_rows.json'\n    admission = admission_path.read_bytes()\n    row_bytes = row_path.read_bytes()\n    rows = json.loads(row_bytes)['result_summary']['source_rows']\n    assert len(rows) == 19\n    assert rows == sorted(rows, key=lambda row: (row['complexity'], row['phase'],\n                         int(row['state_hex'], 16), row['cut'], tuple(row['gaps'])))\n    counts = {'box_inputs': 0, 'box_original_transitions': 0, 'box_horizons_reached': 0,\n              'box_initial_two_letter_cases': {q: 0 for q in table},\n              'box_all_adjacent_pair_cases': {q: 0 for q in table},\n              'box_equal_pair_intertwining_checks': 0, 'box_mixed_pair_stop_checks': 0,\n              'box_first_change_cases': 0, 'box_projected_transitions': 0,\n              'box_complete_projection_word_histogram': {},\n              'historical_rows': 0, 'historical_original_transitions': 0,\n              'historical_initial_two_letter_cases': {q: 0 for q in table},\n              'historical_all_adjacent_pair_cases': {q: 0 for q in table},\n              'historical_equal_pair_intertwining_checks': 0,\n              'historical_mixed_pair_stop_checks': 0,\n              'historical_first_change_cases': 0, 'historical_projected_transitions': 0,\n              'historical_complete_projection_word_histogram': {},\n              'historical_starting_t_rows': 0, 'historical_starting_u_rows': 0}\n    failures = []\n    box_checks = []\n    historical_checks = []\n    orbit_hash = hashlib.sha256()\n    search_wall, search_cpu = time.monotonic(), time.process_time()\n\n    def require(condition, label, details):\n        if not condition:\n            failures.append({'label': label, **details})\n\n    def inspect(x, k, horizon, group):\n        states, steps, word, stop_reason = orbit(x, horizon)\n        out = {'x': x, 'x_hex': hex(x), 'k': k, 'horizon': horizon,\n               'word': word, 'orbit': states, 'steps': steps, 'stop_reason': stop_reason,\n               'R_x': R(x), 'R_x_hex': hex(R(x)), 'pair_checks': [],\n               'first_change': None}\n        counts[group+'_original_transitions'] += len(word)\n        if group == 'box':\n            counts['box_horizons_reached'] += int(stop_reason == 'observation_horizon')\n        predicted_pair = residue_to_pair.get(x % 64)\n        require((word[:2] if len(word) >= 2 else None) == predicted_pair,\n                'initial_two_letter_biconditional', {'x': x, 'word': word, 'predicted': predicted_pair})\n        if len(word) >= 2:\n            counts[group+'_initial_two_letter_cases'][word[:2]] += 1\n        for j in range(len(word)-1):\n            pair = word[j:j+2]\n            v = states[j]\n            rx = R(v)\n            expected_x_residue, expected_R_residue = table[pair]\n            details = {'initial_x': x, 'j': j, 'state': v, 'pair': pair,\n                       'R_state': rx, 'x_mod64': v % 64, 'R_mod16': rx % 16}\n            counts[group+'_all_adjacent_pair_cases'][pair] += 1\n            require(v % 64 == expected_x_residue and rx % 16 == expected_R_residue,\n                    'two_letter_table', details)\n            projected_step = step(rx)\n            if pair[0] == pair[1]:\n                counts[group+'_equal_pair_intertwining_checks'] += 1\n                rhs = R(states[j+1])\n                lhs = projected_step['next_x'] if projected_step else None\n                require(projected_step is not None and projected_step['branch'] == pair[0] and lhs == rhs,\n                        'equal_pair_intertwining', {**details, 'lhs': lhs, 'rhs': rhs})\n                details.update({'F_R_state': lhs, 'R_F_state': rhs})\n            else:\n                counts[group+'_mixed_pair_stop_checks'] += 1\n                require(projected_step is None, 'mixed_pair_projection_must_stop', details)\n                details['projected_state_stops'] = projected_step is None\n            out['pair_checks'].append(details)\n        if word:\n            ell = next((j for j in range(1, len(word)) if word[j] != word[0]), None)\n            if ell is not None:\n                counts[group+'_first_change_cases'] += 1\n                rstates, rsteps, rword, rreason = orbit(R(x), ell)\n                counts[group+'_projected_transitions'] += len(rword)\n                expected = word[0] * (ell-1)\n                require(rword == expected and rreason == 'nonforcing_residue' and\n                        rstates[-1] % 16 not in (7, 11),\n                        'complete_first_change_projection',\n                        {'x': x, 'word': word, 'ell': ell, 'projected_word': rword,\n                         'projected_stop_reason': rreason, 'expected': expected})\n                require(all(rstates[j] == R(states[j]) for j in range(len(rstates))),\n                        'projected_run_state_coupling', {'x': x, 'ell': ell})\n                hist = counts[group+'_complete_projection_word_histogram']\n                hist[rword] = hist.get(rword, 0)+1\n                out['first_change'] = {'ell': ell, 'a': word[0], 'b': word[ell],\n                                       'projected_horizon': ell, 'expected_word': expected,\n                                       'complete_projected_word': rword, 'projected_orbit': rstates,\n                                       'projected_steps': rsteps, 'projected_stop_reason': rreason}\n        return out\n\n    for x in range(4, 4096):\n        if time.monotonic()-START_WALL >= 118:\n            raise TimeoutError('120 second wall budget nearly exhausted')\n        k = (x.bit_length()+1)//2\n        out = inspect(x, k, k+14, 'box')\n        counts['box_inputs'] += 1\n        orbit_hash.update((json.dumps(out, sort_keys=True, separators=(',', ':'))+'\\n').encode())\n        # Keep every input word and first-change witness, including complete projected orbit.\n        box_checks.append({key: val for key, val in out.items() if key not in ('steps', 'pair_checks')})\n\n    selected = None\n    for index, row in enumerate(rows):\n        x = int(row['state_hex'], 16)\n        k = row['complexity']\n        E = motif(row['gaps'])\n        observed = row['base_prefix']+E\n        completed = observed+'u'\n        out = inspect(x, k, len(observed), 'historical')\n        counts['historical_rows'] += 1\n        require(len(row['base_prefix']) == row['cut'] and E == row['target_E'] and\n                tuple(row['gaps']) in TRIPLES and row['depth'] == row['cut']+1,\n                'historical_literal_metadata', {'row_index': index, 'row': row})\n        require(out['word'] == observed and admissible(completed),\n                'historical_original_observed_and_final_u_replay',\n                {'row_index': index, 'expected_observed': observed,\n                 'actual_observed': out['word'], 'completed_word': completed})\n        require(out['first_change'] is not None, 'historical_first_change_exists', {'row_index': index})\n        projection = out['first_change']\n        if projection:\n            require(projection['complete_projected_word'] in ('', 't', 'tt', 'ttt') and\n                    first_literal(projection['complete_projected_word'], 0) is None,\n                    'historical_projected_occurrence_loss', {'row_index': index, 'projection': projection})\n        starting = out['word'][0]\n        counts['historical_starting_'+starting+'_rows'] += 1\n        certificate = None\n        if starting == 't':\n            z, h = x >> 2, x >> 4\n            require(k >= 3 and z % 4 == 2 and z == 4*h+2 and R(x) == 4*h+3,\n                    'digit_two_pairing_arithmetic', {'row_index': index, 'x': x, 'z': z, 'h': h})\n            certificate = {'status': 'theorem-derived, conditional on recorded original membership',\n                           'phase': row['phase'], 'original_complexity': k,\n                           'lower_complexity': k-1, 'x': x, 'z': z, 'z_hex': hex(z),\n                           'h': h, 'h_hex': hex(h), 'z_digit_mod4': z % 4,\n                           'R_x': R(x), 'R_x_hex': hex(R(x)),\n                           'premises': ['historical row records x in O_(phase,k)',\n                                        'ordinary projection: x>>2 in O_(phase,k-1)',\n                                        'ordinary projection: x>>4 in O_(phase,k-2)',\n                                        'digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O'],\n                           'conclusion': 'R(x) in O_(phase,k-1)',\n                           'frontier_enumeration_performed': False}\n        replay = {'source_row_index': index, 'source_row': row,\n                  'original_observed_prefix': observed, 'admissibility_word': completed,\n                  'final_u_observed': False, 'replay': out, 'membership_certificate': certificate}\n        historical_checks.append(replay)\n        if starting == 't' and selected is None:\n            selected = replay\n\n    search_wall = time.monotonic()-search_wall\n    search_cpu = time.process_time()-search_cpu\n    source = Path(__file__).resolve().read_bytes()\n    cpu_model = next((line.split(':', 1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()\n                      if line.startswith('model name')), 'unknown')\n    report = {\n        'status': 'finite-exhaustive', 'result': 'checks_passed' if not failures else 'violations_found',\n        'repo_git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),\n        'repo_root': str(ROOT), 'source_path': str(Path(__file__).resolve()),\n        'executed_source_utf8': source.decode(), 'source_sha256': hashlib.sha256(source).hexdigest(),\n        'admission_path': str(admission_path), 'admission_sha256': hashlib.sha256(admission).hexdigest(),\n        'historical_source_path': str(row_path), 'historical_source_sha256': hashlib.sha256(row_bytes).hexdigest(),\n        'historical_source_rows': rows, 'box_check_stream_sha256': orbit_hash.hexdigest(),\n        'box_check_stream_encoding': 'inspect output for ascending x, compact sorted JSON plus newline',\n        'invocation': ['timeout', '--signal=KILL', '120s', sys.executable, str(Path(__file__).resolve())],\n        'parameters': {\n            'input_min': 4, 'input_max': 4095, 'k': '(bit_length(x)+1)//2',\n            'box_horizon': 'k+14', 'historical_rows': 19,\n            'historical_order': 'original embedded order; verified complexity,phase,numeric state,cut,gaps ascending',\n            'historical_horizon': 'exact original len(wE(g)); appended final u checked only for admissibility',\n            'projected_horizon': 'ell when original first change occurs after ell letters',\n            'table': {q: {'x_mod64': a, 'R_x_mod16': b} for q, (a, b) in table.items()},\n            'R': '(x>>2)|3', 'F': 'Q(P(x>>2))', 'T': 'v^((v<<1)|(v<<2))',\n            'P': 'T(v)^1^(2 if v even else 0)', 'U': 'T(v)^1',\n            'branch': 'current x mod16:7->u/Q=U,11->t/Q=T,otherwise stop',\n            'table_scope': 'initial biconditional for every input; table at every observed adjacent pair',\n            'coupling_scope': 'every observed equal pair; mixed pairs independently checked to project to stopping states',\n            'first_change_scope': 'initial constant run then observed change, for every original box input and historical row',\n            'selection': 'first historical row starting t, in admitted original order',\n            'forbidden_factors': ['uu', 'ttttt', 'ututtu'], 'triples': [list(g) for g in TRIPLES]},\n        'counts': counts, 'violations': failures, 'box_checks': box_checks,\n        'historical_replays': historical_checks, 'selected_starting_t_example': selected,\n        'hardware': {'cpu_model': cpu_model, 'logical_cpu_count': os.cpu_count(),\n                     'original_affinity': ORIGINAL_AFFINITY, 'executed_affinity': sorted(os.sched_getaffinity(0)),\n                     'physical_memory_bytes': os.sysconf('SC_PAGE_SIZE')*os.sysconf('SC_PHYS_PAGES')},\n        'software': {'python': sys.version, 'executable': sys.executable,\n                     'platform': platform.platform(), 'uname': list(platform.uname())},\n        'limits': {'local_only': True, 'cpus': 1, 'cpu_seconds': 120,\n                   'wall_seconds': 120, 'address_space_bytes': 1024**3,\n                   'enforcement': 'sched_setaffinity; RLIMIT_CPU; RLIMIT_AS; outer GNU timeout'},\n        'verification': ['four hand representatives', 'independent scalar-bit T checks every executed P and F',\n                         'exact original historical labels, words, and appended-u admissibility',\n                         'projected terminal residue inspected within short ell horizon'],\n        'timings': {'started_utc': START_UTC,\n                    'finished_computation_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n                    'search_wall_seconds': search_wall, 'search_cpu_seconds': search_cpu,\n                    'pre_serialization_wall_seconds': time.monotonic()-START_WALL,\n                    'pre_serialization_cpu_seconds': time.process_time()-START_CPU,\n                    'peak_rss_bytes': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024},\n        'limitations': ['Finite checks do not prove all-depth claims.',\n                        'Historical original frontier membership is taken from supplied records; lower membership uses named projection and digit-pairing theorems, not a new census.',\n                        'Historical originals observed only through wE(g); their actual next letter is not required or requested.',\n                        'Only projected first-change schedules are certified complete by explicit terminal residues.',\n                        'No box extension, frontier enumeration, repository write, or remote work.',\n                        'Z_2 extension is outside this finite task and reserved for separate lead review.',\n                        'Muse Dirac terminated with a routed-provider undeclared-tool error; no Muse contribution is attributed.',\n                        'Timings and peak RSS recorded before final serialization.']}\n    report['payload_sha256_excluding_this_field'] = hashlib.sha256(\n        json.dumps(report, sort_keys=True, separators=(',', ':')).encode()).hexdigest()\n    encoded = (json.dumps(report, sort_keys=True, indent=2)+'\\n').encode()\n    atomic_bytes(OUT/'result.json', encoded)\n    digest = hashlib.sha256(encoded).hexdigest()\n    atomic_bytes(OUT/'result.json.sha256', (digest+'  result.json\\n').encode())\n    print(json.dumps({'result': report['result'], 'counts': counts, 'violations': failures,\n                      'selected_starting_t_example': selected, 'search_wall_seconds': search_wall,\n                      'artifact_sha256': digest, 'source_path': str(Path(__file__).resolve()),\n                      'result_path': str(OUT/'result.json')}, indent=2))\n\n\nif __name__ == '__main__':\n    main()\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T16:43:41.907638+00:00"
+}

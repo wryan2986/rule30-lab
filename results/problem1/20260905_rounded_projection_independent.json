@@ -1,0 +1,928 @@
+{
+  "backend": "cell-array-odd-section-and-explicit-bit-deletion",
+  "experiment_id": "20260905_rounded_projection_independent",
+  "git_commit": "a427c0d5ba744e7b5aac06df6d047aa8730c3606",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The root-preserving digit deletion obeys the stated two-letter table, intertwines on equal pairs, and stops at the first original schedule change.",
+  "interpretation": "All tables, intertwining checks, projected stops, and old occurrence replays agree. No three-return continuation survives projection in these rows.",
+  "limitations": [
+    "No new frontier census or larger integer box.",
+    "Original historical membership is supplied by committed records; lower membership for starting-t rows follows from projection plus digit-2 pairing, not a new census.",
+    "Five positive-cut rows fail the base prefix; no cut-zero membership conclusion follows.",
+    "Muse attempt terminated with a provider tool-routing error and supplied no completed check."
+  ],
+  "parameters": {
+    "F": "Q(P(x>>2))",
+    "P": "T(v)^1^(2 if v even else 0)",
+    "R": "(x>>2)|3",
+    "T": "v^((v<<1)|(v<<2))",
+    "U": "T(v)^1",
+    "box_horizon": "k+14",
+    "branch": "current x mod16:7->u/Q=U,11->t/Q=T,otherwise stop",
+    "coupling_scope": "every observed equal pair; mixed pairs independently checked to project to stopping states",
+    "first_change_scope": "initial constant run then observed change, for every original box input and historical row",
+    "forbidden_factors": [
+      "uu",
+      "ttttt",
+      "ututtu"
+    ],
+    "historical_horizon": "exact original len(wE(g)); appended final u checked only for admissibility",
+    "historical_order": "original embedded order; verified complexity,phase,numeric state,cut,gaps ascending",
+    "historical_rows": 19,
+    "input_max": 4095,
+    "input_min": 4,
+    "k": "(bit_length(x)+1)//2",
+    "projected_horizon": "ell when original first change occurs after ell letters",
+    "selection": "first historical row starting t, in admitted original order",
+    "table": {
+      "tt": {
+        "R_x_mod16": 11,
+        "x_mod64": 43
+      },
+      "tu": {
+        "R_x_mod16": 15,
+        "x_mod64": 59
+      },
+      "ut": {
+        "R_x_mod16": 3,
+        "x_mod64": 7
+      },
+      "uu": {
+        "R_x_mod16": 7,
+        "x_mod64": 23
+      }
+    },
+    "table_scope": "initial biconditional for every input; table at every observed adjacent pair",
+    "triples": [
+      [
+        2,
+        2,
+        2
+      ],
+      [
+        2,
+        2,
+        4
+      ],
+      [
+        2,
+        2,
+        5
+      ],
+      [
+        2,
+        4,
+        2
+      ],
+      [
+        2,
+        4,
+        3
+      ],
+      [
+        2,
+        4,
+        4
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        5,
+        2
+      ],
+      [
+        2,
+        5,
+        3
+      ],
+      [
+        2,
+        5,
+        4
+      ],
+      [
+        2,
+        5,
+        5
+      ],
+      [
+        3,
+        2,
+        2
+      ],
+      [
+        3,
+        2,
+        4
+      ],
+      [
+        3,
+        2,
+        5
+      ],
+      [
+        3,
+        3,
+        2
+      ],
+      [
+        3,
+        3,
+        3
+      ],
+      [
+        3,
+        3,
+        4
+      ],
+      [
+        3,
+        3,
+        5
+      ],
+      [
+        3,
+        4,
+        2
+      ],
+      [
+        3,
+        4,
+        3
+      ],
+      [
+        3,
+        4,
+        4
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        5,
+        2
+      ],
+      [
+        3,
+        5,
+        3
+      ],
+      [
+        3,
+        5,
+        4
+      ],
+      [
+        3,
+        5,
+        5
+      ],
+      [
+        4,
+        2,
+        2
+      ],
+      [
+        4,
+        2,
+        4
+      ],
+      [
+        4,
+        2,
+        5
+      ],
+      [
+        4,
+        3,
+        2
+      ],
+      [
+        4,
+        3,
+        3
+      ],
+      [
+        4,
+        3,
+        4
+      ],
+      [
+        4,
+        3,
+        5
+      ],
+      [
+        4,
+        4,
+        2
+      ],
+      [
+        4,
+        4,
+        3
+      ],
+      [
+        4,
+        4,
+        4
+      ],
+      [
+        4,
+        4,
+        5
+      ],
+      [
+        4,
+        5,
+        2
+      ],
+      [
+        4,
+        5,
+        3
+      ],
+      [
+        4,
+        5,
+        4
+      ],
+      [
+        4,
+        5,
+        5
+      ],
+      [
+        5,
+        2,
+        2
+      ],
+      [
+        5,
+        2,
+        4
+      ],
+      [
+        5,
+        2,
+        5
+      ],
+      [
+        5,
+        3,
+        2
+      ],
+      [
+        5,
+        3,
+        3
+      ],
+      [
+        5,
+        3,
+        4
+      ],
+      [
+        5,
+        3,
+        5
+      ],
+      [
+        5,
+        4,
+        2
+      ],
+      [
+        5,
+        4,
+        3
+      ],
+      [
+        5,
+        4,
+        4
+      ],
+      [
+        5,
+        4,
+        5
+      ],
+      [
+        5,
+        5,
+        2
+      ],
+      [
+        5,
+        5,
+        3
+      ],
+      [
+        5,
+        5,
+        4
+      ],
+      [
+        5,
+        5,
+        5
+      ]
+    ]
+  },
+  "proof_scope": "Declared finite observations only; infinite-survivor intersection and all-depth statements require the symbolic proof.",
+  "question": "problem1",
+  "result_hashes": {
+    "primary_raw_sha256": "1ecbd0a0987b858c6927d8115c96eaa53641ad079ac261fdb2084c6cb4d511f6",
+    "result_sha256": "102412349928da34ce12f205ed6a61a903b16fc5f72f4a4bc3ea6bb9cbb1a4a5",
+    "source_sha256": "db0fa4087510ed288bc48151a264cb9192ddff9e02cda0f5d08836c9c1602b10"
+  },
+  "result_summary": {
+    "all_original_and_projected_orbits_agree": true,
+    "box_orbit_rows_sha256": "32870de9c9626c8f6de3e3a9c2f70711c867df340bed8956e74f37d5081e85b0",
+    "completed": true,
+    "counterexamples": [],
+    "counts": {
+      "box_all_adjacent_pair_cases": {
+        "tt": 130,
+        "tu": 130,
+        "ut": 137,
+        "uu": 130
+      },
+      "box_complete_projection_word_histogram": {
+        "": 128,
+        "t": 16,
+        "tt": 4,
+        "ttt": 1,
+        "u": 16,
+        "uu": 4,
+        "uuu": 1,
+        "uuuu": 1
+      },
+      "box_equal_pair_intertwining_checks": 260,
+      "box_first_change_cases": 171,
+      "box_horizons_reached": 0,
+      "box_initial_two_letter_cases": {
+        "tt": 64,
+        "tu": 64,
+        "ut": 64,
+        "uu": 64
+      },
+      "box_inputs": 4092,
+      "box_mixed_pair_stop_checks": 267,
+      "box_original_transitions": 1039,
+      "box_projected_transitions": 58,
+      "historical_all_adjacent_pair_cases": {
+        "tt": 12,
+        "tu": 43,
+        "ut": 59,
+        "uu": 0
+      },
+      "historical_complete_projection_word_histogram": {
+        "": 18,
+        "t": 1
+      },
+      "historical_equal_pair_intertwining_checks": 12,
+      "historical_first_change_cases": 19,
+      "historical_initial_two_letter_cases": {
+        "tt": 1,
+        "tu": 2,
+        "ut": 16,
+        "uu": 0
+      },
+      "historical_mixed_pair_stop_checks": 102,
+      "historical_original_transitions": 133,
+      "historical_projected_transitions": 1,
+      "historical_rows": 19,
+      "historical_starting_t_rows": 3,
+      "historical_starting_u_rows": 16
+    },
+    "historical_replays": [
+      {
+        "R_orbit": [
+          3281123
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3210e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 12,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 0,
+        "x_hex": "0xc84387"
+      },
+      {
+        "R_orbit": [
+          58302691
+        ],
+        "R_word": "",
+        "R_x_hex": "0x379a0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 14,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 1,
+        "x_hex": "0xde68387"
+      },
+      {
+        "R_orbit": [
+          26263423
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190bf7f",
+        "cut": 1,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 14,
+        "lower_membership_certificate": {
+          "R_x": 26263423,
+          "R_x_hex": "0x190bf7f",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 6565855,
+          "h_hex": "0x642fdf",
+          "lower_complexity": 13,
+          "original_complexity": 14,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 105053691,
+          "z": 26263422,
+          "z_digit_mod4": 2,
+          "z_hex": "0x190bf7e"
+        },
+        "observed_word": "tututut",
+        "phase": "u",
+        "source_row_index": 2,
+        "x_hex": "0x642fdfb"
+      },
+      {
+        "R_orbit": [
+          233628131
+        ],
+        "R_word": "",
+        "R_x_hex": "0xdece1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttut",
+        "phase": "p",
+        "source_row_index": 3,
+        "x_hex": "0x37b38787"
+      },
+      {
+        "R_orbit": [
+          233628131
+        ],
+        "R_word": "",
+        "R_x_hex": "0xdece1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          3
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttutt",
+        "phase": "p",
+        "source_row_index": 4,
+        "x_hex": "0x37b38787"
+      },
+      {
+        "R_orbit": [
+          105328867
+        ],
+        "R_word": "",
+        "R_x_hex": "0x64730e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 5,
+        "x_hex": "0x191cc387"
+      },
+      {
+        "R_orbit": [
+          116801763
+        ],
+        "R_word": "",
+        "R_x_hex": "0x6f640e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 6,
+        "x_hex": "0x1bd90387"
+      },
+      {
+        "R_orbit": [
+          116801763
+        ],
+        "R_word": "",
+        "R_x_hex": "0x6f640e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          4
+        ],
+        "k": 15,
+        "lower_membership_certificate": null,
+        "observed_word": "utututtt",
+        "phase": "u",
+        "source_row_index": 7,
+        "x_hex": "0x1bd90387"
+      },
+      {
+        "R_orbit": [
+          116814043,
+          466435967
+        ],
+        "R_word": "t",
+        "R_x_hex": "0x6f670db",
+        "cut": 2,
+        "ell": 2,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 15,
+        "lower_membership_certificate": {
+          "R_x": 116814043,
+          "R_x_hex": "0x6f670db",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 29203510,
+          "h_hex": "0x1bd9c36",
+          "lower_complexity": 14,
+          "original_complexity": 15,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 467256171,
+          "z": 116814042,
+          "z_digit_mod4": 2,
+          "z_hex": "0x6f670da"
+        },
+        "observed_word": "ttututut",
+        "phase": "u",
+        "source_row_index": 8,
+        "x_hex": "0x1bd9c36b"
+      },
+      {
+        "R_orbit": [
+          840425955
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3217e1e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttut",
+        "phase": "p",
+        "source_row_index": 9,
+        "x_hex": "0xc85f8787"
+      },
+      {
+        "R_orbit": [
+          840425955
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3217e1e3",
+        "cut": 2,
+        "ell": 1,
+        "gaps": [
+          4,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututttutut",
+        "phase": "p",
+        "source_row_index": 10,
+        "x_hex": "0xc85f8787"
+      },
+      {
+        "R_orbit": [
+          842653923
+        ],
+        "R_word": "",
+        "R_x_hex": "0x3239e0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 11,
+        "x_hex": "0xc8e78387"
+      },
+      {
+        "R_orbit": [
+          934514915
+        ],
+        "R_word": "",
+        "R_x_hex": "0x37b390e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "p",
+        "source_row_index": 12,
+        "x_hex": "0xdece4387"
+      },
+      {
+        "R_orbit": [
+          420188387
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190b90e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 13,
+        "x_hex": "0x642e4387"
+      },
+      {
+        "R_orbit": [
+          420212963
+        ],
+        "R_word": "",
+        "R_x_hex": "0x190bf0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 14,
+        "x_hex": "0x642fc387"
+      },
+      {
+        "R_orbit": [
+          466435967
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bcd3f7f",
+        "cut": 1,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": {
+          "R_x": 466435967,
+          "R_x_hex": "0x1bcd3f7f",
+          "conclusion": "R(x) in O_(phase,k-1)",
+          "frontier_enumeration_performed": false,
+          "h": 116608991,
+          "h_hex": "0x6f34fdf",
+          "lower_complexity": 15,
+          "original_complexity": 16,
+          "phase": "u",
+          "premises": [
+            "historical row records x in O_(phase,k)",
+            "ordinary projection: x>>2 in O_(phase,k-1)",
+            "ordinary projection: x>>4 in O_(phase,k-2)",
+            "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+          ],
+          "status": "theorem-derived, conditional on recorded original membership",
+          "x": 1865743867,
+          "z": 466435966,
+          "z_digit_mod4": 2,
+          "z_hex": "0x1bcd3f7e"
+        },
+        "observed_word": "tututut",
+        "phase": "u",
+        "source_row_index": 15,
+        "x_hex": "0x6f34fdfb"
+      },
+      {
+        "R_orbit": [
+          467235043
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd970e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 16,
+        "x_hex": "0x6f65c387"
+      },
+      {
+        "R_orbit": [
+          467235043
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd970e3",
+        "cut": 2,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "utututut",
+        "phase": "u",
+        "source_row_index": 17,
+        "x_hex": "0x6f65c387"
+      },
+      {
+        "R_orbit": [
+          467255523
+        ],
+        "R_word": "",
+        "R_x_hex": "0x1bd9c0e3",
+        "cut": 0,
+        "ell": 1,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "k": 16,
+        "lower_membership_certificate": null,
+        "observed_word": "ututut",
+        "phase": "u",
+        "source_row_index": 18,
+        "x_hex": "0x6f670387"
+      }
+    ],
+    "positive_cut_base_prefix_failures": 5,
+    "selected_starting_t_example": {
+      "R_orbit": [
+        26263423
+      ],
+      "R_word": "",
+      "R_x_hex": "0x190bf7f",
+      "cut": 1,
+      "ell": 1,
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "k": 14,
+      "lower_membership_certificate": {
+        "R_x": 26263423,
+        "R_x_hex": "0x190bf7f",
+        "conclusion": "R(x) in O_(phase,k-1)",
+        "frontier_enumeration_performed": false,
+        "h": 6565855,
+        "h_hex": "0x642fdf",
+        "lower_complexity": 13,
+        "original_complexity": 14,
+        "phase": "u",
+        "premises": [
+          "historical row records x in O_(phase,k)",
+          "ordinary projection: x>>2 in O_(phase,k-1)",
+          "ordinary projection: x>>4 in O_(phase,k-2)",
+          "digit-2 pairing at lower level: 4h+2 in O implies 4h+3 in O"
+        ],
+        "status": "theorem-derived, conditional on recorded original membership",
+        "x": 105053691,
+        "z": 26263422,
+        "z_digit_mod4": 2,
+        "z_hex": "0x190bf7e"
+      },
+      "observed_word": "tututut",
+      "phase": "u",
+      "source_row_index": 2,
+      "x_hex": "0x642fdfb"
+    }
+  },
+  "runtime_seconds": 0.11099763901438564,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Independent replay of the admitted rounded-projection checks.\nSame x4..4095 box and 19 old occurrence labels. Cell-array odd sections and\nexplicit bit deletion; no new frontier enumeration or extended search.\nAlso standardize the contributed record without copying 4092 redundant rows.\n\"\"\"\nimport datetime,hashlib,json,os,platform,resource,signal,subprocess,sys,tempfile,time\nfrom pathlib import Path\nROOT=Path('/home/ryan/rule30-lab');START=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')));signal.alarm(120)\nraw=Path('/tmp/rule30-rounded-projection-JLlVLQ/result.json').read_bytes()\nprimary=json.loads(raw);sha=lambda b:hashlib.sha256(b).hexdigest()\npayload=primary.copy();ph=payload.pop('payload_sha256_excluding_this_field')\nassert sha(json.dumps(payload,sort_keys=True,separators=(',',':')).encode())==ph\nassert sha(primary['executed_source_utf8'].encode())==primary['source_sha256']\nsource_record=ROOT/'results/problem1/20260905_canonical_return_rows.json'\nassert sha(source_record.read_bytes())==primary['historical_source_sha256']\nrows=json.loads(source_record.read_text())['result_summary']['source_rows']\nassert rows==primary['historical_source_rows'] and len(rows)==19\nos.sched_setaffinity(0,{min(os.sched_getaffinity(0))})\n\ndef bits(x):return [(x>>i)&1 for i in range(x.bit_length())]\ndef integer(a):return sum(v<<i for i,v in enumerate(a))\ndef T(a):\n    a=a+[0,0];b=[]\n    for i in range(len(a)):\n        v=a[i-1] if i else 0;w=a[i-2] if i>=2 else 0\n        b.append(a[i] ^ int(bool(v or w)))\n    while b and b[-1]==0:b.pop()\n    return b\n\ndef step(x):\n    a=bits(x);low=(a+[0]*4)[:4]\n    if low==[1,1,1,0]:q='u'\n    elif low==[1,1,0,1]:q='t'\n    else:return None\n    middle=T([1]+a[2:])[1:]\n    out=T(middle)\n    if q=='u':out[0]^=1\n    return integer(out),q\n\ndef orbit(x,h):\n    states=[x];word=''\n    for _ in range(h):\n        nxt=step(states[-1])\n        if nxt is None:return states,word,'stop'\n        states.append(nxt[0]);word+=nxt[1]\n    return states,word,'horizon'\n\ndef R(x):return integer([1,1]+bits(x)[4:])\ndef clean(w):return all(b not in w for b in ('uu','ttttt','ututtu'))\nTABLE={'ut':(7,3),'uu':(23,7),'tt':(43,11),'tu':(59,15)}\nBYRES={v[0]:k for k,v in TABLE.items()}\nfor x,y,r in [(7,27,3),(23,103,7),(43,203,11),(59,215,15)]:\n    assert step(x)[0]==y and R(x)==r\ncounts={key:(dict.fromkeys(v,0) if isinstance(v,dict) else 0) for key,v in primary['counts'].items()}\ncounts['box_complete_projection_word_histogram']={};counts['historical_complete_projection_word_histogram']={}\nstream=[];historical=[];positive_cuts=0\n\ndef inspect(x,h,group):\n    states,w,why=orbit(x,h)\n    counts[group+'_original_transitions']+=len(w)\n    if group=='box':counts['box_horizons_reached']+=int(why=='horizon')\n    assert (w[:2] if len(w)>=2 else None)==BYRES.get(x%64)\n    if len(w)>=2:counts[group+'_initial_two_letter_cases'][w[:2]]+=1\n    for j in range(len(w)-1):\n        pair=w[j:j+2];v=states[j]\n        assert (v%64,R(v)%16)==TABLE[pair]\n        counts[group+'_all_adjacent_pair_cases'][pair]+=1\n        projected=step(R(v))\n        if pair[0]==pair[1]:\n            counts[group+'_equal_pair_intertwining_checks']+=1\n            assert projected is not None and projected==(R(states[j+1]),pair[0])\n        else:\n            counts[group+'_mixed_pair_stop_checks']+=1\n            assert projected is None\n    change=next((j for j in range(1,len(w)) if w[j]!=w[0]),None)\n    projection=None\n    if change is not None:\n        counts[group+'_first_change_cases']+=1\n        rs,rw,rr=orbit(R(x),change)\n        assert rw==w[0]*(change-1) and rr=='stop'\n        assert rs==[R(v) for v in states[:change]]\n        counts[group+'_projected_transitions']+=len(rw)\n        hist=counts[group+'_complete_projection_word_histogram'];hist[rw]=hist.get(rw,0)+1\n        projection={'ell':change,'word':rw,'states':rs,'stop_reason':rr}\n    return states,w,why,projection\n\nassert len(primary['box_checks'])==4092\nfor old,x in zip(primary['box_checks'],range(4,4096)):\n    assert old['x']==x\n    k=(x.bit_length()+1)//2\n    states,w,why,proj=inspect(x,k+14,'box')\n    counts['box_inputs']+=1\n    assert states==old['orbit'] and w==old['word'] and R(x)==old['R_x']\n    assert why==('stop' if old['stop_reason']=='nonforcing_residue' else 'horizon')\n    if proj:\n        assert proj['states']==old['first_change']['projected_orbit']\n        assert proj['word']==old['first_change']['complete_projected_word']\n    else:assert old['first_change'] is None\n    stream.append([x,states,w,proj])\nfor index,(row,old) in enumerate(zip(rows,primary['historical_replays'])):\n    x=int(row['state_hex'],16);k=row['complexity']\n    E=''.join('u'+'t'*(r-1) for r in row['gaps'])\n    observed=row['base_prefix']+E\n    assert len(row['base_prefix'])==row['cut'] and row['target_E']==E and clean(observed+'u')\n    states,w,why,proj=inspect(x,len(observed),'historical')\n    counts['historical_rows']+=1\n    assert w==observed==old['original_observed_prefix']\n    assert states==old['replay']['orbit'] and proj is not None\n    assert proj['word'] in ('','t','tt','ttt')\n    assert proj['states']==old['replay']['first_change']['projected_orbit']\n    counts['historical_starting_'+w[0]+'_rows']+=1\n    if row['cut']:\n        positive_cuts+=1\n        assert not proj['word'].startswith(row['base_prefix'])\n    if w[0]=='t':\n        z=x//4;h=x//16\n        assert z==4*h+2 and R(x)==4*h+3 and k>=3\n    historical.append({'source_row_index':index,'phase':row['phase'],'k':k,'x_hex':hex(x),\n      'cut':row['cut'],'gaps':row['gaps'],'observed_word':w,'R_x_hex':hex(R(x)),\n      'R_word':proj['word'],'R_orbit':proj['states'],'ell':proj['ell'],\n      'lower_membership_certificate':old['membership_certificate']})\nassert counts==primary['counts'],[(k,counts[k],v) for k,v in primary['counts'].items() if counts[k]!=v]\nassert not primary['violations']\nselected=next(r for r in historical if r['observed_word'][0]=='t')\nassert selected['x_hex']=='0x642fdfb' and selected['R_x_hex']=='0x190bf7f' and selected['R_word']==''\nassert positive_cuts==5\nsummary={'counts':counts,'all_original_and_projected_orbits_agree':True,\n 'positive_cut_base_prefix_failures':positive_cuts,'historical_replays':historical,\n 'selected_starting_t_example':selected,'box_orbit_rows_sha256':sha(json.dumps(stream,separators=(',',':')).encode()),\n 'counterexamples':[],'completed':True}\nsource=Path(__file__).read_text()\nbase={'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'The root-preserving digit deletion obeys the stated two-letter table, intertwines on equal pairs, and stops at the first original schedule change.',\n 'parameters':primary['parameters'],'hardware':primary['hardware'],\n 'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,\n 'status':'finite-exhaustive','proof_scope':'Declared finite observations only; infinite-survivor intersection and all-depth statements require the symbolic proof.',\n 'interpretation':'All tables, intertwining checks, projected stops, and old occurrence replays agree. No three-return continuation survives projection in these rows.',\n 'limitations':['No new frontier census or larger integer box.','Original historical membership is supplied by committed records; lower membership for starting-t rows follows from projection plus digit-2 pairing, not a new census.','Five positive-cut rows fail the base prefix; no cut-zero membership conclusion follows.','Muse attempt terminated with a provider tool-routing error and supplied no completed check.']}\nrecord={**base,'experiment_id':'20260905_rounded_projection_independent',\n 'backend':'cell-array-odd-section-and-explicit-bit-deletion',\n 'source_text':source,'result_summary':summary,\n 'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),'primary_raw_sha256':sha(raw)}}\n# Keep exact computational source, counts, provenance, and all named row replays.\n# Omitted generic per-input rows are reproduced by that source and independently\n# checked above. Their original complete artifact and payload hashes are retained.\nprimary_summary={'counts':primary['counts'],'violations':primary['violations'],\n 'selected_starting_t_example':selected,'historical_replays':historical,\n 'original_box_check_stream_sha256':primary['box_check_stream_sha256']}\nnormalized={**base,'experiment_id':'20260905_rounded_projection_primary',\n 'backend':'contributed-packed-per-bit-table-and-intertwining-check',\n 'runtime_seconds':primary['timings']['search_wall_seconds'],'software':primary['software'],\n 'source_text':primary['executed_source_utf8'],'result_summary':primary_summary,\n 'result_hashes':{'source_sha256':primary['source_sha256'],'result_sha256':sha(json.dumps(primary_summary,sort_keys=True,separators=(',',':')).encode()),\n                 'original_record_sha256':sha(raw),'original_payload_sha256':ph,'historical_input_sha256':primary['historical_source_sha256']},\n 'original_limits':primary['limits'],'original_timings':primary['timings'],\n 'integration_note':'4092 generic per-input rows omitted from normalized record; executed source, exact parameters, counts, original stream/artifact hashes and historical replays retained. Every omitted orbit independently replayed in companion record. Membership certificates are theorem-derived.'}\ndef atomic(name,r):\n    dest=ROOT/'results/problem1'/name\n    fd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(r,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,dest)\natomic('20260905_rounded_projection_primary.json',normalized)\natomic('20260905_rounded_projection_independent.json',record)\nsignal.alarm(0)\nprint(json.dumps({'counts':counts,'selected':selected,'positive_cut_failures':positive_cuts,'seconds':record['runtime_seconds']},sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T16:43:41.907638+00:00"
+}

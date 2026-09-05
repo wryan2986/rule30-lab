@@ -208,6 +208,14 @@ phase u:
 The residual ancestor therefore narrows a minimizer search but does not
 reconstruct the low lift by itself.
 
+Update (2026-09-05, `partial-proof`):
+`problem1_rounded_projection_obstruction.md` studies the root-preserving
+repair R(x)=(x>>2) OR 3. Even when that state belongs to the lower frontier,
+it loses every positive-cut base prefix on the three-return domain. This
+is an exact schedule obstruction, distinct from the membership nonconverse
+above. It does not rule out R(x) as a cut-zero cylinder witness or a
+different construction of an adjacent shadow.
+
 ## 6. The complexity-25 counterexample ancestry
 
 The known phase-`u` state

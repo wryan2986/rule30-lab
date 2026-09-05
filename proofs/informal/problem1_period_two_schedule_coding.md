@@ -187,6 +187,13 @@ starting position. That note gives an explicit aperiodic admissible example
 meeting the criterion; no such unbounded-excess property is proved for the
 actual moving fringe.
 
+Further structural update (`partial-proof`):
+`problem1_rounded_projection_obstruction.md` proves that the root-preserving
+digit deletion R has `K intersect R^(-1)(K)={1/3,5/3}`. Nonconstant schedules
+lose infinite survival under this projection at their first letter change.
+This rules out that particular projection as an invariant support descent;
+it does not show that K, or its admissible subset, contains no finite integer.
+
 ## 6. Exact explanation of the seven-block shadow
 
 For the actual alternating moving fringe, starting at block two the branch

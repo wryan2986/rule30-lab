@@ -12,6 +12,46 @@ rewrite history, merge to main, or include incomplete temporary files.
 ## Active frontier after the goal continuation (2026-09-05)
 
 Newest all-depth result (`partial-proof`, independently reviewed): read
+`proofs/informal/problem1_rounded_projection_obstruction.md` first.
+
+- The natural root-preserving projection R(x)=(x>>2) OR 3 deletes one
+  base-four digit. If the first two forced letters agree, it intertwines
+  with F. If they differ, R(x) stops. More exactly, an initial run a^ell
+  followed by the other letter gives COMPLETE sigma(R(x))=a^(ell-1).
+- Every full-domain three-return occurrence therefore projects to an empty
+  schedule or at most three t's. For ANY positive cut it fails even the
+  base word w, not just the return continuation. At cut0 the base word is
+  empty, so a lower-frontier R(x) could still be an adjacent cylinder witness.
+- Frontier membership is separate: for a first t and k>=3, R(x) always
+  lies in O_(a,k-1), by projection plus digit-2 pairing. The genuine
+  u14/0x642fdfb/cut1 example projects to u13/0x190bf7f, which stops at
+  residue15 and fails base word t. This refutes the direct projected witness
+  on the genuine domain, without refuting adjacent inclusion or B_all.
+- For the full 2-adic survivor set K, exactly
+  K intersect R^(-1)(K) = R(K) intersect K = {1/3,5/3}.
+  These are the constant-t/u survivors. R sends every admissible infinite
+  survivor outside K; it cannot preserve a nonempty subset of K_adm.
+- Same x4..4095 box: 260 equal-pair checks, 267 mixed-pair checks,
+  171 first changes; all pass. All 19 historical occurrences independently
+  replayed, with 18 empty projected schedules and one t; all five positive
+  cuts lose the base word. No new frontier census or cut-zero membership
+  check was run. Atomic records:
+  `results/problem1/20260905_rounded_projection_{primary,independent}.json`.
+- Muse terminated with a provider undeclared-tool routing error, not a
+  completed check. Dewey implemented and independently derived the finite
+  identities; fresh reviewer Ramanujan checked the full proof and Z_2 scope.
+
+Next distinct candidate: y=B_w(R(F^c(x))), projecting at the occurrence cut
+then pulling back through the inverse zero branches for w. This preserves
+w in Z_2 but is NOT known to be an ordinary finite lower-frontier state.
+A targeted exact check on existing occurrences could test finiteness and
+membership; no such check has yet run. This avoids conflating loss of the
+return continuation with the weaker base-prefix requirement for a shadow.
+Use the existing exact partial generator inverses and recursive frontier
+membership criterion for that targeted check, not an arbitrary-precision
+truncation treated as a proof of finiteness.
+
+Previous all-depth result (`partial-proof`, independently reviewed): read
 `proofs/informal/problem1_finite_schedule_repetition_bound.md` first.
 
 - For a positive finite integer of complexity k=ceil(bitlen/2)>=2, two
