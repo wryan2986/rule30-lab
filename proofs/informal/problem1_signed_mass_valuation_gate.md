@@ -94,6 +94,13 @@ follow from the scalar lift or the joint-fiber identity. A successful proof
 must control how exact even/odd endpoint counts split and recombine under
 the forced schedule, and must also prevent the empty-belief case N=0.
 
+The subsequent `problem1_signed_count_transfer.md` proves the exact parity
+count update and refutes unrestricted one-lift preservation: parent p/k5/
+`0x321`, D1 has (E,O)=(2,0), but its digit-zero child p/k6/`0xc84`, L2 has
+(E,O)=(1,1). Retaining all ten outgoing parity counts also fails to close
+the universal vector update. These generic counterexamples do not refute
+the conjecture on admissible three-return ancestors.
+
 The next step is a structural analysis of that integer-count transfer or a
 precisely motivated counterexample test. Merely increasing the census cap
 after finite success is not authorized by this result. The original

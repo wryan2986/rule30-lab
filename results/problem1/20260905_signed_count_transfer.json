@@ -1,0 +1,185 @@
+{
+  "backend": "python-direct-and-recursive",
+  "experiment_id": "count-transfer-valuation-gate",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "hardware": {
+    "arch": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz"
+  },
+  "hypothesis": "Universal one-lift preservation of v2(N)!=v2(2O), N total endpoints, O odd-defect endpoints, on ordinary cylinders h=3..9.",
+  "interpretation": "A recorded parent-pass child-fail pair refutes unrestricted one-lift preservation of the valuation gate; it does not refute the restricted admissible-ancestor conjecture. No hit is finite evidence only.",
+  "limitations": [
+    "finite box only; no infinite conclusion",
+    "single local process with 120s cooperative budget and 1GiB address cap",
+    "v2(0) treated as infinite; O=0 passes nonvacuously by stated convention"
+  ],
+  "parameters": {
+    "child_nonempty_required": true,
+    "depth": "1..h-2",
+    "h_range": [
+      3,
+      9
+    ],
+    "memory_budget_bytes": 1073741824,
+    "order": "h, phase p-u, D, q, d",
+    "stop": "first parent-pass child-fail nonempty child",
+    "time_budget_seconds": 120.0,
+    "zero_O_allowed": true
+  },
+  "proof_scope": "ordinary cylinders h=3..9, depths 1..h-2, both phases; no admissible-ancestor claim.",
+  "question": "problem1",
+  "result": {
+    "arith_selftest": 7,
+    "identity_checks": 101,
+    "recursive_checks": 202,
+    "stopped_early": true,
+    "ten_count_cases": [
+      {
+        "child_E": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "child_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "match": true,
+        "parent_E": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "parent_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "q_hex": "0xc82",
+        "x_hex": "0x3208"
+      },
+      {
+        "child_E": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "child_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "match": true,
+        "parent_E": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "parent_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "q_hex": "0xc88",
+        "x_hex": "0x3220"
+      }
+    ],
+    "transitions_checked": 101,
+    "witness": {
+      "D": 1,
+      "child_E": 1,
+      "child_N_total": 2,
+      "child_O": 1,
+      "child_S": 0,
+      "child_endpoints": [
+        [
+          "0x324",
+          1,
+          "1011"
+        ],
+        [
+          "0x374",
+          0,
+          "0000"
+        ]
+      ],
+      "child_gate": [
+        1,
+        1
+      ],
+      "d": 0,
+      "h": 5,
+      "m": "0011",
+      "parent_E": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "parent_O": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "parent_endpoints": [
+        [
+          "0xc9",
+          0,
+          "1011"
+        ],
+        [
+          "0xdd",
+          0,
+          "1111"
+        ]
+      ],
+      "parent_gate": [
+        1,
+        null
+      ],
+      "phase": "p",
+      "q_hex": "0x321",
+      "x_hex": "0xc84"
+    }
+  },
+  "result_hashes": {
+    "certificate_sha256": "11f2821746d28cbc31ef7883f349059420c414863e555f52d1a48bfd03a0ec0e",
+    "source_sha256": "67d7b1b3348a397ef56ebe2da28e2f7238e6a8f44b095a6a1a8c31869d46028a"
+  },
+  "result_summary": {
+    "counterexample_found": true,
+    "identity_checks": 101,
+    "stopped_early": true,
+    "transitions_checked": 101
+  },
+  "rlimit_applied": true,
+  "runtime_seconds": 0.006669571972452104,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source": "#!/usr/bin/env python3\n\"\"\"Independent count-transfer / valuation-gate check (read-only; writes /tmp only).\"\"\"\nimport hashlib, json, os, platform, resource, subprocess, sys, tempfile, time\nfrom datetime import datetime, timezone\nMASKS = (0, 3, 11, 12, 15)\nPHASES = (\"p\", \"u\")\nTIME_BUDGET = 120.0\nOUT = \"/tmp/count_transfer_result.json\"\ndef forward_generator(name, state):\n    stepped = state ^ ((state << 1) | (state << 2))\n    if name == \"t\":\n        return stepped\n    if name == \"u\":\n        return stepped ^ 1\n    return stepped ^ 1 ^ (2 if state & 1 == 0 else 0)\ndef children(state):\n    return tuple(sorted({forward_generator(n, state) for n in \"tup\"}))\ndef oracle_children(state):\n    width = state.bit_length() + 2\n    bits = [(state >> j) & 1 for j in range(width)]\n    tout = 0\n    for j in range(width):\n        lo1 = bits[j-1] if j >= 1 else 0\n        lo2 = bits[j-2] if j >= 2 else 0\n        if bits[j] ^ (lo1 | lo2):\n            tout |= 1 << j\n    uout = tout ^ 1\n    p0 = (tout & 1) ^ 1\n    p1 = ((tout >> 1) & 1) ^ (1 if state & 1 == 0 else 0)\n    return tuple(sorted({tout, uout, (tout & ~3) ^ p0 ^ (p1 << 1)}))\ndef build(phase, kmax, fn):\n    lv = [set(), {3 if phase == \"p\" else 1}]\n    for _ in range(2, kmax + 1):\n        lv.append({c for s in lv[-1] for c in fn(s)})\n    return lv\ndef fiber(lv, c, q):\n    m = sum(1 << d for d in range(4) if 4 * q + d in lv[c + 1])\n    assert m in MASKS\n    return m\ndef masks_seq(lv, c, x, L):\n    out = []\n    for s in range(L):\n        q = x >> 2\n        out.append(fiber(lv, c - 1 - s, q))\n        x = q\n    return tuple(out)\ndef belief(lv, c, x, L):\n    mod = 4 ** L\n    res = x % mod\n    cur = masks_seq(lv, c, x, L)\n    out = {}\n    for sh in lv[c - 1]:\n        if sh % mod != res:\n            continue\n        sm = masks_seq(lv, c - 1, sh, L)\n        if len(cur) == len(sm) and all(not (a & ~b) for a, b in zip(cur, sm)):\n            out[sh] = sum(m != 15 for m in sm)\n    return out\ndef belief_rec(lv, c, x, L):\n    assert 1 <= L <= c - 2\n    d, q = x & 3, x >> 2\n    cm = fiber(lv, c - 1, q)\n    if L == 1:\n        return {sh: int(fiber(lv, c - 2, sh >> 2) != 15) for sh in lv[c-1]\n                if sh & 3 == d and not (cm & ~fiber(lv, c - 2, sh >> 2))}\n    lo = belief_rec(lv, c - 1, q, L - 1)\n    out = {}\n    for sq, lc in lo.items():\n        sh = 4 * sq + d\n        if sh not in lv[c - 1]:\n            continue\n        sm = fiber(lv, c - 2, sq)\n        if cm & ~sm:\n            continue\n        out[sh] = lc + int(sm != 15)\n    return out\nTEN_COUNT_CASES = [\n    {\"phase\": \"p\", \"h\": 6, \"D\": 1, \"q\": 0xc82, \"d\": 0, \"x\": 0x3208,\n     \"E\": [2, 0, 0, 0, 1], \"O\": [0, 0, 0, 0, 0],\n     \"cE\": [0, 0, 1, 0, 0], \"cO\": [0, 0, 0, 0, 0]},\n    {\"phase\": \"p\", \"h\": 6, \"D\": 1, \"q\": 0xc88, \"d\": 0, \"x\": 0x3220,\n     \"E\": [2, 0, 0, 0, 1], \"O\": [0, 0, 0, 0, 0],\n     \"cE\": [0, 0, 0, 0, 1], \"cO\": [0, 0, 0, 0, 0]},\n]\ndef verify_ten_count_cases(levels):\n    out = []\n    for tc in TEN_COUNT_CASES:\n        ph, h, D, q, x = tc[\"phase\"], tc[\"h\"], tc[\"D\"], tc[\"q\"], tc[\"x\"]\n        assert q in levels[ph][h] and x in levels[ph][h + 1]\n        pb = belief(levels[ph], h, q, D)\n        cb = belief(levels[ph], h + 1, x, D + 1)\n        assert pb == belief_rec(levels[ph], h, q, D)\n        assert cb == belief_rec(levels[ph], h + 1, x, D + 1)\n        E = [0] * 5\n        O = [0] * 5\n        for y, c in pb.items():\n            (E if c % 2 == 0 else O)[MASKS.index(fiber(levels[ph], h - 1, y))] += 1\n        cE = [0] * 5\n        cO = [0] * 5\n        for y, c in cb.items():\n            (cE if c % 2 == 0 else cO)[MASKS.index(fiber(levels[ph], h, y))] += 1\n        assert E == tc[\"E\"] and O == tc[\"O\"], hex(q)\n        assert cE == tc[\"cE\"] and cO == tc[\"cO\"], hex(x)\n        out.append({\"q_hex\": hex(q), \"x_hex\": hex(x), \"parent_E\": E,\n         \"parent_O\": O, \"child_E\": cE, \"child_O\": cO, \"match\": True})\n    return out\ndef v2(x):\n    return None if x == 0 else (x & -x).bit_length() - 1\nclass Found(Exception):\n    pass\ndef gate_arith_selftest():\n    cases = [((2, 1, True)), ((1, 1, False)), ((1, 3, True)), ((3, 5, True)), ((1, 5, False)), ((1, 0, True)), ((0, 0, False))]\n    for E, O, want in cases:\n        got = gate(E + O, O)\n        assert got == want, (E, O, got, want)\n    return len(cases)\ndef gate(N, O):\n    a, b = v2(N), v2(2 * O)\n    if a is None or b is None:\n        return (a is None) != (b is None)\n    return a != b\ndef main():\n    t0 = time.monotonic()\n    try:\n        resource.setrlimit(resource.RLIMIT_AS, (1 << 30, resource.getrlimit(resource.RLIMIT_AS)[1]))\n        rlimit = True\n    except Exception:\n        rlimit = False\n    narith = gate_arith_selftest()\n    lv = {ph: build(ph, 10, children) for ph in PHASES}\n    oc = {ph: build(ph, 8, oracle_children) for ph in PHASES}\n    for ph in PHASES:\n        for k in range(1, 9):\n            assert oc[ph][k] == lv[ph][k], (ph, k)\n    checked = rec_checks = ident = 0\n    ten_cases = verify_ten_count_cases(lv)\n    witness = None\n    for h in range(3, 10):\n        for ph in PHASES:\n            for D in range(1, h - 1):\n                for q in sorted(lv[ph][h]):\n                    for d in range(4):\n                        x = 4 * q + d\n                        if x not in lv[ph][h + 1]:\n                            continue\n                        if time.monotonic() - t0 > TIME_BUDGET:\n                            raise RuntimeError(\"time budget exceeded\")\n                        pb = belief(lv[ph], h, q, D)\n                        assert pb == belief_rec(lv[ph], h, q, D)\n                        rec_checks += 1\n                        E = {n: 0 for n in MASKS}\n                        O = {n: 0 for n in MASKS}\n                        for p_, c_ in pb.items():\n                            n_ = fiber(lv[ph], h - 1, p_)\n                            if c_ % 2 == 0:\n                                E[n_] += 1\n                            else:\n                                O[n_] += 1\n                        m = fiber(lv[ph], h, q)\n                        assert (m >> d) & 1\n                        A = [n for n in MASKS if not (m & ~n)]\n                        Ep = E[15] + sum(O[n] for n in A if n != 15)\n                        Op = O[15] + sum(E[n] for n in A if n != 15)\n                        cb = belief(lv[ph], h + 1, x, D + 1)\n                        assert cb == belief_rec(lv[ph], h + 1, x, D + 1)\n                        rec_checks += 1\n                        e2 = sum(1 for c_ in cb.values() if c_ % 2 == 0)\n                        o2 = sum(1 for c_ in cb.values() if c_ % 2 == 1)\n                        assert (Ep, Op) == (e2, o2), (ph, h, D, hex(q), d)\n                        ident += 1\n                        checked += 1\n                        Nt_p, Ot_p = sum(E.values()) + sum(O.values()), sum(O.values())\n                        if not gate(Nt_p, Ot_p):\n                            continue\n                        Nt_c = e2 + o2\n                        if Nt_c == 0:\n                            continue\n                        if not gate(Nt_c, o2):\n                            witness = {\"phase\": ph, \"h\": h, \"D\": D,\n                             \"q_hex\": hex(q), \"d\": d, \"x_hex\": hex(x),\n                             \"m\": format(m, \"04b\"),\n                             \"parent_E\": [E[n] for n in MASKS],\n                             \"parent_O\": [O[n] for n in MASKS],\n                             \"parent_gate\": [v2(Nt_p), v2(2 * Ot_p)],\n                             \"parent_endpoints\": sorted([[hex(y), c, format(fiber(lv[ph], h - 1, y), \"04b\")] for y, c in pb.items()]),\n                             \"child_E\": e2, \"child_O\": o2,\n                             \"child_S\": e2 - o2,\n                             \"child_gate\": [v2(Nt_c), v2(2 * o2)],\n                             \"child_N_total\": Nt_c,\n                             \"child_endpoints\": sorted([[hex(y), c, format(fiber(lv[ph], h, y), \"04b\")] for y, c in cb.items()])}\n                            witness[\"_result\"] = {\"transitions_checked\": checked, \"recursive_checks\": rec_checks, \"identity_checks\": ident, \"arith_selftest\": narith, \"ten_count_cases\": ten_cases}\n                            witness[\"_rlimit\"] = rlimit\n                            witness[\"_t0\"] = t0\n                            raise Found(witness)\n    result = {\"transitions_checked\": checked, \"recursive_checks\": rec_checks,\n     \"identity_checks\": ident, \"arith_selftest\": narith, \"ten_count_cases\": ten_cases, \"witness\": None, \"stopped_early\": False}\n    return t0, rlimit, result\ndef payload_from(t0, rlimit, result):\n    runtime = time.monotonic() - t0\n    src = open(\"/tmp/count_transfer.py\").read()\n    canon = json.dumps(result, sort_keys=True).encode()\n    try:\n        commit = subprocess.run([\"git\", \"-C\", \"/home/ryan/rule30-lab\", \"rev-parse\", \"HEAD\"], capture_output=True, text=True, timeout=30).stdout.strip()\n    except Exception:\n        commit = \"unavailable\"\n    model = None\n    try:\n        with open(\"/proc/cpuinfo\") as fh:\n            for line in fh:\n                if line.startswith(\"model name\"):\n                    model = line.split(\":\", 1)[1].strip()\n                    break\n    except OSError:\n        pass\n    wit = result.get(\"witness\")\n    summary = {\"transitions_checked\": result.get(\"transitions_checked\"),\n     \"identity_checks\": result.get(\"identity_checks\"),\n     \"counterexample_found\": wit is not None,\n     \"stopped_early\": result.get(\"stopped_early\", False)}\n    return {\"experiment_id\": \"count-transfer-valuation-gate\",\n     \"timestamp_utc\": datetime.now(timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%SZ\"),\n     \"git_commit\": commit, \"question\": \"problem1\",\n     \"hypothesis\": \"Universal one-lift preservation of v2(N)!=v2(2O), N total endpoints, O odd-defect endpoints, on ordinary cylinders h=3..9.\",\n     \"backend\": \"python-direct-and-recursive\",\n     \"parameters\": {\"h_range\": [3, 9], \"depth\": \"1..h-2\",\n      \"order\": \"h, phase p-u, D, q, d\", \"stop\": \"first parent-pass child-fail nonempty child\",\n      \"time_budget_seconds\": 120.0, \"memory_budget_bytes\": 1073741824,\n      \"child_nonempty_required\": True, \"zero_O_allowed\": True},\n     \"hardware\": {\"cpu_model\": model, \"cpu_count\": os.cpu_count(), \"arch\": platform.machine()},\n     \"software\": {\"python\": platform.python_version(), \"os\": platform.platform()},\n     \"runtime_seconds\": runtime, \"rlimit_applied\": rlimit,\n     \"result\": result, \"result_summary\": summary,\n     \"result_hashes\": {\"certificate_sha256\": hashlib.sha256(canon).hexdigest(),\n      \"source_sha256\": hashlib.sha256(src.encode()).hexdigest()},\n     \"status\": \"refuted\" if wit else \"finite-exhaustive\",\n     \"interpretation\": (\"A recorded parent-pass child-fail pair refutes unrestricted one-lift preservation of the valuation gate; it does not refute the restricted admissible-ancestor conjecture. No hit is finite evidence only.\"),\n     \"proof_scope\": \"ordinary cylinders h=3..9, depths 1..h-2, both phases; no admissible-ancestor claim.\",\n     \"limitations\": [\"finite box only; no infinite conclusion\",\n      \"single local process with 120s cooperative budget and 1GiB address cap\",\n      \"v2(0) treated as infinite; O=0 passes nonvacuously by stated convention\"],\n     \"source\": src}\n\ndef write_payload(payload):\n    data = json.dumps(payload, indent=2, sort_keys=True).encode()\n    with tempfile.NamedTemporaryFile(dir=\"/tmp\", delete=False) as fh:\n        fh.write(data)\n        fh.flush()\n        os.fsync(fh.fileno())\n        tmp = fh.name\n    os.replace(tmp, OUT)\ndef run():\n    try:\n        t0, rlimit, result = main()\n    except Found as f:\n        w = f.args[0]\n        t0 = time.monotonic()\n        result = w.get(\"_result\", {})\n        keep = {}\n        for kk, vv in w.items():\n            if kk[0:1] != \"_\":\n                keep[kk] = vv\n        result[\"witness\"] = keep\n        result[\"stopped_early\"] = True\n        rlimit = w.get(\"_rlimit\", False)\n        t0 = w.get(\"_t0\", t0)\n    payload = payload_from(t0, rlimit, result)\n    write_payload(payload)\n    print(json.dumps({\"status\": payload[\"status\"], \"checked\": result.get(\"transitions_checked\"), \"witness\": result.get(\"witness\")}, indent=1))\nrun()\n",
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T13:36:33Z"
+}

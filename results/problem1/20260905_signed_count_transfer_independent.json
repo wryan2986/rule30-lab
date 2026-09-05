@@ -1,0 +1,240 @@
+{
+  "backend": "pre-existing-independent-signed-mass-oracle",
+  "experiment_id": "20260905_signed_count_transfer_independent",
+  "git_commit": "f4d3eae1241f3bc2aaf802b8402f3e5e81cc649a",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 218336
+  },
+  "hypothesis": "The six named concrete belief tables agree with the old independent oracle.",
+  "interpretation": "Exact tables agree, verifying the named universal count-closure and valuation-preservation obstructions.",
+  "limitations": [
+    "No search or smallest-counterexample claim from this replay.",
+    "No refutation of the restricted three-return valuation conjecture."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "frontier_max_k": 8,
+    "named_beliefs": 6,
+    "phase": "p",
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Six named ordinary beliefs only; no admissible-ancestor assertion.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "cadbadaa1189bb94a34cfa6fda0bf0199a3c03e05b5c96dd67d0ac4b71fb4f23",
+    "results/problem1/20260905_signed_count_transfer.json": "7da4569c167773c40d3a64686ee7c67d555cfc14162fc27e6366852ba64aa4ff",
+    "scripts/check_three_return_signed_mass_independent.py": "2abcac4632f54d0d4598a98694737b86cc9a2616002c573abcdde1a183ad1d68",
+    "source_sha256": "5dce195272c35e1ce7709a34fe217deb4599ff05b9ae58ff8f8d23c1af057d08",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "boundary_hits": [],
+    "direct_recursive_match": true,
+    "named_beliefs": 6,
+    "primary_tables_match": true,
+    "rows": [
+      {
+        "E": [
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": 1,
+        "endpoints": [
+          [
+            "0xc9",
+            0,
+            "1011"
+          ],
+          [
+            "0xdd",
+            0,
+            "1111"
+          ]
+        ],
+        "k": 5,
+        "mass": 2,
+        "state_hex": "0x321"
+      },
+      {
+        "E": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "O": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "depth": 2,
+        "endpoints": [
+          [
+            "0x324",
+            1,
+            "1011"
+          ],
+          [
+            "0x374",
+            0,
+            "0000"
+          ]
+        ],
+        "k": 6,
+        "mass": 0,
+        "state_hex": "0xc84"
+      },
+      {
+        "E": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": 1,
+        "endpoints": [
+          [
+            "0x322",
+            0,
+            "1111"
+          ],
+          [
+            "0x372",
+            0,
+            "0000"
+          ],
+          [
+            "0x376",
+            0,
+            "0000"
+          ]
+        ],
+        "k": 6,
+        "mass": 3,
+        "state_hex": "0xc82"
+      },
+      {
+        "E": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": 2,
+        "endpoints": [
+          [
+            "0xc88",
+            0,
+            "1011"
+          ]
+        ],
+        "k": 7,
+        "mass": 1,
+        "state_hex": "0x3208"
+      },
+      {
+        "E": [
+          2,
+          0,
+          0,
+          0,
+          1
+        ],
+        "O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": 1,
+        "endpoints": [
+          [
+            "0x320",
+            0,
+            "1111"
+          ],
+          [
+            "0x370",
+            0,
+            "0000"
+          ],
+          [
+            "0x374",
+            0,
+            "0000"
+          ]
+        ],
+        "k": 6,
+        "mass": 3,
+        "state_hex": "0xc88"
+      },
+      {
+        "E": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "depth": 2,
+        "endpoints": [
+          [
+            "0xc80",
+            0,
+            "1111"
+          ]
+        ],
+        "k": 7,
+        "mass": 1,
+        "state_hex": "0x3220"
+      }
+    ]
+  },
+  "runtime_seconds": 0.008735639043152332,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Admission: replay six named beliefs with the pre-existing independent oracle.\n\nNo search: disagreement invalidates the new parity-count counterexamples;\nagreement verifies only these finite tables. One CPU, 120s, 1 GiB.\n\"\"\"\nimport datetime\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport signal\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nstart = time.monotonic()\nroot = Path('/home/ryan/rule30-lab')\nsys.path.insert(0, str(root / 'scripts'))\nimport check_three_return_signed_mass_independent as oracle\nresource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\ndef timeout(*args):\n    raise TimeoutError('120-second cap')\nsignal.signal(signal.SIGALRM, timeout)\nsignal.alarm(120)\nrecord_path = root / 'results/problem1/20260905_signed_count_transfer.json'\nprimary = json.loads(record_path.read_text())['result']\nlevels = oracle.build_frontiers('p', 8)\nmasks = (0, 3, 11, 12, 15)\nrows = []\nboundary = []\nfor k, x, depth in [(5, 0x321, 1), (6, 0xc84, 2),\n                    (6, 0xc82, 1), (7, 0x3208, 2),\n                    (6, 0xc88, 1), (7, 0x3220, 2)]:\n    assert x in levels[k]\n    direct = oracle.belief_direct(levels, k, x, depth, boundary)\n    assert direct == oracle.belief_recursive(levels, k, x, depth, boundary)\n    bins = {m: [0, 0] for m in masks}\n    endpoints = []\n    for y, cost in sorted(direct.items()):\n        m = sum(1 << d for d in oracle.fiber(levels, k-1, y))\n        bins[m][cost % 2] += 1\n        endpoints.append([hex(y), cost, format(m, '04b')])\n    rows.append({'k': k, 'state_hex': hex(x), 'depth': depth,\n        'endpoints': endpoints, 'E': [bins[m][0] for m in masks],\n        'O': [bins[m][1] for m in masks], 'mass': oracle.signed_mass(direct)})\nassert not boundary\nassert rows[0]['endpoints'] == primary['witness']['parent_endpoints']\nassert rows[1]['endpoints'] == primary['witness']['child_endpoints']\nassert rows[0]['mass'] == 2 and rows[1]['mass'] == 0\nfor i, case in enumerate(primary['ten_count_cases']):\n    parent, child = rows[2+2*i:4+2*i]\n    for side, row in [('parent', parent), ('child', child)]:\n        assert row['E'] == case[side+'_E']\n        assert row['O'] == case[side+'_O']\n\nsummary = {'named_beliefs': 6, 'rows': rows, 'primary_tables_match': True,\n           'direct_recursive_match': True, 'boundary_hits': []}\nsha = lambda data: hashlib.sha256(data).hexdigest()\nsource = Path(__file__).read_text()\ncpu = next(line.split(':', 1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()\n           if line.startswith('model name'))\nresult = {'experiment_id': '20260905_signed_count_transfer_independent',\n    'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n    'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip(),\n    'question': 'problem1', 'hypothesis': 'The six named concrete belief tables agree with the old independent oracle.',\n    'backend': 'pre-existing-independent-signed-mass-oracle',\n    'parameters': {'phase': 'p', 'frontier_max_k': 8, 'named_beliefs': 6,\n                   'wall_limit_seconds': 120, 'address_space_bytes': 1024**3},\n    'hardware': {'cpu_model': cpu, 'machine': platform.machine(),\n                 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n    'software': {'python': sys.version, 'platform': platform.platform()},\n    'runtime_seconds': time.monotonic()-start,\n    'source_text': source,\n    'result_hashes': {'source_sha256': sha(source.encode()),\n        'result_sha256': sha(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()),\n        'results/problem1/20260905_signed_count_transfer.json': sha(record_path.read_bytes()),\n        'scripts/check_three_return_signed_mass_independent.py': sha(Path(oracle.__file__).read_bytes()),\n        'src/python/rule30_research_reference.py': sha((root/'src/python/rule30_research_reference.py').read_bytes())},\n    'result_summary': summary, 'status': 'finite-exhaustive',\n    'proof_scope': 'Six named ordinary beliefs only; no admissible-ancestor assertion.',\n    'interpretation': 'Exact tables agree, verifying the named universal count-closure and valuation-preservation obstructions.',\n    'limitations': ['No search or smallest-counterexample claim from this replay.',\n                    'No refutation of the restricted three-return valuation conjecture.']}\ndestination = root / 'results/problem1/20260905_signed_count_transfer_independent.json'\nfd, tmp = tempfile.mkstemp(dir=destination.parent, prefix=destination.name+'.', suffix='.tmp')\nwith os.fdopen(fd, 'w') as stream:\n    json.dump(result, stream, sort_keys=True, indent=2)\n    stream.write('\\n'); stream.flush(); os.fsync(stream.fileno())\nos.replace(tmp, destination)\nsignal.alarm(0)\nprint('Six named beliefs agree with the pre-existing independent oracle.')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:41:43.739973+00:00"
+}

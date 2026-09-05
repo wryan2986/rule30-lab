@@ -4,6 +4,34 @@ Repo does not solve any prize problem. Finite evidence is never proof of an infi
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Latest refinement after publication at `f4d3eae` (read these two notes first):
+
+- `proofs/informal/problem1_physical_frontier_restriction.md`:
+  exact physical parameterization R_d by odd seeds of bit length
+  s<=floor(d/2), at the uniquely possible time n=d-s (`partial-proof`).
+  The known pairing obstruction `0x642fdfb` is absent from R_27: all 4096
+  candidates checked, with independent full packed/cell-array agreement
+  (`finite-exhaustive`, named state only). This does not prove physical
+  pairings exist. Physical projection closure is `refuted`: `0xcd` from
+  S9/n4 belongs to R_8 but projects to 51, outside R_6={50,55}. Thus a
+  physical-only induction needs its own ancestor-domain argument.
+  Even genuine local alternation is insufficient: x27 from S3/n3 has
+  centers 1010 but an empty depth-one dominant belief. Its forced word is
+  only t, so this does not threaten the full three-return conjecture.
+- `proofs/informal/problem1_signed_count_transfer.md`: exact all-depth
+  even/odd total update from outgoing mask subtotals (`partial-proof`).
+  Universal valuation preservation is `refuted`: p/k5/D1/`0x321` passes
+  with (E,O)=(2,0), but digit-zero child p/k6/L2/`0xc84` cancels (1,1).
+  The earlier p/k6 `0xc82`/`0xc88` collision also refutes deterministic
+  closure of all TEN even/odd slice counts, not just five signed counts.
+  These ordinary cylinders are not certified admissible ancestors.
+
+Both new notes retain exact domain and proof/evidence boundaries. The
+restricted valuation conjecture, physical occurrence-cut bounds, B_all,
+and periods >=3 remain open. The next structural target must retain return
+constraints and endpoint correlations; neither bare physical membership
+nor the unrestricted parity-count update supplies a closed induction.
+
 `ASTRA_GOAL.md` requests continued research until its proof-or-research-impasse
 stopping condition. That goal is still active: there is no complete proof,
 and the surviving arithmetic and boundary routes have not been exhausted.
