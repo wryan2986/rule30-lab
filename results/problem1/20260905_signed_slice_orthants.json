@@ -1,0 +1,223 @@
+{
+  "backend": "python-distinct-frontiers-direct-and-recursive-beliefs",
+  "experiment_id": "20260905_signed_slice_orthants",
+  "git_commit": "b86a0ea892549287d4431fce69d29a743855bf9b",
+  "git_dirty_paths": [
+    "?? .worktrees/",
+    "?? ASTRA_GOAL.md",
+    "?? proofs/informal/problem1_signed_belief_pairing_obstruction.md",
+    "?? proofs/informal/problem1_signed_slice_orthant_test.md",
+    "?? proofs/informal/problem1_signed_slice_transfer_audit.md",
+    "?? proofs/informal/problem1_three_return_reduction_dependency_review.md",
+    "?? results/problem1/20260905_signed_belief_hamming_pairing.json",
+    "?? results/problem1/20260905_three_return_signed_mass.json",
+    "?? results/problem1/20260905_three_return_signed_mass_independent.json",
+    "?? scripts/check_signed_belief_hamming_pairing.py",
+    "?? scripts/check_signed_slice_orthants.py",
+    "?? tests/python/test_signed_belief_hamming_pairing.py"
+  ],
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 194576
+  },
+  "hypothesis": "Every outgoing slice vector on the three-return ancestor domain has no two components of opposite strict sign.",
+  "interpretation": "A mixed-sign vector refutes the two-orthant restriction, not signed nonvanishing.",
+  "limitations": [
+    "No all-depth nonvanishing theorem.",
+    "No larger nonvanishing census.",
+    "No exclusion of other disconnected regions or arithmetic restrictions.",
+    "Smallest only in the expressly ordered tested set, not all admissible ancestors."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "all_56_gap_triples": true,
+    "domain_max_k": 16,
+    "named_nodes_after_domain": [
+      [
+        "u",
+        18,
+        "0x642e4d2f1",
+        3
+      ],
+      [
+        "u",
+        18,
+        "0x6473d46ab",
+        5
+      ]
+    ],
+    "phases": [
+      "p",
+      "u"
+    ],
+    "schedule_cap": 64,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Exact named counterexample if present; finite scope is the ordered 25 existing ancestors followed by two named nodes, stopping at first failure.",
+  "question": "problem1",
+  "result_hashes": {
+    "experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "result_sha256": "a840c4e1d747c956c11dff04ec4c7c3f32f27e13e1ac02c690dc05c0a100e707",
+    "scripts/check_signed_slice_orthants.py": "14f5244ebc18d0f029fdb5948eaeb1762919f7541f023509eacb2903ad75bc0c",
+    "src/python/period_two_signed_slice_transfer_check.py": "d4537ce3b995c7e197cd4607ee035927b4d060eee846f59adc253496683f570d",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "checked_nodes": 2,
+    "domain_ancestors": 25,
+    "domain_occurrences": 19,
+    "first_mixed_sign_vector": {
+      "admissible_descendant": {
+        "complexity": 14,
+        "cut": 1,
+        "depth": 2,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "generator_word": "uuuuputptutpuu",
+        "phase": "u",
+        "schedule": "tutututu",
+        "state_hex": "0x642fdfb",
+        "stripped_digits": 1
+      },
+      "belief_size": 357,
+      "complexity": 13,
+      "component_even_odd_counts": {
+        "0000": [
+          101,
+          41
+        ],
+        "0011": [
+          0,
+          0
+        ],
+        "1011": [
+          72,
+          0
+        ],
+        "1100": [
+          0,
+          9
+        ],
+        "1111": [
+          84,
+          50
+        ]
+      },
+      "depth": 1,
+      "phase": "u",
+      "signed_mass": 157,
+      "state_hex": "0x190bf7e",
+      "vector": [
+        60,
+        0,
+        72,
+        -9,
+        34
+      ]
+    },
+    "planned_nodes": 27,
+    "rows": [
+      {
+        "belief_size": 162,
+        "complexity": 12,
+        "component_even_odd_counts": {
+          "0000": [
+            70,
+            0
+          ],
+          "0011": [
+            3,
+            0
+          ],
+          "1011": [
+            8,
+            0
+          ],
+          "1100": [
+            42,
+            0
+          ],
+          "1111": [
+            39,
+            0
+          ]
+        },
+        "depth": 1,
+        "phase": "p",
+        "signed_mass": 162,
+        "state_hex": "0xc84387",
+        "vector": [
+          70,
+          3,
+          8,
+          42,
+          39
+        ]
+      },
+      {
+        "admissible_descendant": {
+          "complexity": 14,
+          "cut": 1,
+          "depth": 2,
+          "gaps": [
+            2,
+            2,
+            2
+          ],
+          "generator_word": "uuuuputptutpuu",
+          "phase": "u",
+          "schedule": "tutututu",
+          "state_hex": "0x642fdfb",
+          "stripped_digits": 1
+        },
+        "belief_size": 357,
+        "complexity": 13,
+        "component_even_odd_counts": {
+          "0000": [
+            101,
+            41
+          ],
+          "0011": [
+            0,
+            0
+          ],
+          "1011": [
+            72,
+            0
+          ],
+          "1100": [
+            0,
+            9
+          ],
+          "1111": [
+            84,
+            50
+          ]
+        },
+        "depth": 1,
+        "phase": "u",
+        "signed_mass": 157,
+        "state_hex": "0x190bf7e",
+        "vector": [
+          60,
+          0,
+          72,
+          -9,
+          34
+        ]
+      }
+    ],
+    "stop_reason": "first_counterexample"
+  },
+  "runtime_seconds": 0.4432208180660382,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T12:23:55.912162+00:00"
+}

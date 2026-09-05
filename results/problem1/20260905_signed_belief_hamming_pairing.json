@@ -1,0 +1,336 @@
+{
+  "backend": "python-direct-and-recursive",
+  "enforcement": {
+    "address_space_limit_applied": true,
+    "alarm_seconds": 115,
+    "budget_bytes": 1073741824,
+    "deadline": "SIGALRM at 115s plus cooperative checks plus outer timeout",
+    "soft_bytes": 1073741824
+  },
+  "experiment_id": "signed-belief-hamming-pairing",
+  "git_branch": "research/astra-next",
+  "git_commit": "b86a0ea892549287d4431fce69d29a743855bf9b",
+  "git_dirty": true,
+  "git_status": "?? .worktrees/\n?? ASTRA_GOAL.md\n?? proofs/informal/problem1_signed_belief_pairing_obstruction.md\n?? proofs/informal/problem1_signed_mass_valuation_gate.md\n?? proofs/informal/problem1_signed_slice_orthant_test.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? proofs/informal/problem1_three_return_reduction_dependency_review.md\n?? results/problem1/20260905_signed_belief_hamming_pairing.json\n?? results/problem1/20260905_signed_mass_valuation_gate.json\n?? results/problem1/20260905_signed_slice_orthants.json\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? scripts/check_signed_belief_hamming_pairing.py\n?? scripts/check_signed_slice_orthants.py\n?? tests/python/test_signed_belief_hamming_pairing.py",
+  "hardware": {
+    "architecture": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "memory_total_kib": 31766236
+  },
+  "hypothesis": "For every full three-return occurrence (both phases, 2<=k<=16, all 56 admissible gap triples, final-u admissibility, depth L=c+1<k), the opposite-sign Hamming graph on distinct dominant shadows (edges join y,z of opposite sign with y^z a power of two at bit>=2L) has a matching saturating the smaller sign class.",
+  "interpretation": "An obstruction refutes sign-reversing involutions with Hamming nonfixed pairs whose fixed set is nonempty of a common sign (equivalently: nonfixed pairs saturating the minority) on that occurrence only; the identity involution always exists. It does not refute arbitrary nonlocal pairings, signed nonvanishing, or Problem 1. Passage through the cap is finite evidence only.",
+  "limitations": [
+    "finite cap; the fixed-restricted Hamming class is refuted exactly by the recorded counterexample while arbitrary nonlocal pairings remain open",
+    "single local process; cooperative 120s wall budget plus outer timeout; 1GiB cap in CLI runs",
+    "occurrences with L>=k excluded by domain definition, counted not successes",
+    "schedules hitting the cap force inconclusive, never exhaustive"
+  ],
+  "parameters": {
+    "domain_max_k": 16,
+    "expected_occurrences": 19,
+    "memory_budget_kib": 1048576,
+    "oracle_k": 8,
+    "schedule_cap": 64,
+    "time_budget_seconds": 120.0
+  },
+  "peak_rss_kib": 34860,
+  "proof_scope": "bounded box only: full three-return domain 2<=k<=16",
+  "question": "problem1",
+  "result": {
+    "belief_pair_checks": 3,
+    "completed_through_cap": false,
+    "excluded_depth_ge_k": 0,
+    "first_obstruction": {
+      "complexity": 14,
+      "cut": 1,
+      "depth": 2,
+      "endpoints": 134,
+      "evidence": {
+        "base_prefix": "t",
+        "edge_sets_match": true,
+        "extension_word_E": "ututut",
+        "full_word_admissible": true,
+        "independent_edge_count": 10,
+        "isolated_vertex": {
+          "bit_length": 25,
+          "bits_checked": [
+            4,
+            24
+          ],
+          "cost": 1,
+          "opposite_neighbors": 0,
+          "positives_checked": 84,
+          "shadow_masks": [
+            "1111",
+            "1100"
+          ],
+          "sign": -1,
+          "vertex_hex": "0x190825b"
+        },
+        "schedule": "tutututu"
+      },
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "graph": {
+        "components": 124,
+        "edges": 10,
+        "hall_violator": {
+          "neighbor_hex": [],
+          "neighbor_size": 0,
+          "size": 41,
+          "vertices_hex": [
+            "0x190825b",
+            "0x190870b",
+            "0x190899b",
+            "0x190949b",
+            "0x19097bb",
+            "0x1909cdb",
+            "0x1909dfb",
+            "0x190b9fb",
+            "0x190bc1b",
+            "0x190bdbb",
+            "0x190bf5b",
+            "0x191c0bb",
+            "0x191c21b",
+            "0x191c2fb",
+            "0x191c4db",
+            "0x191cb5b",
+            "0x191ccfb",
+            "0x191cddb",
+            "0x191cf9b",
+            "0x1bcd0bb",
+            "0x1bcd11b",
+            "0x1bcd19b",
+            "0x1bcd21b",
+            "0x1bcd26b",
+            "0x1bcd2fb",
+            "0x1bcd3db",
+            "0x1bce30b",
+            "0x1bce65b",
+            "0x1bcefdb",
+            "0x1bcf9fb",
+            "0x1bcfa3b",
+            "0x1bcfb1b",
+            "0x1bcfbfb",
+            "0x1bcfc1b",
+            "0x1bcfccb",
+            "0x1bcfdbb",
+            "0x1bd90fb",
+            "0x1bd91db",
+            "0x1bd933b",
+            "0x1bd939b",
+            "0x1bd971b"
+          ]
+        },
+        "matched_small": 9,
+        "negative": 50,
+        "positive": 84,
+        "saturated": false,
+        "signed_mass": 34,
+        "single_sign_components": 115,
+        "vertices": 134
+      },
+      "phase": "u",
+      "signed_mass": 34,
+      "state_hex": "0x642fdfb"
+    },
+    "halt_reason": null,
+    "occurrence_domain_complete": true,
+    "occurrences": 19,
+    "oracle_states_compared": 576,
+    "order": [
+      "complexity ascending",
+      "phase p then u",
+      "state ascending",
+      "cut ascending",
+      "lexicographic gaps"
+    ],
+    "pairing_search_exhausted": false,
+    "rows": [
+      {
+        "complexity": 12,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 162,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "graph": {
+          "components": 162,
+          "edges": 0,
+          "hall_violator": null,
+          "matched_small": 0,
+          "negative": 0,
+          "positive": 162,
+          "saturated": true,
+          "signed_mass": 162,
+          "single_sign_components": 162,
+          "vertices": 162
+        },
+        "phase": "p",
+        "signed_mass": 162,
+        "state_hex": "0xc84387"
+      },
+      {
+        "complexity": 14,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 580,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "graph": {
+          "components": 580,
+          "edges": 0,
+          "hall_violator": null,
+          "matched_small": 0,
+          "negative": 0,
+          "positive": 580,
+          "saturated": true,
+          "signed_mass": 580,
+          "single_sign_components": 580,
+          "vertices": 580
+        },
+        "phase": "p",
+        "signed_mass": 580,
+        "state_hex": "0xde68387"
+      },
+      {
+        "complexity": 14,
+        "cut": 1,
+        "depth": 2,
+        "endpoints": 134,
+        "evidence": {
+          "base_prefix": "t",
+          "edge_sets_match": true,
+          "extension_word_E": "ututut",
+          "full_word_admissible": true,
+          "independent_edge_count": 10,
+          "isolated_vertex": {
+            "bit_length": 25,
+            "bits_checked": [
+              4,
+              24
+            ],
+            "cost": 1,
+            "opposite_neighbors": 0,
+            "positives_checked": 84,
+            "shadow_masks": [
+              "1111",
+              "1100"
+            ],
+            "sign": -1,
+            "vertex_hex": "0x190825b"
+          },
+          "schedule": "tutututu"
+        },
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "graph": {
+          "components": 124,
+          "edges": 10,
+          "hall_violator": {
+            "neighbor_hex": [],
+            "neighbor_size": 0,
+            "size": 41,
+            "vertices_hex": [
+              "0x190825b",
+              "0x190870b",
+              "0x190899b",
+              "0x190949b",
+              "0x19097bb",
+              "0x1909cdb",
+              "0x1909dfb",
+              "0x190b9fb",
+              "0x190bc1b",
+              "0x190bdbb",
+              "0x190bf5b",
+              "0x191c0bb",
+              "0x191c21b",
+              "0x191c2fb",
+              "0x191c4db",
+              "0x191cb5b",
+              "0x191ccfb",
+              "0x191cddb",
+              "0x191cf9b",
+              "0x1bcd0bb",
+              "0x1bcd11b",
+              "0x1bcd19b",
+              "0x1bcd21b",
+              "0x1bcd26b",
+              "0x1bcd2fb",
+              "0x1bcd3db",
+              "0x1bce30b",
+              "0x1bce65b",
+              "0x1bcefdb",
+              "0x1bcf9fb",
+              "0x1bcfa3b",
+              "0x1bcfb1b",
+              "0x1bcfbfb",
+              "0x1bcfc1b",
+              "0x1bcfccb",
+              "0x1bcfdbb",
+              "0x1bd90fb",
+              "0x1bd91db",
+              "0x1bd933b",
+              "0x1bd939b",
+              "0x1bd971b"
+            ]
+          },
+          "matched_small": 9,
+          "negative": 50,
+          "positive": 84,
+          "saturated": false,
+          "signed_mass": 34,
+          "single_sign_components": 115,
+          "vertices": 134
+        },
+        "phase": "u",
+        "signed_mass": 34,
+        "state_hex": "0x642fdfb"
+      }
+    ],
+    "sanity": {
+      "exhaustive_tiny_graphs": 26,
+      "hand_cases": 7
+    },
+    "stopping": "first obstruction or cap; no cap increase",
+    "tested": 3,
+    "truncated_schedules": 0
+  },
+  "result_hashes": {
+    "certificate_sha256": "c12dc4b3844e06543383f36b1e6b6f3b3c7bb859ec7a74c65bf73508e91a8006"
+  },
+  "result_summary": {
+    "completed_through_cap": false,
+    "obstruction_found": true,
+    "occurrence_domain_complete": true,
+    "occurrences": 19,
+    "pairing_search_exhausted": false,
+    "tested": 3
+  },
+  "runtime_seconds": 0.45223956601694226,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4"
+  },
+  "source_hashes": {
+    "analyzer_sha256": "6355b1f4ffffe82d46b0d804da9f99ecea1cdf0035235c006dde5fb21005b335",
+    "test_sha256": "66f17c08ca16465335c3d99998ac774d2cfab4755eee693096ba600315a6f383"
+  },
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T12:36:37Z",
+  "worktree": "/home/ryan/rule30-lab"
+}
