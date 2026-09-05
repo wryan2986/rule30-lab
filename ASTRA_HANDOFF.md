@@ -2,6 +2,52 @@
 
 Repo does not solve any prize problem. Finite evidence is never proof of an infinite statement. Claim statuses (`empirical`, `finite-exhaustive`, `partial-proof`, `inconclusive`, ...) per `docs/experiment_protocol.md`.
 
+## Latest continuation (2026-09-05, on `research/astra-next`)
+
+Read these new notes before the older frontier list below:
+
+1. `proofs/informal/problem1_signed_slice_joint_transfer.md`: exact all-depth
+   joint-fiber transfer identity (`partial-proof`) and a verified universal
+   five-vector closure counterexample (`refuted`). At phase p, parent k=6,
+   L=1, states `0xc82` and `0xc88` have identical vectors `(2,0,0,0,1)`;
+   the same two digits `00` and masks `1011,1011` give two-lift masses -1
+   and +1. Even outgoing-current-mask information does not repair this
+   universal quotient. This is NOT a restricted three-return-domain no-go.
+2. `proofs/informal/problem1_signed_slice_convex_obstruction.md`: a new
+   connected-region obstruction (`partial-proof`). The known vectors
+   `(262,0,200,27,117)` and `(3,0,5,0,7)` are now verified to lie in the
+   admissible gap-222 ancestor domain. For mask `1011` their child masses
+   are -83 and +2. Every connected real region containing both crosses the
+   cancellation hyperplane; a convex cone contains its nonzero point
+   `2v-+83v+=(773,0,815,54,815)`. Depth/digit/schedule-indexed regions,
+   disconnected sets, and arithmetic exclusions remain open.
+3. `proofs/informal/problem1_three_return_boundary_review.md`: independent
+   Muse review of witness ancestry and proof scope; boundary cut bound still
+   `inconclusive`. Top-digit comparison supplies no contradiction.
+
+Muse Spark 1.3 Contributor was available and used for bounded implementation,
+counterexample checks, and independent review. Lead review corrected a tensor
+digit-membership bug and checked quantifiers before integration. New atomic
+records are `results/problem1/20260905_signed_slice_{transfer_check,convex_obstruction}.json`
+and `20260905_boundary_convex_ancestry_replay.json` in that directory.
+No larger nonvanishing census was run. The universal transfer audit uses
+parents k<=9; the restricted-domain audit retains k<=16 and has only eight
+ancestor transitions. The cone check replays two existing complexity-18
+vectors and at most three added low digits, establishing one explicit k=19
+descendant without a frontier census at k=19.
+
+The current best next target is a return-context partition or an arithmetic
+restriction that controls the exact joint endpoint correlations and excludes
+zero; a sign-reversing endpoint pairing with a nonzero remainder is another
+candidate. Do not assume the five-vector is closed, or that one connected
+hyperplane-avoiding region covers all admissible ancestors. No invariant of
+either surviving kind has yet been established. The original all-depth
+nonvanishing and boundary obligations below remain the strongest bottleneck.
+
+The pre-existing untracked `proofs/informal/problem1_signed_slice_transfer_audit.md`
+was read and preserved; its claim that Muse is unavailable is stale. Existing
+untracked full-domain result files and `.worktrees/` were also preserved.
+
 ## The three prize problems (`docs/problem_statements.md`)
 
 Rule 30: `x_j(t+1) = x_{j-1}(t) XOR (x_j(t) OR x_{j+1}(t))`, single-cell seed (`x_0(0)=1`), center `c_t = x_0(t)`, `c_0 = 1`.

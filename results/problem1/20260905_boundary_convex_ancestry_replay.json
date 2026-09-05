@@ -1,0 +1,73 @@
+{
+  "archive_note": "Original independent Muse replay preserved with its complete source; embedded source writes the original /tmp record. Archival embedding is not a new mathematical run.",
+  "backend": "python-exact-integers-packed-and-bitwise",
+  "experiment_id": "20260905_boundary_convex_ancestry_replay",
+  "git_commit": "a49f624342c434aab29f95b6ad1ffe1107e8e22d",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 19684
+  },
+  "hypothesis": "The two named convex-obstruction witnesses replay to the recorded states, schedules, windows, admissibility words, strip relation, and vector arithmetic under an independently written stepper.",
+  "independent_replay_source": "import json, os, sys, time, hashlib, platform, resource, subprocess, datetime, tempfile\nt0 = time.monotonic()\nROOT = '/home/ryan/rule30-lab'\ndef H(p):\n    return hashlib.sha256(open(os.path.join(ROOT, p), 'rb').read()).hexdigest()\ndef gen_t(x): return x ^ ((x << 1) | (x << 2))\ndef gen_t_bw(x):\n    w = x.bit_length() + 2; o = 0\n    for j in range(w):\n        xj = (x >> j) & 1; a = (x >> (j-1)) & 1 if j >= 1 else 0; b = (x >> (j-2)) & 1 if j >= 2 else 0\n        if xj ^ (a | b): o |= 1 << j\n    return o\ndef gen_u(x): return gen_t(x) ^ 1\ndef gen_p(x): return gen_t(x) ^ 1 ^ (0 if x & 1 else 2)\ndef play(word, T):\n    assert word[0] == 'u'; s = 1\n    for ch in word[1:]:\n        old = s; t = T(old)\n        if ch == 't': s = t\n        elif ch == 'u': s = t ^ 1\n        else: s = t ^ 1 ^ (0 if old & 1 else 2)\n    return s\ndef sched(state, cap=64):\n    w = []\n    for _ in range(cap):\n        r = state & 15\n        if r == 7: b = 'u'\n        elif r == 11: b = 't'\n        else: return ''.join(w)\n        state = (gen_u if b == 'u' else gen_t)(gen_p((state - 3) >> 2))\n        w.append(b)\n    raise AssertionError('cap')\ndef adm(w): return not any(f in w for f in ('uu', 'ttttt', 'ututtu'))\nfor x in range(1, 5000): assert gen_t(x) == gen_t_bw(x)\nw1 = 'uuputpuuuututututut'; w2 = 'uutuuttuupupuuupup'\nz1a = play(w1, gen_t); z1b = play(w1, gen_t_bw)\nx2a = play(w2, gen_t); x2b = play(w2, gen_t_bw)\nassert (z1a, z1b) == (0x190b934bc7, 0x190b934bc7)\nassert (x2a, x2b) == (0x6473d46ab, 0x6473d46ab)\nx1 = z1a >> 2; assert x1 == 0x642e4d2f1 and z1a == 4*x1+3\ns1 = sched(z1a); s2 = sched(x2a)\nassert (s1, s2) == ('uttutututu', 'ttttutututu')\nassert s1[3:9] == 'ututut' and s2[4:10] == 'ututut'\nassert adm(s1[:3]+'utututu') and adm(s2[:4]+'utututu')\nvm = (262,0,200,27,117); vp = (3,0,5,0,7)\nassert (vm[4]-vm[2], vp[4]-vp[2]) == (-83, 2)\ncombo = [2*a+83*b for a,b in zip(vm,vp)]\nassert combo == [773,0,815,54,815] and combo[4]-combo[2] == 0 and any(combo)\ncpu = 'unknown'\nfor ln in open('/proc/cpuinfo').read().splitlines():\n    if ln.startswith('model name'): cpu = ln.split(':',1)[1].strip(); break\nrec = {\n 'experiment_id': '20260905_boundary_convex_ancestry_replay',\n 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),\n 'question': 'problem1',\n 'hypothesis': 'The two named convex-obstruction witnesses replay to the recorded states, schedules, windows, admissibility words, strip relation, and vector arithmetic under an independently written stepper.',\n 'backend': 'python-exact-integers-packed-and-bitwise',\n 'parameters': {'generator_cases': 4999, 'named_witnesses': 2, 'schedule_cap': 64, 'wall_limit_seconds': 60},\n 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software': {'python': sys.version, 'platform': platform.platform()},\n 'runtime_seconds': time.monotonic()-t0,\n 'result_hashes': {'scripts/check_signed_slice_convex_obstruction.py': H('scripts/check_signed_slice_convex_obstruction.py'), 'scripts/check_three_return_signed_mass_independent.py': H('scripts/check_three_return_signed_mass_independent.py'), 'src/python/rule30_research_reference.py': H('src/python/rule30_research_reference.py')},\n 'result_summary': {'word1_replay_hex': hex(z1a), 'word2_replay_hex': hex(x2a), 'x1_hex': hex(x1), 'strip_suffix': 3, 'schedules': [s1,s2], 'observed_prefix_lengths': [9,10], 'transition_digits': [1,3], 'windows_ok': True, 'admissibility_ok': True, 'ell_values': [-83,2], 'positive_combination': combo},\n 'interpretation': 'All tiny checks passed: witness replay, schedules, and arithmetic corroborate the lead ancestry record.',\n 'status': 'finite-exhaustive',\n 'proof_scope': 'Two named exact witness replays under two independent steppers plus 4999 generator agreement cases; belief enumerations reviewed by code reading, not recomputed.',\n 'limitations': ['No independent belief-mass recomputation.', 'No frontier census of any kind.', 'No all-depth claim.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='boundary_sidecar_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/boundary_sidecar_replay.json')\nprint('wrote /tmp/boundary_sidecar_replay.json status=' + rec['status'])\n",
+  "interpretation": "All tiny checks passed: witness replay, schedules, and arithmetic corroborate the lead ancestry record.",
+  "limitations": [
+    "No independent belief-mass recomputation.",
+    "No frontier census of any kind.",
+    "No all-depth claim."
+  ],
+  "parameters": {
+    "generator_cases": 4999,
+    "named_witnesses": 2,
+    "schedule_cap": 64,
+    "wall_limit_seconds": 60
+  },
+  "proof_scope": "Two named exact witness replays under two independent steppers plus 4999 generator agreement cases; belief enumerations reviewed by code reading, not recomputed.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_replay_source_sha256": "43ad8976f25f45587a528be26cc7c18529d25cce5aa4aedcc5f874af53fe353d",
+    "result_summary_sha256": "6b10d3f3dc4d7fa6b476c2e5d93e45b0487337fbdc234ec458d71078ba22aa7b",
+    "scripts/check_signed_slice_convex_obstruction.py": "731aed5b30f19a06ccad8122969e212692783d846e50929198fc96261d56d741",
+    "scripts/check_three_return_signed_mass_independent.py": "2abcac4632f54d0d4598a98694737b86cc9a2616002c573abcdde1a183ad1d68",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "admissibility_ok": true,
+    "ell_values": [
+      -83,
+      2
+    ],
+    "observed_prefix_lengths": [
+      9,
+      10
+    ],
+    "positive_combination": [
+      773,
+      0,
+      815,
+      54,
+      815
+    ],
+    "schedules": [
+      "uttutututu",
+      "ttttutututu"
+    ],
+    "strip_suffix": 3,
+    "transition_digits": [
+      1,
+      3
+    ],
+    "windows_ok": true,
+    "word1_replay_hex": "0x190b934bc7",
+    "word2_replay_hex": "0x6473d46ab",
+    "x1_hex": "0x642e4d2f1"
+  },
+  "runtime_seconds": 0.025482786004431546,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T11:45:45.949234+00:00"
+}

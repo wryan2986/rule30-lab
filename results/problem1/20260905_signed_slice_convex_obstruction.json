@@ -1,0 +1,148 @@
+{
+  "backend": "python-exact-integers-direct-and-recursive",
+  "experiment_id": "20260905_signed_slice_convex_obstruction",
+  "git_commit": "a49f624342c434aab29f95b6ad1ffe1107e8e22d",
+  "git_dirty_paths": [
+    "?? .worktrees/",
+    "?? proofs/informal/problem1_signed_slice_convex_obstruction.md",
+    "?? proofs/informal/problem1_signed_slice_transfer_audit.md",
+    "?? proofs/informal/problem1_three_return_boundary_review.md",
+    "?? results/problem1/20260905_signed_slice_transfer_check.json",
+    "?? results/problem1/20260905_three_return_signed_mass.json",
+    "?? results/problem1/20260905_three_return_signed_mass_independent.json",
+    "?? scripts/check_signed_slice_convex_obstruction.py",
+    "?? src/python/period_two_signed_slice_transfer_check.py",
+    "?? tests/python/test_period_two_signed_slice_transfer_check.py"
+  ],
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 33728
+  },
+  "hypothesis": "Both named opposite-sign slice vectors occur in the ancestor closure of admissible three-return cylinders.",
+  "interpretation": "Validated opposite-sign ancestry implies the stated single-convex-region obstruction.",
+  "limitations": [
+    "No all-depth signed-nonvanishing result.",
+    "No claim of smallest opposite-sign pair.",
+    "No obstruction to disconnected or schedule-indexed regions.",
+    "This is targeted replay, not a larger three-return census."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cases": [
+      [
+        "0x642e4d2f1",
+        3
+      ],
+      [
+        "0x6473d46ab",
+        5
+      ]
+    ],
+    "maximum_added_digits": 3,
+    "named_complexity": 18,
+    "phase": "u",
+    "schedule_cap": 64,
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Two named exact vector evaluations and all 85 bounded descendants each; explicit witnesses establish ancestry when present.",
+  "question": "problem1",
+  "result_hashes": {
+    "experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "payload_sha256": "450cf5a36372e2ebd10a264ad3cb69dfdb3df63f310c7dde4535595efda12f84",
+    "scripts/check_signed_slice_convex_obstruction.py": "731aed5b30f19a06ccad8122969e212692783d846e50929198fc96261d56d741",
+    "scripts/check_three_return_signed_mass_independent.py": "2abcac4632f54d0d4598a98694737b86cc9a2616002c573abcdde1a183ad1d68",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "ancestry_established_for_both": true,
+    "positive_combination": [
+      773,
+      0,
+      815,
+      54,
+      815
+    ],
+    "rows": [
+      {
+        "admissible_descendants": [
+          {
+            "complexity": 19,
+            "cut": 3,
+            "depth": 4,
+            "gaps": [
+              2,
+              2,
+              2
+            ],
+            "generator_word": "uuputpuuuututututut",
+            "schedule": "uttutututu",
+            "state_hex": "0x190b934bc7",
+            "stripped_digits": 1
+          }
+        ],
+        "child_belief_size": 405,
+        "child_mass": -83,
+        "complexity": 18,
+        "current_mask": 11,
+        "depth": 3,
+        "descendants_tested": 85,
+        "parent_belief_size": 780,
+        "parent_vector": [
+          262,
+          0,
+          200,
+          27,
+          117
+        ],
+        "state_hex": "0x642e4d2f1"
+      },
+      {
+        "admissible_descendants": [
+          {
+            "complexity": 18,
+            "cut": 4,
+            "depth": 5,
+            "gaps": [
+              2,
+              2,
+              2
+            ],
+            "generator_word": "uutuuttuupupuuupup",
+            "schedule": "ttttutututu",
+            "state_hex": "0x6473d46ab",
+            "stripped_digits": 0
+          }
+        ],
+        "child_belief_size": 20,
+        "child_mass": 2,
+        "complexity": 18,
+        "current_mask": 11,
+        "depth": 5,
+        "descendants_tested": 85,
+        "parent_belief_size": 35,
+        "parent_vector": [
+          3,
+          0,
+          5,
+          0,
+          7
+        ],
+        "state_hex": "0x6473d46ab"
+      }
+    ],
+    "verification": {
+      "boolean_generator_cases": 255,
+      "direct_recursive_small_beliefs": 289,
+      "named_vector_checks": 2
+    }
+  },
+  "runtime_seconds": 0.18209797202143818,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T11:39:53.857445+00:00"
+}
