@@ -1,0 +1,65 @@
+{
+  "backend": "python-exact-enumeration",
+  "experiment_id": "20260905_boundary_length_lemma_combinatorics",
+  "git_commit": "b86a0ea892549287d4431fce69d29a743855bf9b",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 22220
+  },
+  "hypothesis": "Worst-case four-observed-u structure needs exactly k+18 (ttttu-repeat attains it); occurrence threshold needs only admissible-appended final u and may be smaller.",
+  "interpretation": "Gap range and worst-case arithmetic confirmed.",
+  "limitations": [
+    "Shape check only; infinite lemma by hand.",
+    "k+18 sharpness is for four OBSERVED u only, not the occurrence threshold."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "k_values": [
+      2,
+      3,
+      5
+    ],
+    "lengths": [
+      20,
+      21,
+      23
+    ],
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Exact enumeration to length 23; translation-invariant argument at k=2,3,5.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "609dcc86855b833bde9d54f63492380341a700adbc4e3dd111b6a1b7fa18ec0e",
+    "source_sha256": "fca308edffdb9b94aa2ac598d61f805febb7f98e6458a6514fe8cc6cb3cf27a3"
+  },
+  "result_summary": {
+    "counts": {
+      "20": 3729,
+      "21": 5466,
+      "23": 11740
+    },
+    "extremal": "ttttuttttuttttuttttu",
+    "forbidden": [
+      "uu",
+      "ttttt",
+      "ututtu"
+    ],
+    "gap_range_ok": true,
+    "lengths": [
+      20,
+      21,
+      23
+    ],
+    "max_need_equals_k_plus_18": true
+  },
+  "runtime_seconds": 0.1358718629926443,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import json, os, sys, time, tempfile, hashlib, platform, resource, subprocess, datetime\nt0 = time.monotonic(); ROOT = '/home/ryan/rule30-lab'\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\nFORB = ('uu', 'ttttt', 'ututtu')\ndef adm(w):\n    for f in FORB:\n        if f in w: return False\n    return True\nbylen = {0: ['']}\nfor L in range(1, 24):\n    cur = []\n    for w in bylen[L-1]:\n        for ch in ['t', 'u']:\n            if adm(w + ch): cur.append(w + ch)\n    bylen[L] = cur\nfor L in (20, 21, 23):\n    for w in bylen[L]:\n        us = [i for i, ch in enumerate(w) if ch == 'u']\n        for a, b in zip(us, us[1:]): assert 2 <= b - a <= 5\nfor k, L in ((2, 20), (3, 21), (5, 23)):\n    n = k - 2; worst = -1\n    for w in bylen[L]:\n        cands = [c for c in range(n, n+5) if w[c] == 'u']\n        assert cands\n        c = cands[0]\n        us = [i for i, ch in enumerate(w) if ch == 'u']\n        j = us.index(c)\n        assert j + 3 < len(us)\n        B = us[j+3] - c\n        assert c + B + 1 <= k + 18\n        if c + B + 1 > worst: worst = c + B + 1\n    assert worst == k + 18, (k, worst)\nex = 'tttt' + 'utttt'*3 + 'u'\nassert len(ex) == 20 and adm(ex)\ncpu = next((l.split(':',1)[1].strip() for l in open('/proc/cpuinfo').read().splitlines() if l.startswith('model name')), 'unknown')\nsrc = open(__file__).read()\nsummary = {'forbidden': list(FORB), 'lengths': [20, 21, 23], 'counts': {L: len(bylen[L]) for L in (20, 21, 23)}, 'gap_range_ok': True, 'extremal': ex, 'max_need_equals_k_plus_18': True}\nrec = {'experiment_id': '20260905_boundary_length_lemma_combinatorics', 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(), 'question': 'problem1', 'hypothesis': 'Worst-case four-observed-u structure needs exactly k+18 (ttttu-repeat attains it); occurrence threshold needs only admissible-appended final u and may be smaller.', 'backend': 'python-exact-enumeration', 'parameters': {'lengths': [20, 21, 23], 'k_values': [2, 3, 5], 'wall_limit_seconds': 120, 'address_space_bytes': 1073741824}, 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss}, 'software': {'python': sys.version, 'platform': platform.platform()}, 'runtime_seconds': time.monotonic()-t0, 'result_hashes': {'source_sha256': hashlib.sha256(src.encode()).hexdigest(), 'result_sha256': hashlib.sha256(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()}, 'source_text': src, 'result_summary': summary, 'interpretation': 'Gap range and worst-case arithmetic confirmed.', 'status': 'finite-exhaustive', 'proof_scope': 'Exact enumeration to length 23; translation-invariant argument at k=2,3,5.', 'limitations': ['Shape check only; infinite lemma by hand.', 'k+18 sharpness is for four OBSERVED u only, not the occurrence threshold.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='rec_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/boundary_lemma_check.json')\nprint('R3 lemma pass')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:08:10.881362+00:00"
+}

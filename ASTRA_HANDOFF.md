@@ -2,7 +2,67 @@
 
 Repo does not solve any prize problem. Finite evidence is never proof of an infinite statement. Claim statuses (`empirical`, `finite-exhaustive`, `partial-proof`, `inconclusive`, ...) per `docs/experiment_protocol.md`.
 
-## Latest continuation (2026-09-05, on `research/astra-next`)
+## Active frontier after the goal continuation (2026-09-05)
+
+`ASTRA_GOAL.md` requests continued research until its proof-or-research-impasse
+stopping condition. That goal is still active: there is no complete proof,
+and the surviving arithmetic and boundary routes have not been exhausted.
+Read these new notes before the earlier continuation below:
+
+1. `proofs/informal/problem1_three_return_boundary_sufficiency.md`
+   (`partial-proof`): an unconditional physical-row membership lemma:
+   for positive S, s=bitlen(S), n>=s, `T^n(S)>>n` lies in phase frontier
+   `O_(a,ceil((s+n)/2))`, with a=p for even s+n and u for odd s+n.
+   Direct physical two-step evolution gives the exact forced recurrence
+   under an alternating center. Thus an eventually alternating trace from
+   any odd positive finite S produces an infinite admissible frontier
+   schedule, including arbitrary finite temporal transients.
+2. The same note proves that the unproved boundary bound `c+1<=k-2`
+   on the full occurrence domain, at ANY cut c>=0 (hypothesis `B_all`),
+   ALONE excludes such an infinite schedule and therefore would exclude
+   eventual alternation. It is a standalone sufficient route, not merely
+   cleanup required after a signed-mass proof. Even a weaker proved finite
+   bound on admissible occurrence cuts at each fixed k would suffice.
+   The bound itself remains open; periods of least period >=3 are unhandled.
+   A bound restricted to `L=c+1<k` does not suffice for this argument;
+   excluded larger cuts must also be covered. This is the original full
+   adjacent-inclusion domain, not the restricted signed-mass domain.
+3. `proofs/informal/problem1_signed_belief_pairing_obstruction.md`
+   (`refuted` certificate class): at u/k14/`0x642fdfb`, L2, cut1, gap222,
+   the belief has E=84, O=50, S=34. A negative endpoint `0x190825b` has
+   no opposite-sign single-bit neighbor. Hence no sign-reversing
+   single-bit involution can leave a nonempty fixed set of one sign.
+   Arbitrary nonlocal pairings and structured mixed-sign remainders remain open.
+4. `proofs/informal/problem1_signed_slice_orthant_test.md` (`refuted`):
+   the same occurrence's stripped ancestor u/k13/`0x190bf7e`, L1 has
+   V=(60,0,72,-9,34). Thus even a union of the positive and negative
+   orthants does not cover the admissible ancestor domain.
+5. `proofs/informal/problem1_signed_mass_valuation_gate.md` (`inconclusive`
+   all-depth conjecture): write N=E+O and S=E-O=N-2O. The condition
+   `v2(N)!=v2(2O)` with v2(0)=infinity would certify S!=0. It survives
+   all 19 existing full-domain occurrences, their 25 ancestors, and the
+   two named k18 nodes; this is FINITE evidence, not a preserved invariant.
+   Independent row comparison also resolves the old 19-row consistency
+   question: primary and independent keys, masses, and counts agree exactly.
+6. `proofs/informal/problem1_three_return_reduction_dependency_review.md`
+   records independent proof checks and the corrected direction of the
+   reduction. Do not read the older pathway arrows as logical implications
+   from nonvanishing backward to its sufficient hypotheses.
+
+Next priorities: derive structural constraints on the exact even/odd-count
+transfer for the valuation candidate; or exploit the physical-row membership
+lemma to prove a finite cut bound, possibly only on a rigorously identified
+physical subfamily. The phase-frontier membership lemma is not a surjectivity
+theorem: generic frontier counterexamples need not be realized by a coupled
+finite-seed trajectory. No larger census is authorized by finite absence.
+All new checks are local, bounded, and recorded atomically with source hashes.
+
+The previously requested GitHub push is now externally verified: origin's
+`research/astra-next` reached `b86a0ea892549287d4431fce69d29a743855bf9b`.
+The user subsequently authorized publishing this continuation on the same
+research branch. The latest commit IDs are recorded in Git history.
+
+## Earlier continuation (2026-09-05, on `research/astra-next`)
 
 Read these new notes before the older frontier list below:
 
