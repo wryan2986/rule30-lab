@@ -1,0 +1,4292 @@
+{
+  "backend": "High-to-low cell A; direct orbits over two one-bit extensions; packed ordinary generators",
+  "experiment_id": "problem1-frontier-head-age-independent-20260905",
+  "git_commit": "b7d1a2efca5530421c5f0cef7dd365dd1a7a26b9",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 420080,
+    "processor": ""
+  },
+  "hypothesis": "Exact generation-age head marginals and symbolic cycle completeness; test whether each positive width has one A-cycle.",
+  "inputs": {
+    "results/problem1/20260905_periodic_rational_verification.json": "28044155decacab56a38ab485a149bbbd079755a952c7c9575164f3dd7da1109"
+  },
+  "interpretation": "Generation age refines a necessary frontier condition. A finite unique-cycle result is not a theorem for every width.",
+  "limitations": [
+    "No new forced schedule or occurrence census.",
+    "Fixed leading blocks alone do not prove B_all.",
+    "No universal one-cycle or full-width-core equality claim from finite passage."
+  ],
+  "parameters": {
+    "additional_skew_truth_table_v": [
+      0,
+      63
+    ],
+    "cycle_widths": [
+      1,
+      16
+    ],
+    "frontier_core_max_h": 8,
+    "frontier_max_k": 9,
+    "input": "results/problem1/20260905_periodic_rational_verification.json",
+    "local_cpus": 1,
+    "max_cycle_states": 65536,
+    "memory_bytes": 1073741824,
+    "named_counterexample_prefix_h": [
+      1,
+      8
+    ],
+    "stop_uniqueness_at_first_split": true,
+    "wall_seconds": 120
+  },
+  "proof_scope": "The explicitly bounded cycle widths and frontier marginals; general identities and cycle lifting proved separately.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "b6e32fa5cc6f6e36a3f3d73101f8045d7fa2fe82cc394357e60bb6daaaa83f16",
+    "source_sha256": "2390259083dfd00df556c78ff56f5e659a2850b30ed55bd0cee1e61cb7043ae7"
+  },
+  "result_summary": {
+    "completed": true,
+    "counterexample_prefix_checks": [
+      {
+        "age": 227,
+        "aged_image": [
+          3
+        ],
+        "aged_member": true,
+        "h": 1,
+        "head": 3,
+        "head_hex": "0x3",
+        "ordinary_member": true
+      },
+      {
+        "age": 226,
+        "aged_image": [
+          12,
+          13
+        ],
+        "aged_member": true,
+        "h": 2,
+        "head": 13,
+        "head_hex": "0xd",
+        "ordinary_member": true
+      },
+      {
+        "age": 225,
+        "aged_image": [
+          50,
+          55
+        ],
+        "aged_member": false,
+        "h": 3,
+        "head": 52,
+        "head_hex": "0x34",
+        "ordinary_member": true
+      },
+      {
+        "age": 224,
+        "aged_image": [
+          200,
+          222
+        ],
+        "aged_member": false,
+        "h": 4,
+        "head": 210,
+        "head_hex": "0xd2",
+        "ordinary_member": false
+      },
+      {
+        "age": 223,
+        "aged_image": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "aged_member": false,
+        "h": 5,
+        "head": 842,
+        "head_hex": "0x34a",
+        "ordinary_member": false
+      },
+      {
+        "age": 222,
+        "aged_image": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "aged_member": false,
+        "h": 6,
+        "head": 3369,
+        "head_hex": "0xd29",
+        "ordinary_member": false
+      },
+      {
+        "age": 221,
+        "aged_image": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "aged_member": false,
+        "h": 7,
+        "head": 13479,
+        "head_hex": "0x34a7",
+        "ordinary_member": false
+      },
+      {
+        "age": 220,
+        "aged_image": [
+          51292,
+          51431,
+          56937,
+          57038
+        ],
+        "aged_member": false,
+        "h": 8,
+        "head": 53919,
+        "head_hex": "0xd29f",
+        "ordinary_member": false
+      }
+    ],
+    "covariance_checks": [
+      {
+        "common_high_part_hex": "0xd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+        "full_original_width_high_part_hex": "0xd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+        "r": 0
+      },
+      {
+        "common_high_part_hex": "0x37088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364ba",
+        "full_original_width_high_part_hex": "0xdc223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92ea",
+        "r": 1
+      },
+      {
+        "common_high_part_hex": "0xdff11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d03",
+        "full_original_width_high_part_hex": "0xdff11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036",
+        "r": 2
+      },
+      {
+        "common_high_part_hex": "0x3781a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4",
+        "full_original_width_high_part_hex": "0xde0688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37",
+        "r": 3
+      },
+      {
+        "common_high_part_hex": "0xdee6e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05b",
+        "full_original_width_high_part_hex": "0xdee6e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc7",
+        "r": 4
+      },
+      {
+        "common_high_part_hex": "0x379f3f05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9",
+        "full_original_width_high_part_hex": "0xde7cfc16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67da",
+        "r": 5
+      },
+      {
+        "common_high_part_hex": "0xdec991d9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f",
+        "full_original_width_high_part_hex": "0xdec991d9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48f",
+        "r": 6
+      },
+      {
+        "common_high_part_hex": "0x379a042b48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f308",
+        "full_original_width_high_part_hex": "0xde6810ad23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc22305",
+        "r": 7
+      },
+      {
+        "common_high_part_hex": "0xdece99cbc146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f",
+        "full_original_width_high_part_hex": "0xdece99cbc146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f1136",
+        "r": 8
+      },
+      {
+        "common_high_part_hex": "0x379a584e3764babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e25",
+        "full_original_width_high_part_hex": "0xde696138dd92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f8956887",
+        "r": 9
+      },
+      {
+        "common_high_part_hex": "0xdece17875ed036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e57134",
+        "full_original_width_high_part_hex": "0xdece17875ed036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4e",
+        "r": 10
+      },
+      {
+        "common_high_part_hex": "0x379a7e6fad9f4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1",
+        "full_original_width_high_part_hex": "0xde69f9beb67d37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c1",
+        "r": 11
+      },
+      {
+        "common_high_part_hex": "0xdece233c6f48c78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66",
+        "full_original_width_high_part_hex": "0xdece233c6f48c78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed",
+        "r": 12
+      },
+      {
+        "common_high_part_hex": "0x379a74496bcc12afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e1",
+        "full_original_width_high_part_hex": "0xde69d125af304abef6e8eacfec5ff84fcc223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7",
+        "r": 13
+      },
+      {
+        "common_high_part_hex": "0xdece2c807b6360ac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17f",
+        "full_original_width_high_part_hex": "0xdece2c807b6360ac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f308",
+        "r": 14
+      },
+      {
+        "common_high_part_hex": "0x379a74a21a7d5db2ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a6",
+        "full_original_width_high_part_hex": "0xde69d28869f576caae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c",
+        "r": 15
+      },
+      {
+        "common_high_part_hex": "0xdece2c24ee235be8abc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba",
+        "full_original_width_high_part_hex": "0xdece2c24ee235be8abc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255",
+        "r": 16
+      },
+      {
+        "common_high_part_hex": "0x379a74bc05f45df192b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f",
+        "full_original_width_high_part_hex": "0xde69d2f017d177c64adabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05",
+        "r": 17
+      },
+      {
+        "common_high_part_hex": "0xdece2c37198c9b9a40bface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc",
+        "full_original_width_high_part_hex": "0xdece2c37198c9b9a40bface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d6",
+        "r": 18
+      },
+      {
+        "common_high_part_hex": "0x379a74bdfa4520fce13306a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface617",
+        "full_original_width_high_part_hex": "0xde69d2f7e91483f384cc1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad",
+        "r": 19
+      },
+      {
+        "common_high_part_hex": "0xdece2c3386090b467e08dba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e",
+        "full_original_width_high_part_hex": "0xdece2c3386090b467e08dba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13db",
+        "r": 20
+      },
+      {
+        "common_high_part_hex": "0x379a74bc9f9b073c923b17f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3a",
+        "full_original_width_high_part_hex": "0xde69d2f27e6c1cf248ec5fd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84f",
+        "r": 21
+      },
+      {
+        "common_high_part_hex": "0xdece2c3608cedb960056a60d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f65",
+        "full_original_width_high_part_hex": "0xdece2c3608cedb960056a60d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e1",
+        "r": 22
+      },
+      {
+        "common_high_part_hex": "0x379a74bddb125ffc58197a1b7266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d",
+        "full_original_width_high_part_hex": "0xde69d2f76c497ff16065e86dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f",
+        "r": 23
+      },
+      {
+        "common_high_part_hex": "0xdece2c33bea01806966466eff813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc7",
+        "full_original_width_high_part_hex": "0xdece2c33bea01806966466eff813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e571",
+        "r": 24
+      },
+      {
+        "common_high_part_hex": "0x379a74bc971a8661b851093dc0e6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6",
+        "full_original_width_high_part_hex": "0xde69d2f25c6a1986e14424f703985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f895688740dadabe04ef23fc5e",
+        "r": 25
+      },
+      {
+        "common_high_part_hex": "0xdece2c3607aeb91eff927013f371e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+        "full_original_width_high_part_hex": "0xdece2c3607aeb91eff927013f371e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a6",
+        "r": 26
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd9a6dbc29c0c03c6119fab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78",
+        "full_original_width_high_part_hex": "0xde69d2f7669b6f0a70300f18467eacfec5ff84fcc223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b8",
+        "r": 27
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b4e3ff7c8f330d69e2486a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6a",
+        "full_original_width_high_part_hex": "0xdece2c33b4e3ff7c8f330d69e2486a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17f",
+        "r": 28
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c7500e61588f778b403ba85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48f",
+        "full_original_width_high_part_hex": "0xde69d2f25f1d403985623dde2d00eea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a98",
+        "r": 29
+      },
+      {
+        "common_high_part_hex": "0xdece2c36066ad4371e5514eed3d0d76b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c1",
+        "full_original_width_high_part_hex": "0xdece2c36066ad4371e5514eed3d0d76b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba1",
+        "r": 30
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd993af5dfab15245df13776fbc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f113",
+        "full_original_width_high_part_hex": "0xde69d2f7664ebd77eac549177c4dddbef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db",
+        "r": 31
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b4416cdb86aa5009b9a1eefc76141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a2",
+        "full_original_width_high_part_hex": "0xdece2c33b4416cdb86aa5009b9a1eefc76141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8f",
+        "r": 32
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c967a7ffbaa1430fcee9dc6ade56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e",
+        "full_original_width_high_part_hex": "0xde69d2f25f259e9ffeea850c3f3ba771ab795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d85",
+        "r": 33
+      },
+      {
+        "common_high_part_hex": "0xdece2c36066052620076ae5cf465d8bebafb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65",
+        "full_original_width_high_part_hex": "0xdece2c36066052620076ae5cf465d8bebafb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de",
+        "r": 34
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd9919901481afaf1e4c91b531b6c6a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb5",
+        "full_original_width_high_part_hex": "0xde69d2f766466405206bebc793246d4c6db1a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfe",
+        "r": 35
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b4424446426ec6dab0202fd0affaba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13db",
+        "full_original_width_high_part_hex": "0xdece2c33b4424446426ec6dab0202fd0affaba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a90",
+        "r": 36
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9c08891c3dabfeacc8cc372c06b6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13",
+        "full_original_width_high_part_hex": "0xde69d2f25f270222470f6affab32330dcb01adb95c4d05793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea1",
+        "r": 37
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660f31102fd3eb01aa2123df8b1bbff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e",
+        "full_original_width_high_part_hex": "0xdece2c360660f31102fd3eb01aa2123df8b1bbff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b",
+        "r": 38
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b58a24cc311ac6ea4e0538d2af701a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d",
+        "full_original_width_high_part_hex": "0xde69d2f76646d6289330c46b1ba93814e34abdc0699bad47b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f895688740dadabe04e",
+        "r": 39
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fd524023ca2eabda07991d70acfc6e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5",
+        "full_original_width_high_part_hex": "0xdece2c33b442fd524023ca2eabda07991d70acfc6e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface61",
+        "r": 40
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc35010c5624dab3e9ac42b7f2a46bfe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff",
+        "full_original_width_high_part_hex": "0xde69d2f25f2730d4043158936acfa6b10adfca91aff84fcc223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e1c1a9c7",
+        "r": 41
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e3dd467295407ea918ea9cbe18a0bb03e118f11364babc77266b9f6e5713415e4eb4dfbface617614",
+        "full_original_width_high_part_hex": "0xdece2c360660e3dd467295407ea918ea9cbe18a0bb03e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3a",
+        "r": 42
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b753b49388551a1a8255a8e33e52b36cd3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd4ed24e2154686a0956a38cf94acdb34f895688740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95",
+        "r": 43
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed17c01d3952eeeac15e9749310a9fa713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3f",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed17c01d3952eeeac15e9749310a9fa713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d1",
+        "r": 44
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f26706b1c50dddab65986c00a728863a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a9",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307c99c1ac7143776ad9661b0029ca218e87596c16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc",
+        "r": 45
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e369813dbaae977bbebd147bb0323893956eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a",
+        "full_original_width_high_part_hex": "0xdece2c360660e369813dbaae977bbebd147bb0323893956eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af",
+        "r": 46
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f86613f6ad86e771b324a76cc85d01c57dbd29f48fac73f656a906a603e118f11364babc7726",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e1984fdab61b9dc6cc929db321740715f6f4a7d23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793ad37efeb",
+        "r": 47
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8f91e10faf7bf2fae88022fa239b46e963f3088c146ab90d17a85ba18d3e255a21d036b6af8",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8f91e10faf7bf2fae88022fa239b46e963f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706",
+        "r": 48
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f54c2be746ce718c6d920c4c645cfcbd85518f11364babc77266b9f6e5713415e4eb4dfbfac",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d530af9d1b39c631b64831319173f2f615463c44d92eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b67dabef6",
+        "r": 49
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d43cb32cba73a52bf40b282909e4633795255a21d036b6af813bc8ff17a1d65b05bc78706",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d43cb32cba73a52bf40b282909e4633795255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73",
+        "r": 50
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f975d6288a3639610b0d328ac870b0949ec5015e4eb4dfbface6176141a66eb51ed9f6afbd",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5d758a228d8e5842c34ca2b21c2c2527b1405793ad37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc223051aae",
+        "r": 51
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6db549125d5c5e72f70892a3bf2f0409a9465b05bc78706a71e6de56e13dbd29f48fac7",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6db549125d5c5e72f70892a3bf2f0409a9465b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+        "r": 52
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bffd40201b5e9b38cff100a5718dd930e8491ed9f6afbdba3ab3fb17fe13f3088c146a",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4afff500806d7a6ce33fc40295c63764c3a1247b67dabef6e8eacfec5ff84fcc223051aae4345ea16e8634f895688740da",
+        "r": 53
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b00350c86fd98e9d241a43217a57b40f5b8029f48fac73f656a906a603e118f11364b",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b00350c86fd98e9d241a43217a57b40f5b8029f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4df",
+        "r": 54
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9772c0dd723bc34558b016e1c8e66167d34dfe0c88c146ab90d17a85ba18d3e255a21d0",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcb0375c8ef0d1562c05b872399859f4d37f83223051aae4345ea16e8634f895688740dadabe04ef23fc5e87596c16f1e",
+        "r": 55
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f8b37b78577dc9552c67fee1711e5231c783b211364babc77266b9f6e5713415e4eb",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f8b37b78577dc9552c67fee1711e5231c783b211364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6a",
+        "r": 56
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcd29e7ef96e3e0550a9201fe7a2b104aeaed68e21d036b6af813bc8ff17a1d65b05",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af34a79fbe5b8f81542a4807f9e8ac412babb5a388740dadabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f4a7d23e",
+        "r": 57
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b6708b21cc7f5399572808683264aa582dadf7974eb4dfbface6176141a66eb51ed",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b6708b21cc7f5399572808683264aa582dadf7974eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c14",
+        "r": 58
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d3f128ee2a0d1c4578a33bac8102a16cfef8ec6c5bc78706a71e6de56e13dbd29",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf4fc4a3b8a8347115e28ceeb2040a85b3fbe3b1b16f1e1c1a9c79b795b84f6f4a7d23eb1cfd95aa41a980f8463c44d9",
+        "r": 59
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f9311a095f4ab72e896d24976a264cae7a41cd5aba9f6afbdba3ab3fb17fe13f30",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f9311a095f4ab72e896d24976a264cae7a41cd5aba9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d",
+        "r": 60
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc0a2eb058c2bf8d907f0006fa41022f2616e75eb688fac73f656a906a603e118",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3028bac1630afe3641fc001be90408bc985b9d7ada23eb1cfd95aa41a980f8463c44d92eaf1dc99ae7db95c4d05793a",
+        "r": 61
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b63324dad953cb0d745a1c01bc6164c4d81e7f2d9bf9146ab90d17a85ba18d3e2",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b63324dad953cb0d745a1c01bc6164c4d81e7f2d9bf9146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05",
+        "r": 62
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d48807ef45162f76c9eef06f69e5028766b218f4f0c24babc77266b9f6e5713",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf52201fbd1458bddb27bbc1bda7940a1d9ac863d3c3092eaf1dc99ae7db95c4d05793ad37efeb3985d850699bad47b6",
+        "r": 63
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f934121a1cc9254cefa09dddbcf8b14cbad3a8e54c5f3c036b6af813bc8ff17a",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f934121a1cc9254cefa09dddbcf8b14cbad3a8e54c5f3c036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f",
+        "r": 64
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d60eeee2001425c6b0bbbf64d2a4236f169714299970dfbface6176141a6",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af307583bbb880050971ac2eefd934a908dbc5a5c50a665c37efeb3985d850699bad47b67dabef6e8eacfec5ff84fcc22",
+        "r": 65
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b5b5ddf48065c1ebaf3770d070a1c5fda787a5c8447f78706a71e6de56e",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b5b5ddf48065c1ebaf3770d070a1c5fda787a5c8447f78706a71e6de56e13dbd29f48fac73f656a906a603e118f1",
+        "r": 66
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbdfdbb8c2191f69b6d9eff75bf2ee983e2fa61e388a0efbdba3ab3fb17",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef7f6ee308647da6db67bfdd6fcbba60f8be9878e2283bef6e8eacfec5ff84fcc223051aae4345ea16e8634f8956",
+        "r": 67
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587383f7d3ce428f8fff49c0edf18dd86d34c61eb5d12b5c73f656a906a",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587383f7d3ce428f8fff49c0edf18dd86d34c61eb5d12b5c73f656a906a603e118f11364babc77266b9f6e5713415",
+        "r": 68
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b9ed0e31671c94d400c0f35f9a57b7bf1c29e9bdb20bdeb90d17a85b",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee7b438c59c7253500303cd7e695edefc70a7a6f6c82f7ae4345ea16e8634f895688740dadabe04ef23fc5e8759",
+        "r": 69
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67c9f774a53ae0475033359d8ce167e71afc898f3e8b339bc77266b9",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67c9f774a53ae0475033359d8ce167e71afc898f3e8b339bc77266b9f6e5713415e4eb4dfbface6176141a66eb5",
+        "r": 70
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd2608eec2116f98ad4c89d4b527e5233aec61055919289cf6af813b",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef49823bb0845be62b5322752d49f948cebb184156464a273dabe04ef23fc5e87596c16f1e1c1a9c79b795b84f6f",
+        "r": 71
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587301b15dbce27cc52f4210b43d02310496da9e595424090e4face61",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587301b15dbce27cc52f4210b43d02310496da9e595424090e4face6176141a66eb51ed9f6afbdba3ab3fb17fe13f",
+        "r": 72
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8c6ea5bf67426290cdce73dd34c4a5807fe8b1455c13077046a71",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee31ba96fd9d098a433739cf74d3129601ffa2c515704c1dc11a9c79b795b84f6f4a7d23eb1cfd95aa41a980f84",
+        "r": 73
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d2bda1f0d2dc148727e7393b1c282161a0192a495f60dafd8ba3",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d2bda1f0d2dc148727e7393b1c282161a0192a495f60dafd8ba3ab3fb17fe13f3088c146ab90d17a85ba18d3e",
+        "r": 74
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd230b3ee9f70ff643b82339c16afcace5ee8640a0058db7ec3536",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48c2cfba7dc3fd90ee08ce705abf2b397ba1902801636dfb0d4d95aa41a980f8463c44d92eaf1dc99ae7db95c4",
+        "r": 75
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587304f291d88ff40d1d7ec49cf67ac62a719db913281957fe1bdd1",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587304f291d88ff40d1d7ec49cf67ac62a719db913281957fe1bdd1d17a85ba18d3e255a21d036b6af813bc8ff17a",
+        "r": 76
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d85882b5140d372b61a80e4d26a94a3a4bfc208a645603ef3b",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee361620ad45034dcad86a039349aa528e92ff0822991580fbcecac99ae7db95c4d05793ad37efeb3985d850699",
+        "r": 77
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d77952cbd25371f8bdeea370703a842560307cb1210958d1d9",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d77952cbd25371f8bdeea370703a842560307cb1210958d1d968a813bc8ff17a1d65b05bc78706a71e6de56e1",
+        "r": 78
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236ec50a33011fa8d339da5fdbcd6b9c158cda62a0e705572b",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48dbb1428cc047ea34ce7697f6f35ae705633698a839c155cad1e4a985d850699bad47b67dabef6e8eacfec5ff",
+        "r": 79
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fda97248c62869709cbe183f677bcf65527e14ab73d9578",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fda97248c62869709cbe183f677bcf65527e14ab73d9578bcac0a1e6de56e13dbd29f48fac73f656a906a60",
+        "r": 80
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d983e87801294bb87f0e33e6d0d2e764d15023e42bf93456",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee3660fa1e004a52ee1fc38cf9b434b9d9345408f90afe4d15b4d8accbacfec5ff84fcc223051aae4345ea16e86",
+        "r": 81
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d746d1bae0608437fa1f74933f770f2d07254c531cb0c1c9",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d746d1bae0608437fa1f74933f770f2d07254c531cb0c1c97f1d4a88da906a603e118f11364babc77266b9f6e",
+        "r": 82
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cbf2f6f99b39de06e8ec0090eff58f5b814290ae2f36e",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2fcbdbe66ce7781ba3b00243bfd63d6e050a42b8bcdb8186ad0a45fa16e8634f895688740dadabe04ef23f",
+        "r": 83
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa318cfcc4e9cbb9bd95b03075c0d54dfe65c872f4d9f",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa318cfcc4e9cbb9bd95b03075c0d54dfe65c872f4d9ff99eebdc8261b9f6e5713415e4eb4dfbface617614",
+        "r": 84
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864a52462858e37cf345eccdadf375478311e3b8cc74",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee36619294918a1638df3cd17b336b7cdd51e0c478ee331d2031276cf8b07bf23fc5e87596c16f1e1c1a9c79b79",
+        "r": 85
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d74790210094b9575e659c99a27ef99ed4aeca2b57d22a",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d74790210094b9575e659c99a27ef99ed4aeca2b57d22ac23280be934b69c6141a66eb51ed9f6afbdba3ab3fb",
+        "r": 86
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4ce43043c56db114e04e421cc49f42da24bd6304",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b13390c10f15b6c45381390873127d0b6892f58c12af1228cc6070fe3a795b84f6f4a7d23eb1cfd95aa41",
+        "r": 87
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a8271cd9d697fea2479871cee2808dcfe403354d",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a8271cd9d697fea2479871cee2808dcfe403354d82b681248a66fd0d58b17fe13f3088c146ab90d17a85",
+        "r": 88
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac3ae74b78601a40ac7bae5f4a317e4310c9d4",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab0eb9d2de1806902b1eeb97d28c5f90c432751db2fe9800484f0ddd54a980f8463c44d92eaf1dc99ae",
+        "r": 89
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902abd6f2c3ef986e132aa76f18c24a631ca720b",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902abd6f2c3ef986e132aa76f18c24a631ca720b4afa30618060e17deed50a18d3e255a21d036b6af813b",
+        "r": 90
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4cab37d8bd1cc7bfe08aa2fda53c0214ae238b",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132acdf62f4731eff822a8bf694f00852b88e2cf0b193679866df98e77d5cb95c4d05793ad37efeb3985",
+        "r": 91
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822a9e35332e2a703b12a4c3e1170ce42f45d",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822a9e35332e2a703b12a4c3e1170ce42f45d297ca9074b1e4fe315cb8d78f17a1d65b05bc78706a71e",
+        "r": 92
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4a8b5d088f4a3cd6a0a03d3e27f271ccc9",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12a2d74223d28f35a8280f4f89fc9c73326c2198a16b0aac10d2978f5db5699bad47b67dabef6e8ea",
+        "r": 93
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa8293db7114c25677ab28d31342183ae22",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa8293db7114c25677ab28d31342183ae220ef3914b9ebcaad9dc21b536ff5e13dbd29f48fac73f656",
+        "r": 94
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaac813ffa243c152e6a8970a1dce6d6f4",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab204ffe890f054b9aa25c287739b5bd12d767090f26d8abd2ff3bf47f036f84fcc223051aae4345",
+        "r": 95
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa26100641d7650f3a907f2ebe73f7c",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa26100641d7650f3a907f2ebe73f7cc83db4fc1d60fd4acc3065c328737f3e118f11364babc772",
+        "r": 96
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa41e41916b6d1759685a18db3390e",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa90790645adb45d65a168636cce43988b4ff11dad6d0d0a8f3647f22ee7864f895688740dadabe",
+        "r": 97
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa16b16427bff26d47b9ee57e89c7",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa16b16427bff26d47b9ee57e89c77144f1068afbdfdddca5674286137cbe413415e4eb4dfbfac",
+        "r": 98
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaae7aa51c270183f4a7c9f16190e",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2ab9ea94709c060fd29f27c58643abe921696e4b1ce0eef8854b72e78798cc587596c16f1e1c1a",
+        "r": 99
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2af26a12fc3c66d0c22609a5e47",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2af26a12fc3c66d0c22609a5e475ac6039e1fc0ab9ed7734e50fe3cbeb148a5eb51ed9f6afbdb",
+        "r": 100
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4ad83ae0c7d693f73c41b0e1b0",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92b60eb831f5a4fdcf106c386c2b7aa6372fa1ccaf27dbe71c5d0d58c6a904866f4a7d23eb1cf",
+        "r": 101
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02f6d6fb2a37810f9696ef7ee",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02f6d6fb2a37810f9696ef7eef2f9a857e31bb88b608fcceba6ddd54aea160e4f3088c146ab9",
+        "r": 102
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8ccff7c68a5ee674c787dce1",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa333fdf1a297b99d31e1f738776333ae58d2bdf44f6c51896d8feed50b6b96dc163c44d92eaf",
+        "r": 103
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a92240e6b9219f12c2afa3e7",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a92240e6b9219f12c2afa3e7ebb5225bc55c2ce3213ea4941fd5077d5cfef1ffd955a21d036b",
+        "r": 104
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a8041373bc0e49a0bcac653",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a0104dcef0392682f2b194c86df4107da57f29d238468015a0d56b8d79076a00d15793ad37e",
+        "r": 105
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1961f9773700eb362a91",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1961f9773700eb362a9108efe35968f858622c17e2e8197add5ef5db16bea0dc95b05bc78",
+        "r": 106
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae45e8c6f9fc35a9d4a8",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b917a31be7f0d6a752a09c570d751e53e5e512d98d369919bed6736fa9ec6adf817b67dab",
+        "r": 107
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f09992bcc87dde8b42",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f09992bcc87dde8b42ac3a5fddb4ac44c6c483d15c7e1093c7d4e7f1a26aebe3999f48fa",
+        "r": 108
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804df0440b623a3b993d",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a0137c1102d88e8ee64f72af5860eff0aa20aea0b4c97a8f9c05a8d1c86b90eb6cd71123051",
+        "r": 109
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1879d8933d45657c41",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1879d8933d45657c413e2b35e6d707ca92cb6acf0819a533c67a5cb8eef1d6fe9de881364",
+        "r": 110
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7acb500934951669",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9eb2d4024d25459a584d2a76cfdf698a028fea97c9938425a49878f5776adf062e649874",
+        "r": 111
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26a3d4301c05253",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26a3d4301c0525385e1c28be90e3e14a32506a198107e707801eb535bbebe7653c401eb",
+        "r": 112
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83a535cc6f1901",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360e94d731bc64047e6fbf24c61dd4f9092056eb919968cf6b81a6f477dc6ccb445a41a6",
+        "r": 113
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d611de2bda44",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d611de2bda44628cf1c600a7aed131c0265f6f0911e493ef9b8f32b8fae88f22785b8",
+        "r": 114
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff5e2bb4b3e0",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfd78aed2cf82252496ba60c89b7c82bc30463f7c08ac004733f5622f51b645610be7f",
+        "r": 115
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0db4b7c293",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0db4b7c293b104001ed86c843f98b2df3625439cc4ac062e243551334bf42579ccc8",
+        "r": 116
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b37fc3e7c8",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecdff0f9f205a96401a7dee8e74314a3e675057738a0ac653d077548270c3705b3888",
+        "r": 117
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69e07d326",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69e07d326267a1441b88e765cb729094c4b565be74acaa444d6bb50b0fcf7f67a744",
+        "r": 118
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b9a308",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2e68c205049b925bf45cb478fe21c10a0f547ccb0a8a8221dedf5cbd19383498b2",
+        "r": 119
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3ce4f",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3ce4f265603f007c3278f2b50d3bd9cad352988bca4ab13ae7e378cc907b7014a",
+        "r": 120
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f1670",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c59c160456347069f20b562f5dc5cd38bc742144d880aa85bc8d7b488169ff190",
+        "r": 121
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a53",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a53d96625572f6e262cf55336fa79c74dab73921d48caae7d85d9f0499e20691",
+        "r": 122
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e1",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d3844d145055e33fd052935427f18b3ab1fafe703ad048abc8de6d276012d26e0",
+        "r": 123
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c7",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c7e21c925656d240d642075708694a5aaa1b0cf35bd604ad85ecfc0b6183c0fe",
+        "r": 124
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5a8d3b800545fc04dd4726b5fcee1087aabbbc9677cd660bde6691ccf79b5cd0",
+        "r": 125
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7a5c5f8065261c61ed2e0ef6197f9ce9aaddd814b99d46ccec4e0b893b3f79d",
+        "r": 126
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d38987a63864407ba7a7c3ed73791833963abeed990f12d2e896a1ecf405a43b2",
+        "r": 127
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c741e9857e42469d8989f47de7b09b27155ac77d11d683c3641eba693467875a",
+        "r": 128
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab5a61e58c702e2d4142328ec9bc3a0e957aab8c8adeb5f745a6d8e0724beb7",
+        "r": 129
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7af787ac54af33d3d5971225683df5ad6159aaf484be6f63b278fd5e6e00c6f",
+        "r": 130
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b3be9aa50b624c4d51e8105eb4e37bd7953ab30e0ccf355a0b50d6cfe0caf",
+        "r": 131
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0e",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743a5c63a85cf500a1d4a699666f1d79cdb145aa3dec896757acf5dde90ec8b",
+        "r": 132
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b3",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab7587a55ae79350cbad08e1144f6adb39fa927a94e68414b59a936ee61d684",
+        "r": 133
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d6",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb5e9857bcb075c8dbdc5f89213ebfa721a009a11cee590f53a07f7c7adee",
+        "r": 134
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f661e59d8b6b785fcfa63403846c18e3ba0c3b8b97c51d345a6839a9be7",
+        "r": 135
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa347ac52d4fefbe6191857437e2ed95d5dacf5f4f19a4ac7278eb73a3cc",
+        "r": 136
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a9729aa43d1071cc7909e5b778d37d16d6fa9363169380aae0b56fe5958",
+        "r": 137
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a1e23a874c96eb8ab1c2c7fbb5c78c9fdf1a07529e078cabecf5f0c515",
+        "r": 138
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7a",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9bad15aeb081f6f4aabf2a81df7ab4820e6ba6b422e6b48ac69367ca49",
+        "r": 139
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f2",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33dbc97b6bc9a3f30aac62a9ae39af0b2dced8ef713cef04aae0749880",
+        "r": 140
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a924fd819fed839463caaa52a3bd73b7ca3f97d573e8597760abe6b0148",
+        "r": 141
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a18",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a0010d99207db712558aa84295cde5f9894318d5e46e51bb6cacceb190",
+        "r": 142
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a019dd10268ffe80554aae72179ec631417295d6c2fc4bdfe8a896a91",
+        "r": 143
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a192ec930e500686550abce39b26a52959e216def31a0ce064a41ea0",
+        "r": 144
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a80",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925b9036803dc506ee455cad9d73a0e842152d39fe762bac9e64085a6a",
+        "r": 145
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a007f137e834fa56f7c2578bd2de5ad6e73943c720cb52da82c44ce78e",
+        "r": 146
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8c",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a06868786b71185f39f05b4cc3ec7bdfce7175ae2c8f43fab2a209cb5",
+        "r": 147
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a9",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a6eeeebeefe89e6672767f08f46a9ce19ce9b7bd2853741aa292c38f",
+        "r": 148
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a9258f7776c770642c44e0b487c532ea39f93963f9cc2e47b5ba9202f75",
+        "r": 149
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa0",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a00553bbbeabf6472a21ecf0e9a4236972307154338f3c29f7da02333b",
+        "r": 150
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaacaa",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a06545ddc6ac342e293a697d638717e1e136e95727565f2238fa31225",
+        "r": 151
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64526efaeaf773d2058e18d57ee98faf87f615e0b54661175192810",
+        "r": 152
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a92584240f71b6b3be4c2655f95d5876151b3e83796ecf524789b490299",
+        "r": 153
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82a",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e704d3ebfea5cc0f0456316d5eb794ba46b7b1f693402b43f01321",
+        "r": 154
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caaac",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066cf61c46c06878cd7625529fd66fb10d82ef9aa3e07432f7471823",
+        "r": 155
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aa",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64e937ba2ec6eeb49db5054220d4f1a9ddb3733a94e6b7233b2e9b1",
+        "r": 156
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4a",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a9258416079d936af76f02ff565712dd16ba2efa7e25a11cefe125a363a",
+        "r": 157
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa8",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e5966b2d07eb3bf73303545e83ec9ed937188d07b8b970f8079755",
+        "r": 158
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4caa",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c514ea3d686a5c3e23375266b46827d07e945d69f4f1fd386b1b5",
+        "r": 159
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea491694deee87f4d127b404ef2eb08d686126de2316a0c7eeabf",
+        "r": 160
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864aac",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a92584168009e11e776e831c809f4617636bc5dee780fed129eaca876ac",
+        "r": 161
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747902a",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59e80c2f8acbbf6b2b88c23279b57eda6e7cb8d07c8226a8aebea",
+        "r": 162
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac4c",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c5268cf334a8dc3ea2f44f120b3f587f8fc98f5d698b10ea4b6c6",
+        "r": 163
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a8",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea40e496270a5ff4693321682ca435e835181536de14a9d680fea",
+        "r": 164
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9864a",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684dc0150fc86032e02239eb2887766b7499947fef90a2de8d06",
+        "r": 165
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d74790",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee1fc195d18e6323e311726a24ebb4efb0111280731c93e65d6",
+        "r": 166
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236cac",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527fa1d916c95c5214d289e0e9016df171b1888286e2b804c46d",
+        "r": 167
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4081bad09e817a4391c242ed6119fe69eba944b2efd2f860a2f",
+        "r": 168
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d986",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684c9bdbdc269998770bf0737d78920ce26da120a370c33e6c93",
+        "r": 169
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d747",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee083cfcff0e111ebfcc76e78db402c9d0ffb82c97fcf24ce80",
+        "r": 170
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd236c",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ecb591907df88a6c18abfcb5ff43282dd01fb281819600968",
+        "r": 171
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587305f",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea40868f509168e3448ed94ac18f603722b3ed1a1a29999160c1e",
+        "r": 172
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8d9",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684cee535c09e5d72057d10ad953637e12a47cbbb92111096cda",
+        "r": 173
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67d7",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee097c477cc2c6de2658c9cbd147578f828298ddf03889c1e9f",
+        "r": 174
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd23",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec19a2b98f2afed0454838cc92b5b53b2b215ee737443da62",
+        "r": 175
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f9358730",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086d9392f1562b07d6250b748802f7f45a2a3967ce7b274f85",
+        "r": 176
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7b8",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684cefd070369552b68d505cfb048333832792971499c9a0b13e",
+        "r": 177
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b67",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee0970d6f37e1542fe5d56791b60b227b20b021e901383aca84",
+        "r": 178
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5fbd",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1fddf678f95730c6d54b0bf6ca109a2cb33a61187b5a8ae",
+        "r": 179
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f93587",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da0ee34b5315e3cafd50bcc3e8b9c3928a258789e9f7a4b",
+        "r": 180
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1d7",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceffad7d70f4296d58b0d5cd8f464f3f7024905eb42623980",
+        "r": 181
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b636b",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09701bd8dfd3721fd54bdd79d53241643f3001666f7051718",
+        "r": 182
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d5f",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f1bcd5e0c7e3a0d50cedb2d420594746301944f3f649e9",
+        "r": 183
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f935",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da6bd9d6eca8d5add5c97fa3d726512b253191216434026",
+        "r": 184
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bcc1",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff8ecd2df68a5d7bed7818194de04482a04290839477430",
+        "r": 185
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b63",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703569c3e3e486d9c7db999911ee620b2a6721cb712bb73",
+        "r": 186
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9773d",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f375e3f4d4c0efd3a8ff11108a7c52ca284e3b8fe82dfe",
+        "r": 187
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6f9",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67b6d431d0cd70c5a506889c489a42892e1d5f506b3e0",
+        "r": 188
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52bc",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff849ffd72adc9dfca7856e443a043872403fad6356ea4e",
+        "r": 189
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d0b",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e0200de2bf82e188be5fc275a677ee04341bd575f681",
+        "r": 190
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f977",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34e320ded2c3b3f944cc61f0b784b87e6775bcd5b63e9",
+        "r": 191
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8c6",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da671d22de7c2f5a431208a7a7cfbe0fe8c4bb7d9d7f546",
+        "r": 192
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f52",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84eac13ec9f33787282c4898991ced064a0df8d2d8352",
+        "r": 193
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e368d",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16ad84682627bee2b2a041410b97d640ade35c3db74",
+        "r": 194
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75f9",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ebde2eb0509c7d2a2a65959cf18d44cbed77f4ffb",
+        "r": 195
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fed8",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da671326ced36b65c3a8c2928451539695d208c7db83101",
+        "r": 196
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc1f",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e97c7ef47f5a4f202e249471e16c2c4a8ffb291",
+        "r": 197
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e36",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2d619a8732837816233d0012eaf9ef2a0a501a20",
+        "r": 198
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b75",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3d793aee22b7b995124d01836b32762ac851b92",
+        "r": 199
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442fe",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694db05b7d12f9f114801d19b7ea20b52a8e4bf0",
+        "r": 200
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9cc",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11fb67f8c8332689081ac93f8692cf42a5c0c7",
+        "r": 201
+      },
+      {
+        "common_high_part_hex": "0xdece2c360660e",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8a1f48348b220e41c9ba8043ee02937287cca",
+        "r": 202
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd991b",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34ba30b704a12dc5b83da86747e3207e2e988",
+        "r": 203
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b442",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70d93cff60b83fa7fb4fae4b28d2268d3614",
+        "r": 204
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97c9",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfdd059036cfb41881f11bc0a25c10e5c779",
+        "r": 205
+      },
+      {
+        "common_high_part_hex": "0xdece2c36066",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae0ed65137e91f5949a68bdcc907d9dc7abb",
+        "r": 206
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd99",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bed7d4487860a351038e4cf88168d2fa9ad",
+        "r": 207
+      },
+      {
+        "common_high_part_hex": "0xdece2c33b4",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c7d8d20ebe6c9749375c093499e5c31a3b",
+        "r": 208
+      },
+      {
+        "common_high_part_hex": "0x379a74bc97",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfca8d5c2d6cce81b007b7cc07012c7f2b95",
+        "r": 209
+      },
+      {
+        "common_high_part_hex": "0xdece2c360",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae18a5d7f3de8969bb069f98c6f182a862f1",
+        "r": 210
+      },
+      {
+        "common_high_part_hex": "0x379a74bdd",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf9486d864e641e3db6e2314af69b2ae536",
+        "r": 211
+      },
+      {
+        "common_high_part_hex": "0xdece2c33",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c310efde41c45ad4fffd1290b3e3a2bc47",
+        "r": 212
+      },
+      {
+        "common_high_part_hex": "0x379a74bc",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf29d70ec5ba27bd1000c821ca4d592da2",
+        "r": 213
+      },
+      {
+        "common_high_part_hex": "0xdece2c3",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae19622dfd6a7d909cc900c8b3b881d503f9",
+        "r": 214
+      },
+      {
+        "common_high_part_hex": "0x379a74b",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf91513e0de88d1c38810c84a5f49ad5343",
+        "r": 215
+      },
+      {
+        "common_high_part_hex": "0xdece2c",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309484ede645cbf7499c8e086303bd477",
+        "r": 216
+      },
+      {
+        "common_high_part_hex": "0x379a74",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf3c10e17ec4278c3b01385ece5335cd2b",
+        "r": 217
+      },
+      {
+        "common_high_part_hex": "0xdece2",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965d9df986a70b4f5b187e669c42779c2",
+        "r": 218
+      },
+      {
+        "common_high_part_hex": "0x379a7",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf9146d2e31ee8fcf137a9e8c4e3a70bb3f",
+        "r": 219
+      },
+      {
+        "common_high_part_hex": "0xdece",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c3092fc3d2a765196879a264a1d58fcda4",
+        "r": 220
+      },
+      {
+        "common_high_part_hex": "0x379a",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf3c031f4c28b4491eeb39040bad5519f8",
+        "r": 221
+      },
+      {
+        "common_high_part_hex": "0xdec",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c32a30f24f200a76a7164cdbd54923",
+        "r": 222
+      },
+      {
+        "common_high_part_hex": "0x379",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf9147f2293d601620c8be8e9409fcd5001",
+        "r": 223
+      },
+      {
+        "common_high_part_hex": "0xde",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c3092861204d61952c84c65614c219d501",
+        "r": 224
+      },
+      {
+        "common_high_part_hex": "0x37",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf3c02e78261d791428e0a45790f392d51",
+        "r": 225
+      },
+      {
+        "common_high_part_hex": "0xd",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c33cbb07adb09725ec825b1d6703d4",
+        "r": 226
+      },
+      {
+        "common_high_part_hex": "0x3",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf9147f258db69bfbc1e0668b07aad4f34d",
+        "r": 227
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309286055ffe3c1ddae64e4b69abd1671",
+        "r": 228
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf3c02e665600d5daefbc41c0fe3acc94e",
+        "r": 229
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c33c44560dd6fb71da5bcd0d5a8811",
+        "r": 230
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xde69d2f76646dd7e5dcf57ef48db2b132aab2aa32b9ebfde2d389b1f9a066c527ec1f34f9ea3e34bf9147f25a2256dedf1feaf87d9ddd7a498",
+        "r": 231
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309286079105fe7e6a06b3e8d2eed9801",
+        "r": 232
+      },
+      {
+        "common_high_part_hex": "0x0",
+        "full_original_width_high_part_hex": "0xde69d2f25f27307d4af3075ee366192ab12aa92a01360ecd7c5ab75a925841684ceff84e820e11dfcf3c02e66b09660c8cea6ea465c377d181",
+        "r": 233
+      }
+    ],
+    "cycle_rows": [
+      {
+        "cycle_count": 1,
+        "cycle_states": 1,
+        "cycles": [
+          [
+            1
+          ]
+        ],
+        "direct_orbit_states_checked": 1,
+        "width": 1
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 1,
+        "cycles": [
+          [
+            3
+          ]
+        ],
+        "direct_orbit_states_checked": 3,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                3
+              ]
+            ],
+            "parent_cycle": [
+              1
+            ]
+          }
+        ],
+        "width": 2
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 1,
+        "cycles": [
+          [
+            6
+          ]
+        ],
+        "direct_orbit_states_checked": 3,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                6
+              ]
+            ],
+            "parent_cycle": [
+              3
+            ]
+          }
+        ],
+        "width": 3
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 2,
+        "cycles": [
+          [
+            12,
+            13
+          ]
+        ],
+        "direct_orbit_states_checked": 4,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                12,
+                13
+              ]
+            ],
+            "parent_cycle": [
+              6
+            ]
+          }
+        ],
+        "width": 4
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 2,
+        "cycles": [
+          [
+            25,
+            27
+          ]
+        ],
+        "direct_orbit_states_checked": 6,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                25,
+                27
+              ]
+            ],
+            "parent_cycle": [
+              12,
+              13
+            ]
+          }
+        ],
+        "width": 5
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 2,
+        "cycles": [
+          [
+            50,
+            55
+          ]
+        ],
+        "direct_orbit_states_checked": 5,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                50,
+                55
+              ]
+            ],
+            "parent_cycle": [
+              25,
+              27
+            ]
+          }
+        ],
+        "width": 6
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 2,
+        "cycles": [
+          [
+            100,
+            111
+          ]
+        ],
+        "direct_orbit_states_checked": 6,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                100,
+                111
+              ]
+            ],
+            "parent_cycle": [
+              50,
+              55
+            ]
+          }
+        ],
+        "width": 7
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 2,
+        "cycles": [
+          [
+            200,
+            222
+          ]
+        ],
+        "direct_orbit_states_checked": 6,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                200,
+                222
+              ]
+            ],
+            "parent_cycle": [
+              100,
+              111
+            ]
+          }
+        ],
+        "width": 8
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            400,
+            444,
+            401,
+            445
+          ]
+        ],
+        "direct_orbit_states_checked": 8,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                400,
+                444,
+                401,
+                445
+              ]
+            ],
+            "parent_cycle": [
+              200,
+              222
+            ]
+          }
+        ],
+        "width": 9
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            801,
+            889,
+            803,
+            891
+          ]
+        ],
+        "direct_orbit_states_checked": 11,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                801,
+                889,
+                803,
+                891
+              ]
+            ],
+            "parent_cycle": [
+              400,
+              444,
+              401,
+              445
+            ]
+          }
+        ],
+        "width": 10
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            1602,
+            1779,
+            1607,
+            1782
+          ]
+        ],
+        "direct_orbit_states_checked": 9,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                1602,
+                1779,
+                1607,
+                1782
+              ]
+            ],
+            "parent_cycle": [
+              801,
+              889,
+              803,
+              891
+            ]
+          }
+        ],
+        "width": 11
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            3205,
+            3558,
+            3214,
+            3564
+          ]
+        ],
+        "direct_orbit_states_checked": 10,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                3205,
+                3558,
+                3214,
+                3564
+              ]
+            ],
+            "parent_cycle": [
+              1602,
+              1779,
+              1607,
+              1782
+            ]
+          }
+        ],
+        "width": 12
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            6411,
+            7117,
+            6428,
+            7129
+          ]
+        ],
+        "direct_orbit_states_checked": 9,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                6411,
+                7117,
+                6428,
+                7129
+              ]
+            ],
+            "parent_cycle": [
+              3205,
+              3558,
+              3214,
+              3564
+            ]
+          }
+        ],
+        "width": 13
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            12823,
+            14234,
+            12857,
+            14259
+          ]
+        ],
+        "direct_orbit_states_checked": 9,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                12823,
+                14234,
+                12857,
+                14259
+              ]
+            ],
+            "parent_cycle": [
+              6411,
+              7117,
+              6428,
+              7129
+            ]
+          }
+        ],
+        "width": 14
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            25646,
+            28468,
+            25715,
+            28519
+          ]
+        ],
+        "direct_orbit_states_checked": 9,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                25646,
+                28468,
+                25715,
+                28519
+              ]
+            ],
+            "parent_cycle": [
+              12823,
+              14234,
+              12857,
+              14259
+            ]
+          }
+        ],
+        "width": 15
+      },
+      {
+        "cycle_count": 1,
+        "cycle_states": 4,
+        "cycles": [
+          [
+            51292,
+            56937,
+            51431,
+            57038
+          ]
+        ],
+        "direct_orbit_states_checked": 11,
+        "extensions": [
+          {
+            "child_cycles": [
+              [
+                51292,
+                56937,
+                51431,
+                57038
+              ]
+            ],
+            "parent_cycle": [
+              25646,
+              28468,
+              25715,
+              28519
+            ]
+          }
+        ],
+        "width": 16
+      }
+    ],
+    "first_aged_rejection_h": 3,
+    "first_ordinary_rejection_h": 4,
+    "first_split": null,
+    "frontier_core_rows": [
+      {
+        "core": [
+          3
+        ],
+        "core_cycles": [
+          [
+            3
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 1,
+        "image_counts": [
+          1
+        ],
+        "initial_frontier": [
+          3
+        ],
+        "phase": "p",
+        "stabilization_age": 0,
+        "width": 2
+      },
+      {
+        "core": [
+          12,
+          13
+        ],
+        "core_cycles": [
+          [
+            12,
+            13
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 2,
+        "image_counts": [
+          2
+        ],
+        "initial_frontier": [
+          12,
+          13
+        ],
+        "phase": "p",
+        "stabilization_age": 0,
+        "width": 4
+      },
+      {
+        "core": [
+          50,
+          55
+        ],
+        "core_cycles": [
+          [
+            50,
+            55
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 3,
+        "image_counts": [
+          5,
+          3,
+          2
+        ],
+        "initial_frontier": [
+          50,
+          51,
+          52,
+          53,
+          55
+        ],
+        "phase": "p",
+        "stabilization_age": 2,
+        "width": 6
+      },
+      {
+        "core": [
+          200,
+          222
+        ],
+        "core_cycles": [
+          [
+            200,
+            222
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 4,
+        "image_counts": [
+          11,
+          6,
+          4,
+          3,
+          2
+        ],
+        "initial_frontier": [
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          207,
+          220,
+          221,
+          222,
+          223
+        ],
+        "phase": "p",
+        "stabilization_age": 4,
+        "width": 8
+      },
+      {
+        "core": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "core_cycles": [
+          [
+            801,
+            889,
+            803,
+            891
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 5,
+        "image_counts": [
+          20,
+          12,
+          9,
+          7,
+          6,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          800,
+          801,
+          802,
+          803,
+          804,
+          805,
+          807,
+          880,
+          881,
+          882,
+          883,
+          884,
+          885,
+          886,
+          887,
+          888,
+          889,
+          891,
+          894,
+          895
+        ],
+        "phase": "p",
+        "stabilization_age": 6,
+        "width": 10
+      },
+      {
+        "core": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "core_cycles": [
+          [
+            3205,
+            3558,
+            3214,
+            3564
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 6,
+        "image_counts": [
+          39,
+          25,
+          19,
+          15,
+          12,
+          9,
+          6,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          3200,
+          3201,
+          3202,
+          3203,
+          3204,
+          3205,
+          3208,
+          3209,
+          3210,
+          3211,
+          3212,
+          3213,
+          3214,
+          3215,
+          3216,
+          3217,
+          3219,
+          3222,
+          3223,
+          3228,
+          3229,
+          3230,
+          3231,
+          3552,
+          3553,
+          3555,
+          3558,
+          3559,
+          3564,
+          3565,
+          3566,
+          3567,
+          3576,
+          3577,
+          3578,
+          3579,
+          3580,
+          3581,
+          3583
+        ],
+        "phase": "p",
+        "stabilization_age": 8,
+        "width": 12
+      },
+      {
+        "core": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "core_cycles": [
+          [
+            12823,
+            14234,
+            12857,
+            14259
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 7,
+        "image_counts": [
+          76,
+          50,
+          36,
+          25,
+          19,
+          13,
+          9,
+          6,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          12800,
+          12801,
+          12802,
+          12803,
+          12804,
+          12805,
+          12806,
+          12807,
+          12808,
+          12809,
+          12811,
+          12814,
+          12815,
+          12816,
+          12817,
+          12818,
+          12819,
+          12820,
+          12821,
+          12823,
+          12832,
+          12833,
+          12835,
+          12838,
+          12839,
+          12844,
+          12845,
+          12856,
+          12857,
+          12858,
+          12859,
+          14208,
+          14209,
+          14211,
+          14214,
+          14215,
+          14220,
+          14221,
+          14222,
+          14223,
+          14234,
+          14235,
+          14236,
+          14237,
+          14239,
+          14256,
+          14257,
+          14258,
+          14259,
+          14260,
+          14261,
+          14262,
+          14263,
+          14264,
+          14265,
+          14267,
+          14270,
+          14271,
+          14304,
+          14305,
+          14306,
+          14307,
+          14308,
+          14309,
+          14311,
+          14312,
+          14313,
+          14314,
+          14315,
+          14320,
+          14321,
+          14323,
+          14326,
+          14327,
+          14332,
+          14333
+        ],
+        "phase": "p",
+        "stabilization_age": 9,
+        "width": 14
+      },
+      {
+        "core": [
+          51292,
+          51431,
+          56937,
+          57038
+        ],
+        "core_cycles": [
+          [
+            51292,
+            56937,
+            51431,
+            57038
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 8,
+        "image_counts": [
+          156,
+          98,
+          65,
+          46,
+          31,
+          21,
+          16,
+          12,
+          9,
+          6,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          51202,
+          51203,
+          51204,
+          51205,
+          51207,
+          51208,
+          51209,
+          51210,
+          51211,
+          51216,
+          51217,
+          51219,
+          51220,
+          51221,
+          51222,
+          51223,
+          51224,
+          51225,
+          51227,
+          51228,
+          51229,
+          51230,
+          51231,
+          51232,
+          51233,
+          51235,
+          51238,
+          51239,
+          51244,
+          51245,
+          51246,
+          51247,
+          51256,
+          51257,
+          51258,
+          51259,
+          51260,
+          51261,
+          51263,
+          51264,
+          51265,
+          51266,
+          51267,
+          51268,
+          51269,
+          51272,
+          51273,
+          51274,
+          51275,
+          51276,
+          51277,
+          51278,
+          51279,
+          51280,
+          51281,
+          51283,
+          51286,
+          51287,
+          51292,
+          51293,
+          51294,
+          51295,
+          51328,
+          51329,
+          51331,
+          51334,
+          51335,
+          51340,
+          51341,
+          51352,
+          51353,
+          51354,
+          51355,
+          51376,
+          51377,
+          51378,
+          51379,
+          51380,
+          51381,
+          51383,
+          51424,
+          51425,
+          51426,
+          51427,
+          51428,
+          51429,
+          51430,
+          51431,
+          56832,
+          56833,
+          56835,
+          56838,
+          56839,
+          56844,
+          56845,
+          56846,
+          56847,
+          56856,
+          56857,
+          56858,
+          56859,
+          56860,
+          56861,
+          56863,
+          56880,
+          56881,
+          56882,
+          56883,
+          56884,
+          56885,
+          56888,
+          56889,
+          56891,
+          56894,
+          56895,
+          56936,
+          56937,
+          56938,
+          56939,
+          56940,
+          56941,
+          56943,
+          56944,
+          56945,
+          56947,
+          56950,
+          56951,
+          56956,
+          56957,
+          56958,
+          56959,
+          57028,
+          57029,
+          57030,
+          57031,
+          57032,
+          57033,
+          57035,
+          57038,
+          57039,
+          57042,
+          57043,
+          57044,
+          57045,
+          57047,
+          57056,
+          57057,
+          57059,
+          57062,
+          57063,
+          57068,
+          57069,
+          57080,
+          57081,
+          57082,
+          57083
+        ],
+        "phase": "p",
+        "stabilization_age": 11,
+        "width": 16
+      },
+      {
+        "core": [
+          1
+        ],
+        "core_cycles": [
+          [
+            1
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 1,
+        "image_counts": [
+          1
+        ],
+        "initial_frontier": [
+          1
+        ],
+        "phase": "u",
+        "stabilization_age": 0,
+        "width": 1
+      },
+      {
+        "core": [
+          6
+        ],
+        "core_cycles": [
+          [
+            6
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 2,
+        "image_counts": [
+          2,
+          1
+        ],
+        "initial_frontier": [
+          6,
+          7
+        ],
+        "phase": "u",
+        "stabilization_age": 1,
+        "width": 3
+      },
+      {
+        "core": [
+          25,
+          27
+        ],
+        "core_cycles": [
+          [
+            25,
+            27
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 3,
+        "image_counts": [
+          4,
+          3,
+          2
+        ],
+        "initial_frontier": [
+          24,
+          25,
+          26,
+          27
+        ],
+        "phase": "u",
+        "stabilization_age": 2,
+        "width": 5
+      },
+      {
+        "core": [
+          100,
+          111
+        ],
+        "core_cycles": [
+          [
+            100,
+            111
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 4,
+        "image_counts": [
+          9,
+          6,
+          3,
+          2
+        ],
+        "initial_frontier": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          107,
+          110,
+          111
+        ],
+        "phase": "u",
+        "stabilization_age": 3,
+        "width": 7
+      },
+      {
+        "core": [
+          400,
+          401,
+          444,
+          445
+        ],
+        "core_cycles": [
+          [
+            400,
+            444,
+            401,
+            445
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 5,
+        "image_counts": [
+          18,
+          11,
+          7,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          400,
+          401,
+          402,
+          403,
+          404,
+          405,
+          408,
+          409,
+          411,
+          414,
+          415,
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          447
+        ],
+        "phase": "u",
+        "stabilization_age": 4,
+        "width": 9
+      },
+      {
+        "core": [
+          1602,
+          1607,
+          1779,
+          1782
+        ],
+        "core_cycles": [
+          [
+            1602,
+            1779,
+            1607,
+            1782
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 6,
+        "image_counts": [
+          36,
+          21,
+          15,
+          11,
+          9,
+          7,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1605,
+          1606,
+          1607,
+          1608,
+          1609,
+          1611,
+          1614,
+          1615,
+          1760,
+          1761,
+          1762,
+          1763,
+          1764,
+          1765,
+          1768,
+          1769,
+          1770,
+          1771,
+          1772,
+          1773,
+          1774,
+          1775,
+          1776,
+          1777,
+          1779,
+          1782,
+          1783,
+          1788,
+          1789,
+          1790,
+          1791
+        ],
+        "phase": "u",
+        "stabilization_age": 7,
+        "width": 11
+      },
+      {
+        "core": [
+          6411,
+          6428,
+          7117,
+          7129
+        ],
+        "core_cycles": [
+          [
+            6411,
+            7117,
+            6428,
+            7129
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 7,
+        "image_counts": [
+          67,
+          40,
+          29,
+          22,
+          16,
+          12,
+          8,
+          6,
+          4
+        ],
+        "initial_frontier": [
+          6400,
+          6401,
+          6402,
+          6403,
+          6404,
+          6405,
+          6407,
+          6408,
+          6409,
+          6410,
+          6411,
+          6416,
+          6417,
+          6418,
+          6419,
+          6420,
+          6421,
+          6422,
+          6423,
+          6424,
+          6425,
+          6427,
+          6428,
+          6429,
+          6430,
+          6431,
+          6432,
+          6433,
+          6435,
+          6438,
+          6439,
+          6444,
+          6445,
+          6446,
+          6447,
+          6458,
+          6459,
+          6460,
+          6461,
+          6463,
+          7104,
+          7105,
+          7107,
+          7110,
+          7111,
+          7116,
+          7117,
+          7118,
+          7119,
+          7128,
+          7129,
+          7130,
+          7131,
+          7132,
+          7133,
+          7135,
+          7152,
+          7153,
+          7154,
+          7155,
+          7156,
+          7157,
+          7160,
+          7161,
+          7163,
+          7166,
+          7167
+        ],
+        "phase": "u",
+        "stabilization_age": 8,
+        "width": 13
+      },
+      {
+        "core": [
+          25646,
+          25715,
+          28468,
+          28519
+        ],
+        "core_cycles": [
+          [
+            25646,
+            28468,
+            25715,
+            28519
+          ]
+        ],
+        "equals_full_width_cycles": true,
+        "h": 8,
+        "image_counts": [
+          129,
+          82,
+          56,
+          38,
+          28,
+          20,
+          14,
+          10,
+          7,
+          5,
+          4
+        ],
+        "initial_frontier": [
+          25600,
+          25601,
+          25602,
+          25603,
+          25604,
+          25605,
+          25608,
+          25609,
+          25610,
+          25611,
+          25612,
+          25613,
+          25614,
+          25615,
+          25616,
+          25617,
+          25619,
+          25622,
+          25623,
+          25628,
+          25629,
+          25630,
+          25631,
+          25632,
+          25633,
+          25634,
+          25635,
+          25636,
+          25637,
+          25638,
+          25639,
+          25640,
+          25641,
+          25643,
+          25646,
+          25647,
+          25664,
+          25665,
+          25667,
+          25670,
+          25671,
+          25676,
+          25677,
+          25688,
+          25689,
+          25690,
+          25691,
+          25712,
+          25713,
+          25714,
+          25715,
+          25716,
+          25717,
+          25719,
+          28416,
+          28417,
+          28419,
+          28422,
+          28423,
+          28428,
+          28429,
+          28430,
+          28431,
+          28440,
+          28441,
+          28442,
+          28443,
+          28444,
+          28445,
+          28447,
+          28468,
+          28469,
+          28470,
+          28471,
+          28472,
+          28473,
+          28475,
+          28478,
+          28479,
+          28512,
+          28513,
+          28514,
+          28515,
+          28516,
+          28517,
+          28519,
+          28520,
+          28521,
+          28522,
+          28523,
+          28524,
+          28525,
+          28526,
+          28527,
+          28528,
+          28529,
+          28531,
+          28534,
+          28535,
+          28540,
+          28541,
+          28542,
+          28543,
+          28608,
+          28609,
+          28610,
+          28611,
+          28612,
+          28613,
+          28614,
+          28615,
+          28624,
+          28625,
+          28626,
+          28627,
+          28628,
+          28629,
+          28631,
+          28640,
+          28641,
+          28643,
+          28646,
+          28647,
+          28652,
+          28653,
+          28664,
+          28665,
+          28666,
+          28667
+        ],
+        "phase": "u",
+        "stabilization_age": 10,
+        "width": 15
+      }
+    ],
+    "frontier_head_identity_cases": 90,
+    "frontier_levels": {
+      "p": {
+        "1": [
+          3
+        ],
+        "2": [
+          12,
+          13
+        ],
+        "3": [
+          50,
+          51,
+          52,
+          53,
+          55
+        ],
+        "4": [
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          207,
+          220,
+          221,
+          222,
+          223
+        ],
+        "5": [
+          800,
+          801,
+          802,
+          803,
+          804,
+          805,
+          807,
+          880,
+          881,
+          882,
+          883,
+          884,
+          885,
+          886,
+          887,
+          888,
+          889,
+          891,
+          894,
+          895
+        ],
+        "6": [
+          3200,
+          3201,
+          3202,
+          3203,
+          3204,
+          3205,
+          3208,
+          3209,
+          3210,
+          3211,
+          3212,
+          3213,
+          3214,
+          3215,
+          3216,
+          3217,
+          3219,
+          3222,
+          3223,
+          3228,
+          3229,
+          3230,
+          3231,
+          3552,
+          3553,
+          3555,
+          3558,
+          3559,
+          3564,
+          3565,
+          3566,
+          3567,
+          3576,
+          3577,
+          3578,
+          3579,
+          3580,
+          3581,
+          3583
+        ],
+        "7": [
+          12800,
+          12801,
+          12802,
+          12803,
+          12804,
+          12805,
+          12806,
+          12807,
+          12808,
+          12809,
+          12811,
+          12814,
+          12815,
+          12816,
+          12817,
+          12818,
+          12819,
+          12820,
+          12821,
+          12823,
+          12832,
+          12833,
+          12835,
+          12838,
+          12839,
+          12844,
+          12845,
+          12856,
+          12857,
+          12858,
+          12859,
+          14208,
+          14209,
+          14211,
+          14214,
+          14215,
+          14220,
+          14221,
+          14222,
+          14223,
+          14234,
+          14235,
+          14236,
+          14237,
+          14239,
+          14256,
+          14257,
+          14258,
+          14259,
+          14260,
+          14261,
+          14262,
+          14263,
+          14264,
+          14265,
+          14267,
+          14270,
+          14271,
+          14304,
+          14305,
+          14306,
+          14307,
+          14308,
+          14309,
+          14311,
+          14312,
+          14313,
+          14314,
+          14315,
+          14320,
+          14321,
+          14323,
+          14326,
+          14327,
+          14332,
+          14333
+        ],
+        "8": [
+          51202,
+          51203,
+          51204,
+          51205,
+          51207,
+          51208,
+          51209,
+          51210,
+          51211,
+          51216,
+          51217,
+          51219,
+          51220,
+          51221,
+          51222,
+          51223,
+          51224,
+          51225,
+          51227,
+          51228,
+          51229,
+          51230,
+          51231,
+          51232,
+          51233,
+          51235,
+          51238,
+          51239,
+          51244,
+          51245,
+          51246,
+          51247,
+          51256,
+          51257,
+          51258,
+          51259,
+          51260,
+          51261,
+          51263,
+          51264,
+          51265,
+          51266,
+          51267,
+          51268,
+          51269,
+          51272,
+          51273,
+          51274,
+          51275,
+          51276,
+          51277,
+          51278,
+          51279,
+          51280,
+          51281,
+          51283,
+          51286,
+          51287,
+          51292,
+          51293,
+          51294,
+          51295,
+          51328,
+          51329,
+          51331,
+          51334,
+          51335,
+          51340,
+          51341,
+          51352,
+          51353,
+          51354,
+          51355,
+          51376,
+          51377,
+          51378,
+          51379,
+          51380,
+          51381,
+          51383,
+          51424,
+          51425,
+          51426,
+          51427,
+          51428,
+          51429,
+          51430,
+          51431,
+          56832,
+          56833,
+          56835,
+          56838,
+          56839,
+          56844,
+          56845,
+          56846,
+          56847,
+          56856,
+          56857,
+          56858,
+          56859,
+          56860,
+          56861,
+          56863,
+          56880,
+          56881,
+          56882,
+          56883,
+          56884,
+          56885,
+          56888,
+          56889,
+          56891,
+          56894,
+          56895,
+          56936,
+          56937,
+          56938,
+          56939,
+          56940,
+          56941,
+          56943,
+          56944,
+          56945,
+          56947,
+          56950,
+          56951,
+          56956,
+          56957,
+          56958,
+          56959,
+          57028,
+          57029,
+          57030,
+          57031,
+          57032,
+          57033,
+          57035,
+          57038,
+          57039,
+          57042,
+          57043,
+          57044,
+          57045,
+          57047,
+          57056,
+          57057,
+          57059,
+          57062,
+          57063,
+          57068,
+          57069,
+          57080,
+          57081,
+          57082,
+          57083
+        ],
+        "9": [
+          205060,
+          205061,
+          205062,
+          205063,
+          205064,
+          205065,
+          205067,
+          205070,
+          205071,
+          205074,
+          205075,
+          205076,
+          205077,
+          205079,
+          205088,
+          205089,
+          205091,
+          205094,
+          205095,
+          205096,
+          205097,
+          205098,
+          205099,
+          205100,
+          205101,
+          205103,
+          205112,
+          205113,
+          205114,
+          205115,
+          205116,
+          205117,
+          205118,
+          205119,
+          205144,
+          205145,
+          205146,
+          205147,
+          205148,
+          205149,
+          205151,
+          205168,
+          205169,
+          205170,
+          205171,
+          205172,
+          205173,
+          205176,
+          205177,
+          205179,
+          205182,
+          205183,
+          205312,
+          205313,
+          205315,
+          205318,
+          205319,
+          205324,
+          205325,
+          205336,
+          205337,
+          205338,
+          205339,
+          205360,
+          205361,
+          205362,
+          205363,
+          205364,
+          205365,
+          205367,
+          205408,
+          205409,
+          205410,
+          205411,
+          205412,
+          205413,
+          205414,
+          205415,
+          205416,
+          205417,
+          205419,
+          205422,
+          205423,
+          205504,
+          205505,
+          205506,
+          205507,
+          205508,
+          205509,
+          205512,
+          205513,
+          205514,
+          205515,
+          205516,
+          205517,
+          205518,
+          205519,
+          205520,
+          205521,
+          205523,
+          205526,
+          205527,
+          205532,
+          205533,
+          205534,
+          205535,
+          205696,
+          205697,
+          205698,
+          205699,
+          205700,
+          205701,
+          205703,
+          205704,
+          205705,
+          205706,
+          205707,
+          205712,
+          205713,
+          205714,
+          205715,
+          205716,
+          205717,
+          205718,
+          205719,
+          205720,
+          205721,
+          205723,
+          205724,
+          205725,
+          205726,
+          205727,
+          227340,
+          227341,
+          227342,
+          227343,
+          227352,
+          227353,
+          227354,
+          227355,
+          227356,
+          227357,
+          227359,
+          227380,
+          227381,
+          227382,
+          227383,
+          227384,
+          227385,
+          227387,
+          227390,
+          227391,
+          227424,
+          227425,
+          227426,
+          227427,
+          227428,
+          227429,
+          227431,
+          227432,
+          227433,
+          227434,
+          227435,
+          227436,
+          227437,
+          227438,
+          227439,
+          227440,
+          227441,
+          227443,
+          227446,
+          227447,
+          227452,
+          227453,
+          227520,
+          227521,
+          227522,
+          227523,
+          227524,
+          227525,
+          227526,
+          227527,
+          227528,
+          227529,
+          227531,
+          227534,
+          227535,
+          227536,
+          227537,
+          227538,
+          227539,
+          227540,
+          227541,
+          227543,
+          227552,
+          227553,
+          227555,
+          227558,
+          227559,
+          227564,
+          227565,
+          227576,
+          227577,
+          227578,
+          227579,
+          227744,
+          227745,
+          227746,
+          227747,
+          227748,
+          227749,
+          227751,
+          227752,
+          227753,
+          227754,
+          227755,
+          227760,
+          227761,
+          227763,
+          227766,
+          227767,
+          227772,
+          227773,
+          227776,
+          227777,
+          227779,
+          227782,
+          227783,
+          227788,
+          227789,
+          227790,
+          227791,
+          227802,
+          227803,
+          227804,
+          227805,
+          227807,
+          227824,
+          227825,
+          227826,
+          227827,
+          227828,
+          227829,
+          227830,
+          227831,
+          227832,
+          227833,
+          227835,
+          227838,
+          227839,
+          228128,
+          228129,
+          228131,
+          228134,
+          228135,
+          228140,
+          228141,
+          228142,
+          228143,
+          228152,
+          228153,
+          228154,
+          228155,
+          228156,
+          228157,
+          228159,
+          228168,
+          228169,
+          228170,
+          228171,
+          228172,
+          228173,
+          228175,
+          228176,
+          228177,
+          228179,
+          228182,
+          228183,
+          228188,
+          228189,
+          228190,
+          228191,
+          228224,
+          228225,
+          228227,
+          228230,
+          228231,
+          228236,
+          228237,
+          228248,
+          228249,
+          228250,
+          228251,
+          228274,
+          228275,
+          228276,
+          228277,
+          228279,
+          228324,
+          228325,
+          228326,
+          228327,
+          228328,
+          228329,
+          228331,
+          228334,
+          228335
+        ]
+      },
+      "u": {
+        "1": [
+          1
+        ],
+        "2": [
+          6,
+          7
+        ],
+        "3": [
+          24,
+          25,
+          26,
+          27
+        ],
+        "4": [
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          107,
+          110,
+          111
+        ],
+        "5": [
+          400,
+          401,
+          402,
+          403,
+          404,
+          405,
+          408,
+          409,
+          411,
+          414,
+          415,
+          440,
+          441,
+          442,
+          443,
+          444,
+          445,
+          447
+        ],
+        "6": [
+          1600,
+          1601,
+          1602,
+          1603,
+          1604,
+          1605,
+          1606,
+          1607,
+          1608,
+          1609,
+          1611,
+          1614,
+          1615,
+          1760,
+          1761,
+          1762,
+          1763,
+          1764,
+          1765,
+          1768,
+          1769,
+          1770,
+          1771,
+          1772,
+          1773,
+          1774,
+          1775,
+          1776,
+          1777,
+          1779,
+          1782,
+          1783,
+          1788,
+          1789,
+          1790,
+          1791
+        ],
+        "7": [
+          6400,
+          6401,
+          6402,
+          6403,
+          6404,
+          6405,
+          6407,
+          6408,
+          6409,
+          6410,
+          6411,
+          6416,
+          6417,
+          6418,
+          6419,
+          6420,
+          6421,
+          6422,
+          6423,
+          6424,
+          6425,
+          6427,
+          6428,
+          6429,
+          6430,
+          6431,
+          6432,
+          6433,
+          6435,
+          6438,
+          6439,
+          6444,
+          6445,
+          6446,
+          6447,
+          6458,
+          6459,
+          6460,
+          6461,
+          6463,
+          7104,
+          7105,
+          7107,
+          7110,
+          7111,
+          7116,
+          7117,
+          7118,
+          7119,
+          7128,
+          7129,
+          7130,
+          7131,
+          7132,
+          7133,
+          7135,
+          7152,
+          7153,
+          7154,
+          7155,
+          7156,
+          7157,
+          7160,
+          7161,
+          7163,
+          7166,
+          7167
+        ],
+        "8": [
+          25600,
+          25601,
+          25602,
+          25603,
+          25604,
+          25605,
+          25608,
+          25609,
+          25610,
+          25611,
+          25612,
+          25613,
+          25614,
+          25615,
+          25616,
+          25617,
+          25619,
+          25622,
+          25623,
+          25628,
+          25629,
+          25630,
+          25631,
+          25632,
+          25633,
+          25634,
+          25635,
+          25636,
+          25637,
+          25638,
+          25639,
+          25640,
+          25641,
+          25643,
+          25646,
+          25647,
+          25664,
+          25665,
+          25667,
+          25670,
+          25671,
+          25676,
+          25677,
+          25688,
+          25689,
+          25690,
+          25691,
+          25712,
+          25713,
+          25714,
+          25715,
+          25716,
+          25717,
+          25719,
+          28416,
+          28417,
+          28419,
+          28422,
+          28423,
+          28428,
+          28429,
+          28430,
+          28431,
+          28440,
+          28441,
+          28442,
+          28443,
+          28444,
+          28445,
+          28447,
+          28468,
+          28469,
+          28470,
+          28471,
+          28472,
+          28473,
+          28475,
+          28478,
+          28479,
+          28512,
+          28513,
+          28514,
+          28515,
+          28516,
+          28517,
+          28519,
+          28520,
+          28521,
+          28522,
+          28523,
+          28524,
+          28525,
+          28526,
+          28527,
+          28528,
+          28529,
+          28531,
+          28534,
+          28535,
+          28540,
+          28541,
+          28542,
+          28543,
+          28608,
+          28609,
+          28610,
+          28611,
+          28612,
+          28613,
+          28614,
+          28615,
+          28624,
+          28625,
+          28626,
+          28627,
+          28628,
+          28629,
+          28631,
+          28640,
+          28641,
+          28643,
+          28646,
+          28647,
+          28652,
+          28653,
+          28664,
+          28665,
+          28666,
+          28667
+        ],
+        "9": [
+          102404,
+          102405,
+          102406,
+          102407,
+          102408,
+          102409,
+          102411,
+          102414,
+          102415,
+          102418,
+          102419,
+          102420,
+          102421,
+          102423,
+          102432,
+          102433,
+          102435,
+          102438,
+          102439,
+          102440,
+          102441,
+          102442,
+          102443,
+          102444,
+          102445,
+          102447,
+          102448,
+          102449,
+          102451,
+          102454,
+          102455,
+          102456,
+          102457,
+          102458,
+          102459,
+          102460,
+          102461,
+          102462,
+          102463,
+          102464,
+          102465,
+          102467,
+          102470,
+          102471,
+          102476,
+          102477,
+          102478,
+          102479,
+          102488,
+          102489,
+          102490,
+          102491,
+          102492,
+          102493,
+          102495,
+          102528,
+          102529,
+          102530,
+          102531,
+          102532,
+          102533,
+          102535,
+          102536,
+          102537,
+          102538,
+          102539,
+          102544,
+          102545,
+          102546,
+          102547,
+          102548,
+          102549,
+          102550,
+          102551,
+          102552,
+          102553,
+          102555,
+          102556,
+          102557,
+          102558,
+          102559,
+          102560,
+          102561,
+          102563,
+          102566,
+          102567,
+          102572,
+          102573,
+          102574,
+          102575,
+          102584,
+          102585,
+          102586,
+          102587,
+          102588,
+          102589,
+          102591,
+          102656,
+          102657,
+          102659,
+          102662,
+          102663,
+          102668,
+          102669,
+          102680,
+          102681,
+          102682,
+          102683,
+          102704,
+          102705,
+          102706,
+          102707,
+          102708,
+          102709,
+          102711,
+          102752,
+          102753,
+          102754,
+          102755,
+          102756,
+          102757,
+          102758,
+          102759,
+          102760,
+          102761,
+          102763,
+          102766,
+          102767,
+          102848,
+          102849,
+          102850,
+          102851,
+          102852,
+          102853,
+          102856,
+          102857,
+          102858,
+          102859,
+          102860,
+          102861,
+          102862,
+          102863,
+          113664,
+          113665,
+          113667,
+          113670,
+          113671,
+          113676,
+          113677,
+          113678,
+          113679,
+          113690,
+          113691,
+          113692,
+          113693,
+          113695,
+          113712,
+          113713,
+          113714,
+          113715,
+          113716,
+          113717,
+          113718,
+          113719,
+          113720,
+          113721,
+          113723,
+          113726,
+          113727,
+          113760,
+          113761,
+          113762,
+          113763,
+          113764,
+          113765,
+          113767,
+          113768,
+          113769,
+          113770,
+          113771,
+          113776,
+          113777,
+          113779,
+          113782,
+          113783,
+          113788,
+          113789,
+          113872,
+          113873,
+          113874,
+          113875,
+          113876,
+          113877,
+          113880,
+          113881,
+          113883,
+          113886,
+          113887,
+          113888,
+          113889,
+          113891,
+          113894,
+          113895,
+          113900,
+          113901,
+          113902,
+          113903,
+          113912,
+          113913,
+          113914,
+          113915,
+          113916,
+          113917,
+          113919,
+          114056,
+          114057,
+          114058,
+          114059,
+          114060,
+          114061,
+          114063,
+          114064,
+          114065,
+          114067,
+          114070,
+          114071,
+          114076,
+          114077,
+          114078,
+          114079,
+          114084,
+          114085,
+          114086,
+          114087,
+          114088,
+          114089,
+          114091,
+          114094,
+          114095,
+          114112,
+          114113,
+          114115,
+          114118,
+          114119,
+          114124,
+          114125,
+          114136,
+          114137,
+          114138,
+          114139,
+          114162,
+          114163,
+          114164,
+          114165,
+          114167
+        ]
+      }
+    },
+    "frontier_levels_sizes": {
+      "p": {
+        "1": 1,
+        "2": 2,
+        "3": 5,
+        "4": 11,
+        "5": 20,
+        "6": 39,
+        "7": 76,
+        "8": 156,
+        "9": 307
+      },
+      "u": {
+        "1": 1,
+        "2": 2,
+        "3": 4,
+        "4": 9,
+        "5": 18,
+        "6": 36,
+        "7": 67,
+        "8": 129,
+        "9": 255
+      }
+    },
+    "periodic_point_generator_certificates": [
+      {
+        "generator_word": "p",
+        "h": 1,
+        "phase": "p",
+        "value": 3
+      },
+      {
+        "generator_word": "pu",
+        "h": 2,
+        "phase": "p",
+        "value": 12
+      },
+      {
+        "generator_word": "pt",
+        "h": 2,
+        "phase": "p",
+        "value": 13
+      },
+      {
+        "generator_word": "ptp",
+        "h": 3,
+        "phase": "p",
+        "value": 50
+      },
+      {
+        "generator_word": "pup",
+        "h": 3,
+        "phase": "p",
+        "value": 55
+      },
+      {
+        "generator_word": "pupp",
+        "h": 4,
+        "phase": "p",
+        "value": 200
+      },
+      {
+        "generator_word": "ptpt",
+        "h": 4,
+        "phase": "p",
+        "value": 222
+      },
+      {
+        "generator_word": "ptptp",
+        "h": 5,
+        "phase": "p",
+        "value": 801
+      },
+      {
+        "generator_word": "ptptu",
+        "h": 5,
+        "phase": "p",
+        "value": 803
+      },
+      {
+        "generator_word": "puppu",
+        "h": 5,
+        "phase": "p",
+        "value": 889
+      },
+      {
+        "generator_word": "puppp",
+        "h": 5,
+        "phase": "p",
+        "value": 891
+      },
+      {
+        "generator_word": "pupppt",
+        "h": 6,
+        "phase": "p",
+        "value": 3205
+      },
+      {
+        "generator_word": "puppup",
+        "h": 6,
+        "phase": "p",
+        "value": 3214
+      },
+      {
+        "generator_word": "ptptpu",
+        "h": 6,
+        "phase": "p",
+        "value": 3558
+      },
+      {
+        "generator_word": "ptptup",
+        "h": 6,
+        "phase": "p",
+        "value": 3564
+      },
+      {
+        "generator_word": "ptptupp",
+        "h": 7,
+        "phase": "p",
+        "value": 12823
+      },
+      {
+        "generator_word": "ptptpup",
+        "h": 7,
+        "phase": "p",
+        "value": 12857
+      },
+      {
+        "generator_word": "puppptp",
+        "h": 7,
+        "phase": "p",
+        "value": 14234
+      },
+      {
+        "generator_word": "puppupu",
+        "h": 7,
+        "phase": "p",
+        "value": 14259
+      },
+      {
+        "generator_word": "puppupup",
+        "h": 8,
+        "phase": "p",
+        "value": 51292
+      },
+      {
+        "generator_word": "puppptpu",
+        "h": 8,
+        "phase": "p",
+        "value": 51431
+      },
+      {
+        "generator_word": "ptptuppt",
+        "h": 8,
+        "phase": "p",
+        "value": 56937
+      },
+      {
+        "generator_word": "ptptpupp",
+        "h": 8,
+        "phase": "p",
+        "value": 57038
+      },
+      {
+        "generator_word": "u",
+        "h": 1,
+        "phase": "u",
+        "value": 1
+      },
+      {
+        "generator_word": "up",
+        "h": 2,
+        "phase": "u",
+        "value": 6
+      },
+      {
+        "generator_word": "upp",
+        "h": 3,
+        "phase": "u",
+        "value": 25
+      },
+      {
+        "generator_word": "upu",
+        "h": 3,
+        "phase": "u",
+        "value": 27
+      },
+      {
+        "generator_word": "upup",
+        "h": 4,
+        "phase": "u",
+        "value": 100
+      },
+      {
+        "generator_word": "uppt",
+        "h": 4,
+        "phase": "u",
+        "value": 111
+      },
+      {
+        "generator_word": "upptu",
+        "h": 5,
+        "phase": "u",
+        "value": 400
+      },
+      {
+        "generator_word": "upptt",
+        "h": 5,
+        "phase": "u",
+        "value": 401
+      },
+      {
+        "generator_word": "upupt",
+        "h": 5,
+        "phase": "u",
+        "value": 444
+      },
+      {
+        "generator_word": "upupu",
+        "h": 5,
+        "phase": "u",
+        "value": 445
+      },
+      {
+        "generator_word": "upupup",
+        "h": 6,
+        "phase": "u",
+        "value": 1602
+      },
+      {
+        "generator_word": "upuptp",
+        "h": 6,
+        "phase": "u",
+        "value": 1607
+      },
+      {
+        "generator_word": "upptup",
+        "h": 6,
+        "phase": "u",
+        "value": 1779
+      },
+      {
+        "generator_word": "uppttp",
+        "h": 6,
+        "phase": "u",
+        "value": 1782
+      },
+      {
+        "generator_word": "uppttpu",
+        "h": 7,
+        "phase": "u",
+        "value": 6411
+      },
+      {
+        "generator_word": "upptupu",
+        "h": 7,
+        "phase": "u",
+        "value": 6428
+      },
+      {
+        "generator_word": "upupupp",
+        "h": 7,
+        "phase": "u",
+        "value": 7117
+      },
+      {
+        "generator_word": "upuptpt",
+        "h": 7,
+        "phase": "u",
+        "value": 7129
+      },
+      {
+        "generator_word": "upuptptp",
+        "h": 8,
+        "phase": "u",
+        "value": 25646
+      },
+      {
+        "generator_word": "upupuppt",
+        "h": 8,
+        "phase": "u",
+        "value": 25715
+      },
+      {
+        "generator_word": "uppttpup",
+        "h": 8,
+        "phase": "u",
+        "value": 28468
+      },
+      {
+        "generator_word": "upptupup",
+        "h": 8,
+        "phase": "u",
+        "value": 28519
+      }
+    ],
+    "skew_product_truth_table_cases": 128,
+    "validation_failures": []
+  },
+  "runtime_seconds": 2.782998910988681,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_text": "\"\"\"Independent direct-orbit cycle lifting and frontier head marginal checks.\"\"\"\nimport hashlib,json,os,platform,resource,subprocess,tempfile,time\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve()\nOUT=Path(os.environ.get('RULE30_REPLAY_OUTPUT','/tmp/rule30_head_age_independent.json'))\nINP='results/problem1/20260905_periodic_rational_verification.json'\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(v):return json.dumps(v,sort_keys=True,separators=(',',':')).encode()\ndef A(v):\n    bits=[int(c) for c in bin(v)[2:]] if v else []\n    return sum(((bits[i-2] if i>=2 else 0)^((bits[i-1] if i else 0)|b))<<(len(bits)-1-i) for i,b in enumerate(bits))\ndef T(v):return v^((v<<1)|(v<<2))\ndef children(v):return {T(v),T(v)^1,T(v)^1^(2 if v%2==0 else 0)}\ndef canonical_cycle(c):\n    i=c.index(min(c));return tuple(c[i:]+c[:i])\ndef orbit_cycle(seed):\n    path=[];seen={};v=seed\n    while v not in seen:\n        seen[v]=len(path);path.append(v);v=A(v)\n    return canonical_cycle(path[seen[v]:]),len(path),seen[v]\ndef main():\n    start=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30))\n    cycle_rows=[{'width':1,'cycles':[[1]],'cycle_count':1,'cycle_states':1,'direct_orbit_states_checked':1}]\n    parents=[(1,)];first_split=None\n    for width in range(2,17):\n        assert time.monotonic()-start<120\n        cs=set();checks=0;extensions=[]\n        for parent in parents:\n            got=set()\n            for e in (0,1):\n                c,n,t=orbit_cycle(2*parent[0]+e);checks+=n;got.add(c);cs.add(c)\n                assert tuple(c[i]>>1 for i in range(len(c)))==tuple(parent[i%len(parent)] for i in range(len(c))) or set(v>>1 for v in c)==set(parent)\n            extensions.append({'parent_cycle':list(parent),'child_cycles':[list(c) for c in sorted(got)]})\n        assert sum(map(len,cs))<=1<<16\n        assert all(len(c)&(len(c)-1)==0 for c in cs)\n        cycle_rows.append({'width':width,'cycles':[list(c) for c in sorted(cs)],'cycle_count':len(cs),'cycle_states':sum(map(len,cs)),'extensions':extensions,'direct_orbit_states_checked':checks})\n        if any(len(e['child_cycles'])==2 for e in extensions):\n            first_split={'width':width,'extensions':[e for e in extensions if len(e['child_cycles'])==2]};break\n        parents=sorted(cs)\n    levels={};head_tests=0;rows=[]\n    for phase,root in (('p',3),('u',1)):\n        ls={1:{root}}\n        for k in range(2,10):ls[k]={c for v in ls[k-1] for c in children(v)}\n        levels[phase]=ls\n        for h in range(1,10):\n            current=set(ls[h])\n            for k in range(h,10):\n                assert {v>>(2*(k-h)) for v in ls[k]}==current\n                assert all(v.bit_length()==(2*h if phase=='p' else 2*h-1) for v in current)\n                head_tests+=1;current={A(v) for v in current}\n            assert {A(v) for v in ls[h]}<=ls[h]\n            if h<=8:\n                im=set(ls[h]);counts=[len(im)];steps=0\n                while True:\n                    nxt={A(v) for v in im}\n                    assert nxt<=im\n                    if nxt==im:break\n                    im=nxt;counts.append(len(im));steps+=1\n                cores={orbit_cycle(v)[0] for v in im}\n                assert {v for c in cores for v in c}==im\n                width=2*h if phase=='p' else 2*h-1\n                full=next((s for s in cycle_rows if s['width']==width),None)\n                equal=(im=={v for c in full['cycles'] for v in c}) if full else None\n                rows.append({'phase':phase,'h':h,'width':width,'initial_frontier':sorted(ls[h]),'image_counts':counts,'stabilization_age':steps,'core':sorted(im),'core_cycles':[list(c) for c in sorted(cores)],'equals_full_width_cycles':equal})\n    old=json.loads((ROOT/INP).read_text())['result_summary'];x=int(old['x_hex'],16);k=old['k']\n    prefixchecks=[]\n    for h in range(1,9):\n        im=set(levels['p'][h]);age=k-h\n        for _ in range(age):\n            nxt={A(v) for v in im}\n            if nxt==im:break\n            im=nxt\n        head=x>>(2*age)\n        prefixchecks.append({'h':h,'age':age,'head':head,'head_hex':hex(head),'ordinary_member':head in levels['p'][h],'aged_member':head in im,'aged_image':sorted(im)})\n    covariance=[];strong=x\n    for r,s in enumerate(old['full_orbit_hex']):\n        v=x>>(2*r)\n        for _ in range(2*r):v=A(v)\n        lhs=int(s,16)>>(4*r);assert lhs==v\n        assert int(s,16)>>(2*r)==strong\n        covariance.append({'r':r,'common_high_part_hex':hex(v),'full_original_width_high_part_hex':hex(strong)})\n        strong=A(A(strong))\n    # Construct ordinary words for the SAME already-listed periodic points.\n    core_by_key={(r['phase'],r['h']):r for r in rows}\n    def ordinary_word(v,phase,h):\n        if h==1:\n            assert v==(3 if phase=='p' else 1);return phase\n        cycle=next(c for c in core_by_key[phase,h]['core_cycles'] if v in c)\n        prev=cycle[(cycle.index(v)-1)%len(cycle)]\n        z,d=divmod(prev,4)\n        assert z in core_by_key[phase,h-1]['core']\n        return ordinary_word(z,phase,h-1)+('t' if d==0 else 'u' if d==1 else 'p')\n    certificates=[]\n    for row in rows:\n        for v in row['core']:\n            word=ordinary_word(v,row['phase'],row['h']);y=0\n            for g in word:y=T(y) if g=='t' else T(y)^1 if g=='u' else T(y)^1^(2 if y%2==0 else 0)\n            assert y==v and len(word)==row['h']\n            certificates.append({'phase':row['phase'],'h':row['h'],'value':v,'generator_word':word})\n    # Explicit truth table of the algebraic skew product, independent of cycle lists.\n    for v in range(64):\n        for e in (0,1):\n            assert A(2*v+e)==2*A(v)+(((v>>1)&1)^((v&1)|e))\n    summary={'completed':True,'validation_failures':[],'cycle_rows':cycle_rows,'first_split':first_split,'frontier_head_identity_cases':head_tests,'frontier_levels_sizes':{p:{k:len(v) for k,v in ls.items()} for p,ls in levels.items()},'frontier_core_rows':rows,'counterexample_prefix_checks':prefixchecks,'first_aged_rejection_h':next(r['h'] for r in prefixchecks if not r['aged_member']),'first_ordinary_rejection_h':next(r['h'] for r in prefixchecks if not r['ordinary_member']),'covariance_checks':covariance,'skew_product_truth_table_cases':128,'periodic_point_generator_certificates':certificates}\n    summary['frontier_levels']={p:{k:sorted(v) for k,v in ls.items()} for p,ls in levels.items()}\n    summary=json.loads(json.dumps(summary));source=Path(__file__).read_text()\n    record={'experiment_id':'problem1-frontier-head-age-independent-20260905','timestamp_utc':datetime.now(timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'Exact generation-age head marginals and symbolic cycle completeness; test whether each positive width has one A-cycle.','backend':'High-to-low cell A; direct orbits over two one-bit extensions; packed ordinary generators','parameters':{'cycle_widths':[1,16],'stop_uniqueness_at_first_split':True,'max_cycle_states':1<<16,'frontier_max_k':9,'frontier_core_max_h':8,'named_counterexample_prefix_h':[1,8],'wall_seconds':120,'memory_bytes':1<<30,'local_cpus':1,'additional_skew_truth_table_v':[0,63],'input':INP},'inputs':{INP:sha((ROOT/INP).read_bytes())},'hardware':{'machine':platform.machine(),'processor':platform.processor(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':platform.python_version(),'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'source_text':source,'result_summary':summary,'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(canon(summary))},'status':'refuted' if first_split else 'finite-exhaustive','proof_scope':'The explicitly bounded cycle widths and frontier marginals; general identities and cycle lifting proved separately.','interpretation':'Generation age refines a necessary frontier condition. A finite unique-cycle result is not a theorem for every width.','limitations':['No new forced schedule or occurrence census.','Fixed leading blocks alone do not prove B_all.','No universal one-cycle or full-width-core equality claim from finite passage.']}\n    OUT.parent.mkdir(parents=True,exist_ok=True);fd,tmp=tempfile.mkstemp(dir=OUT.parent,prefix=OUT.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,OUT)\n    print(json.dumps({'output':str(OUT),'first_split':first_split,'cycles':[{k:v for k,v in r.items() if k not in ('cycles','extensions')} for r in cycle_rows],'head_cases':head_tests,'core_counts':[(r['phase'],r['h'],len(r['core']),r['stabilization_age'],r['equals_full_width_cycles']) for r in rows],'first_aged_rejection':summary['first_aged_rejection_h'],'covariance_cases':len(covariance)},sort_keys=True))\nif __name__=='__main__':main()\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T19:58:46.481901+00:00"
+}

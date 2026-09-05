@@ -209,6 +209,14 @@ The residual ancestor therefore narrows a minimizer search but does not
 reconstruct the low lift by itself.
 
 Update (2026-09-05, `partial-proof`):
+`problem1_frontier_head_dynamics.md` refines the necessary high ancestor to
+the exact generation-age marginal A^(k-h)(O_(a,h)), where A=T>>2. Its
+stabilized image is the full positive-width periodic-point set of A;
+every such periodic point has a constructive ordinary generator history.
+Defined forced steps satisfy pi^r(F^r(x))=A^(2r)(x). The return constraints
+on the discarded part remain a separate obligation.
+
+Earlier update (2026-09-05, `partial-proof`):
 `problem1_rounded_projection_obstruction.md` studies the root-preserving
 repair R(x)=(x>>2) OR 3. Even when that state belongs to the lower frontier,
 it loses every positive-cut base prefix on the three-return domain. This

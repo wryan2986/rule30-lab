@@ -322,6 +322,12 @@ boundary argument needs information beyond bit length alone. The compact
 projection rejection identifies such information for this particular input;
 it does not prove that one fixed leading width suffices universally.
 
+Subsequent refinement (`partial-proof`):
+`problem1_frontier_head_dynamics.md` uses the remaining generation count
+in the leading-prefix condition. The same integer is rejected already at
+level three, since its head 52 is absent from A^(225)(O_(p,3))={50,55},
+where A=T>>2. The original level-four certificate above remains valid.
+
 ## 6. Independent checks, reproducibility, and remaining obligation
 
 Muse Spark 1.3 Contributor independently derived the homogeneous recurrence,

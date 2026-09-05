@@ -1,0 +1,579 @@
+{
+  "backend": "Portable read-only certificate comparison plus high-to-low A and generator-history replay",
+  "experiment_id": "problem1-frontier-head-age-verification-20260905",
+  "git_commit": "b7d1a2efca5530421c5f0cef7dd365dd1a7a26b9",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 420192,
+    "processor": ""
+  },
+  "hypothesis": "Both independent constructions agree on all recorded head/cycle/core data and the existing orbit; the same 45 periodic-point histories satisfy the exact scanner update.",
+  "inputs": {
+    "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+    "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c",
+    "results/problem1/20260905_periodic_rational_verification.json": "28044155decacab56a38ab485a149bbbd079755a952c7c9575164f3dd7da1109"
+  },
+  "interpretation": "The exact core theorem does not depend on a universal unique-cycle conjecture. The scanner retains an unbounded word. B_all remains open.",
+  "limitations": [
+    "No new occurrence or forced-schedule census.",
+    "No all-width uniqueness claim from finite passage.",
+    "Documentation hashes in original runs are run-time snapshots, not current-byte equality assertions."
+  ],
+  "parameters": {
+    "input_paths": [
+      "results/problem1/20260905_frontier_head_primary.json",
+      "results/problem1/20260905_frontier_head_independent.json",
+      "results/problem1/20260905_periodic_rational_verification.json"
+    ],
+    "local_cpus": 1,
+    "memory_bytes": 1073741824,
+    "new_frontier_or_orbit_inputs": 0,
+    "scanner_inputs": "Only the 45 already-recorded periodic-point histories"
+  },
+  "proof_scope": "The explicitly listed finite records and histories; all-depth claims use the separate proofs.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "a19be3492bb0b2f7fd1e1b022b48dcba29ab44584e6c2bc86c18f9ccabe9ec49",
+    "source_sha256": "dad32333cca930eee32c6d0a10d873243c8941fa05b915d8b1a702a04cd40c50"
+  },
+  "result_summary": {
+    "all_cycle_lists_agree": true,
+    "all_frontier_sets_agree": true,
+    "completed": true,
+    "cores_compared": [
+      {
+        "core_size": 1,
+        "h": 1,
+        "phase": "p",
+        "stabilization_age": 0
+      },
+      {
+        "core_size": 2,
+        "h": 2,
+        "phase": "p",
+        "stabilization_age": 0
+      },
+      {
+        "core_size": 2,
+        "h": 3,
+        "phase": "p",
+        "stabilization_age": 2
+      },
+      {
+        "core_size": 2,
+        "h": 4,
+        "phase": "p",
+        "stabilization_age": 4
+      },
+      {
+        "core_size": 4,
+        "h": 5,
+        "phase": "p",
+        "stabilization_age": 6
+      },
+      {
+        "core_size": 4,
+        "h": 6,
+        "phase": "p",
+        "stabilization_age": 8
+      },
+      {
+        "core_size": 4,
+        "h": 7,
+        "phase": "p",
+        "stabilization_age": 9
+      },
+      {
+        "core_size": 4,
+        "h": 8,
+        "phase": "p",
+        "stabilization_age": 11
+      },
+      {
+        "core_size": 1,
+        "h": 1,
+        "phase": "u",
+        "stabilization_age": 0
+      },
+      {
+        "core_size": 1,
+        "h": 2,
+        "phase": "u",
+        "stabilization_age": 1
+      },
+      {
+        "core_size": 2,
+        "h": 3,
+        "phase": "u",
+        "stabilization_age": 2
+      },
+      {
+        "core_size": 2,
+        "h": 4,
+        "phase": "u",
+        "stabilization_age": 3
+      },
+      {
+        "core_size": 4,
+        "h": 5,
+        "phase": "u",
+        "stabilization_age": 4
+      },
+      {
+        "core_size": 4,
+        "h": 6,
+        "phase": "u",
+        "stabilization_age": 7
+      },
+      {
+        "core_size": 4,
+        "h": 7,
+        "phase": "u",
+        "stabilization_age": 8
+      },
+      {
+        "core_size": 4,
+        "h": 8,
+        "phase": "u",
+        "stabilization_age": 10
+      }
+    ],
+    "cycle_widths_compared": 16,
+    "first_aged_rejection_h": 3,
+    "first_ordinary_rejection_h": 4,
+    "frontier_levels_compared": 18,
+    "invariance_rows_verified": 18,
+    "marginals_verified": 90,
+    "named_head_rows_compared": 8,
+    "periodic_point_word_certificates_verified": 45,
+    "scanner_word_checks": [
+      {
+        "A_word": "p",
+        "forced_append": null,
+        "h": 1,
+        "input_word": "p",
+        "phase": "p",
+        "terminal_residue": 3,
+        "value": 3
+      },
+      {
+        "A_word": "pt",
+        "forced_append": null,
+        "h": 2,
+        "input_word": "pu",
+        "phase": "p",
+        "terminal_residue": 12,
+        "value": 12
+      },
+      {
+        "A_word": "pu",
+        "forced_append": null,
+        "h": 2,
+        "input_word": "pt",
+        "phase": "p",
+        "terminal_residue": 13,
+        "value": 13
+      },
+      {
+        "A_word": "pup",
+        "forced_append": null,
+        "h": 3,
+        "input_word": "ptp",
+        "phase": "p",
+        "terminal_residue": 2,
+        "value": 50
+      },
+      {
+        "A_word": "ptp",
+        "forced_append": "u",
+        "forced_value": 223,
+        "h": 3,
+        "input_word": "pup",
+        "phase": "p",
+        "terminal_residue": 7,
+        "value": 55
+      },
+      {
+        "A_word": "ptpt",
+        "forced_append": null,
+        "h": 4,
+        "input_word": "pupp",
+        "phase": "p",
+        "terminal_residue": 8,
+        "value": 200
+      },
+      {
+        "A_word": "pupp",
+        "forced_append": null,
+        "h": 4,
+        "input_word": "ptpt",
+        "phase": "p",
+        "terminal_residue": 14,
+        "value": 222
+      },
+      {
+        "A_word": "puppu",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "ptptp",
+        "phase": "p",
+        "terminal_residue": 1,
+        "value": 801
+      },
+      {
+        "A_word": "puppp",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "ptptu",
+        "phase": "p",
+        "terminal_residue": 3,
+        "value": 803
+      },
+      {
+        "A_word": "ptptu",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "puppu",
+        "phase": "p",
+        "terminal_residue": 9,
+        "value": 889
+      },
+      {
+        "A_word": "ptptp",
+        "forced_append": "t",
+        "forced_value": 3559,
+        "h": 5,
+        "input_word": "puppp",
+        "phase": "p",
+        "terminal_residue": 11,
+        "value": 891
+      },
+      {
+        "A_word": "ptptpu",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "pupppt",
+        "phase": "p",
+        "terminal_residue": 5,
+        "value": 3205
+      },
+      {
+        "A_word": "ptptup",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "puppup",
+        "phase": "p",
+        "terminal_residue": 14,
+        "value": 3214
+      },
+      {
+        "A_word": "puppup",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "ptptpu",
+        "phase": "p",
+        "terminal_residue": 6,
+        "value": 3558
+      },
+      {
+        "A_word": "pupppt",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "ptptup",
+        "phase": "p",
+        "terminal_residue": 12,
+        "value": 3564
+      },
+      {
+        "A_word": "puppptp",
+        "forced_append": "u",
+        "forced_value": 51431,
+        "h": 7,
+        "input_word": "ptptupp",
+        "phase": "p",
+        "terminal_residue": 7,
+        "value": 12823
+      },
+      {
+        "A_word": "puppupu",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "ptptpup",
+        "phase": "p",
+        "terminal_residue": 9,
+        "value": 12857
+      },
+      {
+        "A_word": "ptptpup",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "puppptp",
+        "phase": "p",
+        "terminal_residue": 10,
+        "value": 14234
+      },
+      {
+        "A_word": "ptptupp",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "puppupu",
+        "phase": "p",
+        "terminal_residue": 3,
+        "value": 14259
+      },
+      {
+        "A_word": "ptptuppt",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "puppupup",
+        "phase": "p",
+        "terminal_residue": 12,
+        "value": 51292
+      },
+      {
+        "A_word": "ptptpupp",
+        "forced_append": "u",
+        "forced_value": 205171,
+        "h": 8,
+        "input_word": "puppptpu",
+        "phase": "p",
+        "terminal_residue": 7,
+        "value": 51431
+      },
+      {
+        "A_word": "puppptpu",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "ptptuppt",
+        "phase": "p",
+        "terminal_residue": 9,
+        "value": 56937
+      },
+      {
+        "A_word": "puppupup",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "ptptpupp",
+        "phase": "p",
+        "terminal_residue": 14,
+        "value": 57038
+      },
+      {
+        "A_word": "u",
+        "forced_append": null,
+        "h": 1,
+        "input_word": "u",
+        "phase": "u",
+        "terminal_residue": 1,
+        "value": 1
+      },
+      {
+        "A_word": "up",
+        "forced_append": null,
+        "h": 2,
+        "input_word": "up",
+        "phase": "u",
+        "terminal_residue": 6,
+        "value": 6
+      },
+      {
+        "A_word": "upu",
+        "forced_append": null,
+        "h": 3,
+        "input_word": "upp",
+        "phase": "u",
+        "terminal_residue": 9,
+        "value": 25
+      },
+      {
+        "A_word": "upp",
+        "forced_append": "t",
+        "forced_value": 111,
+        "h": 3,
+        "input_word": "upu",
+        "phase": "u",
+        "terminal_residue": 11,
+        "value": 27
+      },
+      {
+        "A_word": "uppt",
+        "forced_append": null,
+        "h": 4,
+        "input_word": "upup",
+        "phase": "u",
+        "terminal_residue": 4,
+        "value": 100
+      },
+      {
+        "A_word": "upup",
+        "forced_append": null,
+        "h": 4,
+        "input_word": "uppt",
+        "phase": "u",
+        "terminal_residue": 15,
+        "value": 111
+      },
+      {
+        "A_word": "upupt",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "upptu",
+        "phase": "u",
+        "terminal_residue": 0,
+        "value": 400
+      },
+      {
+        "A_word": "upupu",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "upptt",
+        "phase": "u",
+        "terminal_residue": 1,
+        "value": 401
+      },
+      {
+        "A_word": "upptt",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "upupt",
+        "phase": "u",
+        "terminal_residue": 12,
+        "value": 444
+      },
+      {
+        "A_word": "upptu",
+        "forced_append": null,
+        "h": 5,
+        "input_word": "upupu",
+        "phase": "u",
+        "terminal_residue": 13,
+        "value": 445
+      },
+      {
+        "A_word": "upptup",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "upupup",
+        "phase": "u",
+        "terminal_residue": 2,
+        "value": 1602
+      },
+      {
+        "A_word": "uppttp",
+        "forced_append": "u",
+        "forced_value": 6411,
+        "h": 6,
+        "input_word": "upuptp",
+        "phase": "u",
+        "terminal_residue": 7,
+        "value": 1607
+      },
+      {
+        "A_word": "upuptp",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "upptup",
+        "phase": "u",
+        "terminal_residue": 3,
+        "value": 1779
+      },
+      {
+        "A_word": "upupup",
+        "forced_append": null,
+        "h": 6,
+        "input_word": "uppttp",
+        "phase": "u",
+        "terminal_residue": 6,
+        "value": 1782
+      },
+      {
+        "A_word": "upupupp",
+        "forced_append": "t",
+        "forced_value": 25715,
+        "h": 7,
+        "input_word": "uppttpu",
+        "phase": "u",
+        "terminal_residue": 11,
+        "value": 6411
+      },
+      {
+        "A_word": "upuptpt",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "upptupu",
+        "phase": "u",
+        "terminal_residue": 12,
+        "value": 6428
+      },
+      {
+        "A_word": "upptupu",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "upupupp",
+        "phase": "u",
+        "terminal_residue": 13,
+        "value": 7117
+      },
+      {
+        "A_word": "uppttpu",
+        "forced_append": null,
+        "h": 7,
+        "input_word": "upuptpt",
+        "phase": "u",
+        "terminal_residue": 9,
+        "value": 7129
+      },
+      {
+        "A_word": "uppttpup",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "upuptptp",
+        "phase": "u",
+        "terminal_residue": 14,
+        "value": 25646
+      },
+      {
+        "A_word": "upptupup",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "upupuppt",
+        "phase": "u",
+        "terminal_residue": 3,
+        "value": 25715
+      },
+      {
+        "A_word": "upupuppt",
+        "forced_append": null,
+        "h": 8,
+        "input_word": "uppttpup",
+        "phase": "u",
+        "terminal_residue": 4,
+        "value": 28468
+      },
+      {
+        "A_word": "upuptptp",
+        "forced_append": "u",
+        "forced_value": 113875,
+        "h": 8,
+        "input_word": "upptupup",
+        "phase": "u",
+        "terminal_residue": 7,
+        "value": 28519
+      }
+    ],
+    "single_cycle_finite_scope": "Exactly one cycle at each width1..16; no assertion at other widths.",
+    "strong_covariance_cases_agree": 234,
+    "valid_forced_scanner_appends": 8,
+    "validation_failures": [],
+    "weaker_covariance_cases_agree": 234
+  },
+  "runtime_seconds": 0.05862422299105674,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_text": "\"\"\"Portable comparison of the two head-dynamics certificates and scanner checks.\"\"\"\nimport hashlib,json,os,platform,resource,subprocess,tempfile,time\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve()\nOUT=Path(os.environ.get('RULE30_REPLAY_OUTPUT',ROOT/'results/problem1/20260905_frontier_head_verification.json'))\nPATHS=['results/problem1/20260905_frontier_head_primary.json','results/problem1/20260905_frontier_head_independent.json','results/problem1/20260905_periodic_rational_verification.json']\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef pretty(x):return (json.dumps(x,sort_keys=True,indent=2)+'\\n').encode()\ndef T(v):return v^((v<<1)|(v<<2))\ndef G(g,v):return T(v) if g=='t' else T(v)^1 if g=='u' else T(v)^1^(2 if v%2==0 else 0)\ndef A(v):\n    bs=[int(c) for c in bin(v)[2:]] if v else []\n    out=[(bs[n-2] if n>=2 else 0)^((bs[n-1] if n else 0)|b) for n,b in enumerate(bs)]\n    return sum(b<<(len(out)-1-n) for n,b in enumerate(out))\ndef evaluate(word):\n    v=0\n    for g in word:v=G(g,v)\n    return v\ndef main():\n    start=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30))\n    p,i,old=[json.loads((ROOT/s).read_text()) for s in PATHS]\n    for r in (p,i,old):\n        assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\n        assert sha(canon(r['result_summary']))==r['result_hashes']['result_sha256']\n        compile(r['source_text'],'embedded-source','exec')\n    ps=p['result_summary'];s=i['result_summary'];h=ps['head_data'];o=ps['orbit_data']\n    assert ps['completed'] and s['completed'] and not ps['validation_failures'] and not s['validation_failures']\n    for key,raw in (('head',h),('orbit',o)):\n        r=p['original_run_records'][key];c=dict(r);digest=c.pop('payload_sha256_excluding_this_field')\n        assert sha(canon(c))==digest\n        assert sha(canon(r['result_summary']))==r['result_hashes']['normalized_summary_sha256']\n        assert sha(pretty(raw))==r['result_hashes']['raw_data_sha256']\n        src=r['executed_source_utf8'];compile(src,'original-'+key,'exec')\n        assert sha(src.encode())==r['result_hashes'].get('source_sha256',r['result_hashes'].get('executed_source_sha256'))\n    sr=p['original_run_records']['orbit'];hr=p['original_run_records']['head']\n    assert sha(pretty(h))==sr['inputs']['operative_existing_cycles']['sha256']\n    assert sha(canon(h['cycle_levels']))==sr['inputs']['operative_existing_cycles']['selected_cycle_levels_sha256']\n    assert sha((ROOT/PATHS[2]).read_bytes())==hr['inputs']['operative_named_state']['sha256']==sr['inputs']['operative_orbit']['sha256']==i['inputs'][PATHS[2]]\n    assert sha(canon(old['result_summary']['full_orbit_hex']))==sr['inputs']['operative_orbit']['selected_array_sha256']\n    assert p['additional_sources']['orbit']['source_text']==sr['executed_source_utf8']\n    assert sha(sr['executed_source_utf8'].encode())==p['additional_sources']['orbit']['source_sha256']\n    assert h['frontiers']==s['frontier_levels']\n    assert len(h['cycle_levels'])==len(s['cycle_rows'])==16\n    for a,b in zip(h['cycle_levels'],s['cycle_rows']):\n        assert a['width']==b['width'] and a['cycles']==b['cycles']\n    assert s['first_split'] is None and ps['head_checks']['first_split'] is None\n    for r in h['marginals']:\n        phase,k,depth=r['phase'],r['k'],r['h']\n        vals=sorted({v>>(2*(k-depth)) for v in s['frontier_levels'][phase][str(k)]})\n        assert sha(canon(vals))==r['lhs_sha256']==r['rhs_sha256']\n        assert r['equal'] and len(vals)==r['lhs_count']==r['rhs_count']\n    assert len(h['marginals'])==s['frontier_head_identity_cases']==90\n    assert len(h['invariant_checks'])==18 and all(r['A_image_subset'] and not r['escaping_states'] for r in h['invariant_checks'])\n    cores=[]\n    for r in s['frontier_core_rows']:\n        c=h['cores'][r['phase']][str(r['h'])]\n        assert c['core']==r['core'] and c['cycle_decomposition']==r['core_cycles']\n        assert c['first_stabilization_time']==r['stabilization_age']\n        im=set(r['initial_frontier']);counts=[len(im)]\n        for removed in c['removed_at_each_image_step']:\n            new={A(v) for v in im};assert sorted(im-new)==removed\n            im=new;counts.append(len(im))\n        assert counts==r['image_counts'] and im==set(c['core'])=={A(v) for v in im}\n        assert c['full_width_cycle_comparison']=='equal' and r['equals_full_width_cycles']\n        cores.append({'phase':r['phase'],'h':r['h'],'core_size':len(im),'stabilization_age':r['stabilization_age']})\n    for a,b in zip(h['named_head_checks'],s['counterexample_prefix_checks']):\n        assert (a['h'],a['head'],a['age'],a['in_ordinary_O_p_h'],a['in_exact_age_image'])==(b['h'],b['head'],b['age'],b['ordinary_member'],b['aged_member'])\n    assert s['first_aged_rejection_h']==ps['head_checks']['earliest_strict_age_rejection']['h']==3\n    for a,b,c in zip(o['identity_checks'],s['covariance_checks'],old['result_summary']['full_orbit_hex']):\n        assert a['r']==b['r'] and a['stored_orbit_state_hex']==c\n        assert a['equal'] and a['strong_equal']\n        assert a['left_hex']==a['right_hex']==b['common_high_part_hex']\n        assert a['strong_left_hex']==a['strong_right_hex']==b['full_original_width_high_part_hex']\n    assert len(o['identity_checks'])==len(s['covariance_checks'])==234\n    certs=s['periodic_point_generator_certificates'];scanner=[];forced=0\n    assert {(c['phase'],c['h'],c['value']) for c in certs}=={(r['phase'],r['h'],v) for r in s['frontier_core_rows'] for v in r['core']}\n    for c in certs:\n        word=c['generator_word'];v=c['value'];phase=c['phase']\n        assert len(word)==c['h'] and word[0]==phase and evaluate(word)==v\n        residue=3 if phase=='p' else 1;out=phase\n        for g in word[1:]:\n            residue=G(g,residue)&15\n            d=residue&3;out+='t' if d==0 else 'u' if d==1 else 'p'\n        assert residue==v&15 and evaluate(out)==A(v)\n        q='u' if residue==7 else 't' if residue==11 else None\n        row={'phase':phase,'h':c['h'],'value':v,'input_word':word,'A_word':out,'terminal_residue':residue,'forced_append':q}\n        if q:\n            f=evaluate(out+q);assert f==4*A(A(v))+3\n            row['forced_value']=f;forced+=1\n        scanner.append(row)\n    summary={'completed':True,'validation_failures':[],'all_frontier_sets_agree':True,'frontier_levels_compared':18,'cycle_widths_compared':16,'all_cycle_lists_agree':True,'marginals_verified':90,'invariance_rows_verified':18,'cores_compared':cores,'named_head_rows_compared':8,'first_aged_rejection_h':3,'first_ordinary_rejection_h':s['first_ordinary_rejection_h'],'strong_covariance_cases_agree':234,'weaker_covariance_cases_agree':234,'periodic_point_word_certificates_verified':len(certs),'scanner_word_checks':scanner,'valid_forced_scanner_appends':forced,'single_cycle_finite_scope':'Exactly one cycle at each width1..16; no assertion at other widths.'}\n    source=Path(__file__).read_text()\n    result={'experiment_id':'problem1-frontier-head-age-verification-20260905','timestamp_utc':datetime.now(timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'Both independent constructions agree on all recorded head/cycle/core data and the existing orbit; the same 45 periodic-point histories satisfy the exact scanner update.','backend':'Portable read-only certificate comparison plus high-to-low A and generator-history replay','parameters':{'input_paths':PATHS,'local_cpus':1,'memory_bytes':1<<30,'new_frontier_or_orbit_inputs':0,'scanner_inputs':'Only the 45 already-recorded periodic-point histories'},'inputs':{s:sha((ROOT/s).read_bytes()) for s in PATHS},'hardware':{'machine':platform.machine(),'processor':platform.processor(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':platform.python_version(),'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'source_text':source,'result_summary':summary,'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(canon(summary))},'status':'finite-exhaustive','proof_scope':'The explicitly listed finite records and histories; all-depth claims use the separate proofs.','interpretation':'The exact core theorem does not depend on a universal unique-cycle conjecture. The scanner retains an unbounded word. B_all remains open.','limitations':['No new occurrence or forced-schedule census.','No all-width uniqueness claim from finite passage.','Documentation hashes in original runs are run-time snapshots, not current-byte equality assertions.']}\n    fd,tmp=tempfile.mkstemp(dir=OUT.parent,prefix=OUT.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(result,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,OUT)\n    print(json.dumps({k:v for k,v in summary.items() if k!='scanner_word_checks'},sort_keys=True))\nif __name__=='__main__':main()\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T20:02:03.741688+00:00"
+}

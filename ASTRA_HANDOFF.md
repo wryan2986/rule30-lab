@@ -11,6 +11,59 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest exact frontier-head and periodic-core theorems: read
+`proofs/informal/problem1_frontier_head_dynamics.md` first.
+
+- With A(v)=T(v)>>2=(v>>2) XOR((v>>1) OR v), the exact leading-block
+  marginal is pi^(k-h)(O_(a,k))=A^(k-h)(O_(a,h)). These sets shrink with
+  the remaining generation count. This is an all-depth refinement of plain
+  projected-prefix membership, not a sufficient test on prescribed lower bits.
+- The stabilized head set is the ENTIRE periodic-point set of A at the
+  corresponding phase bit length. Every such periodic point has an ordinary
+  generator history: take a predecessor on its A-cycle, project two bits,
+  induct to the root, and recover the last generator from the discarded digit.
+  This theorem permits multiple cycles and requires no uniqueness conjecture.
+- Binary cycle lifting has reset, flip and splitting cases. All cycle
+  periods are powers of two; positive width w has transient at most
+  2^(w-1)-1 and A_w^(2^w-1)=A_w^(2^(w-1)-1). These are all-depth
+  statements (`partial-proof`), not extrapolations from the small catalogue.
+- On a permitted forced step, F(x)=4A^2(x)+3. Consequently
+  pi^r(F^r(x))=A^(2r)(x) for every defined orbit segment. Evaluating the
+  total expression outside residues7/11 does not supply a valid continuation.
+- Exact forward-history update: retain the root, scan the old generator
+  word using its prefix modulo4, emit S_(new residue) with S0=T,S1=U,
+  S2=S3=P, then append the actual forced Q. Tracking prefix modulo16
+  also decides the gate: terminal7->U,11->T, otherwise stop. The word
+  grows; this is not a finite-state endpoint quotient or an endpoint count.
+- Finite checks: widths1..16 each have one cycle, periods1 on1..3,
+  2 on4..8,4 on9..16. Uniqueness beyond16 remains conjectural and is
+  unnecessary for the core theorem. Both implementations agree on all18
+  frontier sets throughk9,90 marginals,16 cores throughh8, and234 strong
+  and weak stored-orbit identities. All45 periodic-point generator histories
+  and their scanner updates pass, including8 valid forced appends.
+- The old456-bit counterexample is excluded already by its aged level3
+  head:52 is absent from A^225(O_(p,3))={50,55}. Plain membership first
+  rejected level4. No new integer or occurrence census was run. Muse
+  independently derived/reviewed the all-depth results; fresh review accepted
+  the core induction and exact history/gate distinction.
+  Final review also approved the complete finite coverage and provenance
+  integration, with no remaining corrections.
+  Records: `results/problem1/20260905_frontier_head_`
+  followed by `{primary,independent,verification}.json`.
+
+Next targeted use: restrict dominant-shadow seeds y>>2L, with residual
+complexity s=k-1-L, to the age-dependent image A^L(O_(a,s)); compare
+the highest-position fiber masks at s=1,2. This could sharpen the empty-belief
+boundary, but no such sharpening is claimed in this checkpoint. Use the
+existing small cores before any new census or long proof phase.
+The longer target is a return-conditioned potential or forbidden pattern
+for the exact growing history scanner plus forced append, excluding cuts
+c>=k-2 with k the INITIAL word complexity. Simply propagating the head
+membership condition is automatic under A and supplies no new exclusion.
+Do not enlarge the cycle catalogue or assume a unique attractor. B_all,
+adjacent inclusion, signed nonvanishing and eventual center periods>=3
+remain open; the discarded digits and return language still need coupling.
+
 Newest all-depth theorem and boundary obstruction: read
 `proofs/informal/problem1_periodic_schedule_rationality.md` first.
 
