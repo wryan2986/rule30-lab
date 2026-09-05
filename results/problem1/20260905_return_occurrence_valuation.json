@@ -1,0 +1,356 @@
+{
+  "backend": "python-direct-and-recursive",
+  "experiment_id": "occurrence-valuation-only",
+  "git_commit": "53c9d9653fa5959ef21d571c8146022a5a4793f2",
+  "hardware": {
+    "arch": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz"
+  },
+  "hypothesis": "Every actual phase-u gap-222 occurrence cylinder through k<=18 satisfies v2(N)!=v2(2O).",
+  "interpretation": "Occurrence-only gate result; ancestor induction is a separate conjecture.",
+  "limitations": [
+    "finite historical box; no all-depth nonvanishing or periodicity theorem",
+    "v2(0) infinite per convention"
+  ],
+  "parameters": {
+    "box": "phase-u gap222 k<=18 actual cylinders",
+    "memory_budget_bytes": 1073741824,
+    "stop": "first failure incl N=0",
+    "time_budget_seconds": 120.0
+  },
+  "proof_scope": "26-occurrence domain constructed; first 13 actual cylinders tested before failure; three named ancestry nodes verified separately.",
+  "question": "problem1",
+  "result": {
+    "chain": [
+      {
+        "E": 52,
+        "L": 3,
+        "N": 88,
+        "O": 36,
+        "S": 16,
+        "gate_pass": false,
+        "k": 16,
+        "valuations": [
+          3,
+          3
+        ],
+        "x_hex": "0x6473d46a"
+      },
+      {
+        "E": 25,
+        "L": 4,
+        "N": 35,
+        "O": 10,
+        "S": 15,
+        "gate_pass": true,
+        "k": 17,
+        "valuations": [
+          0,
+          2
+        ],
+        "x_hex": "0x191cf51aa"
+      },
+      {
+        "E": 11,
+        "L": 5,
+        "N": 20,
+        "O": 9,
+        "S": 2,
+        "gate_pass": true,
+        "k": 18,
+        "valuations": [
+          2,
+          1
+        ],
+        "x_hex": "0x6473d46ab"
+      }
+    ],
+    "excluded_depth_ge_k": 0,
+    "first_failure": {
+      "E": 525,
+      "O": 421,
+      "complexity": 17,
+      "cut": 1,
+      "defect_histogram": {
+        "0": 525,
+        "1": 421
+      },
+      "depth": 2,
+      "endpoints": 946,
+      "final_u_observed": false,
+      "forced_word": "tututut",
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "gate_pass": false,
+      "generator_witness": "uuptutuuuuutuputp",
+      "recursive_checked": true,
+      "signed_mass": 104,
+      "state_hex": "0x190b9fdfb",
+      "valuations": [
+        1,
+        1
+      ],
+      "word_E_plus_u": "tutututu"
+    },
+    "occurrence_domain_complete": true,
+    "occurrences": 26,
+    "order": [
+      "k",
+      "L",
+      "x",
+      "cut"
+    ],
+    "rows": [
+      {
+        "E": 84,
+        "O": 50,
+        "complexity": 14,
+        "cut": 1,
+        "depth": 2,
+        "endpoints": 134,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 34,
+        "state_hex": "0x642fdfb",
+        "valuations": [
+          1,
+          2
+        ]
+      },
+      {
+        "E": 901,
+        "O": 322,
+        "complexity": 15,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 1223,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 579,
+        "state_hex": "0x191cc387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 901,
+        "O": 322,
+        "complexity": 15,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 1223,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 579,
+        "state_hex": "0x1bd90387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 30,
+        "O": 24,
+        "complexity": 15,
+        "cut": 2,
+        "depth": 3,
+        "endpoints": 54,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 6,
+        "state_hex": "0x1bd9c36b",
+        "valuations": [
+          1,
+          4
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 598,
+        "complexity": 16,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 2248,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1052,
+        "state_hex": "0x642e4387",
+        "valuations": [
+          3,
+          2
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x642fc387",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 598,
+        "complexity": 16,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 2248,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1052,
+        "state_hex": "0x6f65c387",
+        "valuations": [
+          3,
+          2
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x6f670387",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 288,
+        "O": 161,
+        "complexity": 16,
+        "cut": 1,
+        "depth": 2,
+        "endpoints": 449,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 127,
+        "state_hex": "0x6f34fdfb",
+        "valuations": [
+          0,
+          1
+        ]
+      },
+      {
+        "E": 103,
+        "O": 82,
+        "complexity": 16,
+        "cut": 2,
+        "depth": 3,
+        "endpoints": 185,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 21,
+        "state_hex": "0x6f65c387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 3039,
+        "O": 1678,
+        "complexity": 17,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 4717,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1361,
+        "state_hex": "0x190bd8387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 3039,
+        "O": 1062,
+        "complexity": 17,
+        "cut": 0,
+        "depth": 1,
+        "endpoints": 4101,
+        "gate_pass": true,
+        "recursive_checked": true,
+        "signed_mass": 1977,
+        "state_hex": "0x1bd9c4387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 525,
+        "O": 421,
+        "complexity": 17,
+        "cut": 1,
+        "depth": 2,
+        "endpoints": 946,
+        "gate_pass": false,
+        "recursive_checked": true,
+        "signed_mass": 104,
+        "state_hex": "0x190b9fdfb",
+        "valuations": [
+          1,
+          1
+        ]
+      }
+    ],
+    "stopped_early": true,
+    "tested": 13,
+    "transitions": [
+      {
+        "current_mask": "1111",
+        "digit": 2,
+        "from": "0x6473d46a",
+        "to": "0x191cf51aa"
+      },
+      {
+        "current_mask": "1011",
+        "digit": 3,
+        "from": "0x191cf51aa",
+        "to": "0x6473d46ab"
+      }
+    ],
+    "truncated_schedules": 0,
+    "valuation_search_exhausted": false
+  },
+  "result_hashes": {
+    "certificate_sha256": "6ae9f9ee2faebbea5c2a798ead56dc8f4b66926d7664f225514f5371bb1611c0",
+    "experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "scripts/check_return_ancestor_valuation.py": "bfbb4d44f33dba1d2fd741886d136eaf77c3b86dfa18b294793b40a9ab5debcd",
+    "source_sha256": "fab9b86cc636eb00ef847bccf5feebecd66ac51e3e4411856f8541a2fbca41bc"
+  },
+  "result_summary": {
+    "chain_all_gates_pass": false,
+    "chain_verified": true,
+    "failure_found": true,
+    "tested": 13
+  },
+  "runtime_seconds": 0.4852124289609492,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source": "#!/usr/bin/env python3\n\"\"\"Occurrence-only valuation gate + known 3-node chain (/tmp only, no repo edits).\"\"\"\nimport hashlib, json, os, platform, resource, subprocess, sys, tempfile, time\nfrom datetime import datetime, timezone\nsys.path.insert(0, \"/home/ryan/rule30-lab/scripts\")\nimport check_return_ancestor_valuation as M\nimport importlib.util as _ilu\nLIFT_PATH = \"/home/ryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py\"\ndef _load_mod(name, path):\n    spec = _ilu.spec_from_file_location(name, path)\n    mod = _ilu.module_from_spec(spec)\n    spec.loader.exec_module(mod)\n    return mod\ndef _sha(path):\n    h = hashlib.sha256()\n    with open(path, \"rb\") as fh:\n        for ch in iter(lambda: fh.read(65536), b\"\"):\n            h.update(ch)\n    return h.hexdigest()\nOUT = \"/tmp/occurrence_valuation_only.json\"\nTIME_BUDGET = 120.0\ndef v2(x):\n    return None if x == 0 else (x & -x).bit_length() - 1\ndef gate(N, O):\n    a, b = v2(N), v2(2 * O)\n    if a is None or b is None:\n        return (a is None) != (b is None)\n    return a != b\ndef main():\n    t0 = time.monotonic()\n    try:\n        resource.setrlimit(resource.RLIMIT_AS, (1 << 30, resource.getrlimit(resource.RLIMIT_AS)[1]))\n    except Exception:\n        pass\n    assert M.gate_arith_selftest() == 7\n    levels = M.build_levels(18, M.frontier_children_primary)\n    oc = M.build_levels(8, M.oracle_frontier_children)\n    for k in range(1, 9):\n        assert oc[k] == levels[k]\n    occ, truncated, excluded = M.gap222_occurrences(levels, 18, 64, t0, True)\n    assert len(occ) == 26, len(occ)\n    seen = {}\n    for (k, x, cut, L, sched) in occ:\n        key = (k, L, x, cut)\n        assert key not in seen\n        seen[key] = (k, x, cut, L, sched)\n    rows = []\n    failure = None\n    for key in sorted(seen):\n        if time.monotonic() - t0 > TIME_BUDGET:\n            raise RuntimeError(\"time budget exceeded\")\n        k, L, x, cut = key\n        _, _, _, _, sched = seen[key]\n        rec = M.node_record(levels, k, x, L)\n        row = {\"complexity\": k, \"depth\": L, \"state_hex\": hex(x), \"cut\": cut,\n         \"endpoints\": rec[\"endpoints\"], \"E\": rec[\"E\"], \"O\": rec[\"O\"],\n         \"signed_mass\": rec[\"signed_mass\"], \"valuations\": rec[\"valuations\"],\n         \"gate_pass\": rec[\"gate_pass\"], \"recursive_checked\": rec[\"recursive_checked\"]}\n        rows.append(row)\n        if not rec[\"gate_pass\"]:\n            failure = dict(row)\n            failure[\"forced_word\"] = sched\n            failure[\"word_E_plus_u\"] = sched[:cut] + \"utututu\"\n            failure[\"defect_histogram\"] = rec[\"defect_histogram\"]\n            failure[\"gaps\"] = [2, 2, 2]\n            lift = M.load_lift_module()\n            witness = lift.frontier_witness(\"u\", k, x)\n            assert witness is not None and lift.apply_word(witness) == x\n            failure[\"generator_witness\"] = witness\n            failure[\"final_u_observed\"] = sched.startswith(sched[:cut] + \"utututu\")\n            assert sched[cut:].startswith(\"ututut\") and M.admissible(failure[\"word_E_plus_u\"])\n            break\n    chain = []\n    for (k, x, L, exp) in ((16, 0x6473d46a, 3, (52, 36, 88, 16)),\n                           (17, 0x191cf51aa, 4, (25, 10, 35, 15)),\n                           (18, 0x6473d46ab, 5, (11, 9, 20, 2))):\n        assert x in levels[k], hex(x)\n        bel = M.belief_direct(levels, k, x, L)\n        assert bel == M.belief_recursive(levels, k, x, L)\n        E = sum(1 for c in bel.values() if c % 2 == 0)\n        O = sum(1 for c in bel.values() if c % 2 == 1)\n        assert (E, O, E + O, E - O) == exp, (hex(x), E, O)\n        chain.append({\"k\": k, \"x_hex\": hex(x), \"L\": L, \"E\": E, \"O\": O,\n         \"N\": E + O, \"S\": E - O, \"valuations\": [v2(E + O), v2(2 * O)],\n         \"gate_pass\": gate(E + O, O)})\n    assert 4 * 0x6473d46a + 2 == 0x191cf51aa\n    assert 4 * 0x191cf51aa + 3 == 0x6473d46ab\n    m1 = M.fiber_mask(levels, 16, 0x6473d46a)\n    assert m1 == 15\n    m2 = M.fiber_mask(levels, 17, 0x191cf51aa)\n    assert m2 == 11\n    assert (m1 >> 2) & 1 and (m2 >> 3) & 1\n    trans = [{\"from\": \"0x6473d46a\", \"to\": \"0x191cf51aa\", \"digit\": 2,\n      \"current_mask\": format(m1, \"04b\")},\n     {\"from\": \"0x191cf51aa\", \"to\": \"0x6473d46ab\", \"digit\": 3,\n      \"current_mask\": format(m2, \"04b\")}]\n    assert m1 == 15 and m2 == 11\n    for first, second, tr in zip(chain, chain[1:], trans):\n        assert second[\"k\"] == first[\"k\"] + 1 and second[\"L\"] == first[\"L\"] + 1\n        assert int(second[\"x_hex\"],16) == 4*int(first[\"x_hex\"],16) + tr[\"digit\"]\n        parent_counts = M.node_record(levels, first[\"k\"], int(first[\"x_hex\"],16), first[\"L\"])\n        mask = int(tr[\"current_mask\"],2)\n        ep, op = parent_counts[\"outgoing_E\"], parent_counts[\"outgoing_O\"]\n        proper = [j for j,n in enumerate(M.ALLOWED_MASKS) if n!=15 and not mask & ~n]\n        assert (ep[-1]+sum(op[j] for j in proper), op[-1]+sum(ep[j] for j in proper)) == (second[\"E\"],second[\"O\"])\n    result = {\"occurrences\": 26, \"tested\": len(rows),\n     \"truncated_schedules\": truncated, \"excluded_depth_ge_k\": excluded,\n     \"rows\": rows, \"first_failure\": failure,\n     \"chain\": chain, \"transitions\": trans,\n     \"stopped_early\": failure is not None,\n     \"occurrence_domain_complete\": not truncated,\n     \"valuation_search_exhausted\": not truncated and len(rows)==len(occ),\n     \"order\": [\"k\", \"L\", \"x\", \"cut\"]}\n    runtime = time.monotonic() - t0\n    try:\n        commit = subprocess.run([\"git\", \"-C\", \"/home/ryan/rule30-lab\", \"rev-parse\", \"HEAD\"], capture_output=True, text=True, timeout=30).stdout.strip()\n    except Exception:\n        commit = \"unavailable\"\n    model = None\n    try:\n        with open(\"/proc/cpuinfo\") as fh:\n            for line in fh:\n                if line.startswith(\"model name\"):\n                    model = line.split(\":\", 1)[1].strip()\n                    break\n    except OSError:\n        pass\n    src = open(\"/tmp/occ_valuation.py\").read()\n    payload = {\"experiment_id\": \"occurrence-valuation-only\",\n     \"timestamp_utc\": datetime.now(timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%SZ\"),\n     \"git_commit\": commit, \"question\": \"problem1\",\n     \"hypothesis\": \"Every actual phase-u gap-222 occurrence cylinder through k<=18 satisfies v2(N)!=v2(2O).\",\n     \"backend\": \"python-direct-and-recursive\",\n     \"parameters\": {\"box\": \"phase-u gap222 k<=18 actual cylinders\", \"stop\": \"first failure incl N=0\",\n      \"time_budget_seconds\": 120.0, \"memory_budget_bytes\": 1073741824},\n     \"hardware\": {\"cpu_model\": model, \"cpu_count\": os.cpu_count(), \"arch\": platform.machine()},\n     \"software\": {\"python\": platform.python_version(), \"os\": platform.platform()},\n     \"runtime_seconds\": runtime, \"result\": result,\n     \"result_summary\": {\"tested\": len(rows), \"failure_found\": failure is not None,\n      \"chain_verified\": True, \"chain_all_gates_pass\": all(n[\"gate_pass\"] for n in chain)},\n     \"result_hashes\": {\"certificate_sha256\": hashlib.sha256(json.dumps(result, sort_keys=True).encode()).hexdigest(),\n      \"source_sha256\": hashlib.sha256(src.encode()).hexdigest(),\n      \"scripts/check_return_ancestor_valuation.py\": M.sha256_file(M.__file__),\n      M.LIFT_MODULE_RELATIVE: M.sha256_file(M.ROOT / M.LIFT_MODULE_RELATIVE)},\n     \"status\": \"refuted\" if failure else \"inconclusive\" if truncated else \"finite-exhaustive\",\n     \"interpretation\": \"Occurrence-only gate result; ancestor induction is a separate conjecture.\",\n     \"proof_scope\": \"26-occurrence domain constructed; first 13 actual cylinders tested before failure; three named ancestry nodes verified separately.\",\n     \"limitations\": [\"finite historical box; no all-depth nonvanishing or periodicity theorem\", \"v2(0) infinite per convention\"],\n     \"source\": src}\n    data = json.dumps(payload, indent=2, sort_keys=True).encode()\n    with tempfile.NamedTemporaryFile(dir=\"/tmp\", delete=False) as fh:\n        fh.write(data)\n        fh.flush()\n        os.fsync(fh.fileno())\n        tmp = fh.name\n    import os as _os\n    _os.replace(tmp, OUT)\n    print(json.dumps({\"status\": payload[\"status\"], \"tested\": len(rows),\n     \"failure\": failure[\"state_hex\"] if failure else None,\n     \"chain\": [(n[\"x_hex\"], n[\"E\"], n[\"O\"], n[\"gate_pass\"]) for n in chain],\n     \"masks\": [t[\"current_mask\"] for t in trans]}, indent=1))\nmain()\n",
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T14:09:07Z"
+}

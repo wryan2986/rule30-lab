@@ -1,0 +1,85 @@
+{
+  "backend": "python-exact-integers-direct-and-recursive",
+  "experiment_id": "20260905_restricted_gate_counterexample",
+  "git_commit": "53c9d9653fa5959ef21d571c8146022a5a4793f2",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_kib": 25628
+  },
+  "hypothesis": "The named true ancestor violates the unequal-valuation gate while keeping nonzero mass.",
+  "interpretation": "Restricted valuation gate refuted on a true ancestor; signed nonvanishing untouched (S=16).",
+  "limitations": [
+    "Single case; no all-depth claim."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "generator_cases": 999,
+    "max_frontier": 16,
+    "node": [
+      "u",
+      16,
+      "0x6473d46a",
+      3
+    ],
+    "schedule_cap": 64,
+    "wall_limit_seconds": 120,
+    "witness": [
+      "u",
+      18,
+      "0x6473d46ab",
+      5
+    ]
+  },
+  "proof_scope": "One named belief by two implementations plus witness replay and strip check.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "341d519d61a752faef5fe6ac57c28039dba7823a205249509aa980bade346fce",
+    "source_sha256": "a7c726c2985011848a64d9ce83c1b57a0cc20d64f40ebb242ae9c8927564d940"
+  },
+  "result_summary": {
+    "E": 52,
+    "L_diff": 2,
+    "N": 88,
+    "O": 36,
+    "S": 16,
+    "ancestor": [
+      "u",
+      16,
+      "0x6473d46a",
+      3
+    ],
+    "belief_size": 88,
+    "gate_holds": false,
+    "hist": {
+      "0": 46,
+      "1": 36,
+      "2": 6
+    },
+    "k_diff": 2,
+    "strip_bits": 4,
+    "v2_2O": 3,
+    "v2_N": 3,
+    "witness": [
+      "u",
+      18,
+      "0x6473d46ab",
+      5,
+      4,
+      [
+        2,
+        2,
+        2
+      ]
+    ]
+  },
+  "runtime_seconds": 0.046678354032337666,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import json, os, sys, time, tempfile, hashlib, platform, resource, subprocess, datetime, importlib.util\nt0 = time.monotonic(); ROOT = '/home/ryan/rule30-lab'\nresource.setrlimit(resource.RLIMIT_AS, (1073741824, 1073741824))\nsp = importlib.util.spec_from_file_location('oracle', ROOT + '/scripts/check_three_return_signed_mass_independent.py')\noracle = importlib.util.module_from_spec(sp); sys.modules['oracle'] = oracle; sp.loader.exec_module(oracle)\nassert oracle.gen_t(1) == 7 and oracle.gen_u(1) == 6\nfor x in range(1, 1000): assert oracle.gen_t(x) == oracle.gen_t_bitwise(x)\ndef play(word):\n    assert word[0] == 'u'; s = 1\n    for ch in word[1:]:\n        old = s; t = oracle.gen_t_bitwise(old)\n        if ch == 't': s = t\n        elif ch == 'u': s = t ^ 1\n        else: s = t ^ 1 ^ (0 if old & 1 else 2)\n    return s\nw = 'uutuuttuupupuuupup'; z = play(w)\nassert z == 0x6473d46ab and len(w) == 18 and z.bit_length() == 35\ns = oracle.forced_zero_schedule(z)\nassert s == 'ttttutututu' and s[4:10] == 'ututut' and oracle.admissible(s[:4] + 'utututu')\nx = z >> 4\nassert x == 0x6473d46a and z == 4*4*x + (z - 16*x)\nassert z - 16*x == 0xb\nlevels = oracle.build_frontiers('u', 16)\nassert x in levels[16]\nbd = oracle.belief_direct(levels, 16, x, 3, [])\nassert bd == oracle.belief_recursive(levels, 16, x, 3, [])\nfrom collections import Counter\nhist = dict(Counter(bd.values()))\nassert hist == {0: 46, 1: 36, 2: 6}, hist\nE = hist.get(0, 0) + hist.get(2, 0); O = hist.get(1, 0) + hist.get(3, 0)\nN = E + O; S = E - O\nassert (E, O, N, S) == (52, 36, 88, 16)\nimport math\nv2 = lambda v: (v & -v).bit_length() - 1 if v > 0 else 99\nassert v2(N) == 3 and v2(2*O) == 3 and v2(S) == 4\nassert v2(E) == 2 and v2(O) == 2 and (13 + 9) % 4 == 2\ncpu = next((l.split(':',1)[1].strip() for l in open('/proc/cpuinfo').read().splitlines() if l.startswith('model name')), 'unknown')\nsrc = open(__file__).read()\nsummary = {'ancestor': ['u', 16, hex(x), 3], 'E': E, 'O': O, 'N': N, 'S': S, 'hist': hist,\n 'v2_N': 3, 'v2_2O': 3, 'gate_holds': False, 'witness': ['u', 18, hex(z), 5, 4, [2, 2, 2]],\n 'strip_bits': 4, 'k_diff': 2, 'L_diff': 2, 'belief_size': len(bd)}\nrec = {'experiment_id': '20260905_restricted_gate_counterexample', 'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit': subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),\n 'question': 'problem1', 'hypothesis': 'The named true ancestor violates the unequal-valuation gate while keeping nonzero mass.',\n 'backend': 'python-exact-integers-direct-and-recursive', 'parameters': {'node': ['u', 16, '0x6473d46a', 3], 'witness': ['u', 18, '0x6473d46ab', 5], 'max_frontier': 16, 'generator_cases': 999, 'schedule_cap': 64, 'wall_limit_seconds': 120, 'address_space_bytes': 1073741824},\n 'hardware': {'cpu_model': cpu, 'machine': platform.machine(), 'cpu_count': os.cpu_count(), 'peak_rss_kib': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},\n 'software': {'python': sys.version, 'platform': platform.platform()}, 'runtime_seconds': time.monotonic()-t0,\n 'result_hashes': {'source_sha256': hashlib.sha256(src.encode()).hexdigest(), 'result_sha256': hashlib.sha256(json.dumps(summary, sort_keys=True, separators=(',', ':')).encode()).hexdigest()},\n 'source_text': src, 'result_summary': summary,\n 'interpretation': 'Restricted valuation gate refuted on a true ancestor; signed nonvanishing untouched (S=16).',\n 'status': 'finite-exhaustive', 'proof_scope': 'One named belief by two implementations plus witness replay and strip check.',\n 'limitations': ['Single case; no all-depth claim.']}\nfd, tmp = tempfile.mkstemp(dir='/tmp', prefix='rec_', suffix='.tmp')\nwith os.fdopen(fd,'w') as f: json.dump(rec, f, sort_keys=True, indent=2); f.write(chr(10)); f.flush(); os.fsync(f.fileno())\nos.replace(tmp, '/tmp/gatefail_check.json')\nprint('gatefail pass: E52 O36 N88 S16 v2 3==3 refuted')\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T13:58:54.853737+00:00"
+}

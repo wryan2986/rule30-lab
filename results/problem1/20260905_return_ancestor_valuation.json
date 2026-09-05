@@ -1,0 +1,862 @@
+{
+  "backend": "python-direct-and-recursive",
+  "enforcement": {
+    "address_space_limit_applied": true,
+    "alarm_seconds": 115,
+    "budget_bytes": 1073741824,
+    "deadline": "SIGALRM at 115s plus cooperative checks plus outer timeout",
+    "soft_bytes": 1073741824
+  },
+  "experiment_id": "return-ancestor-valuation",
+  "git_branch": "research/astra-next",
+  "git_commit": "53c9d9653fa5959ef21d571c8146022a5a4793f2",
+  "git_dirty": true,
+  "git_status": "?? .worktrees/\n?? ASTRA_GOAL.md\n?? proofs/informal/problem1_return_valuation_falsification.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_return_ancestor_valuation.json\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? scripts/check_return_ancestor_valuation.py\n?? tests/python/test_return_ancestor_valuation.py",
+  "hardware": {
+    "architecture": "x86_64",
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "memory_total_kib": 31766236
+  },
+  "hypothesis": "Every ancestor (positive depth) of every admissible phase-u gap-222 three-return cylinder through k<=18 satisfies v2(N)!=v2(2O) with N=E+O total distinct dominant endpoints.",
+  "interpretation": "A verified ancestor counterexample refutes the all-depth ancestor valuation conjecture. An ancestor failure alone does not settle the occurrence-only version. Passage through the cap is finite evidence for structural analysis, never an infinite claim.",
+  "limitations": [
+    "finite historical box; no all-depth nonvanishing or periodicity theorem",
+    "single local process; cooperative 120s wall budget plus outer timeout; 1GiB cap in CLI runs",
+    "L>=k occurrences excluded by domain definition, counted not successes",
+    "cap truncations force inconclusive, never exhaustive",
+    "v2(0) treated as infinite per stated convention"
+  ],
+  "parameters": {
+    "domain_max_k": 18,
+    "gap_word": "ututut",
+    "memory_budget_kib": 1048576,
+    "phase": "u",
+    "schedule_cap": 64,
+    "time_budget_seconds": 120.0
+  },
+  "peak_rss_kib": 36348,
+  "proof_scope": "phase-u gap-222 ancestors 2<=k<=18; no wider claim",
+  "question": "problem1",
+  "result": {
+    "ancestors": 43,
+    "ancestry": {
+      "cut": 4,
+      "forced_word": "ttttutututu",
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "generator_witness": "uutuuttuupupuuupup",
+      "occurrence_L": 5,
+      "occurrence_hex": "0x6473d46ab",
+      "occurrence_k": 18,
+      "stripped_digits": 2,
+      "word_E_plus_u": "ttttutututu"
+    },
+    "arith_selftest": 7,
+    "completed_through_cap": false,
+    "excluded_depth_ge_k": 0,
+    "first_failure": {
+      "E": 52,
+      "O": 36,
+      "complexity": 16,
+      "defect_histogram": {
+        "0": 46,
+        "1": 36,
+        "2": 6
+      },
+      "depth": 3,
+      "endpoints": 88,
+      "gate_pass": false,
+      "outgoing_E": [
+        20,
+        0,
+        7,
+        0,
+        25
+      ],
+      "outgoing_O": [
+        21,
+        0,
+        5,
+        0,
+        10
+      ],
+      "recursive_checked": true,
+      "signed_mass": 16,
+      "state_hex": "0x6473d46a",
+      "valuations": [
+        3,
+        3
+      ]
+    },
+    "halt_reason": null,
+    "occurrence_domain_complete": true,
+    "occurrences": 26,
+    "oracle_states_compared": 266,
+    "order": [
+      "k",
+      "L",
+      "x"
+    ],
+    "rows": [
+      {
+        "E": 257,
+        "O": 100,
+        "complexity": 13,
+        "defect_histogram": {
+          "0": 257,
+          "1": 100
+        },
+        "depth": 1,
+        "endpoints": 357,
+        "gate_pass": true,
+        "outgoing_E": [
+          101,
+          0,
+          72,
+          0,
+          84
+        ],
+        "outgoing_O": [
+          41,
+          0,
+          0,
+          9,
+          50
+        ],
+        "recursive_checked": true,
+        "signed_mass": 157,
+        "state_hex": "0x190bf7e",
+        "valuations": [
+          0,
+          3
+        ]
+      },
+      {
+        "E": 257,
+        "O": 100,
+        "complexity": 13,
+        "defect_histogram": {
+          "0": 257,
+          "1": 100
+        },
+        "depth": 1,
+        "endpoints": 357,
+        "gate_pass": true,
+        "outgoing_E": [
+          101,
+          0,
+          72,
+          0,
+          84
+        ],
+        "outgoing_O": [
+          41,
+          0,
+          0,
+          9,
+          50
+        ],
+        "recursive_checked": true,
+        "signed_mass": 157,
+        "state_hex": "0x1bd9c36",
+        "valuations": [
+          0,
+          3
+        ]
+      },
+      {
+        "E": 488,
+        "O": 177,
+        "complexity": 14,
+        "defect_histogram": {
+          "0": 488,
+          "1": 177
+        },
+        "depth": 1,
+        "endpoints": 665,
+        "gate_pass": true,
+        "outgoing_E": [
+          207,
+          0,
+          127,
+          4,
+          150
+        ],
+        "outgoing_O": [
+          67,
+          0,
+          0,
+          13,
+          97
+        ],
+        "recursive_checked": true,
+        "signed_mass": 311,
+        "state_hex": "0x6473d46",
+        "valuations": [
+          0,
+          1
+        ]
+      },
+      {
+        "E": 488,
+        "O": 282,
+        "complexity": 14,
+        "defect_histogram": {
+          "0": 488,
+          "1": 282
+        },
+        "depth": 1,
+        "endpoints": 770,
+        "gate_pass": true,
+        "outgoing_E": [
+          214,
+          0,
+          37,
+          13,
+          224
+        ],
+        "outgoing_O": [
+          127,
+          0,
+          148,
+          1,
+          6
+        ],
+        "recursive_checked": true,
+        "signed_mass": 206,
+        "state_hex": "0x6f65c38",
+        "valuations": [
+          1,
+          2
+        ]
+      },
+      {
+        "E": 84,
+        "O": 50,
+        "complexity": 14,
+        "defect_histogram": {
+          "0": 84,
+          "1": 50
+        },
+        "depth": 2,
+        "endpoints": 134,
+        "gate_pass": true,
+        "outgoing_E": [
+          37,
+          1,
+          5,
+          19,
+          22
+        ],
+        "outgoing_O": [
+          31,
+          0,
+          1,
+          7,
+          11
+        ],
+        "recursive_checked": true,
+        "signed_mass": 34,
+        "state_hex": "0x642fdfb",
+        "valuations": [
+          1,
+          2
+        ]
+      },
+      {
+        "E": 93,
+        "O": 50,
+        "complexity": 14,
+        "defect_histogram": {
+          "0": 84,
+          "1": 50,
+          "2": 9
+        },
+        "depth": 2,
+        "endpoints": 143,
+        "gate_pass": true,
+        "outgoing_E": [
+          42,
+          0,
+          21,
+          0,
+          30
+        ],
+        "outgoing_O": [
+          21,
+          0,
+          5,
+          0,
+          24
+        ],
+        "recursive_checked": true,
+        "signed_mass": 43,
+        "state_hex": "0x6f670da",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 901,
+        "O": 322,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "endpoints": 1223,
+        "gate_pass": true,
+        "outgoing_E": [
+          414,
+          13,
+          50,
+          196,
+          228
+        ],
+        "outgoing_O": [
+          179,
+          0,
+          143,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 579,
+        "state_hex": "0x191cc387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 901,
+        "O": 322,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "endpoints": 1223,
+        "gate_pass": true,
+        "outgoing_E": [
+          380,
+          0,
+          230,
+          3,
+          288
+        ],
+        "outgoing_O": [
+          132,
+          0,
+          0,
+          29,
+          161
+        ],
+        "recursive_checked": true,
+        "signed_mass": 579,
+        "state_hex": "0x1bcd3f7e",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 901,
+        "O": 322,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 901,
+          "1": 322
+        },
+        "depth": 1,
+        "endpoints": 1223,
+        "gate_pass": true,
+        "outgoing_E": [
+          414,
+          13,
+          50,
+          196,
+          228
+        ],
+        "outgoing_O": [
+          179,
+          0,
+          143,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 579,
+        "state_hex": "0x1bd90387",
+        "valuations": [
+          0,
+          2
+        ]
+      },
+      {
+        "E": 163,
+        "O": 101,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 150,
+          "1": 101,
+          "2": 13
+        },
+        "depth": 2,
+        "endpoints": 264,
+        "gate_pass": true,
+        "outgoing_E": [
+          76,
+          0,
+          35,
+          0,
+          52
+        ],
+        "outgoing_O": [
+          49,
+          0,
+          16,
+          0,
+          36
+        ],
+        "recursive_checked": true,
+        "signed_mass": 62,
+        "state_hex": "0x191cf51a",
+        "valuations": [
+          3,
+          1
+        ]
+      },
+      {
+        "E": 163,
+        "O": 101,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 150,
+          "1": 101,
+          "2": 13
+        },
+        "depth": 2,
+        "endpoints": 264,
+        "gate_pass": true,
+        "outgoing_E": [
+          78,
+          4,
+          14,
+          28,
+          39
+        ],
+        "outgoing_O": [
+          64,
+          0,
+          4,
+          16,
+          17
+        ],
+        "recursive_checked": true,
+        "signed_mass": 62,
+        "state_hex": "0x191cf51b",
+        "valuations": [
+          3,
+          1
+        ]
+      },
+      {
+        "E": 372,
+        "O": 43,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 224,
+          "1": 43,
+          "2": 148
+        },
+        "depth": 2,
+        "endpoints": 415,
+        "gate_pass": true,
+        "outgoing_E": [
+          155,
+          28,
+          31,
+          82,
+          76
+        ],
+        "outgoing_O": [
+          15,
+          1,
+          0,
+          27,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 329,
+        "state_hex": "0x1bd970e1",
+        "valuations": [
+          0,
+          1
+        ]
+      },
+      {
+        "E": 30,
+        "O": 24,
+        "complexity": 15,
+        "defect_histogram": {
+          "0": 25,
+          "1": 24,
+          "2": 5
+        },
+        "depth": 3,
+        "endpoints": 54,
+        "gate_pass": true,
+        "outgoing_E": [
+          20,
+          0,
+          2,
+          3,
+          5
+        ],
+        "outgoing_O": [
+          14,
+          0,
+          2,
+          5,
+          3
+        ],
+        "recursive_checked": true,
+        "signed_mass": 6,
+        "state_hex": "0x1bd9c36b",
+        "valuations": [
+          1,
+          4
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 598,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "endpoints": 2248,
+        "gate_pass": true,
+        "outgoing_E": [
+          764,
+          20,
+          87,
+          354,
+          425
+        ],
+        "outgoing_O": [
+          330,
+          0,
+          268,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1052,
+        "state_hex": "0x642e4387",
+        "valuations": [
+          3,
+          2
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "outgoing_E": [
+          695,
+          0,
+          421,
+          9,
+          525
+        ],
+        "outgoing_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x642e7f7e",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "outgoing_E": [
+          764,
+          20,
+          87,
+          354,
+          425
+        ],
+        "outgoing_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x642fc387",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "outgoing_E": [
+          695,
+          0,
+          421,
+          9,
+          525
+        ],
+        "outgoing_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x64733f7e",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 598,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "endpoints": 2248,
+        "gate_pass": true,
+        "outgoing_E": [
+          695,
+          0,
+          421,
+          9,
+          525
+        ],
+        "outgoing_O": [
+          238,
+          0,
+          0,
+          46,
+          314
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1052,
+        "state_hex": "0x6f347f7e",
+        "valuations": [
+          3,
+          2
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 598,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650,
+          "1": 598
+        },
+        "depth": 1,
+        "endpoints": 2248,
+        "gate_pass": true,
+        "outgoing_E": [
+          764,
+          20,
+          87,
+          354,
+          425
+        ],
+        "outgoing_O": [
+          330,
+          0,
+          268,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1052,
+        "state_hex": "0x6f65c387",
+        "valuations": [
+          3,
+          2
+        ]
+      },
+      {
+        "E": 1650,
+        "O": 0,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 1650
+        },
+        "depth": 1,
+        "endpoints": 1650,
+        "gate_pass": true,
+        "outgoing_E": [
+          764,
+          20,
+          87,
+          354,
+          425
+        ],
+        "outgoing_O": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recursive_checked": true,
+        "signed_mass": 1650,
+        "state_hex": "0x6f670387",
+        "valuations": [
+          1,
+          null
+        ]
+      },
+      {
+        "E": 288,
+        "O": 161,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 288,
+          "1": 161
+        },
+        "depth": 2,
+        "endpoints": 449,
+        "gate_pass": true,
+        "outgoing_E": [
+          146,
+          2,
+          16,
+          48,
+          76
+        ],
+        "outgoing_O": [
+          93,
+          0,
+          7,
+          26,
+          35
+        ],
+        "recursive_checked": true,
+        "signed_mass": 127,
+        "state_hex": "0x6f34fdfb",
+        "valuations": [
+          0,
+          1
+        ]
+      },
+      {
+        "E": 52,
+        "O": 36,
+        "complexity": 16,
+        "defect_histogram": {
+          "0": 46,
+          "1": 36,
+          "2": 6
+        },
+        "depth": 3,
+        "endpoints": 88,
+        "gate_pass": false,
+        "outgoing_E": [
+          20,
+          0,
+          7,
+          0,
+          25
+        ],
+        "outgoing_O": [
+          21,
+          0,
+          5,
+          0,
+          10
+        ],
+        "recursive_checked": true,
+        "signed_mass": 16,
+        "state_hex": "0x6473d46a",
+        "valuations": [
+          3,
+          3
+        ]
+      }
+    ],
+    "stopping": "first gate failure or cap-18 end; no cap increase",
+    "tested": 22,
+    "truncated_schedules": 0,
+    "valuation_search_exhausted": false
+  },
+  "result_hashes": {
+    "certificate_sha256": "f05c63d8a636f73b95df40edf1af0e0fa2ffa62a4bd4822fad8cf3f30554df32"
+  },
+  "result_summary": {
+    "failure_found": true,
+    "occurrence_domain_complete": true,
+    "occurrences": 26,
+    "tested": 22
+  },
+  "runtime_seconds": 0.4566073300084099,
+  "software": {
+    "os": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python_implementation": "CPython",
+    "python_version": "3.14.4"
+  },
+  "source_hashes": {
+    "analyzer_sha256": "bfbb4d44f33dba1d2fd741886d136eaf77c3b86dfa18b294793b40a9ab5debcd",
+    "lift_module_sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "test_sha256": "e95d2eec2bae422fdb224ab45fa0bf23497afe3a03ac268116e9daffe4bf76a5"
+  },
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T14:01:47Z",
+  "worktree": "/home/ryan/rule30-lab"
+}

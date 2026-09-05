@@ -1,8 +1,15 @@
 # A 2-adic valuation gate for the signed certificate
 
-Status: `finite-exhaustive` for the fixed records and ancestor checks below;
-`inconclusive` for the all-depth arithmetic conjecture. The sufficient
-valuation implication is `partial-proof` (elementary integer arithmetic).
+Status: `refuted` for both all-depth valuation conjectures. The historical
+fixed records and selected ancestor checks below remain `finite-exhaustive`.
+The sufficient valuation implication is `partial-proof` (elementary arithmetic).
+
+Update: `problem1_return_valuation_falsification.md` supplies a genuine
+occurrence u/k17/`0x190b9fdfb`, L2, with E=525,O=421,N=946,S=104 and
+`v2(N)=v2(2O)=1`. It also supplies an admissible ancestor u/k16/
+`0x6473d46a`, L3, with E=52,O=36,N=88,S=16 and equal valuations 3.
+Both signed masses remain nonzero. Retire this valuation certificate;
+signed nonvanishing and the boundary question remain open.
 
 For a distinct-endpoint belief write `E` and `O` for the numbers of even- and
 odd-defect endpoints, `N=E+O`, and `S=E-O=N-2O`. A possible arithmetic
@@ -10,7 +17,7 @@ certificate of nonvanishing is `v_2(N) != v_2(2O)`, using `v_2(0)=infinity`.
 For positive `N` this inequality implies `S!=0` by the elementary valuation
 law for a difference of terms with unequal valuations.
 
-Candidate (`inconclusive`): that inequality holds on every admissible
+Original candidate (now `refuted`): that inequality holds on every admissible
 three-return occurrence. It differs from the sign/coherence hypotheses:
 it allows both signs and mixed slice components, using integer divisibility
 instead of a real region. It remains stronger than nonvanishing.
@@ -85,14 +92,14 @@ named complexity-18 evaluations; no larger nonvanishing census was run.
 The record `results/problem1/20260905_signed_ancestor_valuation.json` embeds
 the complete executed source and exact node rows, with full provenance.
 
-## Unresolved proof obligation
+## Refuted induction proposal; original nonvanishing still open
 
-The current conjecture is that the unequal-valuation condition holds on every
-admissible three-return ancestor at every complexity. No induction proving
-this condition has been found. In particular, its preservation does not
-follow from the scalar lift or the joint-fiber identity. A successful proof
-must control how exact even/odd endpoint counts split and recombine under
-the forced schedule, and must also prevent the empty-belief case N=0.
+The strengthened conjecture required the unequal-valuation condition on every
+admissible three-return ancestor at every complexity. It is now refuted, as is
+the original occurrence-only version. Its preservation does not follow from
+the scalar lift or the joint-fiber identity. Any replacement count argument
+for nonvanishing must control how endpoint counts split and recombine under
+the forced schedule, including the empty-belief case N=0.
 
 The subsequent `problem1_signed_count_transfer.md` proves the exact parity
 count update and refutes unrestricted one-lift preservation: parent p/k5/
@@ -101,7 +108,6 @@ count update and refutes unrestricted one-lift preservation: parent p/k5/
 the universal vector update. These generic counterexamples do not refute
 the conjecture on admissible three-return ancestors.
 
-The next step is a structural analysis of that integer-count transfer or a
-precisely motivated counterexample test. Merely increasing the census cap
-after finite success is not authorized by this result. The original
-nonvanishing conjecture, the boundary bound, and Problem 1 remain open.
+The subsequent restricted replay closes this particular valuation attempt.
+It does not justify an ad hoc relaxed inequality or a larger census. The
+original nonvanishing conjecture, the boundary bound, and Problem 1 remain open.

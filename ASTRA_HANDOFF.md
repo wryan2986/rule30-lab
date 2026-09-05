@@ -11,7 +11,37 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
-Latest refinement after publication at `f4d3eae` (read these two notes first):
+Latest result: **both valuation conjectures are refuted**. Read
+`proofs/informal/problem1_return_valuation_falsification.md` first.
+
+- Actual occurrence: u/k17/`0x190b9fdfb`, L2, cut1, gap222. E=525,
+  O=421, N=946, S=104; v2(N)=v2(2O)=1. Observed word `tututut`,
+  admissibility word `tutututu`; the appended final u is not observed and
+  need not be under the original definition. This refutes the occurrence-only
+  gate without refuting signed nonvanishing.
+- Genuine ancestor: u/k16/`0x6473d46a`, L3, strips two digits from the known
+  u/k18/`0x6473d46ab`, L5, cut4 occurrence. E=52,O=36,N=88,S=16;
+  valuations coincide at 3. Its two required lifts recover the gate:
+  (E,O)=(52,36) -> (25,10) -> (11,9), current masks 1111 then 1011.
+- The existing phase-u gap222 box through k18 was replayed for this new
+  observable: 26 occurrences, 43 ancestors. Ancestor search stopped at 22;
+  occurrence-only search stopped at 13. No truncations or excluded depths.
+  The earlier 25-ancestor box originated only from occurrences through k16;
+  it did not contain this ancestor of a k18 occurrence.
+- Muse implemented the bounded checks and independently verified the ancestor.
+  After two workers hit provider rate limits, the lead completed the actual
+  occurrence and three-node-chain replay using the old independent oracle,
+  with full Boolean/packed frontier agreement through k18. Four atomic
+  `20260905_return_*valuation*.json` records retain exact provenance.
+
+Current bottleneck: signed nonvanishing (or dominant nonemptiness) on genuine
+return occurrences, plus the all-cuts boundary obligation B_all if using
+adjacent inclusion. The exact valuation gate is no longer a surviving route.
+Next structural work must control concrete endpoint correlations over genuine
+returns or prove an occurrence-cut bound. No ad hoc relaxation or census-cap
+increase follows from these counterexamples. General periods >=3 remain open.
+
+Earlier refinement after publication at `f4d3eae`:
 
 - `proofs/informal/problem1_physical_frontier_restriction.md`:
   exact physical parameterization R_d by odd seeds of bit length
@@ -34,14 +64,14 @@ Latest refinement after publication at `f4d3eae` (read these two notes first):
   These ordinary cylinders are not certified admissible ancestors.
 
 Both new notes retain exact domain and proof/evidence boundaries. The
-restricted valuation conjecture, physical occurrence-cut bounds, B_all,
-and periods >=3 remain open. The next structural target must retain return
+valuation conjecture was still open at this earlier milestone and is now
+refuted above. Physical occurrence-cut bounds, B_all, and periods >=3 remain open. The next structural target must retain return
 constraints and endpoint correlations; neither bare physical membership
 nor the unrestricted parity-count update supplies a closed induction.
 
 `ASTRA_GOAL.md` requests continued research until its proof-or-research-impasse
 stopping condition. That goal is still active: there is no complete proof,
-and the surviving arithmetic and boundary routes have not been exhausted.
+and the remaining boundary and return-correlation routes have not been exhausted.
 Read these new notes before the earlier continuation below:
 
 1. `proofs/informal/problem1_three_return_boundary_sufficiency.md`
@@ -72,8 +102,8 @@ Read these new notes before the earlier continuation below:
    the same occurrence's stripped ancestor u/k13/`0x190bf7e`, L1 has
    V=(60,0,72,-9,34). Thus even a union of the positive and negative
    orthants does not cover the admissible ancestor domain.
-5. `proofs/informal/problem1_signed_mass_valuation_gate.md` (`inconclusive`
-   all-depth conjecture): write N=E+O and S=E-O=N-2O. The condition
+5. `proofs/informal/problem1_signed_mass_valuation_gate.md` (historical
+   finite candidate, now `refuted` on both stated all-depth domains): write N=E+O and S=E-O=N-2O. The condition
    `v2(N)!=v2(2O)` with v2(0)=infinity would certify S!=0. It survives
    all 19 existing full-domain occurrences, their 25 ancestors, and the
    two named k18 nodes; this is FINITE evidence, not a preserved invariant.
@@ -84,10 +114,10 @@ Read these new notes before the earlier continuation below:
    reduction. Do not read the older pathway arrows as logical implications
    from nonvanishing backward to its sufficient hypotheses.
 
-Next priorities: derive structural constraints on the exact even/odd-count
-transfer for the valuation candidate; or exploit the physical-row membership
+Updated priorities: seek a replacement nonvanishing mechanism using exact
+endpoint correlations over returns; or exploit the physical-row membership
 lemma to prove a finite cut bound, possibly only on a rigorously identified
-physical subfamily. The phase-frontier membership lemma is not a surjectivity
+physical subfamily. The particular valuation candidate is refuted above. The phase-frontier membership lemma is not a surjectivity
 theorem: generic frontier counterexamples need not be realized by a coupled
 finite-seed trajectory. No larger census is authorized by finite absence.
 All new checks are local, bounded, and recorded atomically with source hashes.

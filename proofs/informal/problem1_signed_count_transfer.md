@@ -1,7 +1,9 @@
 # Exact parity-count transfer and the valuation induction obligation
 
-Status: `partial-proof` for the all-depth count identities below. The proposed
-valuation invariant on admissible ancestors remains `inconclusive`.
+Status: `partial-proof` for the all-depth count identities below.
+Subsequent update: the valuation invariant on genuine occurrences and
+ancestors is `refuted`; see `problem1_return_valuation_falsification.md`.
+The identities and universal nonclosure counterexamples here remain valid.
 
 ## Admission and scope
 
@@ -165,8 +167,9 @@ named beliefs using the pre-existing independent signed-mass oracle before
 integration; exact agreement is recorded in
 `results/problem1/20260905_signed_count_transfer_independent.json`.
 Final independent adversarial review accepted the count identities and
-the stated scope of the two universal obstructions. The restricted
-three-return conjecture remains unproved and unrefuted here.
+the stated scope of the two universal obstructions. This pass did not
+refute the restricted three-return valuation conjecture; the subsequent
+return-domain replay cited above does, with nonzero signed masses.
 
 The old complexity-28 signed-mass archive contains summary counts and a
 minimum witness, not the per-cylinder (N,O) pairs. Those summaries cannot
