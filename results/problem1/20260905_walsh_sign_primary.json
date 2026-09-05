@@ -1,0 +1,3019 @@
+{
+  "backend": "existing-single-belief-oracle-and-recursive-certificate-membership",
+  "dependencies": {
+    "belief_oracle": {
+      "archive_analyzer_sha256": "6355b1f4ffffe82d46b0d804da9f99ecea1cdf0035235c006dde5fb21005b335",
+      "path": "/home/ryan/rule30-lab/scripts/check_signed_belief_hamming_pairing.py",
+      "repository_relative_path": "scripts/check_signed_belief_hamming_pairing.py",
+      "sha256": "6355b1f4ffffe82d46b0d804da9f99ecea1cdf0035235c006dde5fb21005b335",
+      "source_utf8": "#!/usr/bin/env python3\n\"\"\"Sign-reversing Hamming-neighbor pairing on three-return beliefs (Problem 1).\n\nADMISSION (bounded falsification; lead owns theorem and reduction judgment).\nOn each EXISTING full three-return instance through k<=16 (19 occurrences\n expected, both phases, all 56 admissible gap triples, final-u admissibility,\n depth L=c+1<k, source order k / phase p-then-u / state / cut / gaps), build a\ngraph whose vertices are the DISTINCT dominant concrete shadows B with signs\n(-1)^cost, joining opposite-sign y,z whose xor is a power of two with the\nsingle free bit b>=2L (above the fixed low 2L bits: exact, no splicing).\nHypothesis: every occurrence graph has a matching saturating the smaller sign\nclass. An obstruction refutes those sign-reversing involutions whose nonfixed\npairs are Hamming neighbors and whose fixed set is nonempty of a common sign\n(equivalently here: the nonfixed pairs saturate the minority) on that\noccurrence only; the all-fixed identity always exists, so the bare universal\nHamming class is not refuted as a whole. It does not refute arbitrary nonlocal\npairings, signed nonvanishing, or Problem 1. If all pass, report per-instance\nmatching counts rather than enlarging any cap. Stop at the first obstruction.\nEither outcome bears on the route: obstruction kills the fixed-restricted\nHamming involution; passage isolates the exact matching data a pairing proof\nmust use. Finite boxes never prove infinite statements.\n\nCaps: one local CPU, 120s wall, 1GiB address space, schedule cap 64, no\nfrontier beyond k<=16, no new census. Status refuted means the stated\nper-occurrence matching hypothesis is falsified; finite-exhaustive means all\n19 boxed occurrences pass; inconclusive means the box was not completed.\n\"\"\"\nfrom __future__ import annotations\nimport argparse, hashlib, json, os, platform, resource, subprocess, sys, tempfile, time\nfrom datetime import datetime, timezone\nfrom itertools import product\nfrom pathlib import Path\nfrom typing import Any\nPHASES = (\"p\", \"u\")\nGAPS = (2, 3, 4, 5)\nFORBIDDEN = (\"uu\", \"ttttt\", \"ututtu\")\nALLOWED_MASKS = (0, 3, 11, 12, 15)\nDOMAIN_MAX_K = 16\nEXPECTED_OCCURRENCES = 19\nSCHEDULE_CAP = 64\nORACLE_K = 8\nTIME_BUDGET_SECONDS = 120.0\nMEMORY_BUDGET_KIB = 1024 * 1024\nRESULT_FILENAME = \"20260905_signed_belief_hamming_pairing.json\"\nROOT = Path(__file__).resolve().parents[1]\nTEST_RELATIVE = \"tests/python/test_signed_belief_hamming_pairing.py\"\nHYPOTHESIS = (\"For every full three-return occurrence (both phases, 2<=k<=16, \"\n \"all 56 admissible gap triples, final-u admissibility, depth L=c+1<k), the \"\n \"opposite-sign Hamming graph on distinct dominant shadows (edges join y,z of \"\n \"opposite sign with y^z a power of two at bit>=2L) has a matching saturating \"\n \"the smaller sign class.\")\nclass PairingLimitError(RuntimeError):\n    pass\nclass SeparationViolationError(RuntimeError):\n    pass\nclass OracleMismatchError(RuntimeError):\n    pass\ndef forward_generator(name, state):\n    stepped = state ^ ((state << 1) | (state << 2))\n    if name == \"t\":\n        return stepped\n    if name == \"u\":\n        return stepped ^ 1\n    if name == \"p\":\n        return stepped ^ 1 ^ (2 if state & 1 == 0 else 0)\n    raise ValueError(name)\ndef frontier_children_primary(state):\n    return tuple(sorted({forward_generator(n, state) for n in \"tup\"}))\ndef oracle_frontier_children(state):\n    if state <= 0:\n        raise ValueError(\"oracle states are positive\")\n    width = state.bit_length() + 2\n    bits = [(state >> j) & 1 for j in range(width)]\n    tout = 0\n    for j in range(width):\n        xj = bits[j]\n        lo1 = bits[j - 1] if j >= 1 else 0\n        lo2 = bits[j - 2] if j >= 2 else 0\n        if xj ^ (lo1 | lo2):\n            tout |= 1 << j\n    uout = tout ^ 0b1\n    pbit0 = ((tout & 1) ^ 1)\n    pbit1 = ((tout >> 1) & 1) ^ (1 if (state & 1) == 0 else 0)\n    pout = (tout & ~0b11) ^ pbit0 ^ (pbit1 << 1)\n    return tuple(sorted({tout, uout, pout}))\ndef phase_start(phase):\n    return 3 if phase == \"p\" else 1\ndef build_levels(phase, maximum_complexity, childfn):\n    levels = [set(), {phase_start(phase)}]\n    for _ in range(2, maximum_complexity + 1):\n        levels.append({c for s in levels[-1] for c in childfn(s)})\n    return levels\ndef fiber_mask(levels, complexity, quotient):\n    mask = sum(1 << d for d in range(4) if 4 * quotient + d in levels[complexity + 1])\n    if mask not in ALLOWED_MASKS:\n        raise AssertionError(\"fiber escaped five-mask alphabet\")\n    return mask\ndef mask_sequence(levels, complexity, state, depth):\n    out = []\n    for step in range(depth):\n        q = state >> 2\n        out.append(fiber_mask(levels, complexity - 1 - step, q))\n        state = q\n    return tuple(out)\ndef dominates(current, shadow):\n    return len(current) == len(shadow) and all(not (a & ~b) for a, b in zip(current, shadow))\ndef defect_count(shadow):\n    return sum(m != 0b1111 for m in shadow)\ndef congruent_witnesses(levels, complexity, current, depth):\n    mod = 4 ** depth\n    res = current % mod\n    return sorted(s for s in levels[complexity - 1] if s % mod == res)\ndef belief_direct(levels, complexity, current, depth):\n    if depth >= complexity - 1:\n        wit = congruent_witnesses(levels, complexity, current, depth)\n        if wit:\n            raise SeparationViolationError(\"separation violated k=%d L=%d\" % (complexity, depth))\n        return {}\n    mod = 4 ** depth\n    res = current % mod\n    cur = mask_sequence(levels, complexity, current, depth)\n    out = {}\n    for sh in levels[complexity - 1]:\n        if sh % mod != res:\n            continue\n        sm = mask_sequence(levels, complexity - 1, sh, depth)\n        if dominates(cur, sm):\n            out[sh] = defect_count(sm)\n    return out\ndef belief_recursive(levels, complexity, current, depth):\n    if not 1 <= depth <= complexity - 2:\n        raise PairingLimitError(\"recursive belief needs 1<=L<=k-2\")\n    digit = current & 3\n    quotient = current >> 2\n    cmask = fiber_mask(levels, complexity - 1, quotient)\n    if depth == 1:\n        out = {}\n        for sh in levels[complexity - 1]:\n            if sh & 3 != digit:\n                continue\n            sm = fiber_mask(levels, complexity - 2, sh >> 2)\n            if not (cmask & ~sm):\n                out[sh] = int(sm != 0b1111)\n        return out\n    lower = belief_recursive(levels, complexity - 1, quotient, depth - 1)\n    tgt = levels[complexity - 1]\n    out = {}\n    for sq, lc in lower.items():\n        sh = 4 * sq + digit\n        if sh not in tgt:\n            continue\n        sm = fiber_mask(levels, complexity - 2, sq)\n        if cmask & ~sm:\n            continue\n        out[sh] = lc + int(sm != 0b1111)\n    return out\ndef forced_zero_schedule(state, cap=SCHEDULE_CAP):\n    word = []\n    for _ in range(cap):\n        res = state & 15\n        if res == 7:\n            br = \"u\"\n        elif res == 11:\n            br = \"t\"\n        else:\n            return \"\".join(word)\n        state = forward_generator(br, forward_generator(\"p\", (state - 3) >> 2))\n        word.append(br)\n    raise PairingLimitError(\"schedule cap reached\")\ndef admissible(word):\n    return not any(f in word for f in FORBIDDEN)\ndef return_extension(gaps, final_u):\n    w = \"u\"\n    for i, g in enumerate(gaps):\n        w += \"t\" * (g - 1)\n        if i < len(gaps) - 1 or final_u:\n            w += \"u\"\n    return w\ndef three_return_patterns():\n    rows = []\n    for gaps in product(GAPS, repeat=3):\n        tgt = return_extension(gaps, False)\n        full = return_extension(gaps, True)\n        if admissible(full):\n            rows.append((gaps, tgt, full))\n    return tuple(rows)\ndef build_hamming_graph(belief, depth):\n    verts = sorted(belief)\n    sign = {y: (1 if c % 2 == 0 else -1) for y, c in belief.items()}\n    mod = 4 ** depth\n    adj = {y: [] for y in verts}\n    edges = []\n    for i, y in enumerate(verts):\n        for z in verts[i + 1:]:\n            if sign[y] == sign[z]:\n                continue\n            x = y ^ z\n            if x == 0 or x & (x - 1):\n                continue\n            if x.bit_length() - 1 < 2 * depth:\n                continue\n            if y % mod != z % mod:\n                raise OracleMismatchError(\"edge joins distinct residues\")\n            edges.append((y, z))\n            adj[y].append(z)\n            adj[z].append(y)\n    for y in verts:\n        adj[y].sort()\n    return verts, sign, adj, edges\ndef connected_components(verts, adj):\n    seen = {}\n    comps = []\n    for y in verts:\n        if y in seen:\n            continue\n        stack, comp = [y], []\n        seen[y] = True\n        while stack:\n            u = stack.pop()\n            comp.append(u)\n            for v in adj[u]:\n                if v not in seen:\n                    seen[v] = True\n                    stack.append(v)\n        comps.append(sorted(comp))\n    return comps\ndef max_bipartite_matching(left, adj_left):\n    match_r = {}\n    def dfs(u, seen):\n        for v in adj_left[u]:\n            if v in seen:\n                continue\n            seen.add(v)\n            if v not in match_r or dfs(match_r[v], seen):\n                match_r[v] = u\n                return True\n        return False\n    for u in left:\n        dfs(u, set())\n    return {u: v for v, u in match_r.items()}, match_r\ndef brute_max_matching_size(left, adj_left):\n    order = list(left)\n    best = [0]\n    used = set()\n    def rec(i, n):\n        if n + (len(order) - i) <= best[0]:\n            return\n        if i == len(order):\n            best[0] = max(best[0], n)\n            return\n        rec(i + 1, n)\n        for v in adj_left[order[i]]:\n            if v not in used:\n                used.add(v)\n                rec(i + 1, n + 1)\n                used.discard(v)\n    rec(0, 0)\n    return best[0]\ndef hall_violator(small, large_set, adj, mate):\n    mate_all = {}\n    for u, v in mate.items():\n        mate_all[u] = v\n        mate_all[v] = u\n    free = [u for u in small if u not in mate]\n    seen, stack = set(free), list(free)\n    while stack:\n        u = stack.pop()\n        u_small = u in small\n        for v in adj[u]:\n            if v in seen:\n                continue\n            if u_small and mate.get(u) == v:\n                continue\n            if not u_small and mate_all.get(u) != v:\n                continue\n            seen.add(v)\n            stack.append(v)\n    return sorted(u for u in seen if u in small)\ndef independent_hall_check(violator, edges):\n    vset = set(violator)\n    nbrs = set()\n    for y, z in edges:\n        if y in vset:\n            nbrs.add(z)\n        if z in vset:\n            nbrs.add(y)\n    return sorted(nbrs)\ndef independent_edge_set(belief, depth):\n    vset = set(belief)\n    sign = dict((y, 1 if c % 2 == 0 else -1) for y, c in belief.items())\n    maxlen = max(vset).bit_length()\n    out = set()\n    for y in vset:\n        for b in range(2 * depth, maxlen):\n            z = y ^ (1 << b)\n            if z != y and z in vset and sign[z] != sign[y]:\n                out.add((y, z) if y < z else (z, y))\n    return out\ndef independent_edge_set(belief, depth):\n    pos = sorted(y for y, c in belief.items() if c % 2 == 0)\n    neg = sorted(y for y, c in belief.items() if c % 2 == 1)\n    out = set()\n    for y in pos:\n        for z in neg:\n            x = y ^ z\n            if x != 0 and x & (x - 1) == 0 and x.bit_length() - 1 >= 2 * depth:\n                out.add((y, z) if y < z else (z, y))\n    return out\ndef minimal_isolated_witness(belief, levels, complexity, depth, violator):\n    y0 = min(violator)\n    if y0 != 0x190825b:\n        raise OracleMismatchError(\"theorem vertex changed\")\n    cost = belief[y0]\n    masks = [format(m, \"04b\") for m in mask_sequence(levels, complexity - 1, y0, depth)]\n    positives = sorted(y for y, c in belief.items() if c % 2 == 0)\n    maxlen = max([y0] + positives, key=lambda v: v.bit_length()).bit_length()\n    checked = 0\n    for z in positives:\n        x = y0 ^ z\n        checked += 1\n        if x != 0 and x & (x - 1) == 0 and x.bit_length() - 1 >= 2 * depth:\n            raise OracleMismatchError(\"theorem vertex has a neighbor\")\n    return {\"vertex_hex\": hex(y0), \"cost\": cost, \"sign\": -1,\n     \"shadow_masks\": masks, \"bit_length\": y0.bit_length(),\n     \"bits_checked\": [2 * depth, maxlen - 1],\n     \"positives_checked\": len(positives), \"opposite_neighbors\": 0}\ndef obstruction_evidence(levels, phase, k, cur, cut, gaps, depth, belief, stats):\n    sched = forced_zero_schedule(cur, SCHEDULE_CAP)\n    base = sched[:cut]\n    word = return_extension(tuple(gaps), False)\n    full = base + return_extension(tuple(gaps), True)\n    if not sched[cut:].startswith(word) or not admissible(full):\n        raise OracleMismatchError(\"occurrence word inconsistent\")\n    fresh = independent_edge_set(belief, depth)\n    builtin = set()\n    _, _, _, bedges = build_hamming_graph(belief, depth)\n    for y, z in bedges:\n        builtin.add((y, z) if y < z else (z, y))\n    if fresh != builtin:\n        raise OracleMismatchError(\"edge set mismatch\")\n    hv = stats[\"hall_violator\"]\n    viol = [int(h, 16) for h in hv[\"vertices_hex\"]]\n    wit = minimal_isolated_witness(belief, levels, k, depth, viol)\n    return {\"schedule\": sched, \"base_prefix\": base, \"extension_word_E\": word,\n     \"full_word_admissible\": True, \"independent_edge_count\": len(fresh),\n     \"edge_sets_match\": True, \"isolated_vertex\": wit}\ndef three_return_occurrences(levels, maxK, cap, t0, check_time):\n    pats = three_return_patterns()\n    if len(pats) != 56:\n        raise AssertionError(\"pattern count changed\")\n    occ = []\n    truncated = 0\n    excluded = 0\n    for k in range(2, maxK + 1):\n        for phase in PHASES:\n            lv = levels[phase]\n            for cur in sorted(lv[k]):\n                if cur & 3 != 3:\n                    continue\n                try:\n                    sched = forced_zero_schedule(cur, cap)\n                except PairingLimitError:\n                    truncated += 1\n                    continue\n                for cut in range(len(sched) + 1):\n                    base = sched[:cut]\n                    for gaps, tgt, full in pats:\n                        if not sched[cut:].startswith(tgt):\n                            continue\n                        if not admissible(base + full):\n                            continue\n                        L = cut + 1\n                        if not L < k:\n                            excluded += 1\n                            continue\n                        if check_time and time.monotonic() - t0 > TIME_BUDGET_SECONDS:\n                            raise PairingLimitError(\"time budget exceeded in occurrence scan\")\n                        occ.append((phase, k, cur, cut, tuple(gaps), L))\n    return occ, truncated, excluded\ndef analyze_instance(belief, depth):\n    verts, sign, adj, edges = build_hamming_graph(belief, depth)\n    pos = sorted(y for y in verts if sign[y] == 1)\n    neg = sorted(y for y in verts if sign[y] == -1)\n    comps = connected_components(verts, adj)\n    single_sign = sum(1 for c in comps if len({sign[y] for y in c}) == 1)\n    if len(pos) <= len(neg):\n        small, large = pos, neg\n    else:\n        small, large = neg, pos\n    adj_small = {u: [v for v in adj[u] if v in set(large)] for u in small}\n    mate_l, mate_r = max_bipartite_matching(small, adj_small)\n    matched_small = len(mate_l)\n    saturated = matched_small == len(small)\n    out = {\"vertices\": len(verts), \"positive\": len(pos), \"negative\": len(neg),\n     \"edges\": len(edges), \"components\": len(comps),\n     \"single_sign_components\": single_sign, \"matched_small\": matched_small,\n     \"saturated\": saturated, \"signed_mass\": len(pos) - len(neg)}\n    if saturated:\n        out[\"hall_violator\"] = None\n    else:\n        viol = hall_violator(set(small), set(large), adj, mate_l)\n        nbrs = independent_hall_check(viol, edges)\n        if not (len(nbrs) < len(viol)):\n            raise OracleMismatchError(\"Hall violator failed independent check\")\n        for u in viol:\n            if u not in set(small):\n                raise OracleMismatchError(\"violator outside small side\")\n        out[\"hall_violator\"] = {\"vertices_hex\": [hex(u) for u in viol],\n         \"size\": len(viol), \"neighbor_hex\": [hex(v) for v in nbrs],\n         \"neighbor_size\": len(nbrs)}\n    return out, edges\ndef sanity_checks():\n    hands = [\n        ([\"a\"], [\"x\"], {\"a\": [\"x\"]}, 1),\n        ([\"a\"], [\"x\"], {\"a\": []}, 0),\n        ([\"a\", \"b\"], [\"x\"], {\"a\": [\"x\"], \"b\": [\"x\"]}, 1),\n        ([\"a\", \"b\"], [\"x\", \"y\"], {\"a\": [\"x\", \"y\"], \"b\": [\"x\", \"y\"]}, 2),\n        ([\"a\", \"b\"], [\"x\", \"y\"], {\"a\": [\"x\"], \"b\": [\"x\"]}, 1),\n        ([\"a\", \"b\", \"c\"], [\"x\", \"y\"], {\"a\": [\"x\"], \"b\": [\"x\", \"y\"], \"c\": [\"y\"]}, 2),\n        ([\"a\", \"b\", \"c\"], [\"x\", \"y\"], {\"a\": [\"x\"], \"b\": [], \"c\": [\"y\"]}, 2),\n    ]\n    for left, right, adj, want in hands:\n        ml, _ = max_bipartite_matching(left, {u: list(adj[u]) for u in left})\n        got = len(ml)\n        if got != want or brute_max_matching_size(left, adj) != want:\n            raise OracleMismatchError(\"hand matching case failed\")\n    n = 0\n    for nl in (1, 2):\n        for nr in (1, 2):\n            L = [\"L%d\" % i for i in range(nl)]\n            R = [\"R%d\" % j for j in range(nr)]\n            pairs = [(u, v) for u in L for v in R]\n            for mask in range(1 << len(pairs)):\n                adj = {u: [] for u in L}\n                for i, (u, v) in enumerate(pairs):\n                    if mask >> i & 1:\n                        adj[u].append(v)\n                ml, _ = max_bipartite_matching(L, adj)\n                if len(ml) != brute_max_matching_size(L, adj):\n                    raise OracleMismatchError(\"exhaustive tiny matching mismatch\")\n                n += 1\n    return {\"hand_cases\": len(hands), \"exhaustive_tiny_graphs\": n}\ndef git_strict(args):\n    import subprocess as sp\n    c = sp.run([\"git\", \"-C\", str(ROOT)] + args, capture_output=True, text=True, timeout=30)\n    if c.returncode != 0:\n        raise PairingLimitError(\"git failed: \" + c.stderr.strip())\n    return c.stdout.strip()\ndef sha256_file(path):\n    import hashlib as hl\n    h = hl.sha256()\n    with open(path, \"rb\") as f:\n        for ch in iter(lambda: f.read(65536), b\"\"):\n            h.update(ch)\n    return h.hexdigest()\ndef hardware_facts():\n    model, total = None, None\n    try:\n        with open(\"/proc/cpuinfo\") as f:\n            for line in f:\n                if line.startswith(\"model name\"):\n                    model = line.split(\":\", 1)[1].strip()\n                    break\n    except OSError:\n        pass\n    try:\n        with open(\"/proc/meminfo\") as f:\n            for line in f:\n                if line.startswith(\"MemTotal:\"):\n                    total = int(line.split()[1])\n                    break\n    except (OSError, ValueError):\n        pass\n    return {\"cpu_model\": model, \"cpu_count\": os.cpu_count(), \"memory_total_kib\": total, \"architecture\": platform.machine()}\ndef write_record_atomic(payload, dest):\n    dest.parent.mkdir(parents=True, exist_ok=True)\n    enc = json.dumps(payload, indent=2, sort_keys=True).encode()\n    with tempfile.NamedTemporaryFile(dir=str(dest.parent), delete=False) as h:\n        h.write(enc)\n        h.flush()\n        os.fsync(h.fileno())\n        tmp = h.name\n    os.replace(tmp, dest)\n    return dest\ndef apply_address_space_limit():\n    budget = MEMORY_BUDGET_KIB * 1024\n    rec = {\"budget_bytes\": budget}\n    try:\n        soft, hard = resource.getrlimit(resource.RLIMIT_AS)\n    except (OSError, ValueError) as exc:\n        rec[\"address_space_limit_applied\"] = False\n        rec[\"reason\"] = \"getrlimit failed: %s\" % exc\n        return rec\n    target = budget\n    if hard != resource.RLIM_INFINITY and hard < budget:\n        target = hard\n    try:\n        resource.setrlimit(resource.RLIMIT_AS, (target, hard))\n    except (OSError, ValueError) as exc:\n        rec[\"address_space_limit_applied\"] = False\n        rec[\"reason\"] = \"setrlimit failed: %s\" % exc\n        return rec\n    rec[\"address_space_limit_applied\"] = True\n    rec[\"soft_bytes\"] = target\n    return rec\ndef run_campaign(dmax=DOMAIN_MAX_K, cap=SCHEDULE_CAP, check_time=True, enforcement=None):\n    t0 = time.monotonic()\n    if not 2 <= dmax <= 16:\n        raise PairingLimitError(\"domain cap outside 2..16\")\n    if not 1 <= cap <= 64:\n        raise PairingLimitError(\"schedule cap outside 1..64\")\n    levels = {ph: build_levels(ph, dmax, frontier_children_primary) for ph in PHASES}\n    oracle_checked = 0\n    for ph in PHASES:\n        oc = build_levels(ph, min(ORACLE_K, dmax), oracle_frontier_children)\n        for k in range(1, min(ORACLE_K, dmax) + 1):\n            if oc[k] != levels[ph][k]:\n                raise OracleMismatchError(\"oracle disagrees %s k=%d\" % (ph, k))\n            oracle_checked += len(levels[ph][k])\n    sanity = sanity_checks()\n    halt_reason = None\n    complete = True\n    occ, truncated, excluded = [], 0, 0\n    rows = []\n    belief_pair_checks = 0\n    first_obstruction = None\n    try:\n        occ, truncated, excluded = three_return_occurrences(levels, dmax, cap, t0, check_time)\n        if dmax == DOMAIN_MAX_K and len(occ) != EXPECTED_OCCURRENCES:\n            raise PairingLimitError(\"occurrence count changed: %d\" % len(occ))\n        if truncated:\n            complete = False\n            halt_reason = \"%d schedule(s) hit the cap: box unresolved\" % truncated\n        for phase, k, cur, cut, gaps, L in occ:\n            if check_time and time.monotonic() - t0 > TIME_BUDGET_SECONDS:\n                raise PairingLimitError(\"time budget exceeded in instance scan\")\n            lv = levels[phase]\n            bel = belief_direct(lv, k, cur, L)\n            if not bel:\n                raise SeparationViolationError(\"empty belief at %s k=%d x=%s L=%d\" % (phase, k, hex(cur), L))\n            if 1 <= L <= k - 2 and bel != belief_recursive(lv, k, cur, L):\n                raise OracleMismatchError(\"direct/recursive disagree at %s k=%d\" % (phase, k))\n            belief_pair_checks += 1\n            stats, _ = analyze_instance(bel, L)\n            mass = sum(1 if c % 2 == 0 else -1 for c in bel.values())\n            if mass == 0:\n                raise PairingLimitError(\"zero signed mass at %s k=%d x=%s\" % (phase, k, hex(cur)))\n            if stats[\"signed_mass\"] != mass:\n                raise OracleMismatchError(\"mass mismatch at %s k=%d\" % (phase, k))\n            rows.append({\"phase\": phase, \"complexity\": k, \"state_hex\": hex(cur),\n             \"cut\": cut, \"gaps\": list(gaps), \"depth\": L, \"endpoints\": len(bel),\n             \"signed_mass\": mass, \"graph\": stats})\n            if not stats[\"saturated\"]:\n                rows[-1][\"evidence\"] = obstruction_evidence(lv, phase, k, cur, cut, gaps, L, bel, stats)\n                first_obstruction = rows[-1]\n                break\n    except (PairingLimitError, SeparationViolationError) as exc:\n        complete = False\n        halt_reason = str(exc) if halt_reason is None else halt_reason + \"; \" + str(exc)\n    runtime = time.monotonic() - t0\n    peak = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\n    tested = len(rows)\n    pairing_exhausted = first_obstruction is None and tested == len(occ)\n    if first_obstruction is not None:\n        status = \"refuted\"\n    elif complete and tested == len(occ):\n        status = \"finite-exhaustive\"\n    else:\n        status = \"inconclusive\"\n    result = {\"occurrences\": len(occ), \"tested\": tested,\n     \"truncated_schedules\": truncated, \"excluded_depth_ge_k\": excluded,\n     \"belief_pair_checks\": belief_pair_checks,\n     \"oracle_states_compared\": oracle_checked, \"sanity\": sanity,\n     \"rows\": rows, \"first_obstruction\": first_obstruction,\n     \"completed_through_cap\": complete and pairing_exhausted, \"halt_reason\": halt_reason,\n     \"occurrence_domain_complete\": complete, \"pairing_search_exhausted\": pairing_exhausted,\n     \"order\": [\"complexity ascending\", \"phase p then u\", \"state ascending\",\n      \"cut ascending\", \"lexicographic gaps\"],\n     \"stopping\": \"first obstruction or cap; no cap increase\"}\n    canon = json.dumps(result, sort_keys=True, separators=(\",\", \":\")).encode()\n    gs = git_strict([\"status\", \"--short\"])\n    if enforcement is None:\n        enforcement = {\"address_space_limit_applied\": False,\n         \"reason\": \"no CLI enforcement record passed (library call)\",\n         \"deadline\": \"cooperative monotonic budget checks when check_time is true\"}\n    payload = {\"experiment_id\": \"signed-belief-hamming-pairing\",\n     \"timestamp_utc\": datetime.now(timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%SZ\"),\n     \"git_commit\": git_strict([\"rev-parse\", \"HEAD\"]),\n     \"git_branch\": git_strict([\"branch\", \"--show-current\"]),\n     \"git_status\": gs, \"git_dirty\": bool(gs.strip()), \"worktree\": str(ROOT),\n     \"source_hashes\": {\"analyzer_sha256\": sha256_file(Path(__file__).resolve())},\n     \"question\": \"problem1\", \"hypothesis\": HYPOTHESIS, \"backend\": \"python-direct-and-recursive\",\n     \"parameters\": {\"domain_max_k\": dmax, \"schedule_cap\": cap,\n      \"expected_occurrences\": EXPECTED_OCCURRENCES, \"oracle_k\": ORACLE_K,\n      \"time_budget_seconds\": TIME_BUDGET_SECONDS, \"memory_budget_kib\": MEMORY_BUDGET_KIB},\n     \"enforcement\": enforcement, \"hardware\": hardware_facts(),\n     \"software\": {\"python_version\": platform.python_version(),\n      \"python_implementation\": platform.python_implementation(), \"os\": platform.platform()},\n     \"runtime_seconds\": runtime, \"peak_rss_kib\": peak, \"result\": result,\n     \"result_hashes\": {\"certificate_sha256\": hashlib.sha256(canon).hexdigest()},\n     \"result_summary\": {\"occurrences\": len(occ), \"tested\": tested,\n      \"obstruction_found\": first_obstruction is not None,\n      \"completed_through_cap\": complete and pairing_exhausted,\n      \"occurrence_domain_complete\": complete, \"pairing_search_exhausted\": pairing_exhausted},\n     \"interpretation\": (\"An obstruction refutes sign-reversing involutions with Hamming \"\n      \"nonfixed pairs whose fixed set is nonempty of a common sign (equivalently: \"\n      \"nonfixed pairs saturating the minority) on that occurrence only; the identity \"\n      \"involution always exists. It does not refute arbitrary nonlocal pairings, \"\n      \"signed nonvanishing, or Problem 1. Passage through the cap is finite \"\n      \"evidence only.\"),\n     \"status\": status,\n     \"proof_scope\": \"bounded box only: full three-return domain 2<=k<=%d\" % dmax,\n     \"limitations\": [\"finite cap; the fixed-restricted Hamming class is refuted exactly \"\n      \"by the recorded counterexample while arbitrary nonlocal pairings remain open\",\n      \"single local process; cooperative 120s wall budget plus outer timeout; 1GiB cap in CLI runs\",\n      \"occurrences with L>=k excluded by domain definition, counted not successes\",\n      \"schedules hitting the cap force inconclusive, never exhaustive\"]}\n    try:\n        payload[\"source_hashes\"][\"test_sha256\"] = sha256_file(ROOT / TEST_RELATIVE)\n    except OSError:\n        pass\n    return payload\ndef main():\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--domain-max\", type=int, default=DOMAIN_MAX_K)\n    ap.add_argument(\"--schedule-cap\", type=int, default=SCHEDULE_CAP)\n    ap.add_argument(\"--output\", type=str, default=None)\n    a = ap.parse_args()\n    enforcement = apply_address_space_limit()\n    if not enforcement[\"address_space_limit_applied\"]:\n        raise PairingLimitError(\"could not enforce the address-space cap\")\n    import signal as _sig\n    def _alarm(signum, frame):\n        raise PairingLimitError(\"wall-clock alarm: 115s budget reached\")\n    _sig.signal(_sig.SIGALRM, _alarm)\n    enforcement[\"alarm_seconds\"] = 115\n    enforcement[\"deadline\"] = \"SIGALRM at 115s plus cooperative checks plus outer timeout\"\n    _sig.alarm(115)\n    try:\n        payload = run_campaign(a.domain_max, a.schedule_cap, True, enforcement)\n    finally:\n        _sig.alarm(0)\n    dest = Path(a.output) if a.output else ROOT / \"results/problem1\" / RESULT_FILENAME\n    res = dest.resolve()\n    if not res.is_relative_to(ROOT):\n        raise PairingLimitError(\"output outside worktree\")\n    write_record_atomic(payload, res)\n    print(json.dumps(payload, indent=2, sort_keys=True))\nif __name__ == \"__main__\":\n    main()\n"
+    },
+    "recursive_membership": {
+      "path": "/home/ryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py",
+      "repository_relative_path": "experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py",
+      "sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+      "source_utf8": "#!/usr/bin/env python3\n\"\"\"Exact recursive base-four lift criterion for ordinary phase frontiers.\n\nFor phase a in {p,u}, let O_(a,k) be the distinct ordinary outputs at\ncomplexity k. If a target at level k+1 is y=4h+e, then its possible level-k\nparents are determined by the low digit d of the parent and the partial inverse\nof t, u, or p applied to h. This gives an exact recursive membership test that\ndoes not enumerate the complete frontier.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport hashlib\nimport json\nfrom collections import Counter\nfrom functools import lru_cache\nfrom typing import Any\n\nPHASES = (\"p\", \"u\")\nDEFAULT_MAXIMUM_COMPLEXITY = 16\nABSOLUTE_MAXIMUM_COMPLEXITY = 20\nKNOWN_COUNTEREXAMPLE = 0x1BCD3A7B3FDFB\nCHILD_DIGIT_MASK = {\n    0: 0b1011,\n    1: 0b1100,\n    2: 0b1110,\n    3: 0b0011,\n}\nALLOWED_FIBER_MASKS = (0b0000, 0b0011, 0b1011, 0b1100, 0b1111)\n\n\nclass LiftRecursionLimitError(RuntimeError):\n    \"\"\"Raised before a controlled exhaustive campaign exceeds its cap.\"\"\"\n\n\ndef forward_generator(name: str, state: int) -> int:\n    if state < 0:\n        raise ValueError(\"state must be nonnegative\")\n    stepped = state ^ ((state << 1) | (state << 2))\n    if name == \"t\":\n        return stepped\n    if name == \"u\":\n        return stepped ^ 1\n    if name == \"p\":\n        return stepped ^ 1 ^ (2 if state & 1 == 0 else 0)\n    raise ValueError(\"unknown generator\")\n\n\ndef frontier_children(state: int) -> tuple[int, ...]:\n    return tuple(sorted({forward_generator(name, state) for name in \"tup\"}))\n\n\ndef phase_start(phase: str) -> int:\n    if phase == \"p\":\n        return 3\n    if phase == \"u\":\n        return 1\n    raise ValueError(\"phase must be p or u\")\n\n\ndef expected_bit_length(phase: str, complexity: int) -> int:\n    if complexity <= 0:\n        raise ValueError(\"complexity must be positive\")\n    return 2 * complexity if phase == \"p\" else 2 * complexity - 1\n\n\ndef inverse_t(output: int) -> int | None:\n    \"\"\"Return the unique exact nonnegative t-preimage, or None.\"\"\"\n    if output < 0:\n        raise ValueError(\"output must be nonnegative\")\n    if output == 0:\n        return 0\n    width = output.bit_length() - 2\n    if width <= 0:\n        return None\n    state = 0\n    for position in range(width):\n        lower = 0\n        if position >= 1:\n            lower |= (state >> (position - 1)) & 1\n        if position >= 2:\n            lower |= (state >> (position - 2)) & 1\n        bit = ((output >> position) & 1) ^ lower\n        state |= bit << position\n    return state if forward_generator(\"t\", state) == output else None\n\n\ndef inverse_generator(name: str, output: int) -> int | None:\n    if output < 0:\n        raise ValueError(\"output must be nonnegative\")\n    if name == \"t\":\n        return inverse_t(output)\n    if name == \"u\":\n        state = inverse_t(output ^ 1)\n    elif name == \"p\":\n        recovered_low_bit = (output & 1) ^ 1\n        adjusted = output ^ 1 ^ (2 if recovered_low_bit == 0 else 0)\n        state = inverse_t(adjusted)\n    else:\n        raise ValueError(\"unknown generator\")\n    if state is None or forward_generator(name, state) != output:\n        return None\n    return state\n\n\ndef candidate_parent(quotient: int, parent_digit: int) -> int | None:\n    if quotient < 0 or parent_digit not in range(4):\n        raise ValueError(\"invalid candidate-parent argument\")\n    generator = \"t\" if parent_digit == 0 else \"u\" if parent_digit == 1 else \"p\"\n    residual = inverse_generator(generator, quotient)\n    return None if residual is None else 4 * residual + parent_digit\n\n\ndef predicted_fiber_mask(current: set[int], quotient: int) -> tuple[int, int]:\n    predecessor_mask = 0\n    fiber_mask = 0\n    for digit in range(4):\n        parent = candidate_parent(quotient, digit)\n        if parent is not None and parent in current:\n            predecessor_mask |= 1 << digit\n            fiber_mask |= CHILD_DIGIT_MASK[digit]\n    if predecessor_mask & 0b0100 and not predecessor_mask & 0b1000:\n        raise AssertionError(\"residue-two predecessor lacked its residue-three mate\")\n    if fiber_mask not in ALLOWED_FIBER_MASKS:\n        raise AssertionError(\"fiber escaped the five-mask alphabet\")\n    return predecessor_mask, fiber_mask\n\n\ndef actual_fiber_mask(next_level: set[int], quotient: int) -> int:\n    return sum(1 << digit for digit in range(4) if 4 * quotient + digit in next_level)\n\n\ndef enumerate_phase(phase: str, maximum_complexity: int) -> dict[str, Any]:\n    current = {phase_start(phase)}\n    levels: list[dict[str, Any]] = []\n    total_outputs = 0\n    total_quotients = 0\n    total_candidate_checks = 0\n    total_mask_counts: Counter[int] = Counter()\n    total_predecessor_counts: Counter[int] = Counter()\n\n    for complexity in range(1, maximum_complexity + 1):\n        expected = expected_bit_length(phase, complexity)\n        if any(state.bit_length() != expected for state in current):\n            raise AssertionError(\"frontier bit-length law failed\")\n        total_outputs += len(current)\n        if complexity == maximum_complexity:\n            levels.append({\"complexity\": complexity, \"outputs\": len(current)})\n            break\n\n        next_level = {child for state in current for child in frontier_children(state)}\n        mask_counts: Counter[int] = Counter()\n        predecessor_counts: Counter[int] = Counter()\n        uncovered = 0\n        for quotient in current:\n            predecessor_mask, predicted = predicted_fiber_mask(current, quotient)\n            actual = actual_fiber_mask(next_level, quotient)\n            if predicted != actual:\n                raise AssertionError(\"exact lift recursion failed\")\n            mask_counts[actual] += 1\n            predecessor_counts[predecessor_mask] += 1\n            uncovered += actual == 0\n            total_quotients += 1\n            total_candidate_checks += 4\n        total_mask_counts.update(mask_counts)\n        total_predecessor_counts.update(predecessor_counts)\n        levels.append(\n            {\n                \"complexity\": complexity,\n                \"outputs\": len(current),\n                \"next_outputs\": len(next_level),\n                \"uncovered_quotients\": uncovered,\n                \"fiber_masks\": {\n                    f\"0b{mask:04b}\": count for mask, count in sorted(mask_counts.items())\n                },\n            }\n        )\n        current = next_level\n\n    return {\n        \"phase\": phase,\n        \"levels\": levels,\n        \"outputs_checked\": total_outputs,\n        \"quotients_checked\": total_quotients,\n        \"candidate_parent_checks\": total_candidate_checks,\n        \"fiber_mask_totals\": {\n            f\"0b{mask:04b}\": count for mask, count in sorted(total_mask_counts.items())\n        },\n        \"predecessor_mask_totals\": {\n            f\"0b{mask:04b}\": count\n            for mask, count in sorted(total_predecessor_counts.items())\n        },\n    }\n\n\n@lru_cache(maxsize=None)\ndef frontier_member(phase: str, complexity: int, target: int) -> bool:\n    \"\"\"Decide exact frontier membership by recursive lift inversion.\"\"\"\n    if complexity < 1 or target < 0:\n        return False\n    if target.bit_length() != expected_bit_length(phase, complexity):\n        return False\n    if complexity == 1:\n        return target == phase_start(phase)\n\n    quotient, digit = divmod(target, 4)\n    for parent_digit in range(4):\n        if not (CHILD_DIGIT_MASK[parent_digit] >> digit) & 1:\n            continue\n        parent = candidate_parent(quotient, parent_digit)\n        if parent is not None and frontier_member(phase, complexity - 1, parent):\n            return True\n    return False\n\n\n@lru_cache(maxsize=None)\ndef frontier_witness(phase: str, complexity: int, target: int) -> str | None:\n    if not frontier_member(phase, complexity, target):\n        return None\n    if complexity == 1:\n        return phase\n\n    quotient, digit = divmod(target, 4)\n    for parent_digit in range(4):\n        if not (CHILD_DIGIT_MASK[parent_digit] >> digit) & 1:\n            continue\n        parent = candidate_parent(quotient, parent_digit)\n        if parent is None or not frontier_member(phase, complexity - 1, parent):\n            continue\n        prefix = frontier_witness(phase, complexity - 1, parent)\n        if prefix is None:\n            continue\n        for generator in \"tup\":\n            if forward_generator(generator, parent) == target:\n                return prefix + generator\n    raise AssertionError(\"membership had no generator witness\")\n\n\ndef apply_word(word: str) -> int:\n    if not word or word[0] not in \"pu\":\n        raise ValueError(\"word must begin with phase p or u\")\n    state = phase_start(word[0])\n    for generator in word[1:]:\n        state = forward_generator(generator, state)\n    return state\n\n\ndef strict_examples() -> dict[str, Any]:\n    examples = {\n        \"phase_p\": {\"phase\": \"p\", \"complexity\": 2, \"quotient\": 12},\n        \"phase_u\": {\"phase\": \"u\", \"complexity\": 3, \"quotient\": 26},\n    }\n    for row in examples.values():\n        phase = row[\"phase\"]\n        complexity = row[\"complexity\"]\n        current = {phase_start(phase)}\n        for _ in range(1, complexity):\n            current = {child for state in current for child in frontier_children(state)}\n        next_level = {child for state in current for child in frontier_children(state)}\n        predecessor, predicted = predicted_fiber_mask(current, row[\"quotient\"])\n        actual = actual_fiber_mask(next_level, row[\"quotient\"])\n        if predicted != actual:\n            raise AssertionError(\"strict example recursion mismatch\")\n        row[\"predecessor_mask\"] = f\"0b{predecessor:04b}\"\n        row[\"fiber_mask\"] = f\"0b{actual:04b}\"\n        row[\"lifts\"] = [\n            4 * row[\"quotient\"] + digit\n            for digit in range(4)\n            if (actual >> digit) & 1\n        ]\n    return examples\n\n\ndef run_campaign(maximum_complexity: int = DEFAULT_MAXIMUM_COMPLEXITY) -> dict[str, Any]:\n    if not 2 <= maximum_complexity <= ABSOLUTE_MAXIMUM_COMPLEXITY:\n        raise LiftRecursionLimitError(\"maximum complexity outside controlled range\")\n\n    phase_rows = {\n        phase: enumerate_phase(phase, maximum_complexity) for phase in PHASES\n    }\n    frontier_member.cache_clear()\n    frontier_witness.cache_clear()\n    if not frontier_member(\"u\", 25, KNOWN_COUNTEREXAMPLE):\n        raise AssertionError(\"recursive criterion missed known counterexample\")\n    witness = frontier_witness(\"u\", 25, KNOWN_COUNTEREXAMPLE)\n    if witness is None or len(witness) != 25 or apply_word(witness) != KNOWN_COUNTEREXAMPLE:\n        raise AssertionError(\"recursive counterexample witness failed\")\n\n    payload: dict[str, Any] = {\n        \"status\": \"exact-recursive-membership-and-finite-exhaustion\",\n        \"maximum_complexity\": maximum_complexity,\n        \"theorem\": {\n            \"membership\": (\n                \"4h+e lies in O_(a,k+1) iff at least one exact candidate parent \"\n                \"selected by the partial inverses of t,u,p lies in O_(a,k) and \"\n                \"its parent-digit contribution contains e\"\n            ),\n            \"child_digit_masks\": {\n                str(digit): f\"0b{mask:04b}\"\n                for digit, mask in CHILD_DIGIT_MASK.items()\n            },\n            \"fiber_alphabet\": [f\"0b{mask:04b}\" for mask in ALLOWED_FIBER_MASKS],\n        },\n        \"phases\": phase_rows,\n        \"strict_examples\": strict_examples(),\n        \"known_counterexample\": {\n            \"phase\": \"u\",\n            \"complexity\": 25,\n            \"state\": KNOWN_COUNTEREXAMPLE,\n            \"state_hex\": hex(KNOWN_COUNTEREXAMPLE),\n            \"recursive_membership\": True,\n            \"recovered_generator_word\": witness,\n            \"recursive_cache_entries\": frontier_member.cache_info().currsize,\n        },\n        \"scientific_boundary\": (\n            \"The recursion decides ordinary phase-frontier membership exactly. It \"\n            \"does not prove that actual return penalties recur positively, prove \"\n            \"phase-complexity divergence, exclude eventual center period two, or \"\n            \"solve Rule 30 center nonperiodicity.\"\n        ),\n    }\n    encoded = json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode()\n    payload[\"certificate_sha256\"] = hashlib.sha256(encoded).hexdigest()\n    return payload\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--maximum-complexity\", type=int, default=DEFAULT_MAXIMUM_COMPLEXITY\n    )\n    args = parser.parse_args()\n    print(json.dumps(run_campaign(args.maximum_complexity), indent=2, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n"
+    }
+  },
+  "experiment_id": "bounded_affine_walsh_sign_named_u14_belief",
+  "git_commit": "e24b5da41e5d5ac204199a3837f3788a750bd33f",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "On the single named belief cost parity equals one affine binary character of endpoint bits.",
+  "input": {
+    "admission_path": "/home/ryan/rule30-lab/proofs/informal/problem1_walsh_sign_obstruction.md",
+    "admission_sha256": "10cf4f5b1f65f10854908bcad67549f7656ad34a3b73b57ed34262952bb20332",
+    "pairing_record_path": "/home/ryan/rule30-lab/results/problem1/20260905_signed_belief_hamming_pairing.json",
+    "pairing_record_sha256": "655c4116849db6fa6b3f3ee798a4fb1f732f66b4947a97321ca4ce754c6d8ddb",
+    "stored_endpoints_field_is_count_not_table": true
+  },
+  "integration": {
+    "comparison": {
+      "complete_endpoint_tables_agree": true,
+      "current_masks": [
+        15,
+        12
+      ],
+      "endpoints": 134,
+      "independent_file": "results/problem1/20260905_walsh_sign_independent.json",
+      "independent_sha256": "46b16158b152f686e52cf1458f26fb3872af3153bdcb70fd2f63919ccadc34b9",
+      "lexicographic_minimum_agrees": true,
+      "local_planes_checked": 2,
+      "non_affine_local_depths": [
+        1
+      ],
+      "non_affine_plane_walsh": [
+        2,
+        2,
+        -2,
+        2
+      ],
+      "quadruple_hex": [
+        "0x190822b",
+        "0x190825b",
+        "0x191c10b",
+        "0x191c17b"
+      ]
+    },
+    "comparison_source_sha256": "84f39821b15198fab8bbef6867e05f505adc2d3f45a74fa0ee29c115fc389b8d",
+    "comparison_source_text": "\"\"\"Compare the independently reconstructed single-belief Walsh certificates.\"\"\"\nimport hashlib,json,os,tempfile\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve()\nsha=lambda b:hashlib.sha256(b).hexdigest()\npp=ROOT/'results/problem1/20260905_walsh_sign_primary.json'\nip=ROOT/'results/problem1/20260905_walsh_sign_independent.json'\np=json.loads(pp.read_text());i=json.loads(ip.read_text())\nfor r in (p,i):\n    assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\n    assert sha(json.dumps(r['result_summary'],sort_keys=True,separators=(',',':')).encode())==r['result_hashes']['result_sha256']\n    assert r['result_summary']['completed'] and not r['result_summary']['validation_failures']\ndep_paths={'belief_oracle':'scripts/check_signed_belief_hamming_pairing.py',\n 'recursive_membership':'experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py'}\nfor name,d in p['dependencies'].items():\n    rel=dep_paths[name]\n    assert sha((ROOT/rel).read_bytes())==d['sha256']==sha(d['source_utf8'].encode())\n    d['repository_relative_path']=rel\nassert sha((ROOT/i['dependency']['path']).read_bytes())==i['dependency']['sha256']\nassert sha(i['dependency']['source_text'].encode())==i['dependency']['sha256']\nassert sha((ROOT/i['input']['path']).read_bytes())==i['input']['sha256']\na=p['result_summary'];b=i['result_summary']\nassert (a['endpoint_count'],a['even_cost_endpoints'],a['odd_cost_endpoints'],a['signed_mass'])==(b['belief_size'],b['E'],b['O'],b['S'])==(134,84,50,34)\nassert a['current_masks']==b['current_masks']==[15,12]\nta={r['endpoint']:(r['cost'],r['parity'],r['shadow_masks']) for r in a['complete_endpoint_cost_table']}\ntb={r['y']:(r['cost'],r['parity'],r['shadow_masks']) for r in b['endpoints']}\nassert ta==tb and len(ta)==134\nassert not a['affine_character_exists'] and not b['affine_consistent']\nca=a['quadruple_certificate'];cb=b['certificate'];quad=ca['ordered_endpoints']\nassert quad==[r['y'] for r in cb['endpoints']]\nassert ca['lexicographically_first'] and cb['xor']==ca['xor_sum']==0\nassert ca['cost_parity_sum_mod2']==cb['parity_sum']==1\nodd_levels=[]\nfor d in ca['same_quad_local_plane_diagnostics']:\n    j=d['depth_j_zero_based'];ps=[y>>(2*j+2) for y in quad]\n    ns=[tb[y][2][j] for y in quad];signs=[1 if n==15 else -1 for n in ns]\n    wc=[sum(s*(-1 if (n&f).bit_count()%2 else 1) for n,s in enumerate(signs)) for f in range(4)]\n    assert d['projected_inputs']==ps and d['shadow_masks']==ns\n    assert d['epsilon_signs']==signs and d['unnormalized_Walsh_coefficients']==wc\n    if d['nonfull_count_is_odd']:\n        odd_levels.append(j);ind=next(v for v in cb['local_filter_planes'] if v['depth_j']==j)\n        assert ind['inputs']==ps and ind['filter_values']==signs and ind['plane_walsh']==wc\nassert odd_levels==[1]\ncomparison={'complete_endpoint_tables_agree':True,'endpoints':134,'current_masks':[15,12],\n 'quadruple_hex':[hex(y) for y in quad],'lexicographic_minimum_agrees':True,\n 'local_planes_checked':2,'non_affine_local_depths':[1],'non_affine_plane_walsh':[2,2,-2,2],\n 'independent_file':str(ip.relative_to(ROOT)),'independent_sha256':sha(ip.read_bytes())}\nsource=Path(__file__).read_text()\np['integration']={'comparison':comparison,'comparison_source_text':source,'comparison_source_sha256':sha(source.encode()),\n 'raw_data_note':'result_summary includes the full original endpoint table and certificate; no temporary raw-data input is needed.',\n 'verification_note':'Independent reconstruction uses only level11 seeds and recursive lifts, rather than the primary direct level13 carrier.'}\nfd,tmp=tempfile.mkstemp(dir=pp.parent,prefix=pp.name+'.',suffix='.tmp')\nwith os.fdopen(fd,'w') as f:\n    json.dump(p,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,pp)\nprint(json.dumps(comparison,sort_keys=True))\n",
+    "raw_data_note": "result_summary includes the full original endpoint table and certificate; no temporary raw-data input is needed.",
+    "verification_note": "Independent reconstruction uses only level11 seeds and recursive lifts, rather than the primary direct level13 carrier."
+  },
+  "interpretation": "Concrete character obstruction requires lead certificate replay and separate mathematical/operator review before adoption.",
+  "invocation": [
+    "timeout",
+    "--signal=KILL",
+    "120s",
+    "/usr/bin/python3",
+    "/tmp/rule30-walsh-sign-6THJbU/search.py"
+  ],
+  "limitations": [
+    "Only the explicitly admitted u1..u13 finite carrier was materialized to reconstruct this named belief.",
+    "No phase-p carrier, u14 carrier, additional belief, occurrence census, or larger input domain.",
+    "The stored pairing artifact lacks a full endpoint table; this result embeds the reconstructed complete table and source/mask provenance.",
+    "Affine sign representability alone would not prove signed-sum nonvanishing.",
+    "Same-quad four-point local Walsh diagnostics do not establish a general Walsh-support-size corollary or an all-depth operator claim.",
+    "No repository writes, commits, pushes, or remote execution.",
+    "Record timing and memory precede final serialization and atomic writes."
+  ],
+  "limits_enforcement": "one CPU affinity; RLIMIT_CPU 120; RLIMIT_AS 1 GiB; outer timeout 120s",
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "certificate_membership": "frontier_member and frontier_witness at u13; scalar generator replay",
+    "complexity": 14,
+    "cpu_limit_seconds": 120,
+    "cpu_workers": 1,
+    "current_top_fiber": "four exact frontier_member(u,14,4*(x>>2)+d) queries; no level-14 carrier",
+    "cut": 1,
+    "depth": 2,
+    "expected_endpoints": 134,
+    "expected_even": 84,
+    "expected_odd": 50,
+    "fallback": "only if no quadruple: full GF(2) affine system with endpoint-combination provenance",
+    "gaps": [
+      2,
+      2,
+      2
+    ],
+    "original_generator_word": "uuuuputptutpuu",
+    "phase": "u",
+    "reconstruction": "existing belief_direct on phase-u Boolean-oracle carriers levels 1..13 only; level 14 exposes recursive __contains__ and forbids iteration",
+    "same_quad_diagnostic": "for each j=0..L-1 project y>>(2j+2); record epsilon=(-1)^(shadow mask !=15) and four unnormalized affine-plane Walsh coefficients; no additional endpoints",
+    "search_order": "sorted distinct numeric endpoints; increasing a,b,c; d=a XOR b XOR c must be in belief and d>c; stop first odd-cost quadruple",
+    "shadow_fibers": "u12/u13 carrier for table construction; independently replay certificate fibers by exact recursive membership",
+    "state_hex": "0x642fdfb",
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "One 134-point genuine belief only; first lexicographic four-point affine obstruction, or exact full-system fallback.",
+  "question": "problem1",
+  "result_hashes": {
+    "input_record_sha256": "655c4116849db6fa6b3f3ee798a4fb1f732f66b4947a97321ca4ce754c6d8ddb",
+    "membership_source_sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "oracle_source_sha256": "6355b1f4ffffe82d46b0d804da9f99ecea1cdf0035235c006dde5fb21005b335",
+    "raw_data_sha256": "e418363f9815cc9d8fa105ea235e69c2182b2435cc8e216770b20df2a1b7e333",
+    "result_sha256": "1274a09e71c9e4065be4f1ac6a2475a1c90658c73a3b13222565c106680eedd7",
+    "source_sha256": "61d51c412e84accbb61f508f844c13437cc95cde5f54650f86c3aec6a3163cf5"
+  },
+  "result_summary": {
+    "affine_character_exists": false,
+    "affine_system_fallback": null,
+    "belief_identity": {
+      "base_word": "t",
+      "cut": 1,
+      "depth": 2,
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "k": 14,
+      "phase": "u",
+      "x": 105053691,
+      "x_hex": "0x642fdfb"
+    },
+    "carrier_metadata": [
+      {
+        "level": 1,
+        "phase": "u",
+        "size": 1,
+        "sorted_states_sha256": "080a9ed428559ef602668b4c00f114f1a11c3f6b02a435f0bdc154578e4d7f22"
+      },
+      {
+        "level": 2,
+        "phase": "u",
+        "size": 2,
+        "sorted_states_sha256": "946ec11a25d8ec678f5b4ed3ceb77c3f2ff2fbabe01e03070c3cc2f60dc619cb"
+      },
+      {
+        "level": 3,
+        "phase": "u",
+        "size": 4,
+        "sorted_states_sha256": "84b512fb3830fb00708877001d129f10350b12df05ab58b49fcee8f9180755cc"
+      },
+      {
+        "level": 4,
+        "phase": "u",
+        "size": 9,
+        "sorted_states_sha256": "09dfe425cb6fcd0a53eccab1c322aba428306348c67794d251e751f21acba5c0"
+      },
+      {
+        "level": 5,
+        "phase": "u",
+        "size": 18,
+        "sorted_states_sha256": "b8ed5f4f165a76c851a96111b86904e366b5f82314d8219196e210e4ab2d967f"
+      },
+      {
+        "level": 6,
+        "phase": "u",
+        "size": 36,
+        "sorted_states_sha256": "dc716c3283024a0781fcc390f05390f6bfe4ca4afe0465d87d76a9165e887762"
+      },
+      {
+        "level": 7,
+        "phase": "u",
+        "size": 67,
+        "sorted_states_sha256": "34c4faca55eeeb242832cf5e6a4b5b0c8a9788c327e85da57f00f72c21147010"
+      },
+      {
+        "level": 8,
+        "phase": "u",
+        "size": 129,
+        "sorted_states_sha256": "0fb1b2f8d9ad62b1b47a7c9bf8d70b5f87bc15e4be3b3deefef799773e46efab"
+      },
+      {
+        "level": 9,
+        "phase": "u",
+        "size": 255,
+        "sorted_states_sha256": "158cceac912adbbf97ddee4cca48a785812ca2dad8f138467a1aacb04cc80d53"
+      },
+      {
+        "level": 10,
+        "phase": "u",
+        "size": 494,
+        "sorted_states_sha256": "4559ebbe187fb200640afed57c8113a636fc8d7b1bfd80d0b8f2c03dee7cd4ac"
+      },
+      {
+        "level": 11,
+        "phase": "u",
+        "size": 950,
+        "sorted_states_sha256": "b00a3366a8f6e89d4505fd25a2dec4fc358c91006290ac08c5a2bd9c61a166ae"
+      },
+      {
+        "level": 12,
+        "phase": "u",
+        "size": 1767,
+        "sorted_states_sha256": "31c8ff75b09f6c98f9a692fa2ee32f6c5daae7aae8c8f36ec3688c79aebb1e16"
+      },
+      {
+        "level": 13,
+        "phase": "u",
+        "size": 3266,
+        "sorted_states_sha256": "9677e8b049252589fef083fcecff977fc1dd7b3fbadf4a7dff7a4b3e5b50b4ae"
+      }
+    ],
+    "complete_endpoint_cost_table": [
+      {
+        "cost": 0,
+        "endpoint": 26247723,
+        "endpoint_hex": "0x190822b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26247739,
+        "endpoint_hex": "0x190823b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26247771,
+        "endpoint_hex": "0x190825b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26248139,
+        "endpoint_hex": "0x19083cb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26248971,
+        "endpoint_hex": "0x190870b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26249051,
+        "endpoint_hex": "0x190875b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26249083,
+        "endpoint_hex": "0x190877b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26249195,
+        "endpoint_hex": "0x19087eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26249483,
+        "endpoint_hex": "0x190890b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26249627,
+        "endpoint_hex": "0x190899b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26252299,
+        "endpoint_hex": "0x190940b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26252363,
+        "endpoint_hex": "0x190944b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26252379,
+        "endpoint_hex": "0x190945b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26252411,
+        "endpoint_hex": "0x190947b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26252443,
+        "endpoint_hex": "0x190949b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26252523,
+        "endpoint_hex": "0x19094eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26252587,
+        "endpoint_hex": "0x190952b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26252923,
+        "endpoint_hex": "0x190967b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26253003,
+        "endpoint_hex": "0x19096cb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26253035,
+        "endpoint_hex": "0x19096eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26253195,
+        "endpoint_hex": "0x190978b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26253243,
+        "endpoint_hex": "0x19097bb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26254475,
+        "endpoint_hex": "0x1909c8b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26254555,
+        "endpoint_hex": "0x1909cdb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26254795,
+        "endpoint_hex": "0x1909dcb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26254843,
+        "endpoint_hex": "0x1909dfb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26261563,
+        "endpoint_hex": "0x190b83b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261579,
+        "endpoint_hex": "0x190b84b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261643,
+        "endpoint_hex": "0x190b88b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261659,
+        "endpoint_hex": "0x190b89b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261675,
+        "endpoint_hex": "0x190b8ab",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261691,
+        "endpoint_hex": "0x190b8bb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26261723,
+        "endpoint_hex": "0x190b8db",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26261867,
+        "endpoint_hex": "0x190b96b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26262011,
+        "endpoint_hex": "0x190b9fb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26262027,
+        "endpoint_hex": "0x190ba0b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26262107,
+        "endpoint_hex": "0x190ba5b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26262555,
+        "endpoint_hex": "0x190bc1b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26262731,
+        "endpoint_hex": "0x190bccb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26262923,
+        "endpoint_hex": "0x190bd8b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26262971,
+        "endpoint_hex": "0x190bdbb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26263339,
+        "endpoint_hex": "0x190bf2b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26263355,
+        "endpoint_hex": "0x190bf3b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26263387,
+        "endpoint_hex": "0x190bf5b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26329275,
+        "endpoint_hex": "0x191c0bb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329355,
+        "endpoint_hex": "0x191c10b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329371,
+        "endpoint_hex": "0x191c11b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329419,
+        "endpoint_hex": "0x191c14b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329435,
+        "endpoint_hex": "0x191c15b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329467,
+        "endpoint_hex": "0x191c17b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26329499,
+        "endpoint_hex": "0x191c19b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26329547,
+        "endpoint_hex": "0x191c1cb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329579,
+        "endpoint_hex": "0x191c1eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26329627,
+        "endpoint_hex": "0x191c21b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329707,
+        "endpoint_hex": "0x191c26b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26329851,
+        "endpoint_hex": "0x191c2fb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26329995,
+        "endpoint_hex": "0x191c38b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26330123,
+        "endpoint_hex": "0x191c40b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26330331,
+        "endpoint_hex": "0x191c4db",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26331947,
+        "endpoint_hex": "0x191cb2b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26331963,
+        "endpoint_hex": "0x191cb3b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26331995,
+        "endpoint_hex": "0x191cb5b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26332267,
+        "endpoint_hex": "0x191cc6b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26332411,
+        "endpoint_hex": "0x191ccfb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26332555,
+        "endpoint_hex": "0x191cd8b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26332603,
+        "endpoint_hex": "0x191cdbb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26332635,
+        "endpoint_hex": "0x191cddb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26332907,
+        "endpoint_hex": "0x191ceeb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26332939,
+        "endpoint_hex": "0x191cf0b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26332987,
+        "endpoint_hex": "0x191cf3b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 26333003,
+        "endpoint_hex": "0x191cf4b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 26333083,
+        "endpoint_hex": "0x191cf9b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29151275,
+        "endpoint_hex": "0x1bcd02b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151419,
+        "endpoint_hex": "0x1bcd0bb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151515,
+        "endpoint_hex": "0x1bcd11b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151643,
+        "endpoint_hex": "0x1bcd19b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151691,
+        "endpoint_hex": "0x1bcd1cb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29151723,
+        "endpoint_hex": "0x1bcd1eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151771,
+        "endpoint_hex": "0x1bcd21b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151851,
+        "endpoint_hex": "0x1bcd26b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29151947,
+        "endpoint_hex": "0x1bcd2cb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29151995,
+        "endpoint_hex": "0x1bcd2fb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29152139,
+        "endpoint_hex": "0x1bcd38b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29152219,
+        "endpoint_hex": "0x1bcd3db",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29156107,
+        "endpoint_hex": "0x1bce30b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29156187,
+        "endpoint_hex": "0x1bce35b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29156219,
+        "endpoint_hex": "0x1bce37b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29156331,
+        "endpoint_hex": "0x1bce3eb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29156907,
+        "endpoint_hex": "0x1bce62b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29156923,
+        "endpoint_hex": "0x1bce63b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29156955,
+        "endpoint_hex": "0x1bce65b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29159339,
+        "endpoint_hex": "0x1bcefab",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29159355,
+        "endpoint_hex": "0x1bcefbb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29159387,
+        "endpoint_hex": "0x1bcefdb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161483,
+        "endpoint_hex": "0x1bcf80b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161547,
+        "endpoint_hex": "0x1bcf84b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161563,
+        "endpoint_hex": "0x1bcf85b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161595,
+        "endpoint_hex": "0x1bcf87b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161611,
+        "endpoint_hex": "0x1bcf88b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161627,
+        "endpoint_hex": "0x1bcf89b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29161707,
+        "endpoint_hex": "0x1bcf8eb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29161931,
+        "endpoint_hex": "0x1bcf9cb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29161979,
+        "endpoint_hex": "0x1bcf9fb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162043,
+        "endpoint_hex": "0x1bcfa3b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29162059,
+        "endpoint_hex": "0x1bcfa4b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29162219,
+        "endpoint_hex": "0x1bcfaeb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162267,
+        "endpoint_hex": "0x1bcfb1b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29162347,
+        "endpoint_hex": "0x1bcfb6b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162491,
+        "endpoint_hex": "0x1bcfbfb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162523,
+        "endpoint_hex": "0x1bcfc1b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162699,
+        "endpoint_hex": "0x1bcfccb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29162939,
+        "endpoint_hex": "0x1bcfdbb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29200635,
+        "endpoint_hex": "0x1bd90fb",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29200779,
+        "endpoint_hex": "0x1bd918b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29200811,
+        "endpoint_hex": "0x1bd91ab",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29200827,
+        "endpoint_hex": "0x1bd91bb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29200859,
+        "endpoint_hex": "0x1bd91db",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29201211,
+        "endpoint_hex": "0x1bd933b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29201227,
+        "endpoint_hex": "0x1bd934b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29201307,
+        "endpoint_hex": "0x1bd939b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 1,
+        "endpoint": 29202203,
+        "endpoint_hex": "0x1bd971b",
+        "parity": 1,
+        "shadow_mask_bits": [
+          "1111",
+          "1100"
+        ],
+        "shadow_masks": [
+          15,
+          12
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29202379,
+        "endpoint_hex": "0x1bd97cb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203499,
+        "endpoint_hex": "0x1bd9c2b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203515,
+        "endpoint_hex": "0x1bd9c3b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203547,
+        "endpoint_hex": "0x1bd9c5b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203579,
+        "endpoint_hex": "0x1bd9c7b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203595,
+        "endpoint_hex": "0x1bd9c8b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203643,
+        "endpoint_hex": "0x1bd9cbb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203723,
+        "endpoint_hex": "0x1bd9d0b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203755,
+        "endpoint_hex": "0x1bd9d2b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203787,
+        "endpoint_hex": "0x1bd9d4b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203803,
+        "endpoint_hex": "0x1bd9d5b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203835,
+        "endpoint_hex": "0x1bd9d7b",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      },
+      {
+        "cost": 0,
+        "endpoint": 29203915,
+        "endpoint_hex": "0x1bd9dcb",
+        "parity": 0,
+        "shadow_mask_bits": [
+          "1111",
+          "1111"
+        ],
+        "shadow_masks": [
+          15,
+          15
+        ]
+      }
+    ],
+    "completed": true,
+    "cost_histogram": {
+      "0": 84,
+      "1": 50
+    },
+    "counts": {
+      "affine_system_solved": false,
+      "beliefs_evaluated": 1,
+      "carrier_level14_materialized": false,
+      "carrier_maximum_level": 13,
+      "certificate_endpoint_mask_sequences_replayed": 4,
+      "certificate_endpoint_memberships_replayed": 4,
+      "endpoint_count": 134,
+      "ordered_xor_quad_candidates": 21,
+      "triple_probes": 174
+    },
+    "current_masks": [
+      15,
+      12
+    ],
+    "current_recursive_mask_trace": [
+      {
+        "exact_membership_queries": [
+          {
+            "candidate": 105053688,
+            "candidate_hex": "0x642fdf8",
+            "digit": 0,
+            "member": true
+          },
+          {
+            "candidate": 105053689,
+            "candidate_hex": "0x642fdf9",
+            "digit": 1,
+            "member": true
+          },
+          {
+            "candidate": 105053690,
+            "candidate_hex": "0x642fdfa",
+            "digit": 2,
+            "member": true
+          },
+          {
+            "candidate": 105053691,
+            "candidate_hex": "0x642fdfb",
+            "digit": 3,
+            "member": true
+          }
+        ],
+        "frontier_level": 14,
+        "mask": 15,
+        "mask_bits": "1111",
+        "quotient": 26263422,
+        "quotient_hex": "0x190bf7e",
+        "state": 105053691,
+        "state_hex": "0x642fdfb",
+        "strip_index": 0
+      },
+      {
+        "exact_membership_queries": [
+          {
+            "candidate": 26263420,
+            "candidate_hex": "0x190bf7c",
+            "digit": 0,
+            "member": false
+          },
+          {
+            "candidate": 26263421,
+            "candidate_hex": "0x190bf7d",
+            "digit": 1,
+            "member": false
+          },
+          {
+            "candidate": 26263422,
+            "candidate_hex": "0x190bf7e",
+            "digit": 2,
+            "member": true
+          },
+          {
+            "candidate": 26263423,
+            "candidate_hex": "0x190bf7f",
+            "digit": 3,
+            "member": true
+          }
+        ],
+        "frontier_level": 13,
+        "mask": 12,
+        "mask_bits": "1100",
+        "quotient": 6565855,
+        "quotient_hex": "0x642fdf",
+        "state": 26263422,
+        "state_hex": "0x190bf7e",
+        "strip_index": 1
+      }
+    ],
+    "endpoint_count": 134,
+    "endpoint_table_sha256": "3bdecd04d7014b3c56a2b63f6d523bb1f393b6dd5a93722c33c40bb656fe3153",
+    "even_cost_endpoints": 84,
+    "level14_recursive_queries_during_oracle": [
+      {
+        "member": true,
+        "state": 105053688,
+        "state_hex": "0x642fdf8"
+      },
+      {
+        "member": true,
+        "state": 105053689,
+        "state_hex": "0x642fdf9"
+      },
+      {
+        "member": true,
+        "state": 105053690,
+        "state_hex": "0x642fdfa"
+      },
+      {
+        "member": true,
+        "state": 105053691,
+        "state_hex": "0x642fdfb"
+      },
+      {
+        "member": true,
+        "state": 105053688,
+        "state_hex": "0x642fdf8"
+      },
+      {
+        "member": true,
+        "state": 105053689,
+        "state_hex": "0x642fdf9"
+      },
+      {
+        "member": true,
+        "state": 105053690,
+        "state_hex": "0x642fdfa"
+      },
+      {
+        "member": true,
+        "state": 105053691,
+        "state_hex": "0x642fdfb"
+      }
+    ],
+    "membership_cache": {
+      "currsize": 493,
+      "hits": 284,
+      "maxsize": null,
+      "misses": 493
+    },
+    "odd_cost_endpoints": 50,
+    "original_occurrence": {
+      "admissibility_word": "tutututu",
+      "final_u_required_observed": false,
+      "forced_states": [
+        105053691,
+        421315463,
+        1680752123,
+        6741250951,
+        26892095995,
+        107859702407,
+        430274623675,
+        1725756603703
+      ],
+      "forced_steps": [
+        {
+          "P_value": 116605057,
+          "branch": "t",
+          "next_x": 421315463,
+          "residue_mod_16": 11,
+          "x": 105053691,
+          "x_shift_2": 26263422
+        },
+        {
+          "P_value": 467260198,
+          "branch": "u",
+          "next_x": 1680752123,
+          "residue_mod_16": 7,
+          "x": 421315463,
+          "x_shift_2": 105328865
+        },
+        {
+          "P_value": 1865724033,
+          "branch": "t",
+          "next_x": 6741250951,
+          "residue_mod_16": 11,
+          "x": 1680752123,
+          "x_shift_2": 420188030
+        },
+        {
+          "P_value": 7476096806,
+          "branch": "u",
+          "next_x": 26892095995,
+          "residue_mod_16": 7,
+          "x": 6741250951,
+          "x_shift_2": 1685312737
+        },
+        {
+          "P_value": 29851897217,
+          "branch": "t",
+          "next_x": 107859702407,
+          "residue_mod_16": 11,
+          "x": 26892095995,
+          "x_shift_2": 6723023998
+        },
+        {
+          "P_value": 119617644390,
+          "branch": "u",
+          "next_x": 430274623675,
+          "residue_mod_16": 7,
+          "x": 107859702407,
+          "x_shift_2": 26964925601
+        },
+        {
+          "P_value": 477629027025,
+          "branch": "t",
+          "next_x": 1725756603703,
+          "residue_mod_16": 11,
+          "x": 430274623675,
+          "x_shift_2": 107568655918
+        }
+      ],
+      "generator_states_from_zero": [
+        0,
+        1,
+        6,
+        27,
+        100,
+        447,
+        1600,
+        7104,
+        25667,
+        114125,
+        410226,
+        1822622,
+        6582497,
+        29201190,
+        105053691
+      ],
+      "generator_word": "uuuuputptutpuu",
+      "observation_stop_reason": "observation_horizon",
+      "observed_prefix": "tututut"
+    },
+    "quadruple_certificate": {
+      "affine_constant_multiplicity_mod2": 0,
+      "cost_parity_sum_mod2": 1,
+      "cost_sum": 1,
+      "endpoint_provenance": [
+        {
+          "common_modulus": 16,
+          "common_residue": 11,
+          "cost": 0,
+          "current_mask_sequence": [
+            15,
+            12
+          ],
+          "dominance_each_level": [
+            true,
+            true
+          ],
+          "endpoint": 26247723,
+          "endpoint_hex": "0x190822b",
+          "exact_lower_membership": true,
+          "generator_states_from_zero": [
+            0,
+            1,
+            7,
+            24,
+            105,
+            414,
+            1763,
+            6444,
+            28631,
+            102440,
+            454872,
+            1643304,
+            7306712,
+            26247723
+          ],
+          "generator_witness": "utuuuuuputttp",
+          "parity": 0,
+          "recursive_shadow_mask_trace": [
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 26247720,
+                  "candidate_hex": "0x1908228",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 26247721,
+                  "candidate_hex": "0x1908229",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 26247722,
+                  "candidate_hex": "0x190822a",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 26247723,
+                  "candidate_hex": "0x190822b",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 13,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 6561930,
+              "quotient_hex": "0x64208a",
+              "state": 26247723,
+              "state_hex": "0x190822b",
+              "strip_index": 0
+            },
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 6561928,
+                  "candidate_hex": "0x642088",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 6561929,
+                  "candidate_hex": "0x642089",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 6561930,
+                  "candidate_hex": "0x64208a",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 6561931,
+                  "candidate_hex": "0x64208b",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 12,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 1640482,
+              "quotient_hex": "0x190822",
+              "state": 6561930,
+              "state_hex": "0x64208a",
+              "strip_index": 1
+            }
+          ],
+          "shadow_mask_sequence": [
+            15,
+            15
+          ],
+          "sorted_endpoint_index_zero_based": 0
+        },
+        {
+          "common_modulus": 16,
+          "common_residue": 11,
+          "cost": 1,
+          "current_mask_sequence": [
+            15,
+            12
+          ],
+          "dominance_each_level": [
+            true,
+            true
+          ],
+          "endpoint": 26247771,
+          "endpoint_hex": "0x190825b",
+          "exact_lower_membership": true,
+          "generator_states_from_zero": [
+            0,
+            1,
+            7,
+            24,
+            105,
+            414,
+            1762,
+            6447,
+            28624,
+            102448,
+            454867,
+            1643324,
+            7306693,
+            26247771
+          ],
+          "generator_witness": "utuuutuutpuut",
+          "parity": 1,
+          "recursive_shadow_mask_trace": [
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 26247768,
+                  "candidate_hex": "0x1908258",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 26247769,
+                  "candidate_hex": "0x1908259",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 26247770,
+                  "candidate_hex": "0x190825a",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 26247771,
+                  "candidate_hex": "0x190825b",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 13,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 6561942,
+              "quotient_hex": "0x642096",
+              "state": 26247771,
+              "state_hex": "0x190825b",
+              "strip_index": 0
+            },
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 6561940,
+                  "candidate_hex": "0x642094",
+                  "digit": 0,
+                  "member": false
+                },
+                {
+                  "candidate": 6561941,
+                  "candidate_hex": "0x642095",
+                  "digit": 1,
+                  "member": false
+                },
+                {
+                  "candidate": 6561942,
+                  "candidate_hex": "0x642096",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 6561943,
+                  "candidate_hex": "0x642097",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 12,
+              "mask": 12,
+              "mask_bits": "1100",
+              "quotient": 1640485,
+              "quotient_hex": "0x190825",
+              "state": 6561942,
+              "state_hex": "0x642096",
+              "strip_index": 1
+            }
+          ],
+          "shadow_mask_sequence": [
+            15,
+            12
+          ],
+          "sorted_endpoint_index_zero_based": 2
+        },
+        {
+          "common_modulus": 16,
+          "common_residue": 11,
+          "cost": 0,
+          "current_mask_sequence": [
+            15,
+            12
+          ],
+          "dominance_each_level": [
+            true,
+            true
+          ],
+          "endpoint": 26329355,
+          "endpoint_hex": "0x191c10b",
+          "exact_lower_membership": true,
+          "generator_states_from_zero": [
+            0,
+            1,
+            6,
+            25,
+            110,
+            403,
+            1788,
+            6404,
+            28444,
+            102759,
+            456376,
+            1640776,
+            7290616,
+            26329355
+          ],
+          "generator_witness": "uupuuuttputtp",
+          "parity": 0,
+          "recursive_shadow_mask_trace": [
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 26329352,
+                  "candidate_hex": "0x191c108",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 26329353,
+                  "candidate_hex": "0x191c109",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 26329354,
+                  "candidate_hex": "0x191c10a",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 26329355,
+                  "candidate_hex": "0x191c10b",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 13,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 6582338,
+              "quotient_hex": "0x647042",
+              "state": 26329355,
+              "state_hex": "0x191c10b",
+              "strip_index": 0
+            },
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 6582336,
+                  "candidate_hex": "0x647040",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 6582337,
+                  "candidate_hex": "0x647041",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 6582338,
+                  "candidate_hex": "0x647042",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 6582339,
+                  "candidate_hex": "0x647043",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 12,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 1645584,
+              "quotient_hex": "0x191c10",
+              "state": 6582338,
+              "state_hex": "0x647042",
+              "strip_index": 1
+            }
+          ],
+          "shadow_mask_sequence": [
+            15,
+            15
+          ],
+          "sorted_endpoint_index_zero_based": 45
+        },
+        {
+          "common_modulus": 16,
+          "common_residue": 11,
+          "cost": 0,
+          "current_mask_sequence": [
+            15,
+            12
+          ],
+          "dominance_each_level": [
+            true,
+            true
+          ],
+          "endpoint": 26329467,
+          "endpoint_hex": "0x191c17b",
+          "exact_lower_membership": true,
+          "generator_states_from_zero": [
+            0,
+            1,
+            6,
+            25,
+            110,
+            403,
+            1788,
+            6404,
+            28447,
+            102752,
+            456352,
+            1640801,
+            7290534,
+            26329467
+          ],
+          "generator_witness": "uupuuutputuuu",
+          "parity": 0,
+          "recursive_shadow_mask_trace": [
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 26329464,
+                  "candidate_hex": "0x191c178",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 26329465,
+                  "candidate_hex": "0x191c179",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 26329466,
+                  "candidate_hex": "0x191c17a",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 26329467,
+                  "candidate_hex": "0x191c17b",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 13,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 6582366,
+              "quotient_hex": "0x64705e",
+              "state": 26329467,
+              "state_hex": "0x191c17b",
+              "strip_index": 0
+            },
+            {
+              "exact_membership_queries": [
+                {
+                  "candidate": 6582364,
+                  "candidate_hex": "0x64705c",
+                  "digit": 0,
+                  "member": true
+                },
+                {
+                  "candidate": 6582365,
+                  "candidate_hex": "0x64705d",
+                  "digit": 1,
+                  "member": true
+                },
+                {
+                  "candidate": 6582366,
+                  "candidate_hex": "0x64705e",
+                  "digit": 2,
+                  "member": true
+                },
+                {
+                  "candidate": 6582367,
+                  "candidate_hex": "0x64705f",
+                  "digit": 3,
+                  "member": true
+                }
+              ],
+              "frontier_level": 12,
+              "mask": 15,
+              "mask_bits": "1111",
+              "quotient": 1645591,
+              "quotient_hex": "0x191c17",
+              "state": 6582366,
+              "state_hex": "0x64705e",
+              "strip_index": 1
+            }
+          ],
+          "shadow_mask_sequence": [
+            15,
+            15
+          ],
+          "sorted_endpoint_index_zero_based": 49
+        }
+      ],
+      "lexicographically_first": true,
+      "minimality_scope": "first in increasing numeric a,b,c with d=a^b^c>d_previous=c, over this complete 134-point table",
+      "odd_nonfull_depth_indices_zero_based": [
+        1
+      ],
+      "ordered_endpoint_hex": [
+        "0x190822b",
+        "0x190825b",
+        "0x191c10b",
+        "0x191c17b"
+      ],
+      "ordered_endpoints": [
+        26247723,
+        26247771,
+        26329355,
+        26329467
+      ],
+      "same_quad_local_plane_diagnostics": [
+        {
+          "Walsh_convention": "W(u,v)=sum_(a,b) epsilon(a,b)*(-1)^(u*a+v*b)",
+          "affine_plane_directions": [
+            28,
+            20680
+          ],
+          "affine_plane_origin": 6561930,
+          "current_mask": 15,
+          "current_mask_bits": "1111",
+          "depth_j_zero_based": 0,
+          "epsilon_product": 1,
+          "epsilon_signs": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "four_projected_inputs_distinct": true,
+          "frequency_order": [
+            "00",
+            "10",
+            "01",
+            "11"
+          ],
+          "mask_carrier_level": 12,
+          "mask_membership_frontier_level": 13,
+          "nonfull_count": 0,
+          "nonfull_count_is_odd": false,
+          "nonfull_indicators": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "odd_depth_coefficients_all_abs_two": null,
+          "point_order": [
+            "00=y0",
+            "10=y1",
+            "01=y2",
+            "11=y3"
+          ],
+          "projected_input_hex": [
+            "0x64208a",
+            "0x642096",
+            "0x647042",
+            "0x64705e"
+          ],
+          "projected_inputs": [
+            6561930,
+            6561942,
+            6582338,
+            6582366
+          ],
+          "projected_xor_sum": 0,
+          "shadow_mask_bits": [
+            "1111",
+            "1111",
+            "1111",
+            "1111"
+          ],
+          "shadow_masks": [
+            15,
+            15,
+            15,
+            15
+          ],
+          "shift_bits": 2,
+          "unnormalized_Walsh_coefficients": [
+            4,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "Walsh_convention": "W(u,v)=sum_(a,b) epsilon(a,b)*(-1)^(u*a+v*b)",
+          "affine_plane_directions": [
+            7,
+            5170
+          ],
+          "affine_plane_origin": 1640482,
+          "current_mask": 12,
+          "current_mask_bits": "1100",
+          "depth_j_zero_based": 1,
+          "epsilon_product": -1,
+          "epsilon_signs": [
+            1,
+            -1,
+            1,
+            1
+          ],
+          "four_projected_inputs_distinct": true,
+          "frequency_order": [
+            "00",
+            "10",
+            "01",
+            "11"
+          ],
+          "mask_carrier_level": 11,
+          "mask_membership_frontier_level": 12,
+          "nonfull_count": 1,
+          "nonfull_count_is_odd": true,
+          "nonfull_indicators": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "odd_depth_coefficients_all_abs_two": true,
+          "point_order": [
+            "00=y0",
+            "10=y1",
+            "01=y2",
+            "11=y3"
+          ],
+          "projected_input_hex": [
+            "0x190822",
+            "0x190825",
+            "0x191c10",
+            "0x191c17"
+          ],
+          "projected_inputs": [
+            1640482,
+            1640485,
+            1645584,
+            1645591
+          ],
+          "projected_xor_sum": 0,
+          "shadow_mask_bits": [
+            "1111",
+            "1100",
+            "1111",
+            "1111"
+          ],
+          "shadow_masks": [
+            15,
+            12,
+            15,
+            15
+          ],
+          "shift_bits": 4,
+          "unnormalized_Walsh_coefficients": [
+            2,
+            2,
+            -2,
+            2
+          ]
+        }
+      ],
+      "type": "four_distinct_endpoints_affine_inconsistency",
+      "xor_sum": 0
+    },
+    "signed_mass": 34,
+    "source_record_crosschecks": {
+      "all_41_stored_Hall_vertices_present_and_odd": true,
+      "count_134": true,
+      "even_84_odd_50": true,
+      "stored_isolated_vertex_cost_and_masks_match": true
+    },
+    "validation_failures": []
+  },
+  "runtime_seconds": 0.06275400100275874,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "uname": [
+      "Linux",
+      "Home-Server",
+      "7.0.0-30-generic",
+      "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+      "x86_64",
+      ""
+    ]
+  },
+  "source_path": "/tmp/rule30-walsh-sign-6THJbU/search.py",
+  "source_text": "#!/usr/bin/env python3\n\"\"\"Bounded literal boundary search. All writes are confined beside this source.\"\"\"\nimport datetime\nimport hashlib\nimport itertools\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/ryan/rule30-lab')\nOUT = Path(__file__).resolve().parent\nSTART_WALL = time.monotonic()\nSTART_CPU = time.process_time()\nSTART_UTC = datetime.datetime.now(datetime.timezone.utc).isoformat()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\nORIGINAL_AFFINITY = sorted(os.sched_getaffinity(0))\nos.sched_setaffinity(0, {ORIGINAL_AFFINITY[0]})\n\n\ndef admissible(word):\n    return all(factor not in word for factor in ('uu', 'ttttt', 'ututtu'))\n\n\ndef motif(g):\n    return ''.join('u' + 't' * (r - 1) for r in g)\n\n\nTRIPLES = tuple(g for g in itertools.product(range(2, 6), repeat=3)\n                if admissible(motif(g) + 'u'))\nassert len(TRIPLES) == 56\n\n\ndef T(v):\n    return v ^ ((v << 1) | (v << 2))\n\n\ndef P(v):\n    return T(v) ^ 1 ^ (2 if v % 2 == 0 else 0)\n\n\ndef T_bitwise(v):\n    # Independent scalar local-rule implementation, including the high boundary.\n    result = 0\n    for i in range(v.bit_length() + 2):\n        a = (v >> i) & 1\n        b = (v >> (i - 1)) & 1 if i >= 1 else 0\n        c = (v >> (i - 2)) & 1 if i >= 2 else 0\n        result += (a ^ (b | c)) << i\n    return result\n\n\ndef step(x):\n    residue = x % 16\n    if residue not in (7, 11):\n        return None\n    branch = 'u' if residue == 7 else 't'\n    shifted = x >> 2\n    middle = P(shifted)\n    y = T(middle) ^ (1 if branch == 'u' else 0)\n    middle_independent = T_bitwise(shifted) ^ 1 ^ (2 if shifted % 2 == 0 else 0)\n    y_independent = T_bitwise(middle_independent) ^ int(branch == 'u')\n    assert middle == middle_independent and y == y_independent\n    return {'x': x, 'residue_mod_16': residue, 'branch': branch,\n            'x_shift_2': shifted, 'P_value': middle, 'next_x': y}\n\n\ndef orbit(x, horizon):\n    states, steps, letters = [x], [], []\n    for _ in range(horizon):\n        item = step(states[-1])\n        if item is None:\n            return states, steps, ''.join(letters), 'nonforcing_residue'\n        steps.append(item)\n        letters.append(item['branch'])\n        states.append(item['next_x'])\n    return states, steps, ''.join(letters), 'observation_horizon'\n\n\ndef first_literal(word, b):\n    # Entire prefix is checked, including the seam before the first return.\n    # The appended final u is checked for admissibility only, never observation.\n    for cut in range(b, len(word)):\n        for g in TRIPLES:\n            E = motif(g)\n            end = cut + len(E)\n            if end <= len(word) and word[cut:end] == E:\n                completed = word[:end] + 'u'\n                if admissible(completed):\n                    return {'cut': cut, 'g': list(g), 'w': word[:cut], 'E': E,\n                            'observed_prefix': word[:end],\n                            'observed_prefix_length': end,\n                            'admissibility_word_with_unobserved_final_u': completed}\n    return None\n\n\ndef atomic_bytes(path, data):\n    fd, tmp = tempfile.mkstemp(prefix=path.name + '.', dir=path.parent)\n    try:\n        with os.fdopen(fd, 'wb') as f:\n            f.write(data)\n            f.flush()\n            os.fsync(f.fileno())\n        os.replace(tmp, path)\n        dirfd = os.open(path.parent, os.O_DIRECTORY)\n        try:\n            os.fsync(dirfd)\n        finally:\n            os.close(dirfd)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef main():\n    import types\n    from collections import Counter\n    pair_path = ROOT/'results/problem1/20260905_signed_belief_hamming_pairing.json'\n    oracle_path = ROOT/'scripts/check_signed_belief_hamming_pairing.py'\n    member_path = ROOT/'experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py'\n    admission_path = ROOT/'proofs/informal/problem1_walsh_sign_obstruction.md'\n    pair_bytes, oracle_bytes, member_bytes, admission = pair_path.read_bytes(), oracle_path.read_bytes(), member_path.read_bytes(), admission_path.read_bytes()\n    sha = lambda b: hashlib.sha256(b).hexdigest()\n    git_commit = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()\n    archived = json.loads(pair_bytes)\n    prior = archived['result']['first_obstruction']\n    assert (prior['phase'],prior['complexity'],prior['state_hex'],prior['depth'],prior['cut'],prior['gaps']) == ('u',14,'0x642fdfb',2,1,[2,2,2])\n    assert prior['endpoints'] == 134 and prior['graph']['positive'] == 84 and prior['graph']['negative'] == 50\n    assert 'carrier frontiers through level 13' in admission.decode()\n\n    def load_module(name,path,data):\n        module = types.ModuleType(name)\n        module.__file__ = str(path)\n        exec(compile(data,str(path),'exec'),module.__dict__)\n        return module\n    oracle = load_module('walsh_named_belief_oracle',oracle_path,oracle_bytes)\n    member = load_module('walsh_recursive_membership',member_path,member_bytes)\n    def prohibited(*args,**kwargs):\n        raise RuntimeError('No campaign, additional belief, or frontier expansion is admitted')\n    for mod in (oracle,member):\n        for name in ('main','run_campaign','enumerate_phase','strict_examples','phase_campaign'):\n            if hasattr(mod,name):setattr(mod,name,prohibited)\n    member.frontier_children = prohibited\n    x,k,L,c,phase = 0x642fdfb,14,2,1,'u'\n    original_word = 'uuuuputptutpuu'\n    failures = []\n    counts = {'beliefs_evaluated':0,'carrier_maximum_level':13,'carrier_level14_materialized':False,\n              'endpoint_count':0,'triple_probes':0,'ordered_xor_quad_candidates':0,\n              'certificate_endpoint_memberships_replayed':0,'certificate_endpoint_mask_sequences_replayed':0,\n              'affine_system_solved':False}\n\n    def check(condition,name,details):\n        if not condition:failures.append({'check':name,**details})\n\n    def generator_word_replay(word):\n        states = [0]\n        for q in word:\n            v = states[-1]\n            packed = member.forward_generator(q,v)\n            scalar = T_bitwise(v)^int(q!='t')^(2 if q=='p' and v%2==0 else 0)\n            check(packed==scalar,'scalar_generator_replay',{'q':q,'input':v,'packed':packed,'scalar':scalar})\n            states.append(packed)\n        return states\n\n    original_states = generator_word_replay(original_word)\n    assert original_word[0]=='u' and len(original_word)==14 and original_states[-1]==x\n    assert member.frontier_member(phase,k,x)\n    observed = 't'+motif((2,2,2))\n    forced_states,forced_steps,forced_word,forced_reason = orbit(x,len(observed))\n    assert forced_word==observed and admissible(observed+'u')\n\n    reconstruction_start,reconstruction_cpu = time.monotonic(),time.process_time()\n    # Sole permitted finite carrier, using the existing Boolean oracle generator.\n    levels = oracle.build_levels('u',13,oracle.oracle_frontier_children)\n    assert len(levels)==14\n    oracle.build_levels = prohibited\n    current_level14_queries = []\n    class RecursiveLevel14:\n        def __contains__(self,state):\n            answer = member.frontier_member('u',14,state)\n            current_level14_queries.append({'state':state,'state_hex':hex(state),'member':answer})\n            return answer\n        def __iter__(self):\n            raise RuntimeError('Level 14 carrier must never be materialized')\n    levels.append(RecursiveLevel14())\n    belief = oracle.belief_direct(levels,k,x,L)\n    counts['beliefs_evaluated'] = 1\n    assert len(belief)==134\n    counts['endpoint_count'] = len(belief)\n    current_masks = oracle.mask_sequence(levels,k,x,L)\n    endpoints = []\n    for y,cost in sorted(belief.items()):\n        masks = oracle.mask_sequence(levels,k-1,y,L)\n        assert oracle.dominates(current_masks,masks) and oracle.defect_count(masks)==cost\n        endpoints.append({'endpoint':y,'endpoint_hex':hex(y),'cost':cost,'parity':cost%2,\n                          'shadow_masks':list(masks),'shadow_mask_bits':[f'{m:04b}' for m in masks]})\n    hist = Counter(belief.values())\n    even = sum(cost%2==0 for cost in belief.values())\n    odd = len(belief)-even\n    assert (even,odd)==(84,50) and dict(hist)=={0:84,1:50}\n    for text in prior['graph']['hall_violator']['vertices_hex']:\n        assert belief[int(text,16)]%2==1\n    iso = prior['evidence']['isolated_vertex']\n    isolated = next(row for row in endpoints if row['endpoint']==int(iso['vertex_hex'],16))\n    assert isolated['cost']==iso['cost'] and isolated['shadow_mask_bits']==iso['shadow_masks']\n    reconstruction_wall = time.monotonic()-reconstruction_start\n    reconstruction_cpu = time.process_time()-reconstruction_cpu\n\n    search_start,search_cpu = time.monotonic(),time.process_time()\n    values = [r['endpoint'] for r in endpoints]\n    position = {v:i for i,v in enumerate(values)}\n    quad = None\n    for ai in range(len(values)-3):\n        if time.monotonic()-START_WALL >= 118:raise TimeoutError('120 second wall limit nearly exhausted')\n        a = values[ai]\n        for bi in range(ai+1,len(values)-2):\n            b = values[bi]\n            for ci in range(bi+1,len(values)-1):\n                cc = values[ci]\n                counts['triple_probes'] += 1\n                d = a^b^cc\n                if d <= cc or d not in belief:continue\n                counts['ordered_xor_quad_candidates'] += 1\n                if (belief[a]+belief[b]+belief[cc]+belief[d])%2:\n                    quad = [a,b,cc,d]\n                    break\n            if quad is not None:break\n        if quad is not None:break\n    search_wall,search_cpu = time.monotonic()-search_start,time.process_time()-search_cpu\n\n    def recursive_mask_trace(state,complexity):\n        trace = []\n        for j in range(L):\n            quotient = state>>2\n            level = complexity-j\n            queries = []\n            for digit in range(4):\n                v = 4*quotient+digit\n                answer = member.frontier_member('u',level,v)\n                queries.append({'digit':digit,'candidate':v,'candidate_hex':hex(v),'member':answer})\n            mask = sum(1<<q['digit'] for q in queries if q['member'])\n            trace.append({'strip_index':j,'frontier_level':level,'state':state,'state_hex':hex(state),\n                          'quotient':quotient,'quotient_hex':hex(quotient),'mask':mask,'mask_bits':f'{mask:04b}',\n                          'exact_membership_queries':queries})\n            state = quotient\n        return trace\n\n    current_recursive = recursive_mask_trace(x,k)\n    assert tuple(t['mask'] for t in current_recursive)==current_masks\n    certificate = None\n    system = None\n    if quad is not None:\n        assert quad==sorted(set(quad)) and len(quad)==4\n        assert quad[0]^quad[1]^quad[2]^quad[3]==0 and sum(belief[v] for v in quad)%2==1\n        quad_rows = []\n        for y in quad:\n            assert member.frontier_member('u',13,y)\n            counts['certificate_endpoint_memberships_replayed'] += 1\n            witness = member.frontier_witness('u',13,y)\n            assert witness is not None and len(witness)==13 and witness[0]=='u'\n            trace = generator_word_replay(witness)\n            assert trace[-1]==y\n            masks = recursive_mask_trace(y,13)\n            mask_values = tuple(t['mask'] for t in masks)\n            assert mask_values==oracle.mask_sequence(levels,13,y,L)\n            domination = [not (a&~b) for a,b in zip(current_masks,mask_values)]\n            cost = sum(m!=15 for m in mask_values)\n            assert all(domination) and cost==belief[y] and (y-x)%16==0\n            counts['certificate_endpoint_mask_sequences_replayed'] += 1\n            quad_rows.append({'endpoint':y,'endpoint_hex':hex(y),'sorted_endpoint_index_zero_based':position[y],\n                             'cost':cost,'parity':cost%2,'exact_lower_membership':True,\n                             'generator_witness':witness,'generator_states_from_zero':trace,\n                             'current_mask_sequence':list(current_masks),'shadow_mask_sequence':list(mask_values),\n                             'dominance_each_level':domination,'common_modulus':16,'common_residue':y%16,\n                             'recursive_shadow_mask_trace':masks})\n        certificate = {'type':'four_distinct_endpoints_affine_inconsistency','lexicographically_first':True,\n                       'ordered_endpoints':quad,'ordered_endpoint_hex':[hex(y) for y in quad],\n                       'xor_sum':0,'cost_sum':sum(belief[y] for y in quad),'cost_parity_sum_mod2':1,\n                       'affine_constant_multiplicity_mod2':0,'endpoint_provenance':quad_rows,\n                       'minimality_scope':'first in increasing numeric a,b,c with d=a^b^c>d_previous=c, over this complete 134-point table'}\n        plane_diagnostics = []\n        coordinates = [(0,0),(1,0),(0,1),(1,1)]\n        for depth_j in range(L):\n            masks = [entry['shadow_mask_sequence'][depth_j] for entry in quad_rows]\n            defects = [int(mask!=15) for mask in masks]\n            signs = [1-2*defect for defect in defects]\n            projected = [y>>(2*depth_j+2) for y in quad]\n            assert len(set(projected))==4 and projected[0]^projected[1]^projected[2]^projected[3]==0\n            coefficients = [sum(sign*((-1)**(u*a+v*b)) for sign,(a,b) in zip(signs,coordinates))\n                            for u,v in coordinates]\n            odd_depth = sum(defects)%2==1\n            if odd_depth:\n                assert signs[0]*signs[1]*signs[2]*signs[3]==-1 and all(abs(w)==2 for w in coefficients)\n            plane_diagnostics.append({'depth_j_zero_based':depth_j,'shift_bits':2*depth_j+2,\n                'current_mask':current_masks[depth_j],'current_mask_bits':f'{current_masks[depth_j]:04b}',\n                'shadow_masks':masks,'shadow_mask_bits':[f'{m:04b}' for m in masks],\n                'nonfull_indicators':defects,'nonfull_count':sum(defects),'nonfull_count_is_odd':odd_depth,\n                'projected_inputs':projected,'projected_input_hex':[hex(p) for p in projected],\n                'affine_plane_origin':projected[0],\n                'affine_plane_directions':[projected[0]^projected[1],projected[0]^projected[2]],\n                'projected_xor_sum':0,'four_projected_inputs_distinct':True,\n                'point_order':['00=y0','10=y1','01=y2','11=y3'],\n                'epsilon_signs':signs,'epsilon_product':signs[0]*signs[1]*signs[2]*signs[3],\n                'frequency_order':['00','10','01','11'],'unnormalized_Walsh_coefficients':coefficients,\n                'Walsh_convention':'W(u,v)=sum_(a,b) epsilon(a,b)*(-1)^(u*a+v*b)',\n                'mask_carrier_level':12-depth_j,'mask_membership_frontier_level':13-depth_j,\n                'odd_depth_coefficients_all_abs_two':all(abs(w)==2 for w in coefficients) if odd_depth else None})\n        assert sum(d['nonfull_count_is_odd'] for d in plane_diagnostics)%2==1\n        certificate['same_quad_local_plane_diagnostics'] = plane_diagnostics\n        certificate['odd_nonfull_depth_indices_zero_based'] = [d['depth_j_zero_based'] for d in plane_diagnostics if d['nonfull_count_is_odd']]\n    else:\n        counts['affine_system_solved'] = True\n        width = max(values).bit_length()\n        basis = {}\n        inconsistent = None\n        for i,y in enumerate(values):\n            mask,rhs,comb = y|(1<<width),belief[y]%2,1<<i\n            while mask:\n                p = mask.bit_length()-1\n                if p not in basis:\n                    basis[p] = (mask,rhs,comb)\n                    break\n                bm,br,bc = basis[p]\n                mask,rhs,comb = mask^bm,rhs^br,comb^bc\n            if mask==0 and rhs:\n                inconsistent = [j for j in range(len(values)) if (comb>>j)&1]\n                break\n        system = {'bit_width':width,'affine_constant_column':width,\n                  'basis':[{'pivot':p,'mask':v[0],'rhs':v[1],'endpoint_combination_bits':v[2]} for p,v in sorted(basis.items())]}\n        if inconsistent is not None:\n            xx,rr=0,0\n            for i in inconsistent:xx^=values[i];rr^=belief[values[i]]%2\n            assert xx==0 and rr==1 and len(inconsistent)%2==0\n            system.update({'consistent':False,'inconsistency_endpoint_indices':inconsistent,\n                           'inconsistency_endpoints':[values[i] for i in inconsistent]})\n        else:\n            solution = 0\n            for pivot,(mask,rhs,comb) in sorted(basis.items()):\n                if rhs^((mask&solution).bit_count()%2):solution|=1<<pivot\n            a,b = solution&((1<<width)-1),(solution>>width)&1\n            assert all(((a&y).bit_count()%2)^b==belief[y]%2 for y in values)\n            system.update({'consistent':True,'character_a':a,'character_b':b})\n    carrier_metadata = [{'phase':'u','level':level,'size':len(levels[level]),\n                         'sorted_states_sha256':sha(json.dumps(sorted(levels[level]),separators=(',',':')).encode())}\n                        for level in range(1,14)]\n    assert type(odd) is int and (even,odd,even-odd)==(84,50,34)\n    summary = {'completed':True,'counts':counts,'validation_failures':failures,\n               'belief_identity':{'phase':'u','k':14,'x':x,'x_hex':hex(x),'depth':2,'cut':1,'base_word':'t','gaps':[2,2,2]},\n               'endpoint_count':len(endpoints),'even_cost_endpoints':even,'odd_cost_endpoints':odd,'signed_mass':even-odd,\n               'cost_histogram':dict(hist),'complete_endpoint_cost_table':endpoints,\n               'endpoint_table_sha256':sha(json.dumps(endpoints,sort_keys=True,separators=(',',':')).encode()),\n               'current_masks':list(current_masks),'current_recursive_mask_trace':current_recursive,\n               'carrier_metadata':carrier_metadata,'level14_recursive_queries_during_oracle':current_level14_queries,\n               'original_occurrence':{'generator_word':original_word,'generator_states_from_zero':original_states,\n                   'observed_prefix':forced_word,'admissibility_word':observed+'u','final_u_required_observed':False,\n                   'forced_states':forced_states,'forced_steps':forced_steps,'observation_stop_reason':forced_reason},\n               'quadruple_certificate':certificate,'affine_system_fallback':system,\n               'affine_character_exists':False if quad is not None else system['consistent'],\n               'membership_cache':member.frontier_member.cache_info()._asdict(),\n               'source_record_crosschecks':{'count_134':True,'even_84_odd_50':True,\n                   'all_41_stored_Hall_vertices_present_and_odd':True,'stored_isolated_vertex_cost_and_masks_match':True}}\n    # Canonical standard-protocol hashing only after JSON object-key normalization.\n    summary = json.loads(json.dumps(summary))\n    source = Path(__file__).resolve().read_bytes()\n    cpu = next((line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines()\n                if line.startswith('model name')),'unknown')\n    raw = (json.dumps(summary,sort_keys=True,indent=2)+'\\n').encode()\n    record = {'experiment_id':'bounded_affine_walsh_sign_named_u14_belief','question':'problem1','status':'finite-exhaustive',\n              'backend':'existing-single-belief-oracle-and-recursive-certificate-membership',\n              'hypothesis':'On the single named belief cost parity equals one affine binary character of endpoint bits.',\n              'git_commit':git_commit,'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n              'source_path':str(Path(__file__).resolve()),'source_text':source.decode(),\n              'input':{'pairing_record_path':str(pair_path),'pairing_record_sha256':sha(pair_bytes),\n                       'stored_endpoints_field_is_count_not_table':True,'admission_path':str(admission_path),'admission_sha256':sha(admission)},\n              'dependencies':{'belief_oracle':{'path':str(oracle_path),'sha256':sha(oracle_bytes),'source_utf8':oracle_bytes.decode(),\n                   'archive_analyzer_sha256':archived['source_hashes']['analyzer_sha256']},\n                   'recursive_membership':{'path':str(member_path),'sha256':sha(member_bytes),'source_utf8':member_bytes.decode()}},\n              'parameters':{'phase':'u','complexity':14,'state_hex':'0x642fdfb','depth':2,'cut':1,'gaps':[2,2,2],\n                  'expected_endpoints':134,'expected_even':84,'expected_odd':50,\n                  'reconstruction':'existing belief_direct on phase-u Boolean-oracle carriers levels 1..13 only; level 14 exposes recursive __contains__ and forbids iteration',\n                  'current_top_fiber':'four exact frontier_member(u,14,4*(x>>2)+d) queries; no level-14 carrier',\n                  'shadow_fibers':'u12/u13 carrier for table construction; independently replay certificate fibers by exact recursive membership',\n                  'search_order':'sorted distinct numeric endpoints; increasing a,b,c; d=a XOR b XOR c must be in belief and d>c; stop first odd-cost quadruple',\n                  'fallback':'only if no quadruple: full GF(2) affine system with endpoint-combination provenance',\n                  'same_quad_diagnostic':'for each j=0..L-1 project y>>(2j+2); record epsilon=(-1)^(shadow mask !=15) and four unnormalized affine-plane Walsh coefficients; no additional endpoints',\n                  'original_generator_word':original_word,'certificate_membership':'frontier_member and frontier_witness at u13; scalar generator replay',\n                  'cpu_workers':1,'wall_limit_seconds':120,'cpu_limit_seconds':120,'address_space_bytes':1024**3},\n              'hardware':{'cpu_model':cpu,'logical_cpu_count':os.cpu_count(),'original_affinity':ORIGINAL_AFFINITY,\n                  'executed_affinity':sorted(os.sched_getaffinity(0)),\n                  'physical_memory_bytes':os.sysconf('SC_PAGE_SIZE')*os.sysconf('SC_PHYS_PAGES')},\n              'software':{'python':sys.version,'executable':sys.executable,'platform':platform.platform(),'uname':list(platform.uname())},\n              'runtime_seconds':time.monotonic()-START_WALL,\n              'timings':{'started_utc':START_UTC,'reconstruction_wall_seconds':reconstruction_wall,'reconstruction_cpu_seconds':reconstruction_cpu,\n                  'quad_search_wall_seconds':search_wall,'quad_search_cpu_seconds':search_cpu,\n                  'pre_serialization_cpu_seconds':time.process_time()-START_CPU,\n                  'peak_rss_bytes_before_serialization':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024},\n              'limits_enforcement':'one CPU affinity; RLIMIT_CPU 120; RLIMIT_AS 1 GiB; outer timeout 120s',\n              'invocation':['timeout','--signal=KILL','120s',sys.executable,str(Path(__file__).resolve())],\n              'result_summary':summary,\n              'result_hashes':{'source_sha256':sha(source),'input_record_sha256':sha(pair_bytes),\n                  'oracle_source_sha256':sha(oracle_bytes),'membership_source_sha256':sha(member_bytes),\n                  'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),'raw_data_sha256':sha(raw)},\n              'proof_scope':'One 134-point genuine belief only; first lexicographic four-point affine obstruction, or exact full-system fallback.',\n              'interpretation':'Concrete character obstruction requires lead certificate replay and separate mathematical/operator review before adoption.',\n              'limitations':['Only the explicitly admitted u1..u13 finite carrier was materialized to reconstruct this named belief.',\n                  'No phase-p carrier, u14 carrier, additional belief, occurrence census, or larger input domain.',\n                  'The stored pairing artifact lacks a full endpoint table; this result embeds the reconstructed complete table and source/mask provenance.',\n                  'Affine sign representability alone would not prove signed-sum nonvanishing.',\n                  'Same-quad four-point local Walsh diagnostics do not establish a general Walsh-support-size corollary or an all-depth operator claim.',\n                  'No repository writes, commits, pushes, or remote execution.',\n                  'Record timing and memory precede final serialization and atomic writes.']}\n    encoded=(json.dumps(record,sort_keys=True,indent=2)+'\\n').encode()\n    atomic_bytes(OUT/'raw_data.json',raw)\n    atomic_bytes(OUT/'result.json',encoded)\n    atomic_bytes(OUT/'result.json.sha256',(sha(encoded)+'  result.json\\n').encode())\n    print(json.dumps({'counts':counts,'even':even,'odd':odd,'validation_failures':failures,\n                      'current_masks':list(current_masks),'certificate':certificate,'system':system,\n                      'reconstruction_wall_seconds':reconstruction_wall,'quad_search_wall_seconds':search_wall,\n                      'result_path':str(OUT/'result.json'),'raw_data_path':str(OUT/'raw_data.json'),\n                      'source_path':str(Path(__file__).resolve()),'artifact_sha256':sha(encoded)},indent=2))\n\n\nif __name__ == '__main__':\n    main()\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T18:38:41.133706+00:00",
+  "timings": {
+    "peak_rss_bytes_before_serialization": 25300992,
+    "pre_serialization_cpu_seconds": 0.057896144000000004,
+    "quad_search_cpu_seconds": 0.0,
+    "quad_search_wall_seconds": 6.690702866762877e-05,
+    "reconstruction_cpu_seconds": 0.025994642,
+    "reconstruction_wall_seconds": 0.026418115943670273,
+    "started_utc": "2026-09-05T18:38:41.074740+00:00"
+  }
+}

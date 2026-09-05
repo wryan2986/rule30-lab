@@ -204,3 +204,10 @@ Promising forms are:
 - a sign-reversing involution on even- and odd-defect shadows with a provably unpaired boundary endpoint;
 - a recurrence for signed cylinder mass using forced-schedule words rather than endpoint identities;
 - a boundary, degree, Euler-characteristic, or Walsh-coefficient argument forced to be nonzero by the three-return pattern.
+
+Subsequent exact clarification: `problem1_walsh_sign_obstruction.md`
+derives the full endpoint Walsh operator and refutes single-character
+defect signs on a genuine return belief. A local four-point restriction
+has all four Walsh modes; this does not force the global zero-frequency
+coefficient to be nonzero. The derivative identity remains exact, and
+an additional return-conditioned correlation theorem is still required.

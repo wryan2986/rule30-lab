@@ -1,0 +1,1693 @@
+{
+  "backend": "cell-array-seeds-and-exact-recursive-lifts-with-pair-XOR-check",
+  "dependency": {
+    "path": "experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py",
+    "sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+    "source_text": "#!/usr/bin/env python3\n\"\"\"Exact recursive base-four lift criterion for ordinary phase frontiers.\n\nFor phase a in {p,u}, let O_(a,k) be the distinct ordinary outputs at\ncomplexity k. If a target at level k+1 is y=4h+e, then its possible level-k\nparents are determined by the low digit d of the parent and the partial inverse\nof t, u, or p applied to h. This gives an exact recursive membership test that\ndoes not enumerate the complete frontier.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nimport hashlib\nimport json\nfrom collections import Counter\nfrom functools import lru_cache\nfrom typing import Any\n\nPHASES = (\"p\", \"u\")\nDEFAULT_MAXIMUM_COMPLEXITY = 16\nABSOLUTE_MAXIMUM_COMPLEXITY = 20\nKNOWN_COUNTEREXAMPLE = 0x1BCD3A7B3FDFB\nCHILD_DIGIT_MASK = {\n    0: 0b1011,\n    1: 0b1100,\n    2: 0b1110,\n    3: 0b0011,\n}\nALLOWED_FIBER_MASKS = (0b0000, 0b0011, 0b1011, 0b1100, 0b1111)\n\n\nclass LiftRecursionLimitError(RuntimeError):\n    \"\"\"Raised before a controlled exhaustive campaign exceeds its cap.\"\"\"\n\n\ndef forward_generator(name: str, state: int) -> int:\n    if state < 0:\n        raise ValueError(\"state must be nonnegative\")\n    stepped = state ^ ((state << 1) | (state << 2))\n    if name == \"t\":\n        return stepped\n    if name == \"u\":\n        return stepped ^ 1\n    if name == \"p\":\n        return stepped ^ 1 ^ (2 if state & 1 == 0 else 0)\n    raise ValueError(\"unknown generator\")\n\n\ndef frontier_children(state: int) -> tuple[int, ...]:\n    return tuple(sorted({forward_generator(name, state) for name in \"tup\"}))\n\n\ndef phase_start(phase: str) -> int:\n    if phase == \"p\":\n        return 3\n    if phase == \"u\":\n        return 1\n    raise ValueError(\"phase must be p or u\")\n\n\ndef expected_bit_length(phase: str, complexity: int) -> int:\n    if complexity <= 0:\n        raise ValueError(\"complexity must be positive\")\n    return 2 * complexity if phase == \"p\" else 2 * complexity - 1\n\n\ndef inverse_t(output: int) -> int | None:\n    \"\"\"Return the unique exact nonnegative t-preimage, or None.\"\"\"\n    if output < 0:\n        raise ValueError(\"output must be nonnegative\")\n    if output == 0:\n        return 0\n    width = output.bit_length() - 2\n    if width <= 0:\n        return None\n    state = 0\n    for position in range(width):\n        lower = 0\n        if position >= 1:\n            lower |= (state >> (position - 1)) & 1\n        if position >= 2:\n            lower |= (state >> (position - 2)) & 1\n        bit = ((output >> position) & 1) ^ lower\n        state |= bit << position\n    return state if forward_generator(\"t\", state) == output else None\n\n\ndef inverse_generator(name: str, output: int) -> int | None:\n    if output < 0:\n        raise ValueError(\"output must be nonnegative\")\n    if name == \"t\":\n        return inverse_t(output)\n    if name == \"u\":\n        state = inverse_t(output ^ 1)\n    elif name == \"p\":\n        recovered_low_bit = (output & 1) ^ 1\n        adjusted = output ^ 1 ^ (2 if recovered_low_bit == 0 else 0)\n        state = inverse_t(adjusted)\n    else:\n        raise ValueError(\"unknown generator\")\n    if state is None or forward_generator(name, state) != output:\n        return None\n    return state\n\n\ndef candidate_parent(quotient: int, parent_digit: int) -> int | None:\n    if quotient < 0 or parent_digit not in range(4):\n        raise ValueError(\"invalid candidate-parent argument\")\n    generator = \"t\" if parent_digit == 0 else \"u\" if parent_digit == 1 else \"p\"\n    residual = inverse_generator(generator, quotient)\n    return None if residual is None else 4 * residual + parent_digit\n\n\ndef predicted_fiber_mask(current: set[int], quotient: int) -> tuple[int, int]:\n    predecessor_mask = 0\n    fiber_mask = 0\n    for digit in range(4):\n        parent = candidate_parent(quotient, digit)\n        if parent is not None and parent in current:\n            predecessor_mask |= 1 << digit\n            fiber_mask |= CHILD_DIGIT_MASK[digit]\n    if predecessor_mask & 0b0100 and not predecessor_mask & 0b1000:\n        raise AssertionError(\"residue-two predecessor lacked its residue-three mate\")\n    if fiber_mask not in ALLOWED_FIBER_MASKS:\n        raise AssertionError(\"fiber escaped the five-mask alphabet\")\n    return predecessor_mask, fiber_mask\n\n\ndef actual_fiber_mask(next_level: set[int], quotient: int) -> int:\n    return sum(1 << digit for digit in range(4) if 4 * quotient + digit in next_level)\n\n\ndef enumerate_phase(phase: str, maximum_complexity: int) -> dict[str, Any]:\n    current = {phase_start(phase)}\n    levels: list[dict[str, Any]] = []\n    total_outputs = 0\n    total_quotients = 0\n    total_candidate_checks = 0\n    total_mask_counts: Counter[int] = Counter()\n    total_predecessor_counts: Counter[int] = Counter()\n\n    for complexity in range(1, maximum_complexity + 1):\n        expected = expected_bit_length(phase, complexity)\n        if any(state.bit_length() != expected for state in current):\n            raise AssertionError(\"frontier bit-length law failed\")\n        total_outputs += len(current)\n        if complexity == maximum_complexity:\n            levels.append({\"complexity\": complexity, \"outputs\": len(current)})\n            break\n\n        next_level = {child for state in current for child in frontier_children(state)}\n        mask_counts: Counter[int] = Counter()\n        predecessor_counts: Counter[int] = Counter()\n        uncovered = 0\n        for quotient in current:\n            predecessor_mask, predicted = predicted_fiber_mask(current, quotient)\n            actual = actual_fiber_mask(next_level, quotient)\n            if predicted != actual:\n                raise AssertionError(\"exact lift recursion failed\")\n            mask_counts[actual] += 1\n            predecessor_counts[predecessor_mask] += 1\n            uncovered += actual == 0\n            total_quotients += 1\n            total_candidate_checks += 4\n        total_mask_counts.update(mask_counts)\n        total_predecessor_counts.update(predecessor_counts)\n        levels.append(\n            {\n                \"complexity\": complexity,\n                \"outputs\": len(current),\n                \"next_outputs\": len(next_level),\n                \"uncovered_quotients\": uncovered,\n                \"fiber_masks\": {\n                    f\"0b{mask:04b}\": count for mask, count in sorted(mask_counts.items())\n                },\n            }\n        )\n        current = next_level\n\n    return {\n        \"phase\": phase,\n        \"levels\": levels,\n        \"outputs_checked\": total_outputs,\n        \"quotients_checked\": total_quotients,\n        \"candidate_parent_checks\": total_candidate_checks,\n        \"fiber_mask_totals\": {\n            f\"0b{mask:04b}\": count for mask, count in sorted(total_mask_counts.items())\n        },\n        \"predecessor_mask_totals\": {\n            f\"0b{mask:04b}\": count\n            for mask, count in sorted(total_predecessor_counts.items())\n        },\n    }\n\n\n@lru_cache(maxsize=None)\ndef frontier_member(phase: str, complexity: int, target: int) -> bool:\n    \"\"\"Decide exact frontier membership by recursive lift inversion.\"\"\"\n    if complexity < 1 or target < 0:\n        return False\n    if target.bit_length() != expected_bit_length(phase, complexity):\n        return False\n    if complexity == 1:\n        return target == phase_start(phase)\n\n    quotient, digit = divmod(target, 4)\n    for parent_digit in range(4):\n        if not (CHILD_DIGIT_MASK[parent_digit] >> digit) & 1:\n            continue\n        parent = candidate_parent(quotient, parent_digit)\n        if parent is not None and frontier_member(phase, complexity - 1, parent):\n            return True\n    return False\n\n\n@lru_cache(maxsize=None)\ndef frontier_witness(phase: str, complexity: int, target: int) -> str | None:\n    if not frontier_member(phase, complexity, target):\n        return None\n    if complexity == 1:\n        return phase\n\n    quotient, digit = divmod(target, 4)\n    for parent_digit in range(4):\n        if not (CHILD_DIGIT_MASK[parent_digit] >> digit) & 1:\n            continue\n        parent = candidate_parent(quotient, parent_digit)\n        if parent is None or not frontier_member(phase, complexity - 1, parent):\n            continue\n        prefix = frontier_witness(phase, complexity - 1, parent)\n        if prefix is None:\n            continue\n        for generator in \"tup\":\n            if forward_generator(generator, parent) == target:\n                return prefix + generator\n    raise AssertionError(\"membership had no generator witness\")\n\n\ndef apply_word(word: str) -> int:\n    if not word or word[0] not in \"pu\":\n        raise ValueError(\"word must begin with phase p or u\")\n    state = phase_start(word[0])\n    for generator in word[1:]:\n        state = forward_generator(generator, state)\n    return state\n\n\ndef strict_examples() -> dict[str, Any]:\n    examples = {\n        \"phase_p\": {\"phase\": \"p\", \"complexity\": 2, \"quotient\": 12},\n        \"phase_u\": {\"phase\": \"u\", \"complexity\": 3, \"quotient\": 26},\n    }\n    for row in examples.values():\n        phase = row[\"phase\"]\n        complexity = row[\"complexity\"]\n        current = {phase_start(phase)}\n        for _ in range(1, complexity):\n            current = {child for state in current for child in frontier_children(state)}\n        next_level = {child for state in current for child in frontier_children(state)}\n        predecessor, predicted = predicted_fiber_mask(current, row[\"quotient\"])\n        actual = actual_fiber_mask(next_level, row[\"quotient\"])\n        if predicted != actual:\n            raise AssertionError(\"strict example recursion mismatch\")\n        row[\"predecessor_mask\"] = f\"0b{predecessor:04b}\"\n        row[\"fiber_mask\"] = f\"0b{actual:04b}\"\n        row[\"lifts\"] = [\n            4 * row[\"quotient\"] + digit\n            for digit in range(4)\n            if (actual >> digit) & 1\n        ]\n    return examples\n\n\ndef run_campaign(maximum_complexity: int = DEFAULT_MAXIMUM_COMPLEXITY) -> dict[str, Any]:\n    if not 2 <= maximum_complexity <= ABSOLUTE_MAXIMUM_COMPLEXITY:\n        raise LiftRecursionLimitError(\"maximum complexity outside controlled range\")\n\n    phase_rows = {\n        phase: enumerate_phase(phase, maximum_complexity) for phase in PHASES\n    }\n    frontier_member.cache_clear()\n    frontier_witness.cache_clear()\n    if not frontier_member(\"u\", 25, KNOWN_COUNTEREXAMPLE):\n        raise AssertionError(\"recursive criterion missed known counterexample\")\n    witness = frontier_witness(\"u\", 25, KNOWN_COUNTEREXAMPLE)\n    if witness is None or len(witness) != 25 or apply_word(witness) != KNOWN_COUNTEREXAMPLE:\n        raise AssertionError(\"recursive counterexample witness failed\")\n\n    payload: dict[str, Any] = {\n        \"status\": \"exact-recursive-membership-and-finite-exhaustion\",\n        \"maximum_complexity\": maximum_complexity,\n        \"theorem\": {\n            \"membership\": (\n                \"4h+e lies in O_(a,k+1) iff at least one exact candidate parent \"\n                \"selected by the partial inverses of t,u,p lies in O_(a,k) and \"\n                \"its parent-digit contribution contains e\"\n            ),\n            \"child_digit_masks\": {\n                str(digit): f\"0b{mask:04b}\"\n                for digit, mask in CHILD_DIGIT_MASK.items()\n            },\n            \"fiber_alphabet\": [f\"0b{mask:04b}\" for mask in ALLOWED_FIBER_MASKS],\n        },\n        \"phases\": phase_rows,\n        \"strict_examples\": strict_examples(),\n        \"known_counterexample\": {\n            \"phase\": \"u\",\n            \"complexity\": 25,\n            \"state\": KNOWN_COUNTEREXAMPLE,\n            \"state_hex\": hex(KNOWN_COUNTEREXAMPLE),\n            \"recursive_membership\": True,\n            \"recovered_generator_word\": witness,\n            \"recursive_cache_entries\": frontier_member.cache_info().currsize,\n        },\n        \"scientific_boundary\": (\n            \"The recursion decides ordinary phase-frontier membership exactly. It \"\n            \"does not prove that actual return penalties recur positively, prove \"\n            \"phase-complexity divergence, exclude eventual center period two, or \"\n            \"solve Rule 30 center nonperiodicity.\"\n        ),\n    }\n    encoded = json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode()\n    payload[\"certificate_sha256\"] = hashlib.sha256(encoded).hexdigest()\n    return payload\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\n        \"--maximum-complexity\", type=int, default=DEFAULT_MAXIMUM_COMPLEXITY\n    )\n    args = parser.parse_args()\n    print(json.dumps(run_campaign(args.maximum_complexity), indent=2, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  "experiment_id": "20260905_walsh_sign_independent",
+  "git_commit": "e24b5da41e5d5ac204199a3837f3788a750bd33f",
+  "hardware": {
+    "cpu_affinity": [
+      0
+    ],
+    "cpu_description": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64"
+  },
+  "hypothesis": "The defect signs on each genuine return belief are the restriction of an affine Walsh character, chosen separately for that belief.",
+  "input": {
+    "path": "results/problem1/20260905_signed_belief_hamming_pairing.json",
+    "sha256": "655c4116849db6fa6b3f3ee798a4fb1f732f66b4947a97321ca4ce754c6d8ddb"
+  },
+  "interpretation": "A contradiction refutes single-character sign modulation, not nonvanishing or general multimode transfer.",
+  "limitations": [
+    "No additional occurrences.",
+    "No full ambient Walsh transform.",
+    "Exact operator identities require the separate all-depth proof."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "carrier": "only phase-u projected seeds through level11; higher memberships via exact recursion",
+    "cpu_workers": 1,
+    "diagnostics": "only the reported quadruple and its two local mask depths; no ambient Fourier arrays",
+    "endpoint": "u14/0x642fdfb/L2/cut1/gap222",
+    "search": "all unordered endpoint pairs grouped by XOR and cost parity; lexicographically smallest contradictory quadruple",
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "The complete single named 134-point belief and its affine four-point obstruction search; local plane diagnostics only.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "99b463b7a7bb2040cc2bd97849e0eb502ab736bcae6ede1e2afa2a97e365b717",
+    "source_sha256": "04050357c15b57b2b17b90a5d1dd2411a20714d6fc67faf313de081fabbac893"
+  },
+  "result_summary": {
+    "E": 84,
+    "L": 2,
+    "O": 50,
+    "S": 34,
+    "affine_consistent": false,
+    "affine_solution": null,
+    "belief_size": 134,
+    "certificate": {
+      "endpoints": [
+        {
+          "cost": 0,
+          "generator_word": "utuuuuuputttp",
+          "parity": 0,
+          "shadow_masks": [
+            15,
+            15
+          ],
+          "y": 26247723,
+          "y_hex": "0x190822b"
+        },
+        {
+          "cost": 1,
+          "generator_word": "utuuutuutpuut",
+          "parity": 1,
+          "shadow_masks": [
+            15,
+            12
+          ],
+          "y": 26247771,
+          "y_hex": "0x190825b"
+        },
+        {
+          "cost": 0,
+          "generator_word": "uupuuuttputtp",
+          "parity": 0,
+          "shadow_masks": [
+            15,
+            15
+          ],
+          "y": 26329355,
+          "y_hex": "0x191c10b"
+        },
+        {
+          "cost": 0,
+          "generator_word": "uupuuutputuuu",
+          "parity": 0,
+          "shadow_masks": [
+            15,
+            15
+          ],
+          "y": 26329467,
+          "y_hex": "0x191c17b"
+        }
+      ],
+      "local_filter_planes": [
+        {
+          "current_mask": 12,
+          "depth_j": 1,
+          "filter_values": [
+            1,
+            -1,
+            1,
+            1
+          ],
+          "inputs": [
+            1640482,
+            1640485,
+            1645584,
+            1645591
+          ],
+          "inputs_hex": [
+            "0x190822",
+            "0x190825",
+            "0x191c10",
+            "0x191c17"
+          ],
+          "parent_level": 11,
+          "plane_walsh": [
+            2,
+            2,
+            -2,
+            2
+          ],
+          "shadow_masks": [
+            15,
+            12,
+            15,
+            15
+          ]
+        }
+      ],
+      "minimality": "lexicographically smallest quadruple in this complete belief; four is the smallest possible distinct-point affine obstruction cardinality",
+      "parity_sum": 1,
+      "plane_directions": [
+        112,
+        82720
+      ],
+      "plane_origin": 26247723,
+      "plane_walsh": [
+        2,
+        2,
+        -2,
+        2
+      ],
+      "signs": [
+        1,
+        -1,
+        1,
+        1
+      ],
+      "xor": 0
+    },
+    "completed": true,
+    "cross_parity_pair_combinations": 6606,
+    "current_masks": [
+      15,
+      12
+    ],
+    "cut": 1,
+    "endpoints": [
+      {
+        "cost": 0,
+        "generator_word": "utuuuuuputttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26247723,
+        "y_hex": "0x190822b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuututtttuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26247739,
+        "y_hex": "0x190823b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuuutuutpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26247771,
+        "y_hex": "0x190825b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuututututtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26248139,
+        "y_hex": "0x19083cb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuuutpuptuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26248971,
+        "y_hex": "0x190870b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuuutptuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26249051,
+        "y_hex": "0x190875b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuuutptuttut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26249083,
+        "y_hex": "0x190877b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuutuuupupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26249195,
+        "y_hex": "0x19087eb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuutuputptuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26249483,
+        "y_hex": "0x190890b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuutuptutpuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26249627,
+        "y_hex": "0x190899b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "ututpuputpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26252299,
+        "y_hex": "0x190940b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututputtpttup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26252363,
+        "y_hex": "0x190944b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututputputttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26252379,
+        "y_hex": "0x190945b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututpupuuutpt",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26252411,
+        "y_hex": "0x190947b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "ututputttttut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26252443,
+        "y_hex": "0x190949b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututputtutuut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26252523,
+        "y_hex": "0x19094eb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututpupttuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26252587,
+        "y_hex": "0x190952b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuuupuuuptuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26252923,
+        "y_hex": "0x190967b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututpuutuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26253003,
+        "y_hex": "0x19096cb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuuuputuuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26253035,
+        "y_hex": "0x19096eb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututpuuuuuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26253195,
+        "y_hex": "0x190978b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "ututpuuuptuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26253243,
+        "y_hex": "0x19097bb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuuuptuttttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26254475,
+        "y_hex": "0x1909c8b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuuuptuuupuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26254555,
+        "y_hex": "0x1909cdb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utuuupuptuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26254795,
+        "y_hex": "0x1909dcb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuuupupuuuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26254843,
+        "y_hex": "0x1909dfb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utupuuutputpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26261563,
+        "y_hex": "0x190b83b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututtuuptuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261579,
+        "y_hex": "0x190b84b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututtutututup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261643,
+        "y_hex": "0x190b88b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "utupuuuuutuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261659,
+        "y_hex": "0x190b89b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptupttuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261675,
+        "y_hex": "0x190b8ab"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututtututtuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261691,
+        "y_hex": "0x190b8bb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuptuptuptuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26261723,
+        "y_hex": "0x190b8db"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptutpuputtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26261867,
+        "y_hex": "0x190b96b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuptuputtttut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26262011,
+        "y_hex": "0x190b9fb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptutututttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26262027,
+        "y_hex": "0x190ba0b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptutuupupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26262107,
+        "y_hex": "0x190ba5b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "utuputtuutpuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26262555,
+        "y_hex": "0x190bc1b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptutttututp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26262731,
+        "y_hex": "0x190bccb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptutttttuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26262923,
+        "y_hex": "0x190bd8b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuptuttttpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26262971,
+        "y_hex": "0x190bdbb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuptuttpttuut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26263339,
+        "y_hex": "0x190bf2b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "ututtttutuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26263355,
+        "y_hex": "0x190bf3b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuptuttputtut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26263387,
+        "y_hex": "0x190bf5b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuputuutuutpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26329275,
+        "y_hex": "0x191c0bb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuuuttputtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329355,
+        "y_hex": "0x191c10b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputuutttuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329371,
+        "y_hex": "0x191c11b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuuutpuutup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329419,
+        "y_hex": "0x191c14b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuuututupup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329435,
+        "y_hex": "0x191c15b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuuutputuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329467,
+        "y_hex": "0x191c17b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupuuutptutpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26329499,
+        "y_hex": "0x191c19b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuputuuttpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26329547,
+        "y_hex": "0x191c1cb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputuuututtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329579,
+        "y_hex": "0x191c1eb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupuuuptuuuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26329627,
+        "y_hex": "0x191c21b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuuuputtttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329707,
+        "y_hex": "0x191c26b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuputuupttuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26329851,
+        "y_hex": "0x191c2fb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputuupuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26329995,
+        "y_hex": "0x191c38b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputtpupupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26330123,
+        "y_hex": "0x191c40b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuputtpuuutut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26330331,
+        "y_hex": "0x191c4db"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputputptutp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26331947,
+        "y_hex": "0x191cb2b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputpuputpuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26331963,
+        "y_hex": "0x191cb3b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuputpuuupuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26331995,
+        "y_hex": "0x191cb5b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupupuputtpuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26332267,
+        "y_hex": "0x191cc6b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupupupuputpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26332411,
+        "y_hex": "0x191ccfb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuptuputpup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26332555,
+        "y_hex": "0x191cd8b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuptupuptuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26332603,
+        "y_hex": "0x191cdbb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupupuptutuuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26332635,
+        "y_hex": "0x191cddb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuputptutptuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26332907,
+        "y_hex": "0x191ceeb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupupuuupuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26332939,
+        "y_hex": "0x191cf0b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupupuuuutuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26332987,
+        "y_hex": "0x191cf3b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uupuptutttttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 26333003,
+        "y_hex": "0x191cf4b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uupuptutuupuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 26333083,
+        "y_hex": "0x191cf9b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuutuutpupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29151275,
+        "y_hex": "0x1bcd02b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuutttttttut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151419,
+        "y_hex": "0x1bcd0bb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuttttpuuuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151515,
+        "y_hex": "0x1bcd11b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuttuuptuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151643,
+        "y_hex": "0x1bcd19b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuttttutuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151691,
+        "y_hex": "0x1bcd1cb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuttutuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29151723,
+        "y_hex": "0x1bcd1eb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuutputputut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151771,
+        "y_hex": "0x1bcd21b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuttputpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151851,
+        "y_hex": "0x1bcd26b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuttpututup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29151947,
+        "y_hex": "0x1bcd2cb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutputptupuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29151995,
+        "y_hex": "0x1bcd2fb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuttpttuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29152139,
+        "y_hex": "0x1bcd38b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutputputtpuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29152219,
+        "y_hex": "0x1bcd3db"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuuttuuuuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29156107,
+        "y_hex": "0x1bce30b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuuttutuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29156187,
+        "y_hex": "0x1bce35b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuutttputut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29156219,
+        "y_hex": "0x1bce37b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuutttuupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29156331,
+        "y_hex": "0x1bce3eb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuutuuptutp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29156907,
+        "y_hex": "0x1bce62b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuupuuutpuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29156923,
+        "y_hex": "0x1bce63b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuupupupuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29156955,
+        "y_hex": "0x1bce65b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuutpuutuut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29159339,
+        "y_hex": "0x1bcefab"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuutpupuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29159355,
+        "y_hex": "0x1bcefbb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuutputttut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29159387,
+        "y_hex": "0x1bcefdb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttpuuuputtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161483,
+        "y_hex": "0x1bcf80b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttputuuutup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161547,
+        "y_hex": "0x1bcf84b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttputptupup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161563,
+        "y_hex": "0x1bcf85b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttputuutuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161595,
+        "y_hex": "0x1bcf87b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuuuuuuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161611,
+        "y_hex": "0x1bcf88b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttputtputpt",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161627,
+        "y_hex": "0x1bcf89b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuttputuupuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29161707,
+        "y_hex": "0x1bcf8eb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuuuutuuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29161931,
+        "y_hex": "0x1bcf9cb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuuuutptuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29161979,
+        "y_hex": "0x1bcf9fb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuttptuputtut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162043,
+        "y_hex": "0x1bcfa3b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuuuuputuup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29162059,
+        "y_hex": "0x1bcfa4b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uutuuuuptuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29162219,
+        "y_hex": "0x1bcfaeb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuttptuttpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162267,
+        "y_hex": "0x1bcfb1b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuttpuptutttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29162347,
+        "y_hex": "0x1bcfb6b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuttpupupupuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162491,
+        "y_hex": "0x1bcfbfb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuuututtuuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162523,
+        "y_hex": "0x1bcfc1b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuuututpuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162699,
+        "y_hex": "0x1bcfccb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uutuuutuuutpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29162939,
+        "y_hex": "0x1bcfdbb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuputtuutpt",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29200635,
+        "y_hex": "0x1bd90fb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuputuutuup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29200779,
+        "y_hex": "0x1bd918b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuupttuttttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29200811,
+        "y_hex": "0x1bd91ab"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuupttuuupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29200827,
+        "y_hex": "0x1bd91bb"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuptupuuuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29200859,
+        "y_hex": "0x1bd91db"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuputpttuut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29201211,
+        "y_hex": "0x1bd933b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuptutuuttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29201227,
+        "y_hex": "0x1bd934b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuuptuuuptuu",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29201307,
+        "y_hex": "0x1bd939b"
+      },
+      {
+        "cost": 1,
+        "generator_word": "uuuupuuuuutut",
+        "parity": 1,
+        "shadow_masks": [
+          15,
+          12
+        ],
+        "y": 29202203,
+        "y_hex": "0x1bd971b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuupuuupupuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29202379,
+        "y_hex": "0x1bd97cb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuupuptuut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203499,
+        "y_hex": "0x1bd9c2b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuupuuuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203515,
+        "y_hex": "0x1bd9c3b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuuptuttut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203547,
+        "y_hex": "0x1bd9c5b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuuptuputp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203579,
+        "y_hex": "0x1bd9c7b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuuuuttuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203595,
+        "y_hex": "0x1bd9c8b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuuuutpuut",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203643,
+        "y_hex": "0x1bd9cbb"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuutuputttp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203723,
+        "y_hex": "0x1bd9d0b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuupuputptuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203755,
+        "y_hex": "0x1bd9d2b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuututpuuuu",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203787,
+        "y_hex": "0x1bd9d4b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuututpttup",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203803,
+        "y_hex": "0x1bd9d5b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuupupuputtp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203835,
+        "y_hex": "0x1bd9d7b"
+      },
+      {
+        "cost": 0,
+        "generator_word": "uuuuuuuuututp",
+        "parity": 0,
+        "shadow_masks": [
+          15,
+          15
+        ],
+        "y": 29203915,
+        "y_hex": "0x1bd9dcb"
+      }
+    ],
+    "gaps": [
+      2,
+      2,
+      2
+    ],
+    "k": 14,
+    "membership_cache": {
+      "currsize": 20344,
+      "hits": 19745,
+      "maxsize": null,
+      "misses": 20344
+    },
+    "observed_prefix": "tututut",
+    "original_orbit": [
+      105053691,
+      421315463,
+      1680752123,
+      6741250951,
+      26892095995,
+      107859702407,
+      430274623675,
+      1725756603703
+    ],
+    "pair_count": 8911,
+    "phase": "u",
+    "quadruple_found": true,
+    "seed_carrier_levels": [
+      1,
+      11
+    ],
+    "seed_carrier_sizes": [
+      1,
+      2,
+      4,
+      9,
+      18,
+      36,
+      67,
+      129,
+      255,
+      494,
+      950
+    ],
+    "validation_failures": [],
+    "x_hex": "0x642fdfb"
+  },
+  "runtime_seconds": 0.3641462599625811,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"One genuine belief: independent seed/lift construction and affine obstruction.\nRun from the checkout root; no other cylinders or occurrence search.\n\"\"\"\nimport datetime,hashlib,importlib.util,json,os,platform,resource,signal,subprocess,sys,tempfile,time\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve();START=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')))\nsignal.alarm(120);os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})\nsha=lambda b:hashlib.sha256(b).hexdigest()\ndep_path=ROOT/'experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py'\ndep_bytes=dep_path.read_bytes()\nspec=importlib.util.spec_from_file_location('walsh_exact_lifts',dep_path);dep=importlib.util.module_from_spec(spec);spec.loader.exec_module(dep)\ndef prohibited(*a,**k):raise AssertionError('No dependency campaign permitted')\ndep.enumerate_phase=prohibited;dep.run_campaign=prohibited;dep.main=prohibited\nold_path=ROOT/'results/problem1/20260905_signed_belief_hamming_pairing.json'\nold_bytes=old_path.read_bytes();old=json.loads(old_bytes)['result']['first_obstruction']\nassert (old['phase'],old['complexity'],old['state_hex'],old['depth'],old['cut'])==('u',14,'0x642fdfb',2,1)\n\ndef G(g,n):\n    assert n>=0\n    if g=='p':return G('t',2*n+1)>>1\n    bits=[(n>>i)&1 for i in range(n.bit_length())]+[0,0];out=0\n    for i,b in enumerate(bits):\n        out|=(b ^ ((bits[i-1] if i else 0)|(bits[i-2] if i>=2 else 0)))<<i\n    return out^int(g=='u')\ndef replay(word):\n    n=0\n    for g in word:n=G(g,n)\n    return n\ndef mask(level,p):\n    return sum(int(dep.frontier_member('u',level+1,4*p+d))<<d for d in range(4))\ndef eps(m,n):return 0 if (m&n)!=m else (1 if n==15 else -1)\ndef plane(values):\n    return [sum(v*(-1 if (i&a).bit_count()%2 else 1) for i,v in enumerate(values)) for a in range(4)]\n\nassert [G(g,1) for g in 'tup']==[7,6,6]\nassert {G(g,v) for v in (6,7) for g in 'tup'}=={24,25,26,27}\nx=0x642fdfb;k=14;L=2\nassert replay('uuuuputptuutuu')==x and dep.frontier_member('u',k,x)\nstate=x;observed='tututut';orbit=[x]\nfor q in observed:\n    assert state%16==({'t':11,'u':7}[q])\n    state=G(q,G('p',state>>2));orbit.append(state)\nassert all(b not in observed+'u' for b in ('uu','ttttt','ututtu'))\ncurrent=[mask(k-1-j,x>>(2*j+2)) for j in range(L)]\nassert all(current[j] & (1<<((x>>(2*j))&3)) for j in range(L))\n\n# Only projected seeds at level 11 are enumerated, then exact lift inverses.\nseeds={1};sizes=[1]\nfor level in range(2,k-L):\n    seeds={G(g,v) for v in seeds for g in 'tup'};sizes.append(len(seeds))\nassert len(sizes)==11\nbelief=[]\nfor z in sorted(seeds):\n    high=mask(11,z)\n    if (high&current[1])!=current[1]:continue\n    p=4*z+((x>>2)&3);low=mask(12,p)\n    if (low&current[0])!=current[0]:continue\n    y=4*p+(x&3);ms=[low,high];cost=sum(n!=15 for n in ms)\n    assert dep.frontier_member('u',13,y) and y%16==x%16\n    word=dep.frontier_witness('u',13,y);assert replay(word)==y\n    belief.append({'y':y,'y_hex':hex(y),'cost':cost,'parity':cost%2,'shadow_masks':ms,'generator_word':word})\nbelief.sort(key=lambda r:r['y']);ys=[r['y'] for r in belief];by_y={r['y']:r for r in belief}\nassert len(belief)==len(by_y)==134==old['endpoints']\neven=sum(r['parity']==0 for r in belief);odd=len(belief)-even\nassert (even,odd,even-odd)==(84,50,34)\n\n# Independent all-pairs XOR grouping, versus the primary sorted-triple search.\nbuckets={};pairs=0\nfor i,a in enumerate(ys):\n    for b in ys[i+1:]:\n        key=a^b;parity=by_y[a]['parity']^by_y[b]['parity']\n        buckets.setdefault(key,[[],[]])[parity].append((a,b));pairs+=1\nquad=None;cross_combinations=0\nfor groups in buckets.values():\n    for p in groups[0]:\n        for q in groups[1]:\n            cross_combinations+=1;cand=tuple(sorted(p+q))\n            assert len(set(cand))==4\n            if quad is None or cand<quad:quad=cand\nassert pairs==8911\ncertificate=None;linear_solution=None\nif quad is not None:\n    assert quad[0]^quad[1]^quad[2]^quad[3]==0\n    assert sum(by_y[y]['parity'] for y in quad)%2==1\n    signs=[(-1)**by_y[y]['cost'] for y in quad];wc=plane(signs)\n    assert all(abs(v)==2 for v in wc)\n    local=[]\n    for j in range(L):\n        ns=[by_y[y]['shadow_masks'][j] for y in quad]\n        ps=[y>>(2*j+2) for y in quad]\n        values=[eps(current[j],n) for n in ns]\n        assert len(set(ps))==4 and ps[0]^ps[1]^ps[2]^ps[3]==0\n        if sum(n!=15 for n in ns)%2:\n            transform=plane(values);assert all(abs(v)==2 for v in transform)\n            local.append({'depth_j':j,'current_mask':current[j],'shadow_masks':ns,\n              'parent_level':k-2-j,'inputs':ps,'inputs_hex':[hex(p) for p in ps],\n              'filter_values':values,'plane_walsh':transform})\n    assert local\n    certificate={'endpoints':[by_y[y] for y in quad],'xor':0,'parity_sum':1,\n      'plane_origin':quad[0],'plane_directions':[quad[0]^quad[1],quad[0]^quad[2]],\n      'signs':signs,'plane_walsh':wc,'local_filter_planes':local,\n      'minimality':'lexicographically smallest quadruple in this complete belief; four is the smallest possible distinct-point affine obstruction cardinality'}\nelse:\n    # No inference of affine consistency from absence of a four-point witness.\n    pivots={};contradiction=None\n    for i,r in enumerate(belief):\n        v=((r['y']>>4)<<1)|1;b=r['parity'];used=1<<i\n        while v:\n            pos=(v&-v).bit_length()-1\n            if pos not in pivots:pivots[pos]=(v,b,used);break\n            w,c,u=pivots[pos];v^=w;b^=c;used^=u\n        if not v and b:contradiction=used;break\n    if contradiction is not None:\n        certificate={'general_affine_inconsistency_indices':[i for i in range(len(belief)) if (contradiction>>i)&1]}\n    else:\n        sol=0\n        for pos,(v,b,u) in sorted(pivots.items(),reverse=True):\n            bit=b^((v&sol).bit_count()%2);sol|=bit<<pos\n        assert all((((((r['y']>>4)<<1)|1)&sol).bit_count()%2)==r['parity'] for r in belief)\n        linear_solution={'augmented_coefficient_bits':sol,'coordinates':'constant then bits of y>>4'}\n\nsummary={'completed':True,'phase':'u','k':k,'x_hex':hex(x),'L':L,'cut':1,'gaps':[2,2,2],\n 'observed_prefix':observed,'original_orbit':orbit,'current_masks':current,\n 'belief_size':len(belief),'E':even,'O':odd,'S':even-odd,'endpoints':belief,\n 'seed_carrier_levels':[1,11],'seed_carrier_sizes':sizes,\n 'pair_count':pairs,'cross_parity_pair_combinations':cross_combinations,\n 'quadruple_found':quad is not None,'certificate':certificate,'affine_solution':linear_solution,\n 'affine_consistent':linear_solution is not None,'membership_cache':dep.frontier_member.cache_info()._asdict(),\n 'validation_failures':[]}\nsummary=json.loads(json.dumps(summary));source=Path(__file__).read_text()\nrecord={'experiment_id':'20260905_walsh_sign_independent','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'The defect signs on each genuine return belief are the restriction of an affine Walsh character, chosen separately for that belief.',\n 'backend':'cell-array-seeds-and-exact-recursive-lifts-with-pair-XOR-check',\n 'parameters':{'endpoint':'u14/0x642fdfb/L2/cut1/gap222','carrier':'only phase-u projected seeds through level11; higher memberships via exact recursion',\n  'search':'all unordered endpoint pairs grouped by XOR and cost parity; lexicographically smallest contradictory quadruple',\n  'diagnostics':'only the reported quadruple and its two local mask depths; no ambient Fourier arrays',\n  'cpu_workers':1,'wall_limit_seconds':120,'address_space_bytes':1024**3},\n 'hardware':{'machine':platform.machine(),'cpu_affinity':sorted(os.sched_getaffinity(0)),\n  'cpu_description':next((v.split(':',1)[1].strip() for v in Path('/proc/cpuinfo').read_text().splitlines() if v.startswith('model name')),None)},\n 'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,\n 'status':'finite-exhaustive','proof_scope':'The complete single named 134-point belief and its affine four-point obstruction search; local plane diagnostics only.',\n 'interpretation':'A contradiction refutes single-character sign modulation, not nonvanishing or general multimode transfer.',\n 'limitations':['No additional occurrences.','No full ambient Walsh transform.','Exact operator identities require the separate all-depth proof.'],\n 'source_text':source,'input':{'path':str(old_path.relative_to(ROOT)),'sha256':sha(old_bytes)},\n 'dependency':{'path':str(dep_path.relative_to(ROOT)),'sha256':sha(dep_bytes),'source_text':dep_bytes.decode()},\n 'result_summary':summary,'result_hashes':{'source_sha256':sha(source.encode()),\n 'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode())}}\ndest=ROOT/'results/problem1/20260905_walsh_sign_independent.json'\nfd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\nwith os.fdopen(fd,'w') as f:\n    json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,dest);signal.alarm(0)\nprint(json.dumps({'belief_size':len(belief),'masks':current,'quad':[hex(y) for y in quad] if quad else None,\n 'certificate':certificate,'seconds':record['runtime_seconds']},sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T18:41:33.347416+00:00"
+}

@@ -11,6 +11,49 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest actual-domain spectral obstruction: read
+`proofs/informal/problem1_walsh_sign_obstruction.md` first.
+
+- Exact all-depth endpoint lift (`partial-proof`) is a diagonal 0/+1/-1
+  filter followed by injective digit embedding. Unnormalized Walsh lift:
+  W F(4xi+eta)=chi_eta(d) W(a_m f)(xi), with W(a_m f) the normalized
+  convolution of W a_m and W f. This retains endpoint identities and
+  deduplication; it is not a nonvanishing proof or a finite closed state.
+- An affine-character description of defect signs is `refuted` on the
+  genuine u14/0x642fdfb/L2/cut1/gap222 belief. The exact quartet
+  0x190822b,0x190825b,0x191c10b,0x191c17b has XOR0 and costs0,1,0,0.
+  This excludes every affine character, even chosen separately for this
+  belief or after invertible affine coordinate changes.
+- The obstruction localizes to depthj1, currentmask1100, at inputs
+  y>>4 =0x190822,0x190825,0x191c10,0x191c17 in O_(u,11). Their
+  shadowmasks are1111,1100,1111,1111. On the affine plane with directions
+  0x7 and0x1432 the local signs +,-,+,+ have Walsh coefficients
+  (2,2,-2,2). The final depthj0 full-mask filter preserves all four.
+- All-depth restriction lemma: a four-point XOR-zero sign pattern with
+  product-1 forces a nonzero ambient coefficient in EACH of four plane
+  frequency classes, for any real extension, including zero extension.
+  It also holds in the affine span of the belief. A class-(0,0) coefficient
+  need not be the global zero frequency. This is a lower bound, not a
+  four-mode closure theorem, and it does not imply global S!=0.
+- Exactly one134-point belief was reconstructed: primary Boolean carrier
+  throughu13; independent cell-array seeds throughu11 plus recursive lifts.
+  All134 endpoint costs/masks agree (E84,O50,S34). A sorted-triple search
+  and independent8911-pair search give the same lexicographically first
+  quartet. Four is the minimum possible affine-certificate cardinality.
+  Muse independently checked the operator, plane theorem and concrete XOR
+  without tools. No ambient Fourier array or new occurrence census ran.
+  Fresh reviewer Ramanujan approved the proof scope, seed initialization,
+  provenance hashes, complete table agreement and portable replay paths.
+  Records: `results/problem1/20260905_walsh_sign_{primary,independent}.json`.
+
+The exact bottleneck is now explicit in Walsh language: control the joint
+coefficients contributing to zero frequency on genuine returns. One-mode
+sign modulation is refuted; general multimode/nonlinear descriptions are
+not. Do not automatically raise a mode or polynomial-degree cap. A useful
+next step must specify a return-conditioned correlation constraint, with
+deduplication retained, or a new boundary mechanism. B_all, adjacent
+inclusion, signed nonvanishing and eventual periods>=3 remain open.
+
 Newest all-depth classification and obstruction: read
 `proofs/informal/problem1_two_to_one_rewrite_test.md` first.
 

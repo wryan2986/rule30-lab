@@ -217,3 +217,11 @@ pairing with a provably nonzero remainder. These are possible next targets,
 not established invariants. The separate boundary obligation and the eventual
 period-two reduction hypotheses remain unresolved; nothing here excludes
 eventual period two or general eventual periodicity.
+
+Subsequent endpoint-operator result:
+`problem1_walsh_sign_obstruction.md` gives the exact diagonal-filter,
+digit-embedding, and Walsh-convolution formulas. A four-point certificate
+on an actual three-return belief rules out affine-character sign modulation
+and exhibits four local plane modes. This is distinct from the universal
+five-vector closure collision above, and does not prove nonvanishing or
+exclude general multimode transfer.
