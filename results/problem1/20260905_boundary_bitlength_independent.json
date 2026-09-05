@@ -1,0 +1,81 @@
+{
+  "backend": "cell-array-odd-section-and-third-u-criterion",
+  "experiment_id": "20260905_boundary_bitlength_independent",
+  "git_commit": "33fdfaf8e2bedb94728daf3b2de219eb47f20876",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "Bit length alone precludes boundary occurrences for x4..4095, with k=ceil(bitlen(x)/2).",
+  "interpretation": "No boundary witness in the box; coverage of any occurrences is explicitly reported.",
+  "limitations": [
+    "No all-depth proof and no enlargement justified by absence.",
+    "This is default-reviewer implementation plus lead replay; Muse attempts earlier terminated HTTP429."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_workers": 1,
+    "horizon": "k+14",
+    "minimum_cut": "k-2",
+    "order": "ascending x",
+    "wall_limit_seconds": 120,
+    "x_max": 4095,
+    "x_min": 4
+  },
+  "proof_scope": "Declared x4..4095 set only; no assertion for other finite integers or all frontier levels.",
+  "question": "problem1",
+  "result_hashes": {
+    "primary_raw_sha256": "cc5ae084f33f646f4d4397ce96bda567064a051bfb083de703e6243cbec122e8",
+    "result_sha256": "0dfa793f221a2bab779018ec9c9dfbb8e663e778c7bca8586b675fd9fb9c1c8b",
+    "source_sha256": "15531af95233020676910fb5ccdba927a9ea6b5ff3c58d82963a120308521d78"
+  },
+  "result_summary": {
+    "all_orbits_agree": true,
+    "any_occurrence_count": 1,
+    "boundary_violations": [],
+    "completed": true,
+    "forced_transitions": 1039,
+    "horizon_reached_count": 0,
+    "maximum_admissible_prefix_length": 7,
+    "maximum_observed_forced_length": 14,
+    "rows_sha256": "122f3e1284a06805d8ff633475bc808aeee4c76585761b6d34c12826e22c9e9f",
+    "scanned_count": 4092,
+    "states_with_any_occurrence": [
+      {
+        "k": 5,
+        "word": "utututt",
+        "x": 903
+      }
+    ]
+  },
+  "runtime_seconds": 0.060772386030294,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Independently replay the admitted x4..4095 box, without extending it.\nUse cell arrays and P(v)=T(2v+1)>>1, compare every orbit to contributed code,\nand evaluate the third-u prefix criterion. Report vacuity/coverage explicitly.\n\"\"\"\nimport datetime,hashlib,importlib.util,json,os,platform,resource,signal,subprocess,sys,tempfile,time\nfrom pathlib import Path\nROOT=Path('/home/ryan/rule30-lab');START=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')));signal.alarm(120)\nDIR=Path('/tmp/rule30-boundary-bitlength-1zErfO')\nraw=(DIR/'result.json').read_bytes();primary=json.loads(raw)\nsha=lambda b:hashlib.sha256(b).hexdigest()\npayload=primary.copy();claimed=payload.pop('payload_sha256_excluding_this_field')\nassert sha(json.dumps(payload,sort_keys=True,separators=(',',':')).encode())==claimed\nassert sha(primary['executed_source_utf8'].encode())==primary['source_sha256']\nassert (DIR/'search.py').read_text()==primary['executed_source_utf8']\nspec=importlib.util.spec_from_file_location('contributed',DIR/'search.py')\ncontributed=importlib.util.module_from_spec(spec);spec.loader.exec_module(contributed)\ndef bits(n): return [(n>>j)&1 for j in range(n.bit_length())]\ndef integer(a): return sum(v<<j for j,v in enumerate(a))\ndef Tcells(a):\n    a=a+[0,0]; out=[]\n    for i in range(len(a)):\n        left=a[i-1] if i>=1 else 0\n        far=a[i-2] if i>=2 else 0\n        out.append(a[i] ^ int(bool(left or far)))\n    while out and out[-1]==0: out.pop()\n    return out\n\ndef orbit(x,h):\n    a=bits(x);states=[x];word=''\n    for j in range(h):\n        low=a[:4]+[0]*max(0,4-len(a))\n        if low==[1,1,1,0]: letter='u'\n        elif low==[1,1,0,1]: letter='t'\n        else: break\n        # Odd section definition of P; no parity-toggle formula.\n        middle=Tcells([1]+a[2:])[1:]\n        a=Tcells(middle)\n        if letter=='u': a[0]^=1\n        states.append(integer(a));word+=letter\n        assert states[-1].bit_length()==x.bit_length()+2*(j+1)\n    return states,word\n\ndef acceptable(w): return all(p not in w for p in ('uu','ttttt','ututtu'))\ndef longest(w):\n    for n in range(1,len(w)+1):\n        if not acceptable(w[:n]): return w[:n-1]\n    return w\n\ndef has_occ(a,b):\n    us=[i for i in range(b,len(a)) if a[i]=='u']\n    return len(us)>=3 and us[2]+1<len(a)\nassert orbit(7,16)==([7,27,111],'ut')\nassert orbit(11,16)==([11,51],'t')\nassert integer(Tcells([1]))==7\nrows=[];occ_any=[];violations=[];max_adm=0;max_forced=0;transitions=0;horizons=0\nfor x in range(4,4096):\n    k=(x.bit_length()+1)//2\n    states,w=orbit(x,k+14)\n    expected=contributed.orbit(x,k+14)\n    assert states==expected[0] and w==expected[2],x\n    a=longest(w)\n    if has_occ(a,k-2):violations.append(x)\n    if has_occ(a,0):occ_any.append({'x':x,'k':k,'word':w})\n    max_adm=max(max_adm,len(a));max_forced=max(max_forced,len(w))\n    transitions+=len(w);horizons+=int(len(w)==k+14)\n    rows.append([x,w,len(a)])\nassert transitions==primary['forced_transitions_in_search']\nassert primary['scanned_count']==len(rows)==4092\nassert not violations and primary['witness'] is None\nsummary={'scanned_count':len(rows),'all_orbits_agree':True,'forced_transitions':transitions,\n 'boundary_violations':violations,'states_with_any_occurrence':occ_any,\n 'any_occurrence_count':len(occ_any),'maximum_observed_forced_length':max_forced,\n 'maximum_admissible_prefix_length':max_adm,'horizon_reached_count':horizons,\n 'rows_sha256':sha(json.dumps(rows,separators=(',',':')).encode()),'completed':True}\nsource=Path(__file__).read_text()\nbase={'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'question':'problem1','hypothesis':'Bit length alone precludes boundary occurrences for x4..4095, with k=ceil(bitlen(x)/2).',\n 'parameters':{'x_min':4,'x_max':4095,'order':'ascending x','horizon':'k+14','minimum_cut':'k-2','wall_limit_seconds':120,'address_space_bytes':1024**3,'cpu_workers':1},\n 'hardware':primary['hardware'],'software':{'python':sys.version,'platform':platform.platform()},\n 'runtime_seconds':time.monotonic()-START,'status':'finite-exhaustive',\n 'proof_scope':'Declared x4..4095 set only; no assertion for other finite integers or all frontier levels.',\n 'interpretation':'No boundary witness in the box; coverage of any occurrences is explicitly reported.',\n 'limitations':['No all-depth proof and no enlargement justified by absence.','This is default-reviewer implementation plus lead replay; Muse attempts earlier terminated HTTP429.']}\nrecord={**base,'experiment_id':'20260905_boundary_bitlength_independent',\n 'backend':'cell-array-odd-section-and-third-u-criterion',\n 'source_text':source,'result_summary':summary,\n 'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),'primary_raw_sha256':sha(raw)}}\nwrapped={**base,'experiment_id':'20260905_boundary_bitlength_primary',\n 'backend':'contributed-packed-and-per-bit-literal-56-motifs',\n 'runtime_seconds':primary['timings']['search_wall_seconds'],\n 'software':primary['software'],'contributed_record':primary,\n 'result_summary':{'scanned_count':primary['scanned_count'],'result':primary['result'],'witness':primary['witness'],'forced_transitions':primary['forced_transitions_in_search']},\n 'result_hashes':{'original_record_sha256':sha(raw),'source_sha256':primary['source_sha256'],'contributed_payload_sha256':claimed},\n 'integration_note':'Original contributed payload retained without changing its historical pending-replay field. Lead replay is recorded separately.'}\ndef atomic(name,r):\n dest=ROOT/'results/problem1'/name\n fd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\n with os.fdopen(fd,'w') as f:\n    json.dump(r,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\n os.replace(tmp,dest)\natomic('20260905_boundary_bitlength_primary.json',wrapped)\natomic('20260905_boundary_bitlength_independent.json',record)\nsignal.alarm(0)\nprint(json.dumps(summary,sort_keys=True));print('seconds',record['runtime_seconds'])\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T15:20:41.989298+00:00"
+}

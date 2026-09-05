@@ -43,6 +43,16 @@ strongest next boundary target is an all-depth exclusion of these five
 moving cut positions, retaining ordinary-frontier membership. This exact
 reduction does not authorize a larger census.
 
+The subsequent bit-length-only simplification remains `inconclusive`; see
+`proofs/informal/problem1_boundary_bitlength_test.md`. All x=4,...,4095
+were checked without frontier restrictions, with independent cell-array
+full-orbit agreement (1,039 forced transitions). No boundary occurrence
+was found, but only x903/k5 has ANY occurrence, at cut0, far below its
+critical cut3. This is weak finite coverage, not evidence that membership
+can be discarded. No box enlargement follows. The stronger open arithmetic
+candidate says every occurrence at c requires x>=4^(c+2). The degree law
+alone supplies no decreasing rank: bitlen(F^j(x))=bitlen(x)+2j.
+
 Previous result: **both valuation conjectures are refuted**. Read
 `proofs/informal/problem1_return_valuation_falsification.md` first.
 

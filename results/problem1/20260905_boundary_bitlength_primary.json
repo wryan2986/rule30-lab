@@ -1,0 +1,482 @@
+{
+  "backend": "contributed-packed-and-per-bit-literal-56-motifs",
+  "contributed_record": {
+    "admission_path": "proofs/informal/problem1_boundary_bitlength_test.md",
+    "admission_sha256": "b8644f0d8a59c8a703a06db46ed02036ddd3c4c54bd3f2152f70d3d2fcc6ab3c",
+    "executed_source_utf8": "#!/usr/bin/env python3\n\"\"\"Bounded literal boundary search. All writes are confined beside this source.\"\"\"\nimport datetime\nimport hashlib\nimport itertools\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nROOT = Path('/home/ryan/rule30-lab')\nOUT = Path(__file__).resolve().parent\nSTART_WALL = time.monotonic()\nSTART_CPU = time.process_time()\nSTART_UTC = datetime.datetime.now(datetime.timezone.utc).isoformat()\nresource.setrlimit(resource.RLIMIT_CPU, (120, 120))\nresource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\nORIGINAL_AFFINITY = sorted(os.sched_getaffinity(0))\nos.sched_setaffinity(0, {ORIGINAL_AFFINITY[0]})\n\n\ndef admissible(word):\n    return all(factor not in word for factor in ('uu', 'ttttt', 'ututtu'))\n\n\ndef motif(g):\n    return ''.join('u' + 't' * (r - 1) for r in g)\n\n\nTRIPLES = tuple(g for g in itertools.product(range(2, 6), repeat=3)\n                if admissible(motif(g) + 'u'))\nassert len(TRIPLES) == 56\n\n\ndef T(v):\n    return v ^ ((v << 1) | (v << 2))\n\n\ndef P(v):\n    return T(v) ^ 1 ^ (2 if v % 2 == 0 else 0)\n\n\ndef T_bitwise(v):\n    # Independent scalar local-rule implementation, including the high boundary.\n    result = 0\n    for i in range(v.bit_length() + 2):\n        a = (v >> i) & 1\n        b = (v >> (i - 1)) & 1 if i >= 1 else 0\n        c = (v >> (i - 2)) & 1 if i >= 2 else 0\n        result += (a ^ (b | c)) << i\n    return result\n\n\ndef step(x):\n    residue = x % 16\n    if residue not in (7, 11):\n        return None\n    branch = 'u' if residue == 7 else 't'\n    shifted = x >> 2\n    middle = P(shifted)\n    y = T(middle) ^ (1 if branch == 'u' else 0)\n    middle_independent = T_bitwise(shifted) ^ 1 ^ (2 if shifted % 2 == 0 else 0)\n    y_independent = T_bitwise(middle_independent) ^ int(branch == 'u')\n    assert middle == middle_independent and y == y_independent\n    return {'x': x, 'residue_mod_16': residue, 'branch': branch,\n            'x_shift_2': shifted, 'P_value': middle, 'next_x': y}\n\n\ndef orbit(x, horizon):\n    states, steps, letters = [x], [], []\n    for _ in range(horizon):\n        item = step(states[-1])\n        if item is None:\n            return states, steps, ''.join(letters), 'nonforcing_residue'\n        steps.append(item)\n        letters.append(item['branch'])\n        states.append(item['next_x'])\n    return states, steps, ''.join(letters), 'observation_horizon'\n\n\ndef first_literal(word, b):\n    # Entire prefix is checked, including the seam before the first return.\n    # The appended final u is checked for admissibility only, never observation.\n    for cut in range(b, len(word)):\n        for g in TRIPLES:\n            E = motif(g)\n            end = cut + len(E)\n            if end <= len(word) and word[cut:end] == E:\n                completed = word[:end] + 'u'\n                if admissible(completed):\n                    return {'cut': cut, 'g': list(g), 'w': word[:cut], 'E': E,\n                            'observed_prefix': word[:end],\n                            'observed_prefix_length': end,\n                            'admissibility_word_with_unobserved_final_u': completed}\n    return None\n\n\ndef atomic_bytes(path, data):\n    fd, tmp = tempfile.mkstemp(prefix=path.name + '.', dir=path.parent)\n    try:\n        with os.fdopen(fd, 'wb') as f:\n            f.write(data)\n            f.flush()\n            os.fsync(f.fileno())\n        os.replace(tmp, path)\n        dirfd = os.open(path.parent, os.O_DIRECTORY)\n        try:\n            os.fsync(dirfd)\n        finally:\n            os.close(dirfd)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef main():\n    # Hand derivations: P(1)=6, U(6)=27; P(6)=25, T(25)=111;\n    # P(2)=13, T(13)=51. Residues 15 and 3 stop.\n    assert orbit(7, 16)[0:3:2] == ([7, 27, 111], 'ut')\n    assert orbit(11, 16)[0:3:2] == ([11, 51], 't')\n    assert orbit(4, 16)[0:3:2] == ([4], '')\n    assert first_literal('ututu', 0) is None\n    assert first_literal('ututut', 0)['g'] == [2, 2, 2]\n    assert first_literal('ttttu' * 3, 0) is None\n    assert first_literal('ttttu' * 3 + 't', 0)['cut'] == 4\n    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT,\n                                     text=True).strip()\n    source = Path(__file__).resolve().read_bytes()\n    admission = (ROOT / 'proofs/informal/problem1_boundary_bitlength_test.md').read_bytes()\n    search_wall, search_cpu = time.monotonic(), time.process_time()\n    witness, scanned, transitions = None, 0, 0\n    for x in range(4, 4096):\n        if time.monotonic() - START_WALL >= 118:\n            raise TimeoutError('Stopped before allotted 120-second wall limit')\n        k = (x.bit_length() + 1) // 2\n        states, steps, word, reason = orbit(x, k + 14)\n        scanned += 1\n        transitions += len(steps)\n        found = first_literal(word, k - 2)\n        if found is not None:\n            witness = {'x': x, 'bit_length': x.bit_length(), 'k': k,\n                       'threshold_b': k - 2, 'horizon': k + 14,\n                       'full_observed_orbit': states, 'steps': steps,\n                       'word': word, 'orbit_observation_stop_reason': reason,\n                       'next_state_residue_mod_16': states[-1] % 16, **found}\n            break\n    search_seconds = time.monotonic() - search_wall\n    search_cpu_seconds = time.process_time() - search_cpu\n    cpu_info = Path('/proc/cpuinfo').read_text()\n    cpu_model = next((line.split(':', 1)[1].strip() for line in cpu_info.splitlines()\n                      if line.startswith('model name')), 'unknown')\n    report = {\n        'status': 'finite-exhaustive',\n        'result': 'witness_found_pending_independent_replay' if witness else 'box_exhausted',\n        'repo_root': str(ROOT), 'repo_git_commit': commit,\n        'admission_path': 'proofs/informal/problem1_boundary_bitlength_test.md',\n        'admission_sha256': hashlib.sha256(admission).hexdigest(),\n        'source_path': str(Path(__file__).resolve()),\n        'executed_source_utf8': source.decode(),\n        'source_sha256': hashlib.sha256(source).hexdigest(),\n        'invocation': ['timeout', '--signal=KILL', '120s', sys.executable,\n                       str(Path(__file__).resolve())],\n        'parameters': {\n            'x_min_inclusive': 4, 'x_max_inclusive': 4095,\n            'order': 'ascending numeric x; ascending cut; lexicographic triple',\n            'k': '(bit_length(x)+1)//2', 'minimum_cut': 'k-2',\n            'maximum_observed_forced_branches': 'k+14',\n            'branch_selection': 'current state x modulo 16: 7 -> u; 11 -> t; otherwise stop',\n            'F': 'Q(P(x>>2))', 'T': 'v ^ ((v<<1) | (v<<2))',\n            'U': 'T(v) ^ 1', 'P': 'T(v) ^ 1 ^ (2 if v even else 0)',\n            'forbidden_factors': ['uu', 'ttttt', 'ututtu'],\n            'triples': [list(g) for g in TRIPLES], 'triple_count': len(TRIPLES),\n            'admissibility': 'whole wE(g)u; appended final u unobserved',\n            'inadmissible_schedules': 'continue forcing to stop or horizon; test each prefix literally'},\n        'scanned_count': scanned, 'scanned_first_x': 4,\n        'scanned_last_x': 4 + scanned - 1,\n        'forced_transitions_in_search': transitions, 'witness': witness,\n        'verification': {\n            'hand_cases': ['7 -> 27 -> 111; ut; stops', '11 -> 51; t; stops', '4; stops'],\n            'independent_scalar_rule': 'compared P and F against per-bit rule at every executed forced transition',\n            'literal_hand_cases': ['terminal third u fails', 'unobserved final u succeeds',\n                                   'length 15 sharpness word fails; its t extension succeeds'],\n            'independent_replay': 'pending lead replay'},\n        'hardware': {'cpu_model': cpu_model, 'logical_cpu_count': os.cpu_count(),\n                     'original_affinity': ORIGINAL_AFFINITY,\n                     'executed_affinity': sorted(os.sched_getaffinity(0)),\n                     'physical_memory_bytes': os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')},\n        'software': {'python': sys.version, 'python_executable': sys.executable,\n                     'platform': platform.platform(), 'uname': list(platform.uname())},\n        'limits': {'local_only': True, 'cpus': 1, 'cpu_seconds': 120,\n                   'wall_seconds': 120, 'address_space_bytes': 1024**3,\n                   'enforcement': 'sched_setaffinity; RLIMIT_CPU; RLIMIT_AS; outer GNU timeout'},\n        'timings': {'started_utc': START_UTC,\n                    'finished_computation_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),\n                    'search_wall_seconds': search_seconds, 'search_cpu_seconds': search_cpu_seconds,\n                    'total_pre_serialization_wall_seconds': time.monotonic() - START_WALL,\n                    'total_pre_serialization_cpu_seconds': time.process_time() - START_CPU,\n                    'peak_rss_bytes': resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024},\n        'limitations': [\n            'Finite search only; mathematical adoption and independent witness replay belong to the lead.',\n            'No frontier membership tested; no conclusion about B_all.',\n            'Orbit is complete only through nonforcing residue or the specified observed horizon.',\n            'Minimality is within x=4..4095, with earlier x exhausted through their specified horizons.',\n            'No repository writes, frontier census, box extension, or remote execution.',\n            'Timings exclude final serialization and atomic output writes.'],\n    }\n    canonical = json.dumps(report, sort_keys=True, separators=(',', ':')).encode()\n    report['payload_sha256_excluding_this_field'] = hashlib.sha256(canonical).hexdigest()\n    encoded = (json.dumps(report, sort_keys=True, indent=2) + '\\n').encode()\n    output = OUT / 'result.json'\n    atomic_bytes(output, encoded)\n    digest = hashlib.sha256(encoded).hexdigest()\n    atomic_bytes(OUT / 'result.json.sha256', (digest + '  result.json\\n').encode())\n    print(json.dumps({'result_path': str(output), 'source_path': str(Path(__file__).resolve()),\n                      'artifact_sha256': digest, 'scanned_count': scanned,\n                      'witness': witness, 'search_wall_seconds': search_seconds}, indent=2))\n\n\nif __name__ == '__main__':\n    main()\n",
+    "forced_transitions_in_search": 1039,
+    "hardware": {
+      "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+      "executed_affinity": [
+        0
+      ],
+      "logical_cpu_count": 16,
+      "original_affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "physical_memory_bytes": 32528625664
+    },
+    "invocation": [
+      "timeout",
+      "--signal=KILL",
+      "120s",
+      "/usr/bin/python3",
+      "/tmp/rule30-boundary-bitlength-1zErfO/search.py"
+    ],
+    "limitations": [
+      "Finite search only; mathematical adoption and independent witness replay belong to the lead.",
+      "No frontier membership tested; no conclusion about B_all.",
+      "Orbit is complete only through nonforcing residue or the specified observed horizon.",
+      "Minimality is within x=4..4095, with earlier x exhausted through their specified horizons.",
+      "No repository writes, frontier census, box extension, or remote execution.",
+      "Timings exclude final serialization and atomic output writes."
+    ],
+    "limits": {
+      "address_space_bytes": 1073741824,
+      "cpu_seconds": 120,
+      "cpus": 1,
+      "enforcement": "sched_setaffinity; RLIMIT_CPU; RLIMIT_AS; outer GNU timeout",
+      "local_only": true,
+      "wall_seconds": 120
+    },
+    "parameters": {
+      "F": "Q(P(x>>2))",
+      "P": "T(v) ^ 1 ^ (2 if v even else 0)",
+      "T": "v ^ ((v<<1) | (v<<2))",
+      "U": "T(v) ^ 1",
+      "admissibility": "whole wE(g)u; appended final u unobserved",
+      "branch_selection": "current state x modulo 16: 7 -> u; 11 -> t; otherwise stop",
+      "forbidden_factors": [
+        "uu",
+        "ttttt",
+        "ututtu"
+      ],
+      "inadmissible_schedules": "continue forcing to stop or horizon; test each prefix literally",
+      "k": "(bit_length(x)+1)//2",
+      "maximum_observed_forced_branches": "k+14",
+      "minimum_cut": "k-2",
+      "order": "ascending numeric x; ascending cut; lexicographic triple",
+      "triple_count": 56,
+      "triples": [
+        [
+          2,
+          2,
+          2
+        ],
+        [
+          2,
+          2,
+          4
+        ],
+        [
+          2,
+          2,
+          5
+        ],
+        [
+          2,
+          4,
+          2
+        ],
+        [
+          2,
+          4,
+          3
+        ],
+        [
+          2,
+          4,
+          4
+        ],
+        [
+          2,
+          4,
+          5
+        ],
+        [
+          2,
+          5,
+          2
+        ],
+        [
+          2,
+          5,
+          3
+        ],
+        [
+          2,
+          5,
+          4
+        ],
+        [
+          2,
+          5,
+          5
+        ],
+        [
+          3,
+          2,
+          2
+        ],
+        [
+          3,
+          2,
+          4
+        ],
+        [
+          3,
+          2,
+          5
+        ],
+        [
+          3,
+          3,
+          2
+        ],
+        [
+          3,
+          3,
+          3
+        ],
+        [
+          3,
+          3,
+          4
+        ],
+        [
+          3,
+          3,
+          5
+        ],
+        [
+          3,
+          4,
+          2
+        ],
+        [
+          3,
+          4,
+          3
+        ],
+        [
+          3,
+          4,
+          4
+        ],
+        [
+          3,
+          4,
+          5
+        ],
+        [
+          3,
+          5,
+          2
+        ],
+        [
+          3,
+          5,
+          3
+        ],
+        [
+          3,
+          5,
+          4
+        ],
+        [
+          3,
+          5,
+          5
+        ],
+        [
+          4,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          4
+        ],
+        [
+          4,
+          2,
+          5
+        ],
+        [
+          4,
+          3,
+          2
+        ],
+        [
+          4,
+          3,
+          3
+        ],
+        [
+          4,
+          3,
+          4
+        ],
+        [
+          4,
+          3,
+          5
+        ],
+        [
+          4,
+          4,
+          2
+        ],
+        [
+          4,
+          4,
+          3
+        ],
+        [
+          4,
+          4,
+          4
+        ],
+        [
+          4,
+          4,
+          5
+        ],
+        [
+          4,
+          5,
+          2
+        ],
+        [
+          4,
+          5,
+          3
+        ],
+        [
+          4,
+          5,
+          4
+        ],
+        [
+          4,
+          5,
+          5
+        ],
+        [
+          5,
+          2,
+          2
+        ],
+        [
+          5,
+          2,
+          4
+        ],
+        [
+          5,
+          2,
+          5
+        ],
+        [
+          5,
+          3,
+          2
+        ],
+        [
+          5,
+          3,
+          3
+        ],
+        [
+          5,
+          3,
+          4
+        ],
+        [
+          5,
+          3,
+          5
+        ],
+        [
+          5,
+          4,
+          2
+        ],
+        [
+          5,
+          4,
+          3
+        ],
+        [
+          5,
+          4,
+          4
+        ],
+        [
+          5,
+          4,
+          5
+        ],
+        [
+          5,
+          5,
+          2
+        ],
+        [
+          5,
+          5,
+          3
+        ],
+        [
+          5,
+          5,
+          4
+        ],
+        [
+          5,
+          5,
+          5
+        ]
+      ],
+      "x_max_inclusive": 4095,
+      "x_min_inclusive": 4
+    },
+    "payload_sha256_excluding_this_field": "aab95a6464e944aeb10ef1f38be26bb8a8607366909773e08d865e4b2aa65c50",
+    "repo_git_commit": "33fdfaf8e2bedb94728daf3b2de219eb47f20876",
+    "repo_root": "/home/ryan/rule30-lab",
+    "result": "box_exhausted",
+    "scanned_count": 4092,
+    "scanned_first_x": 4,
+    "scanned_last_x": 4095,
+    "software": {
+      "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+      "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+      "python_executable": "/usr/bin/python3",
+      "uname": [
+        "Linux",
+        "Home-Server",
+        "7.0.0-30-generic",
+        "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+        "x86_64",
+        ""
+      ]
+    },
+    "source_path": "/tmp/rule30-boundary-bitlength-1zErfO/search.py",
+    "source_sha256": "9ab974d4a2f39cc085aa44a2b5c8a21302c2cbb57f787afa2842fc3e9a1a50e0",
+    "status": "finite-exhaustive",
+    "timings": {
+      "finished_computation_utc": "2026-09-05T15:17:41.652548+00:00",
+      "peak_rss_bytes": 20598784,
+      "search_cpu_seconds": 0.021247438,
+      "search_wall_seconds": 0.0212787720374763,
+      "started_utc": "2026-09-05T15:17:41.622802+00:00",
+      "total_pre_serialization_cpu_seconds": 0.025123283999999996,
+      "total_pre_serialization_wall_seconds": 0.02976585505530238
+    },
+    "verification": {
+      "hand_cases": [
+        "7 -> 27 -> 111; ut; stops",
+        "11 -> 51; t; stops",
+        "4; stops"
+      ],
+      "independent_replay": "pending lead replay",
+      "independent_scalar_rule": "compared P and F against per-bit rule at every executed forced transition",
+      "literal_hand_cases": [
+        "terminal third u fails",
+        "unobserved final u succeeds",
+        "length 15 sharpness word fails; its t extension succeeds"
+      ]
+    },
+    "witness": null
+  },
+  "experiment_id": "20260905_boundary_bitlength_primary",
+  "git_commit": "33fdfaf8e2bedb94728daf3b2de219eb47f20876",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "Bit length alone precludes boundary occurrences for x4..4095, with k=ceil(bitlen(x)/2).",
+  "integration_note": "Original contributed payload retained without changing its historical pending-replay field. Lead replay is recorded separately.",
+  "interpretation": "No boundary witness in the box; coverage of any occurrences is explicitly reported.",
+  "limitations": [
+    "No all-depth proof and no enlargement justified by absence.",
+    "This is default-reviewer implementation plus lead replay; Muse attempts earlier terminated HTTP429."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_workers": 1,
+    "horizon": "k+14",
+    "minimum_cut": "k-2",
+    "order": "ascending x",
+    "wall_limit_seconds": 120,
+    "x_max": 4095,
+    "x_min": 4
+  },
+  "proof_scope": "Declared x4..4095 set only; no assertion for other finite integers or all frontier levels.",
+  "question": "problem1",
+  "result_hashes": {
+    "contributed_payload_sha256": "aab95a6464e944aeb10ef1f38be26bb8a8607366909773e08d865e4b2aa65c50",
+    "original_record_sha256": "cc5ae084f33f646f4d4397ce96bda567064a051bfb083de703e6243cbec122e8",
+    "source_sha256": "9ab974d4a2f39cc085aa44a2b5c8a21302c2cbb57f787afa2842fc3e9a1a50e0"
+  },
+  "result_summary": {
+    "forced_transitions": 1039,
+    "result": "box_exhausted",
+    "scanned_count": 4092,
+    "witness": null
+  },
+  "runtime_seconds": 0.0212787720374763,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "python_executable": "/usr/bin/python3",
+    "uname": [
+      "Linux",
+      "Home-Server",
+      "7.0.0-30-generic",
+      "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+      "x86_64",
+      ""
+    ]
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T15:20:41.989298+00:00"
+}
