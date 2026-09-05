@@ -2,6 +2,13 @@
 
 Repo does not solve any prize problem. Finite evidence is never proof of an infinite statement. Claim statuses (`empirical`, `finite-exhaustive`, `partial-proof`, `inconclusive`, ...) per `docs/experiment_protocol.md`.
 
+## Checkpoint workflow (user instruction, 2026-09-05)
+
+After every substantive research commit, push `research/astra-next` to origin
+as a checkpoint. Before a long new research phase, ensure all established
+results and the current handoff are committed and pushed. Never force-push,
+rewrite history, merge to main, or include incomplete temporary files.
+
 ## Active frontier after the goal continuation (2026-09-05)
 
 Latest refinement after publication at `f4d3eae` (read these two notes first):
