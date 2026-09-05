@@ -1,0 +1,873 @@
+{
+  "backend": "signed-bit-inverse-and-direct-generator-predecessors",
+  "count_terminology": {
+    "duplicate_cylinder_rows": "Duplicate state/base-prefix cases.",
+    "unique_base_cylinders": "Historical field name: distinct phase/level/state/base-prefix cases, not necessarily distinct residue cylinders.",
+    "unique_finite_lower_candidates": "Distinct lower states among all nonnegative candidates, including nonmembers; 12 distinct states are certified members."
+  },
+  "experiment_id": "20260905_conjugated_projection_independent",
+  "git_commit": "cef38682db06c0f1a7a16bc34fe70902b1ae1760",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpu_count": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "The conjugated projection is nonnegative and lies in the adjacent frontier on every full-domain occurrence.",
+  "interpretation": "Both candidate gates fail independently; every positive-cut row fails one gate. This does not refute adjacent inclusion or Problem 1.",
+  "limitations": [
+    "No complete frontier enumeration or increased input box.",
+    "Successful candidates were not tested for dominant belief membership.",
+    "Negative inverse rejection rules out nonnegative final output, not existence of the Z2 candidate."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_workers": 1,
+    "diagnostics": "first gate A signed candidate; first gate B high-ancestor chain, one fiber, and named common-predecessor rejection certificate",
+    "historical_rows": 19,
+    "inverse": "entire finite output plus exact tail and full signed forward replay",
+    "membership": "direct T/U/P predecessor recursion",
+    "order": "original complexity,phase,state,cut,gap order",
+    "wall_limit_seconds": 120
+  },
+  "proof_scope": "Only 19 historical rows and explicitly stated first-failure diagnostics; exact counterexamples refute the corresponding universal candidate gates.",
+  "question": "problem1",
+  "result_hashes": {
+    "primary_raw_sha256": "dc4adbd1799ff659ae1f6c326e461c21f20f62273727bfb62619037502a2aa2c",
+    "result_sha256": "580dd8f0683902f9f29c4e92238525a6e245524c7de8dde3bba63394cff56ba8",
+    "source_sha256": "c4108fb667bb031e27d290b080a129d930cb2934b5e8cd39f9a92cdc75a8905a"
+  },
+  "result_summary": {
+    "all_rows_agree": true,
+    "compact_gate_B_certificate": {
+      "all_arithmetic_and_memberships_verified": true,
+      "candidate_p4_lift_parents": [
+        200,
+        165,
+        166,
+        167
+      ],
+      "common_p5_projection_hex": "0x37a",
+      "exact_generator_preimages": {
+        "p": 14250,
+        "t": 14251,
+        "u": 14252
+      },
+      "excluded_digit": 2,
+      "excluded_parents_common_p2_projection": 10,
+      "p2_frontier": [
+        12,
+        13
+      ],
+      "p5_fiber_mask": 11,
+      "p5_quotient": 222,
+      "p8_ancestor_hex": "0xc855",
+      "present_parent_witness": "pupu",
+      "quotient_inverse_values": {
+        "p": 41,
+        "t": 50,
+        "u": 41
+      },
+      "target_y_hex": "0x32157a47"
+    },
+    "completed": true,
+    "counts": {
+      "gate_A_fail": 3,
+      "gate_A_pass": 16,
+      "gate_B_fail": 2,
+      "gate_B_pass": 14,
+      "rows": 19
+    },
+    "direct_predecessor_cache": {
+      "currsize": 1283,
+      "hits": 471,
+      "maxsize": null,
+      "misses": 1283
+    },
+    "first_gate_A": {
+      "backward_chain": [
+        {
+          "P_inverse_signed": -12647822,
+          "Q_inverse_signed": 29429661,
+          "input": 105328867,
+          "letter_position": 0,
+          "q": "t",
+          "signed_B_result": -50591285
+        }
+      ],
+      "cut": 1,
+      "cut_state": 421315463,
+      "exact_signed_candidate": -50591285,
+      "exact_signed_candidate_hex": "-0x303f635",
+      "failure": {
+        "generator": "p",
+        "input": 29429661,
+        "letter_position": 0,
+        "signed_preimage": -12647822,
+        "stage": "P_inverse"
+      },
+      "gaps": [
+        2,
+        2,
+        2
+      ],
+      "gate_A": false,
+      "gate_B": null,
+      "k": 14,
+      "original_witness": "uuuuputptuutuu",
+      "phase": "u",
+      "projected_cut_state": 105328867,
+      "row_index": 2,
+      "signed_candidate_orbit": [
+        -50591285,
+        105328867
+      ],
+      "w": "t",
+      "x_hex": "0x642fdfb"
+    },
+    "first_gate_B": {
+      "backward_chain": [
+        {
+          "B_result": 3370477067,
+          "P_inverse_signed": 842619266,
+          "Q_inverse_signed": 3738087053,
+          "input": 13445976499,
+          "letter_position": 1,
+          "q": "t"
+        },
+        {
+          "B_result": 840268359,
+          "P_inverse_signed": 210067089,
+          "Q_inverse_signed": 932880886,
+          "input": 3370477067,
+          "letter_position": 0,
+          "q": "u"
+        }
+      ],
+      "cut": 2,
+      "cut_state": 53783905991,
+      "failure": null,
+      "gaps": [
+        4,
+        2,
+        2
+      ],
+      "gate_A": true,
+      "gate_B": false,
+      "k": 16,
+      "original_witness": "putututpuuuuuptt",
+      "phase": "p",
+      "projected_cut_state": 13445976499,
+      "row_index": 10,
+      "w": "ut",
+      "x_hex": "0xc85f8787",
+      "y": 840268359,
+      "y_complete_word": "ut",
+      "y_hex": "0x32157a47",
+      "y_orbit": [
+        840268359,
+        3370477067,
+        13445976499
+      ],
+      "y_witness": null
+    },
+    "first_gate_B_high_ancestors": [
+      {
+        "level": 1,
+        "member": true,
+        "value": 3,
+        "value_hex": "0x3",
+        "witness": "p"
+      },
+      {
+        "level": 2,
+        "member": true,
+        "value": 12,
+        "value_hex": "0xc",
+        "witness": "pu"
+      },
+      {
+        "level": 3,
+        "member": true,
+        "value": 50,
+        "value_hex": "0x32",
+        "witness": "ptu"
+      },
+      {
+        "level": 4,
+        "member": true,
+        "value": 200,
+        "value_hex": "0xc8",
+        "witness": "pupu"
+      },
+      {
+        "level": 5,
+        "member": true,
+        "value": 801,
+        "value_hex": "0x321",
+        "witness": "ptuut"
+      },
+      {
+        "level": 6,
+        "member": true,
+        "value": 3205,
+        "value_hex": "0xc85",
+        "witness": "pupupt"
+      },
+      {
+        "level": 7,
+        "member": true,
+        "value": 12821,
+        "value_hex": "0x3215",
+        "witness": "pttttuu"
+      },
+      {
+        "level": 8,
+        "member": false,
+        "value": 51285,
+        "value_hex": "0xc855",
+        "witness": null
+      }
+    ],
+    "first_missing_ancestor": {
+      "digit": 1,
+      "fiber_mask": 12,
+      "fiber_witnesses": {
+        "0": null,
+        "1": null,
+        "2": "pupuuttu",
+        "3": "pupuuttt"
+      },
+      "level": 8,
+      "parent": 12821,
+      "parent_hex": "0x3215",
+      "parent_witness": "pttttuu",
+      "quotient_signed_preimages": {
+        "p": 3562,
+        "t": 3563,
+        "u": 3564
+      },
+      "target_signed_preimages": {
+        "p": 14250,
+        "t": 14251,
+        "u": 14252
+      },
+      "value": 51285,
+      "value_hex": "0xc855"
+    },
+    "rows": [
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 13124487,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 12,
+        "original_witness": "putptttttutu",
+        "phase": "p",
+        "projected_cut_state": 3281123,
+        "row_index": 0,
+        "w": "",
+        "x_hex": "0xc84387",
+        "y": 3281123,
+        "y_complete_word": "",
+        "y_hex": "0x3210e3",
+        "y_orbit": [
+          3281123
+        ],
+        "y_witness": "pttuuuuuuuu"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 233210759,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 14,
+        "original_witness": "ptuuutuutttttu",
+        "phase": "p",
+        "projected_cut_state": 58302691,
+        "row_index": 1,
+        "w": "",
+        "x_hex": "0xde68387",
+        "y": 58302691,
+        "y_complete_word": "",
+        "y_hex": "0x379a0e3",
+        "y_orbit": [
+          58302691
+        ],
+        "y_witness": "puputtututptt"
+      },
+      {
+        "backward_chain": [
+          {
+            "P_inverse_signed": -12647822,
+            "Q_inverse_signed": 29429661,
+            "input": 105328867,
+            "letter_position": 0,
+            "q": "t",
+            "signed_B_result": -50591285
+          }
+        ],
+        "cut": 1,
+        "cut_state": 421315463,
+        "failure": {
+          "generator": "p",
+          "input": 29429661,
+          "letter_position": 0,
+          "signed_preimage": -12647822,
+          "stage": "P_inverse"
+        },
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": false,
+        "gate_B": null,
+        "k": 14,
+        "original_witness": "uuuuputptuutuu",
+        "phase": "u",
+        "projected_cut_state": 105328867,
+        "row_index": 2,
+        "w": "t",
+        "x_hex": "0x642fdfb"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 934512519,
+        "failure": null,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 15,
+        "original_witness": "puuuuttutuutttu",
+        "phase": "p",
+        "projected_cut_state": 233628131,
+        "row_index": 3,
+        "w": "",
+        "x_hex": "0x37b38787",
+        "y": 233628131,
+        "y_complete_word": "",
+        "y_hex": "0xdece1e3",
+        "y_orbit": [
+          233628131
+        ],
+        "y_witness": "ptuttuuttttptt"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 934512519,
+        "failure": null,
+        "gaps": [
+          2,
+          4,
+          3
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 15,
+        "original_witness": "puuuuttutuutttu",
+        "phase": "p",
+        "projected_cut_state": 233628131,
+        "row_index": 4,
+        "w": "",
+        "x_hex": "0x37b38787",
+        "y": 233628131,
+        "y_complete_word": "",
+        "y_hex": "0xdece1e3",
+        "y_orbit": [
+          233628131
+        ],
+        "y_witness": "ptuttuuttttptt"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 421315463,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 15,
+        "original_witness": "utttuttpupuuttt",
+        "phase": "u",
+        "projected_cut_state": 105328867,
+        "row_index": 5,
+        "w": "",
+        "x_hex": "0x191cc387",
+        "y": 105328867,
+        "y_complete_word": "",
+        "y_hex": "0x64730e3",
+        "y_orbit": [
+          105328867
+        ],
+        "y_witness": "uutttttututuup"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 467207047,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 15,
+        "original_witness": "uutuuutupuptttt",
+        "phase": "u",
+        "projected_cut_state": 116801763,
+        "row_index": 6,
+        "w": "",
+        "x_hex": "0x1bd90387",
+        "y": 116801763,
+        "y_complete_word": "",
+        "y_hex": "0x6f640e3",
+        "y_orbit": [
+          116801763
+        ],
+        "y_witness": "uttutuutptuuup"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 467207047,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          4
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 15,
+        "original_witness": "uutuuutupuptttt",
+        "phase": "u",
+        "projected_cut_state": 116801763,
+        "row_index": 7,
+        "w": "",
+        "x_hex": "0x1bd90387",
+        "y": 116801763,
+        "y_complete_word": "",
+        "y_hex": "0x6f640e3",
+        "y_orbit": [
+          116801763
+        ],
+        "y_witness": "uttutuutptuuup"
+      },
+      {
+        "backward_chain": [
+          {
+            "B_result": 470845899,
+            "P_inverse_signed": 117711474,
+            "Q_inverse_signed": 421326749,
+            "input": 1869025507,
+            "letter_position": 1,
+            "q": "t"
+          },
+          {
+            "Q_inverse_signed": -202410187,
+            "input": 470845899,
+            "letter_position": 0,
+            "q": "t"
+          }
+        ],
+        "cut": 2,
+        "cut_state": 7476102023,
+        "failure": {
+          "generator": "t",
+          "input": 470845899,
+          "letter_position": 0,
+          "signed_preimage": -202410187,
+          "stage": "Q_inverse"
+        },
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": false,
+        "gate_B": null,
+        "k": 15,
+        "original_witness": "uutttuttupttuut",
+        "phase": "u",
+        "projected_cut_state": 1869025507,
+        "row_index": 8,
+        "w": "tt",
+        "x_hex": "0x1bd9c36b"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 3361703815,
+        "failure": null,
+        "gaps": [
+          2,
+          4,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "putututpuuuuuptt",
+        "phase": "p",
+        "projected_cut_state": 840425955,
+        "row_index": 9,
+        "w": "",
+        "x_hex": "0xc85f8787",
+        "y": 840425955,
+        "y_complete_word": "",
+        "y_hex": "0x3217e1e3",
+        "y_orbit": [
+          840425955
+        ],
+        "y_witness": "pttuptutuuttttp"
+      },
+      {
+        "backward_chain": [
+          {
+            "B_result": 3370477067,
+            "P_inverse_signed": 842619266,
+            "Q_inverse_signed": 3738087053,
+            "input": 13445976499,
+            "letter_position": 1,
+            "q": "t"
+          },
+          {
+            "B_result": 840268359,
+            "P_inverse_signed": 210067089,
+            "Q_inverse_signed": 932880886,
+            "input": 3370477067,
+            "letter_position": 0,
+            "q": "u"
+          }
+        ],
+        "cut": 2,
+        "cut_state": 53783905991,
+        "failure": null,
+        "gaps": [
+          4,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": false,
+        "k": 16,
+        "original_witness": "putututpuuuuuptt",
+        "phase": "p",
+        "projected_cut_state": 13445976499,
+        "row_index": 10,
+        "w": "ut",
+        "x_hex": "0xc85f8787",
+        "y": 840268359,
+        "y_complete_word": "ut",
+        "y_hex": "0x32157a47",
+        "y_orbit": [
+          840268359,
+          3370477067,
+          13445976499
+        ],
+        "y_witness": null
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 3370615687,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "pupuputtpuuutttu",
+        "phase": "p",
+        "projected_cut_state": 842653923,
+        "row_index": 11,
+        "w": "",
+        "x_hex": "0xc8e78387",
+        "y": 842653923,
+        "y_complete_word": "",
+        "y_hex": "0x3239e0e3",
+        "y_orbit": [
+          842653923
+        ],
+        "y_witness": "ptuuttttutttptt"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 3738059655,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "ptuuuttuuuuptutu",
+        "phase": "p",
+        "projected_cut_state": 934514915,
+        "row_index": 12,
+        "w": "",
+        "x_hex": "0xdece4387",
+        "y": 934514915,
+        "y_complete_word": "",
+        "y_hex": "0x37b390e3",
+        "y_orbit": [
+          934514915
+        ],
+        "y_witness": "puuuttuttttuuuu"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 1680753543,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "uutttuuuutttuuut",
+        "phase": "u",
+        "projected_cut_state": 420188387,
+        "row_index": 13,
+        "w": "",
+        "x_hex": "0x642e4387",
+        "y": 420188387,
+        "y_complete_word": "",
+        "y_hex": "0x190b90e3",
+        "y_orbit": [
+          420188387
+        ],
+        "y_witness": "utttttuttpuputp"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 1680851847,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "uututuuutptutttu",
+        "phase": "u",
+        "projected_cut_state": 420212963,
+        "row_index": 14,
+        "w": "",
+        "x_hex": "0x642fc387",
+        "y": 420212963,
+        "y_complete_word": "",
+        "y_hex": "0x190bf0e3",
+        "y_orbit": [
+          420212963
+        ],
+        "y_witness": "uttuuupttuttptt"
+      },
+      {
+        "backward_chain": [
+          {
+            "B_result": 470845899,
+            "P_inverse_signed": 117711474,
+            "Q_inverse_signed": 421326749,
+            "input": 1869025507,
+            "letter_position": 0,
+            "q": "t"
+          }
+        ],
+        "cut": 1,
+        "cut_state": 7476102023,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": false,
+        "k": 16,
+        "original_witness": "utttttuttttptttt",
+        "phase": "u",
+        "projected_cut_state": 1869025507,
+        "row_index": 15,
+        "w": "t",
+        "x_hex": "0x6f34fdfb",
+        "y": 470845899,
+        "y_complete_word": "t",
+        "y_hex": "0x1c1089cb",
+        "y_orbit": [
+          470845899,
+          1869025507
+        ],
+        "y_witness": null
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 1868940167,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "utuutupupuuututt",
+        "phase": "u",
+        "projected_cut_state": 467235043,
+        "row_index": 16,
+        "w": "",
+        "x_hex": "0x6f65c387",
+        "y": 467235043,
+        "y_complete_word": "",
+        "y_hex": "0x1bd970e3",
+        "y_orbit": [
+          467235043
+        ],
+        "y_witness": "uutuutputtttpup"
+      },
+      {
+        "backward_chain": [
+          {
+            "B_result": 1883425227,
+            "P_inverse_signed": 470856306,
+            "Q_inverse_signed": 1685282717,
+            "input": 7476125923,
+            "letter_position": 1,
+            "q": "t"
+          },
+          {
+            "Q_inverse_signed": -809617610,
+            "input": 1883425227,
+            "letter_position": 0,
+            "q": "u"
+          }
+        ],
+        "cut": 2,
+        "cut_state": 29904503687,
+        "failure": {
+          "generator": "u",
+          "input": 1883425227,
+          "letter_position": 0,
+          "signed_preimage": -809617610,
+          "stage": "Q_inverse"
+        },
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": false,
+        "gate_B": null,
+        "k": 16,
+        "original_witness": "utuutupupuuututt",
+        "phase": "u",
+        "projected_cut_state": 7476125923,
+        "row_index": 17,
+        "w": "ut",
+        "x_hex": "0x6f65c387"
+      },
+      {
+        "backward_chain": [],
+        "cut": 0,
+        "cut_state": 1869022087,
+        "failure": null,
+        "gaps": [
+          2,
+          2,
+          2
+        ],
+        "gate_A": true,
+        "gate_B": true,
+        "k": 16,
+        "original_witness": "ututuutuupttuuuu",
+        "phase": "u",
+        "projected_cut_state": 467255523,
+        "row_index": 18,
+        "w": "",
+        "x_hex": "0x6f670387",
+        "y": 467255523,
+        "y_complete_word": "",
+        "y_hex": "0x1bd9c0e3",
+        "y_orbit": [
+          467255523
+        ],
+        "y_witness": "uutttuuuutuuptt"
+      }
+    ],
+    "signed_inverse_cache": {
+      "currsize": 3437,
+      "hits": 16,
+      "maxsize": null,
+      "misses": 3437
+    }
+  },
+  "runtime_seconds": 0.0639117369428277,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Independent exact check of the 19 admitted conjugated-projection rows.\nInverse T decodes the entire output and verifies a signed integer preimage;\nfrontier membership uses direct three-generator predecessors, not lift fibers.\nDiagnose first failures only; no frontier enumeration or input-box extension.\n\"\"\"\nimport datetime,hashlib,json,os,platform,resource,signal,subprocess,sys,tempfile,time\nfrom functools import lru_cache\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve();START=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nsignal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('120 seconds')));signal.alarm(120)\nos.sched_setaffinity(0,{min(os.sched_getaffinity(0))})\nnormalized_input=json.loads((ROOT/'results/problem1/20260905_conjugated_projection_primary.json').read_text())\nraw=normalized_input['original_record_utf8'].encode()\nassert hashlib.sha256(raw).hexdigest()==normalized_input['result_hashes']['original_record_sha256']\nprimary=json.loads(raw);sha=lambda b:hashlib.sha256(b).hexdigest()\npayload=primary.copy();ph=payload.pop('payload_sha256_excluding_this_field')\nassert sha(json.dumps(payload,sort_keys=True,separators=(',',':')).encode())==ph\nassert sha(primary['executed_source_utf8'].encode())==primary['source_sha256']\nassert not primary['validation_failures']\nrowpath=ROOT/'results/problem1/20260905_canonical_return_rows.json'\nassert sha(rowpath.read_bytes())==primary['historical_source_sha256']\nrows=json.loads(rowpath.read_text())['result_summary']['source_rows']\nassert rows==primary['historical_source_rows'] and len(rows)==19\n\ndef Tcells(n):\n    assert n>=0\n    a=[(n>>i)&1 for i in range(n.bit_length())]+[0,0]\n    out=0\n    for i in range(len(a)):\n        near=a[i-1] if i else 0;far=a[i-2] if i>=2 else 0\n        out+=(a[i] ^ int(bool(near or far)))<<i\n    return out\n\ndef Tsigned(n):\n    result=n ^ ((n<<1)|(n<<2))\n    if n>=0:assert result==Tcells(n)\n    else:\n        a=-1-n\n        assert result==a ^ (((a<<1)|1)&((a<<2)|3))\n    assert result>=0\n    return result\n\ndef gen(q,n):\n    # Independent odd-section definition of P, also valid on signed integers.\n    if q=='p':return Tsigned(2*n+1)>>1\n    return Tsigned(n)^int(q=='u')\n\n@lru_cache(None)\ndef inverse_signed(q,n):\n    assert n>=0\n    # Direct bit equations, rather than removing a packed parity adjustment.\n    L=n.bit_length();a=[]\n    for i in range(L):\n        bit=(n>>i)&1\n        if i==0:bit^=int(q!='t')\n        elif i==1 and q=='p':bit^=1\n        else:bit^=(a[i-1] if i else 0)|(a[i-2] if i>=2 else 0)\n        a.append(bit)\n    # The special P equations can affect a missing second bit for short n.\n    if q=='p' and L<2:\n        for i in range(L,2):\n            bit=((n>>i)&1)^1\n            a.append(bit)\n        L=2\n    low=sum(bit<<i for i,bit in enumerate(a))\n    tail_one=any(a[-2:])\n    v=low-(1<<L) if tail_one else low\n    # U with output zero needs its toggled low bit despite bitlen(n)=0.\n    if q=='u' and n==0:\n        v=inverse_signed('t',1)\n    assert gen(q,v)==n,(q,n,v)\n    return v\n\n@lru_cache(None)\ndef witness(a,k,n):\n    if k<1 or n<0 or n.bit_length()!=(2*k if a=='p' else 2*k-1):return None\n    if k==1:return a if n==({'p':3,'u':1}[a]) else None\n    for q in 'tup':\n        v=inverse_signed(q,n)\n        if v<0:continue\n        w=witness(a,k-1,v)\n        if w is not None:return w+q\n    return None\n\ndef replay(w):\n    n=0\n    for q in w:n=gen(q,n)\n    return n\n\ndef step(n):\n    if n%16 not in (7,11):return None\n    q='u' if n%16==7 else 't'\n    return gen(q,gen('p',n>>2)),q\n\ndef orbit(n,h):\n    states=[n];w=''\n    for _ in range(h):\n        out=step(states[-1])\n        if out is None:return states,w,'stop'\n        states.append(out[0]);w+=out[1]\n    return states,w,'horizon'\n\ndef R(n):return 4*(n//16)+3\nfor q,v,n in [('t',0,0),('t',-1,1),('t',1,7),('t',3,13),('u',0,1),('p',0,3),('p',1,6),('p',2,13)]:\n    assert gen(q,v)==n and inverse_signed(q,n)==v\n# Additional hand case: P(-1)=0, verifies the short-output special equations.\nassert inverse_signed('p',0)==-1\noutrows=[];counts={'rows':0,'gate_A_pass':0,'gate_A_fail':0,'gate_B_pass':0,'gate_B_fail':0}\nfirstA=None;firstB=None\nfor index,(row,old) in enumerate(zip(rows,primary['rows'])):\n    x=int(row['state_hex'],16);k=row['complexity'];a=row['phase'];c=row['cut'];w=row['base_prefix']\n    orig=witness(a,k,x)\n    assert orig is not None and replay(orig)==x\n    assert replay(old['original_generator_witness']['word'])==x\n    E=''.join('u'+'t'*(r-1) for r in row['gaps']);observed=w+E\n    assert len(w)==c and all(b not in observed+'u' for b in ('uu','ttttt','ututtu'))\n    states,ow,_=orbit(x,len(observed));assert states==old['original_orbit'] and ow==observed\n    Z=R(states[c]);assert Z==old['projected_cut_state'] and Z%16==3\n    z=Z;chain=[];failure=None\n    for j in range(c-1,-1,-1):\n        q=w[j];A=inverse_signed(q,z)\n        entry={'letter_position':j,'q':q,'input':z,'Q_inverse_signed':A}\n        if A<0:\n            failure={'stage':'Q_inverse','generator':q,'input':z,'signed_preimage':A,'letter_position':j}\n            chain.append(entry);break\n        V=inverse_signed('p',A);entry['P_inverse_signed']=V\n        if V<0:\n            failure={'stage':'P_inverse','generator':'p','input':A,'signed_preimage':V,'letter_position':j}\n            entry['signed_B_result']=4*V+3\n            chain.append(entry);break\n        previous=z;z=4*V+3;entry['B_result']=z\n        assert step(z)==(previous,q)\n        chain.append(entry)\n    result={'row_index':index,'phase':a,'k':k,'x_hex':hex(x),'cut':c,'gaps':row['gaps'],'w':w,\n      'original_witness':orig,'cut_state':states[c],'projected_cut_state':Z,'backward_chain':chain,\n      'gate_A':failure is None,'failure':failure,'gate_B':None}\n    counts['rows']+=1\n    assert (failure is None)==old['gate_A_nonnegative_finite']\n    if failure:\n        counts['gate_A_fail']+=1\n        rej=old['inverse_rejection']\n        assert failure['stage']==rej['stage'] and failure['input']==rej['inverse']['input']\n        # Unique exact negative preimage rules out a nonnegative preimage.\n        assert gen(failure['generator'],failure['signed_preimage'])==failure['input']\n        if firstA is None:\n            firstA=result.copy()\n            assert c==1 and failure['stage']=='P_inverse'\n            y=4*failure['signed_preimage']+3\n            assert y<0 and y%16==11 and step(y)==(Z,'t')\n            firstA['exact_signed_candidate']=y;firstA['exact_signed_candidate_hex']=hex(y)\n            firstA['signed_candidate_orbit']=orbit(y,c+1)[0]\n            assert orbit(y,c+1)[1:] == (w,'stop')\n    else:\n        counts['gate_A_pass']+=1\n        assert z==old['y'] and z.bit_length()==x.bit_length()-2 and (z-x)%4**(c+1)==0\n        ys,yw,why=orbit(z,c+1);assert yw==w and why=='stop' and ys[-1]==Z\n        ywitness=witness(a,k-1,z);member=ywitness is not None\n        assert member==old['gate_B_lower_membership']\n        result.update({'y':z,'y_hex':hex(z),'y_orbit':ys,'y_complete_word':yw,'gate_B':member,'y_witness':ywitness})\n        counts['gate_B_pass' if member else 'gate_B_fail']+=1\n        if member:\n            assert replay(ywitness)==z and replay(old['lower_generator_witness']['word'])==z\n        elif firstB is None:firstB=result.copy()\n    outrows.append(result)\nfor key,val in counts.items():assert val==primary['counts'][key],(key,val)\n# Localize only the first failed lower candidate, as admitted.\na=firstB['phase'];K=firstB['k']-1;y=firstB['y'];ancestry=[];first_missing=None\nfor h in range(1,K+1):\n    v=y>>(2*(K-h));wv=witness(a,h,v)\n    ancestry.append({'level':h,'value':v,'value_hex':hex(v),'member':wv is not None,'witness':wv})\n    if wv is None:\n        parent=v>>2;fiber={d:witness(a,h,4*parent+d) for d in range(4)}\n        first_missing={'level':h,'value':v,'value_hex':hex(v),'digit':v%4,'parent':parent,'parent_hex':hex(parent),\n          'parent_witness':witness(a,h-1,parent),'fiber_mask':sum((1<<d) for d,wv in fiber.items() if wv is not None),'fiber_witnesses':fiber}\n        assert h>1 and first_missing['parent_witness'] is not None\n        assert not ((first_missing['fiber_mask']>>(v%4))&1)\n        break\nassert first_missing is not None\nfirst_missing['target_signed_preimages']={q:inverse_signed(q,first_missing['value']) for q in 'tup'}\nfirst_missing['quotient_signed_preimages']={q:inverse_signed(q,first_missing['parent']) for q in 'tup'}\n# Admitted compact certificate for the first gate-B failed ancestor.\nassert first_missing['value']==0xc855\npreimages={q:inverse_signed(q,0xc855) for q in 'tup'}\nassert preimages=={'t':0x37ab,'u':0x37ac,'p':0x37aa}\nassert {v>>4 for v in preimages.values()}=={0x37a}\nh=0xde\nsmall_inv={q:inverse_signed(q,h) for q in 'tup'}\nassert small_inv=={'t':50,'u':41,'p':41}\nlift_parents=[4*small_inv['t'],4*small_inv['u']+1,4*small_inv['p']+2,4*small_inv['p']+3]\nassert lift_parents==[200,165,166,167]\nassert replay('pupu')==200 and replay('ptut')==222\nassert [gen(q,3) for q in 'tup']==[13,12,12]\nassert {n>>4 for n in lift_parents[1:]}=={10}\nassert [witness('p',4,n) is not None for n in lift_parents]==[True,False,False,False]\nassert sum((witness('p',5,4*h+d) is not None)<<d for d in range(4))==11\nassert 0x37a==4*h+2 and witness('p',5,0x37a) is None\nassert y>>14==0xc855 and witness('p',8,0xc855) is None\ncompact_certificate={'target_y_hex':hex(y),'p8_ancestor_hex':'0xc855','exact_generator_preimages':preimages,\n 'common_p5_projection_hex':'0x37a','p5_quotient':h,'quotient_inverse_values':small_inv,\n 'candidate_p4_lift_parents':lift_parents,'present_parent_witness':'pupu',\n 'excluded_parents_common_p2_projection':10,'p2_frontier':[12,13],\n 'p5_fiber_mask':11,'excluded_digit':2,'all_arithmetic_and_memberships_verified':True}\nsummary={'counts':counts,'all_rows_agree':True,'rows':outrows,'first_gate_A':firstA,'first_gate_B':firstB,\n 'compact_gate_B_certificate':compact_certificate,'first_gate_B_high_ancestors':ancestry,'first_missing_ancestor':first_missing,\n 'direct_predecessor_cache':witness.cache_info()._asdict(),'signed_inverse_cache':inverse_signed.cache_info()._asdict(),'completed':True}\nsource=Path(__file__).read_text()\nbase={'timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1',\n 'hypothesis':'The conjugated projection is nonnegative and lies in the adjacent frontier on every full-domain occurrence.',\n 'parameters':{'historical_rows':19,'order':'original complexity,phase,state,cut,gap order','inverse':'entire finite output plus exact tail and full signed forward replay',\n   'membership':'direct T/U/P predecessor recursion','diagnostics':'first gate A signed candidate; first gate B high-ancestor chain, one fiber, and named common-predecessor rejection certificate',\n   'cpu_workers':1,'wall_limit_seconds':120,'address_space_bytes':1024**3},\n 'hardware':primary['hardware'],'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,\n 'count_terminology':{'unique_base_cylinders':'Historical field name: distinct phase/level/state/base-prefix cases, not necessarily distinct residue cylinders.','duplicate_cylinder_rows':'Duplicate state/base-prefix cases.','unique_finite_lower_candidates':'Distinct lower states among all nonnegative candidates, including nonmembers; 12 distinct states are certified members.'},\n 'status':'finite-exhaustive','proof_scope':'Only 19 historical rows and explicitly stated first-failure diagnostics; exact counterexamples refute the corresponding universal candidate gates.',\n 'interpretation':'Both candidate gates fail independently; every positive-cut row fails one gate. This does not refute adjacent inclusion or Problem 1.',\n 'limitations':['No complete frontier enumeration or increased input box.','Successful candidates were not tested for dominant belief membership.','Negative inverse rejection rules out nonnegative final output, not existence of the Z2 candidate.']}\nrecord={**base,'experiment_id':'20260905_conjugated_projection_independent','backend':'signed-bit-inverse-and-direct-generator-predecessors',\n 'source_text':source,'result_summary':summary,'result_hashes':{'source_sha256':sha(source.encode()),'result_sha256':sha(json.dumps(summary,sort_keys=True,separators=(',',':')).encode()),'primary_raw_sha256':sha(raw)}}\nprimary_summary={'counts':primary['counts'],'first_gate_A_failure':primary['first_gate_A_failure'],'first_gate_B_failure':primary['first_gate_B_failure'],\n 'rows':primary['rows'],'validation_failures':primary['validation_failures']}\nnormalized={**base,'experiment_id':'20260905_conjugated_projection_primary','backend':'existing-exact-partial-inverse-and-lift-membership',\n 'parameters':primary['parameters'],'runtime_seconds':primary['timings']['search_wall_seconds'],'software':primary['software'],\n 'source_text':primary['executed_source_utf8'],'original_record_utf8':raw.decode(),'dependency':primary['dependency'],'result_summary':primary_summary,\n 'result_hashes':{'source_sha256':primary['source_sha256'],'result_sha256':sha(json.dumps(primary_summary,sort_keys=True,separators=(',',':')).encode()),\n  'original_record_sha256':sha(raw),'original_payload_sha256':ph,'historical_input_sha256':primary['historical_source_sha256']},\n 'integration_note':'Original contribution normalized into standard protocol fields; signed first-failure candidate and ancestor diagnostics belong only to companion independent record.'}\ndef atomic(name,r):\n    dest=ROOT/'results/problem1'/name\n    fd,tmp=tempfile.mkstemp(dir=dest.parent,prefix=dest.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(r,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,dest)\natomic('20260905_conjugated_projection_primary.json',normalized)\natomic('20260905_conjugated_projection_independent.json',record)\nsignal.alarm(0)\nprint(json.dumps({'counts':counts,'first_A_signed_candidate':firstA['exact_signed_candidate'],'first_A_hex':firstA['exact_signed_candidate_hex'],\n 'first_B_y':firstB['y_hex'],'first_missing':first_missing,'cache':summary['direct_predecessor_cache'],'seconds':record['runtime_seconds']},sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T17:28:12.410766+00:00"
+}

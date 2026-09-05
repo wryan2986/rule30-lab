@@ -249,6 +249,13 @@ not obstruct invariants under F or different maps.
 
 ## Next distinct construction, not an established witness
 
+Subsequent checkpoint: this construction has now been tested and both its
+nonnegativity and conditional lower-membership gates are `refuted`; see
+`problem1_conjugated_projection_test.md` for exact genuine-domain
+counterexamples and the independent 19-row replay. That replay also checks
+lower membership for all 14 cut-zero labels, which was not checked in the
+original rounded-projection pass below.
+
 The obstruction leaves a more targeted candidate. For an occurrence with
 base word w of length c, first evolve to X=F^c(x), project that tail to
 R(X), and pull back through the inverse branches for w:
@@ -306,5 +313,6 @@ base-prefix obstruction and the cut-zero exception.
 
 This closes the direct rounded-projection descent, including for unequal
 return gaps, without proving B_all or signed nonvanishing. The distinct
-inverse-branch construction above is still an untested candidate. General
+inverse-branch construction was untested in this pass and is now refuted
+in the subsequent checkpoint linked above. General
 eventual center periods of least period >=3 remain unhandled.

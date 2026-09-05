@@ -11,6 +11,46 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest completed falsification (`refuted`): read
+`proofs/informal/problem1_conjugated_projection_test.md` first.
+
+- The distinct candidate y=B_w(R(F^c(x))) restores exactly the base word w
+  in Z_2 and then stops. Each inverse block must include its own 4v+3.
+  An exact nonnegative-inverse failure at any stage excludes y in N;
+  if all stages succeed, bitlen(y)=bitlen(x)-2. These conditional facts
+  are all-depth (`partial-proof`), not a frontier-membership theorem.
+- Gate A (always nonnegative) is refuted by u14/0x642fdfb/cut1:
+  its unique candidate is the exact negative integer -0x303f635.
+- Gate B (lower-frontier membership when nonnegative) is independently
+  refuted by p16/0xc85f8787/cut2, w=ut, gap422: y=0x32157a47
+  has the correct size, congruence, and complete word, but is absent from p15.
+  A compact proof projects to p8/0xc855. Its three generator predecessors
+  all project to p5/0x37a; the exact fiber over 222 misses its digit 2.
+  The certificate reduces rejection to O_(p,2)={12,13}, without a census.
+- Exactly the same 19 historical labels were checked: A passes16/fails3;
+  B passes14/fails2 among the16. All14 cut-zero labels pass both, and all5
+  positive-cut labels fail one gate. This last pattern is finite only.
+  Both constructions' failures leave adjacent inclusion and B_all open.
+- Dewey implemented exact partial-inverse/lift-membership checks; the lead
+  independently replayed every row using signed inverses and direct
+  generator predecessors. Muse Spark 1.3 Contributor completed corrected
+  tool-free inverse-branch derivation and a hand review of the compact
+  rejection certificate; it did not run the finite checks. Fresh reviewer
+  Ramanujan accepted the full mathematical scope; count terminology and
+  replay portability were corrected. The primary record preserves its raw
+  input, so the independent embedded source needs no temporary-directory
+  data. Atomic records:
+  `results/problem1/20260905_conjugated_projection_{primary,independent}.json`.
+
+The proposed conjugated projection below has now been tested and refuted;
+its earlier untested status is historical. Next untested candidate: delete
+a generator from an ordinary representation to construct a lower state
+with the required base congruence, starting with the named failures. A
+failure for one representation would not exclude all representations.
+No larger census follows. The strongest bottleneck remains an all-depth
+critical-cut exclusion (B_all), or a return-conditioned endpoint invariant
+proving nonvanishing; no such invariant has been established.
+
 Newest all-depth result (`partial-proof`, independently reviewed): read
 `proofs/informal/problem1_rounded_projection_obstruction.md` first.
 
