@@ -4,6 +4,14 @@ Status: `partial-proof` for the separation argument below, pending fresh
 independent review. The three-return signed-nonvanishing conjecture and
 Problem 1 remain `inconclusive`.
 
+Later addition (2026-09-05):
+`problem1_cyclic_seed_boundary.md` proves stronger empty layers for
+DOMINANT beliefs: both phases L=k-2,k>=3; phase p L=k-3,k>=5; phase u
+L=k-3,k>=6, and larger depths by monotonicity. This does not improve the
+raw adjacent-level separation theorem below or prove any occurrence bound.
+In particular B_all retains its original meaning L=c+1<=k-2. A dominant
+or signed certificate would additionally require L<=k-4 for k>=6.
+
 ## Source boundary and admission
 
 This pass starts at `b54f067210d5d8eeb1af3247c858c97af456497c`.

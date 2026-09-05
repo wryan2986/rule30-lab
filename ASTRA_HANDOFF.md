@@ -11,6 +11,50 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest dominant-boundary theorem: read
+`proofs/informal/problem1_cyclic_seed_boundary.md` first, followed by its
+dependency `proofs/informal/problem1_frontier_head_dynamics.md`.
+
+- All-depth (`partial-proof`): at residual seed complexity s=k-1-L>=1,
+  dominant endpoints inject into A^L(O_(a,s)) by y->y>>2L. This is a
+  necessary seed restriction, not an endpoint realization theorem.
+- Dominant beliefs are empty for both phases at L=k-2,k>=3; for phase p
+  at L=k-3,k>=5; and for phase u at L=k-3,k>=6. Fixed-k endpoint-set
+  monotonicity extends each threshold to larger L, with old raw separation
+  handling L>=k-1. The proofs use the highest mask for residual level1
+  and phase-p level2, and the second-highest mask for phase-u level2.
+- Uniformly k>=6, dominant nonemptiness or signed nonvanishing requires
+  L<=k-4, hence c<=k-5 when L=c+1. This is NOT a proved occurrence
+  bound or a strengthening of raw adjacent separation. B_all still means
+  the old all-occurrence obligation L<=k-2. A genuine occurrence at
+  L=k-3 or k-2 would refute the dominant/signed strengthening while
+  remaining compatible with that B_all bound.
+- `finite-exhaustive`: direct residue-first and independent cell/odd-section
+  seed-first implementations agree on all3,391 admitted cylinders through
+  k9, both phases, L in {k-3,k-2,k-1},1<=L<k. All112 raw endpoints and
+  their364 mask steps agree; all19 surviving dominant beliefs are singletons.
+  Exact small exceptions: p,k4,L1 at x204,205,207; u,k4,L1 at all9
+  states; u,k5,L2 at x404,405,408,409,411,414,415. These refute lowering
+  the respective second-level k thresholds, for ordinary cylinders only.
+  No return occurrences or new frontiers beyond9 were generated.
+- Muse independently derived and checked the masks/proofs; an arithmetic
+  slip in its first phase-u calculation was independently caught and
+  corrected. Fresh adversarial review accepted all three all-depth lemmas,
+  their quantifiers and the dominant-versus-raw distinction. The lead
+  independently compared every finite row and original artifact hash.
+  Final fresh integration review also compared every row/base certificate
+  and validated the provenance hashes, approving the checkpoint without
+  remaining corrections.
+  Records: `results/problem1/20260905_cyclic_seed_boundary_`
+  followed by `{primary,independent,verification}.json`.
+
+Next target: an explicit constraint coupling the forced-return language to
+these high-mask obstructions via the exact growing history scanner. Merely
+propagating the head condition is automatic and cannot exclude an
+occurrence. Specify a falsifiable joint constraint before admitting another
+run; do not enlarge an occurrence census. B_all, dominant nonemptiness,
+signed nonvanishing and the whole-tail target remain open.
+
 Newest exact frontier-head and periodic-core theorems: read
 `proofs/informal/problem1_frontier_head_dynamics.md` first.
 
@@ -51,11 +95,9 @@ Newest exact frontier-head and periodic-core theorems: read
   Records: `results/problem1/20260905_frontier_head_`
   followed by `{primary,independent,verification}.json`.
 
-Next targeted use: restrict dominant-shadow seeds y>>2L, with residual
-complexity s=k-1-L, to the age-dependent image A^L(O_(a,s)); compare
-the highest-position fiber masks at s=1,2. This could sharpen the empty-belief
-boundary, but no such sharpening is claimed in this checkpoint. Use the
-existing small cores before any new census or long proof phase.
+The earlier proposed use of aged seeds at residual levels1,2 is now
+completed by the dominant-boundary theorem above. It sharpens only the
+dominant-empty boundary, not the raw-shadow or genuine-occurrence bound.
 The longer target is a return-conditioned potential or forbidden pattern
 for the exact growing history scanner plus forced append, excluding cuts
 c>=k-2 with k the INITIAL word complexity. Simply propagating the head

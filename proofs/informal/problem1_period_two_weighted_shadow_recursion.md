@@ -4,6 +4,13 @@ Status: exact all-depth recursion for dominant concrete shadow endpoints with
 additive defect cost, plus an independent phase-`u` gap-`222` census through
 complexity 27.
 
+Later all-depth boundary refinement (2026-09-05):
+`problem1_cyclic_seed_boundary.md` proves that the dominant endpoint set
+is empty for every L>=k-3 when phase p,k>=5 or phase u,k>=6. The
+recursion below remains exact. This theorem concerns ordinary cylinders;
+it does not assert exclusion of genuine return occurrences or nonzero
+signed mass in the remaining interior.
+
 ## 1. Weighted concrete beliefs
 
 For phase `a`, let `O_(a,k)` be the exact ordinary frontier. For

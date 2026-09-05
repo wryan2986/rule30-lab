@@ -1,0 +1,76 @@
+{
+  "backend": "python-exact-record-comparison",
+  "experiment_id": "problem1-cyclic-seed-boundary-verification-20260905",
+  "git_commit": "53ce1f745fb77acffb6fabfb055f1b4456ba2fa3",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "executed_affinity": [
+      0
+    ],
+    "logical_cpus": 16,
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "physical_memory_bytes": 32528625664
+  },
+  "hypothesis": "Independent direct and seed-first records agree on every admitted cylinder and the proof base tables.",
+  "interpretation": "All admitted finite comparisons agree; mathematical induction is reviewed separately.",
+  "limitations": [
+    "Original primary replay source retains its worker temporary directory; source and all raw data are embedded.",
+    "This verification run integrates existing artifacts; its source expects the original worker directory.",
+    "Independent replay supports RULE30_REPLAY_ROOT and RULE30_REPLAY_OUTPUT.",
+    "No return bound, signed nonvanishing, or Problem1 proof follows from these finite passes."
+  ],
+  "parameters": {
+    "domain": "both phases,k2..9,L in {k-3,k-2,k-1},1<=L<k",
+    "input_files": [
+      "results/problem1/20260905_cyclic_seed_boundary_primary.json",
+      "results/problem1/20260905_cyclic_seed_boundary_independent.json"
+    ]
+  },
+  "proof_scope": "Record and small-table verification only.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_file_sha256": "afd694d33d6e37136268987e3eec7a05cb261bb24e07abb3db4ea12d73059225",
+    "primary_file_sha256": "1dc4ad1fef00d729bed71a20ac9dd15b678234ef517643aa21fdfb96d2c9f18d",
+    "result_summary_sha256": "3f4d3d53c9cccd5edaa02206da7fa28fe963c8f2d8224773c592759cd63774c2",
+    "source_sha256": "3d2544f3bc6e9113a5aede5d84c18f8ddc3c41480761bd3da62394867b6f0ea4"
+  },
+  "result_summary": {
+    "aged_seed_bound_cylinders": 2255,
+    "base_masks_compared": 35,
+    "completed": true,
+    "cylinders_compared": 3391,
+    "failures": [],
+    "full_aged_seed_equalities": 26,
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "nonempty_cylinders": 19,
+    "original_payload_and_source_hashes_verified": true,
+    "raw_endpoints_compared": 112,
+    "raw_mask_steps_compared": 364,
+    "small_A_images_compared": 20
+  },
+  "runtime_seconds": 0.40793184202630073,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import copy, datetime, hashlib, json, os, pathlib, platform, resource, subprocess, sys, tempfile, time\nROOT=pathlib.Path('/home/ryan/rule30-lab')\nWORK=pathlib.Path('/tmp/rule30-aged-shadow-boundary-wdaO1K')\nSTART=time.monotonic()\nresource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30))\nresource.setrlimit(resource.RLIMIT_CPU,(120,120))\nos.sched_setaffinity(0,{min(os.sched_getaffinity(0))})\ndef sha(b): return hashlib.sha256(b).hexdigest()\ndef canon(x): return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef atomic(path,obj):\n    path.parent.mkdir(parents=True,exist_ok=True)\n    with tempfile.NamedTemporaryFile('w',dir=path.parent,delete=False) as f:\n        json.dump(obj,f,sort_keys=True,indent=2); f.write('\\n'); f.flush(); os.fsync(f.fileno()); name=f.name\n    os.replace(name,path)\n\npb=(WORK/'result.json').read_bytes(); rb=(WORK/'raw_data.json').read_bytes()\nsb=(WORK/'check.py').read_bytes(); ib=pathlib.Path('/tmp/astra_cyclic_seed_independent.json').read_bytes()\np=json.loads(pb); raw=json.loads(rb); ind=json.loads(ib)\nassert p['result_summary']['completion_status']=='complete'\nassert ind['result_summary']['validation_failures']==[]\nassert sha(sb)==p['result_hashes']['executed_source_sha256']\nassert sha(rb)==p['result_hashes']['raw_data_sha256']\nassert sha(canon(p['result_summary']))==p['result_hashes']['normalized_summary_sha256']\nq=copy.deepcopy(p); digest=q.pop('payload_sha256_excluding_this_field'); assert sha(canon(q))==digest\nassert sha(ind['source_text'].encode())==ind['result_hashes']['source_sha256']\nassert sha(canon(ind['result_summary']))==ind['result_hashes']['result_summary_sha256']\ninput_path=ROOT/'results/problem1/20260905_frontier_head_primary.json'\nassert sha(input_path.read_bytes())==p['inputs']['operative_frontiers']['sha256']==ind['result_hashes']['input_sha256']\ndef key(r): return r['k'],r['phase'],r['x'],r['L']\npr={key(r):r for r in raw['cylinders']}\nir={key(r):r for r in ind['result_summary']['rows']}\nassert len(pr)==len(raw['cylinders'])==len(ir)==len(ind['result_summary']['rows'])==3391\nassert pr.keys()==ir.keys()\nendpoint_checks=step_checks=seed_checks=0\nfor k in sorted(pr):\n    a,b=pr[k],ir[k]\n    assert [s['y'] for s in a['raw_shadows']]==b['raw_shadow_endpoints'],k\n    assert a['dominant_B']==b['belief'],k\n    assert a['aged_seed_set']==b['seed_heads'],k\n    assert a['raw_shadow_count']==len(b['raw_shadow_endpoints'])\n    assert a['dominant_B_count']==len(b['belief'])\n    for s,t in zip(a['raw_shadows'],b['raw_mask_checks']):\n        assert s['y']==t['y']\n        steps=t['steps']; assert len(steps)==a['L']\n        assert s['shadow_heads_low_to_high']==[v[4] for v in steps]\n        assert s['shadow_masks_low_to_high']==[v[6] for v in steps]\n        assert a['current_heads_low_to_high']==[v[3] for v in steps]\n        assert a['current_masks_low_to_high']==[v[5] for v in steps]\n        assert s['failed_dominance_depths_zero_based']==[v[0] for v in steps if not v[7]]\n        assert s['nonfull_shadow_mask_count']==sum(v[6]!=15 for v in steps)\n        endpoint_checks+=1; step_checks+=len(steps)\n    if b['seed_heads'] is not None:\n        assert len(b['belief'])<=len(b['seed_heads']); seed_checks+=1\nfor row in raw['aged_seed_set_checks']:\n    assert row['equal'] and row['aged_seed_set']==row['actual_all_shadow_heads']\n\nmask_checks=image_checks=0\nfor a in ['p','u']:\n    ps=raw['small_certificates'][a]\n    for h in range(1,5):\n        s=ind['result_summary']['small_certificates'][a][str(h)]\n        expected={r['head']:r['mask'] for r in ps['fiber_sets'] if r['fiber_index']==h}\n        assert expected==dict(s['masks']); mask_checks+=len(expected)\n        assert s['frontier']==raw['frontiers'][a][str(h)]\n        for age,values in enumerate(ps['A_image_layers'][str(h)]['images_age0_through_first_stable']):\n            assert values==s['A_images_0_through_5'][age]; image_checks+=1\n\nnow=datetime.datetime.now(datetime.timezone.utc).isoformat()\ngit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()\nassert p['git_commit']==ind['git_commit']==git\nprimary={k:copy.deepcopy(p[k]) for k in ['backend','git_commit','hardware','hypothesis','interpretation','limitations','parameters','proof_scope','question','software','status']}\nprimary.update({'experiment_id':'problem1-cyclic-seed-boundary-primary-20260905',\n    'timestamp_utc':now, 'runtime_seconds':p['runtime_seconds'],\n    'runtime_scope':'Original worker run; integration and independent verification timed separately.',\n    'source_text':sb.decode(), 'original_run_record':p,\n    'result_summary':{'completed':True,'summary':p['result_summary'],'data':raw},\n    'integration':{'base_git':git,'original_record_sha256':sha(pb),\n                   'original_raw_sha256':sha(rb),'original_source_sha256':sha(sb),\n                   'raw_encoding':'Original raw_data.json parsed without alteration; reconstruct hash with sorted indent2 JSON and final newline.'}})\nprimary['result_hashes']={'result_summary_sha256':sha(canon(primary['result_summary'])),\n                          'source_sha256':sha(sb),'input_sha256':sha(input_path.read_bytes())}\nout=ROOT/'results/problem1'\npp=out/'20260905_cyclic_seed_boundary_primary.json'\nip=out/'20260905_cyclic_seed_boundary_independent.json'\natomic(pp,primary); atomic(ip,ind)\nchecks={'completed':True,'failures':[],'cylinders_compared':len(pr),\n        'raw_endpoints_compared':endpoint_checks,'raw_mask_steps_compared':step_checks,\n        'nonempty_cylinders':sum(bool(r['belief']) for r in ir.values()),\n        'aged_seed_bound_cylinders':seed_checks,'full_aged_seed_equalities':len(raw['aged_seed_set_checks']),\n        'base_masks_compared':mask_checks,'small_A_images_compared':image_checks,\n        'original_payload_and_source_hashes_verified':True,\n        'immutable_reference_sha256':sha((ROOT/'src/python/rule30_research_reference.py').read_bytes())}\nassert checks['immutable_reference_sha256']=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\nsource=pathlib.Path(__file__).read_bytes()\nverification={'experiment_id':'problem1-cyclic-seed-boundary-verification-20260905',\n    'timestamp_utc':now,'git_commit':git,'question':'problem1',\n    'hypothesis':'Independent direct and seed-first records agree on every admitted cylinder and the proof base tables.',\n    'backend':'python-exact-record-comparison','parameters':{'input_files':[str(pp.relative_to(ROOT)),str(ip.relative_to(ROOT))],\n                'domain':'both phases,k2..9,L in {k-3,k-2,k-1},1<=L<k'},\n    'hardware':ind['hardware'],'software':{'python':sys.version,'platform':platform.platform()},\n    'runtime_seconds':time.monotonic()-START,'result_summary':checks,'source_text':source.decode(),\n    'result_hashes':{'primary_file_sha256':sha(pp.read_bytes()),'independent_file_sha256':sha(ip.read_bytes()),\n                     'source_sha256':sha(source),'result_summary_sha256':sha(canon(checks))},\n    'status':'finite-exhaustive','interpretation':'All admitted finite comparisons agree; mathematical induction is reviewed separately.',\n    'proof_scope':'Record and small-table verification only.',\n    'limitations':['Original primary replay source retains its worker temporary directory; source and all raw data are embedded.',\n                   'This verification run integrates existing artifacts; its source expects the original worker directory.',\n                   'Independent replay supports RULE30_REPLAY_ROOT and RULE30_REPLAY_OUTPUT.',\n                   'No return bound, signed nonvanishing, or Problem1 proof follows from these finite passes.']}\natomic(out/'20260905_cyclic_seed_boundary_verification.json',verification)\nprint(json.dumps(checks,sort_keys=True))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-05T20:23:59.178966+00:00"
+}
