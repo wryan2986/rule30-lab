@@ -11,6 +11,49 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest all-depth theorem and boundary obstruction: read
+`proofs/informal/problem1_periodic_schedule_rationality.md` first.
+
+- Every eventually periodic auxiliary branch schedule has a rational
+  2-adic survivor (`partial-proof`). For a pure period p, the cyclic phase
+  equations give a spatial recurrence on four p-bit vectors after bit five.
+  There are at most 2^(4p) states; a repeated sufficient state certifies
+  the full rational expansion. Inverse generators preserve rationality,
+  handling a finite schedule preperiod. No converse or periodicity of the
+  actual moving fringe is asserted.
+- Consecutive nonzero base-four digits of a pure period-p survivor have
+  distance <=2p, by the existing arbitrary-integer periodic-prefix bound.
+  This is an all-depth spatial constraint, not B_all or signed nonvanishing.
+- The named t,u,ututtt,ttututt cycles have mu0 and lambda2,2,138,728,
+  with spatial onset2. Independent vector/cell-array and packed/local-QP
+  implementations agree on every vector and all15 rational phase values.
+  Neither zero transient nor least phase period is asserted universally.
+- The bit-length-only boundary strengthening is now `refuted`. Truncating
+  phase5 of the ttututt comparator at456bits gives k228 and the exact
+  forced word (ttttutu)^32 ttt ututut, then termination after233branches.
+  It has cut227/gap222, exceeding the claimed maximum225. This is the
+  first failure in the declared finite truncation order, not a global minimum.
+- The counterexample is NOT in an ordinary frontier: even bit length
+  leaves only p228, but its projected top8bits are0xd2=210, absent from
+  O_(p,4)={200,201,202,203,204,205,207,220,221,222,223}. The first three
+  projected levels pass. Thus B_all remains open; bit length alone cannot
+  replace its frontier hypothesis. No fixed leading-width sufficiency follows.
+- Muse independently derived/reviewed the theorem and hand-checked the
+  compact frontier rejection. Dewey ran the four-word cycle/truncation check;
+  lead replay agrees on all233 witness transitions and its admissibility.
+  Fresh review approved the recurrence, rationality and gap proof scopes.
+  It also approved the complete boundary/nonmembership certificates and
+  provenance integration, with no remaining corrections.
+  Records: `results/problem1/20260905_periodic_rational_`
+  followed by `{primary,independent,verification}.json`.
+
+Next target: a frontier-conditioned boundary invariant at the five critical
+cuts, or an explicit joint signed-correlation constraint. The arbitrary
+integer bit-length simplification is closed; do not enlarge its box or the
+periodic comparator family. This witness's four-digit rejection is a local
+certificate, not a proposed universal invariant. B_all, adjacent inclusion,
+signed nonvanishing and general eventual center periods>=3 remain open.
+
 Newest actual-domain spectral obstruction: read
 `proofs/informal/problem1_walsh_sign_obstruction.md` first.
 
@@ -286,14 +329,16 @@ strongest next boundary target is an all-depth exclusion of these five
 moving cut positions, retaining ordinary-frontier membership. This exact
 reduction does not authorize a larger census.
 
-The subsequent bit-length-only simplification remains `inconclusive`; see
+The earlier bit-length-only simplification was `inconclusive`; see
 `proofs/informal/problem1_boundary_bitlength_test.md`. All x=4,...,4095
 were checked without frontier restrictions, with independent cell-array
 full-orbit agreement (1,039 forced transitions). No boundary occurrence
 was found, but only x903/k5 has ANY occurrence, at cut0, far below its
 critical cut3. This is weak finite coverage, not evidence that membership
-can be discarded. No box enlargement follows. The stronger open arithmetic
-candidate says every occurrence at c requires x>=4^(c+2). The degree law
+can be discarded. No box enlargement follows. The stronger arithmetic
+candidate said every occurrence at c requires x>=4^(c+2); the new structured
+456-bit counterexample above refutes it without enlarging that integer box.
+The degree law
 alone supplies no decreasing rank: bitlen(F^j(x))=bitlen(x)+2j.
 
 Previous result: **both valuation conjectures are refuted**. Read

@@ -304,3 +304,11 @@ The new criterion needs that separately established all-depth premise to
 apply to a physical alternating trace. Nonperiodic prefixes outside the
 restricted Section 3 certificate still leave B_all unresolved. General
 eventual periods of least period >=3 are unhandled by this note.
+
+Subsequent spatial consequence (`partial-proof`):
+`problem1_periodic_schedule_rationality.md`, Section 4, applies the exact
+periodic-prefix bound to finite truncations of a pure period-p auxiliary
+survivor. Consecutive nonzero base-four digits are at distance at most 2p.
+The separate cyclic-phase recurrence proves rationality of all eventually
+periodic auxiliary survivors. Neither result supplies the missing repetition
+premise for the actual fringe or proves B_all.

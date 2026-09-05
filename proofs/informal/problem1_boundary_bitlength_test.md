@@ -1,7 +1,14 @@
 # Does the boundary exclusion need frontier membership?
 
-Status: `inconclusive` for the all-depth candidate. The fixed finite box
-below is `finite-exhaustive`, with independent full-orbit replay.
+Status: the all-depth candidate is now `refuted`; see
+`problem1_periodic_schedule_rationality.md`, Section 5. Its exact 456-bit
+counterexample has k=228 and a three-return occurrence at cut 227, while
+the candidate requires cut<=225. A four-digit projected-prefix certificate
+excludes it from the ordinary frontiers, so B_all remains open.
+The original fixed finite box below is still `finite-exhaustive`, with
+independent full-orbit replay. Its absence result and historical admission
+are preserved; subsequent statements that the candidate remained open
+describe that earlier checkpoint.
 
 ## Admission and mathematical purpose
 

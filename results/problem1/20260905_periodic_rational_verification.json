@@ -1,0 +1,676 @@
+{
+  "additional_prefix_review": {
+    "contributor_record": {
+      "definition_source": "/home/ryan/rule30-lab/experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py",
+      "definition_source_sha256": "b021b6f2fd4da3d5052c0f9d3104b7ae3592f8ec06aae6a62cb082f5f3aac47e",
+      "dependency_note": "Helper read for generator/root/bitlength definitions; not imported or executed. Simple forward enumeration is embedded below.",
+      "executed_source_utf8": "#!/usr/bin/env python3\nimport datetime, hashlib, itertools, json, os, platform, resource, subprocess, sys, tempfile, time\nfrom pathlib import Path\nROOT=Path('/home/ryan/rule30-lab'); OUT=Path(__file__).resolve().parent\nstart=time.monotonic(); cpu=time.process_time(); utc=datetime.datetime.now(datetime.timezone.utc).isoformat()\nresource.setrlimit(resource.RLIMIT_CPU,(120,120)); resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\naffinity=sorted(os.sched_getaffinity(0)); os.sched_setaffinity(0,{affinity[0]})\ndef sha(b): return hashlib.sha256(b).hexdigest()\ndef canon(x): return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef atomic(path,data):\n fd,tmp=tempfile.mkstemp(dir=OUT,prefix=path.name+'.')\n with os.fdopen(fd,'wb') as f: f.write(data); f.flush(); os.fsync(f.fileno())\n os.replace(tmp,path)\n fd=os.open(OUT,os.O_DIRECTORY); os.fsync(fd); os.close(fd)\ndef G(name,v):\n t=v^((v<<1)|(v<<2))\n return t if name=='t' else t^1 if name=='u' else t^1^(2 if v%2==0 else 0)\nprimary=Path('/tmp/rule30-periodic-spatial-cycle-YCRCkp/result.json'); inputbytes=primary.read_bytes()\nr=json.loads(inputbytes); witness=r['summary']['ttututt']['truncation_scan']['witness']; x=int(witness['x_hex'],16)\nassert x==int('d29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab',16)\nlevels={1:[3]}; edges=[]\nfor k in range(2,5):\n nextlevel=set()\n for parent in levels[k-1]:\n  for gen in 'tup':\n   child=G(gen,parent); nextlevel.add(child); edges.append({'level':k,'parent':parent,'generator':gen,'child':child})\n levels[k]=sorted(nextlevel)\nassert levels[4]==[200,201,202,203,204,205,207,220,221,222,223]\nassert all(v.bit_length()==2*k for k,vs in levels.items() for v in vs)\nlength=x.bit_length(); shift=length-8; prefix=x>>shift\nassert length==456 and prefix==210 and prefix not in levels[4]\nsummary={'status':'proved-nonmembership-conditional-on-established-frontier-definition','x_hex':hex(x),'bit_length':length,\n 'only_possible_phase':'p','only_possible_complexity':228,'u_exclusion':'All u-phase ordinary outputs have odd bit length 2k-1.',\n 'prefix_shift_bits':shift,'prefix_shift_base4_digits':shift//2,'top_eight_bits':prefix,'top_eight_bits_hex':hex(prefix),\n 'O_p4':levels[4],'prefix_is_member':prefix in levels[4],'ordinary_frontier_member':False,\n 'derivation':['For any generator G and v=4h+d, G(v)>>2 equals T(h) for d=0, U(h) for d=1, and P(h) for d=2 or 3; outer-generator corrections affect only the discarded low two bits.',\n 'For each G, G(3)>>2=3. Applying the preceding identity along a p-rooted representation gives floor(O_p,k/4) subset O_p,k-1 for k>=2.',\n 'If this x belonged to O_p,228, dropping 224 base4 digits would place x>>448=210 in O_p,4, contrary to the exhaustive three-generation list.'],\n 'forward_levels':levels,'forward_edges':edges,'maximum_frontier_complexity':4,'root_phase':'p'}\nsummary=json.loads(json.dumps(summary)); source=Path(__file__).read_bytes()\nhelper=ROOT/'experiments/problem1_nonperiodicity/analyze_period_two_phase_frontier_lift_recursion.py'\nrecord={'summary':summary,'summary_sha256':sha(canon(summary)),\n 'repo_git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),\n 'input_path':str(primary),'input_sha256':sha(inputbytes),'input_note':'Primary JSON supplies only the one exact named integer; primary payload is unchanged.',\n 'definition_source':str(helper),'definition_source_sha256':sha(helper.read_bytes()),'dependency_note':'Helper read for generator/root/bitlength definitions; not imported or executed. Simple forward enumeration is embedded below.',\n 'executed_source_utf8':source.decode(),'source_path':str(Path(__file__).resolve()),'source_sha256':sha(source),\n 'parameters':{'named_states':1,'phase':'p','levels_inclusive':[1,4],'generators':['t','u','p'],'higher_frontier_queries':0},\n 'hardware':{'cpu_model':next((s.split(':',1)[1].strip() for s in Path('/proc/cpuinfo').read_text().splitlines() if s.startswith('model name')),'unknown'),\n 'logical_cpus':os.cpu_count(),'initial_affinity':affinity,'executed_affinity':sorted(os.sched_getaffinity(0))},\n 'software':{'python':sys.version,'executable':sys.executable,'platform':platform.platform()},\n 'limits':{'cpus':1,'cpu_seconds':120,'wall_seconds':120,'address_space_bytes':1024**3,'enforcement':'CPU affinity, RLIMIT_CPU, RLIMIT_AS, outer timeout'},\n 'timings':{'started_utc':utc,'wall_seconds_before_serialization':time.monotonic()-start,'cpu_seconds_before_serialization':time.process_time()-cpu,'peak_rss_bytes':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss*1024},\n 'limitations':['Only this named integer is excluded; no higher-frontier enumeration or membership call.','No conclusion about B_all or the whole-tail question.','Primary note hashes remain unchanged documentation snapshots.'],\n 'invocation':['timeout','--signal=KILL','120s',sys.executable,str(Path(__file__).resolve())]}\nrecord=json.loads(json.dumps(record)); record['payload_sha256_excluding_this_field']=sha(canon(record))\ndata=(json.dumps(record,sort_keys=True,indent=2)+'\\n').encode(); atomic(OUT/'result.json',data); atomic(OUT/'result.json.sha256',(sha(data)+'  result.json\\n').encode())\nloaded=json.loads((OUT/'result.json').read_text()); assert sha(canon(loaded['summary']))==loaded['summary_sha256']\ndigest=loaded.pop('payload_sha256_excluding_this_field'); assert sha(canon(loaded))==digest\nassert primary.read_bytes()==inputbytes\nprint(json.dumps({'path':str(OUT/'result.json'),'source':str(Path(__file__).resolve()),'top8':prefix,'O_p4':levels[4],'excluded':True,'artifact_sha256':sha(data)}))\n",
+      "hardware": {
+        "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+        "executed_affinity": [
+          0
+        ],
+        "initial_affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "logical_cpus": 16
+      },
+      "input_note": "Primary JSON supplies only the one exact named integer; primary payload is unchanged.",
+      "input_path": "/tmp/rule30-periodic-spatial-cycle-YCRCkp/result.json",
+      "input_sha256": "c28d3a9db36748a2cac198057603779393dac3022e74675e6c5a8d823e7b7a44",
+      "invocation": [
+        "timeout",
+        "--signal=KILL",
+        "120s",
+        "/usr/bin/python3",
+        "/tmp/rule30-periodic-prefix-exclusion/check.py"
+      ],
+      "limitations": [
+        "Only this named integer is excluded; no higher-frontier enumeration or membership call.",
+        "No conclusion about B_all or the whole-tail question.",
+        "Primary note hashes remain unchanged documentation snapshots."
+      ],
+      "limits": {
+        "address_space_bytes": 1073741824,
+        "cpu_seconds": 120,
+        "cpus": 1,
+        "enforcement": "CPU affinity, RLIMIT_CPU, RLIMIT_AS, outer timeout",
+        "wall_seconds": 120
+      },
+      "parameters": {
+        "generators": [
+          "t",
+          "u",
+          "p"
+        ],
+        "higher_frontier_queries": 0,
+        "levels_inclusive": [
+          1,
+          4
+        ],
+        "named_states": 1,
+        "phase": "p"
+      },
+      "payload_sha256_excluding_this_field": "1ee460cd7d5c074dd31f8ad8f54c5bbe72d6b61e9dcbb6fbcdc4d92d4059981a",
+      "repo_git_commit": "dce23307acded60b31f18b668560c221753a7166",
+      "software": {
+        "executable": "/usr/bin/python3",
+        "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+        "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+      },
+      "source_path": "/tmp/rule30-periodic-prefix-exclusion/check.py",
+      "source_sha256": "55a32e11fdc0099ac3b34e915fc721def5443da62fbecc85b671e398dc282a7f",
+      "summary": {
+        "O_p4": [
+          200,
+          201,
+          202,
+          203,
+          204,
+          205,
+          207,
+          220,
+          221,
+          222,
+          223
+        ],
+        "bit_length": 456,
+        "derivation": [
+          "For any generator G and v=4h+d, G(v)>>2 equals T(h) for d=0, U(h) for d=1, and P(h) for d=2 or 3; outer-generator corrections affect only the discarded low two bits.",
+          "For each G, G(3)>>2=3. Applying the preceding identity along a p-rooted representation gives floor(O_p,k/4) subset O_p,k-1 for k>=2.",
+          "If this x belonged to O_p,228, dropping 224 base4 digits would place x>>448=210 in O_p,4, contrary to the exhaustive three-generation list."
+        ],
+        "forward_edges": [
+          {
+            "child": 13,
+            "generator": "t",
+            "level": 2,
+            "parent": 3
+          },
+          {
+            "child": 12,
+            "generator": "u",
+            "level": 2,
+            "parent": 3
+          },
+          {
+            "child": 12,
+            "generator": "p",
+            "level": 2,
+            "parent": 3
+          },
+          {
+            "child": 52,
+            "generator": "t",
+            "level": 3,
+            "parent": 12
+          },
+          {
+            "child": 53,
+            "generator": "u",
+            "level": 3,
+            "parent": 12
+          },
+          {
+            "child": 55,
+            "generator": "p",
+            "level": 3,
+            "parent": 12
+          },
+          {
+            "child": 51,
+            "generator": "t",
+            "level": 3,
+            "parent": 13
+          },
+          {
+            "child": 50,
+            "generator": "u",
+            "level": 3,
+            "parent": 13
+          },
+          {
+            "child": 50,
+            "generator": "p",
+            "level": 3,
+            "parent": 13
+          },
+          {
+            "child": 222,
+            "generator": "t",
+            "level": 4,
+            "parent": 50
+          },
+          {
+            "child": 223,
+            "generator": "u",
+            "level": 4,
+            "parent": 50
+          },
+          {
+            "child": 221,
+            "generator": "p",
+            "level": 4,
+            "parent": 50
+          },
+          {
+            "child": 221,
+            "generator": "t",
+            "level": 4,
+            "parent": 51
+          },
+          {
+            "child": 220,
+            "generator": "u",
+            "level": 4,
+            "parent": 51
+          },
+          {
+            "child": 220,
+            "generator": "p",
+            "level": 4,
+            "parent": 51
+          },
+          {
+            "child": 204,
+            "generator": "t",
+            "level": 4,
+            "parent": 52
+          },
+          {
+            "child": 205,
+            "generator": "u",
+            "level": 4,
+            "parent": 52
+          },
+          {
+            "child": 207,
+            "generator": "p",
+            "level": 4,
+            "parent": 52
+          },
+          {
+            "child": 203,
+            "generator": "t",
+            "level": 4,
+            "parent": 53
+          },
+          {
+            "child": 202,
+            "generator": "u",
+            "level": 4,
+            "parent": 53
+          },
+          {
+            "child": 202,
+            "generator": "p",
+            "level": 4,
+            "parent": 53
+          },
+          {
+            "child": 201,
+            "generator": "t",
+            "level": 4,
+            "parent": 55
+          },
+          {
+            "child": 200,
+            "generator": "u",
+            "level": 4,
+            "parent": 55
+          },
+          {
+            "child": 200,
+            "generator": "p",
+            "level": 4,
+            "parent": 55
+          }
+        ],
+        "forward_levels": {
+          "1": [
+            3
+          ],
+          "2": [
+            12,
+            13
+          ],
+          "3": [
+            50,
+            51,
+            52,
+            53,
+            55
+          ],
+          "4": [
+            200,
+            201,
+            202,
+            203,
+            204,
+            205,
+            207,
+            220,
+            221,
+            222,
+            223
+          ]
+        },
+        "maximum_frontier_complexity": 4,
+        "only_possible_complexity": 228,
+        "only_possible_phase": "p",
+        "ordinary_frontier_member": false,
+        "prefix_is_member": false,
+        "prefix_shift_base4_digits": 224,
+        "prefix_shift_bits": 448,
+        "root_phase": "p",
+        "status": "proved-nonmembership-conditional-on-established-frontier-definition",
+        "top_eight_bits": 210,
+        "top_eight_bits_hex": "0xd2",
+        "u_exclusion": "All u-phase ordinary outputs have odd bit length 2k-1.",
+        "x_hex": "0xd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab"
+      },
+      "summary_sha256": "c49ac58e7cd1c332d052cd802de8c8a029683b5762e92070e003f72171941918",
+      "timings": {
+        "cpu_seconds_before_serialization": 0.006462801999999997,
+        "peak_rss_bytes": 21164032,
+        "started_utc": "2026-09-05T19:15:29.694248+00:00",
+        "wall_seconds_before_serialization": 0.011001294944435358
+      }
+    },
+    "verification_note": "All four forward levels and the named integer match the independent cell-array/odd-section replay. The original primary input is recoverable from the primary standard record contributor_record, serialized with sorted keys, indent2 and final newline. The portable main replay does not need the archived auxiliary check temporary paths."
+  },
+  "backend": "Python cell-array T and odd-section P; independent third-u prefix criterion",
+  "experiment_id": "problem1-periodic-rational-verification-20260905",
+  "git_commit": "dce23307acded60b31f18b668560c221753a7166",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 417168,
+    "processor": ""
+  },
+  "hypothesis": "The two named-cycle derivations agree; the selected finite witness refutes the bitlength-only boundary strengthening and is excluded from ordinary frontiers by its four-digit high prefix.",
+  "inputs": {
+    "results/problem1/20260905_periodic_rational_independent.json": "5097deca265701beeb88ea0f79134cea19cd7e3e167eb8e0e6ed689084b1738b",
+    "results/problem1/20260905_periodic_rational_primary.json": "c6e5516aa9569c44bb7202f2aaacdc4be66316aca5156faa3f86d7c172ffa7ba"
+  },
+  "interpretation": "Bitlength alone does not imply B_all; the witness lies outside its frontier domain. The rationality theorem does not classify the actual fringe schedule.",
+  "limitations": [
+    "No global minimality of the counterexample is established.",
+    "Does not repeat the primary negative truncation checks.",
+    "No B_all, signed-nonvanishing or Problem1 solution."
+  ],
+  "parameters": {
+    "input_paths": [
+      "results/problem1/20260905_periodic_rational_primary.json",
+      "results/problem1/20260905_periodic_rational_independent.json"
+    ],
+    "local_cpus": 1,
+    "memory_bytes": 1073741824,
+    "named_witness_only": true,
+    "no_repeated_truncation_scan": true,
+    "phase_p_frontier_levels": [
+      1,
+      4
+    ]
+  },
+  "proof_scope": "Exact all-transition replay of one finite counterexample, full cycle agreement, and finite projected-prefix nonmembership certificate.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_sha256": "1b7d094c629503f9ba7a1c02303b3332c6ebf198d08972485656780bb6a35e31",
+    "source_sha256": "70f4211ae4865d025ebb9e8a5302407e28e4b1b4515cd6cd7884c9d76686ac40"
+  },
+  "result_summary": {
+    "all_cycle_vectors_and_rationals_agree": true,
+    "bit_length": 456,
+    "bitlength_strengthening_refuted": true,
+    "boundary_threshold": 226,
+    "c": 227,
+    "completed": true,
+    "cycle_comparisons": [
+      {
+        "all_vectors_agree": true,
+        "lambda": 2,
+        "mu": 0,
+        "rational_phases_agree": 1,
+        "word": "t"
+      },
+      {
+        "all_vectors_agree": true,
+        "lambda": 2,
+        "mu": 0,
+        "rational_phases_agree": 1,
+        "word": "u"
+      },
+      {
+        "all_vectors_agree": true,
+        "lambda": 138,
+        "mu": 0,
+        "rational_phases_agree": 6,
+        "word": "ututtt"
+      },
+      {
+        "all_vectors_agree": true,
+        "lambda": 728,
+        "mu": 0,
+        "rational_phases_agree": 7,
+        "word": "ttututt"
+      }
+    ],
+    "finite_minimality_scope": "Primary search order only: increasing binary cutoff, then phase, deduplicated within each named word. This verification replays the selected witness, not the complete truncation search.",
+    "first_comparator_branch_mismatch": 227,
+    "first_projected_prefix_rejection_level": 4,
+    "forced_transitions": 233,
+    "frontier_membership_refuted": true,
+    "full_observed_word": "ttttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututtttututttututut",
+    "full_orbit_hex": [
+      "0xd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x37088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdff11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x3781a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdee6e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379f3f05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdec991d9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a042b48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece99cbc146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a584e3764babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece17875ed036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a7e6fad9f4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece233c6f48c78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74496bcc12afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c807b6360ac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74a21a7d5db2ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c24ee235be8abc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc05f45df192b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c37198c9b9a40bface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdfa4520fce13306a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c3386090b467e08dba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc9f9b073c923b17f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c3608cedb960056a60d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bddb125ffc58197a1b7266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33bea01806966466eff813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc971a8661b851093dc0e6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c3607aeb91eff927013f371e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd9a6dbc29c0c03c6119fab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b4e3ff7c8f330d69e2486a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c7500e61588f778b403ba85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c36066ad4371e5514eed3d0d76b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd993af5dfab15245df13776fbc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b4416cdb86aa5009b9a1eefc76141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c967a7ffbaa1430fcee9dc6ade56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c36066052620076ae5cf465d8bebafb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd9919901481afaf1e4c91b531b6c6a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b4424446426ec6dab0202fd0affaba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bc97c9c08891c3dabfeacc8cc372c06b6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c360660f31102fd3eb01aa2123df8b1bbff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b58a24cc311ac6ea4e0538d2af701a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fd524023ca2eabda07991d70acfc6e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc35010c5624dab3e9ac42b7f2a46bfe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e3dd467295407ea918ea9cbe18a0bb03e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b753b49388551a1a8255a8e33e52b36cd3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c33b442fed17c01d3952eeeac15e9749310a9fa713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f26706b1c50dddab65986c00a728863a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e369813dbaae977bbebd147bb0323893956eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f86613f6ad86e771b324a76cc85d01c57dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8f91e10faf7bf2fae88022fa239b46e963f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f54c2be746ce718c6d920c4c645cfcbd85518f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c360660e368d43cb32cba73a52bf40b282909e4633795255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bdd991b75f975d6288a3639610b0d328ac870b0949ec5015e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6db549125d5c5e72f70892a3bf2f0409a9465b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bffd40201b5e9b38cff100a5718dd930e8491ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b00350c86fd98e9d241a43217a57b40f5b8029f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9772c0dd723bc34558b016e1c8e66167d34dfe0c88c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f8b37b78577dc9552c67fee1711e5231c783b211364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcd29e7ef96e3e0550a9201fe7a2b104aeaed68e21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c360660e368d0b6708b21cc7f5399572808683264aa582dadf7974eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd991b75f9773d3f128ee2a0d1c4578a33bac8102a16cfef8ec6c5bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f9311a095f4ab72e896d24976a264cae7a41cd5aba9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc0a2eb058c2bf8d907f0006fa41022f2616e75eb688fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c360660e368d0b63324dad953cb0d745a1c01bc6164c4d81e7f2d9bf9146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd991b75f9773d48807ef45162f76c9eef06f69e5028766b218f4f0c24babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b442fed8c6f934121a1cc9254cefa09dddbcf8b14cbad3a8e54c5f3c036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d60eeee2001425c6b0bbbf64d2a4236f169714299970dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c360660e368d0b636b5b5ddf48065c1ebaf3770d070a1c5fda787a5c8447f78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbdfdbb8c2191f69b6d9eff75bf2ee983e2fa61e388a0efbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fed8c6f93587383f7d3ce428f8fff49c0edf18dd86d34c61eb5d12b5c73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b9ed0e31671c94d400c0f35f9a57b7bf1c29e9bdb20bdeb90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e368d0b636b67c9f774a53ae0475033359d8ce167e71afc898f3e8b339bc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b75f9773d5fbd2608eec2116f98ad4c89d4b527e5233aec61055919289cf6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c33b442fed8c6f93587301b15dbce27cc52f4210b43d02310496da9e595424090e4face6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8c6ea5bf67426290cdce73dd34c4a5807fe8b1455c13077046a71e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e368d0b636b67d2bda1f0d2dc148727e7393b1c282161a0192a495f60dafd8ba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f9773d5fbd230b3ee9f70ff643b82339c16afcace5ee8640a0058db7ec353656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8c6f93587304f291d88ff40d1d7ec49cf67ac62a719db913281957fe1bdd1d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d85882b5140d372b61a80e4d26a94a3a4bfc208a645603ef3b2b266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c360660e368d0b636b67d77952cbd25371f8bdeea370703a842560307cb1210958d1d968a813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bdd991b75f9773d5fbd236ec50a33011fa8d339da5fdbcd6b9c158cda62a0e705572b4792a6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6f93587305fda97248c62869709cbe183f677bcf65527e14ab73d9578bcac0a1e6de56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d983e87801294bb87f0e33e6d0d2e764d15023e42bf93456d362b32eb3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b636b67d746d1bae0608437fa1f74933f770f2d07254c531cb0c1c97f1d4a88da906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9773d5fbd236cbf2f6f99b39de06e8ec0090eff58f5b814290ae2f36e061ab42917e85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f93587305fa318cfcc4e9cbb9bd95b03075c0d54dfe65c872f4d9ff99eebdc8261b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864a52462858e37cf345eccdadf375478311e3b8cc7480c49db3e2c1efc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c360660e368d0b636b67d74790210094b9575e659c99a27ef99ed4aeca2b57d22ac23280be934b69c6141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd991b75f9773d5fbd236cac4ce43043c56db114e04e421cc49f42da24bd6304abc48a33181c3f8e9e56e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f93587305fa2a8271cd9d697fea2479871cee2808dcfe403354d82b681248a66fd0d58b17fe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac3ae74b78601a40ac7bae5f4a317e4310c9d476cbfa6001213c377552a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c360660e368d0b636b67d747902abd6f2c3ef986e132aa76f18c24a631ca720b4afa30618060e17deed50a18d3e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd991b75f9773d5fbd236cac4cab37d8bd1cc7bfe08aa2fda53c0214ae238b3c2c64d9e619b7e639df572e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b442fed8c6f93587305fa2a822a9e35332e2a703b12a4c3e1170ce42f45d297ca9074b1e4fe315cb8d78f17a1d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4a8b5d088f4a3cd6a0a03d3e27f271ccc9b0866285ac2ab0434a5e3d76d5a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c360660e368d0b636b67d747902aa8293db7114c25677ab28d31342183ae220ef3914b9ebcaad9dc21b536ff5e13dbd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaac813ffa243c152e6a8970a1dce6d6f44b5d9c243c9b62af4bfcefd1fc0dbe13f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa26100641d7650f3a907f2ebe73f7cc83db4fc1d60fd4acc3065c328737f3e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa41e41916b6d1759685a18db3390e622d3fc476b5b4342a3cd91fc8bb9e193e255a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e368d0b636b67d747902aa82aa16b16427bff26d47b9ee57e89c77144f1068afbdfdddca5674286137cbe413415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaae7aa51c270183f4a7c9f16190eafa485a5b92c7383bbe2152dcb9e1e633161d65b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2af26a12fc3c66d0c22609a5e475ac6039e1fc0ab9ed7734e50fe3cbeb148a5eb51ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4ad83ae0c7d693f73c41b0e1b0adea98dcbe8732bc9f6f9c717435631aa41219bd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02f6d6fb2a37810f9696ef7eef2f9a857e31bb88b608fcceba6ddd54aea160e4f3088c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8ccff7c68a5ee674c787dce1dd8cceb9634af7d13db14625b63fbb542dae5b7058f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a92240e6b9219f12c2afa3e7ebb5225bc55c2ce3213ea4941fd5077d5cfef1ffd955a21d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a8041373bc0e49a0bcac65321b7d041f695fca748e11a00568355ae35e41da803455e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1961f9773700eb362a9108efe35968f858622c17e2e8197add5ef5db16bea0dc95b05bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae45e8c6f9fc35a9d4a82715c35d4794f97944b6634da6466fb59cdbea7b1ab7e05ed9f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f09992bcc87dde8b42ac3a5fddb4ac44c6c483d15c7e1093c7d4e7f1a26aebe3999f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804df0440b623a3b993dcabd6183bfc2a882ba82d325ea3e7016a34721ae43adb35c448c146ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1879d8933d45657c413e2b35e6d707ca92cb6acf0819a533c67a5cb8eef1d6fe9de881364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7acb5009349516696134a9db3f7da6280a3faa5f264e10969261e3d5ddab7c18b99261d036b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26a3d4301c0525385e1c28be90e3e14a32506a198107e707801eb535bbebe7653c401eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83a535cc6f19011f9befc93187753e424815bae4665a33dae069bd1df71b32d1169069bc78706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d611de2bda44628cf1c600a7aed131c0265f6f0911e493ef9b8f32b8fae88f22785b8f6afbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff5e2bb4b3e0894925ae983226df20af0c118fdf022b0011ccfd588bd46d915842f9fd4fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0db4b7c293b104001ed86c843f98b2df3625439cc4ac062e243551334bf42579ccc83446ab90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b37fc3e7c816a590069f7ba39d0c528f99d415dce282b194f41dd5209c30dc16ce222dc8babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69e07d326267a1441b88e765cb729094c4b565be74acaa444d6bb50b0fcf7f67a7444fe136b6af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b9a30814126e496fd172d1e3f88704283d51f32c2a2a08877b7d72f464e0d262c8843e1fbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3ce4f265603f007c3278f2b50d3bd9cad352988bca4ab13ae7e378cc907b7014a139d3e8706a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f1670581158d1c1a7c82d58bd771734e2f1d085136202aa16f235ed2205a7fc642e1cb11bbdba3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a53d96625572f6e262cf55336fa79c74dab73921d48caae7d85d9f0499e20691cfee2a2f73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e11345141578cff414a4d509fc62ceac7ebf9c0eb4122af2379b49d804b49b82e41f4a4cf90d17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c7e21c925656d240d642075708694a5aaa1b0cf35bd604ad85ecfc0b6183c0fecf168c2024c77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16a34ee001517f013751c9ad7f3b8421eaaeef259df35982f799a4733de6d7341a5a793c8c02af813bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7a5c5f8065261c61ed2e0ef6197f9ce9aaddd814b99d46ccec4e0b893b3f79d6e1e2c16130cace6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e261e98e19101ee9e9f0fb5cde460ce58eafbb6643c4b4ba25a87b3d01690ecb7feb4b65e0f22a71e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c741e9857e42469d8989f47de7b09b27155ac77d11d683c3641eba693467875a3e01bc3d1bb584a3ab3fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16ad69879631c0b8b50508ca3b26f0e83a55eaae322b7ad7dd169b6381c92fade5386f7d32f7d78256a906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7af787ac54af33d3d5971225683df5ad6159aaf484be6f63b278fd5e6e00c6fb11fbce308ce36ec17a85ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26cefa6a942d89313547a0417ad38def5e54eacc38333cd5682d435b3f832bc6a287674f1275fdb666b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743a5c63a85cf500a1d4a699666f1d79cdb145aa3dec896757acf5dde90ec8b6ba4bad2c5a02d83fd13bc8ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add61e956b9e4d432eb42384513dab6ce7ea49ea539a1052d66a4dbb9875a13fb6036f0a9e8cf6d032176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb5e9857bcb075c8dbdc5f89213ebfa721a009a11cee590f53a07f7c7adee107d8dfdf289924ff4c8e6de56e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7d98796762dade17f3e98d00e11b0638ee830ee2e5f1474d169a0e6a6f9fe5a35783989040040c2173fb17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa347ac52d4fefbe6191857437e2ed95d5dacf5f4f19a4ac7278eb73a3cc831e5d6edc505901933ce7906a603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a5ca6a90f441c731e42796dde34df45b5bea4d8c5a4e02ab82d5bf965622cab1b7dfe959446409672c5ba18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a1e23a874c96eb8ab1c2c7fbb5c78c9fdf1a07529e078cabecf5f0c51544a2aafe381854489130538a9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6eb456bac207dbd2aafcaa077dead20839ae9ad08b9ad22b1a4d9f29254824aac35e679481020d91d288ff17a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33dbc97b6bc9a3f30aac62a9ae39af0b2dced8ef713cef04aae0749880142c02abddb12c4264cb742b09141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a493f6067fb60e518f2aa94a8ef5cedf28fe5f55cfa165dd82af9ac052065cb0cab3bea0a9c1023edcaf0256e13dbd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a0010d99207db712558aa84295cde5f9894318d5e46e51bb6cacceb190991e2f22a971ab28f64c51fe2dcc17fe13f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6806774409a3ffa01552ab9c85e7b18c505ca575b0bf12f7fa2a25aa47042b4d84a87aea894d0292834fe36603e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a192ec930e500686550abce39b26a52959e216def31a0ce064a41ea0bd9cbc7782ba6da90474c80adc435d18d3e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496e40da00f7141bb91572b675ce83a10854b4e7f9d8aeb279902169ab334e36aeecb63fe858ac2232fe9ddb25713415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a007f137e834fa56f7c2578bd2de5ad6e73943c720cb52da82c44ce78ea89c75fadda3d501b952bc448c18bbe817a1d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e681a1a1e1adc4617ce7c16d330fb1ef7f39c5d6b8b23d0feaca88272d5a90ead86fbe53546fc50b6881365371a666eb51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a6eeeebeefe89e6672767f08f46a9ce19ce9b7bd2853741aa292c38f5e875af7bc7311d4bc6973f9261d11fae113dbd29f48fac73f656a906a603e118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a4963ddddb1dc190b11382d21f14cba8e7e4e58fe730b91ed6ea480bdd4d9badece76b8a2b436b8790c01eb2286fe213f3088c146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a00553bbbeabf6472a21ecf0e9a4236972307154338f3c29f7da02333b474f6f9a72fbd24bddfbfac73069a84bbc34e118f11364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819517771ab0d0b8a4e9a5f58e1c5f8784dba55c9d597c88e3e8c4897cac4fcce38c730033b8706ab8db8eb8377dc7e255a21d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64526efaeaf773d2058e18d57ee98faf87f615e0b54661175192810662a846275d2b8c0c97fbdbabd7fd5bedee3ea3415e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a49610903dc6dacef9309957e57561d8546cfa0de5bb3d491e26d240a65914ab8942db0bd33206073f6b36035f1f9f51a5d65b05bc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e704d3ebfea5cc0f0456316d5eb794ba46b7b1f693402b43f0132114242bd05cfef33088999b90fa9d8dd9a8c8d2e1b51ed9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b3d8711b01a1e335d8954a7f59bec4360bbe6a8f81d0cbdd1c608e25c1cb359e41d88f11044fc7468b57b4e92170fefd29f48fac73f656a906a603e118f11364bab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64e937ba2ec6eeb49db5054220d4f1a9ddb3733a94e6b7233b2e9b1741f6e29d4b16b515a258846acb93d67c580e7f41c3088c146ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a49610581e764dabddbc0bfd595c4b745ae8bbe9f8968473bf84968d8ea6d68ff48b42a7bd25e41538baa3c13526963720d6fcf11364babc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e5966b2d07eb3bf73303545e83ec9ed937188d07b8b970f8079755a3f7940c13dca27301b1651d36a5761d03855f8b77c65a21d036b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b1453a8f5a1a970f88cdd499ad1a09f41fa5175a7d3c7f4e1ac6d5e50ec533613e2438c6ea512b1fa16deb4df958d3ee691e4eb4dfbface6176141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea491694deee87f4d127b404ef2eb08d686126de2316a0c7eeabf5b175a909de1341dd2bda120aa86e7f9bc78c55711f382b05bc78706a71e6de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a00278479ddba0c72027d185d8daf177b9e03fb44a7ab2a1dab0dea6de870bbe1d6bb0b3ee0b2abbf20cf6ad2957a299ecad9f6afbdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59e80c2f8acbbf6b2b88c23279b57eda6e7cb8d07c8226a8aebeaf79a3f9bbf373eb7b6f291fb28ab718b24faf085664849a2f48fac73f656a906a603e118f11364bab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149a33ccd2a370fa8bd13c482cfd61fe3f263d75a62c43a92db1acece50cf719f91be7fd88286892bfa528046df39510380e4cc146ab90d17a85ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea40e496270a5ff4693321682ca435e835181536de14a9d680feaea5a71724fa48c2f320352cbb900b0610a18bf99c524de3702364babc77266b9f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a13700543f2180cb8088e7aca21dd9add26651ffbe428b7a341ada1e3a78046013cd888dd0a37c432d9e72e530c4e9007b5fcc5d036b6af813bc8ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee1fc195d18e6323e311726a24ebb4efb0111280731c93e65d6efeeb562e189861675117b725e69c8f4b38f10f285841a7d8629b4dfbface6176141a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fe87645b257148534a2783a405b7c5c6c6220a1b8ae01311b7dc1dbd54fe5079e52d2267f81b38e14c29d5a758b9796e237948fc78706a71e6de56e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4081bad09e817a4391c242ed6119fe69eba944b2efd2f860a2fe3f6bf3544315acb10f04120e6e9d7e43c8b5e2d53c6c7f45ec4146afbdba3ab3fb17fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a1326f6f709a6661dc2fc1cdf5e2483389b684828dc30cf9b24c350fb19d49ca5ea2a75d960b73d8b631d613db4f516baa0c99a964bac73f656a906a603e118f11364bab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee083cfcff0e111ebfcc76e78db402c9d0ffb82c97fcf24ce803dd746a4b40e219a4a2db45b3f9353d4ab5e13fc4d27b6ab204e85036ab90d17a85ba18d3e255a21d036b",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb2d64641f7e229b062aff2d7fd0ca0b7407eca060658025a0d3b6cba03d374e4e024ffc9e90c1d1342bdbe10687027faa8985b94dfabc77266b9f6e5713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea40868f509168e3448ed94ac18f603722b3ed1a1a29999160c1eb717fa368d31ec7078c0406098736b21dcb3f3e5bbbcc206a9079fc4786b6af813bc8ff17a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133b94d7027975c815f442b654d8df84a91f2eee4844425b369bfa6065f970a9abdad31919b07b9fa8ebe291931f7763c9ba85ac868afbbface6176141a66eb51ed9f6afb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee097c477cc2c6de2658c9cbd147578f828298ddf03889c1e9f8f0619918c7f28eb3ef0a424eda7c8695b348240a8eed560f6b9ea3b92c7706a71e6de56e13dbd29f48fac7",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb0668ae63cabfb411520e3324ad6d4ecac857b9cdd10f6988d5d9e44252a1895a91df21c05fe263b85e9c2c13295df55b4fbc9a57c0aafdba3ab3fb17fe13f3088c146ab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086d9392f1562b07d6250b748802f7f45a2a3967ce7b274f85175b4b09c10ae505e82b98ef19834157f998fcb60885b8d5fc4760e16732ac3f656a906a603e118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bf41c0da554ada354173ec120cce0c9e4a5c52672682c4f926dfc2f0f672f1599acbc55da46dd6560c45463db139fd75868adb7e5388abd0d17a85ba18d3e255a21d036b",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee0970d6f37e1542fe5d56791b60b227b20b021e901383aca84c03f87cdf4d38da544ea3695be0bfb515b2894953ea1c836d7b92ffe311d12b377266b9f6e5713415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07f77d9e3e55cc31b552c2fdb284268b2cce98461ed6a2b830d0fa678c71d7e1485a5f85f3b307d25e89040511aee2dff67c0c034a2b20a9ef813bc8ff17a1d65b05bc787",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da0ee34b5315e3cafd50bcc3e8b9c3928a258789e9f7a4becf774612d2bab63e439e18f99968da301990591922edf4f80d27330dc24a8b289ce6176141a66eb51ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfeb5f5c3d0a5b562c357363d193cfdc092417ad0988e6031a4eec9e0f0b6bd531dcbe54c44797e4c6445942404df8c4e370388f7fc0292890e71e6de56e13dbd29f48fac7",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09701bd8dfd3721fd54bdd79d53241643f3001666f7051718cae05da0bb5f3fb350abe3314288ac6302908945c11878d2875fcdd14e070c8090773ab3fb17fe13f3088c146ab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07c6f357831f8e835433b6cb5081651d18c06513cfd927a522f99beb37d99069d72b348a5c912a94cc871049f627ad70bad867b2479bf22305af96a906a603e118f11364bab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da6bd9d6eca8d5add5c97fa3d726512b253191216434026104cc4f1a9e3445b8b78a9c121e020a84223ba5808d426f7f36f792680acf1844d9ecc7a85ba18d3e255a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe3b34b7da2975efb5e060653781120a810a420e51dd0c1e582285ae8b5c89fd3ed28f60eb8cb2b9c4576163175c3ce19fcec03a32a5a788749a2a6b9f6e5713415e4eb4dfb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703569c3e3e486d9c7db999911ee620b2a6721cb712bb736b16c4b9ed93de108311f094db5bd228bce896de54a6dfd67e4865b0d648a1e2d3ac0e4a3bc8ff17a1d65b05bc787",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cdd78fd35303bf4ea3fc444229f14b28a138ee3fa0b7f9faa7a83c9f413be72ca29f047fdf3049365907fb1423f835230391ef75012eb4f16b3702576141a66eb51ed9f6afb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67b6d431d0cd70c5a506889c489a42892e1d5f506b3e0c86a26ad608d617338a2489d8a0398d801d145a06a5c50edd04cdc29ced460dbc5a7a9fcc16de56e13dbd29f48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe127ff5cab7277f29e15b910e810e1c900feb58d5ba93b23ba43af5b175e789d24010b528dc57606b249e9ba1e975fb5827fc8e5f49b7f69e26886367fb17fe13f3088c146ab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e0200de2bf82e188be5fc275a677ee04341bd575f681685761d6cdea6db2d0b010673d097e96d9ba80098f6e986d87d6c2061718c0fe0f8b439395d206a603e118f11364bab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd38c837b4b0ecfe5133187c2de12e1f99dd6f356d8fa67b96deb7a79a3fe8f72c659393706187f4f6a03054fd87bf7a37bc99e7a53343b4d3ddc1c5b09ba18d3e255a21d036b",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da671d22de7c2f5a431208a7a7cfbe0fe8c4bb7d9d7f546127c7f9be62ce50194f8a9141c1fd9e7a0c4fa8cd94437a70e65e7604b26109dd7c713bf6e9ef0f6e5713415e4eb4dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13ab04fb27ccde1ca0b122626473b4192837e34b60d49e026a0cf314a7146444d28256f6834b26b2846927449de63f711b2d98281e70bb66ba170fd89df4ff17a1d65b05bc787",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16ad84682627bee2b2a041410b97d640ade35c3db740b8c3ab258a423a4908870ac17cfadc283a8b8b802c80bb150fa2e8f46ca6b3f37d3b6e7f4350b8c41a66eb51ed9f6afb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7af78bac14271f4a8a9965673c635132fb5dfd3fed33d3d6a81521c5600713bf2b66646ffcad693d3e0ca2336a57464d94cba23a919e317ff20ddd73d296e13dbd29f48fac7",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da671326ced36b65c3a8c2928451539695d208c7db83101f093137aa650ee9581ba1718bd110bc062f781313b22449fa16c90744236456824b4a6018b7bb793087fe13f3088c146ab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a083a5f1fbd1fd693c80b89251c785b0b12a3feca469f00a1e6a1175d8566f6e7a53322737194cee60a168408086e7a05ac9c5d097ac03c218653e77ec0f3a03e118f11364bab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2d619a8732837816233d0012eaf9ef2a0a501a20b89c32eb3ae26db7953cff261088439fa4425f1b2e7b93233bf2699ea0e9b7066b0d7ce791132e1b35968d3e255a21d036b",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f5e4ebb88adee6544934060dacc9d8ab2146e4b3d0fc8da96f43ffec5164181e7139dc8609c19ae8f27c08497183849ab58ffd93af76672c2208fee9d479713415e4eb4dfb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694db05b7d12f9f114801d19b7ea20b52a8e4bf029374617e87cdd001a9251666b3a1cbe39b0f64ed9582733807a6df80ebd5403416ced138bc4b141d8b4ac7a1d65b05bc787",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a083847ed9fe320cc9a24206b24fe1a4b3d0a97031cc81ec9e61ba67b406e8012513a96ee335cef4d05f456c389e1a63f8e35b3550dd67a5f21d3682a56b53c2aa6eb51ed9f6afb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8a1f48348b220e41c9ba8043ee02937287ccae2269a0b1ef6127d1bda060121687df49de5cc7598c97bdd0bee150d75de9d577b526198eb1faca17bd17caa3dbd29f48fac7",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2e8c2dc1284b716e0f6a19d1f8c81f8ba622f4438eb2a9cde0232f3e99860e7ba38c0bb1e2ad4520673b731fe5776db98b56e7d01e455aa86a2e6732662a53f3088c146ab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70d93cff60b83fa7fb4fae4b28d2268d36144cc9dd5a8a8e7b8c48d918479b72765d3336ab4af49099397f8a8316efffc53d7f2346b095eabba4f1388114a1118f11364bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f741640db3ed06207c46f02897043971de48220bb5e929727d28174278acff82d1b089fabc2cc07041c60d2aca7dc0069136185cbaf059ab7605a1d26242e2255a21d036b",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae0ed65137e91f5949a68bdcc907d9dc7abb02c4b37d980878230a66dc2d2a40ecf2ef1086b7ca31bd96e9b70aa223f01b821de79e36dd94ebed99eeb0141cf4415e4eb4dfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fb5f5121e1828d440e3933e205a34bea6b6cca829e34633aec4f213ffcf0a135a58dda73bbe624af347d8fff2a4451c6fecebb2cb5ffb445b1f449dac656e4c965b05bc787",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c7d8d20ebe6c9749375c093499e5c31a3bfa22ac8b5c9496da858e10065f2e1de157be397731402d9ca354018a0892ebc1a5b68a3d807c89ea8c80bea917f02051ed9f6afb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f2a3570b5b33a06c01edf301c04b1fcae570644aa13de0407feb957e419198febbe56735c6f8a50cf4e25d50652b100db76e1ff925361a6109a922331a8261cc9929f48fac7",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae18a5d7f3de8969bb069f98c6f182a862f17d9082ae13b991a01bc56316424541b731539debcd21724c741b55910aa437feffe80c011dee1e70e80448aeac1ee204088c146ab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe521b619399078f6db88c52bda6cab94da63472cafe17c42e86f6954a51c0956ff8a51cb9b670e7802ad6fd54272a1de01c01a33062b9feb3f5a18812dab69f499311364bab",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c310efde41c45ad4fffd1290b3e3a2bc47e15cb8a2c3e669cdbbcf854212f3057c0d212e3cfd3f72e0caf7c355c38aebb86f06e48d94bc81a90dee5260febf88c040a21d036b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3ca75c3b16e89ef440032087293564b68a3e5e3d24bd3138e7f764f95ce0d8d967370e0f564310f8fb22ce7dd5fdd2db7fbddbf017443626e8779f101b41b0d1319324eb4dfb",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae19622dfd6a7d909cc900c8b3b881d503f92531b5300330a1d720ed04c5e7b7574539ff7b4d51ca74d4684a723b583b0ffe073bf1c66c9dd43dbaec9a46fd6ef720a40805bc787",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe4544f837a23470e204321297d26b54d0c010afd0c0c8f2eb78b5f5829b27ed6c91c80e7c752e22c74bb823857d6d6f4039b971ae93a0bb5d3f6da0e0bc37dcf8b213219f6afb",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309484ede645cbf7499c8e086303bd47730672c37332158dbed3d8d6c8e821f7a02e23726ad0f44aac37ec5f9637f7cd0dcfc7aed816b37db10ffeb7b37de3e4d28e08e48fac7",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3cf04385fb109e30ec04e17b394cd734af8d938bdf888e557f1f13577a15ace8e68cf45f83af74c82abde1a98c55e0e6777e46a6df667a9e3ea7401be69e3b5307097b170146ab",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965d9df986a70b4f5b187e669c42779c2cd741d338d1171561a9a1d6e6e5ea5973924c98ed6cec22cab3bee85295bb712ee30ba3f8d1268b51a2d06f338b57d0dbf066a7c64bab",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe451b4b8c7ba3f3c4dea7a3138e9c2ecfca76d6b09d7227a55ee8eeb7f3f19a1479c002055f7a5bc4a2a971db9085f7fa0df4f3650d720393d2e4f5bd89d3d6377f1d93a269036b",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c3092fc3d2a765196879a264a1d58fcda4622ff7af0b78426159d95dbe191a4ee4acf00c9958e61f6824a87abfc7398e06b78c59d177788dc130f04df350b1355ee1ab4164384dfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3cf00c7d30a2d1247bace4102eb55467e0944c0e6df3ef9c1e54b45bf3e42e05f02a5c32045571e8fac02ba6b06b9c579bbed294b26eed17f60f5d8799d72a1d59feebd651df8787",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c32a30f24f200a76a7164cdbd54923b0483373f991ccf6b143c9f1931cf999cca1fc898957a9946b0cb63adbbce96cf71f084283ddf260db4db7ac4b78aeb5481db3512b8fafb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe451fc8a4f580588322fa3a5027f3540056d82c9f90c42e24faa5d609a40ae4c44e22e861050566844baf23d56ff76587a4fa9f39cad3b981b7fc7fe6a83ed2dbd426be9d20bd46c7",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c3092861204d61952c84c65614c219d50197f6ca08c729cf4046a1b5b0e132f0288744db9e595953b8836d85357c0ed17a6046899ce2f17c66fe06a033aad1f0ff35c3b18b0b334bab",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3cf00b9e09875e450a382915e43ce4b546460fa2b12b88e4d18baefdef7e08dcc93ac87fcb1454517d2dff791d6735f266198b904e74da6693c39ba8c96af29f419dfd6a52f289c36b",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c33cbb07adb09725ec825b1d6703d4909b464aa0bd17072536dc39ce3b17e2016a3a062a49492630f80ec2b539d9811e453c5872c7e13817dcf69207ad888d64b837a10d890fdfb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe451fc9636da6fef07819a2c1eab53cd34070fc902ab3327db811fffdce756a634867a56994a0040014f4e35bcbd1cb4662b091697b8aa3e1e663e4f809a6f5117503ede6e775074387",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309286055ffe3c1ddae64e4b69abd1671d1bf4604caa88823fe628003e72d7a15c392617844281900644c75df6332e3c914af027867d2a53eb115304e30e3cd226d4d1fb3f2ed5addfb",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3cf00b9995803576bbef10703f8eb3253ab2f0c99822a912c50314a00d338f66e5fdc01e6f89ca64419082adb8d488f560242dcc2f9230a111aa250d874f7567043f47286918df5efb87",
+      "0xdece2c360660e368d0b636b67d747902aa82aa02a1876d69d9a7afb7a005e59ee09703e16b2df8ae1965c33c44560dd6fb71da5bcd0d5a88116a8df2046c4a820a94ca4283709d4d3f183f06b3cd0e21096472caffd74114d58c1cfe3ccc04f2e22ea41777ac4ed53d9d0cb8bb82578d9c7fb",
+      "0x379a74bdd991b75f9773d5fbd236cac4caaacaa8cae7aff78b4e26c7e6819b149fb07cd3e7a8f8d2fe451fc968895b7b7c7fabe1f67775e92627a979898ba82acb284221cadff0b4711a6d1dba967774e7050b8a2c036d62475536e4356231858f44da166ee6a85f5134b723d37ec16d74ea07",
+      "0xdece2c33b442fed8c6f93587305fa2a822aaa2a922f26c0ed3c743aa33a64ea4086da67132694d70c309286079105fe7e6a06b3e8d2eed980142686c50536acaa28b9c4ee2f81f3cba2e3f2bf6852eec73d973d24b0dff540ad51ff1dd544a7954c87ee53df3ab98d21c3f8531e1b67f6c5a9b",
+      "0x379a74bc97c9cc1f52bcc1d7b8d9864aac4aaa4a804d83b35f16add6a496105a133bfe13a0838477f3cf00b99ac25983233a9ba91970ddf46065c3bba9591faa2a493ce85f4ce6996364f518b0fb90ddab934793002f780d532f5281abb54822c5423a1f113996bc570efd0f90abefd20fa9e8f"
+    ],
+    "full_prefix_and_appended_u_admissible": true,
+    "full_witness_orbit_agrees": true,
+    "gaps": [
+      2,
+      2,
+      2
+    ],
+    "k": 228,
+    "literal_final_motif": "ututut",
+    "periodic_comparator_phase": 5,
+    "phase_p_prefix_levels": [
+      [
+        3
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        50,
+        51,
+        52,
+        53,
+        55
+      ],
+      [
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        207,
+        220,
+        221,
+        222,
+        223
+      ]
+    ],
+    "phase_u_excluded_by_bitlength": true,
+    "projected_prefixes": [
+      3,
+      13,
+      52,
+      210
+    ],
+    "terminal_residue_mod16": 15,
+    "unobserved_final_u": true,
+    "v2_difference_from_rational_comparator": 456,
+    "validation_failures": [],
+    "x_hex": "0xd29f48fac73f656a906a603e118f11364babc77266b9f6e5713415e4eb4dfbface6176141a66eb51ed9f6afbdba3ab3fb17fe13f3088c146ab"
+  },
+  "runtime_seconds": 0.1605211910791695,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_text": "\"\"\"Compare cycle certificates and independently replay the named boundary witness.\"\"\"\nimport hashlib,json,os,platform,resource,subprocess,tempfile,time\nfrom datetime import datetime,timezone\nfrom pathlib import Path\nROOT=Path(os.environ.get('RULE30_REPLAY_ROOT',Path.cwd())).resolve()\nOUT=Path(os.environ.get('RULE30_REPLAY_OUTPUT',ROOT/'results/problem1/20260905_periodic_rational_verification.json'))\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(x):return json.dumps(x,sort_keys=True,separators=(',',':')).encode()\ndef T(v):\n    bs=[(v>>n)&1 for n in range(v.bit_length()+2)]\n    return sum((bs[n]^((bs[n-1] if n else 0)|(bs[n-2] if n>=2 else 0)))<<n for n in range(len(bs)))\ndef P(v):return T(2*v+1)>>1\ndef good(w):return all(s not in w for s in ('uu','ttttt','ututtu'))\ndef main():\n    start=time.monotonic();resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30))\n    paths=['results/problem1/20260905_periodic_rational_primary.json','results/problem1/20260905_periodic_rational_independent.json']\n    recs=[json.loads((ROOT/s).read_text()) for s in paths]\n    for r in recs:\n        assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\n        assert sha(canon(r['result_summary']))==r['result_hashes']['result_sha256']\n        compile(r['source_text'],'embedded-source','exec')\n        assert r['result_summary']['completed'] and not r['result_summary']['validation_failures']\n    a,b=recs;byword={r['word']:r for r in b['result_summary']['rows']};comp=[]\n    for r in a['result_summary']['rows']:\n        s=byword[r['q']]\n        assert (r['mu'],r['lambda'],r['spatial_onset'])==(s['mu'],s['lambda'],s['spatial_start'])\n        assert r['columns']==s['vectors']\n        for u,v in zip(r['rational_phases'],s['rationals']):\n            assert (u['phase'],u['A_hex'],u['C_hex'],u['numerator_hex'],u['denominator_hex'])==(v['phase'],v['prefix_hex'],v['period_block_hex'],v['numerator_hex'],v['denominator_hex'])\n        comp.append({'word':r['q'],'all_vectors_agree':True,'rational_phases_agree':len(s['rationals']),'mu':r['mu'],'lambda':r['lambda']})\n    row=next(r for r in a['result_summary']['rows'] if r['q']=='ttututt')\n    w=row['truncation_scan']['witness'];x=int(w['x_hex'],16)\n    q=row['q'];j=w['phase'];rational=row['rational_phases'][j]\n    num=int(rational['numerator_hex'],16);den=int(rational['denominator_hex'],16)\n    assert x==(num*pow(den,-1,1<<w['binary_cut']))% (1<<w['binary_cut'])\n    diff=num-den*x;v2=(abs(diff)&-abs(diff)).bit_length()-1\n    states=[x];letters=[]\n    for _ in range(w['horizon']):\n        y=states[-1]\n        if y%16 not in (7,11):break\n        c='u' if y%16==7 else 't';letters.append(c)\n        states.append(T(P(y>>2)) ^ int(c=='u'))\n    word=''.join(letters)\n    assert [hex(y) for y in states]==w['full_orbit_hex']\n    assert word==w['full_observed_word'] and states[-1]%16 not in (7,11)\n    assert all(y.bit_length()==x.bit_length()+2*n for n,y in enumerate(states))\n    k=(x.bit_length()+1)//2;cut=w['c'];bnd=k-2\n    assert (k,cut,w['gaps'])==(228,227,[2,2,2])\n    # Independent occurrence criterion: first three u positions at/after bnd.\n    prefix=''\n    for c in word:\n        if not good(prefix+c):break\n        prefix+=c\n    us=[n for n,c in enumerate(prefix) if n>=bnd and c=='u']\n    assert us[:3]==[227,229,231] and us[2]+1<len(prefix)\n    assert cut==us[0] and word[cut:]=='ututut' and good(word+'u')\n    mismatch=next((n for n,c in enumerate(word) if c!=q[(j+n)%len(q)]),None)\n    # A projected-prefix certificate, using only explicitly admitted p levels1..4.\n    levels=[{3}]\n    for _ in range(3):levels.append({z for y in levels[-1] for z in (T(y),T(y)^1,P(y))})\n    projected=[x>>(2*(k-h)) for h in range(1,5)]\n    assert projected==[3,13,52,210]\n    assert all(projected[h] in levels[h] for h in range(3)) and projected[3] not in levels[3]\n    assert sorted(levels[3])==[200,201,202,203,204,205,207,220,221,222,223]\n    assert x.bit_length()==2*k # phase u at k has bit length2k-1.\n    summary={'completed':True,'validation_failures':[],'cycle_comparisons':comp,'all_cycle_vectors_and_rationals_agree':True,'full_witness_orbit_agrees':True,'forced_transitions':len(letters),'terminal_residue_mod16':states[-1]%16,'full_orbit_hex':[hex(y) for y in states],'full_observed_word':word,'x_hex':hex(x),'bit_length':x.bit_length(),'k':k,'c':cut,'gaps':[2,2,2],'boundary_threshold':bnd,'literal_final_motif':word[cut:],'full_prefix_and_appended_u_admissible':True,'unobserved_final_u':True,'periodic_comparator_phase':j,'first_comparator_branch_mismatch':mismatch,'v2_difference_from_rational_comparator':v2,'phase_p_prefix_levels':[sorted(s) for s in levels],'projected_prefixes':projected,'first_projected_prefix_rejection_level':4,'phase_u_excluded_by_bitlength':True,'frontier_membership_refuted':True,'bitlength_strengthening_refuted':True,'finite_minimality_scope':'Primary search order only: increasing binary cutoff, then phase, deduplicated within each named word. This verification replays the selected witness, not the complete truncation search.'}\n    source=Path(__file__).read_text()\n    out={'experiment_id':'problem1-periodic-rational-verification-20260905','timestamp_utc':datetime.now(timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'The two named-cycle derivations agree; the selected finite witness refutes the bitlength-only boundary strengthening and is excluded from ordinary frontiers by its four-digit high prefix.','backend':'Python cell-array T and odd-section P; independent third-u prefix criterion','parameters':{'input_paths':paths,'local_cpus':1,'memory_bytes':1<<30,'named_witness_only':True,'phase_p_frontier_levels':[1,4],'no_repeated_truncation_scan':True},'inputs':{p:sha((ROOT/p).read_bytes()) for p in paths},'hardware':{'machine':platform.machine(),'processor':platform.processor(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':platform.python_version(),'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'source_text':source,'result_summary':summary,'status':'refuted','proof_scope':'Exact all-transition replay of one finite counterexample, full cycle agreement, and finite projected-prefix nonmembership certificate.','interpretation':'Bitlength alone does not imply B_all; the witness lies outside its frontier domain. The rationality theorem does not classify the actual fringe schedule.','limitations':['No global minimality of the counterexample is established.','Does not repeat the primary negative truncation checks.','No B_all, signed-nonvanishing or Problem1 solution.']}\n    out['result_hashes']={'source_sha256':sha(source.encode()),'result_sha256':sha(canon(summary))}\n    fd,tmp=tempfile.mkstemp(dir=OUT.parent,prefix=OUT.name+'.',suffix='.tmp')\n    with os.fdopen(fd,'w') as f:\n        json.dump(out,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno())\n    os.replace(tmp,OUT)\n    print(json.dumps({k:v for k,v in summary.items() if k not in ('full_orbit_hex','full_observed_word')},sort_keys=True))\nif __name__=='__main__':main()\n",
+  "status": "refuted",
+  "timestamp_utc": "2026-09-05T19:16:48.714893+00:00"
+}

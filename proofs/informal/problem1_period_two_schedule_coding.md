@@ -179,6 +179,15 @@ counterexample would necessarily be coded by a genuinely aperiodic branch
 schedule.
 
 Update (2026-09-05, `partial-proof`):
+`problem1_periodic_schedule_rationality.md` proves that every eventually
+periodic auxiliary schedule has a rational 2-adic survivor. For a pure
+period-p schedule, the cyclic phase equations give an exact spatial
+recurrence on four p-bit vectors, hence a sufficient cycle certificate
+with at most 2^(4p) states. Its spatial nonzero base-four digits have gaps
+at most 2p. This is a one-way classification; it does not assert periodicity
+of the actual moving fringe or a converse for rational survivors.
+
+Earlier update (2026-09-05, `partial-proof`):
 `problem1_finite_schedule_repetition_bound.md` quantifies the size/congruence
 obstruction. A finite integer of complexity k cannot have a p-periodic
 observed prefix longer than k+2p-2. More generally, unbounded periodic-factor
