@@ -319,3 +319,10 @@ block class and exact residue comparison. No such block-rewrite check has
 been run here. An all-depth shortening rule would still be required;
 success on this endpoint would not supply it. Return-conditioned endpoint
 correlations remain the other main structural route.
+
+Subsequent checkpoint: `problem1_two_to_one_rewrite_test.md` proves an
+exact local valuation table and a proper-prefix bound. On this same
+288-word endpoint family, even every two-to-one generator replacement
+fails the required residue. The initial pair is separately excluded by
+the phase-root calculation. This closes that next local construction;
+it does not refute wider replacements or arbitrary adjacent shadows.

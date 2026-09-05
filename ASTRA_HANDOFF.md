@@ -11,6 +11,46 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest all-depth classification and obstruction: read
+`proofs/informal/problem1_two_to_one_rewrite_test.md` first.
+
+- Exact 27-entry table (`partial-proof`) gives v2(B(A(v))-C(v)) for
+  every positive v and A,B,C in {T,U,P}. Common suffixes preserve it.
+  Above the two lowest bits, a successful two-to-one shortening requires
+  a highly divisible actual prefix before or inside the changed block.
+- If all positive proper prefixes of every fixed-phase representation
+  have valuation <=H, every noninitial two-to-one rewrite has difference
+  valuation <=max(H+1,2). Initial-pair replacement keeping the phase
+  fails already modulo4, by the separate root calculation.
+- Universal two-to-one shadows are `refuted` on the SAME genuine
+  u18/0x6473d46ab/cut4 occurrence. All288 representations have only19
+  proper-prefix states, maximum valuation3. Every rewrite therefore has
+  difference valuation <=4, below the required10. Arbitrary exact
+  re-expression of this endpoint cannot rescue the construction.
+- Exactly13824 labelled noninitial rewrites,138240 modulus comparisons,
+  and114 distinct local cases were independently checked. No successes;
+  valuation histogram {0:7744,1:3008,2:1920,4:1152}. The word family
+  covers17/18 pair/parity contexts; separate54 local checks atv1,2 cover
+  the missingTP-even seam. No other occurrence or block size was tested.
+- Muse independently derived the table and bound without tools. Dewey's
+  packed implementation and lead cell-array/odd-section replay agree on
+  the entire ordered rewrite-output stream, every local case, and all54
+  auxiliary cases. Fresh review corrected odd-gamma bound wording and
+  JSON-key normalization; no mathematical outcomes changed. Records:
+  `results/problem1/20260905_two_to_one_{primary,independent}.json`.
+
+Two-to-one rewriting is now refuted, not an untested next candidate. Do
+not automatically increase rewrite width. The next structural direction
+is an exact operator/Walsh description of return-conditioned endpoint
+transfer, retaining deduplication and joint correlations. Start with
+`proofs/informal/problem1_signed_slice_joint_transfer.md` and
+`proofs/informal/problem1_period_two_signed_belief_derivative.md`.
+Small-residue permutation parity is only a possible quantity to investigate;
+no bridge to signed mass has been established. Preserve the exact scopes
+of universal five-vector closure, scalar/sign-only, and valuation no-go
+results. The strongest bottleneck is still B_all or return-conditioned
+nonvanishing; adjacent inclusion and general periods>=3 remain open.
+
 Newest certificate-class obstruction (`refuted`): read
 `proofs/informal/problem1_generator_deletion_test.md` first.
 
