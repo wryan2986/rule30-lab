@@ -1,0 +1,4287 @@
+{
+  "experiment_id": "20260906_activity_staircase_independent",
+  "timestamp_utc": "2026-09-06T21:47:59Z",
+  "git_commit": "f6f062d5f36d6403c8d0de2dce773b60ada4a5d8",
+  "git_status": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_activity_staircase_independent.py\n?? experiments/problem1_nonperiodicity/check_activity_staircase_primary.py\n?? proofs/informal/problem1_activity_staircase_bound.md\n?? proofs/informal/problem1_activity_staircase_review.md\n?? proofs/informal/problem1_activity_staircase_verification_admission.md\n?? proofs/informal/problem1_activity_transport_inequality.md\n?? proofs/informal/problem1_round5_muse_boundary_proposal.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_activity_staircase_independent.json\n?? results/problem1/20260906_activity_staircase_primary.json\n?? run_astra_8h.sh\n?? watch_astra.sh\n",
+  "question": "problem1",
+  "backend": "cpython-stdlib-direct-bitarray",
+  "hardware": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "processor": "",
+    "cpu_count": 16
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "method": "direct bit arrays, stdlib only, no repo imports"
+  },
+  "result_hashes": {
+    "source_sha256": "991c2bf0af39734eedf0e4e6fcf8d156c27f0080c8b3394031f97cfbc376064d",
+    "admission_sha256": "f577f80b21ba94576c7b8cd8248f40f801b5e01e75f8f4d9feba871f295fbfa9",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "immutable_reference_git_clean": true,
+    "payload_sha256": "98e4468ef1b7f143e767c5d24c66b368876eb9888093562be65fcffbd468666d",
+    "superseded_prior_payload_sha256": "98e4468ef1b7f143e767c5d24c66b368876eb9888093562be65fcffbd468666d"
+  },
+  "admission_snapshot": "# Admission: local seams of the activity staircase proof\n\nStatus before execution: `inconclusive`. This is a finite local-algebra\nverification supporting `problem1_activity_staircase_bound.md`, not a\nsurvivor experiment. Admission precedes both implementations.\n\nExact hypothesis: for A's cell rule\nu_i(t+1)=u_(i+2)(t) XOR (u_(i+1)(t) OR u_i(t)), a zero adjacent pair\nover L consecutive times forces the next higher adjacent pair zero\nover the first L-1 times. Also the staggered zeros\nu_i(t+1)=u_(i+2)(t)=0 force u_i(t)=u_(i+1)(t)=0.\nEither failed implication kills the new staircase proof. Agreement\nchecks only the finite local seams; the all-width induction, disjoint\npacking, harmonic limit and actual-survivor limitations require proof\nand fresh independent review, not extrapolation.\n\nCheck precisely:\n\n1. All eight three-bit neighborhoods, comparing the A output bit and\n   the staggered-zero implication. Retain all input/output bits.\n2. All sixteen four-bit initial windows for the L=2 rectangle; evolve\n   valid cone widths 4,2. When the bottom pair is zero at both times,\n   check that the upper pair is zero initially.\n3. All sixty-four six-bit initial windows for the L=3 rectangle;\n   evolve valid cone widths 6,4,2. When the bottom pair is zero at\n   all three times, check that the upper pair is zero at times0,1.\n\nThe fourth/fifth/sixth bits are genuinely needed for the declared\nlocal time cones. This is not a larger spatial-orbit census. No other\nwidth, input, history, age interval or numerical claim is admitted.\nPreviously certified values R(27)=1,R(111)=2 are cited as scope\ncontrols in the proof and are NOT re-executed. Highest-one persistence\nis checked by the already hand-derived local input (higher,higher,self)\n=(0,0,1); no whole-row orbit is needed.\n\nPrimary: packed integers A=T>>2, masking to each valid cone width.\nIndependent: explicit bit arrays, direct cellwise truth conditions;\nno scientific source import or shared computed result between methods.\nBoth retain complete local trajectories, premise counts, conclusion\ncounts and per-case verdicts. Integration compares these full payloads.\n\nBounds per implementation: local one CPU,120 seconds CPU and wall,\n1GiB address-space cap; no GPU or network workload. Stop on first\nfailure or any cap, record failure/inconclusive, and do not enlarge.\nRecords use atomic same-directory temporary writes, flush/fsync and\nreplace; retain full Git commit, exact parameters, executed source\nand admission snapshots, hashes, software/hardware facts, runtime,\nlimitations and claimed finite domain. No optimized backend or test\nof the immutable reference is involved; record its unchanged hash.\n\nExpected completed status: `finite-exhaustive` only for these eight,\nsixteen and sixty-four local cones. Successful checks do not prove\nProblem1, exclude a mortal rational actual survivor, or authorize an\nactivity-level enumeration or first-witness search.\n",
+  "source_snapshot": "#!/usr/bin/env python3\n\"\"\"Independent local-seam check for the activity staircase proof.\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport signal\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nRULE30_LAB = \"/home/ryan/rule30-lab\"\nADMISSION = \"proofs/informal/problem1_activity_staircase_verification_admission.md\"\nOUT_PATH = \"results/problem1/20260906_activity_staircase_independent.json\"\nREF_PATH = \"src/python/rule30_research_reference.py\"\nCPU_LIMIT_S = 120\nWALL_LIMIT_S = 120\nAS_LIMIT_B = 1 << 30\n\n\ndef cell(self_b, mid_b, upp_b):\n    return upp_b ^ (mid_b | self_b)\n\n\ndef evolve(row):\n    return [cell(row[k], row[k + 1], row[k + 2])\n            for k in range(len(row) - 2)]\n\n\ndef bits(n, w):\n    return [(n >> k) & 1 for k in range(w)]\n\n\nclass WallExpired(Exception):\n    pass\n\n\ndef _on_alarm(signum, frame):\n    raise WallExpired(\"wall alarm %ds expired\" % WALL_LIMIT_S)\n\n\ndef atomic_write_json(path, record):\n    tmp = tempfile.NamedTemporaryFile(\n        mode=\"w\", dir=os.path.dirname(path), delete=False)\n    try:\n        json.dump(record, tmp, indent=2, sort_keys=False)\n        tmp.write(\"\\n\")\n        tmp.flush()\n        os.fsync(tmp.fileno())\n    finally:\n        tmp.close()\n    os.replace(tmp.name, path)\n\n\ndef base_meta(extra):\n    with open(os.path.join(RULE30_LAB, ADMISSION), \"rb\") as fh:\n        admission_bytes = fh.read()\n    with open(os.path.abspath(__file__), \"rb\") as fh:\n        source_bytes = fh.read()\n    with open(os.path.join(RULE30_LAB, REF_PATH), \"rb\") as fh:\n        ref_bytes = fh.read()\n    ref_clean = subprocess.call(\n        [\"git\", \"diff\", \"--quiet\", \"--\", REF_PATH],\n        cwd=RULE30_LAB) == 0\n    meta = {\n        \"experiment_id\": \"20260906_activity_staircase_independent\",\n        \"timestamp_utc\": time.strftime(\n            \"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"git_commit\": subprocess.check_output(\n            [\"git\", \"rev-parse\", \"HEAD\"], cwd=RULE30_LAB,\n            text=True).strip(),\n        \"git_status\": subprocess.check_output(\n            [\"git\", \"status\", \"--short\"], cwd=RULE30_LAB, text=True),\n        \"question\": \"problem1\",\n        \"backend\": \"cpython-stdlib-direct-bitarray\",\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"processor\": platform.processor(),\n            \"cpu_count\": os.cpu_count()},\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"method\": \"direct bit arrays, stdlib only, no repo imports\"},\n        \"result_hashes\": {\n            \"source_sha256\": hashlib.sha256(source_bytes).hexdigest(),\n            \"admission_sha256\": hashlib.sha256(\n                admission_bytes).hexdigest(),\n            \"immutable_reference_sha256\": hashlib.sha256(\n                ref_bytes).hexdigest(),\n            \"immutable_reference_git_clean\": ref_clean},\n        \"admission_snapshot\": admission_bytes.decode(),\n        \"source_snapshot\": source_bytes.decode(),\n    }\n    meta.update(extra)\n    return meta\n\n\ndef main():\n    start_wall = time.perf_counter()\n    start_cpu = time.process_time()\n    deadline_utc = time.strftime(\n        \"%Y-%m-%dT%H:%M:%SZ\", time.gmtime(time.time() + WALL_LIMIT_S))\n    enforced = {}\n    try:\n        import resource\n        resource.setrlimit(resource.RLIMIT_AS,\n                           (AS_LIMIT_B, AS_LIMIT_B))\n        enforced[\"RLIMIT_AS_1GiB\"] = True\n        resource.setrlimit(resource.RLIMIT_CPU,\n                           (CPU_LIMIT_S, CPU_LIMIT_S))\n        enforced[\"RLIMIT_CPU_120\"] = True\n    except Exception as exc:\n        enforced[\"resource_error\"] = \"%r\" % (exc,)\n    try:\n        signal.signal(signal.SIGALRM, _on_alarm)\n        signal.alarm(WALL_LIMIT_S)\n        enforced[\"wall_alarm_120\"] = True\n    except Exception as exc:\n        enforced[\"alarm_error\"] = \"%r\" % (exc,)\n\n    if not (enforced.get(\"RLIMIT_AS_1GiB\")\n            and enforced.get(\"RLIMIT_CPU_120\")\n            and enforced.get(\"wall_alarm_120\")):\n        record = base_meta({\n            \"run_number\": 2,\n            \"status\": \"inconclusive\",\n            \"proof_scope\": \"no cases run: enforcement setup failed\",\n            \"enforcement\": enforced,\n            \"deadline_utc\": deadline_utc,\n            \"interpretation\": (\"STOPPED inconclusive before any case: \"\n                               \"a required cap not enforced; no cap \"\n                               \"is claimed.\"),\n            \"limitations\": [\"enforcement setup failed; nothing executed\"],\n        })\n        atomic_write_json(os.path.join(RULE30_LAB, OUT_PATH), record)\n        print(\"INCONCLUSIVE: enforcement setup failed: %r\" % (enforced,))\n        return 2\n\n    prior = None\n    prior_abs = os.path.join(RULE30_LAB, OUT_PATH)\n    if os.path.exists(prior_abs):\n        with open(prior_abs, \"r\") as fh:\n            prior = json.load(fh)\n\n    try:\n        local = []\n        for n in range(8):\n            init = bits(n, 3)\n            out = cell(init[0], init[1], init[2])\n            premise = (out == 0 and init[2] == 0)\n            conclusion = (init[0] == 0 and init[1] == 0)\n            local.append({\"input\": n, \"initial\": init, \"output\": out,\n                          \"premise\": premise, \"conclusion\": conclusion,\n                          \"passed\": ((not premise) or conclusion)})\n\n        rectangle_2 = []\n        for n in range(16):\n            r0 = bits(n, 4)\n            r1 = evolve(r0)\n            assert len(r1) == 2\n            premise = (r0[0] == 0 and r0[1] == 0\n                       and r1[0] == 0 and r1[1] == 0)\n            conclusion = (r0[2] == 0 and r0[3] == 0)\n            rectangle_2.append({\"input\": n, \"rows\": [r0, r1],\n                                \"premise\": premise,\n                                \"conclusion\": conclusion,\n                                \"passed\": ((not premise) or conclusion)})\n\n        rectangle_3 = []\n        for n in range(64):\n            r0 = bits(n, 6)\n            r1 = evolve(r0)\n            r2 = evolve(r1)\n            assert len(r1) == 4 and len(r2) == 2\n            premise = (r0[0] == 0 and r0[1] == 0\n                       and r1[0] == 0 and r1[1] == 0\n                       and r2[0] == 0 and r2[1] == 0)\n            conclusion = (r0[2] == 0 and r0[3] == 0\n                          and r1[2] == 0 and r1[3] == 0)\n            rectangle_3.append({\"input\": n, \"rows\": [r0, r1, r2],\n                                \"premise\": premise,\n                                \"conclusion\": conclusion,\n                                \"passed\": ((not premise) or conclusion)})\n    except WallExpired as exc:\n        record = base_meta({\n            \"run_number\": 2,\n            \"status\": \"inconclusive\",\n            \"proof_scope\": \"aborted: wall deadline expired mid-run\",\n            \"enforcement\": enforced,\n            \"deadline_utc\": deadline_utc,\n            \"interpretation\": \"STOPPED inconclusive: %s.\" % (exc,),\n            \"limitations\": [\"wall deadline expired before completion\"],\n        })\n        atomic_write_json(os.path.join(RULE30_LAB, OUT_PATH), record)\n        print(\"INCONCLUSIVE: %s\" % (exc,))\n        return 2\n    finally:\n        try:\n            signal.alarm(0)\n        except Exception:\n            pass\n\n    wall_used = time.perf_counter() - start_wall\n    cpu_used = time.process_time() - start_cpu\n    if wall_used > WALL_LIMIT_S:\n        record = base_meta({\n            \"run_number\": 2,\n            \"status\": \"inconclusive\",\n            \"proof_scope\": \"overrun: wall used exceeds deadline\",\n            \"enforcement\": enforced,\n            \"deadline_utc\": deadline_utc,\n            \"runtime_seconds\": {\"wall\": wall_used, \"cpu\": cpu_used},\n            \"interpretation\": \"STOPPED inconclusive: wall overrun.\",\n            \"limitations\": [\"wall deadline exceeded\"],\n        })\n        atomic_write_json(os.path.join(RULE30_LAB, OUT_PATH), record)\n        print(\"INCONCLUSIVE: wall overrun\")\n        return 2\n\n    payload = {\"local\": local, \"rectangle_2\": rectangle_2,\n               \"rectangle_3\": rectangle_3}\n\n    def counts(rows):\n        return {\"cases\": len(rows),\n                \"passed\": sum(1 for r in rows if r[\"passed\"]),\n                \"premise_true\": sum(1 for r in rows if r[\"premise\"]),\n                \"conclusion_true\": sum(1 for r in rows if r[\"conclusion\"])}\n\n    summary = {\"local\": counts(local),\n               \"rectangle_2\": counts(rectangle_2),\n               \"rectangle_3\": counts(rectangle_3)}\n    ok = all(v[\"passed\"] == v[\"cases\"] for v in summary.values())\n    payload_canonical = json.dumps(\n        payload, sort_keys=True, separators=(\",\", \":\")).encode()\n    record = base_meta({\n        \"run_number\": 2,\n        \"correction_note\": (\"run 1 enforced only RLIMIT_AS and omitted \"\n                            \"the immutable reference hash; run 2 enforces \"\n                            \"RLIMIT_AS + RLIMIT_CPU(120) + wall alarm \"\n                            \"(120s) with explicit deadline, records the \"\n                            \"immutable reference hash, and archives the \"\n                            \"full run-1 record below. Same 88 cases.\"),\n        \"superseded_prior_record\": prior,\n        \"hypothesis\": (\"A-cell zero adjacent pair over L times forces \"\n                       \"the next higher adjacent pair zero over the \"\n                       \"first L-1 times (L=2,3); staggered zeros \"\n                       \"force the lower pair zero.\"),\n        \"parameters\": {\n            \"local_cases\": 8, \"rectangle_2_cases\": 16,\n            \"rectangle_3_cases\": 64,\n            \"cone_widths\": {\"local\": [3, 1], \"rectangle_2\": [4, 2],\n                            \"rectangle_3\": [6, 4, 2]},\n            \"cell_rule\": \"out=upper XOR (middle OR self)\",\n            \"work_cpu\": \"1\",\n            \"limits\": \"120s CPU (RLIMIT_CPU) + 120s wall (alarm), \"\n                      \"1GiB AS (RLIMIT_AS)\"},\n        \"enforcement\": enforced,\n        \"deadline_utc\": deadline_utc,\n        \"runtime_seconds\": {\"wall\": wall_used, \"cpu\": cpu_used},\n        \"result_hashes_extra\": {},\n        \"result_summary\": summary,\n        \"payload\": payload,\n        \"interpretation\": ((\"ALL PASS: 8/8 local, 16/16 L=2, 64/64 L=3. \"\n                            if ok else\n                            \"FAILURE PRESENT: see per-case rows. \") +\n                           \"Finite local seams agree; all-width induction, \"\n                           \"packing and harmonic limit need proof, \"\n                           \"not extrapolation.\"),\n        \"status\": \"finite-exhaustive\" if ok else \"refuted\",\n        \"proof_scope\": (\"exact admitted cones only: 8 three-bit \"\n                        \"neighborhoods, 16 four-bit L=2 cones, \"\n                        \"64 six-bit L=3 cones\"),\n        \"limitations\": [\n            \"covers finite local seams only\",\n            \"no whole-row orbit replayed\",\n            \"no survivor, enumeration, sweep, or first-witness claim\",\n            \"R(27)/R(111) cited, not re-executed\"],\n    })\n    record[\"result_hashes\"][\"payload_sha256\"] = hashlib.sha256(\n        payload_canonical).hexdigest()\n    if prior is not None:\n        record[\"result_hashes\"][\"superseded_prior_payload_sha256\"] = (\n            prior.get(\"result_hashes\", {}).get(\"payload_sha256\"))\n    atomic_write_json(os.path.join(RULE30_LAB, OUT_PATH), record)\n    print(\"cases=8/16/64 passed=%d/%d/%d status=%s\"\n          % (summary[\"local\"][\"passed\"],\n             summary[\"rectangle_2\"][\"passed\"],\n             summary[\"rectangle_3\"][\"passed\"], record[\"status\"]))\n    print(\"payload_sha256=%s\"\n          % record[\"result_hashes\"][\"payload_sha256\"])\n    print(\"enforcement=%r\" % (enforced,))\n    return 0 if ok else 1\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+  "run_number": 2,
+  "correction_note": "run 1 enforced only RLIMIT_AS and omitted the immutable reference hash; run 2 enforces RLIMIT_AS + RLIMIT_CPU(120) + wall alarm (120s) with explicit deadline, records the immutable reference hash, and archives the full run-1 record below. Same 88 cases.",
+  "superseded_prior_record": {
+    "experiment_id": "20260906_activity_staircase_independent",
+    "timestamp_utc": "2026-09-06T21:42:03Z",
+    "git_commit": "f6f062d5f36d6403c8d0de2dce773b60ada4a5d8",
+    "git_status": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_activity_staircase_independent.py\n?? experiments/problem1_nonperiodicity/check_activity_staircase_primary.py\n?? proofs/informal/problem1_activity_staircase_bound.md\n?? proofs/informal/problem1_activity_staircase_review.md\n?? proofs/informal/problem1_activity_staircase_verification_admission.md\n?? proofs/informal/problem1_round5_muse_boundary_proposal.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_activity_staircase_primary.json\n?? run_astra_8h.sh\n?? watch_astra.sh\n",
+    "question": "problem1",
+    "hypothesis": "A-cell zero adjacent pair over L times forces the next higher adjacent pair zero over the first L-1 times (L=2,3); staggered zeros force the lower pair zero.",
+    "backend": "cpython-stdlib-direct-bitarray",
+    "parameters": {
+      "local_cases": 8,
+      "rectangle_2_cases": 16,
+      "rectangle_3_cases": 64,
+      "cone_widths": {
+        "local": [
+          3,
+          1
+        ],
+        "rectangle_2": [
+          4,
+          2
+        ],
+        "rectangle_3": [
+          6,
+          4,
+          2
+        ]
+      },
+      "cell_rule": "out=upper XOR (middle OR self)",
+      "work_cpu": "1",
+      "limits": "120s CPU+wall, 1GiB AS"
+    },
+    "hardware": {
+      "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+      "processor": "",
+      "cpu_count": 16,
+      "address_space_note": "RLIMIT_AS=1GiB enforced"
+    },
+    "software": {
+      "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+      "method": "direct bit arrays, stdlib only, no repo imports"
+    },
+    "runtime_seconds": {
+      "wall": 0.010521417949348688,
+      "cpu": 0.0019085049999999978
+    },
+    "result_hashes": {
+      "payload_sha256": "98e4468ef1b7f143e767c5d24c66b368876eb9888093562be65fcffbd468666d",
+      "source_sha256": "11837090674e81feb10742fd820610d01e1fcfddf06a5ee2d526c5d24b95624b",
+      "admission_sha256": "f577f80b21ba94576c7b8cd8248f40f801b5e01e75f8f4d9feba871f295fbfa9"
+    },
+    "result_summary": {
+      "local": {
+        "cases": 8,
+        "passed": 8,
+        "premise_true": 1,
+        "conclusion_true": 2
+      },
+      "rectangle_2": {
+        "cases": 16,
+        "passed": 16,
+        "premise_true": 1,
+        "conclusion_true": 4
+      },
+      "rectangle_3": {
+        "cases": 64,
+        "passed": 64,
+        "premise_true": 1,
+        "conclusion_true": 4
+      }
+    },
+    "payload": {
+      "local": [
+        {
+          "input": 0,
+          "initial": [
+            0,
+            0,
+            0
+          ],
+          "output": 0,
+          "premise": true,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 1,
+          "initial": [
+            1,
+            0,
+            0
+          ],
+          "output": 1,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 2,
+          "initial": [
+            0,
+            1,
+            0
+          ],
+          "output": 1,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 3,
+          "initial": [
+            1,
+            1,
+            0
+          ],
+          "output": 1,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 4,
+          "initial": [
+            0,
+            0,
+            1
+          ],
+          "output": 1,
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 5,
+          "initial": [
+            1,
+            0,
+            1
+          ],
+          "output": 0,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 6,
+          "initial": [
+            0,
+            1,
+            1
+          ],
+          "output": 0,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 7,
+          "initial": [
+            1,
+            1,
+            1
+          ],
+          "output": 0,
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        }
+      ],
+      "rectangle_2": [
+        {
+          "input": 0,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": true,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 1,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 2,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 3,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 4,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 5,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 6,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 7,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 8,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 9,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 10,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 11,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 12,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 13,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 14,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 15,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        }
+      ],
+      "rectangle_3": [
+        {
+          "input": 0,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": true,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 1,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 2,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 3,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": true,
+          "passed": true
+        },
+        {
+          "input": 4,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 5,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 6,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 7,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 8,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 9,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 10,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 11,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 12,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 13,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 14,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 15,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 16,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 17,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 18,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 19,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 20,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 21,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 22,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 23,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 24,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 25,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 26,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 27,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 28,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 29,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 30,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 31,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 32,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 33,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 34,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 35,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 36,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 37,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 38,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 39,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 40,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 41,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 42,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 43,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 44,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 45,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 46,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 47,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 48,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 49,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 50,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 51,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 52,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 53,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 54,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 55,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 56,
+          "rows": [
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 57,
+          "rows": [
+            [
+              1,
+              0,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 58,
+          "rows": [
+            [
+              0,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 59,
+          "rows": [
+            [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 60,
+          "rows": [
+            [
+              0,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 61,
+          "rows": [
+            [
+              1,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 62,
+          "rows": [
+            [
+              0,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        },
+        {
+          "input": 63,
+          "rows": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "premise": false,
+          "conclusion": false,
+          "passed": true
+        }
+      ]
+    },
+    "interpretation": "ALL PASS: 8/8 local, 16/16 L=2, 64/64 L=3. Finite local seams agree; all-width induction, packing and harmonic limit need proof, not extrapolation.",
+    "status": "finite-exhaustive",
+    "proof_scope": "exact admitted cones only: 8 three-bit neighborhoods, 16 four-bit L=2 cones, 64 six-bit L=3 cones",
+    "limitations": [
+      "covers finite local seams only",
+      "no whole-row orbit replayed",
+      "no survivor, enumeration, sweep, or first-witness claim",
+      "R(27)/R(111) cited, not re-executed"
+    ],
+    "admission_snapshot": "# Admission: local seams of the activity staircase proof\n\nStatus before execution: `inconclusive`. This is a finite local-algebra\nverification supporting `problem1_activity_staircase_bound.md`, not a\nsurvivor experiment. Admission precedes both implementations.\n\nExact hypothesis: for A's cell rule\nu_i(t+1)=u_(i+2)(t) XOR (u_(i+1)(t) OR u_i(t)), a zero adjacent pair\nover L consecutive times forces the next higher adjacent pair zero\nover the first L-1 times. Also the staggered zeros\nu_i(t+1)=u_(i+2)(t)=0 force u_i(t)=u_(i+1)(t)=0.\nEither failed implication kills the new staircase proof. Agreement\nchecks only the finite local seams; the all-width induction, disjoint\npacking, harmonic limit and actual-survivor limitations require proof\nand fresh independent review, not extrapolation.\n\nCheck precisely:\n\n1. All eight three-bit neighborhoods, comparing the A output bit and\n   the staggered-zero implication. Retain all input/output bits.\n2. All sixteen four-bit initial windows for the L=2 rectangle; evolve\n   valid cone widths 4,2. When the bottom pair is zero at both times,\n   check that the upper pair is zero initially.\n3. All sixty-four six-bit initial windows for the L=3 rectangle;\n   evolve valid cone widths 6,4,2. When the bottom pair is zero at\n   all three times, check that the upper pair is zero at times0,1.\n\nThe fourth/fifth/sixth bits are genuinely needed for the declared\nlocal time cones. This is not a larger spatial-orbit census. No other\nwidth, input, history, age interval or numerical claim is admitted.\nPreviously certified values R(27)=1,R(111)=2 are cited as scope\ncontrols in the proof and are NOT re-executed. Highest-one persistence\nis checked by the already hand-derived local input (higher,higher,self)\n=(0,0,1); no whole-row orbit is needed.\n\nPrimary: packed integers A=T>>2, masking to each valid cone width.\nIndependent: explicit bit arrays, direct cellwise truth conditions;\nno scientific source import or shared computed result between methods.\nBoth retain complete local trajectories, premise counts, conclusion\ncounts and per-case verdicts. Integration compares these full payloads.\n\nBounds per implementation: local one CPU,120 seconds CPU and wall,\n1GiB address-space cap; no GPU or network workload. Stop on first\nfailure or any cap, record failure/inconclusive, and do not enlarge.\nRecords use atomic same-directory temporary writes, flush/fsync and\nreplace; retain full Git commit, exact parameters, executed source\nand admission snapshots, hashes, software/hardware facts, runtime,\nlimitations and claimed finite domain. No optimized backend or test\nof the immutable reference is involved; record its unchanged hash.\n\nExpected completed status: `finite-exhaustive` only for these eight,\nsixteen and sixty-four local cones. Successful checks do not prove\nProblem1, exclude a mortal rational actual survivor, or authorize an\nactivity-level enumeration or first-witness search.\n",
+    "source_snapshot": "#!/usr/bin/env python3\n\"\"\"Independent local-seam check for the activity staircase proof.\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport subprocess\nimport sys\nimport tempfile\nimport time\n\nRULE30_LAB = \"/home/ryan/rule30-lab\"\nADMISSION = \"proofs/informal/problem1_activity_staircase_verification_admission.md\"\nOUT_PATH = \"results/problem1/20260906_activity_staircase_independent.json\"\n\n\ndef cell(self_b, mid_b, upp_b):\n    return upp_b ^ (mid_b | self_b)\n\n\ndef evolve(row):\n    return [cell(row[k], row[k + 1], row[k + 2])\n            for k in range(len(row) - 2)]\n\n\ndef bits(n, w):\n    return [(n >> k) & 1 for k in range(w)]\n\n\ndef main():\n    wall0 = time.perf_counter()\n    cpu0 = time.process_time()\n    try:\n        import resource\n        one_gib = 1 << 30\n        resource.setrlimit(resource.RLIMIT_AS, (one_gib, one_gib))\n        as_cap = \"RLIMIT_AS=1GiB enforced\"\n    except Exception as exc:\n        as_cap = \"RLIMIT_AS not enforced: %r\" % (exc,)\n\n    local = []\n    for n in range(8):\n        init = bits(n, 3)\n        out = cell(init[0], init[1], init[2])\n        premise = (out == 0 and init[2] == 0)\n        conclusion = (init[0] == 0 and init[1] == 0)\n        local.append({\"input\": n, \"initial\": init, \"output\": out,\n                      \"premise\": premise, \"conclusion\": conclusion,\n                      \"passed\": ((not premise) or conclusion)})\n\n    rectangle_2 = []\n    for n in range(16):\n        r0 = bits(n, 4)\n        r1 = evolve(r0)\n        assert len(r1) == 2\n        premise = (r0[0] == 0 and r0[1] == 0\n                   and r1[0] == 0 and r1[1] == 0)\n        conclusion = (r0[2] == 0 and r0[3] == 0)\n        rectangle_2.append({\"input\": n, \"rows\": [r0, r1],\n                            \"premise\": premise, \"conclusion\": conclusion,\n                            \"passed\": ((not premise) or conclusion)})\n\n    rectangle_3 = []\n    for n in range(64):\n        r0 = bits(n, 6)\n        r1 = evolve(r0)\n        r2 = evolve(r1)\n        assert len(r1) == 4 and len(r2) == 2\n        premise = (r0[0] == 0 and r0[1] == 0\n                   and r1[0] == 0 and r1[1] == 0\n                   and r2[0] == 0 and r2[1] == 0)\n        conclusion = (r0[2] == 0 and r0[3] == 0\n                      and r1[2] == 0 and r1[3] == 0)\n        rectangle_3.append({\"input\": n, \"rows\": [r0, r1, r2],\n                            \"premise\": premise, \"conclusion\": conclusion,\n                            \"passed\": ((not premise) or conclusion)})\n\n    payload = {\"local\": local, \"rectangle_2\": rectangle_2,\n               \"rectangle_3\": rectangle_3}\n\n    def counts(rows):\n        return {\"cases\": len(rows),\n                \"passed\": sum(1 for r in rows if r[\"passed\"]),\n                \"premise_true\": sum(1 for r in rows if r[\"premise\"]),\n                \"conclusion_true\": sum(1 for r in rows if r[\"conclusion\"])}\n\n    summary = {\"local\": counts(local),\n               \"rectangle_2\": counts(rectangle_2),\n               \"rectangle_3\": counts(rectangle_3)}\n    ok = all(v[\"passed\"] == v[\"cases\"] for v in summary.values())\n\n    with open(os.path.join(RULE30_LAB, ADMISSION), \"rb\") as fh:\n        admission_bytes = fh.read()\n    with open(os.path.abspath(__file__), \"rb\") as fh:\n        source_bytes = fh.read()\n    payload_canonical = json.dumps(\n        payload, sort_keys=True, separators=(\",\", \":\")).encode()\n    stamp = time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime())\n    record = {\n        \"experiment_id\": \"20260906_activity_staircase_independent\",\n        \"timestamp_utc\": stamp,\n        \"git_commit\": subprocess.check_output(\n            [\"git\", \"rev-parse\", \"HEAD\"], cwd=RULE30_LAB,\n            text=True).strip(),\n        \"git_status\": subprocess.check_output(\n            [\"git\", \"status\", \"--short\"], cwd=RULE30_LAB, text=True),\n        \"question\": \"problem1\",\n        \"hypothesis\": (\"A-cell zero adjacent pair over L times forces \"\n                       \"the next higher adjacent pair zero over the \"\n                       \"first L-1 times (L=2,3); staggered zeros \"\n                       \"force the lower pair zero.\"),\n        \"backend\": \"cpython-stdlib-direct-bitarray\",\n        \"parameters\": {\n            \"local_cases\": 8, \"rectangle_2_cases\": 16,\n            \"rectangle_3_cases\": 64,\n            \"cone_widths\": {\"local\": [3, 1], \"rectangle_2\": [4, 2],\n                            \"rectangle_3\": [6, 4, 2]},\n            \"cell_rule\": \"out=upper XOR (middle OR self)\",\n            \"work_cpu\": \"1\",\n            \"limits\": \"120s CPU+wall, 1GiB AS\"},\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"processor\": platform.processor(),\n            \"cpu_count\": os.cpu_count(),\n            \"address_space_note\": as_cap},\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"method\": \"direct bit arrays, stdlib only, no repo imports\"},\n        \"runtime_seconds\": {\"wall\": time.perf_counter() - wall0,\n                            \"cpu\": time.process_time() - cpu0},\n        \"result_hashes\": {\n            \"payload_sha256\": hashlib.sha256(\n                payload_canonical).hexdigest(),\n            \"source_sha256\": hashlib.sha256(source_bytes).hexdigest(),\n            \"admission_sha256\": hashlib.sha256(\n                admission_bytes).hexdigest()},\n        \"result_summary\": summary,\n        \"payload\": payload,\n        \"interpretation\": ((\"ALL PASS: 8/8 local, 16/16 L=2, 64/64 L=3. \"\n                            if ok else\n                            \"FAILURE PRESENT: see per-case rows. \") +\n                           \"Finite local seams agree; all-width induction, \"\n                           \"packing and harmonic limit need proof, \"\n                           \"not extrapolation.\"),\n        \"status\": \"finite-exhaustive\" if ok else \"refuted\",\n        \"proof_scope\": (\"exact admitted cones only: 8 three-bit \"\n                        \"neighborhoods, 16 four-bit L=2 cones, \"\n                        \"64 six-bit L=3 cones\"),\n        \"limitations\": [\n            \"covers finite local seams only\",\n            \"no whole-row orbit replayed\",\n            \"no survivor, enumeration, sweep, or first-witness claim\",\n            \"R(27)/R(111) cited, not re-executed\"],\n        \"admission_snapshot\": admission_bytes.decode(),\n        \"source_snapshot\": source_bytes.decode(),\n    }\n    out_abs = os.path.join(RULE30_LAB, OUT_PATH)\n    tmp = tempfile.NamedTemporaryFile(\n        mode=\"w\", dir=os.path.dirname(out_abs), delete=False)\n    try:\n        json.dump(record, tmp, indent=2, sort_keys=False)\n        tmp.write(\"\\n\")\n        tmp.flush()\n        os.fsync(tmp.fileno())\n    finally:\n        tmp.close()\n    os.replace(tmp.name, out_abs)\n    print(\"cases=8/16/64 passed=%d/%d/%d status=%s\"\n          % (summary[\"local\"][\"passed\"],\n             summary[\"rectangle_2\"][\"passed\"],\n             summary[\"rectangle_3\"][\"passed\"], record[\"status\"]))\n    print(\"payload_sha256=%s\"\n          % record[\"result_hashes\"][\"payload_sha256\"])\n    return 0 if ok else 1\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+  },
+  "hypothesis": "A-cell zero adjacent pair over L times forces the next higher adjacent pair zero over the first L-1 times (L=2,3); staggered zeros force the lower pair zero.",
+  "parameters": {
+    "local_cases": 8,
+    "rectangle_2_cases": 16,
+    "rectangle_3_cases": 64,
+    "cone_widths": {
+      "local": [
+        3,
+        1
+      ],
+      "rectangle_2": [
+        4,
+        2
+      ],
+      "rectangle_3": [
+        6,
+        4,
+        2
+      ]
+    },
+    "cell_rule": "out=upper XOR (middle OR self)",
+    "work_cpu": "1",
+    "limits": "120s CPU (RLIMIT_CPU) + 120s wall (alarm), 1GiB AS (RLIMIT_AS)"
+  },
+  "enforcement": {
+    "RLIMIT_AS_1GiB": true,
+    "RLIMIT_CPU_120": true,
+    "wall_alarm_120": true
+  },
+  "deadline_utc": "2026-09-06T21:49:59Z",
+  "runtime_seconds": {
+    "wall": 0.0009342699777334929,
+    "cpu": 0.000572955
+  },
+  "result_hashes_extra": {},
+  "result_summary": {
+    "local": {
+      "cases": 8,
+      "passed": 8,
+      "premise_true": 1,
+      "conclusion_true": 2
+    },
+    "rectangle_2": {
+      "cases": 16,
+      "passed": 16,
+      "premise_true": 1,
+      "conclusion_true": 4
+    },
+    "rectangle_3": {
+      "cases": 64,
+      "passed": 64,
+      "premise_true": 1,
+      "conclusion_true": 4
+    }
+  },
+  "payload": {
+    "local": [
+      {
+        "input": 0,
+        "initial": [
+          0,
+          0,
+          0
+        ],
+        "output": 0,
+        "premise": true,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 1,
+        "initial": [
+          1,
+          0,
+          0
+        ],
+        "output": 1,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 2,
+        "initial": [
+          0,
+          1,
+          0
+        ],
+        "output": 1,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 3,
+        "initial": [
+          1,
+          1,
+          0
+        ],
+        "output": 1,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 4,
+        "initial": [
+          0,
+          0,
+          1
+        ],
+        "output": 1,
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 5,
+        "initial": [
+          1,
+          0,
+          1
+        ],
+        "output": 0,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 6,
+        "initial": [
+          0,
+          1,
+          1
+        ],
+        "output": 0,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 7,
+        "initial": [
+          1,
+          1,
+          1
+        ],
+        "output": 0,
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      }
+    ],
+    "rectangle_2": [
+      {
+        "input": 0,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": true,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 1,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 2,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 3,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 4,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 5,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 6,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 7,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 8,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 9,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 10,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 11,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 12,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 13,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 14,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 15,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      }
+    ],
+    "rectangle_3": [
+      {
+        "input": 0,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": true,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 1,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 2,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 3,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": true,
+        "passed": true
+      },
+      {
+        "input": 4,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 5,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 6,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 7,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 8,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 9,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 10,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 11,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 12,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 13,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 14,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 15,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 16,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 17,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 18,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 19,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 20,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 21,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 22,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 23,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 24,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 25,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 26,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 27,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 28,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 29,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 30,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 31,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 32,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 33,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 34,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 35,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 36,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 37,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 38,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 39,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 40,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 41,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 42,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 43,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 44,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 45,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 46,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 47,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 48,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 49,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 50,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 51,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 52,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 53,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 54,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 55,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 56,
+        "rows": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 57,
+        "rows": [
+          [
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 58,
+        "rows": [
+          [
+            0,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 59,
+        "rows": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 60,
+        "rows": [
+          [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 61,
+        "rows": [
+          [
+            1,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 62,
+        "rows": [
+          [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      },
+      {
+        "input": 63,
+        "rows": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "premise": false,
+        "conclusion": false,
+        "passed": true
+      }
+    ]
+  },
+  "interpretation": "ALL PASS: 8/8 local, 16/16 L=2, 64/64 L=3. Finite local seams agree; all-width induction, packing and harmonic limit need proof, not extrapolation.",
+  "status": "finite-exhaustive",
+  "proof_scope": "exact admitted cones only: 8 three-bit neighborhoods, 16 four-bit L=2 cones, 64 six-bit L=3 cones",
+  "limitations": [
+    "covers finite local seams only",
+    "no whole-row orbit replayed",
+    "no survivor, enumeration, sweep, or first-witness claim",
+    "R(27)/R(111) cited, not re-executed"
+  ]
+}
