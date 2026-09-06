@@ -11,6 +11,42 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+## Lead identity correction and context checkpoint (2026-09-06)
+
+The continuation of `55fd1fe39c4a99f0f0491238d2a23df54e75d32f`
+verified that this active lead IS configured and recorded as
+`gpt-6-astra`. Its local turn_context model field, selected configuration,
+and model-cache slug agree. The earlier unavailable-Astra claim was a
+lead integration error: the subagent override list is not the list of
+possible active lead models. The pending confirmation is unnecessary;
+do not ask it again or treat it as an execution blocker.
+
+The rejected-review audit remains valid. Its historical JSON is retained
+unchanged, including the now-superseded identity assessment. Astra's
+local integration audit rejected both MiMo verdicts for the recorded
+equation, precision and map-domain errors. A successful fresh external
+proof-critical review is still missing; no new source theorem is claimed.
+
+The current lead transcript is approaching ASTRA_GOAL.md's approximately
+80,000-input-token context threshold: its last measured request at
+2026-09-06T16:20:29.215Z used 71,590 INPUT tokens (70,784 cached).
+This is per-request input usage, not the cumulative goal token count.
+Finish this correction as the current logical unit, verify and push,
+then continue from a fresh Astra session rather than starting another
+long proof phase in this transcript. This is a context checkpoint,
+not research exhaustion or a Problem 1 solution.
+
+Fresh-session first task: read the short fallback-review audit, preserve
+its exact correction targets, and obtain a usable bounded adversarial
+check under the CURRENT Muse/MiMo policy when possible. Do not repeat
+requests just to obtain a favorable verdict. The strongest mathematical
+route remains the boundary-sum inequality on ACTUAL return histories
+with age versus ORIGINAL length and all observed gates retained; a
+nonlinear/history-word observable is the distinct alternative. All
+finite-residue universal additive descent remains closed at its existing
+source status, with the review limitation explicit. No new width sweep,
+census, coefficient box or repeated solver is admitted.
+
 ## Fresh fallback review audit (2026-09-06)
 
 Resume with `proofs/informal/problem1_all_memory_fallback_review_audit.md`.
@@ -43,12 +79,9 @@ First route: the boundary-sum identity with all actual-gate constraints.
 Second route: a nonlinear or history-word observable outside the closed
 universal additive class. Neither route has been exhausted or proved.
 
-Execution limitation: this session identifies as GPT-6 and exposes no
-Astra model in its agent list. The user was asked whether to authorize
-this lead or resume in Astra; no answer had arrived at checkpoint time.
-No Astra final judgment is claimed. This is not mathematical exhaustion,
-not the context threshold, and not completion of ASTRA_GOAL.md.
-The earlier mathematical handoff below is retained as historical context.
+The initial execution limitation attributed to the lead model was
+mistaken; see the identity correction above. The earlier mathematical
+handoff below is retained as historical context.
 
 ## Execution/review block at the context handoff (2026-09-06)
 

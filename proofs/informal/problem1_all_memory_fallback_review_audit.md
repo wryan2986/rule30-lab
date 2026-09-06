@@ -25,10 +25,15 @@ local hardware/software facts, and archive-preparation timing. Provider
 inference timing and hardware were not reported. The archived review text
 contains rejected claims; it is evidence about the review, not a proof.
 
-This session identifies as GPT-6. Its exposed model list does not name
-Astra. The user was asked whether to authorize this lead or resume with
-Astra; no answer had arrived when this checkpoint was prepared. This is
-an integration audit, not a claim of Astra's final proof judgment.
+Execution correction on continuation: the active session's local
+turn_context records identify its model as `gpt-6-astra`; the selected
+local configuration and model metadata independently name that same
+model. The earlier conclusion that Astra was unavailable confused the
+subagent override list with the active lead identity. No user permission
+or model switch is required. The archive preserves that mistaken
+assessment as historical provenance; this paragraph supersedes it.
+The current Astra lead rejects the review for the exact reasons below.
+This does not turn a rejected external review into a successful one.
 
 ## 1. Dropping the original cycle cost
 
@@ -107,5 +112,5 @@ every observed-gate requirement. Its existing identity is in
 `problem1_critical_cost_schedule_identity.md`, equations (4)--(6).
 A nonlinear or history-word observable is a distinct surviving route.
 No new census, width sweep, coefficient search or solver run is justified.
-The lead-model issue is an execution constraint, not mathematical
-exhaustion, a context-budget stop, or successful completion of the goal.
+The supposed lead-model constraint is withdrawn. The fresh external
+verification gap remains; no mathematical-exhaustion claim is made.
