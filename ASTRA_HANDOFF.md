@@ -1,3 +1,86 @@
+## Round 2 research checkpoint (2026-09-06, base `4fd5b87`)
+
+Read `proofs/informal/problem1_terminal_branch_sensitivity.md` and
+`proofs/informal/problem1_finite_suffix_defect_transfer.md` first.
+The new results concern cost stability under INTERRUPTIONS, not a
+new ordinary-boundary exclusion or a Problem1 solution.
+
+- `partial-proof`: changing just the final observed branch transports
+  a two-bit defect along the boundary. Its leading bit stays1; the
+  other has exact reverse recurrence eta_-1=0,
+  eta_d=eta_(d-1) XOR (y_d[4] OR y_d[3]). The score change is
+  sum[J(y_d XOR64 XOR128*eta_d)-J(y_d)]. The Boolean derivative
+  used is H(a XOR1,b,c,d) XOR H(a,b,c,d)=c OR d.
+- `refuted`: a uniform bounded upper cost per changed branch.
+  On stored ututtt, s=2+138v gives original Psi=6v and Psi=15v
+  after ONE admissible last-letter u->t flip. Thus delta=9v.
+  The pure ut final-letter control has zero mean change; do not
+  misread that one control as general stability.
+- `refuted`: preserving even a comparator's maximum phase slope
+  with bounded/sublinear edit error. On pure ut, replace last two
+  letters by tt at s=3+112v: original Psi=8v, changed Psi=12v.
+  Only the PENULTIMATE u changes, giving slopes1/14 and3/28.
+  Both original phases have slope1/14, so phase oscillation is
+  not needed for this stronger instability. The r3/ttu seam at
+  s=4+448v gives32v versus1+52v, slope13/112. Do not extend r.
+- `refuted`: zero-density Hamming stability for ONE fixed infinite
+  admissible schedule. From pure ut delete u at each
+  h_n=2+112*2^(2^n). Only gaps2,4 occur and edit density is0.
+  Exact locality |DeltaPsi|<=2h for words equal after h gives
+  [Psi_(h_n+1)(q')-Psi_(h_n+1)(ut)]/(h_n+1)->1/28.
+  The ututtt note also supplies a sparse paired-edit construction
+  with limit3/46; its second repair edit is essential. These
+  infinite schedules are ALREADY nonordinary by the old unbounded
+  repetition-excess criterion. They are cost countermodels only.
+- `partial-proof`: for a FIXED r-letter terminal replacement over
+  a fixed periodic comparator, retain w=2r defect bits. The transfer
+  and inverse are unit-triangular with first bit fixed. Their order
+  divides2^(w-1). With common spatial onset a and period lambda,
+  D=ceil(a/2)+max(r-2,0), L=lcm(p,lambda/gcd(lambda,2)),
+  K=2^(2r-1)*L gives exact phase-specific cost increments for
+  s>=max(2,r,D+1). Terminal phase is e+3-r, NOT e-r+1.
+  J needs known comparator bits XOR defect bits; for r>=5 its
+  window lies inside the larger defect window. No uniform-in-r
+  bound follows. The named r2/r3 all-age laws ALSO follow directly
+  from their exact closed finite states, without the general order bound.
+- `finite-exhaustive`: modular and independent cell methods match
+  442 period rows plus3 prefix rows;13 literal terminal-edit replays,
+  78 modular/long-division checks,16 Boolean derivatives,128 bulk-bit
+  checks. The FOUR admitted r2/r3 seam cases (ages3,115 and4,452)
+  match all568 full driver/defect/score rows against independently
+  constructed cylinders and full cell histories. Only ut and the
+  stored ututtt comparator were used; no new rational cycle, core,
+  frontier, occurrence, first-witness, coefficient or width sweep ran.
+
+Verification: MiMo supplied the primary after Muse429 plus one delayed
+retry. Lead caught a dropped low-prefix parity and invalid closure
+comparison: totals had accidentally matched while a vector was wrong.
+The corrected full vectors agree; lead also fixed missing protocol
+metadata and archived actual source/admission snapshots. MiMo's
+Sections1--4 terminal-sensitivity review was accepted after correcting
+its prose about forbidden gap2,3. The separate ALL-r review failed:
+Muse429/retry429; MiMo initial and one corrective verdict BOTH rejected
+as complete verification for comparator-window, H-index, terminal-phase
+and absolute-bit/defect confusions. Full all-r external review remains
+missing. The bounded arithmetic/admissibility checks are retained, not
+promoted to full acceptance. All three agent threads are closed.
+
+Records in `results/problem1/`:
+`20260906_terminal_branch_sensitivity_{primary,independent,verification}.json`,
+`20260906_finite_suffix_defect_{seams,review}.json`.
+The old all-memory entire external review is still missing; the older
+periodic additive-reader section7 review IS now closed (checkpoint below).
+
+Current bottleneck: an upper bound on ACTUAL ordinary near-boundary
+histories retaining ORIGINAL length and all observed gates, or a
+nonlinear ordered-history observable. Counts or zero density of
+interruptions cannot transfer a periodic comparator's cost. A larger
+uniform subunit bound is NOT refuted. Fixed-r periodic-prefix families
+already face the old repetition bound s<=k+r+2p-3; merely increasing
+r or adding comparator words is not a new critical-path experiment.
+No numerical extension is admitted by these results or review failures.
+Research continues; this checkpoint is not success or mathematical blockage.
+
 ## Round 2 first checkpoint (2026-09-06, base `b264a4c`)
 
 Fresh Muse adversarial review ACCEPTED section7 of
