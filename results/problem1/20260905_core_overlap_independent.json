@@ -1,0 +1,670 @@
+{
+  "backend": "python-cell-rule-odd-section-and-direct-H",
+  "experiment_id": "problem1-core-overlap-independent-20260905",
+  "git_commit": "ec3ff5cdbde8e0e30d0ad17bf66e6db9bb88b528",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 485092
+  },
+  "hypothesis": "Existing periodic leading blocks have the asserted self/adjacent overlaps; forced continuation does not erase the omitted fifth position.",
+  "inputs": {
+    "proofs/informal/problem1_critical_cost_schedule_identity.md": "8cfca49e22e02abe72eefb980ea72638dc42c93f6a41b606c16066bf99f1b53e",
+    "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+    "proofs/informal/problem1_prescribed_history_cost_pullback.md": "994d6b995611f8a3a30feddd44a2fd909395cceada9ed7395e9b51f6824fe7f0",
+    "results/problem1/20260905_core_overlap_primary.json": "723c0828a4732e55aaee1defbfbf9c5e2aad0d5bb601ead44f16a88fa7f3f724",
+    "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+    "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c"
+  },
+  "interpretation": "Finite base calculations and stated forced-head scans pass; all-depth consequences require the separate leading-block proof.",
+  "limitations": [
+    "No larger periodic core, frontier or occurrence census.",
+    "No sufficiency of decoded leading-core candidate for ordinary membership.",
+    "No actual return exclusion or Problem1 proof."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "cpu_seconds_limit": 120,
+    "forced_head_age3": "not run: counter at age2",
+    "forced_head_domains": [
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        7
+      ]
+    ],
+    "frontier_levels": [
+      1,
+      8
+    ],
+    "overlap_levels": [
+      2,
+      8
+    ],
+    "phases": [
+      "p",
+      "u"
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Only the declared finite cores, residue maps and two completed word lengths.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "055a87a3170d869c3e4085b82ceb14db48706554ed22bc1aec3400e3fd59e21c",
+    "source_sha256": "69689bf73a70b2e79d7bc1a88de38472cf9708b851a7ba7500d615639d89efa8"
+  },
+  "result_summary": {
+    "completed": true,
+    "core_levels_checked": 16,
+    "failures": [],
+    "forced_head_counters": [
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tpptput"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tpptuut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tptuput"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tptuuut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "ttttput"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "ttttuut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tuptput"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tuptuut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tutuput"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 56939,
+        "phase": "p",
+        "word": "tutuuut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "pptpupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "pptpuuu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "pptuupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "pptuuuu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tppptut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpptppt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpptptu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpptttt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpptupt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpptutu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpputut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tpttptt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tttpupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tttpuuu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tttuupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tttuuuu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tupptut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuptppt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuptptu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuptttt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuptupt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuptutu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuputut"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "tuttptt"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "uptpupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "uptpuuu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "uptuupu"
+      },
+      {
+        "branches": "ttu",
+        "endpoint": 28523,
+        "phase": "u",
+        "word": "uptuuuu"
+      }
+    ],
+    "image_sets_checked": 91,
+    "original_payload_source_summary_input_hashes_verified": true,
+    "overlap_tables": [
+      {
+        "adjacent_L_minus_k": -1,
+        "adjacent_b": 2,
+        "adjacent_k_min": 2,
+        "core": [
+          12,
+          13
+        ],
+        "h": 2,
+        "phase": "p",
+        "previous_core": [
+          3
+        ],
+        "previous_tau": 0,
+        "self_b": 1,
+        "self_k_min": 2,
+        "self_r_minus_k": -2,
+        "tau": 0
+      },
+      {
+        "adjacent_L_minus_k": -2,
+        "adjacent_b": 2,
+        "adjacent_k_min": 5,
+        "core": [
+          50,
+          55
+        ],
+        "h": 3,
+        "phase": "p",
+        "previous_core": [
+          12,
+          13
+        ],
+        "previous_tau": 0,
+        "self_b": 1,
+        "self_k_min": 5,
+        "self_r_minus_k": -3,
+        "tau": 2
+      },
+      {
+        "adjacent_L_minus_k": -2,
+        "adjacent_b": 3,
+        "adjacent_k_min": 8,
+        "core": [
+          200,
+          222
+        ],
+        "h": 4,
+        "phase": "p",
+        "previous_core": [
+          50,
+          55
+        ],
+        "previous_tau": 2,
+        "self_b": 2,
+        "self_k_min": 8,
+        "self_r_minus_k": -4,
+        "tau": 4
+      },
+      {
+        "adjacent_L_minus_k": -4,
+        "adjacent_b": 1,
+        "adjacent_k_min": 11,
+        "core": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "h": 5,
+        "phase": "p",
+        "previous_core": [
+          200,
+          222
+        ],
+        "previous_tau": 4,
+        "self_b": 4,
+        "self_k_min": 11,
+        "self_r_minus_k": -4,
+        "tau": 6
+      },
+      {
+        "adjacent_L_minus_k": -4,
+        "adjacent_b": 3,
+        "adjacent_k_min": 14,
+        "core": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "h": 6,
+        "phase": "p",
+        "previous_core": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "previous_tau": 6,
+        "self_b": 4,
+        "self_k_min": 14,
+        "self_r_minus_k": -5,
+        "tau": 8
+      },
+      {
+        "adjacent_L_minus_k": -5,
+        "adjacent_b": 3,
+        "adjacent_k_min": 16,
+        "core": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "h": 7,
+        "phase": "p",
+        "previous_core": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "previous_tau": 8,
+        "self_b": 3,
+        "self_k_min": 16,
+        "self_r_minus_k": -6,
+        "tau": 9
+      },
+      {
+        "adjacent_L_minus_k": -5,
+        "adjacent_b": 5,
+        "adjacent_k_min": 19,
+        "core": [
+          51292,
+          51431,
+          56937,
+          57038
+        ],
+        "h": 8,
+        "phase": "p",
+        "previous_core": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "previous_tau": 9,
+        "self_b": 2,
+        "self_k_min": 19,
+        "self_r_minus_k": -8,
+        "tau": 11
+      },
+      {
+        "adjacent_L_minus_k": -1,
+        "adjacent_b": 1,
+        "adjacent_k_min": 3,
+        "core": [
+          6
+        ],
+        "h": 2,
+        "phase": "u",
+        "previous_core": [
+          1
+        ],
+        "previous_tau": 0,
+        "self_b": 0,
+        "self_k_min": 3,
+        "self_r_minus_k": -3,
+        "tau": 1
+      },
+      {
+        "adjacent_L_minus_k": -2,
+        "adjacent_b": 1,
+        "adjacent_k_min": 5,
+        "core": [
+          25,
+          27
+        ],
+        "h": 3,
+        "phase": "u",
+        "previous_core": [
+          6
+        ],
+        "previous_tau": 1,
+        "self_b": 2,
+        "self_k_min": 5,
+        "self_r_minus_k": -3,
+        "tau": 2
+      },
+      {
+        "adjacent_L_minus_k": -2,
+        "adjacent_b": 3,
+        "adjacent_k_min": 7,
+        "core": [
+          100,
+          111
+        ],
+        "h": 4,
+        "phase": "u",
+        "previous_core": [
+          25,
+          27
+        ],
+        "previous_tau": 2,
+        "self_b": 1,
+        "self_k_min": 7,
+        "self_r_minus_k": -4,
+        "tau": 3
+      },
+      {
+        "adjacent_L_minus_k": -3,
+        "adjacent_b": 4,
+        "adjacent_k_min": 9,
+        "core": [
+          400,
+          401,
+          444,
+          445
+        ],
+        "h": 5,
+        "phase": "u",
+        "previous_core": [
+          100,
+          111
+        ],
+        "previous_tau": 3,
+        "self_b": 3,
+        "self_k_min": 9,
+        "self_r_minus_k": -4,
+        "tau": 4
+      },
+      {
+        "adjacent_L_minus_k": -5,
+        "adjacent_b": 2,
+        "adjacent_k_min": 13,
+        "core": [
+          1602,
+          1607,
+          1779,
+          1782
+        ],
+        "h": 6,
+        "phase": "u",
+        "previous_core": [
+          400,
+          401,
+          444,
+          445
+        ],
+        "previous_tau": 4,
+        "self_b": 3,
+        "self_k_min": 13,
+        "self_r_minus_k": -5,
+        "tau": 7
+      },
+      {
+        "adjacent_L_minus_k": -5,
+        "adjacent_b": 4,
+        "adjacent_k_min": 15,
+        "core": [
+          6411,
+          6428,
+          7117,
+          7129
+        ],
+        "h": 7,
+        "phase": "u",
+        "previous_core": [
+          1602,
+          1607,
+          1779,
+          1782
+        ],
+        "previous_tau": 7,
+        "self_b": 3,
+        "self_k_min": 15,
+        "self_r_minus_k": -6,
+        "tau": 8
+      },
+      {
+        "adjacent_L_minus_k": -6,
+        "adjacent_b": 4,
+        "adjacent_k_min": 18,
+        "core": [
+          25646,
+          25715,
+          28468,
+          28519
+        ],
+        "h": 8,
+        "phase": "u",
+        "previous_core": [
+          6411,
+          6428,
+          7117,
+          7129
+        ],
+        "previous_tau": 8,
+        "self_b": 3,
+        "self_k_min": 18,
+        "self_r_minus_k": -7,
+        "tau": 10
+      }
+    ],
+    "s1_positive_count": 108,
+    "s1_step_histogram": [
+      [
+        0,
+        84
+      ],
+      [
+        1,
+        24
+      ]
+    ],
+    "scanned_forced_head": {
+      "s1": {
+        "eligible_counters": 0,
+        "words_scanned": 1458
+      },
+      "s2": {
+        "eligible_counters": 38,
+        "words_scanned": 4374
+      }
+    },
+    "smallest_witness": {
+      "C": 1,
+      "D": 0,
+      "H2_costs": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "H2_word_from_zero": "ptptpupu",
+      "endpoint": 56939,
+      "gap": 1,
+      "n": 7,
+      "observed_branches": "ttu",
+      "phase": "p",
+      "prefixes": [
+        3,
+        13,
+        50,
+        221,
+        803,
+        3564,
+        12821,
+        56939
+      ],
+      "prescribed_time2_W": 1,
+      "prescribed_time2_word_from_zero": "ptptpupupt",
+      "s": 2,
+      "states": [
+        56939,
+        228155,
+        910999,
+        3650439
+      ],
+      "word_from_zero": "ptpptput"
+    }
+  },
+  "runtime_seconds": 0.09874236804898828,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import collections,datetime,functools,hashlib,itertools,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_CPU,(120,120));resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));signal.alarm(120)\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'))\nOUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_core_overlap_independent.json')))\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(v):return json.dumps(v,sort_keys=True,separators=(',',':')).encode()\ninputs={}\ndef read(p):\n b=(ROOT/p).read_bytes();inputs[p]=sha(b);return json.loads(b)\nhead=read('results/problem1/20260905_frontier_head_independent.json')['result_summary']\nprimary=read('results/problem1/20260905_core_overlap_primary.json')\nruns={}\nfor name,item in primary['runs'].items():\n raw=item['raw_json_text'].encode();assert sha(raw)==item['raw_sha256'];r=json.loads(raw);runs[name]=r\n assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\n assert sha(json.dumps(r['result_summary'],sort_keys=True).encode())==r['result_hashes']['result_summary_sha256']\n for p,h in r['provenance']['inputs'].items():\n  b=(ROOT/p).read_bytes();assert sha(b)==h;inputs[p]=h\nassert sha(primary['source_text'].encode())==primary['result_hashes']['source_sha256']\nassert sha(canon(primary['result_summary']))==primary['result_hashes']['result_summary_sha256']\n@functools.lru_cache(None)\ndef T(x):\n b=[(x>>i)&1 for i in range(x.bit_length()+2)]\n return sum((b[i]^((b[i-1] if i else 0)|(b[i-2] if i>1 else 0)))<<i for i in range(len(b)))\ndef A(x):return T(x)>>2\ndef G(g,x):return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\ndef I(x):return int(x%64 in (0,5))\ndef pref(root,w):\n v=[root]\n for g in w:v.append(G(g,v[-1]))\n return v\ndef H(root,w):return ''.join('tupp'[x%4] for x in pref(root,w)[1:])\ndef omega(x,g):return int((x%16,g) in [(0,'t'),(1,'u')])\ndef costs(root,w):return [omega(x,g) for x,g in zip(pref(root,w),w)]\ndef gate(x):return 'u' if x%16==7 else 't' if x%16==11 else None\ndef orbit(x,cap):\n xs=[x];w=''\n for _ in range(cap):\n  g=gate(x)\n  if not g:break\n  w+=g;x=G(g,A(x));xs.append(x)\n return xs,w\ndef Ap(x,s):\n for _ in range(s):x=A(x)\n return x\ndef D(x,s):return sum(I(Ap(x>>(2*d),s-1-d)) for d in range(s))\ndef admissible(w):return not any(z in w for z in ('uu','ttttt','ututtu'))\nstored={(r['phase'],r['h']):r for r in head['frontier_core_rows']};coredata={};tables=[];image_sets_checked=0\nfor phase,root in [('p',3),('u',1)]:\n O={root}\n for h in range(1,9):\n  cur=O;tau=0;counts=[len(cur)]\n  while True:\n   nxt={A(x) for x in cur};image_sets_checked+=1;assert nxt<=cur\n   if nxt==cur:break\n   cur=nxt;tau+=1;counts.append(len(cur))\n  if (phase,h) in stored:\n   sr=stored[phase,h];assert sorted(O)==sr['initial_frontier'] and sorted(cur)==sr['core'];assert tau==sr['stabilization_age'] and counts==sr['image_counts']\n  coredata[phase,h]={'core':sorted(cur),'tau':tau}\n  if h>=2:\n   C=sorted(cur);old=coredata[phase,h-1]['core'];self_b=next(b for b in range(2*h+1) if len({x%(1<<b) for x in C})==len(C));adj_b=next(b for b in range(2*h+1) if {x%(1<<b) for x in C}.isdisjoint({x%(1<<b) for x in old}))\n   tables.append({'phase':phase,'h':h,'core':C,'previous_core':old,'tau':tau,'previous_tau':coredata[phase,h-1]['tau'],'self_b':self_b,'adjacent_b':adj_b,'self_k_min':h+tau,'adjacent_k_min':h+max(tau,coredata[phase,h-1]['tau']),'self_r_minus_k':-h+(self_b+1)//2-1,'adjacent_L_minus_k':-h+(adj_b+1)//2})\n  if h<8:O={G(g,x) for x in O for g in 'tup'}\n# Same completed word domains as Muse; direct H costs instead of positional shortcut.\ncounters=[];scanned={};positives=0;step_hist=collections.Counter();witness=None\nfor s,n in [(1,6),(2,7)]:\n found=[];total=0\n for phase,root in [('p',3),('u',1)]:\n  for letters in itertools.product('tup',repeat=n):\n   w=''.join(letters);vs=pref(root,w);x=vs[-1];hw=w\n   for _ in range(s):hw=H(root,hw)\n   cc=costs(root,hw);total+=1;assert cc[4]==I(Ap(vs[5],s-1))\n   if cc[4]!=1:continue\n   xs,br=orbit(x,s+1)\n   if s==1:\n    positives+=1;step_hist[len(br)]+=1;assert x%64 in [0,1,3,26,27] and len(br)<2\n   if len(br)==s+1 and admissible(br):found.append({'phase':phase,'word':w,'endpoint':x,'branches':br})\n found.sort(key=lambda r:(r['phase'],r['endpoint'],r['word']))\n scanned['s'+str(s)]={'words_scanned':total,'eligible_counters':len(found)}\n if found:counters=found;break\nassert counters==runs['forced_head']['counters_min_age']\nrs=runs['forced_head']['result_summary'];assert scanned==rs['scanned'] and counters[0]==rs['smallest'];assert positives==rs['s1_all_input']['fifth_cost_positives'] and [list(x) for x in sorted(step_hist.items())]==rs['s1_all_input']['forced_step_histogram']\nr=counters[0];root=3;w=r['word'];vs=pref(root,w);xs,br=orbit(vs[-1],3);hw=H(root,H(root,w));cw=costs(root,hw);fw=H(root,H(root,w)+br[0])+br[1]\nwitness={'phase':'p','word_from_zero':'p'+w,'n':len(w),'s':2,'prefixes':vs,'endpoint':vs[-1],'observed_branches':br,'states':xs,'H2_word_from_zero':'p'+hw,'H2_costs':cw,'C':sum(cw),'D':D(vs[-1],2),'gap':sum(cw)-D(vs[-1],2),'prescribed_time2_word_from_zero':'p'+fw,'prescribed_time2_W':sum(costs(root,fw))}\nassert witness['gap']==1 and witness['observed_branches']=='ttu' and witness['endpoint']==56939\noverlap=runs['overlap']['result_summary']\nassert overlap['regen_match_16_of_16']\nfor row in tables:\n key=row['phase']+' h'+str(row['h']);sc=overlap['self_table'][key];ac=overlap['adj_table'][key]\n assert sc=={'b':row['self_b'],'tau':row['tau'],'k':row['self_k_min'],'r':max(1,row['self_k_min']+row['self_r_minus_k'])}\n assert ac=={'b':row['adjacent_b'],'tau':max(row['tau'],row['previous_tau']),'k':row['adjacent_k_min'],'L':row['adjacent_k_min']+row['adjacent_L_minus_k']}\n\nsummary={'completed':True,'failures':[],'core_levels_checked':16,'image_sets_checked':image_sets_checked,'overlap_tables':tables,'scanned_forced_head':scanned,'forced_head_counters':counters,'s1_positive_count':positives,'s1_step_histogram':[list(x) for x in sorted(step_hist.items())],'smallest_witness':witness,'original_payload_source_summary_input_hashes_verified':True}\nsource=pathlib.Path(__file__).read_bytes();record={'experiment_id':'problem1-core-overlap-independent-20260905','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'Existing periodic leading blocks have the asserted self/adjacent overlaps; forced continuation does not erase the omitted fifth position.','backend':'python-cell-rule-odd-section-and-direct-H','parameters':{'phases':['p','u'],'frontier_levels':[1,8],'overlap_levels':[2,8],'forced_head_domains':[[1,6],[2,7]],'forced_head_age3':'not run: counter at age2','cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,'inputs':inputs,'source_text':source.decode(),'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},'result_summary':summary,'status':'finite-exhaustive','interpretation':'Finite base calculations and stated forced-head scans pass; all-depth consequences require the separate leading-block proof.','proof_scope':'Only the declared finite cores, residue maps and two completed word lengths.','limitations':['No larger periodic core, frontier or occurrence census.','No sufficiency of decoded leading-core candidate for ordinary membership.','No actual return exclusion or Problem1 proof.']}\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT);print(json.dumps({k:v for k,v in summary.items() if k not in ['overlap_tables','forced_head_counters']}))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T00:03:59.739440+00:00"
+}

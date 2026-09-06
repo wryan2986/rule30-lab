@@ -11,6 +11,59 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest periodic-core overlap theorem: read
+`proofs/informal/problem1_periodic_core_overlap_boundary.md` first,
+with the existing head-dynamics and branch-cylinder definitions.
+
+- `partial-proof` (all-depth): if adjacent stabilized leading cores
+  C_(a,h),C_(a,h-1) have disjoint residues modulo2^b, then raw adjacent
+  shadows are empty at L>=k-h+ceil(b/2), provided k-h is at least
+  BOTH stabilization ages. The SAME projection depth applies to both
+  initial frontier levels. Existing cores prove p,k>=16,L>=k-5 and
+  u,k>=18,L>=k-6. These sharpen the previous dominant-only boundary
+  and already force signed mass0, without any mask or sign test.
+- Consequently a proof demanding nonzero signed mass on every genuine
+  occurrence must establish c<=k-7 in p for k>=16 and c<=k-8 in u
+  for k>=18. These are necessary obligations, NOT proved occurrence
+  bounds. B_all retains its old meaning L<=k-2 and remains open.
+  In particular the cost-formula layer c=k-5 has empty RAW shadows
+  in both phases at sufficiently large k. A potential there must
+  exclude the actual return; it cannot repair the zero signed mass.
+- `partial-proof` (all-depth): if one leading core is injective
+  modulo2^b, low2(k-h)+b bits determine at most one ordinary endpoint
+  after stabilization. Thus phase and INITIAL k plus r observed
+  branches determine at most one endpoint for p,k>=19,r>=k-8 and
+  u,k>=18,r>=k-7. The explicit candidate decoder does NOT establish
+  ordinary membership; all excess observed bits must also agree.
+  This is endpoint uniqueness, not history uniqueness or existence.
+- The five-position extension even with s+1 OBSERVED admissible
+  branches is `refuted` at s2,n7 by p word ptpptput, endpoint56939,
+  branches ttu: C2=1,D2=0. Its fifth prefix3564 maps under A to3205.
+  The s1,n6 case DOES hold by the exact residue trap{0,1,3,26,27},
+  none of which has two defined forced steps. This counter has only
+  one observed u and is not a genuine three-return occurrence.
+- `finite-exhaustive`: Muse and independent cell calculations agree
+  on28 self/adjacent overlap entries from existing cores through h8.
+  The cell implementation regenerates16 frontier/core sets and checks
+  91 image steps. Both full scans at n6,n7 agree on all5,832 words,
+  38 age-two counters (10 p,28 u, all ttu), and the named witness.
+  Age3 was not run after the age2 refutation. No larger frontier,
+  core or occurrence census was admitted. The p,h7 adjacent overlap
+  already separates modulo8; modulo16 suffices too, with the same L.
+  Records: `results/problem1/20260905_core_overlap_` followed by
+  `{primary,independent}.json`, with exact original payload/source
+  provenance and portable cell verification.
+
+Independent mathematical and final four-file integration reviews accepted
+the checkpoint without material corrections.
+
+Next: combine the decoder with a constraint on the observed return
+word and FULL ordinary membership, or prove a boundary-sum inequality
+that excludes actual returns. Merely satisfying the leading core is
+insufficient. A fixed subunit growth bound on the sum would exclude
+infinite ordinary survival, but no such density bound is established.
+Problem 1, actual return exclusion and signed nonvanishing remain open.
+
 Newest critical-cost identity: read
 `proofs/informal/problem1_critical_cost_schedule_identity.md` first,
 then the born-suffix and synchronization definitions below.
