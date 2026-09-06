@@ -1,11 +1,11 @@
 # Temporal activity and the original-position deficit
 
 Status: `partial-proof` for the all-depth statements below. The declared
-finite checks are complete; a usable complete external proof review is
-still missing. Scoped review and its corrections are recorded in Section6.
-Round four independently verifies the Section3 last-time/harmonic lemmas
-and the spatial-limit argument as used for the single-column V theorem;
-this does not imply acceptance of every Z-specific section here.
+finite checks are complete. Round four now supplies a corrected complete
+scoped external proof review of Sections1-5, with their expressly imported
+dependencies; numerical verification counts are outside that verdict.
+See `problem1_activity_criteria_full_review.md` and its atomic archive.
+The earlier, narrower review dispositions are retained in Section6.
 This is a new support criterion and a reformulation of the active
 period-two bottleneck, not an exclusion of period two or a solution of
 Problem 1. Base checkpoint: `a60d87f4c88343afe22b7ee5ee9f8180b96ecaee`.
@@ -335,6 +335,16 @@ its common-time spatial-limit argument, is now accepted in that precise
 scope. See `problem1_activity_finiteness_independent_review.md`; it also
 records correction of the review's subsequently inserted false one-sided
 commutation claim. No blanket verdict on all Z-specific sections follows.
+Final round-four update: the subsequent complete scoped review now DOES
+cover all all-depth claims in Sections1-5, including Z-specific bounds
+and the derived D seam. The lead rejected the review's false multi-step
+identity F^r=4A^(2r)+3 (r>1), unsupported optimality wording and boundary
+counting slips before accepting its explicit corrected verdict. The
+valid projection is pi^r F^r=A^(2r), with r low pairs restored. Exact
+reviewed versions and corrections are in
+`results/problem1/20260906_activity_criteria_full_review.json`.
+No source counterexample was established. No finite verification count,
+old all-memory/all-r theorem or actual growth result is newly accepted.
 The immutable reference is unchanged, and source/admission hashes reload.
 The signed-mass and B_all routes
 remain open; this note proves neither a new occurrence exclusion nor

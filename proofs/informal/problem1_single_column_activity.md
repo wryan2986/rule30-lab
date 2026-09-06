@@ -1,9 +1,13 @@
 # A single-column record for eventual finite support
 
 Status: `partial-proof`, lead-derived and lead-checked; the finite checks
-are complete. Round four supplies a complete scoped external derivation
-of Section3's uniform finite-entry theorem; review of every other
-section is not inferred. Its scoped content is recorded below.
+are complete. Round four supplies a complete scoped external review of
+all all-depth claims in Sections1-4, with their explicitly imported
+dependencies. Numerical verification claims are a separate scope.
+The corrected derivations and source snapshots are in
+`problem1_activity_criteria_full_review.md` and
+`results/problem1/20260906_activity_criteria_full_review.json`.
+The review history below records earlier, narrower dispositions.
 Problem 1 remains open.
 This continues `problem1_temporal_activity_deficit.md` and replaces
 its six-cell score by one bit at each sampled time.
@@ -234,3 +238,13 @@ separate superseded primary-record correction are detailed in the
 temporal-deficit note and `20260906_temporal_activity_review.json`.
 That round's agent threads were closed. No all-section reviewer
 acceptance or actual growth result is inferred from finite comparisons.
+
+Final round-four disposition: fresh corrected Muse review now covers
+ALL all-depth statements in Sections1-4, using the earlier accepted
+Section3 derivation and the expressly stated external dependencies.
+Lead independently checked the remaining formulas, constants, domains
+and both forced seams before accepting the renewed scoped verdict.
+See `problem1_activity_criteria_full_review.md` and its atomic archive.
+This acceptance comes from proof review, not finite comparisons;
+numerical verification counts, old all-memory/all-r claims and actual
+survivor growth are outside that verdict. The sole worker is closed.
