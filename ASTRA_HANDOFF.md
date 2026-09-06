@@ -1,161 +1,202 @@
-# Astra handoff: round 5 in-progress checkpoint, 2026-09-06
+# Astra handoff: round 5 maintenance checkpoint, 2026-09-06
 
-Problem 1 remains OPEN. Research continues on `research/astra-next`.
-Round five began at21:20:55UTC and is still in progress. This is a logical
-unit checkpoint, not goal achieved or research blocked. The complete
-incoming round-four handoff is preserved byte for byte in
-`docs/astra_handoff_archive_20260906_round5.md`. Read ASTRA_GOAL.md first.
+Problem1 remains OPEN. This is time-maintenance rollover, not goal achieved,
+research blocked, or research exhaustion. Research continues on
+`research/astra-next`. Round five began at21:20:55UTC; the final atomic audit
+records the checkpoint time and elapsed seconds. Read ASTRA_GOAL.md first.
+The incoming handoff is preserved byte for byte in
+`docs/astra_handoff_archive_20260906_round5.md`.
 
-## Current bottleneck
+## Current bottleneck and reading order
 
-Prove unbounded activity R_N for ONE FIXED ACTUAL period-two survivor,
-retaining its full fringe coupling. Use
+Prove activity growth for ONE FIXED ACTUAL period-two survivor, keeping its
+FULL fringe coupling. New work has provided inequalities and a weaker
+anchored target, but has NOT supplied that coupling mechanism.
+
+Read the following notes in proofs/informal, in this order:
+
+1. `problem1_activity_joint_window_target.md` (latest sufficient target).
+2. `problem1_activity_temporal_gate_bridge.md` (exact boundary conversion).
+3. `problem1_activity_transport_inequality.md` (general counting proof).
+4. `problem1_activity_sparse_temporal_codes.md` (density necessity refuted).
+5. `problem1_activity_staircase_bound.md` (explicit support bound).
+
+All five all-depth units retain status `partial-proof` relative to the prize,
+with independent review accepted in the stated scopes. Every actual-survivor
+growth assertion remains `inconclusive`. No infinite conclusion is inferred
+from the finite local checks.
+
+## Latest target: anchored characteristic activity
+
+Use
 
     T(x)=x XOR((x<<1) OR(x<<2)), pi(x)=x>>2, A=pi T,
     V_s(x)=sum_(t=0..s-1)bit_(2s)(T^t x), V_0=0,
-    R(x)=sup_s V_s(x), E_K={x:R(x)<=K}.
-
-No actual-survivor growth or mortal-rational exclusion is proved. Growth
-across successive forced states is insufficient; their R can grow even
-from a finite initial state. Period1 is excluded; period2 and least
-periods>=3 remain open, with pure/eventual-trace quantifiers distinct.
-
-## New round-five results, accepted in scope
-
-Read `proofs/informal/problem1_activity_staircase_bound.md` and then
-`proofs/informal/problem1_activity_transport_inequality.md`.
-All all-depth results retain status `partial-proof` relative to the prize.
-
-For finite x put n=max(ceil(bitlen(x)/2)-1,0),
-
-    u_i(t)=bit_i(A^t x), w_j(s)=u_(2j)(s-j),
-    V_s(x)=sum_(j=1..n)w_j(s), s>=n.
-
-The top pair 2n,2n+1 stays nonzero. A zero adjacent pair over L times
-forces the next higher pair zero over L-1 times. The staggered terms
-w_j,w_(j+1) cannot both vanish through n-j+1 consecutive ages starting
-at S>=n+1. Packing disjoint pairs j=n,n-2,... proves, every W>=1,
-
-    sum_(s=S..S+W-1)V_s(x)
-      >=sum_(r=0..floor((n-1)/2))floor(W/(2r+1)).
-
-Thus R(x)>=H_odd(floor((n-1)/2)), where
-H_odd(r)=sum_(j=0..r)1/(2j+1). Let g(K)=min{r:H_odd(r)>K}.
-Finite x in E_K has bitlen(x)<=4g(K)+2. An explicit short late-age
-witness interval for larger support is also proved; no sampling run
-was added. This is growth with ORIGINAL support size, not age growth
-for the same finite x.
-
-The reviewed finite-entry theorem gives h=h_V(K), the first r with
-H_odd(r)>3K/2. For x in E_K let y=T^h x finite and z=pi^h y.
-The exact nonnegative early-term decomposition gives R(z)<=K, so
-
-    bitlen(T^h x)<=B_explicit(K)=2h_V(K)+4g(K)+2.
-
-This replaces the previous nonconstructive support bound/terminating
-cover search by an explicit exponential bound. It does not enumerate
-E_K or decide equality of any candidate with the actual survivor.
-
-The transport inequality works for ANY x in Z_2, without finite support:
-
+    R(x)=sup_s V_s(x), E_K={x:R(x)<=K},
     P_n(t)=bit_(2n)(A^t x) OR bit_(2n+1)(A^t x),
-    C_n(a,W)=sum_(t=a..a+W-1)P_n(t),
-    H_n=H_odd(floor((n-1)/2)).
+    C_n(a,W)=sum_(t=a..a+W-1)P_n(t), J_n(x)=C_n(0,n).
 
-For n>=1,a>=n-1,W>=1,
+Let H_odd(r)=sum_(j=0..r)1/(2j+1),
+H_n=H_odd(floor((n-1)/2)),
+g(K)=min{r:H_odd(r)>K}, h_V(K)=min{r:H_odd(r)>3K/2}.
+
+The new sufficient target is simply sup_n J_n(x)=infinity for the SAME
+actual x. No positive density is necessary for this implication. Exactly,
+
+    R(x)<=K implies sup_n J_n(x)<=max(h_V(K),2g(K)).
+
+Proof: z=A^h x=pi^h T^h x is finite, R(z)<=K and bitlen(z)<=4g+2.
+For n>=2g+1 and t>=h, P_n(t)=0; smaller n have J_n<=n<=2g.
+This imports the reviewed finite-entry theorem; it is NOT a new proof
+of that theorem. Bounded J => bounded R is NOT asserted.
+
+The stronger direct finite bound is, for ALL n>=1,a>=0,W>=1,
 
     sum_(s=a+2..a+W+n)V_s(x)
       >=sum_(r=0..floor((n-1)/2))ceil(C_n(a,W)/(2r+1))
       >=C_n(a,W)H_n.
 
-The age window has W+n-1 values. On infinite inputs retain the
-w_(n+1) term; setting it zero is invalid. Define
+The window has W+n-1 ages. Original transport was stated only for
+a>=n-1; the latest note proves a>=0 by retaining each selected pair's
+own valid interval. Never define w_j(s) at s<j. In particular,
 
-    d_n^*=limsup_(W->infinity) sup_(a>=n-1) C_n(a,W)/W.
+    R_(2n)(x)>=J_n(x)H_n/(2n-1).
 
-Then R(x)>=d_n^* H_n. Uniformly positive d_n^* along unbounded n is a
-SUFFICIENT growth condition, not an established actual-survivor fact.
-P_n is a pair of physical characteristic rays -2n-t,-2n-t-1. Their
-backward cones avoid the attached right fringe, so the sampled values
-are from the same actual original spacetime. The actual u/t branch
-lies on a different line: its bounded gaps do not supply this density.
+Jointly growing n,W can retain intermittent events lost in a fixed-n
+density limit. No actual growing windows or unbounded J have been proved,
+and no ray or prefix campaign is admitted by naming these observables.
 
-## Verification and execution scope
+## Staircase inequality and explicit bounded alternative
 
-One Muse (`opencode-go/muse-spark-1.3-contributor`) remains ACTIVE for
-round five. It independently reviewed staircase Sections1-5 and
-transport Sections1-4. Lead independently checked zero-window seams,
-disjoint packing, event assignment, limit order and physical cones.
+For finite x put n=max(ceil(bitlen(x)/2)-1,0),
+u_i(t)=bit_i(A^t x), w_j(s)=u_(2j)(s-j). For s>=n,
+V_s=sum_(j=1..n)w_j(s). The top pair2n,2n+1 stays nonzero.
+A zero adjacent pair over L times forces the next higher pair zero over
+L-1 times. Thus w_j,w_(j+1) cannot both vanish for n-j+1 consecutive
+ages starting at S>=n+1. Disjoint pairs j=n,n-2,... give
 
-Local finite verification ONLY:8 three-bit neighborhoods,16 four-bit
-L=2 rectangles,64 six-bit L=3 rectangles. Independent packed-A and
-bit-array methods agree on all88 complete trajectories, premise counts
-1/1/1. No old R numerical controls were rerun. No E_K enumeration,
-return, fringe, ray, period, or first-witness census was added.
+    sum_(s=S..S+W-1)V_s(x)
+      >=sum_(r=0..floor((n-1)/2))floor(W/(2r+1)),
+    R(x)>=H_n, bitlen(x)<=4g(K)+2 if finite x in E_K.
 
-Files: `check_activity_staircase_{primary,independent}.py` and
-`verify_activity_staircase.py` under experiments/problem1_nonperiodicity;
-three corresponding `results/problem1/20260906_activity_staircase_*.json`
-records. The verification record archives exact reviewed/current sources,
-reviews, full Git, timings, source/admission hashes and lead disposition.
-The independent run corrected declared-but-unenforced CPU/wall caps and
-an omitted reference hash; SAME88-case payload unchanged, full prior
-execution retained in the corrected record. The reviewer documents scope.
+This is growth with ORIGINAL support size, not age growth of a fixed
+finite input. An explicit late-age witness interval is proved, not run.
+For general x in E_K, the exact finite-entry decomposition gives
+R(pi^h T^h x)<=K, hence
 
-Immutable reference SHA256 remains
-358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
-Pre-existing supervisor files, ASTRA_GOAL.md, worktrees and unrelated
-untracked results are preserved. Never force-push or edit the reference.
+    bitlen(T^h x)<=B_explicit(K)=2h_V(K)+4g(K)+2.
 
-## Sparse temporal codes: accepted second unit
+This replaces the nonconstructive support bound and terminating cover
+search with an explicit exponential bound. It still does NOT enumerate
+E_K or decide equality of a candidate with the full actual survivor.
 
-Read `problem1_activity_sparse_temporal_codes.md` and its full review.
-Status `partial-proof`: Theta(x)_t=A^t x mod4 is a computable triangular
-homeomorphism conjugating A to the four-symbol one-sided shift. Spatial
-pair deletion pi becomes Phi on adjacent temporal symbols:
+For arbitrary x, keep w_(n+1) rather than setting it zero. Each event P_n(t)
+forces a staggered event in each chosen disjoint index pair over a time
+interval of length1,3,5,...; a single occurrence accounts for at most that
+many high events. This is the transport counting proof. The physical rays
+are -2n-t,-2n-t-1; their backward cones avoid the attached right fringe.
+The actual u/t branch is on a DIFFERENT line. Its bounded gaps alone
+supply neither characteristic density nor anchored J growth.
+
+## Temporal coding, its obstruction, and actual gate bridge
+
+Theta(x)_t=A^t x mod4 is a computable triangular homeomorphism to the
+four-symbol one-sided shift; Theta A=shift Theta. Spatial deletion becomes
+Theta pi=Phi Theta, where
 
     g((a0,a1),(b0,b1))=(r,s),
     r=b0 XOR(a0 ORa1), s=b1 XOR(a1 ORr),
-    (Phi b)_t=g(b_t,b_(t+1)), Theta pi=Phi Theta.
+    (Phi b)_t=g(b_t,b_(t+1)).
 
-Given rational x, its A orbit lies in a fixed finite spatial-tail class;
-conversely an eventually periodic temporal code remains in a fixed finite
-class under Phi. Thus x is rational iff Theta(x) is eventually periodic.
+x is rational iff Theta(x) is eventually periodic: A preserves a given
+finite spatial-tail class; Phi preserves a given finite temporal-tail
+class. This is not Delta and reopens no universal finite-state claim.
 
-NECESSITY of positive characteristic density is now `refuted` on general
-inputs. Set temporal code symbol1 at powers of two and symbol0 elsewhere,
-optionally after ANY prescribed finite code prefix. Its inverse x is
-computable irrational, EVERY d_n^*=0, but R(x)=infinity. Any W-time window
-has <=1+floor(log2 W) sparse events plus the fixed prefix; Phi^n uses only
-n+1 consecutive temporal symbols. Bounded R would make the A orbit lie
-in finite A-invariant E_K and hence make the code eventually periodic.
-These counterexamples meet every finite binary cylinder, including any
-finite observed survivor prefix, but are NOT proved infinite forced or
-full-fringe survivors. No numerical experiment was run for this unit.
+Density NECESSITY is `refuted` on general inputs. Temporal symbol1 exactly
+at powers of two, symbol0 elsewhere, optionally after ANY fixed code
+prefix, gives computable irrational x with R=infinity but EVERY
 
-The transport inequality remains valid. Fixed-n density limits can miss
-intermittent events relevant when n and W grow together. Do not mistake
-its sufficient condition for an equivalence or reopen a ray-density census.
-Exact proof/review snapshots, dependencies, lead disposition and archive
-builder are in `results/problem1/20260906_activity_sparse_temporal_codes_review.json`
-and `archive_activity_temporal_codes.py` in the experiment directory.
+    d_n^*=limsup_(W->infinity) sup_(a>=n-1) C_n(a,W)/W=0.
 
-The first unit is committed/pushed as d87aabf. This second unit is being
-checkpointed next. Muse is deriving the exact forced-step bridge in the
-new temporal-code coordinates; that bridge is NOT yet accepted. It adds
-no new monotone invariant or permission to repeat the old group gauges.
+Any W-window has <=1+floor(log2 W) sparse events plus the fixed prefix;
+Phi^n uses n+1 consecutive symbols. Bounded R would trap the A orbit
+in finite A-invariant E_K and force eventual code periodicity. These
+counterexamples meet every finite cylinder/observed branch prefix but
+are NOT proved infinite forced or full-fringe survivors. No numerical
+run was performed for this counterexample. Sufficiency R>=d_n^*H_n
+and finite-window transport survive; density is not an equivalence.
 
-## In progress / next logical unit
+For a permitted step b=Theta x,c=Theta F(x),
 
-A separate nearest-column temporal-defect route supplied only the known
-boundary equations. The initial Muse proposal mixed physical speed1
-with right-edge speed2 and was rejected; no numerical campaign followed.
-Its temporary sidecar is not a new no-go theorem or admitted experiment.
+    Phi c=shift^2 b, c0=3,
+    c_(t+1)=h(c_t,b_(t+2)),
+    h(a,(r,s))=(r XOR(a0 ORa1),s XOR(a1 ORr)).
 
-After the sparse-code review, prioritize simultaneous n,W finite-window
-transport or a new full-fringe lower bound, preserving the same fixed
-survivor. Do not substitute initial nonzero pairs for recurrent activity.
-Do not repeat round-four finite-entry/isolation, return nonincrease
-counterexample, rational profile proofs or numerical checks. All old
-all-memory/all-r review limits, B_all and signed nonvanishing gaps remain
-as recorded in the incoming archived handoff.
+The table rows a0..3 are [0,3,2,1],[1,2,3,0],[3,2,1,0],[3,2,1,0].
+Gate x mod16=7(u)/11(t) is b0=3,b1=2/1. The scan bijects b_(>=2)
+with c0=3 codes. F on the unrestricted TWO gate cylinders is TWO-to-one;
+one needs b1 (the actual fringe-supplied branch) to recover x uniquely.
+It supplies no new monotone group gauge or finite-state closure.
+
+For m permitted steps and n>=m,
+
+    P_n(F^m x,t)=P_(n-m)(x,t+2m).
+
+Depth-zero boundary events are OUTSIDE the pullback formula. The draft's
+substitution c0=3 => P0(x,2)=1 is `refuted`: x11 has A11=13,A^2(11)=12,
+F11=51, so P0(F11,0)=1 while P0(11,2)=0. P1(F11,0)=0 correctly matches
+the valid formula. This precise index error and a fiber ambiguity were
+fixed, independently rechecked, and lead-audited before acceptance.
+
+## Verification, records, and maintenance state
+
+One Muse (`opencode-go/muse-spark-1.3-contributor`) supplied five scoped
+reviews and a final read-only cross-file audit; it is CLOSED. No pending
+worker, missing new-unit review, rate-limit retry or fallback remains.
+Lead independently checked every contribution. Old all-memory/all-r
+review limitations remain unchanged, as recorded in the incoming handoff.
+
+Only new scientific computation:8 three-bit neighborhoods,16 four-bit
+L=2 rectangles,64 six-bit L=3 rectangles. Packed-A and independent bit
+arrays agree on all88 FULL local trajectories, premise counts1/1/1.
+The independent implementation reran the SAME88 cases after correcting
+unenforced CPU/wall caps and an omitted reference hash; its full prior
+execution is retained. No old R controls were rerun. No frontier, return,
+activity-level, period, ray, comparator, or first-witness census occurred.
+
+Exact reviewed/current sources, reviews, source/admission snapshots,
+full Git, timings, hashes and atomic provenance are in:
+
+- results/problem1/20260906_activity_staircase_{primary,independent,verification}.json
+- results/problem1/20260906_activity_sparse_temporal_codes_review.json
+- results/problem1/20260906_round5_final_audit.json
+
+Corresponding check/verify/archive/audit scripts are in
+experiments/problem1_nonperiodicity. Scientific counts are finite-exhaustive
+only in the declared local domains; proof scopes remain partial-proof.
+The rejected initial boundary/defect route is preserved in
+problem1_round5_muse_boundary_proposal.md. Its physical speed2 error was
+corrected to speed1; the correct transported support bound was already
+known. No universal fixed-width defect no-go was established.
+
+Commits pushed this round include d87aabf (staircase/transport) and95db571
+(temporal codes/sparse obstruction); later bridge/maintenance commits are
+in Git history. Immutable reference SHA256 remains
+358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
+Unrelated supervisor files, ASTRA_GOAL.md, worktrees and old untracked
+results were preserved. Never edit the reference or force-push.
+
+## Continue without repeating completed work
+
+Attack an actual full-fringe mechanism for unbounded anchored J_n or the
+original fixed-survivor record. The code bridge states the exact boundary
+data available; it does not give the required deep-ray events. Neither
+finite-cylinder matching, initial high ones, periodic high-front behavior,
+nor growth across forced shifts settles that gap. No new experiment is
+pre-admitted; state a concrete falsifiable mechanism and both outcomes
+before any future run. Do not repeat the five round-five proofs/checks,
+round-four finite-entry/isolation/effectivity/return tests, group gauges,
+or earlier frozen searches. B_all and signed nonvanishing remain unproved.
+Period1 is closed; least periods>=3 are unhandled. Pure alternating traces,
+all eventual period-two traces and all finite seeds retain distinct
+quantifiers. This is maintenance rollover, not research blockage.

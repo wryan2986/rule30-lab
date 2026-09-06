@@ -164,6 +164,12 @@ their sufficiency implications, and does not construct an actual
 survivor. Jointly growing n and W remains a distinct possible use
 of the finite inequality.
 
+The later `problem1_activity_joint_window_target.md` extends (5) to
+every a>=0 by keeping each selected pair's own legitimate age interval.
+It also gives an anchored count and a weaker sufficient growth target
+using the explicit finite-entry support bound. The original a>=n-1
+statement above remains valid in its stated range.
+
 ## 4. Geometry and the unresolved coupling (`partial-proof` / `inconclusive`)
 
 The identity A^t=pi^t T^t gives
