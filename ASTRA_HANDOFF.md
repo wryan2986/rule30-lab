@@ -1,3 +1,61 @@
+## Round 1 research checkpoint (2026-09-06, base `093d8cc`)
+
+Read the new notes before the historical frontier below:
+`proofs/informal/problem1_boundary_sum_periodic_tail_probe.md` and
+`proofs/informal/problem1_periodic_survivor_core_separation.md`.
+
+- `partial-proof`: the explicit rational survivor cycle is
+  X=-7/127 --u--> Y=-123/127 --t--> X. Thus X=903 mod16384 and
+  X=50055 mod65536. This supplies an elementary closed residue at
+  EVERY requested memory for the prior all-memory no-go. It never
+  makes X ordinary or gives one ordinary witness at all memories.
+  General periodic-schedule rationality was ALREADY proved; only this
+  explicit cycle and the new cost/core consequences are new here.
+- `partial-proof`: on either phase of (ut)^infinity, the exact
+  boundary functional satisfies Psi_(s+14)=Psi_s+1 for every s>=1,
+  and 0<=Psi_s<=ceil((s-1)/14). Hence its slope is1/14, not a
+  countermodel to the proposed subunit bound. This says nothing about
+  schedules with interruptions of alternation.
+- `partial-proof`: for an original x in O_(a,k), after m actual steps,
+  its level-h leading block has clock k-h+2m. Separating the stored
+  cores from all rotations of X,Y modulo64 proves that an alternating
+  OBSERVED branch segment beginning at m has length
+  r<=k+m-6 in p (k>=7,k+2m>=16), and r<=k+m-7 in u
+  (k>=8,k+2m>=18). At m=0 this improves the size-only k+2 bound.
+- `partial-proof`: if that entire alternating segment runs through
+  a gap222 occurrence at c, then c<=k+2m-12 in p and
+  c<=k+2m-13 in u. Consequently B_all IS proved on this subclass
+  for m<=4 in p or m<=5 in u, with the same k conditions. The
+  first m actual branches may be arbitrary. Local ututut alone does
+  not satisfy the full-segment hypothesis. General B_all stays open.
+- `finite-exhaustive`: packed/cell periodic-tail maps agree on8190
+  states at spatial periods1..12; the sole cycle is the p7 ut cycle.
+  Separate packed/rational arithmetic agrees on136 comparisons of
+  ONLY the16 existing h<=8 cores. No core, frontier, occurrence,
+  first-witness, coefficient or solver cap was increased. Do not extend
+  the bounded periodic-tail countermodel class.
+- Fresh Muse adversarial review ACCEPTED these two new notes and their
+  exact scopes. The first thread's prior all-memory review supplied
+  bounded criticism, but its supplementary followup returnedprovider429;
+  one delayed retry successfully reviewed the new notes. The initial
+  report's assertion that subtracting a cycle inverts the sign is
+  rejected by the lead. No full fresh acceptance of the OLD all-memory
+  proof is claimed; its remaining review limitation persists. No fallback
+  or native subagent was used in this round.
+
+Atomic records: `results/problem1/20260906_boundary_periodic_tails_`
+`{primary,independent}.json`, `20260906_periodic_survivor_core_separation.json`,
+and `20260906_boundary_survivor_muse_review.json` in the same directory.
+The review archive retains exact reviewed note snapshots. Source/input
+hashes distinguish the executed admission snapshots from later prose.
+
+Current bottleneck: control actual near-boundary histories whose
+alternation is interrupted beyond the proved short-transient subclass.
+The boundary-sum inequality retains ORIGINAL length and all gates.
+A nonlinear ordered-history observable remains a distinct alternative.
+Do not reopen universal finite-residue additive descent. Problem1 and
+the whole-tail question are unfinished; this is an intermediate checkpoint.
+
 ## Dry-run test (round 1) - 2026-09-06 12:51:06
 
 # Astra handoff (2026-09-04, base `a9af399`)

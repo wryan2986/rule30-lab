@@ -1,0 +1,167 @@
+{
+  "admission_snapshot": "# Periodic spatial tails as a test of the boundary-sum bound\n\nStatus: `inconclusive` during the admitted check. Problem 1 remains open.\n\n## Admission (before execution)\n\nThe current route seeks an upper bound\n`Psi_s <= alpha*s+C`, with `alpha<1`, on actual admissible forced\nschedules. Such a bound, if valid on ordinary endpoints at all ages,\nwould contradict their exact padding lower bound under infinite survival.\nBefore trying to prove the stronger SCHEDULE-ONLY assertion, test whether\nspatially periodic infinite tails already refute it. These are not finite\nseeds and are never asserted to be ordinary endpoints.\n\nRanked routes (`heuristic`): (1) exact periodic-tail countermodels, because\ntheir boundary growth rate is a finite-cycle calculation at ALL ages;\n(2) a direct inequality retaining the original length and ordinary\nmembership; (3) a nonlinear observable on ordered histories. The first is\na bounded falsification test, not a new return or first-witness census.\n\nFor each spatial period p=1,...,12, represent the pure periodic 2-adic\ninteger by its low p bits a, namely a/(1-2^p). Its A evolution is the\ncyclic p-cell map `(x>>2) XOR ((x>>1) OR x)`, with circular shifts.\nThe periodic tail of F is R=rotate_left_2 composed with A^2. An edge\nbetween two periodic states is an EXACT forced edge when both states\nhave a gate (low four bits 7 or 11): F has output low two bits 11,\nand agrees with R in every higher bit. Verify this algebra separately.\n\nEnumerate only this finite functional graph and its cycles. Retain a\ncycle only if its cyclic branch word avoids uu, ttttt, and ututtu.\nFor each retained cycle and each spatial alignment, compute the exact\nperiodic mean of the existing summand\n`J(y)=I(A(y))+I(y>>2)`, where I tests low six bits 0 or 5.\nThe cycle and alignment give an exact arithmetic progression of ages,\nso a mean at least 1 refutes every uniform subunit slope, without a\nfinite-to-infinite extrapolation. If no such cycle exists, close this\nspecific countermodel class through period 12; do not increase the cap\nor claim the desired inequality. This separates a schedule-only route\nfrom a route that must retain ordinary membership and age versus length.\n\nCompare independent packed circular arithmetic and cell-array rules on\nevery admitted state. Hand controls at p=4 are A(7)=2, A(11)=1,\nR(7)=14 and R(11)=7; the latter single edge does not form a survivor\ncycle. Resource cap: one local CPU, 120 seconds, 1 GiB; no backends,\nfrontiers, coefficient searches or larger schedule atlas. Atomic records\nmust include the full Git commit, exact parameters, source hashes,\nhardware/software, timings, limitations and exact cycle certificates.\n\nThe only infinite implications admitted here are proofs from the exact\ncyclic model. Neither finite passage nor periodic spatial support settles\nthe whole-tail question for eventually-zero initial support.\n",
+  "backend": "python-cell",
+  "executed_source": "#!/usr/bin/env python3\n\"\"\"Exact, bounded periodic-tail falsification test; see the admission note.\"\"\"\nfrom __future__ import annotations\n\nimport hashlib\nimport json\nimport math\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport tempfile\nimport time\nfrom datetime import datetime, timezone\nfrom fractions import Fraction\n\nROOT = Path(__file__).resolve().parents[2]\nMAX_PERIOD = 12\nSTART = time.monotonic()\n\n\ndef digest(value):\n    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(\",\", \":\")).encode()).hexdigest()\n\n\ndef ror(a, shift, p):\n    shift %= p\n    return ((a >> shift) | (a << (p - shift))) & ((1 << p) - 1)\n\n\ndef packed_a(a, p):\n    return ror(a, 2, p) ^ (ror(a, 1, p) | a)\n\n\ndef packed_r(a, p):\n    return ror(packed_a(packed_a(a, p), p), -2, p)\n\n\ndef cell_a(a, p):\n    cells = [(a >> i) & 1 for i in range(p)]\n    return sum((cells[(i + 2) % p] ^ (cells[(i + 1) % p] | cells[i])) << i for i in range(p))\n\n\ndef cell_r(a, p):\n    # First A is computed from cells. The second stage is cyclic T,\n    # independently of the rotate(A(A(a))) expression used above.\n    middle = [(cell_a(a, p) >> i) & 1 for i in range(p)]\n    return sum((middle[i] ^ (middle[(i - 1) % p] | middle[(i - 2) % p])) << i for i in range(p))\n\n\ndef low(a, p, width):\n    return sum(((a >> (i % p)) & 1) << i for i in range(width))\n\n\ndef gate(a, p):\n    return {7: \"u\", 11: \"t\"}.get(low(a, p, 4))\n\n\ndef canonical(cycle):\n    i = cycle.index(min(cycle))\n    return cycle[i:] + cycle[:i]\n\n\ndef primary_cycles(edges):\n    degree = {v: 0 for v in edges}\n    for dest in edges.values():\n        if dest in degree:\n            degree[dest] += 1\n    queue = [v for v in degree if degree[v] == 0]\n    removed = set()\n    while queue:\n        v = queue.pop()\n        removed.add(v)\n        dest = edges[v]\n        if dest in degree:\n            degree[dest] -= 1\n            if degree[dest] == 0:\n                queue.append(dest)\n    cycles, visited = [], set()\n    for start in sorted(set(edges) - removed):\n        if start in visited:\n            continue\n        path, local = [], {}\n        v = start\n        while v in edges and v not in local and v not in visited:\n            local[v] = len(path)\n            path.append(v)\n            v = edges[v]\n        if v in local:\n            cycles.append(canonical(path[local[v]:]))\n        visited.update(path)\n    return sorted(cycles)\n\n\ndef independent_cycles(edges):\n    # Follow every root independently; do not use pruning or a global\n    # visited set. The cap here is a mathematical finite set, not a timeout.\n    found = set()\n    for start in edges:\n        positions, word = {}, []\n        v = start\n        while v in edges and v not in positions:\n            positions[v] = len(word)\n            word.append(v)\n            v = edges[v]\n        if v in positions:\n            found.add(tuple(canonical(word[positions[v]:])))\n    return [list(c) for c in sorted(found)]\n\n\ndef admissible(word):\n    repeated = word * (2 + 6 // len(word))\n    return all(bad not in repeated for bad in (\"uu\", \"ttttt\", \"ututtu\"))\n\n\ndef score(a, p, independent=False):\n    if independent:\n        cells = [(a >> i) & 1 for i in range(p)]\n        first = sum((cells[(i + 2) % p] ^ (cells[(i + 1) % p] | cells[i % p])) << i for i in range(6))\n        second = sum(cells[(i + 2) % p] << i for i in range(6))\n        return int(first in (0, 5)) + int(second in (0, 5))\n    return int(low(packed_a(a, p), p, 6) in (0, 5)) + int(low(ror(a, 2, p), p, 6) in (0, 5))\n\n\ndef cycle_record(cycle, p, independent):\n    letters = \"\".join(gate(a, p) for a in cycle)\n    result = {\"states\": cycle, \"branches\": letters, \"admissible\": admissible(letters)}\n    if not result[\"admissible\"]:\n        return result\n    alignment_period = p // math.gcd(p, 2)\n    joint_period = math.lcm(len(cycle), alignment_period)\n    totals = []\n    for h in range(alignment_period):\n        terms = []\n        for t in range(joint_period):\n            a = cycle[t % len(cycle)]\n            shift = 2 * (h - t)\n            if independent:\n                y = sum(((a >> ((i + shift) % p)) & 1) << i for i in range(p))\n            else:\n                y = ror(a, shift, p)\n            terms.append(score(y, p, independent))\n        totals.append(sum(terms))\n    result.update(alignment_period=alignment_period, joint_period=joint_period,\n                  score_totals=totals, means=[str(Fraction(x, joint_period)) for x in totals],\n                  refutes_uniform_subunit=any(x >= joint_period for x in totals))\n    return result\n\n\ndef run(independent):\n    rows, total_states, map_rows = [], 0, []\n    amap = cell_a if independent else packed_a\n    rmap = cell_r if independent else packed_r\n    finder = independent_cycles if independent else primary_cycles\n    assert [amap(7, 4), amap(11, 4), rmap(7, 4), rmap(11, 4)] == [2, 1, 14, 7]\n    for p in range(1, MAX_PERIOD + 1):\n        edges = {}\n        for a in range(1 << p):\n            ar, rr = amap(a, p), rmap(a, p)\n            map_rows.append([p, a, ar, rr, score(a, p, independent)])\n            total_states += 1\n            if gate(a, p) and gate(rr, p):\n                edges[a] = rr\n            if time.monotonic() - START > 120:\n                raise TimeoutError(\"Admitted total wall limit exceeded\")\n        cycles = finder(edges)\n        records = [cycle_record(cycle, p, independent) for cycle in cycles]\n        rows.append({\"spatial_period\": p, \"states\": 1 << p,\n                     \"edges_with_gates_at_both_ends\": len(edges), \"cycles\": records})\n        if any(c.get(\"refutes_uniform_subunit\") for c in records):\n            break\n    return {\"rows\": rows, \"states_checked\": total_states, \"map_hash\": digest(map_rows),\n            \"cycles_checked\": sum(len(r[\"cycles\"]) for r in rows),\n            \"admissible_cycles\": sum(c[\"admissible\"] for r in rows for c in r[\"cycles\"]),\n            \"countermodels\": [[r[\"spatial_period\"], c] for r in rows for c in r[\"cycles\"] if c.get(\"refutes_uniform_subunit\")]}\n\n\ndef atomic(path, value):\n    path.parent.mkdir(parents=True, exist_ok=True)\n    fd, tmp = tempfile.mkstemp(prefix=path.name + \".\", suffix=\".tmp\", dir=path.parent)\n    try:\n        with os.fdopen(fd, \"w\") as f:\n            json.dump(value, f, sort_keys=True, indent=2)\n            f.write(\"\\n\")\n            f.flush()\n            os.fsync(f.fileno())\n        os.replace(tmp, path)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef main():\n    source_paths = [Path(__file__).relative_to(ROOT),\n                    Path(\"proofs/informal/problem1_boundary_sum_periodic_tail_probe.md\"),\n                    Path(\"proofs/informal/problem1_critical_cost_schedule_identity.md\"),\n                    Path(\"src/python/rule30_research_reference.py\")]\n    cpu = next((line.split(\":\", 1)[1].strip() for line in Path(\"/proc/cpuinfo\").read_text().splitlines() if line.startswith(\"model name\")), \"unknown\")\n    common = {\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\", \"hypothesis\": \"An admissible pure spatially periodic forced cycle has boundary-sum mean at least one in some alignment.\",\n        \"parameters\": {\"spatial_periods\": [1, MAX_PERIOD], \"alphabet\": [\"t\", \"u\"],\n                       \"forbidden_cyclic_factors\": [\"uu\", \"ttttt\", \"ututtu\"], \"stop\": \"first completed spatial period with countermodel, else period 12\", \"wall_seconds\": 120, \"memory_limit_gib\": 1},\n        \"hardware\": {\"machine\": platform.machine(), \"cpu\": cpu, \"logical_cpu_count\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"source_hashes\": {str(p): hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in source_paths},\n        \"admission_snapshot\": (ROOT / source_paths[1]).read_text(),\n        \"executed_source\": Path(__file__).read_text(),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Only pure spatially periodic 2-adic tails in the exact declared finite graph. Cycle arithmetic certifies all ages for a retained cycle, not general ordinary histories.\",\n        \"limitations\": [\"No finite-seed or ordinary-frontier membership is asserted.\", \"No larger spatial period or nonperiodic tail is covered.\", \"Both implementations are lead-local; external review is separately recorded.\", \"Git names the base checkpoint; exact uncommitted source contents are identified by hashes.\"]}\n    summaries = []\n    for independent in (False, True):\n        began = time.monotonic()\n        summary = run(independent)\n        elapsed = time.monotonic() - began\n        summaries.append(summary)\n        name = \"independent\" if independent else \"primary\"\n        record = dict(common, experiment_id=f\"20260906_boundary_periodic_tails_{name}\",\n                      backend=\"python-cell\" if independent else \"python-packed\",\n                      runtime_seconds=elapsed, result_summary=summary,\n                      result_hashes={\"summary_sha256\": digest(summary)},\n                      interpretation=\"Exact periodic-tail countermodel found.\" if summary[\"countermodels\"] else \"No countermodel in this admitted periodic-tail class; the proposed general bound remains unproved.\")\n        atomic(ROOT / f\"results/problem1/20260906_boundary_periodic_tails_{name}.json\", record)\n    assert summaries[0] == summaries[1], \"Independent implementations disagree\"\n    print(json.dumps({\"states\": summaries[0][\"states_checked\"], \"cycles\": summaries[0][\"cycles_checked\"],\n                      \"admissible_cycles\": summaries[0][\"admissible_cycles\"],\n                      \"countermodels\": summaries[0][\"countermodels\"],\n                      \"runtime_seconds\": time.monotonic() - START}, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+  "experiment_id": "20260906_boundary_periodic_tails_independent",
+  "git_commit": "093d8ccbd881437956394202ce7f5b45cd99e7f0",
+  "hardware": {
+    "cpu": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "logical_cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "An admissible pure spatially periodic forced cycle has boundary-sum mean at least one in some alignment.",
+  "interpretation": "No countermodel in this admitted periodic-tail class; the proposed general bound remains unproved.",
+  "limitations": [
+    "No finite-seed or ordinary-frontier membership is asserted.",
+    "No larger spatial period or nonperiodic tail is covered.",
+    "Both implementations are lead-local; external review is separately recorded.",
+    "Git names the base checkpoint; exact uncommitted source contents are identified by hashes."
+  ],
+  "parameters": {
+    "alphabet": [
+      "t",
+      "u"
+    ],
+    "forbidden_cyclic_factors": [
+      "uu",
+      "ttttt",
+      "ututtu"
+    ],
+    "memory_limit_gib": 1,
+    "spatial_periods": [
+      1,
+      12
+    ],
+    "stop": "first completed spatial period with countermodel, else period 12",
+    "wall_seconds": 120
+  },
+  "proof_scope": "Only pure spatially periodic 2-adic tails in the exact declared finite graph. Cycle arithmetic certifies all ages for a retained cycle, not general ordinary histories.",
+  "question": "problem1",
+  "result_hashes": {
+    "summary_sha256": "028d499891396466e62e649285b177d00bb3a466e61273968d83c5aa4af2bec8"
+  },
+  "result_summary": {
+    "admissible_cycles": 1,
+    "countermodels": [],
+    "cycles_checked": 1,
+    "map_hash": "190f71f5a69f426ae02504b4f208c1c7d3a940831ac547b1ee6d6db21780f074",
+    "rows": [
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 0,
+        "spatial_period": 1,
+        "states": 2
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 0,
+        "spatial_period": 2,
+        "states": 4
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 0,
+        "spatial_period": 3,
+        "states": 8
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 1,
+        "spatial_period": 4,
+        "states": 16
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 2,
+        "spatial_period": 5,
+        "states": 32
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 3,
+        "spatial_period": 6,
+        "states": 64
+      },
+      {
+        "cycles": [
+          {
+            "admissible": true,
+            "alignment_period": 7,
+            "branches": "ut",
+            "joint_period": 14,
+            "means": [
+              "1/14",
+              "1/14",
+              "1/14",
+              "1/14",
+              "1/14",
+              "1/14",
+              "1/14"
+            ],
+            "refutes_uniform_subunit": false,
+            "score_totals": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            "states": [
+              7,
+              123
+            ]
+          }
+        ],
+        "edges_with_gates_at_both_ends": 6,
+        "spatial_period": 7,
+        "states": 128
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 8,
+        "spatial_period": 8,
+        "states": 256
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 16,
+        "spatial_period": 9,
+        "states": 512
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 32,
+        "spatial_period": 10,
+        "states": 1024
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 64,
+        "spatial_period": 11,
+        "states": 2048
+      },
+      {
+        "cycles": [],
+        "edges_with_gates_at_both_ends": 128,
+        "spatial_period": 12,
+        "states": 4096
+      }
+    ],
+    "states_checked": 8190
+  },
+  "runtime_seconds": 0.4255900389980525,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_boundary_sum_periodic_tails.py": "c55a99f279eb8c01e8fd929e632d84fd012a32ec6433816f6e1392d277fbb8f7",
+    "proofs/informal/problem1_boundary_sum_periodic_tail_probe.md": "79503b5ed8283ada3a42487e1ff948b1d0200765bf67b1c450b40992e0fe996b",
+    "proofs/informal/problem1_critical_cost_schedule_identity.md": "8cfca49e22e02abe72eefb980ea72638dc42c93f6a41b606c16066bf99f1b53e",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T17:11:29.230653+00:00"
+}

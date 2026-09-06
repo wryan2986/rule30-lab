@@ -1,0 +1,4723 @@
+{
+  "admission_snapshot": "# Separating the alternating-branch survivor from ordinary leading cores\n\nStatus: `inconclusive` during the admitted comparison. Problem 1 is open.\n\n## Admission before execution\n\nThe newly explicit rational survivors -7/127 and -123/127 permit a\nsharper test of long alternating FORCED branch prefixes. This means\nbranches utut..., not an assumed alternating center conclusion.\nThe existing finite repetition theorem already bounds any period-2\nbranch prefix by k+2 using only integer size. Do not repeat that proof\nor increase a frontier cap. Test the additional ordinary leading-core\nconstraint using ONLY the committed cores h<=8 and stabilization ages.\n\nCandidate exact separation: let a be a phase, h a stored core level,\nb a residue width, and k-h at least the stored stabilization age.\nIf the residues of C_(a,h) modulo2^b are disjoint from every rotation\nof BOTH 7-bit survivor patterns, then an ordinary endpoint in O_(a,k)\ncannot have an alternating observed prefix of length\n`r>=k-h+ceil(b/2)-1`. Its cylinder fixes 2r+2 low bits; projection\nby 2(k-h) bits would put the same residue in these disjoint sets.\n\nCompare b=1,...,bitwidth(C) for the existing 16 cores. A separating\nentry gives an all-k ordinary-domain bound via the established head\ntheorem; no separation leaves this proposed refinement unproved at the\navailable levels and does not authorize larger cores. Retain the exact\nbest entries and derive the cut consequences before claiming them.\nThis only refines a rigorously identified repetition subclass of the\nboundary problem; arbitrary return prefixes remain outside its scope.\n\nPacked periodic-word extraction and independent cell rotation must\nagree on the same stored core inputs. Do not regenerate any frontier,\nscan any new ordinary endpoint, or enumerate forced schedules. Local\none CPU, 120 seconds and 1 GiB, atomic provenance with exact source,\ninput hashes, full base Git, hardware/software, timings and limitations.\n",
+  "backend": "python-packed-and-rational",
+  "executed_source": "#!/usr/bin/env python3\n\"\"\"Compare existing cores with two exact rational survivors; no frontier run.\"\"\"\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport time\nfrom datetime import datetime, timezone\n\nfrom check_boundary_sum_periodic_tails import atomic, digest\n\nROOT = Path(__file__).resolve().parents[2]\nINPUT = ROOT / \"results/problem1/20260905_frontier_head_primary.json\"\nADMISSION = ROOT / \"proofs/informal/problem1_periodic_survivor_core_separation.md\"\n\n\ndef packed_residues(b):\n    values = set()\n    for a in (7, 123):\n        word = sum(a << (7 * i) for i in range((b + 12) // 7 + 1))\n        for shift in range(7):\n            values.add((word >> shift) & ((1 << b) - 1))\n    return values\n\n\ndef rational_residues(b):\n    # Compute the 2-adic rational first at sufficient precision, then\n    # project. This does not use repeated words or circular bit shifts.\n    modulus = 2 ** (b + 6)\n    return {((-a * pow(127, -1, modulus)) % modulus // 2 ** shift) % (2 ** b)\n            for a in (7, 123) for shift in range(7)}\n\n\ndef compare(cores, independent):\n    rows = []\n    residues = rational_residues if independent else packed_residues\n    for phase in (\"p\", \"u\"):\n        for h in range(1, 9):\n            data = cores[phase][str(h)]\n            core = data[\"core\"]\n            assert data[\"status\"] == \"complete\"\n            entries = []\n            for b in range(1, data[\"width\"] + 1):\n                tail = residues(b)\n                cr = {x % (2 ** b) for x in core}\n                overlap = sorted(tail & cr)\n                entries.append({\"bits\": b, \"core_residues\": sorted(cr),\n                                \"tail_residues\": sorted(tail), \"overlap\": overlap,\n                                \"disjoint\": not overlap})\n            separate = [e[\"bits\"] for e in entries if e[\"disjoint\"]]\n            first = min(separate) if separate else None\n            rows.append({\"phase\": phase, \"h\": h, \"width\": data[\"width\"],\n                         \"core\": core, \"stabilization_age\": data[\"first_stabilization_time\"],\n                         \"entries\": entries, \"first_separating_bits\": first,\n                         \"minimum_initial_k\": h + data[\"first_stabilization_time\"],\n                         \"alternating_prefix_bound_k_minus\": h + 2 - (first + 1) // 2 if first else None})\n    return rows\n\n\ndef main():\n    started = time.monotonic()\n    cores = json.loads(INPUT.read_text())[\"result_summary\"][\"head_data\"][\"cores\"]\n    assert packed_residues(1) == rational_residues(1) == {0, 1}\n    assert (-7 * pow(127, -1, 16384)) % 16384 == 903\n    assert (-7 * pow(127, -1, 65536)) % 65536 == 50055\n    first_started = time.monotonic()\n    primary = compare(cores, False)\n    first_time = time.monotonic() - first_started\n    second_started = time.monotonic()\n    independent = compare(cores, True)\n    second_time = time.monotonic() - second_started\n    assert primary == independent\n    summary = {\"cores\": len(primary), \"entries\": sum(len(r[\"entries\"]) for r in primary),\n               \"rows\": primary, \"independent_agreement\": True}\n    paths = [Path(__file__), ADMISSION, INPUT,\n             ROOT / \"experiments/problem1_nonperiodicity/check_boundary_sum_periodic_tails.py\",\n             ROOT / \"proofs/informal/problem1_frontier_head_dynamics.md\",\n             ROOT / \"proofs/informal/problem1_boundary_sum_periodic_tail_probe.md\",\n             ROOT / \"src/python/rule30_research_reference.py\"]\n    cpu = next((x.split(\":\", 1)[1].strip() for x in Path(\"/proc/cpuinfo\").read_text().splitlines() if x.startswith(\"model name\")), \"unknown\")\n    record = {\n        \"experiment_id\": \"20260906_periodic_survivor_core_separation\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\", \"hypothesis\": \"Existing ordinary leading cores separate all rotations of the two rational alternating-branch survivors at a useful residue width.\",\n        \"backend\": \"python-packed-and-rational\",\n        \"parameters\": {\"phases\": [\"p\", \"u\"], \"h\": [1, 8], \"b\": \"1 through each stored core's bit width\", \"survivors\": [\"-7/127\", \"-123/127\"], \"shifts\": [0, 6], \"wall_seconds\": 120, \"memory_limit_gib\": 1},\n        \"hardware\": {\"cpu\": cpu, \"machine\": platform.machine(), \"logical_cpu_count\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": time.monotonic() - started,\n        \"implementation_runtimes\": {\"packed\": first_time, \"rational\": second_time},\n        \"source_and_input_hashes\": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in paths},\n        \"admission_snapshot\": ADMISSION.read_text(), \"executed_source\": Path(__file__).read_text(),\n        \"input_core_snapshot\": cores,\n        \"result_hashes\": {\"primary_sha256\": digest(primary), \"independent_sha256\": digest(independent), \"summary_sha256\": digest(summary)},\n        \"result_summary\": summary, \"status\": \"finite-exhaustive\",\n        \"interpretation\": \"Exact disjointness entries combine with the existing all-depth head theorem; the proof and scope are separate from this finite comparison.\",\n        \"proof_scope\": \"Only the 16 already committed cores and declared residue comparisons; no new states or schedules.\",\n        \"limitations\": [\"No arbitrary-return or whole-tail exclusion.\", \"The source core construction is reused, not rerun.\", \"Both implementations are lead-local.\", \"Base Git and source hashes jointly identify the uncommitted research inputs.\"]}\n    assert time.monotonic() - started < 120\n    atomic(ROOT / \"results/problem1/20260906_periodic_survivor_core_separation.json\", record)\n    print(json.dumps([{k: r[k] for k in (\"phase\", \"h\", \"first_separating_bits\", \"minimum_initial_k\", \"alternating_prefix_bound_k_minus\")} for r in primary]))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+  "experiment_id": "20260906_periodic_survivor_core_separation",
+  "git_commit": "093d8ccbd881437956394202ce7f5b45cd99e7f0",
+  "hardware": {
+    "cpu": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "logical_cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Existing ordinary leading cores separate all rotations of the two rational alternating-branch survivors at a useful residue width.",
+  "implementation_runtimes": {
+    "packed": 0.0009678520727902651,
+    "rational": 0.0014549329644069076
+  },
+  "input_core_snapshot": {
+    "p": {
+      "1": {
+        "core": [
+          3
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            3
+          ]
+        ],
+        "cycle_lengths": [
+          1
+        ],
+        "first_stabilization_time": 0,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 1,
+        "removed_at_each_image_step": [],
+        "status": "complete",
+        "width": 2
+      },
+      "2": {
+        "core": [
+          12,
+          13
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            12,
+            13
+          ]
+        ],
+        "cycle_lengths": [
+          2
+        ],
+        "first_stabilization_time": 0,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 2,
+        "removed_at_each_image_step": [],
+        "status": "complete",
+        "width": 4
+      },
+      "3": {
+        "core": [
+          50,
+          55
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            50,
+            55
+          ]
+        ],
+        "cycle_lengths": [
+          2
+        ],
+        "first_stabilization_time": 2,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 5,
+        "removed_at_each_image_step": [
+          [
+            52,
+            53
+          ],
+          [
+            51
+          ]
+        ],
+        "status": "complete",
+        "width": 6
+      },
+      "4": {
+        "core": [
+          200,
+          222
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            200,
+            222
+          ]
+        ],
+        "cycle_lengths": [
+          2
+        ],
+        "first_stabilization_time": 4,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 11,
+        "removed_at_each_image_step": [
+          [
+            202,
+            203,
+            204,
+            205,
+            207
+          ],
+          [
+            220,
+            221
+          ],
+          [
+            201
+          ],
+          [
+            223
+          ]
+        ],
+        "status": "complete",
+        "width": 8
+      },
+      "5": {
+        "core": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            801,
+            889,
+            803,
+            891
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 6,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 20,
+        "removed_at_each_image_step": [
+          [
+            880,
+            881,
+            882,
+            883,
+            884,
+            885,
+            886,
+            887
+          ],
+          [
+            804,
+            805,
+            807
+          ],
+          [
+            894,
+            895
+          ],
+          [
+            800
+          ],
+          [
+            888
+          ],
+          [
+            802
+          ]
+        ],
+        "status": "complete",
+        "width": 10
+      },
+      "6": {
+        "core": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            3205,
+            3558,
+            3214,
+            3564
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 8,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 39,
+        "removed_at_each_image_step": [
+          [
+            3210,
+            3212,
+            3213,
+            3215,
+            3216,
+            3217,
+            3219,
+            3222,
+            3223,
+            3228,
+            3229,
+            3230,
+            3231,
+            3579
+          ],
+          [
+            3576,
+            3577,
+            3578,
+            3580,
+            3581,
+            3583
+          ],
+          [
+            3200,
+            3201,
+            3202,
+            3203
+          ],
+          [
+            3552,
+            3553,
+            3555
+          ],
+          [
+            3208,
+            3209,
+            3211
+          ],
+          [
+            3565,
+            3566,
+            3567
+          ],
+          [
+            3204
+          ],
+          [
+            3559
+          ]
+        ],
+        "status": "complete",
+        "width": 12
+      },
+      "7": {
+        "core": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            12823,
+            14234,
+            12857,
+            14259
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 9,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 76,
+        "removed_at_each_image_step": [
+          [
+            12803,
+            12839,
+            12858,
+            12859,
+            14256,
+            14262,
+            14263,
+            14271,
+            14304,
+            14305,
+            14306,
+            14307,
+            14308,
+            14309,
+            14311,
+            14312,
+            14313,
+            14314,
+            14315,
+            14320,
+            14321,
+            14323,
+            14326,
+            14327,
+            14332,
+            14333
+          ],
+          [
+            12800,
+            12801,
+            12802,
+            12804,
+            12805,
+            12806,
+            12807,
+            12808,
+            12809,
+            12811,
+            12814,
+            12815,
+            12820,
+            14257
+          ],
+          [
+            12821,
+            14208,
+            14209,
+            14211,
+            14214,
+            14215,
+            14220,
+            14221,
+            14222,
+            14223,
+            14235
+          ],
+          [
+            12832,
+            12833,
+            12835,
+            12838,
+            12844,
+            12845
+          ],
+          [
+            14260,
+            14261,
+            14264,
+            14265,
+            14267,
+            14270
+          ],
+          [
+            12816,
+            12817,
+            12818,
+            12819
+          ],
+          [
+            14236,
+            14237,
+            14239
+          ],
+          [
+            12856
+          ],
+          [
+            14258
+          ]
+        ],
+        "status": "complete",
+        "width": 14
+      },
+      "8": {
+        "core": [
+          51292,
+          51431,
+          56937,
+          57038
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            51292,
+            56937,
+            51431,
+            57038
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 11,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 156,
+        "removed_at_each_image_step": [
+          [
+            51202,
+            51203,
+            51204,
+            51205,
+            51207,
+            51208,
+            51209,
+            51210,
+            51211,
+            51216,
+            51217,
+            51219,
+            51220,
+            51221,
+            51222,
+            51223,
+            51224,
+            51225,
+            51227,
+            51228,
+            51229,
+            51230,
+            51231,
+            51232,
+            51233,
+            51235,
+            51238,
+            51239,
+            51244,
+            51245,
+            51246,
+            51247,
+            51256,
+            51257,
+            51258,
+            51259,
+            51260,
+            51261,
+            51263,
+            51264,
+            51276,
+            51277,
+            51280,
+            51281,
+            51283,
+            51335,
+            51427,
+            56832,
+            56833,
+            56844,
+            56895,
+            56939,
+            57028,
+            57029,
+            57030,
+            57031,
+            57063,
+            57080
+          ],
+          [
+            51266,
+            51286,
+            51287,
+            51328,
+            51329,
+            51341,
+            56835,
+            56838,
+            56839,
+            56845,
+            56846,
+            56847,
+            56856,
+            56857,
+            56858,
+            56859,
+            56860,
+            56861,
+            56863,
+            56880,
+            56881,
+            56882,
+            56883,
+            56884,
+            56885,
+            56888,
+            56889,
+            56891,
+            56894,
+            56940,
+            56941,
+            56943,
+            56944
+          ],
+          [
+            51331,
+            51334,
+            51340,
+            51352,
+            51353,
+            51354,
+            51355,
+            51376,
+            51377,
+            51378,
+            51379,
+            51380,
+            51381,
+            51383,
+            51428,
+            56938,
+            57056,
+            57057,
+            57068
+          ],
+          [
+            51269,
+            51272,
+            51273,
+            57039,
+            57042,
+            57043,
+            57044,
+            57045,
+            57047,
+            57059,
+            57062,
+            57069,
+            57081,
+            57082,
+            57083
+          ],
+          [
+            51265,
+            51267,
+            51268,
+            51274,
+            51275,
+            51278,
+            51279,
+            56950,
+            56958,
+            56959
+          ],
+          [
+            56945,
+            56947,
+            56951,
+            56956,
+            56957
+          ],
+          [
+            51424,
+            51425,
+            51426,
+            51429
+          ],
+          [
+            57032,
+            57033,
+            57035
+          ],
+          [
+            51293,
+            51294,
+            51295
+          ],
+          [
+            56936
+          ],
+          [
+            51430
+          ]
+        ],
+        "status": "complete",
+        "width": 16
+      }
+    },
+    "u": {
+      "1": {
+        "core": [
+          1
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            1
+          ]
+        ],
+        "cycle_lengths": [
+          1
+        ],
+        "first_stabilization_time": 0,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 1,
+        "removed_at_each_image_step": [],
+        "status": "complete",
+        "width": 1
+      },
+      "2": {
+        "core": [
+          6
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            6
+          ]
+        ],
+        "cycle_lengths": [
+          1
+        ],
+        "first_stabilization_time": 1,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 2,
+        "removed_at_each_image_step": [
+          [
+            7
+          ]
+        ],
+        "status": "complete",
+        "width": 3
+      },
+      "3": {
+        "core": [
+          25,
+          27
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            25,
+            27
+          ]
+        ],
+        "cycle_lengths": [
+          2
+        ],
+        "first_stabilization_time": 2,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 4,
+        "removed_at_each_image_step": [
+          [
+            24
+          ],
+          [
+            26
+          ]
+        ],
+        "status": "complete",
+        "width": 5
+      },
+      "4": {
+        "core": [
+          100,
+          111
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            100,
+            111
+          ]
+        ],
+        "cycle_lengths": [
+          2
+        ],
+        "first_stabilization_time": 3,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 9,
+        "removed_at_each_image_step": [
+          [
+            104,
+            105,
+            107
+          ],
+          [
+            101,
+            102,
+            103
+          ],
+          [
+            110
+          ]
+        ],
+        "status": "complete",
+        "width": 7
+      },
+      "5": {
+        "core": [
+          400,
+          401,
+          444,
+          445
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            400,
+            444,
+            401,
+            445
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 4,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 18,
+        "removed_at_each_image_step": [
+          [
+            404,
+            405,
+            408,
+            409,
+            411,
+            414,
+            415
+          ],
+          [
+            440,
+            441,
+            442,
+            443
+          ],
+          [
+            402,
+            403
+          ],
+          [
+            447
+          ]
+        ],
+        "status": "complete",
+        "width": 9
+      },
+      "6": {
+        "core": [
+          1602,
+          1607,
+          1779,
+          1782
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            1602,
+            1779,
+            1607,
+            1782
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 7,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 36,
+        "removed_at_each_image_step": [
+          [
+            1603,
+            1760,
+            1761,
+            1762,
+            1763,
+            1764,
+            1765,
+            1768,
+            1769,
+            1770,
+            1771,
+            1772,
+            1773,
+            1774,
+            1775
+          ],
+          [
+            1606,
+            1608,
+            1609,
+            1611,
+            1614,
+            1615
+          ],
+          [
+            1788,
+            1789,
+            1790,
+            1791
+          ],
+          [
+            1600,
+            1601
+          ],
+          [
+            1776,
+            1777
+          ],
+          [
+            1604,
+            1605
+          ],
+          [
+            1783
+          ]
+        ],
+        "status": "complete",
+        "width": 11
+      },
+      "7": {
+        "core": [
+          6411,
+          6428,
+          7117,
+          7129
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            6411,
+            7117,
+            6428,
+            7129
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 8,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 67,
+        "removed_at_each_image_step": [
+          [
+            6418,
+            6420,
+            6421,
+            6423,
+            6424,
+            6425,
+            6427,
+            6430,
+            6431,
+            6432,
+            6433,
+            6435,
+            6438,
+            6439,
+            6444,
+            6445,
+            6446,
+            6447,
+            6458,
+            6459,
+            6460,
+            6461,
+            6463,
+            7116,
+            7154,
+            7155,
+            7167
+          ],
+          [
+            6407,
+            6429,
+            7131,
+            7152,
+            7153,
+            7156,
+            7157,
+            7160,
+            7161,
+            7163,
+            7166
+          ],
+          [
+            6400,
+            6401,
+            6402,
+            6403,
+            6404,
+            6405,
+            7128
+          ],
+          [
+            6410,
+            7104,
+            7105,
+            7107,
+            7110,
+            7111
+          ],
+          [
+            6416,
+            6417,
+            6419,
+            6422
+          ],
+          [
+            7130,
+            7132,
+            7133,
+            7135
+          ],
+          [
+            6408,
+            6409
+          ],
+          [
+            7118,
+            7119
+          ]
+        ],
+        "status": "complete",
+        "width": 13
+      },
+      "8": {
+        "core": [
+          25646,
+          25715,
+          28468,
+          28519
+        ],
+        "core_only_vs_full": [],
+        "cycle_decomposition": [
+          [
+            25646,
+            28468,
+            25715,
+            28519
+          ]
+        ],
+        "cycle_lengths": [
+          4
+        ],
+        "first_stabilization_time": 10,
+        "full_only_vs_core": [],
+        "full_width_cycle_comparison": "equal",
+        "initial_count": 129,
+        "removed_at_each_image_step": [
+          [
+            25600,
+            25628,
+            25629,
+            25630,
+            25631,
+            25635,
+            25671,
+            25716,
+            25717,
+            25719,
+            28443,
+            28512,
+            28513,
+            28520,
+            28524,
+            28525,
+            28526,
+            28527,
+            28535,
+            28542,
+            28543,
+            28608,
+            28609,
+            28610,
+            28611,
+            28612,
+            28613,
+            28614,
+            28615,
+            28624,
+            28625,
+            28626,
+            28627,
+            28628,
+            28629,
+            28631,
+            28640,
+            28641,
+            28643,
+            28646,
+            28647,
+            28652,
+            28653,
+            28664,
+            28665,
+            28666,
+            28667
+          ],
+          [
+            25601,
+            25602,
+            25603,
+            25604,
+            25605,
+            25608,
+            25609,
+            25610,
+            25611,
+            25612,
+            25613,
+            25614,
+            25615,
+            25616,
+            25617,
+            25619,
+            25622,
+            25623,
+            25638,
+            25640,
+            25641,
+            28416,
+            28440,
+            28441,
+            28514,
+            28515
+          ],
+          [
+            25643,
+            25664,
+            25690,
+            25691,
+            28417,
+            28419,
+            28422,
+            28423,
+            28428,
+            28429,
+            28430,
+            28431,
+            28442,
+            28444,
+            28445,
+            28447,
+            28470,
+            28471
+          ],
+          [
+            25665,
+            25667,
+            25670,
+            25676,
+            25677,
+            25688,
+            25689,
+            28469,
+            28521,
+            28528
+          ],
+          [
+            25636,
+            28522,
+            28523,
+            28529,
+            28531,
+            28534,
+            28540,
+            28541
+          ],
+          [
+            25632,
+            25633,
+            25634,
+            25637,
+            25639,
+            28479
+          ],
+          [
+            28472,
+            28473,
+            28475,
+            28478
+          ],
+          [
+            25712,
+            25713,
+            25714
+          ],
+          [
+            28516,
+            28517
+          ],
+          [
+            25647
+          ]
+        ],
+        "status": "complete",
+        "width": 15
+      }
+    }
+  },
+  "interpretation": "Exact disjointness entries combine with the existing all-depth head theorem; the proof and scope are separate from this finite comparison.",
+  "limitations": [
+    "No arbitrary-return or whole-tail exclusion.",
+    "The source core construction is reused, not rerun.",
+    "Both implementations are lead-local.",
+    "Base Git and source hashes jointly identify the uncommitted research inputs."
+  ],
+  "parameters": {
+    "b": "1 through each stored core's bit width",
+    "h": [
+      1,
+      8
+    ],
+    "memory_limit_gib": 1,
+    "phases": [
+      "p",
+      "u"
+    ],
+    "shifts": [
+      0,
+      6
+    ],
+    "survivors": [
+      "-7/127",
+      "-123/127"
+    ],
+    "wall_seconds": 120
+  },
+  "proof_scope": "Only the 16 already committed cores and declared residue comparisons; no new states or schedules.",
+  "question": "problem1",
+  "result_hashes": {
+    "independent_sha256": "7accdf7c7cde60e321aa85843ba5d8309eda41ce319a020ba6d845c58572187c",
+    "primary_sha256": "7accdf7c7cde60e321aa85843ba5d8309eda41ce319a020ba6d845c58572187c",
+    "summary_sha256": "3eab20334981149eb6134794930f6364d4daa27c9f1a977b8b38bedd2b71bcaa"
+  },
+  "result_summary": {
+    "cores": 16,
+    "entries": 136,
+    "independent_agreement": true,
+    "rows": [
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          3
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 1,
+        "minimum_initial_k": 1,
+        "phase": "p",
+        "stabilization_age": 0,
+        "width": 2
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          12,
+          13
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              4,
+              5
+            ],
+            "disjoint": false,
+            "overlap": [
+              4,
+              5
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              12,
+              13
+            ],
+            "disjoint": false,
+            "overlap": [
+              12,
+              13
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 2,
+        "minimum_initial_k": 2,
+        "phase": "p",
+        "stabilization_age": 0,
+        "width": 4
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          50,
+          55
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              2,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              2,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              2,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              2,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              18,
+              23
+            ],
+            "disjoint": false,
+            "overlap": [
+              23
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              50,
+              55
+            ],
+            "disjoint": false,
+            "overlap": [
+              55
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 3,
+        "minimum_initial_k": 5,
+        "phase": "p",
+        "stabilization_age": 2,
+        "width": 6
+      },
+      {
+        "alternating_prefix_bound_k_minus": 3,
+        "core": [
+          200,
+          222
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0
+            ],
+            "disjoint": false,
+            "overlap": [
+              0
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              2
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              2
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              0,
+              6
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              6
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              8,
+              14
+            ],
+            "disjoint": false,
+            "overlap": [
+              8,
+              14
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              8,
+              30
+            ],
+            "disjoint": false,
+            "overlap": [
+              30
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              8,
+              30
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              72,
+              94
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              200,
+              222
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          }
+        ],
+        "first_separating_bits": 6,
+        "h": 4,
+        "minimum_initial_k": 8,
+        "phase": "p",
+        "stabilization_age": 4,
+        "width": 8
+      },
+      {
+        "alternating_prefix_bound_k_minus": 3,
+        "core": [
+          801,
+          803,
+          889,
+          891
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              1,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              1,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              1,
+              3,
+              9,
+              11
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3,
+              11
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              1,
+              3,
+              25,
+              27
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3,
+              27
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              33,
+              35,
+              57,
+              59
+            ],
+            "disjoint": false,
+            "overlap": [
+              33,
+              59
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              33,
+              35,
+              121,
+              123
+            ],
+            "disjoint": false,
+            "overlap": [
+              123
+            ],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              33,
+              35,
+              121,
+              123
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              289,
+              291,
+              377,
+              379
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              801,
+              803,
+              889,
+              891
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          }
+        ],
+        "first_separating_bits": 8,
+        "h": 5,
+        "minimum_initial_k": 11,
+        "phase": "p",
+        "stabilization_age": 6,
+        "width": 10
+      },
+      {
+        "alternating_prefix_bound_k_minus": 4,
+        "core": [
+          3205,
+          3214,
+          3558,
+          3564
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              1,
+              2
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1,
+              2
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              4,
+              5,
+              6
+            ],
+            "disjoint": false,
+            "overlap": [
+              4,
+              5,
+              6
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              5,
+              6,
+              12,
+              14
+            ],
+            "disjoint": false,
+            "overlap": [
+              12,
+              14
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              5,
+              6,
+              12,
+              14
+            ],
+            "disjoint": false,
+            "overlap": [
+              14
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              5,
+              14,
+              38,
+              44
+            ],
+            "disjoint": false,
+            "overlap": [
+              14
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              5,
+              14,
+              102,
+              108
+            ],
+            "disjoint": false,
+            "overlap": [
+              14
+            ],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              133,
+              142,
+              230,
+              236
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              133,
+              142,
+              486,
+              492
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              133,
+              142,
+              486,
+              492
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              1157,
+              1166,
+              1510,
+              1516
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          },
+          {
+            "bits": 12,
+            "core_residues": [
+              3205,
+              3214,
+              3558,
+              3564
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              225,
+              451,
+              903,
+              1806,
+              2031,
+              2160,
+              3063,
+              3128,
+              3579,
+              3612,
+              3837,
+              3966,
+              4031,
+              4063
+            ]
+          }
+        ],
+        "first_separating_bits": 8,
+        "h": 6,
+        "minimum_initial_k": 14,
+        "phase": "p",
+        "stabilization_age": 8,
+        "width": 12
+      },
+      {
+        "alternating_prefix_bound_k_minus": 6,
+        "core": [
+          12823,
+          12857,
+          14234,
+          14259
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              1,
+              2,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              2,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              1,
+              2,
+              3,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              3,
+              7,
+              9,
+              10
+            ],
+            "disjoint": false,
+            "overlap": [
+              3,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              19,
+              23,
+              25,
+              26
+            ],
+            "disjoint": false,
+            "overlap": [
+              23
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              23,
+              26,
+              51,
+              57
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              23,
+              26,
+              51,
+              57
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              23,
+              57,
+              154,
+              179
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              23,
+              57,
+              410,
+              435
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              535,
+              569,
+              922,
+              947
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              535,
+              569,
+              1946,
+              1971
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          },
+          {
+            "bits": 12,
+            "core_residues": [
+              535,
+              569,
+              1946,
+              1971
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              225,
+              451,
+              903,
+              1806,
+              2031,
+              2160,
+              3063,
+              3128,
+              3579,
+              3612,
+              3837,
+              3966,
+              4031,
+              4063
+            ]
+          },
+          {
+            "bits": 13,
+            "core_residues": [
+              4631,
+              4665,
+              6042,
+              6067
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              451,
+              903,
+              1806,
+              3612,
+              4063,
+              4321,
+              6127,
+              6256,
+              7159,
+              7224,
+              7675,
+              7933,
+              8062,
+              8127
+            ]
+          },
+          {
+            "bits": 14,
+            "core_residues": [
+              12823,
+              12857,
+              14234,
+              14259
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              903,
+              1806,
+              3612,
+              7224,
+              8127,
+              8643,
+              12255,
+              12513,
+              14319,
+              14448,
+              15351,
+              15867,
+              16125,
+              16254
+            ]
+          }
+        ],
+        "first_separating_bits": 6,
+        "h": 7,
+        "minimum_initial_k": 16,
+        "phase": "p",
+        "stabilization_age": 9,
+        "width": 14
+      },
+      {
+        "alternating_prefix_bound_k_minus": 6,
+        "core": [
+          51292,
+          51431,
+          56937,
+          57038
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              1,
+              4,
+              6,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              4,
+              6,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              7,
+              9,
+              12,
+              14
+            ],
+            "disjoint": false,
+            "overlap": [
+              7,
+              12,
+              14
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              7,
+              9,
+              14,
+              28
+            ],
+            "disjoint": false,
+            "overlap": [
+              7,
+              14,
+              28
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              14,
+              28,
+              39,
+              41
+            ],
+            "disjoint": false,
+            "overlap": [
+              14,
+              28
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              78,
+              92,
+              103,
+              105
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              92,
+              105,
+              206,
+              231
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              92,
+              105,
+              206,
+              231
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              92,
+              231,
+              617,
+              718
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              92,
+              231,
+              1641,
+              1742
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          },
+          {
+            "bits": 12,
+            "core_residues": [
+              2140,
+              2279,
+              3689,
+              3790
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              225,
+              451,
+              903,
+              1806,
+              2031,
+              2160,
+              3063,
+              3128,
+              3579,
+              3612,
+              3837,
+              3966,
+              4031,
+              4063
+            ]
+          },
+          {
+            "bits": 13,
+            "core_residues": [
+              2140,
+              2279,
+              7785,
+              7886
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              451,
+              903,
+              1806,
+              3612,
+              4063,
+              4321,
+              6127,
+              6256,
+              7159,
+              7224,
+              7675,
+              7933,
+              8062,
+              8127
+            ]
+          },
+          {
+            "bits": 14,
+            "core_residues": [
+              2140,
+              2279,
+              7785,
+              7886
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              903,
+              1806,
+              3612,
+              7224,
+              8127,
+              8643,
+              12255,
+              12513,
+              14319,
+              14448,
+              15351,
+              15867,
+              16125,
+              16254
+            ]
+          },
+          {
+            "bits": 15,
+            "core_residues": [
+              18524,
+              18663,
+              24169,
+              24270
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              1806,
+              3612,
+              7224,
+              14448,
+              16254,
+              17287,
+              24511,
+              25027,
+              28639,
+              28897,
+              30703,
+              31735,
+              32251,
+              32509
+            ]
+          },
+          {
+            "bits": 16,
+            "core_residues": [
+              51292,
+              51431,
+              56937,
+              57038
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              3612,
+              7224,
+              14448,
+              28897,
+              32509,
+              34574,
+              49022,
+              50055,
+              57279,
+              57795,
+              61407,
+              63471,
+              64503,
+              65019
+            ]
+          }
+        ],
+        "first_separating_bits": 7,
+        "h": 8,
+        "minimum_initial_k": 19,
+        "phase": "p",
+        "stabilization_age": 11,
+        "width": 16
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          1
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 1,
+        "minimum_initial_k": 1,
+        "phase": "u",
+        "stabilization_age": 0,
+        "width": 1
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          6
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0
+            ],
+            "disjoint": false,
+            "overlap": [
+              0
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              2
+            ],
+            "disjoint": false,
+            "overlap": [
+              2
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              6
+            ],
+            "disjoint": false,
+            "overlap": [
+              6
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 2,
+        "minimum_initial_k": 3,
+        "phase": "u",
+        "stabilization_age": 1,
+        "width": 3
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          25,
+          27
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              1,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              1,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              9,
+              11
+            ],
+            "disjoint": false,
+            "overlap": [
+              11
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              25,
+              27
+            ],
+            "disjoint": false,
+            "overlap": [
+              27
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 3,
+        "minimum_initial_k": 5,
+        "phase": "u",
+        "stabilization_age": 2,
+        "width": 5
+      },
+      {
+        "alternating_prefix_bound_k_minus": null,
+        "core": [
+          100,
+          111
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              4,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              4,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              4,
+              15
+            ],
+            "disjoint": false,
+            "overlap": [
+              15
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              4,
+              15
+            ],
+            "disjoint": false,
+            "overlap": [
+              15
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              36,
+              47
+            ],
+            "disjoint": false,
+            "overlap": [
+              47
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              100,
+              111
+            ],
+            "disjoint": false,
+            "overlap": [
+              111
+            ],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          }
+        ],
+        "first_separating_bits": null,
+        "h": 4,
+        "minimum_initial_k": 7,
+        "phase": "u",
+        "stabilization_age": 3,
+        "width": 7
+      },
+      {
+        "alternating_prefix_bound_k_minus": 3,
+        "core": [
+          400,
+          401,
+          444,
+          445
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1,
+              4,
+              5
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              0,
+              1,
+              12,
+              13
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1,
+              12,
+              13
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              16,
+              17,
+              28,
+              29
+            ],
+            "disjoint": false,
+            "overlap": [
+              16,
+              28,
+              29
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              16,
+              17,
+              60,
+              61
+            ],
+            "disjoint": false,
+            "overlap": [
+              61
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              16,
+              17,
+              60,
+              61
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              144,
+              145,
+              188,
+              189
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              400,
+              401,
+              444,
+              445
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          }
+        ],
+        "first_separating_bits": 7,
+        "h": 5,
+        "minimum_initial_k": 9,
+        "phase": "u",
+        "stabilization_age": 4,
+        "width": 9
+      },
+      {
+        "alternating_prefix_bound_k_minus": 4,
+        "core": [
+          1602,
+          1607,
+          1779,
+          1782
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              2,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              2,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              2,
+              3,
+              6,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              3,
+              6,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              2,
+              3,
+              6,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              3,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              2,
+              7,
+              19,
+              22
+            ],
+            "disjoint": false,
+            "overlap": [
+              7
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              2,
+              7,
+              51,
+              54
+            ],
+            "disjoint": false,
+            "overlap": [
+              7
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              66,
+              71,
+              115,
+              118
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              66,
+              71,
+              243,
+              246
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              66,
+              71,
+              243,
+              246
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              578,
+              583,
+              755,
+              758
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              1602,
+              1607,
+              1779,
+              1782
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          }
+        ],
+        "first_separating_bits": 7,
+        "h": 6,
+        "minimum_initial_k": 13,
+        "phase": "u",
+        "stabilization_age": 7,
+        "width": 11
+      },
+      {
+        "alternating_prefix_bound_k_minus": 4,
+        "core": [
+          6411,
+          6428,
+          7117,
+          7129
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              1,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              1,
+              3,
+              4,
+              5
+            ],
+            "disjoint": false,
+            "overlap": [
+              1,
+              3,
+              4,
+              5
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              9,
+              11,
+              12,
+              13
+            ],
+            "disjoint": false,
+            "overlap": [
+              11,
+              12,
+              13
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              11,
+              13,
+              25,
+              28
+            ],
+            "disjoint": false,
+            "overlap": [
+              28
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              11,
+              13,
+              25,
+              28
+            ],
+            "disjoint": false,
+            "overlap": [
+              28
+            ],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              11,
+              28,
+              77,
+              89
+            ],
+            "disjoint": false,
+            "overlap": [
+              28
+            ],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              11,
+              28,
+              205,
+              217
+            ],
+            "disjoint": false,
+            "overlap": [
+              28
+            ],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              267,
+              284,
+              461,
+              473
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              267,
+              284,
+              973,
+              985
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              267,
+              284,
+              973,
+              985
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          },
+          {
+            "bits": 12,
+            "core_residues": [
+              2315,
+              2332,
+              3021,
+              3033
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              225,
+              451,
+              903,
+              1806,
+              2031,
+              2160,
+              3063,
+              3128,
+              3579,
+              3612,
+              3837,
+              3966,
+              4031,
+              4063
+            ]
+          },
+          {
+            "bits": 13,
+            "core_residues": [
+              6411,
+              6428,
+              7117,
+              7129
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              451,
+              903,
+              1806,
+              3612,
+              4063,
+              4321,
+              6127,
+              6256,
+              7159,
+              7224,
+              7675,
+              7933,
+              8062,
+              8127
+            ]
+          }
+        ],
+        "first_separating_bits": 9,
+        "h": 7,
+        "minimum_initial_k": 15,
+        "phase": "u",
+        "stabilization_age": 8,
+        "width": 13
+      },
+      {
+        "alternating_prefix_bound_k_minus": 7,
+        "core": [
+          25646,
+          25715,
+          28468,
+          28519
+        ],
+        "entries": [
+          {
+            "bits": 1,
+            "core_residues": [
+              0,
+              1
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              1
+            ],
+            "tail_residues": [
+              0,
+              1
+            ]
+          },
+          {
+            "bits": 2,
+            "core_residues": [
+              0,
+              2,
+              3
+            ],
+            "disjoint": false,
+            "overlap": [
+              0,
+              2,
+              3
+            ],
+            "tail_residues": [
+              0,
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "bits": 3,
+            "core_residues": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "disjoint": false,
+            "overlap": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7
+            ]
+          },
+          {
+            "bits": 4,
+            "core_residues": [
+              3,
+              4,
+              7,
+              14
+            ],
+            "disjoint": false,
+            "overlap": [
+              3,
+              7,
+              14
+            ],
+            "tail_residues": [
+              0,
+              1,
+              3,
+              7,
+              8,
+              11,
+              12,
+              13,
+              14,
+              15
+            ]
+          },
+          {
+            "bits": 5,
+            "core_residues": [
+              7,
+              14,
+              19,
+              20
+            ],
+            "disjoint": false,
+            "overlap": [
+              7,
+              14
+            ],
+            "tail_residues": [
+              1,
+              3,
+              7,
+              14,
+              15,
+              16,
+              23,
+              24,
+              27,
+              28,
+              29,
+              30,
+              31
+            ]
+          },
+          {
+            "bits": 6,
+            "core_residues": [
+              39,
+              46,
+              51,
+              52
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              3,
+              7,
+              14,
+              28,
+              31,
+              33,
+              47,
+              48,
+              55,
+              56,
+              59,
+              61,
+              62,
+              63
+            ]
+          },
+          {
+            "bits": 7,
+            "core_residues": [
+              46,
+              52,
+              103,
+              115
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              7,
+              14,
+              28,
+              56,
+              63,
+              67,
+              95,
+              97,
+              111,
+              112,
+              119,
+              123,
+              125,
+              126
+            ]
+          },
+          {
+            "bits": 8,
+            "core_residues": [
+              46,
+              52,
+              103,
+              115
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              14,
+              28,
+              56,
+              112,
+              126,
+              135,
+              191,
+              195,
+              223,
+              225,
+              239,
+              247,
+              251,
+              253
+            ]
+          },
+          {
+            "bits": 9,
+            "core_residues": [
+              46,
+              115,
+              308,
+              359
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              28,
+              56,
+              112,
+              225,
+              253,
+              270,
+              382,
+              391,
+              447,
+              451,
+              479,
+              495,
+              503,
+              507
+            ]
+          },
+          {
+            "bits": 10,
+            "core_residues": [
+              46,
+              115,
+              820,
+              871
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              56,
+              112,
+              225,
+              451,
+              507,
+              540,
+              765,
+              782,
+              894,
+              903,
+              959,
+              991,
+              1007,
+              1015
+            ]
+          },
+          {
+            "bits": 11,
+            "core_residues": [
+              1070,
+              1139,
+              1844,
+              1895
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              112,
+              225,
+              451,
+              903,
+              1015,
+              1080,
+              1531,
+              1564,
+              1789,
+              1806,
+              1918,
+              1983,
+              2015,
+              2031
+            ]
+          },
+          {
+            "bits": 12,
+            "core_residues": [
+              1070,
+              1139,
+              3892,
+              3943
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              225,
+              451,
+              903,
+              1806,
+              2031,
+              2160,
+              3063,
+              3128,
+              3579,
+              3612,
+              3837,
+              3966,
+              4031,
+              4063
+            ]
+          },
+          {
+            "bits": 13,
+            "core_residues": [
+              1070,
+              1139,
+              3892,
+              3943
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              451,
+              903,
+              1806,
+              3612,
+              4063,
+              4321,
+              6127,
+              6256,
+              7159,
+              7224,
+              7675,
+              7933,
+              8062,
+              8127
+            ]
+          },
+          {
+            "bits": 14,
+            "core_residues": [
+              9262,
+              9331,
+              12084,
+              12135
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              903,
+              1806,
+              3612,
+              7224,
+              8127,
+              8643,
+              12255,
+              12513,
+              14319,
+              14448,
+              15351,
+              15867,
+              16125,
+              16254
+            ]
+          },
+          {
+            "bits": 15,
+            "core_residues": [
+              25646,
+              25715,
+              28468,
+              28519
+            ],
+            "disjoint": true,
+            "overlap": [],
+            "tail_residues": [
+              1806,
+              3612,
+              7224,
+              14448,
+              16254,
+              17287,
+              24511,
+              25027,
+              28639,
+              28897,
+              30703,
+              31735,
+              32251,
+              32509
+            ]
+          }
+        ],
+        "first_separating_bits": 6,
+        "h": 8,
+        "minimum_initial_k": 18,
+        "phase": "u",
+        "stabilization_age": 10,
+        "width": 15
+      }
+    ]
+  },
+  "runtime_seconds": 0.014917331049218774,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_and_input_hashes": {
+    "experiments/problem1_nonperiodicity/check_boundary_sum_periodic_tails.py": "c55a99f279eb8c01e8fd929e632d84fd012a32ec6433816f6e1392d277fbb8f7",
+    "experiments/problem1_nonperiodicity/check_periodic_survivor_core_separation.py": "21d963ccc328394989f52872c17f76bc00231542462915e9c3be8d7b45e48f37",
+    "proofs/informal/problem1_boundary_sum_periodic_tail_probe.md": "6b6e5b2fe8c5621ff8b9349c32ace67dafc581071e770d71d351b4e194bb1a00",
+    "proofs/informal/problem1_frontier_head_dynamics.md": "781f279f8928f4897ebe820efd54787d99e5ae3671b30c33276ba966d7741511",
+    "proofs/informal/problem1_periodic_survivor_core_separation.md": "35c4f068443d2070143a154197e9e75527101b88315ef28190d7e02ef2a06730",
+    "results/problem1/20260905_frontier_head_primary.json": "178469b09277efe157377e3cb16a7116fbd02b2535115ee8d3aa944186680c9c",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T17:17:46.269839+00:00"
+}
