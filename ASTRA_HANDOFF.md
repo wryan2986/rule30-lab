@@ -11,6 +11,39 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest potential feasibility result (2026-09-06): read
+`proofs/informal/problem1_sixteen_state_potential_feasibility.md` first.
+
+- `partial-proof` on SIX FIXED constraints: the nonnegative potential
+  Wdagger=N_(0,t)+N_(1,t)+N_(1,u)+2N_(6,t), old prefix residues mod16
+  and root excluded, has exact prescribed changes(-2,-2,-2,-1,-1,-1)
+  on the existing u14,u18,p12-zero,u15-zero,p19-cut1,u16-cut1 blocks.
+  Hence NO nonzero nonnegative REAL combination of these six difference
+  vectors is componentwise nonnegative, even without a divergence test.
+  This is an exact all-coefficient separator, NOT universal descent.
+- The first bounded cube had15624 nonzero tuples (15625 including0),
+  all failing the circulation criterion; the all-u subcube had624.
+  The explicit separator supersedes those bounded absences. Increasing
+  coefficient caps on these same six vectors is ruled out as a next step.
+- The p12,p19,u16 blocks end at residues15,11,15 rather than their
+  starting7, so their differences are not circulations individually.
+  The other three are. Phase-mixed coefficients would constrain shared
+  weights, not automatically independently phase-indexed weights.
+- Independent cell replay agrees on all49 states,43 prescribed updates,
+  twelve48-component count tables, six divergences and all six dots.
+  No new initial word, frontier, graph or occurrence was generated.
+  Records: `results/problem1/20260906_sixteen_potential_` followed by
+  `{primary,independent}.json`, with original source/data provenance.
+  Final four-file mathematical and provenance review accepted the exact
+  separator and independently replayed every finite result without changes.
+
+Next: falsify THIS new Wdagger using its exact zero-cost language for
+the already studied motif ututut and the existing16384-state graph size.
+The new-weight graph has not yet been run. A zero-cost ordinary witness
+would refute strict descent; absence would only prove positive initial
+cost on that motif. No larger coefficient search or universal potential
+claim follows. B_all, actual return exclusion and Problem1 remain open.
+
 Newest full-membership result (2026-09-06): read
 `proofs/informal/problem1_decoder_full_membership.md` first.
 
