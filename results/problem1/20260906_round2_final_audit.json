@@ -1,0 +1,110 @@
+{
+  "backend": "python-provenance-audit",
+  "executed_source": "import hashlib,json,os,platform,re,subprocess,tempfile,time\nfrom pathlib import Path\nfrom datetime import datetime,timezone\nroot=Path('/home/ryan/rule30-lab'); began=time.monotonic()\nfiles=['20260906_round2_additive_review.json','20260906_terminal_branch_sensitivity_primary.json','20260906_terminal_branch_sensitivity_independent.json','20260906_terminal_branch_sensitivity_verification.json','20260906_finite_suffix_defect_seams.json','20260906_finite_suffix_defect_review.json']\ndef digest(v):return hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':')).encode()).hexdigest()\ndef sha(v):return hashlib.sha256(v).hexdigest()\nrows=[]; records={}\nfor name in files:\n path=root/'results/problem1'/name;r=json.loads(path.read_text());records[name]=r\n assert re.fullmatch('[0-9a-f]{40}',r['git_commit'])\n assert subprocess.run(['git','merge-base','--is-ancestor',r['git_commit'],'HEAD'],cwd=root).returncode==0\n for key in ('experiment_id','timestamp_utc','question','hypothesis','backend','parameters','hardware','software','runtime_seconds','result_hashes','result_summary','status','proof_scope','limitations','interpretation'):assert key in r,(name,key)\n assert r['question']=='problem1'\n summary_key='summary_sha256' if 'summary_sha256' in r['result_hashes'] else 'result_summary_sha256'\n assert digest(r['result_summary'])==r['result_hashes'][summary_key]\n rows.append({'file':name,'sha256':sha(path.read_bytes()),'base_git':r['git_commit'],'status':r['status'],'summary_hash_valid':True})\np=records[files[1]];i=records[files[2]];v=records[files[3]];s=records[files[4]];review=records[files[5]]\nfor record,field,script in [(p,'executed_source','check_terminal_branch_sensitivity_primary.py'),(i,'source_snapshot','check_terminal_branch_sensitivity_independent.py'),(s,'executed_source','check_finite_suffix_defect_seams.py')]:\n path='experiments/problem1_nonperiodicity/'+script\n assert record[field]==(root/path).read_text()\n assert sha(record[field].encode())==record['source_and_input_hashes'][path]\nfor record,note in [(p,'problem1_terminal_branch_sensitivity.md'),(i,'problem1_terminal_branch_sensitivity.md'),(s,'problem1_finite_suffix_defect_transfer.md')]:\n assert sha(record['admission_snapshot'].encode())==record['source_and_input_hashes']['proofs/informal/'+note]\nassert s['dependency_source_snapshot']==(root/'experiments/problem1_nonperiodicity/check_terminal_branch_sensitivity_independent.py').read_text()\nassert sha(v['worker_corrected_source'].encode())==v['worker_corrected_record']['source_sha256']\nassert sha(v['source_snapshots']['proofs/informal/problem1_terminal_branch_sensitivity.md'].encode())==v['worker_corrected_record']['input_sha256']['proofs/informal/problem1_terminal_branch_sensitivity.md']\nfor name,snapshot in review['note_snapshots_at_lead_audit'].items():assert sha(snapshot.encode())==review['source_and_input_hashes'][name]\nreference=sha((root/'src/python/rule30_research_reference.py').read_bytes());assert reference=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\nsummary={'records':rows,'all_record_summary_hashes_valid':True,'all_code_snapshots_match_committed_sources':True,'all_admission_snapshots_match_their_executed_hashes':True,'reference_sha256':reference,'external_review_scope':{'old_additive_section7':'accepted by Muse','new_terminal_sections1_to4':'MiMo review accepted with recorded lead corrections','new_all_r_transfer':'full external review still missing; two supplied verdicts rejected','old_entire_all_memory':'still missing'},'all_agent_threads_closed':True,'problem1_solved':False,'research_blocked':False,'rollover_kind':'routine maintenance; research continues across supervisor rounds'}\nrecord={'experiment_id':'20260906_round2_final_audit','timestamp_utc':datetime.now(timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'question':'problem1','hypothesis':'All six established round2 records retain valid exact parameters, source/admission snapshots, hashes and explicit proof/review scope at maintenance rollover.','backend':'python-provenance-audit','parameters':{'records':files,'numerical_research_rerun':False,'new_inputs_or_widths':False},'hardware':{'machine':platform.machine(),'logical_cpu_count':os.cpu_count()},'software':{'python':platform.python_version(),'platform':platform.platform()},'runtime_seconds':time.monotonic()-began,'result_summary':summary,'result_hashes':{'summary_sha256':digest(summary)},'executed_source':Path(__file__).read_text(),'source_and_input_hashes':{str((root/'results/problem1'/name).relative_to(root)):sha((root/'results/problem1'/name).read_bytes()) for name in files},'status':'finite-exhaustive','proof_scope':'Archival integrity of precisely the six recorded units, not a new mathematical experiment or a replacement for missing proof review.','interpretation':'Established research is reproducible and ready for the next supervisor round; Problem1 and the actual ordinary boundary upper bound remain open.','limitations':['The full new all-r and old all-memory external reviews remain missing.','No finite word representative is promoted to an ordinary frontier endpoint.','No uniform subunit boundary bound has been proved or refuted by the new control slopes.','Unrelated pre-existing and supervisor-created untracked files were preserved.']}\nout=root/'results/problem1/20260906_round2_final_audit.json';fd,tmp=tempfile.mkstemp(prefix=out.name+'.',dir=out.parent)\nwith os.fdopen(fd,'w') as f:json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out);r=json.loads(out.read_text());assert digest(r['result_summary'])==r['result_hashes']['summary_sha256'];print('Six result records, three code snapshots, three admission snapshots and immutable reference verified; no numerical research rerun.')\n",
+  "experiment_id": "20260906_round2_final_audit",
+  "git_commit": "5d18334708f425d06d7251439f29cea6e8862f89",
+  "hardware": {
+    "logical_cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "All six established round2 records retain valid exact parameters, source/admission snapshots, hashes and explicit proof/review scope at maintenance rollover.",
+  "interpretation": "Established research is reproducible and ready for the next supervisor round; Problem1 and the actual ordinary boundary upper bound remain open.",
+  "limitations": [
+    "The full new all-r and old all-memory external reviews remain missing.",
+    "No finite word representative is promoted to an ordinary frontier endpoint.",
+    "No uniform subunit boundary bound has been proved or refuted by the new control slopes.",
+    "Unrelated pre-existing and supervisor-created untracked files were preserved."
+  ],
+  "parameters": {
+    "new_inputs_or_widths": false,
+    "numerical_research_rerun": false,
+    "records": [
+      "20260906_round2_additive_review.json",
+      "20260906_terminal_branch_sensitivity_primary.json",
+      "20260906_terminal_branch_sensitivity_independent.json",
+      "20260906_terminal_branch_sensitivity_verification.json",
+      "20260906_finite_suffix_defect_seams.json",
+      "20260906_finite_suffix_defect_review.json"
+    ]
+  },
+  "proof_scope": "Archival integrity of precisely the six recorded units, not a new mathematical experiment or a replacement for missing proof review.",
+  "question": "problem1",
+  "result_hashes": {
+    "summary_sha256": "840eab62f04e28393b0338416f49b9083ed546183ebc4c472ba3b713d616fc09"
+  },
+  "result_summary": {
+    "all_admission_snapshots_match_their_executed_hashes": true,
+    "all_agent_threads_closed": true,
+    "all_code_snapshots_match_committed_sources": true,
+    "all_record_summary_hashes_valid": true,
+    "external_review_scope": {
+      "new_all_r_transfer": "full external review still missing; two supplied verdicts rejected",
+      "new_terminal_sections1_to4": "MiMo review accepted with recorded lead corrections",
+      "old_additive_section7": "accepted by Muse",
+      "old_entire_all_memory": "still missing"
+    },
+    "problem1_solved": false,
+    "records": [
+      {
+        "base_git": "b264a4ca1e7e2e38776898b95182166a33a2bd78",
+        "file": "20260906_round2_additive_review.json",
+        "sha256": "555d9fcee8bac872ec4671e5e09e3d22271901614143eb45d8ef45b1fd2342c4",
+        "status": "partial-proof",
+        "summary_hash_valid": true
+      },
+      {
+        "base_git": "4fd5b8784afa3ce8dc88c142924d12dc5e67f731",
+        "file": "20260906_terminal_branch_sensitivity_primary.json",
+        "sha256": "fc75241e10d5d864eb09e698fcfc1d1273fbe720c7de4d98767b881b2050e3bd",
+        "status": "finite-exhaustive",
+        "summary_hash_valid": true
+      },
+      {
+        "base_git": "b264a4ca1e7e2e38776898b95182166a33a2bd78",
+        "file": "20260906_terminal_branch_sensitivity_independent.json",
+        "sha256": "93b62ec0f4398f0ee0dc28063585ff62c9aa8623d4fccba62a08a65287e54911",
+        "status": "finite-exhaustive",
+        "summary_hash_valid": true
+      },
+      {
+        "base_git": "4fd5b8784afa3ce8dc88c142924d12dc5e67f731",
+        "file": "20260906_terminal_branch_sensitivity_verification.json",
+        "sha256": "36c5c6b292e0bc97c7af28700e2f83e90cedd50ab22a491a8e8f2bdb85feb95a",
+        "status": "partial-proof",
+        "summary_hash_valid": true
+      },
+      {
+        "base_git": "4fd5b8784afa3ce8dc88c142924d12dc5e67f731",
+        "file": "20260906_finite_suffix_defect_seams.json",
+        "sha256": "f51e19230dc5050637e8c691c230130fe67f5400fca2ae6bee49ee5fcbb18ad8",
+        "status": "finite-exhaustive",
+        "summary_hash_valid": true
+      },
+      {
+        "base_git": "4fd5b8784afa3ce8dc88c142924d12dc5e67f731",
+        "file": "20260906_finite_suffix_defect_review.json",
+        "sha256": "9bea127b7e7d264249d7bdb999c43ff4a036b0bb20a136259c54da2d5d36fcfc",
+        "status": "partial-proof",
+        "summary_hash_valid": true
+      }
+    ],
+    "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "research_blocked": false,
+    "rollover_kind": "routine maintenance; research continues across supervisor rounds"
+  },
+  "runtime_seconds": 0.0327594029949978,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_and_input_hashes": {
+    "results/problem1/20260906_finite_suffix_defect_review.json": "9bea127b7e7d264249d7bdb999c43ff4a036b0bb20a136259c54da2d5d36fcfc",
+    "results/problem1/20260906_finite_suffix_defect_seams.json": "f51e19230dc5050637e8c691c230130fe67f5400fca2ae6bee49ee5fcbb18ad8",
+    "results/problem1/20260906_round2_additive_review.json": "555d9fcee8bac872ec4671e5e09e3d22271901614143eb45d8ef45b1fd2342c4",
+    "results/problem1/20260906_terminal_branch_sensitivity_independent.json": "93b62ec0f4398f0ee0dc28063585ff62c9aa8623d4fccba62a08a65287e54911",
+    "results/problem1/20260906_terminal_branch_sensitivity_primary.json": "fc75241e10d5d864eb09e698fcfc1d1273fbe720c7de4d98767b881b2050e3bd",
+    "results/problem1/20260906_terminal_branch_sensitivity_verification.json": "36c5c6b292e0bc97c7af28700e2f83e90cedd50ab22a491a8e8f2bdb85feb95a"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T19:07:33.130192+00:00"
+}

@@ -1,3 +1,39 @@
+## Round 2 maintenance rollover (2026-09-06, approximately 65 minutes)
+
+Research started at18:05UTC; final maintenance is around19:10UTC.
+Established mathematical progress was committed and pushed as
+`5d18334708f425d06d7251439f29cea6e8862f89`, after the scoped review
+checkpoint `4fd5b87`. The final maintenance commit is the current Git
+tip. This is routine time rollover, NOT goal achieved or mathematical
+blockage. Research continues in the next supervisor round.
+
+The new countermodels show that even zero-density changes from pure
+alternation can change the boundary cost by a linear amount. The
+fixed-suffix transfer supplies a precise finite defect state, but no
+uniform subunit bound. Read the research checkpoint immediately below
+for exact formulas, admitted controls and remaining quantifiers.
+
+Final audit `results/problem1/20260906_round2_final_audit.json` verifies
+all six established result records, three committed executable-source
+snapshots, three executed-admission snapshots and the immutable reference
+hash. The full vectors and closed states were checked independently;
+this archival audit did not rerun any numerical research. All established
+work is committed and pushed. Unrelated pre-existing and supervisor-created
+untracked files were preserved.
+
+There are no agent threads to wait for. The new all-r transfer's complete
+external review remains missing after two inaccurate MiMo verdicts were
+rejected; its named finite certificates remain accepted. The old entire
+all-memory review is also still missing. In contrast, the older additive
+reader section7 review is now complete, and the new terminal-sensitivity
+Sections1--4 have the scoped accepted review described below.
+
+Continue the actual ordinary near-boundary inequality or an ordered-history
+mechanism. Do not repeat the terminal, r2/r3 seam, periodic-comparator,
+or previous finite-memory work. No larger suffix/width/comparator sweep
+is admitted. Missing reviews are explicitly scoped limitations, not a
+reason to claim the research is blocked.
+
 ## Round 2 research checkpoint (2026-09-06, base `4fd5b87`)
 
 Read `proofs/informal/problem1_terminal_branch_sensitivity.md` and
@@ -24,7 +60,7 @@ new ordinary-boundary exclusion or a Problem1 solution.
   not needed for this stronger instability. The r3/ttu seam at
   s=4+448v gives32v versus1+52v, slope13/112. Do not extend r.
 - `refuted`: zero-density Hamming stability for ONE fixed infinite
-  admissible schedule. From pure ut delete u at each
+  admissible schedule. From pure ut replace u by t at each
   h_n=2+112*2^(2^n). Only gaps2,4 occur and edit density is0.
   Exact locality |DeltaPsi|<=2h for words equal after h gives
   [Psi_(h_n+1)(q')-Psi_(h_n+1)(ut)]/(h_n+1)->1/28.
