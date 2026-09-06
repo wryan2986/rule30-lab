@@ -1,0 +1,56 @@
+{
+  "backend": "independent-cell-edge-replay-and-functional-tree-audit",
+  "experiment_id": "problem1-closed-block-graph-independent-20260906",
+  "git_commit": "373685affc1ae3541eb4639cb2ae1a06e8e8723b",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Saved parent/next trees certify every vertex lies in the exact trimmed signed graph; the numerical result is only a time-limited inconclusive solve.",
+  "inputs": {
+    "results/problem1/20260906_closed_block_potential_primary.json": "4d82e2a36d96ef9401c2a69efc478b24bf8cbbfded006dbf6141def61ff2bb2c"
+  },
+  "interpretation": "The full65536-state graph is the trim. Feasibility remains inconclusive; no exact LP certificate was returned.",
+  "limitations": [
+    "Four attempted fresh Muse reviews returned provider429; current independent arithmetic replay is by lead.",
+    "The primary interpretation string remained its initialization placeholder; completed numerical fields explicitly show timeout.",
+    "No optimum, primal vector, dual flow, infeasibility certificate or universal potential is asserted.",
+    "Stored accepting word is a recovered tree certificate, not a new word search."
+  ],
+  "parameters": {
+    "cpu_seconds_cap": 120,
+    "memory_bytes_cap": 1073741824,
+    "new_solver_runs": 0,
+    "root": 1,
+    "target": 50055,
+    "vertices": 65536
+  },
+  "proof_scope": "All131070 retained tree edges and all root/target chains, not a feasibility decision.",
+  "question": "problem1",
+  "result_hashes": {
+    "backward_ranks_sha256": "30df478f9d2668840c6e5bac5acd2ea81026243867083468a26b78f8e7e6df06",
+    "forward_ranks_sha256": "ab20df7122d9e01a4562f972507a2030e8198865a42fdf7d7fba9114fb77e3c5",
+    "source_sha256": "810f2dc129d5868906a9efe836c5f236c6e2f99e5e7bf1baf31d4b0a457e42b0",
+    "summary_sha256": "75af5311ace371e69f27553e96369828f25ac168a59f04902b581d053c3184d9"
+  },
+  "result_summary": {
+    "all_vertices_root_reachable": true,
+    "all_vertices_target_coaccessible": true,
+    "certificate_edges_checked": 131070,
+    "forward_max_tree_depth": 21,
+    "new_graph_searches": 0,
+    "new_solver_runs": 0,
+    "numerical_outcome": "time limit, no primal/dual certificate",
+    "reverse_max_tree_depth": 20,
+    "stored_accepting_tree_word": "tttuttpupuuttt",
+    "stored_word_endpoint": "0x191cc387"
+  },
+  "runtime_seconds": 0.8380317658884451,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Independent cell replay of retained reachability certificates; no LP.\"\"\"\nimport array,base64,datetime,hashlib,json,os,platform,resource,subprocess,sys,tempfile,time,zlib\nfrom pathlib import Path\nresource.setrlimit(resource.RLIMIT_CPU,(120,120));resource.setrlimit(resource.RLIMIT_AS,(1024**3,1024**3))\nstart=time.monotonic();stamp=datetime.datetime.now(datetime.timezone.utc).isoformat()\nroot=Path('/home/ryan/rule30-lab');sha=lambda b:hashlib.sha256(b).hexdigest()\np=root/'results/problem1/20260906_closed_block_potential_primary.json';r=json.loads(p.read_text());N=65536\nassert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\nassert sha(r['admission_note_snapshot'].encode())==r['inputs']['proofs/informal/problem1_closed_block_potential_feasibility.md']\nassert sha(json.dumps(r['result_summary'],sort_keys=True).encode())==r['result_hashes']['summary_sha256']\nassert sha((root/'src/python/rule30_research_reference.py').read_bytes())==r['result_hashes']['reference_sha256']\nassert r['numerical']['status']==1 and not r['numerical']['success'] and r['numerical']['min_negative_margin'] is None\nassert 'exact_dual'not in r and 'exact_primal'not in r\ndef decode(d):\n raw=zlib.decompress(base64.b64decode(d['zlib_base64']));assert sha(raw)==d['raw_sha256'] and d['shape']==[N]\n a=array.array('i'if d['dtype']=='<i4'else'b');a.frombytes(raw)\n if d['dtype']=='<i4'and sys.byteorder!='little':a.byteswap()\n assert len(a)==N\n return a\ndef G(x,g):\n n=x.bit_length()+3;b=[(x>>i)&1 for i in range(n)];out=0\n for i in range(n):\n  v=b[i]^int((i>0 and b[i-1]) or (i>1 and b[i-2]))\n  if i==0 and g!=0:v^=1\n  if i==1 and g==2 and x%2==0:v^=1\n  out|=v<<i\n return out\nhand={0:[0,1,3],1:[7,6,6],2:[14,15,13],3:[13,12,12]}\nfor x,values in hand.items():assert[G(x,g)for g in range(3)]==values\ncert=r['graph_certificates'];fp=decode(cert['forward_parent']);fg=decode(cert['forward_letter']);bp=decode(cert['backward_next']);bg=decode(cert['backward_letter'])\nassert fp[1]==1 and fg[1]==-1 and bp[50055]==50055 and bg[50055]==-1\nchecks=0\nfor v in range(N):\n if v!=1:assert 0<=fp[v]<N and 0<=fg[v]<3 and G(fp[v],fg[v])%N==v;checks+=1\n if v!=50055:assert 0<=bp[v]<N and 0<=bg[v]<3 and G(v,bg[v])%N==bp[v];checks+=1\ndef ranks(par,end):\n rank=[-1]*N;rank[end]=0\n for v in range(N):\n  if rank[v]>=0:continue\n  chain=[];seen=set();u=v\n  while rank[u]<0:\n   assert u not in seen;seen.add(u);chain.append(u);u=par[u]\n  for u in reversed(chain):rank[u]=rank[par[u]]+1\n return rank\nfd=ranks(fp,1);bd=ranks(bp,50055)\n# Recover just the stored tree path to acceptance, with no new path search.\nletters=[];v=50055\nwhile v!=1:letters.append('tup'[fg[v]]);v=fp[v]\nword=''.join(reversed(letters));x=1\nfor g in word:x=G(x,'tup'.index(g))\nassert x%N==50055\nsummary={'all_vertices_root_reachable':True,'all_vertices_target_coaccessible':True,'certificate_edges_checked':checks,'forward_max_tree_depth':max(fd),'reverse_max_tree_depth':max(bd),'stored_accepting_tree_word':word,'stored_word_endpoint':hex(x),'numerical_outcome':'time limit, no primal/dual certificate','new_graph_searches':0,'new_solver_runs':0}\nsource=Path(__file__).read_text();rec={'experiment_id':'problem1-closed-block-graph-independent-20260906','timestamp_utc':stamp,'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'question':'problem1','hypothesis':'Saved parent/next trees certify every vertex lies in the exact trimmed signed graph; the numerical result is only a time-limited inconclusive solve.','backend':'independent-cell-edge-replay-and-functional-tree-audit','parameters':{'vertices':N,'root':1,'target':50055,'cpu_seconds_cap':120,'memory_bytes_cap':1024**3,'new_solver_runs':0},'hardware':{'cpu_count':os.cpu_count(),'machine':platform.machine()},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'inputs':{str(p.relative_to(root)):sha(p.read_bytes())},'source_text':source,'result_hashes':{'source_sha256':sha(source.encode()),'summary_sha256':sha(json.dumps(summary,sort_keys=True).encode()),'forward_ranks_sha256':sha(json.dumps(fd).encode()),'backward_ranks_sha256':sha(json.dumps(bd).encode())},'result_summary':summary,'status':'finite-exhaustive','proof_scope':'All131070 retained tree edges and all root/target chains, not a feasibility decision.','interpretation':'The full65536-state graph is the trim. Feasibility remains inconclusive; no exact LP certificate was returned.','limitations':['Four attempted fresh Muse reviews returned provider429; current independent arithmetic replay is by lead.','The primary interpretation string remained its initialization placeholder; completed numerical fields explicitly show timeout.','No optimum, primal vector, dual flow, infeasibility certificate or universal potential is asserted.','Stored accepting word is a recovered tree certificate, not a new word search.']}\nout=root/'results/problem1/20260906_closed_block_potential_independent.json';fd,tmp=tempfile.mkstemp(dir=out.parent,prefix=out.name+'.')\nwith os.fdopen(fd,'w') as f:json.dump(rec,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out);print(json.dumps(summary))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T14:17:24.918797+00:00"
+}

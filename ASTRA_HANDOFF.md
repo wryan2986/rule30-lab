@@ -11,6 +11,49 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest bounded continuation (2026-09-06): read
+`proofs/informal/problem1_closed_block_potential_feasibility.md` first,
+then `problem1_fixed_block_potential_decision.md` for the exact reduction.
+
+- `inconclusive`: the phase-u closed-class50055 LP reached its declared
+  110s internal limit after82655 iterations. Total111.288s, CPU111.219s.
+  No primal/dual vector, objective, exact certificate or infeasibility
+  result was returned. Do not rerun it or raise the cap.
+- The graph is the exact65536-state signed six-step graph, with196608
+  labelled edges. All vertices are reachable from1 and coaccessible to
+  50055. Independent cell checks verify all131070 retained tree edges
+  and every parent/next chain. Recovering the stored accepting path
+  tttuttpupuuttt gives the already known endpoint0x191cc387; no new
+  occurrence or ordinary-word search was run by the verifier.
+- `partial-proof`: a nonnegative rational unit flow f from1 to50055
+  with D=sum f(e)*d(e)+B(50055)>=0 componentwise would refute the ENTIRE
+  phase-u bounded-below sixteen-state strict-descent class. Universal
+  path descent makes all reachable/coaccessible cycle rewards<=0;
+  unit-flow path/cycle decomposition then gives omega.D<0, contradiction.
+  A second proof multiplies the h inequalities by f. The closed-block
+  gauge handles arbitrary real edge weights bounded below over all
+  ordinary histories, not just initially nonnegative weights.
+  No such flow has been found; this is an exact target, not a no-go
+  theorem for the class itself.
+- Local temporary SciPy1.18.1 installation only; no repo dependencies
+  changed. Primary source, package hash, admission snapshot, numerical
+  time-limit report and compressed graph certificates are retained.
+  The primary interpretation placeholder was not silently rewritten;
+  the independent audit explains the completed numerical outcome.
+- Fourth fresh Muse review attempt also hit provider429. All current
+  verification after those errors is lead-local, with no model switch.
+  Records: `results/problem1/20260906_closed_block_potential_` followed
+  by `{primary,independent}.json`.
+
+Next research must change the argument: seek a PROVED compression of
+the flow/cycle certificate problem, or return to the boundary sum with
+age versus original length. No larger coefficient/frontier box or longer
+repeat of this numerical solve is justified. The stopping condition of
+ASTRA_GOAL.md has NOT been achieved: no complete Problem1 proof and no
+claim that all materially different routes have been exhausted. This is
+a reproducible context checkpoint with an exact unresolved feasibility
+problem. Preserve the fresh-review limitation on the new proof reductions.
+
 Newest structural reduction (2026-09-06): read
 `proofs/informal/problem1_fixed_block_potential_decision.md` first.
 
