@@ -11,6 +11,66 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest inverse/decoder result: read
+`proofs/informal/problem1_decoder_inverse_obstruction.md` first.
+
+- `partial-proof` (all inputs): each T/U/P inverse sends a nonnegative
+  integer to a signed integer, and a negative integer to a rational
+  with reduced denominator EXACTLY7. The proof is the complete four-
+  state inverse-bit tail table, not a finite sign experiment. Thus each
+  generator restricts to a bijection Z->N (N includes0), not N->N.
+  For x>=0,x=3 mod4, a one-step forced inverse B_q=4P^-1 Q^-1(x)+3
+  is nonnegative, a negative integer, or a noninteger rational of
+  denominator7, according to the two intermediate inverse signs.
+  This denominator claim is for ONE block, not arbitrary backward chains.
+- `partial-proof` (all-depth): either leading byte200 or222 sends
+  every incoming T-inverse bit state to00. With at least two lower
+  bits, ALL T/U/P inverses are positive regardless of that lower tail.
+  Existing aged cores therefore prove this for EVERY ordinary p,k>=8
+  and u,k>=9. At a3-mod4 output, both forced predecessors are signed
+  integers; the second inverse can still be negative. Positivity does
+  not establish predecessor ordinary membership.
+- The full r11 decoder probe has120 admissible words and153 accepted
+  candidates (120 p19,33 u18). Their admissible continuations have
+  length11..15; none has a canonical return in the new raw-empty
+  layer. This is `finite-exhaustive` consistency only. No membership
+  was inferred, and no all-r exclusion was proved.
+- Backward closure of the LARGER leading-core family is `refuted`,
+  including above the decoder's base threshold. The named r12,p20
+  candidate0xc8e70146ab has prefix ttttututttut and two positive
+  forced predecessors, both with head42809 outside C_(p,8).
+  The candidate itself is NOT ordinary: its three ordinary-generator
+  predecessors are238857142613,614,616, all p19 heads56947 outside
+  C_(p,8). Thus ordinary backward closure remains unrefuted by this
+  counter. Only the two extensions of one named r11 word were tested;
+  there was no full r12 atlas.
+- On the153 candidates, exact signed arithmetic gives241 positive
+  and65 negative forced predecessors. Combined closure failures are
+  31 rows without a positive predecessor,104 without a core head,
+  and2 without an admissible prepend;16 rows pass. Original wording
+  calling all137 head failures and a literal bitlen=k-1 test are
+  explicitly corrected. The intended metric is initial complexity.
+- Muse and independent cell/backward-modular calculations agree on
+  all153 decoder rows,1,779 trajectory steps,306 predecessor values
+  or rejection stages,32 full-core transfers and the named compact
+  membership rejection. The lead also checks the eight leading-byte
+  transfers,51 small signed inverse cases and10 negative memo entries;
+  three explicit ordinary words serve as positive controls. No larger
+  frontier or core census was run. Records:
+  `results/problem1/20260905_decoder_inverse_{primary,independent}.json`.
+
+Independent mathematical and final four-file integration reviews accepted
+the checkpoint without material corrections.
+
+Next: the first inverse sign gate is now automatic on sufficiently
+deep ordinary frontiers. Seek a structural constraint on the second
+inverse sign and FULL predecessor membership; the leading-core-only
+induction is refuted. A composed inverse transducer may test whether
+any finite leading condition controls that second sign, but a larger
+head catalogue is not justified without that explicit hypothesis.
+Do not enlarge the decoder word scan merely because r11 is consistent.
+B_all, actual return exclusion, signed nonvanishing and Problem1 remain open.
+
 Newest periodic-core overlap theorem: read
 `proofs/informal/problem1_periodic_core_overlap_boundary.md` first,
 with the existing head-dynamics and branch-cylinder definitions.

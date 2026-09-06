@@ -1,0 +1,5265 @@
+{
+  "backend": "python-cell-forward-modular-inverse-cylinders-and-exact-tail-state-inverses",
+  "experiment_id": "problem1-decoder-inverse-independent-20260905",
+  "git_commit": "5c7876850621bf37a6bef191fa2bab8dbb100397",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_kib": 485288
+  },
+  "hypothesis": "Independent inverse cylinders and signed-tail arithmetic reproduce the finite decoder/closure results and exact compact rejection.",
+  "inputs": {
+    "proofs/informal/problem1_canonical_return_boundary.md": "28dc5218b4f23a066156ce57cb6ddce14742a3af38ef0024c72b7984ebe4eb93",
+    "proofs/informal/problem1_period_two_phase_frontier_lift_recursion.md": "d30daec5ba9d2afb84497d4c5c18bbada13146f0f0b1a0d41cfdaccf6e175da6",
+    "proofs/informal/problem1_periodic_core_overlap_boundary.md": "8fd07317e4f557c806eb9d3a2796b37620d8fd4382e4d9401e8fcdf2f1730b5f",
+    "results/problem1/20260905_decoder_inverse_primary.json": "36612c0aed8b0854cfe26436ddf8a3e68da2809b582bce53f3c9085757afe86e",
+    "results/problem1/20260905_frontier_head_independent.json": "62aad7a451e482d89161fc863c36b5dbbb2a0ffde43578623b6765c6f1c48f30",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "interpretation": "All declared finite comparisons pass. The integer/rational trichotomy and arbitrary-lower-tail positivity depend on the separate complete tail-state proofs.",
+  "limitations": [
+    "No full r12 language or larger frontier/core census.",
+    "The named closure counterexample is not ordinary.",
+    "Uniform return exclusion and ordinary backward closure remain open.",
+    "Positive-control oracle exploration counts are retained from Muse but not recomputed; their explicit generator certificates are verified."
+  ],
+  "parameters": {
+    "address_space_bytes": 1073741824,
+    "candidate_phases_complexities": {
+      "p": 19,
+      "u": 18
+    },
+    "cpu_seconds_limit": 120,
+    "membership": "only named862869079723 plus three recorded word controls",
+    "r11_words": "all120 admissible",
+    "r12": "only the named t extension; u extension forbidden",
+    "signed_inverse_small_targets": [
+      -8,
+      8
+    ],
+    "small_generators": [
+      "t",
+      "u",
+      "p"
+    ],
+    "wall_seconds_limit": 120
+  },
+  "proof_scope": "Exact stated finite inputs and compact named membership certificate; no all-k occurrence result.",
+  "question": "problem1",
+  "result_hashes": {
+    "result_summary_sha256": "caff2dd0235eda20ee009cc1f55168fda7450c2b00287179e650325a457d3d64",
+    "source_sha256": "31b076f57d2ebcca990f4d1928ee08cb9f6b27d5c7eb92ff8a917144932dded9"
+  },
+  "result_summary": {
+    "admissible_words_r11": 120,
+    "boundary_occurrences": 0,
+    "candidate_rows_equal": true,
+    "classified_predecessors": [
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53929083221,
+            "b": 14925659818,
+            "head": 56936,
+            "head_in_core": false,
+            "parent": 59702639275,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53929083222,
+            "b": 14925659825,
+            "head": 56936,
+            "head_in_core": false,
+            "parent": 59702639303,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttuttttut",
+        "x": 239236253355
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60267987285,
+            "b": -25908248918,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632995669,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60267987286,
+            "b": -25908248911,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632995641,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttutttutt",
+        "x": 215717480107
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300271957,
+            "b": -44300271958,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177201087829,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300271958,
+            "b": -44300271951,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177201087801,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttutttutu",
+        "x": 239234942635
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59703787861,
+            "b": 13446053546,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53784214187,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59703787862,
+            "b": 13446053553,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53784214215,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "ttttuttuttt",
+        "x": 215719380651
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7476314453,
+            "b": 1685225130,
+            "head": 25714,
+            "head_in_core": false,
+            "parent": 6740900523,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7476314454,
+            "b": 1685225137,
+            "head": 25714,
+            "head_in_core": false,
+            "parent": 6740900551,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttuttuttt",
+        "x": 26891814571
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808645461,
+            "b": 11076271786,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44305087147,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808645462,
+            "b": 11076271793,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44305087175,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttuttuttu",
+        "x": 215136372395
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878900053,
+            "b": -50214043990,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856175957,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878900054,
+            "b": -50214043983,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856175929,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttuttutut",
+        "x": 215137420971
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533986133,
+            "b": -3237839190,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951356757,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533986134,
+            "b": -3237839183,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951356729,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttuttutut",
+        "x": 26964166315
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714224469,
+            "b": 11220958890,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44883835563,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714224470,
+            "b": 11220958897,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44883835591,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttututttt",
+        "x": 215717332651
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810693461,
+            "b": 13481688746,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926754987,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810693462,
+            "b": 13481688753,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926755015,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttututttu",
+        "x": 215134324395
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702952277,
+            "b": 13445775018,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53783100075,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59702952278,
+            "b": 13445775025,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53783100103,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttutututt",
+        "x": 215721264811
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807809877,
+            "b": 11075993258,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303973035,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807809878,
+            "b": 11075993265,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303973063,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttttutututu",
+        "x": 215138256555
+      },
+      {
+        "class": "qualifies",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462895957,
+            "b": 1680752298,
+            "head": 25646,
+            "head_in_core": true,
+            "parent": 6723009195,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7462895958,
+            "b": 1680752305,
+            "head": 25646,
+            "head_in_core": true,
+            "parent": 6723009223,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "ttttutututu",
+        "x": 26965001899
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783176789,
+            "b": 14971953578,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59887814315,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783176790,
+            "b": 14971953585,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59887814343,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttttutt",
+        "x": 238811544491
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6723085909,
+            "b": 1868947882,
+            "head": 28517,
+            "head_in_core": false,
+            "parent": 7475791531,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6723085910,
+            "b": 1868947889,
+            "head": 28517,
+            "head_in_core": false,
+            "parent": 7475791559,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttttutt",
+        "x": 29851319211
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810391637,
+            "b": 11075445162,
+            "head": 42249,
+            "head_in_core": false,
+            "parent": 44301780651,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810391638,
+            "b": 11075445169,
+            "head": 42249,
+            "head_in_core": false,
+            "parent": 44301780679,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttttutu",
+        "x": 215134698411
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702978133,
+            "b": 13445947818,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791275,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59702978134,
+            "b": 13445947825,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791303,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "tttutttuttt",
+        "x": 215721311147
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53927421525,
+            "b": 14926537130,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706148523,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53927421526,
+            "b": 14926537137,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706148551,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttutttuttu",
+        "x": 239238773675
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59712415317,
+            "b": 11221918122,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44887672491,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59712415318,
+            "b": 11221918129,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44887672519,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttutttutut",
+        "x": 215720262571
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7484941909,
+            "b": -6276718166,
+            "head": null,
+            "head_in_core": false,
+            "parent": -25106872661,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7484941910,
+            "b": -6276718159,
+            "head": null,
+            "head_in_core": false,
+            "parent": -25106872633,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttutttutut",
+        "x": 26892696491
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878467157,
+            "b": -50214723158,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200858892629,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878467158,
+            "b": -50214723151,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200858892601,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttutttt",
+        "x": 215138122667
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533553237,
+            "b": -3238518358,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954073429,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533553238,
+            "b": -3238518351,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954073401,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttutttt",
+        "x": 26964868011
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53784143445,
+            "b": 14952178090,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59808712363,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 53784143446,
+            "b": 14952178097,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59808712391,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "tttuttutttu",
+        "x": 238814968747
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6740829781,
+            "b": 1865949610,
+            "head": 28472,
+            "head_in_core": false,
+            "parent": 7463798443,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6740829782,
+            "b": 1865949617,
+            "head": 28472,
+            "head_in_core": false,
+            "parent": 7463798471,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttutttu",
+        "x": 29905075115
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53929895509,
+            "b": 14928060842,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712243371,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53929895510,
+            "b": 14928060849,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712243399,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttuttut",
+        "x": 239235447723
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713578581,
+            "b": 13439345066,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757380267,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713578582,
+            "b": 13439345073,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757380295,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttututt",
+        "x": 215718247339
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810047573,
+            "b": 13477093802,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908375211,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810047574,
+            "b": 13477093809,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908375239,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttuttututu",
+        "x": 215135239083
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807741525,
+            "b": 11076129194,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304516779,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807741526,
+            "b": 11076129201,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304516807,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttututtttu",
+        "x": 215137799083
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462827605,
+            "b": 1680888234,
+            "head": 25648,
+            "head_in_core": false,
+            "parent": 6723552939,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7462827606,
+            "b": 1680888241,
+            "head": 25648,
+            "head_in_core": false,
+            "parent": 6723552967,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttututtttu",
+        "x": 26964544427
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60268066389,
+            "b": -25908194902,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632779605,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60268066390,
+            "b": -25908194895,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632779577,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttututttut",
+        "x": 215717661611
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60268000853,
+            "b": -25908260438,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103633041749,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60268000854,
+            "b": -25908260431,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103633041721,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttutututtt",
+        "x": 215717465003
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809773141,
+            "b": 13477302698,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53909210795,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809773142,
+            "b": 13477302705,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53909210823,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tttutututut",
+        "x": 215135505323
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53782921493,
+            "b": 14970633962,
+            "head": 57108,
+            "head_in_core": false,
+            "parent": 59882535851,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53782921494,
+            "b": 14970633969,
+            "head": 57108,
+            "head_in_core": false,
+            "parent": 59882535879,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttttuttt",
+        "x": 238811858795
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6722830613,
+            "b": 1867628266,
+            "head": 28497,
+            "head_in_core": false,
+            "parent": 7470513067,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6722830614,
+            "b": 1867628273,
+            "head": 28497,
+            "head_in_core": false,
+            "parent": 7470513095,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttttuttt",
+        "x": 29851633515
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810136341,
+            "b": 13481656042,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926624171,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810136342,
+            "b": 13481656049,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926624199,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttttuttu",
+        "x": 215135012715
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783970069,
+            "b": 14969585386,
+            "head": 57104,
+            "head_in_core": false,
+            "parent": 59878341547,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783970070,
+            "b": 14969585393,
+            "head": 57104,
+            "head_in_core": false,
+            "parent": 59878341575,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttttutut",
+        "x": 238812907371
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59877916949,
+            "b": -50214240534,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856962133,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59877916950,
+            "b": -50214240527,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856962105,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttutttt",
+        "x": 215134472043
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60267987221,
+            "b": -25908248854,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632995413,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60267987222,
+            "b": -25908248847,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632995385,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttutttu",
+        "x": 215717480299
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807662357,
+            "b": 11076075242,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44304300971,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807662358,
+            "b": 11076075249,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44304300999,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttuttut",
+        "x": 215137617771
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462748437,
+            "b": 1680834282,
+            "head": 25647,
+            "head_in_core": false,
+            "parent": 6723337131,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7462748438,
+            "b": 1680834289,
+            "head": 25647,
+            "head_in_core": false,
+            "parent": 6723337159,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttuttut",
+        "x": 26964363115
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300534037,
+            "b": -44300534038,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177202136149,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300534038,
+            "b": -44300534031,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177202136121,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttututt",
+        "x": 239236777835
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60268249365,
+            "b": -25908510998,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103634043989,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60268249366,
+            "b": -25908510991,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103634043961,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutttututu",
+        "x": 215719315307
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53782606101,
+            "b": 14941081322,
+            "head": 56995,
+            "head_in_core": false,
+            "parent": 59764325291,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53782606102,
+            "b": 14941081329,
+            "head": 56995,
+            "head_in_core": false,
+            "parent": 59764325319,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttuttttu",
+        "x": 238812567403
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808772373,
+            "b": 13482512106,
+            "head": 51431,
+            "head_in_core": true,
+            "parent": 53930048427,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59808772374,
+            "b": 13482512113,
+            "head": 51431,
+            "head_in_core": true,
+            "parent": 53930048455,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "ttuttutttut",
+        "x": 215136769899
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809558805,
+            "b": 11075243754,
+            "head": 42248,
+            "head_in_core": false,
+            "parent": 44300975019,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809558806,
+            "b": 11075243761,
+            "head": 42248,
+            "head_in_core": false,
+            "parent": 44300975047,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttuttutt",
+        "x": 215135459179
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713089813,
+            "b": 11222044394,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44888177579,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713089814,
+            "b": 11222044401,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44888177607,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttuttutu",
+        "x": 215718467435
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808444693,
+            "b": 11076357866,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44305431467,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808444694,
+            "b": 11076357873,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44305431495,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttututtt",
+        "x": 215136704363
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44301054229,
+            "b": -44299989270,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177199957077,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44301054230,
+            "b": -44299989263,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177199957049,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttuttututut",
+        "x": 239238223723
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809922325,
+            "b": 13477188330,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908753323,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809922326,
+            "b": 13477188337,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908753351,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututtttut",
+        "x": 215136142187
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808087317,
+            "b": 11076211434,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304845739,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808087318,
+            "b": 11076211441,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304845767,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututttutt",
+        "x": 215136928619
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53789261077,
+            "b": 15064994538,
+            "head": 57468,
+            "head_in_core": false,
+            "parent": 60259978155,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53789261078,
+            "b": 15064994545,
+            "head": 57468,
+            "head_in_core": false,
+            "parent": 60259978183,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututttutu",
+        "x": 238813774699
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702983957,
+            "b": 13445944042,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783776171,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59702983958,
+            "b": 13445944049,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783776199,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "ttutututttt",
+        "x": 215721296747
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53927427349,
+            "b": 14926533354,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706133419,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53927427350,
+            "b": 14926533361,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706133447,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttutututttu",
+        "x": 239238759275
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53928213781,
+            "b": 14927844074,
+            "head": 56945,
+            "head_in_core": false,
+            "parent": 59711376299,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53928213782,
+            "b": 14927844081,
+            "head": 56945,
+            "head_in_core": false,
+            "parent": 59711376327,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututututt",
+        "x": 239236924267
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59703770389,
+            "b": 13447254762,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53789019051,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59703770390,
+            "b": 13447254769,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53789019079,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututututu",
+        "x": 215719461739
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7476296981,
+            "b": 1384436458,
+            "head": 21124,
+            "head_in_core": false,
+            "parent": 5537745835,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7476296982,
+            "b": 1384436465,
+            "head": 21124,
+            "head_in_core": false,
+            "parent": 5537745863,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ttututututu",
+        "x": 26891895659
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810584101,
+            "b": 13481734618,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926938475,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810584102,
+            "b": 13481734625,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926938503,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttutttt",
+        "x": 215134464763
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714115109,
+            "b": 11221004762,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44884019051,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714115110,
+            "b": 11221004769,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44884019079,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttutttu",
+        "x": 215717473019
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878741541,
+            "b": -50214014502,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856058005,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878741542,
+            "b": -50214014495,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856057977,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttuttut",
+        "x": 215137610491
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533827621,
+            "b": -3237809702,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951238805,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533827622,
+            "b": -3237809695,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951238777,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttuttut",
+        "x": 26964355835
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53928859173,
+            "b": 15067443674,
+            "head": 57477,
+            "head_in_core": false,
+            "parent": 60269774699,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53928859174,
+            "b": 15067443681,
+            "head": 57477,
+            "head_in_core": false,
+            "parent": 60269774727,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttututt",
+        "x": 239236770555
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59712804389,
+            "b": 11221266906,
+            "head": 42805,
+            "head_in_core": false,
+            "parent": 44885067627,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59712804390,
+            "b": 11221266913,
+            "head": 42805,
+            "head_in_core": false,
+            "parent": 44885067655,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttttututu",
+        "x": 215719308027
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300445221,
+            "b": -44300181030,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177200724117,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300445222,
+            "b": -44300181023,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177200724089,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutttuttttu",
+        "x": 239235627771
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702978085,
+            "b": 13445947866,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791467,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59702978086,
+            "b": 13445947873,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791495,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "tutttutttut",
+        "x": 215721310971
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713725989,
+            "b": 13439394266,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757577067,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713725990,
+            "b": 13439394273,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757577095,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutttuttutt",
+        "x": 215717903099
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810194981,
+            "b": 13477143002,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908572011,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810194982,
+            "b": 13477143009,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908572039,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutttuttutu",
+        "x": 215134894843
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783045669,
+            "b": 14972084698,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59888338795,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783045670,
+            "b": 14972084705,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59888338823,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutttututtt",
+        "x": 238811675387
+      },
+      {
+        "class": "qualifies",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6722954789,
+            "b": 1869079002,
+            "head": 28519,
+            "head_in_core": true,
+            "parent": 7476316011,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 6722954790,
+            "b": 1869079009,
+            "head": 28519,
+            "head_in_core": true,
+            "parent": 7476316039,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "tutttututtt",
+        "x": 29851450107
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300772901,
+            "b": -44300770854,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177203083413,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300772902,
+            "b": -44300770847,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177203083385,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutttututut",
+        "x": 239238445819
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53928950309,
+            "b": 15067358682,
+            "head": 57477,
+            "head_in_core": false,
+            "parent": 60269434731,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53928950310,
+            "b": 15067358689,
+            "head": 57477,
+            "head_in_core": false,
+            "parent": 60269434759,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttttut",
+        "x": 239236253435
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714206245,
+            "b": 13439182298,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756729195,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714206246,
+            "b": 13439182305,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756729223,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttutttutt",
+        "x": 215717480187
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53930261029,
+            "b": 14928160218,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712640875,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53930261030,
+            "b": 14928160225,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712640903,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttutttutu",
+        "x": 239234942715
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59703786021,
+            "b": 13447243226,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53788972907,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59703786022,
+            "b": 13447243233,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53788972935,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttuttt",
+        "x": 215719380731
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7476312613,
+            "b": 1384424922,
+            "head": 21124,
+            "head_in_core": false,
+            "parent": 5537699691,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7476312614,
+            "b": 1384424929,
+            "head": 21124,
+            "head_in_core": false,
+            "parent": 5537699719,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttuttt",
+        "x": 26891814651
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808643621,
+            "b": 13476603354,
+            "head": 51409,
+            "head_in_core": false,
+            "parent": 53906413419,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808643622,
+            "b": 13476603361,
+            "head": 51409,
+            "head_in_core": false,
+            "parent": 53906413447,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttuttu",
+        "x": 215136372475
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878898213,
+            "b": -50214951462,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200859805845,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878898214,
+            "b": -50214951455,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200859805817,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttutut",
+        "x": 215137421051
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533984293,
+            "b": -3238746662,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954986645,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533984294,
+            "b": -3238746655,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954986617,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttuttutut",
+        "x": 26964166395
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714222629,
+            "b": 13439165914,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756663659,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714222630,
+            "b": 13439165921,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756663687,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttututttt",
+        "x": 215717332731
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810691621,
+            "b": 13476914650,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907658603,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810691622,
+            "b": 13476914657,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907658631,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttututttu",
+        "x": 215134324475
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702950437,
+            "b": 13445719514,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53782878059,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59702950438,
+            "b": 13445719521,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53782878087,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttutututt",
+        "x": 215721264891
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807808037,
+            "b": 11075937754,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303751019,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807808038,
+            "b": 11075937761,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303751047,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttutututu",
+        "x": 215138256635
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462894117,
+            "b": 1680696794,
+            "head": 25645,
+            "head_in_core": false,
+            "parent": 6722787179,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7462894118,
+            "b": 1680696801,
+            "head": 25645,
+            "head_in_core": false,
+            "parent": 6722787207,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tuttutututu",
+        "x": 26965001979
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808203557,
+            "b": 13476774106,
+            "head": 51409,
+            "head_in_core": false,
+            "parent": 53907096427,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808203558,
+            "b": 13476774113,
+            "head": 51409,
+            "head_in_core": false,
+            "parent": 53907096455,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututtttutt",
+        "x": 215137078779
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59703345957,
+            "b": 13447413978,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53789655915,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59703345958,
+            "b": 13447413985,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53789655943,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututtttutu",
+        "x": 215720087035
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7475872549,
+            "b": 1384595674,
+            "head": 21127,
+            "head_in_core": false,
+            "parent": 5538382699,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7475872550,
+            "b": 1384595681,
+            "head": 21127,
+            "head_in_core": false,
+            "parent": 5538382727,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututtttutu",
+        "x": 26892520955
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783020325,
+            "b": 14940782810,
+            "head": 56994,
+            "head_in_core": false,
+            "parent": 59763131243,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783020326,
+            "b": 14940782817,
+            "head": 56994,
+            "head_in_core": false,
+            "parent": 59763131271,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututttuttt",
+        "x": 238811631099
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6722929445,
+            "b": 1871331546,
+            "head": 28554,
+            "head_in_core": false,
+            "parent": 7485326187,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6722929446,
+            "b": 1871331553,
+            "head": 28554,
+            "head_in_core": false,
+            "parent": 7485326215,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututttuttt",
+        "x": 29851405819
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810235173,
+            "b": 13476970714,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907882859,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810235174,
+            "b": 13476970721,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907882887,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututttuttu",
+        "x": 215134785019
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809186597,
+            "b": 13482213594,
+            "head": 51430,
+            "head_in_core": false,
+            "parent": 53928854379,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809186598,
+            "b": 13482213601,
+            "head": 51430,
+            "head_in_core": false,
+            "parent": 53928854407,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututttutut",
+        "x": 215137930747
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7464272677,
+            "b": 1402618074,
+            "head": 21402,
+            "head_in_core": false,
+            "parent": 5610472299,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7464272678,
+            "b": 1402618081,
+            "head": 21402,
+            "head_in_core": false,
+            "parent": 5610472327,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututttutut",
+        "x": 26964676091
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783597861,
+            "b": 14952657114,
+            "head": 57039,
+            "head_in_core": false,
+            "parent": 59810628459,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783597862,
+            "b": 14952657121,
+            "head": 57039,
+            "head_in_core": false,
+            "parent": 59810628487,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutututtttu",
+        "x": 238811348475
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6723506981,
+            "b": 1883205850,
+            "head": 28735,
+            "head_in_core": false,
+            "parent": 7532823403,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6723506982,
+            "b": 1883205857,
+            "head": 28735,
+            "head_in_core": false,
+            "parent": 7532823431,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutututtttu",
+        "x": 29851123195
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53927252773,
+            "b": 14926442714,
+            "head": 56939,
+            "head_in_core": false,
+            "parent": 59705770859,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53927252774,
+            "b": 14926442721,
+            "head": 56939,
+            "head_in_core": false,
+            "parent": 59705770887,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tutututttut",
+        "x": 239238118907
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53789430565,
+            "b": 15064395994,
+            "head": 57466,
+            "head_in_core": false,
+            "parent": 60257583979,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53789430566,
+            "b": 15064396001,
+            "head": 57466,
+            "head_in_core": false,
+            "parent": 60257584007,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututututtt",
+        "x": 238814166523
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53784187685,
+            "b": 14952198362,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59808793451,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 53784187686,
+            "b": 14952198369,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59808793479,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": true
+          }
+        ],
+        "word": "tututututut",
+        "x": 238815215099
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6740874021,
+            "b": 1865969882,
+            "head": 28472,
+            "head_in_core": false,
+            "parent": 7463879531,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6740874022,
+            "b": 1865969889,
+            "head": 28472,
+            "head_in_core": false,
+            "parent": 7463879559,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "tututututut",
+        "x": 29905321467
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300444993,
+            "b": -44300182850,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177200731397,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300445242,
+            "b": -44300181019,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177200724073,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttuttttu",
+        "x": 239235627719
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702977857,
+            "b": 13445946046,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783784187,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59702978106,
+            "b": 13445947877,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791511,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttutttut",
+        "x": 215721310919
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713725761,
+            "b": 13439392446,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757569787,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713726010,
+            "b": 13439394277,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757577111,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttuttutt",
+        "x": 215717903047
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810194753,
+            "b": 13477141182,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908564731,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810195002,
+            "b": 13477143013,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908572055,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttuttutu",
+        "x": 215134894791
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783045441,
+            "b": 14972082878,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59888331515,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783045690,
+            "b": 14972084709,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59888338839,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttututtt",
+        "x": 238811675335
+      },
+      {
+        "class": "qualifies",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6722954561,
+            "b": 1869077182,
+            "head": 28519,
+            "head_in_core": true,
+            "parent": 7476308731,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 6722954810,
+            "b": 1869079013,
+            "head": 28519,
+            "head_in_core": true,
+            "parent": 7476316055,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttututtt",
+        "x": 29851450055
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300772673,
+            "b": -44300772674,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177203090693,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 44300772922,
+            "b": -44300770843,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177203083369,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttttututut",
+        "x": 239238445767
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53929083201,
+            "b": 14925659838,
+            "head": 56936,
+            "head_in_core": false,
+            "parent": 59702639355,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53928950330,
+            "b": 15067358693,
+            "head": 57477,
+            "head_in_core": false,
+            "parent": 60269434775,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttttut",
+        "x": 239236253383
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60267987265,
+            "b": -25908248898,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632995589,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714206266,
+            "b": 13439182309,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756729239,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttutttutt",
+        "x": 215717480135
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 44300271937,
+            "b": -44300271938,
+            "head": null,
+            "head_in_core": false,
+            "parent": -177201087749,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53930261050,
+            "b": 14928160229,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712640919,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttutttutu",
+        "x": 239234942663
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59703787841,
+            "b": 13446053566,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53784214267,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59703786042,
+            "b": 13447243237,
+            "head": 51297,
+            "head_in_core": false,
+            "parent": 53788972951,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttuttt",
+        "x": 215719380679
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7476314433,
+            "b": 1685225150,
+            "head": 25714,
+            "head_in_core": false,
+            "parent": 6740900603,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7476312634,
+            "b": 1384424933,
+            "head": 21124,
+            "head_in_core": false,
+            "parent": 5537699735,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttuttt",
+        "x": 26891814599
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808645441,
+            "b": 11076271806,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44305087227,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808643642,
+            "b": 13476603365,
+            "head": 51409,
+            "head_in_core": false,
+            "parent": 53906413463,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttuttu",
+        "x": 215136372423
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878900033,
+            "b": -50214043970,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856175877,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878898234,
+            "b": -50214951451,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200859805801,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttutut",
+        "x": 215137420999
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533986113,
+            "b": -3237839170,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951356677,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533984314,
+            "b": -3238746651,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954986601,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttuttutut",
+        "x": 26964166343
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714224449,
+            "b": 11220958910,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44883835643,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714222650,
+            "b": 13439165925,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756663703,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttututttt",
+        "x": 215717332679
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810693441,
+            "b": 13481688766,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926755067,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810691642,
+            "b": 13476914661,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907658647,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttututttu",
+        "x": 215134324423
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702952257,
+            "b": 13445775038,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53783100155,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59702950458,
+            "b": 13445719525,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53782878103,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttutututt",
+        "x": 215721264839
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807809857,
+            "b": 11075993278,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303973115,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807808058,
+            "b": 11075937765,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303751063,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttutututu",
+        "x": 215138256583
+      },
+      {
+        "class": "qualifies",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462895937,
+            "b": 1680752318,
+            "head": 25646,
+            "head_in_core": true,
+            "parent": 6723009275,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 7462894138,
+            "b": 1680696805,
+            "head": 25645,
+            "head_in_core": false,
+            "parent": 6722787223,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utttutututu",
+        "x": 26965001927
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783176769,
+            "b": 14971953598,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59887814395,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53783176506,
+            "b": 14971951845,
+            "head": 57113,
+            "head_in_core": false,
+            "parent": 59887807383,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttttutt",
+        "x": 238811544519
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6723085889,
+            "b": 1868947902,
+            "head": 28517,
+            "head_in_core": false,
+            "parent": 7475791611,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6723085626,
+            "b": 1868946149,
+            "head": 28517,
+            "head_in_core": false,
+            "parent": 7475784599,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttttutt",
+        "x": 29851319239
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810391617,
+            "b": 11075445182,
+            "head": 42249,
+            "head_in_core": false,
+            "parent": 44301780731,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810391354,
+            "b": 11075443429,
+            "head": 42249,
+            "head_in_core": false,
+            "parent": 44301773719,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttttutu",
+        "x": 215134698439
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59702978113,
+            "b": 13445947838,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783791355,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 59702977850,
+            "b": 13445946085,
+            "head": 51292,
+            "head_in_core": true,
+            "parent": 53783784343,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutttuttt",
+        "x": 215721311175
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53927421505,
+            "b": 14926537150,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706148603,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53927421242,
+            "b": 14926535397,
+            "head": 56940,
+            "head_in_core": false,
+            "parent": 59706141591,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutttuttu",
+        "x": 239238773703
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59712415297,
+            "b": 11221918142,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44887672571,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59712415034,
+            "b": 11221916389,
+            "head": 42808,
+            "head_in_core": false,
+            "parent": 44887665559,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutttutut",
+        "x": 215720262599
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7484941889,
+            "b": -6276718146,
+            "head": null,
+            "head_in_core": false,
+            "parent": -25106872581,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7484941626,
+            "b": -6276719899,
+            "head": null,
+            "head_in_core": false,
+            "parent": -25106879593,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutttutut",
+        "x": 26892696519
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878467137,
+            "b": -50214723138,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200858892549,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878466874,
+            "b": -50214757659,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200859030633,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttutttt",
+        "x": 215138122695
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533553217,
+            "b": -3238518338,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954073349,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533552954,
+            "b": -3238552859,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12954211433,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttutttt",
+        "x": 26964868039
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53784143425,
+            "b": 14952178110,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59808712443,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 53784143162,
+            "b": 14952143589,
+            "head": 57037,
+            "head_in_core": false,
+            "parent": 59808574359,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttutttu",
+        "x": 238814968775
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6740829761,
+            "b": 1865949630,
+            "head": 28472,
+            "head_in_core": false,
+            "parent": 7463798523,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6740829498,
+            "b": 1865915109,
+            "head": 28471,
+            "head_in_core": false,
+            "parent": 7463660439,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttutttu",
+        "x": 29905075143
+      },
+      {
+        "class": "core_head_without_admissible_prepend",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53929895489,
+            "b": 14928060862,
+            "head": 56946,
+            "head_in_core": false,
+            "parent": 59712243451,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53929895226,
+            "b": 14925929189,
+            "head": 56937,
+            "head_in_core": true,
+            "parent": 59703716759,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttuttut",
+        "x": 239235447751
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713578561,
+            "b": 13439345086,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757380347,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713578298,
+            "b": 13439310565,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53757242263,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttututt",
+        "x": 215718247367
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810047553,
+            "b": 13477093822,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908375291,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810047290,
+            "b": 13477059301,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53908237207,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttuttututu",
+        "x": 215135239111
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59807741505,
+            "b": 11076129214,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304516859,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59807741242,
+            "b": 11076012773,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44304051095,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttututtttu",
+        "x": 215137799111
+      },
+      {
+        "class": "core_head_without_admissible_prepend",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7462827585,
+            "b": 1680888254,
+            "head": 25648,
+            "head_in_core": false,
+            "parent": 6723553019,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7462827322,
+            "b": 1680771813,
+            "head": 25646,
+            "head_in_core": true,
+            "parent": 6723087255,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttututtttu",
+        "x": 26964544455
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60268066369,
+            "b": -25908194882,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632779525,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60268066106,
+            "b": -25908311323,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103633245289,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttututttut",
+        "x": 215717661639
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 60268000833,
+            "b": -25908260418,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103633041669,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 60268000570,
+            "b": -25908245787,
+            "head": null,
+            "head_in_core": false,
+            "parent": -103632983145,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutututtt",
+        "x": 215717465031
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809773121,
+            "b": 13477302718,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53909210875,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809772858,
+            "b": 13477317349,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53909269399,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "uttutututut",
+        "x": 215135505351
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53782854785,
+            "b": 14940820350,
+            "head": 56994,
+            "head_in_core": false,
+            "parent": 59763281403,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53782854266,
+            "b": 14940824997,
+            "head": 56994,
+            "head_in_core": false,
+            "parent": 59763299991,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututtttuttt",
+        "x": 238811858823
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 6722763905,
+            "b": 1871369086,
+            "head": 28554,
+            "head_in_core": false,
+            "parent": 7485476347,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 6722763386,
+            "b": 1871373733,
+            "head": 28554,
+            "head_in_core": false,
+            "parent": 7485494935,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututtttuttt",
+        "x": 29851633543
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810069633,
+            "b": 13477008254,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53908033019,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810069114,
+            "b": 13477012901,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53908051607,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututtttuttu",
+        "x": 215135012743
+      },
+      {
+        "class": "qualifies",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53783903361,
+            "b": 14952354686,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59809418747,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": true
+          },
+          {
+            "a": 53783902842,
+            "b": 14952359333,
+            "head": 57038,
+            "head_in_core": true,
+            "parent": 59809437335,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututtttutut",
+        "x": 238812907399
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59810675841,
+            "b": 13481677694,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926710779,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59810675322,
+            "b": 13476930981,
+            "head": 51410,
+            "head_in_core": false,
+            "parent": 53907723927,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttutttt",
+        "x": 215134472071
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59714206849,
+            "b": 11220947838,
+            "head": 42804,
+            "head_in_core": false,
+            "parent": 44883791355,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59714206330,
+            "b": 13439182245,
+            "head": 51266,
+            "head_in_core": false,
+            "parent": 53756728983,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttutttu",
+        "x": 215717480327
+      },
+      {
+        "class": "no_positive",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59878833281,
+            "b": -50214071426,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200856285701,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59878832762,
+            "b": -50214623835,
+            "head": null,
+            "head_in_core": false,
+            "parent": -200858495337,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttuttut",
+        "x": 215137617799
+      },
+      {
+        "class": "no_positive",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7533919361,
+            "b": -3237866626,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12951466501,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7533918842,
+            "b": -3238419035,
+            "head": null,
+            "head_in_core": false,
+            "parent": -12953676137,
+            "positive": false,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttuttut",
+        "x": 26964363143
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53929475201,
+            "b": 14928450430,
+            "head": 56947,
+            "head_in_core": false,
+            "parent": 59713801723,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53929474682,
+            "b": 14928422309,
+            "head": 56947,
+            "head_in_core": false,
+            "parent": 59713689239,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttututt",
+        "x": 239236777863
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59713420417,
+            "b": 13439472510,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757890043,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59713419898,
+            "b": 13439444389,
+            "head": 51267,
+            "head_in_core": false,
+            "parent": 53757777559,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututttututu",
+        "x": 215719315335
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59809923201,
+            "b": 13481607038,
+            "head": 51428,
+            "head_in_core": false,
+            "parent": 53926428155,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59809922682,
+            "b": 13477169573,
+            "head": 51411,
+            "head_in_core": false,
+            "parent": 53908678295,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututtttut",
+        "x": 215136142215
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59808088193,
+            "b": 11075911550,
+            "head": 42251,
+            "head_in_core": false,
+            "parent": 44303646203,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59808087674,
+            "b": 11076192677,
+            "head": 42252,
+            "head_in_core": false,
+            "parent": 44304770711,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututttutt",
+        "x": 215136928647
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53789261953,
+            "b": 15064694654,
+            "head": 57467,
+            "head_in_core": false,
+            "parent": 60258778619,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53789261434,
+            "b": 15064975781,
+            "head": 57468,
+            "head_in_core": false,
+            "parent": 60259903127,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututttutu",
+        "x": 238813774727
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59712487553,
+            "b": 11221581694,
+            "head": 42806,
+            "head_in_core": false,
+            "parent": 44886326779,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59702984314,
+            "b": 13445695909,
+            "head": 51291,
+            "head_in_core": false,
+            "parent": 53782783639,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututututttt",
+        "x": 215721296775
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53928542337,
+            "b": 15067758462,
+            "head": 57478,
+            "head_in_core": false,
+            "parent": 60271033851,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53927427706,
+            "b": 14926285221,
+            "head": 56939,
+            "head_in_core": false,
+            "parent": 59705140887,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "ututututttu",
+        "x": 239238759303
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 53928280193,
+            "b": 15068020606,
+            "head": 57479,
+            "head_in_core": false,
+            "parent": 60272082427,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 53928214138,
+            "b": 14926023077,
+            "head": 56938,
+            "head_in_core": false,
+            "parent": 59704092311,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututututt",
+        "x": 239236924295
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "p",
+        "qrows": [
+          {
+            "a": 59712225409,
+            "b": 11221843838,
+            "head": 42807,
+            "head_in_core": false,
+            "parent": 44887375355,
+            "positive": true,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 59703770746,
+            "b": 13445433765,
+            "head": 51290,
+            "head_in_core": false,
+            "parent": 53781735063,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututututu",
+        "x": 215719461767
+      },
+      {
+        "class": "positive_without_core_head",
+        "phase": "u",
+        "qrows": [
+          {
+            "a": 7484752001,
+            "b": -6276792450,
+            "head": null,
+            "head_in_core": false,
+            "parent": -25107169797,
+            "positive": false,
+            "prepend_admissible": true,
+            "q": "t",
+            "qualifies": false
+          },
+          {
+            "a": 7476297338,
+            "b": 1684605349,
+            "head": 25705,
+            "head_in_core": false,
+            "parent": 6738421399,
+            "positive": true,
+            "prepend_admissible": false,
+            "q": "u",
+            "qualifies": false
+          }
+        ],
+        "word": "utututututu",
+        "x": 26891895687
+      }
+    ],
+    "completed": true,
+    "decoder_candidates": 153,
+    "failures": [],
+    "forced_inverse_examples": [
+      {
+        "parent": [
+          7,
+          1
+        ],
+        "q": "u",
+        "x": 27
+      },
+      {
+        "parent": [
+          -5,
+          1
+        ],
+        "q": "t",
+        "x": 7
+      },
+      {
+        "parent": [
+          13,
+          7
+        ],
+        "q": "t",
+        "x": 3
+      },
+      {
+        "parent": [
+          17,
+          7
+        ],
+        "q": "u",
+        "x": 3
+      }
+    ],
+    "head_transfer_cases": 32,
+    "interior": {
+      "forced_predecessors": [
+        {
+          "head": 42809,
+          "parent": 179554548395,
+          "prepend_admissible": false,
+          "q": "t"
+        },
+        {
+          "head": 42809,
+          "parent": 179554548423,
+          "prepend_admissible": true,
+          "q": "u"
+        }
+      ],
+      "head": 51431,
+      "ordinary_membership": false,
+      "ordinary_predecessors": [
+        {
+          "g": "t",
+          "head": 56947,
+          "parent": 238857142613
+        },
+        {
+          "g": "u",
+          "head": 56947,
+          "parent": 238857142614
+        },
+        {
+          "g": "p",
+          "head": 56947,
+          "parent": 238857142616
+        }
+      ],
+      "word": "ttttututttut",
+      "x": 862869079723
+    },
+    "leading_byte_transfer": [
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 200,
+        "incoming": [
+          0,
+          0
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 200,
+        "incoming": [
+          0,
+          1
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 200,
+        "incoming": [
+          1,
+          0
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 200,
+        "incoming": [
+          1,
+          1
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 222,
+        "incoming": [
+          0,
+          0
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 222,
+        "incoming": [
+          0,
+          1
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 222,
+        "incoming": [
+          1,
+          0
+        ]
+      },
+      {
+        "final": [
+          0,
+          0
+        ],
+        "head": 222,
+        "incoming": [
+          1,
+          1
+        ]
+      }
+    ],
+    "occurrence_controls": 4,
+    "ordinary_word_controls": [
+      {
+        "bit_length": 40,
+        "endpoint": 955260670429,
+        "word_from_zero": "pttttttttttttttttttt"
+      },
+      {
+        "bit_length": 40,
+        "endpoint": 862877638024,
+        "word_from_zero": "pppppppppppppppppppp"
+      },
+      {
+        "bit_length": 40,
+        "endpoint": 955258143729,
+        "word_from_zero": "ptuptuptuptuptuptupt"
+      }
+    ],
+    "original_payload_source_summary_input_hashes_verified": true,
+    "predecessor_row_partition": {
+      "core_head_without_admissible_prepend": 2,
+      "no_positive": 31,
+      "positive_without_core_head": 104,
+      "qualifies": 16
+    },
+    "reference_hash_verified": true,
+    "rejection_memo_entries_verified": 10,
+    "signed_inverse_small_cases": [
+      {
+        "g": "t",
+        "inverse": [
+          -8,
+          7
+        ],
+        "z": -8
+      },
+      {
+        "g": "u",
+        "inverse": [
+          17,
+          7
+        ],
+        "z": -8
+      },
+      {
+        "g": "p",
+        "inverse": [
+          17,
+          7
+        ],
+        "z": -8
+      },
+      {
+        "g": "t",
+        "inverse": [
+          17,
+          7
+        ],
+        "z": -7
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -8,
+          7
+        ],
+        "z": -7
+      },
+      {
+        "g": "p",
+        "inverse": [
+          10,
+          7
+        ],
+        "z": -7
+      },
+      {
+        "g": "t",
+        "inverse": [
+          10,
+          7
+        ],
+        "z": -6
+      },
+      {
+        "g": "u",
+        "inverse": [
+          3,
+          7
+        ],
+        "z": -6
+      },
+      {
+        "g": "p",
+        "inverse": [
+          3,
+          7
+        ],
+        "z": -6
+      },
+      {
+        "g": "t",
+        "inverse": [
+          3,
+          7
+        ],
+        "z": -5
+      },
+      {
+        "g": "u",
+        "inverse": [
+          10,
+          7
+        ],
+        "z": -5
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -8,
+          7
+        ],
+        "z": -5
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -4,
+          7
+        ],
+        "z": -4
+      },
+      {
+        "g": "u",
+        "inverse": [
+          5,
+          7
+        ],
+        "z": -4
+      },
+      {
+        "g": "p",
+        "inverse": [
+          5,
+          7
+        ],
+        "z": -4
+      },
+      {
+        "g": "t",
+        "inverse": [
+          5,
+          7
+        ],
+        "z": -3
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -4,
+          7
+        ],
+        "z": -3
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -2,
+          7
+        ],
+        "z": -3
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -2,
+          7
+        ],
+        "z": -2
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -1,
+          7
+        ],
+        "z": -2
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -1,
+          7
+        ],
+        "z": -2
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -1,
+          7
+        ],
+        "z": -1
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -2,
+          7
+        ],
+        "z": -1
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -4,
+          7
+        ],
+        "z": -1
+      },
+      {
+        "g": "t",
+        "inverse": [
+          0,
+          1
+        ],
+        "z": 0
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -1,
+          1
+        ],
+        "z": 0
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -1,
+          1
+        ],
+        "z": 0
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -1,
+          1
+        ],
+        "z": 1
+      },
+      {
+        "g": "u",
+        "inverse": [
+          0,
+          1
+        ],
+        "z": 1
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -2,
+          1
+        ],
+        "z": 1
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -2,
+          1
+        ],
+        "z": 2
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -3,
+          1
+        ],
+        "z": 2
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -3,
+          1
+        ],
+        "z": 2
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -3,
+          1
+        ],
+        "z": 3
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -2,
+          1
+        ],
+        "z": 3
+      },
+      {
+        "g": "p",
+        "inverse": [
+          0,
+          1
+        ],
+        "z": 3
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -4,
+          1
+        ],
+        "z": 4
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -5,
+          1
+        ],
+        "z": 4
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -5,
+          1
+        ],
+        "z": 4
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -5,
+          1
+        ],
+        "z": 5
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -4,
+          1
+        ],
+        "z": 5
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -6,
+          1
+        ],
+        "z": 5
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -6,
+          1
+        ],
+        "z": 6
+      },
+      {
+        "g": "u",
+        "inverse": [
+          1,
+          1
+        ],
+        "z": 6
+      },
+      {
+        "g": "p",
+        "inverse": [
+          1,
+          1
+        ],
+        "z": 6
+      },
+      {
+        "g": "t",
+        "inverse": [
+          1,
+          1
+        ],
+        "z": 7
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -6,
+          1
+        ],
+        "z": 7
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -4,
+          1
+        ],
+        "z": 7
+      },
+      {
+        "g": "t",
+        "inverse": [
+          -8,
+          1
+        ],
+        "z": 8
+      },
+      {
+        "g": "u",
+        "inverse": [
+          -9,
+          1
+        ],
+        "z": 8
+      },
+      {
+        "g": "p",
+        "inverse": [
+          -9,
+          1
+        ],
+        "z": 8
+      }
+    ],
+    "signed_predecessor_counts": {
+      "negative": 65,
+      "positive": 241
+    },
+    "trajectory_steps_checked": 1779
+  },
+  "runtime_seconds": 0.08197505993302912,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "import collections,datetime,fractions,functools,hashlib,itertools,json,os,pathlib,platform,resource,signal,subprocess,sys,tempfile,time\nSTART=time.monotonic();resource.setrlimit(resource.RLIMIT_CPU,(120,120));resource.setrlimit(resource.RLIMIT_AS,(1<<30,1<<30));signal.alarm(120)\nROOT=pathlib.Path(os.environ.get('RULE30_REPLAY_ROOT','/home/ryan/rule30-lab'));OUT=pathlib.Path(os.environ.get('RULE30_REPLAY_OUTPUT',str(ROOT/'results/problem1/20260905_decoder_inverse_independent.json')))\ndef sha(b):return hashlib.sha256(b).hexdigest()\ndef canon(v):return json.dumps(v,sort_keys=True,separators=(',',':')).encode()\ninputs={}\ndef read(p):\n raw=(ROOT/p).read_bytes();inputs[p]=sha(raw);return json.loads(raw)\nprimary=read('results/problem1/20260905_decoder_inverse_primary.json');runs={};alias={name+'_record_tmp':item['raw_sha256'] for name,item in primary['runs'].items()}\nassert sha(primary['source_text'].encode())==primary['result_hashes']['source_sha256'] and sha(canon(primary['result_summary']))==primary['result_hashes']['result_summary_sha256']\nfor name,item in primary['runs'].items():\n raw=item['raw_json_text'].encode();assert sha(raw)==item['raw_sha256'];r=json.loads(raw);runs[name]=r\n assert sha(r['source_text'].encode())==r['result_hashes']['source_sha256'];assert sha(json.dumps(r['result_summary'],sort_keys=True).encode())==r['result_hashes']['result_summary_sha256']\n for p,h in r['provenance']['inputs'].items():\n  if p in alias:assert alias[p]==h\n  else:assert sha((ROOT/p).read_bytes())==h;inputs[p]=h\nhead=read('results/problem1/20260905_frontier_head_independent.json')['result_summary']\nref='src/python/rule30_research_reference.py';inputs[ref]=sha((ROOT/ref).read_bytes());assert inputs[ref]=='358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01'\n@functools.lru_cache(None)\ndef T(x):\n n=max(1,abs(x).bit_length())+3;b=[(x>>j)&1 for j in range(n)]\n return sum((b[j]^((b[j-1] if j else 0)|(b[j-2] if j>1 else 0)))<<j for j in range(n))\ndef G(g,x):return T(x) if g=='t' else T(x)^1 if g=='u' else T(x)^1^(2 if x%2==0 else 0)\ndef gate(x):return 't' if x%16==11 else 'u' if x%16==7 else None\ndef F(x):\n q=gate(x);assert q;return G(q,G('p',x>>2))\ndef adm(w):return not any(f in w for f in ('uu','ttttt','ututtu'))\ndef invmod(g,z,m):\n target=z if g=='t' else z^1 if g=='u' else z^1^(2 if z%2 else 0)\n a=b=v=0\n for i in range(m):\n  e=((target>>i)&1)^(a|b);v|=e<<i;a,b=e,a\n return v\n# Exact tail-state inverse on signed integers, not truncated sign guessing.\ndef invT(z):\n w=max(1,abs(z).bit_length()+1);bits=[];a=b=0\n for i in range(w):\n  e=((z>>i)&1)^(a|b);bits.append(e);a,b=e,a\n if z>=0:\n  for _ in range(2):e=a|b;bits.append(e);a,b=e,a\n  assert (a,b) in [(0,0),(1,1)]\n  v=sum(e<<i for i,e in enumerate(bits))-(1<<len(bits) if a else 0);assert T(v)==z\n  return v\n seen={}\n while (a,b) not in seen:\n  seen[a,b]=len(bits);e=1^(a|b);bits.append(e);a,b=e,a\n mu=seen[a,b];period=len(bits)-mu;assert period==3\n lo=sum(e<<i for i,e in enumerate(bits[:mu]));block=sum(e<<i for i,e in enumerate(bits[mu:]))\n v=fractions.Fraction(lo)+fractions.Fraction((1<<mu)*block,1-(1<<period));assert v.denominator==7\n return v\ndef invG(g,z):return invT(z if g=='t' else z^1 if g=='u' else z^1^(2 if z%2 else 0))\ndef B(q,x):\n a=invG(q,x);assert isinstance(a,int);b=invG('p',a);return 4*b+3,a,b\ndef fracrow(v):\n v=fractions.Fraction(v);return [v.numerator,v.denominator]\nsmall=[]\nfor z in range(-8,9):\n for g in 'tup':\n  v=invG(g,z)\n  if z>=0:assert isinstance(v,int) and G(g,v)==z\n  else:assert v.denominator==7\n  for m in [8,16,24]:\n   vv=fractions.Fraction(v);vm=(vv.numerator*pow(vv.denominator,-1,1<<m))%(1<<m);assert G(g,vm)%(1<<m)==z%(1<<m)\n  small.append({'g':g,'z':z,'inverse':fracrow(v)})\nexamples=[{'x':x,'q':q,'parent':fracrow(B(q,x)[0])} for x,q in [(27,'u'),(7,'t'),(3,'t'),(3,'u')]]\nassert [e['parent'] for e in examples]==[[7,1],[-5,1],[13,7],[17,7]]\nC={'p':[51292,51431,56937,57038],'u':[25646,25715,28468,28519]}\ntransfer=[]\nfor ph in ['p','u']:\n for H in C[ph]:\n  for init in itertools.product([0,1],repeat=2):\n   a,b=init\n   for i in range(H.bit_length()+2):e=((H>>i)&1)^(a|b);a,b=e,a\n   assert (a,b)==(0,0)\n   transfer.append({'H':H,'final_pair':[a,b],'incoming':list(init),'is_00':True,'phase':ph})\nassert transfer==runs['addendum']['lemma_rows']\nbyte_transfer=[]\nfor H in [200,222]:\n for init in itertools.product([0,1],repeat=2):\n  a,b=init\n  for i in range(8):e=((H>>i)&1)^(a|b);a,b=e,a\n  assert (a,b)==(0,0);byte_transfer.append({'head':H,'incoming':list(init),'final':[a,b]})\nfor ph,h,expect in [('p',4,[200,222]),('u',5,[400,401,444,445])]:\n row=next(r for r in head['frontier_core_rows'] if r['phase']==ph and r['h']==h)\n assert sorted(row['core'])==expect and row['stabilization_age']==4\n\n# Inverse contraction from terminal residue3, independent of the forward lift search.\ndef cylinder(word):\n q=3;m=2\n for g in reversed(word):q=4*invmod('p',invmod(g,q,m),m)+3;m+=2\n return q\nwords=[''.join(w) for w in itertools.product('tu',repeat=11) if adm(''.join(w))];assert len(words)==120\ncfg={'p':(19,11,2,13),'u':(18,10,3,11)}\ndef decode(ph,k,d,b,word):\n q=cylinder(word);hs=[H for H in C[ph] if H%(1<<b)==(q>>(2*d))%(1<<b)]\n if not hs:return None,'no-unique-H'\n assert len(hs)==1;H=hs[0];x=(H<<(2*d))+(q% (1<<(2*d)))\n if x%(1<<(2*len(word)+2))!=q:return None,'seam-mismatch'\n return (x,H,q),None\ndef extend(x,cap):\n w='';states=[x]\n for _ in range(cap):\n  q=gate(x)\n  if q is None:return w,states,'undefined-gate'\n  if not adm(w+q):return w,states,'forbidden'\n  w+=q;x=F(x);states.append(x)\n return w,states,'reached-limit'\ndef occurrences(w,b):\n out=[]\n for c in range(b,len(w)):\n  for r0 in range(2,6):\n   for r1 in range(2,6):\n    motif='u'+'t'*(r0-1)+'u'+'t'*(r1-1)+'ut';end=c+len(motif)\n    if w[c:end]==motif and adm(w[:end]+'u'):out.append({'c':c,'r0':r0,'r1':r1})\n return out\ncontrols=[('ttttutututut',0,[{'c':4,'r0':2,'r1':2},{'c':6,'r0':2,'r1':2}]),('ttttutututut',5,[{'c':6,'r0':2,'r1':2}]),('ttttuttttututut',0,[{'c':4,'r0':5,'r1':2},{'c':9,'r0':2,'r1':2}]),('tttt',0,[])]\nfor w,b,expect in controls:assert occurrences(w,b)==expect\ncandidate_rows=[];rej=collections.Counter();trajectory_steps=0\nfor w in words:\n for ph in ['p','u']:\n  k,d,b,cut=cfg[ph];dec,why=decode(ph,k,d,b,w)\n  if why:rej[why]+=1;continue\n  x,H,q=dec;bw,xs,stop=extend(x,k+14);assert bw[:11]==w;trajectory_steps+=len(bw);occ=occurrences(bw,cut);assert not occ\n  candidate_rows.append({'phase':ph,'word':w,'x':x,'x_hex':hex(x),'H':H,'branches':bw,'nbranches':len(bw),'stop':stop,'occurrences':occ})\nassert candidate_rows==runs['decoder']['candidates'];assert dict(rej)==runs['decoder']['result_summary']['rejections']\nclassified=[];signs=collections.Counter();partition=collections.Counter()\nfor c,stored in zip(candidate_rows,runs['predecessor']['rows']):\n ph=c['phase'];k=cfg[ph][0];x=c['x'];assert (stored['phase'],stored['x'],stored['word'])==(ph,x,c['word'])\n qrows=[]\n for q,old in zip('tu',stored['qrows']):\n  y,a,b=B(q,x);assert isinstance(y,int) and a>0 and F(y)==x and gate(y)==q;signs['positive' if y>=0 else 'negative']+=1\n  goodhead=y>=0 and (y>>(2*((k-1)-8))) in C[ph];goodadm=adm(q+c['word']);good=y>=0 and goodhead and goodadm\n  if y>=0:\n   assert y.bit_length()==2*(k-1)-(ph=='u');assert old['stage']=='candidate' and old['y']==y and old['head_in_C8']==goodhead and old['qword_adm']==goodadm and old['qualifies_substantive']==good\n  else:assert old['stage']=='Pinv-none' and b<0\n  qrows.append({'q':q,'a':a,'b':b,'parent':y,'head':y>>(2*((k-1)-8)) if y>=0 else None,'positive':y>=0,'head_in_core':goodhead,'prepend_admissible':goodadm,'qualifies':good})\n if not any(z['positive'] for z in qrows):part='no_positive'\n elif not any(z['head_in_core'] for z in qrows):part='positive_without_core_head'\n elif not any(z['qualifies'] for z in qrows):part='core_head_without_admissible_prepend'\n else:part='qualifies'\n partition[part]+=1;assert stored['has_parent']==(part=='qualifies');classified.append({'phase':ph,'x':x,'word':c['word'],'qrows':qrows,'class':part})\nassert dict(signs)=={'positive':241,'negative':65};assert dict(partition)=={'positive_without_core_head':104,'no_positive':31,'core_head_without_admissible_prepend':2,'qualifies':16}\nbase='ttttututttu';assert not adm(base+'u');word=base+'t';dec,_=decode('p',20,12,2,word);x,H,q=dec;assert x==862869079723 and q==50415275;assert extend(x,12)[0]==word\ninterior=[]\nfor g,old in zip('tu',runs['addendum']['r12_detail']['t']['prows']):\n y,a,b=B(g,x);h=y>>22;assert F(y)==x and gate(y)==g and y.bit_length()==38 and h==42809 and h not in C['p'];assert old['y']==y and old['head']==h and old['qword_adm']==adm(g+word)\n interior.append({'q':g,'parent':y,'head':h,'prepend_admissible':adm(g+word)})\n# Compact complete rejection: all three unique ordinary predecessors fail the proven aged head.\npre=[]\nfor g,old in zip('tup',runs['membership']['result_summary']['preimages']):\n v=invG(g,x);assert isinstance(v,int) and v>0 and G(g,v)==x and v.bit_length()==38;h=v>>22;assert h==56947 and h not in C['p'];assert old['vals']==[{'bits':38,'head':h,'head_in_C8':False,'v':v}];pre.append({'g':g,'parent':v,'head':h})\n# Check every retained rejection memo using an aged head or the preceding root certificate.\nO8=next(r['initial_frontier'] for r in head['frontier_core_rows'] if r['phase']=='p' and r['h']==8)\naged={}\nfor k in [18,19]:\n S=set(O8)\n for _ in range(k-8):S={T(v)>>2 for v in S}\n aged[k]=S\nmemo=runs['membership']['result_summary']['oracle_memo'];assert len(memo)==10\nfor entry in memo:\n ks,vs,ans=entry.split(':');k=int(ks);v=int(vs);assert ans=='False'\n if k==20:assert v==x\n else:assert (v>>(2*(k-8))) not in aged[k]\npositive_controls=[]\nfor row in runs['membership']['result_summary']['oracle_validation_positives']:\n w=row['word'];v=3;prefixes=[v]\n for g in w:v=G(g,v);prefixes.append(v)\n assert len(w)==19 and v.bit_length()==40 and row['answer'] and row['witness_replay']\n for i in range(len(w)-1,-1,-1):assert invG(w[i],prefixes[i+1])==prefixes[i]\n positive_controls.append({'word_from_zero':'p'+w,'endpoint':v,'bit_length':40})\nsummary={'completed':True,'failures':[],'signed_inverse_small_cases':small,'forced_inverse_examples':examples,'head_transfer_cases':32,'leading_byte_transfer':byte_transfer,'admissible_words_r11':120,'decoder_candidates':153,'candidate_rows_equal':True,'trajectory_steps_checked':trajectory_steps,'boundary_occurrences':0,'occurrence_controls':4,'signed_predecessor_counts':dict(signs),'predecessor_row_partition':dict(partition),'classified_predecessors':classified,'interior':{'x':x,'word':word,'head':H,'forced_predecessors':interior,'ordinary_predecessors':pre,'ordinary_membership':False},'rejection_memo_entries_verified':10,'ordinary_word_controls':positive_controls,'original_payload_source_summary_input_hashes_verified':True,'reference_hash_verified':True}\nsource=pathlib.Path(__file__).read_bytes();record={'experiment_id':'problem1-decoder-inverse-independent-20260905','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'question':'problem1','hypothesis':'Independent inverse cylinders and signed-tail arithmetic reproduce the finite decoder/closure results and exact compact rejection.','backend':'python-cell-forward-modular-inverse-cylinders-and-exact-tail-state-inverses','parameters':{'r11_words':'all120 admissible','candidate_phases_complexities':{'p':19,'u':18},'signed_inverse_small_targets':[-8,8],'small_generators':['t','u','p'],'r12':'only the named t extension; u extension forbidden','membership':'only named862869079723 plus three recorded word controls','cpu_seconds_limit':120,'wall_seconds_limit':120,'address_space_bytes':1<<30},'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count(),'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-START,'inputs':inputs,'source_text':source.decode(),'result_hashes':{'source_sha256':sha(source),'result_summary_sha256':sha(canon(summary))},'result_summary':summary,'status':'finite-exhaustive','interpretation':'All declared finite comparisons pass. The integer/rational trichotomy and arbitrary-lower-tail positivity depend on the separate complete tail-state proofs.','proof_scope':'Exact stated finite inputs and compact named membership certificate; no all-k occurrence result.','limitations':['No full r12 language or larger frontier/core census.','The named closure counterexample is not ordinary.','Uniform return exclusion and ordinary backward closure remain open.','Positive-control oracle exploration counts are retained from Muse but not recomputed; their explicit generator certificates are verified.']}\nwith tempfile.NamedTemporaryFile('w',dir=OUT.parent,delete=False) as f:\n json.dump(record,f,sort_keys=True,indent=2);f.write('\\n');f.flush();os.fsync(f.fileno());tmp=f.name\nos.replace(tmp,OUT);print(json.dumps({k:v for k,v in summary.items() if k not in ['signed_inverse_small_cases','classified_predecessors']}))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T00:46:49.726036+00:00"
+}
