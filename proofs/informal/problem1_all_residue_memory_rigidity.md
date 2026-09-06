@@ -8,6 +8,13 @@ formulations locally. No width sweep or larger rank calculation is used.
 Problem1 remains open.
 Base: `103579dee7ed81ffea9aae794c86c4893f37603d`.
 
+Round-1 audit addition (2026-09-06):
+`problem1_all_memory_triangular_review.md` expands the all-bit slice
+bijection, circulation sign and fiber argument, and closes the requested
+memory using the explicit rational survivor -7/127. These clarify this
+same theorem; no class or experiment is enlarged. The fresh full external
+review limitation is retained unless separately discharged in the handoff.
+
 ## Quantified target and admission
 
 For every finite b and either ordinary phase root, consider real weights

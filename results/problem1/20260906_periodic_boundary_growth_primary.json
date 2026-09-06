@@ -1,0 +1,232 @@
+{
+  "admission_snapshot": "Bounded unit: reuse the four stored exact phase-cycle certificates\n(t, u, ututtt, ttututt) plus the explicit ut control (-7/127, -123/127).\nFor schedule period p, spatial onset a, spatial period lam, d0=ceil(a/2),\nL=lcm(p, lam/gcd(lam,2)), w_e(d)=J(pi^d X_(e-d mod p)),\nM_e=sum_{d=d0}^{d0+L-1} w_e(d) with J=I(Ay)+I(pi y) testing low six bits\n0/5. Growth law Psi_(s+L)(X_j)=Psi_s(X_j)+M_(j+s-2 mod p) for s>=d0+1.\nCompute M_e exactly via modular inversion (method A) and replay via stored\nspatial bit vectors (method B). t/u are inadmissible controls, never\ncountermodels. Either outcome changes the whole-tail argument as stated in\nthe module docstring. Local one CPU, 120 s, 1 GiB. No recurrence\nregeneration, no cap increase, no new search.",
+  "backend": "python-rational-modinv-and-bitvector",
+  "executed_source": "#!/usr/bin/env python3\n\"\"\"Bounded periodic boundary-growth laws on named rational schedules.\n\nReuses ONLY the stored phase certificates for t, u, ututtt, ttututt in\nresults/problem1/20260905_periodic_rational_primary.json, plus the explicit\nut control pair -7/127 and -123/127 from the periodic-tail probe. No\nrational recurrence or cycle is regenerated and no cap is increased.\n\nHypothesis under test: some admissible stored periodic schedule has\nboundary mean >= 1 in some phase alignment, which would refute a uniform\nsubunit boundary bound by an exact periodic countermodel. Otherwise each\nnamed schedule gets an exact all-age growth law and the broader subunit\nbound stays open with no extension authorized.\n\nWhole-tail relevance (either outcome matters): a countermodel forces any\nfuture whole-tail argument to rely on ordinary membership or ordered-history\ninformation rather than a schedule-only slope; absence of a countermodel\ncloses exactly these named periodic classes and leaves the general\ninequality open, directing work toward history-sensitive observables.\nMethod A evaluates the score period from stored rational\nnumerators/denominators via 2-adic modular inversion. Method B replays the\nsame score period from stored spatial bit vectors (columns), or from the\nconstructive 7-bit words for the ut control. Both methods are labelled.\n\"\"\"\nfrom __future__ import annotations\nimport hashlib\nimport json\nimport math\nimport os\nfrom fractions import Fraction\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport tempfile\nimport time\nfrom datetime import datetime, timezone\nROOT = Path(__file__).resolve().parents[2]\nINPUT = ROOT / \"results/problem1/20260905_periodic_rational_primary.json\"\nOUT = ROOT / \"results/problem1/20260906_periodic_boundary_growth_primary.json\"\nWALL_CAP = 120\nADMISSION = \"\"\"Bounded unit: reuse the four stored exact phase-cycle certificates\n(t, u, ututtt, ttututt) plus the explicit ut control (-7/127, -123/127).\nFor schedule period p, spatial onset a, spatial period lam, d0=ceil(a/2),\nL=lcm(p, lam/gcd(lam,2)), w_e(d)=J(pi^d X_(e-d mod p)),\nM_e=sum_{d=d0}^{d0+L-1} w_e(d) with J=I(Ay)+I(pi y) testing low six bits\n0/5. Growth law Psi_(s+L)(X_j)=Psi_s(X_j)+M_(j+s-2 mod p) for s>=d0+1.\nCompute M_e exactly via modular inversion (method A) and replay via stored\nspatial bit vectors (method B). t/u are inadmissible controls, never\ncountermodels. Either outcome changes the whole-tail argument as stated in\nthe module docstring. Local one CPU, 120 s, 1 GiB. No recurrence\nregeneration, no cap increase, no new search.\"\"\"\nFORBIDDEN = (\"uu\", \"ttttt\", \"ututtu\")\ndef digest(value):\n    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(\",\", \":\")).encode()).hexdigest()\ndef atomic(path, value):\n    path.parent.mkdir(parents=True, exist_ok=True)\n    fd, tmp = tempfile.mkstemp(prefix=path.name + \".\", suffix=\".tmp\", dir=str(path.parent))\n    try:\n        with os.fdopen(fd, \"w\") as f:\n            json.dump(value, f, sort_keys=True, indent=2)\n            f.write(\"\\n\")\n            f.flush()\n            os.fsync(f.fileno())\n        os.replace(tmp, path)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\ndef admissible_cyclic(word):\n    rep = word * (2 + 6 // len(word))\n    return all(b not in rep for b in FORBIDDEN)\ndef A_of(v):\n    return (v >> 2) ^ ((v >> 1) | v)\ndef I_of(z):\n    return 1 if (z & 63) in (0, 5) else 0\ndef J_of(y):\n    return I_of(A_of(y)) + I_of(y >> 2)\nUT_WORDS = (7, 123)\ndef load_cases():\n    data = json.loads(INPUT.read_text())\n    rows = {r[\"q\"]: r for r in data[\"result_summary\"][\"rows\"]}\n    cases = []\n    for q in (\"t\", \"u\", \"ututtt\", \"ttututt\"):\n        rec = rows[q]\n        p = len(q)\n        a = rec[\"spatial_onset\"]\n        lam = rec[\"lambda\"]\n        ph = sorted(rec[\"rational_phases\"], key=lambda d: d[\"phase\"])\n        assert [d[\"phase\"] for d in ph] == list(range(p))\n        phases = [(int(d[\"numerator_hex\"], 16), int(d[\"denominator_hex\"], 16)) for d in ph]\n        for _, den in phases:\n            assert den & 1, \"denominator must be odd for 2-adic inversion\"\n        cases.append({\"q\": q, \"p\": p, \"a\": a, \"lam\": lam, \"phases\": phases,\n                      \"cols\": rec[\"columns\"], \"kind\": \"stored-certificate\"})\n    cases.append({\"q\": \"ut\", \"p\": 2, \"a\": 0, \"lam\": 7,\n                  \"phases\": [(-7, 127), (-123, 127)], \"cols\": None,\n                  \"kind\": \"explicit-probe-control\"})\n    return cases\ndef bit_at(case, j, i):\n    if case[\"cols\"] is not None:\n        cols, a, lam = case[\"cols\"], case[\"a\"], case[\"lam\"]\n        if i >= a:\n            i = a + (i - a) % lam\n        return (cols[i] >> j) & 1\n    w = UT_WORDS[j]\n    return (w >> (i % case[\"lam\"])) & 1\ndef run_case(case):\n    t0 = time.monotonic()\n    p, a, lam = case[\"p\"], case[\"a\"], case[\"lam\"]\n    d0 = (a + 1) // 2\n    base = lam // math.gcd(lam, 2)\n    L = math.lcm(p, base)\n    Dmax = d0 + 2 * L + 4\n    N = 2 * Dmax + 12\n    M = 1 << N\n    Xa = [((num % M) * pow(den, -1, M)) % M for num, den in case[\"phases\"]]\n    Xb = [sum(bit_at(case, j, i) << i for i in range(N)) for j in range(p)]\n    W = [[0] * (Dmax + 1) for _ in range(p)]\n    Wb = [[0] * (Dmax + 1) for _ in range(p)]\n    for e in range(p):\n        for d in range(Dmax + 1):\n            j = (e - d) % p\n            W[e][d] = J_of(Xa[j] >> (2 * d))\n            Wb[e][d] = J_of(Xb[j] >> (2 * d))\n    method_agreement = (W == Wb)\n    assert method_agreement, \"method A/B score-period mismatch for \" + case[\"q\"]\n    Me = [sum(W[e][d0:d0 + L]) for e in range(p)]\n    P = [[0] * (Dmax + 2) for _ in range(p)]\n    for e in range(p):\n        acc = 0\n        for d in range(Dmax + 1):\n            acc += W[e][d]\n            P[e][d + 1] = acc\n    def Psi(s, j):\n        if s <= 1:\n            return 0\n        return P[(j + s - 2) % p][s - 1]\n    n_ok, n_tot = 0, 0\n    for j in range(p):\n        for s in range(d0 + 1, d0 + L + 3):\n            n_tot += 1\n            if Psi(s + L, j) - Psi(s, j) == Me[(j + s - 2) % p]:\n                n_ok += 1\n    assert n_ok == n_tot, \"growth-law identity failed for \" + case[\"q\"]\n    adm = admissible_cyclic(case[\"q\"])\n    slopes = [Fraction(m, L) for m in Me]\n    overall = Fraction(sum(Me), p * L)\n    offsets = [Psi(d0 + 1, j) for j in range(p)]\n    is_counter = bool(adm and any(m >= L for m in Me))\n    return {\"q\": case[\"q\"], \"kind\": case[\"kind\"], \"p\": p, \"a\": a, \"lambda\": lam,\n            \"d0\": d0, \"L\": L, \"admissible_cyclic\": adm,\n            \"M_per_phase\": Me, \"slopes_per_phase\": [str(s) for s in slopes],\n            \"score_period_sha256\": digest([W[e][d0:d0+L] for e in range(p)]),\n            \"initial_scores_sha256\": digest([W[e][:d0] for e in range(p)]),\n            \"overall_mean\": str(overall), \"offsets_at_d0_plus_1\": offsets,\n            \"growth_checks_passed\": n_ok, \"growth_checks_total\": n_tot,\n            \"method_A_B_agree\": True, \"is_countermodel\": is_counter,\n            \"runtime_seconds\": time.monotonic() - t0}\ndef main():\n    started = time.monotonic()\n    cases = load_cases()\n    rows = [run_case(c) for c in cases]\n    if time.monotonic() - started > WALL_CAP:\n        raise TimeoutError(\"admitted wall cap exceeded\")\n    counter = [r[\"q\"] for r in rows if r[\"is_countermodel\"]]\n    inad = [r[\"q\"] for r in rows if not r[\"admissible_cyclic\"]]\n    summary = {\"rows\": rows, \"countermodels\": counter,\n               \"inadmissible_controls\": inad,\n               \"hypothesis_outcome\": (\"REFUTED subunit bound: \" + \",\".join(counter)) if counter else \"no admissible schedule reaches mean>=1; named classes get exact growth laws, broader bound stays open\"}\n    cpu = next((x.split(\":\", 1)[1].strip() for x in Path(\"/proc/cpuinfo\").read_text().splitlines() if x.startswith(\"model name\")), \"unknown\")\n    paths = [Path(__file__).relative_to(ROOT), INPUT.relative_to(ROOT),\n             Path(\"src/python/rule30_research_reference.py\")]\n    record = {\"experiment_id\": \"20260906_periodic_boundary_growth_primary\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=str(ROOT), text=True).strip(),\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Some admissible stored periodic schedule has boundary mean>=1; else named controls get exact all-age growth laws.\",\n        \"backend\": \"python-rational-modinv-and-bitvector\",\n        \"parameters\": {\"schedules\": [c[\"q\"] for c in cases], \"score\": \"J=I(Ay)+I(pi y), I=1 iff low6bits in {0,5}\",\n            \"law\": \"Psi_(s+L)(X_j)=Psi_s(X_j)+M_(j+s-2 mod p), s>=d0+1\", \"wall_seconds\": WALL_CAP, \"memory_limit_gib\": 1},\n        \"hardware\": {\"cpu\": cpu, \"machine\": platform.machine(), \"logical_cpu_count\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": time.monotonic() - started,\n        \"source_and_input_hashes\": {str(p): hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in paths},\n        \"admission_snapshot\": ADMISSION, \"executed_source\": Path(__file__).read_text(),\n        \"result_hashes\": {\"summary_sha256\": digest(summary)},\n        \"result_summary\": summary, \"status\": \"finite-exhaustive\",\n        \"interpretation\": \"The finite computations verify score periods and increments on the named certificates. The separate proof in problem1_periodic_boundary_growth.md derives all-age laws from spatial-tail periodicity and reversal of the boundary-sum index; t/u are inadmissible controls only.\",\n        \"proof_scope\": \"Only the four stored certificates plus the explicit ut control; no regenerated recurrences, no new search, no cap increase.\",\n        \"limitations\": [\"No claim about arbitrary or ordinary schedules.\", \"Growth-law identity depends on the separate mathematical note; this record supplies exact M_e, slopes, offsets and finite identity checks.\", \"Both methods ran locally in the Muse worker implementation; the lead cell-vector replay is a separate record.\", \"Lead integration corrected the proof-dependency and executor wording and added score-period hashes before this final run.\", \"Base Git plus source/input hashes identify exact contents.\"]}\n    atomic(OUT, record)\n    print(json.dumps({r[\"q\"]: {k: r[k] for k in (\"L\", \"M_per_phase\", \"overall_mean\", \"admissible_cyclic\", \"is_countermodel\", \"growth_checks_passed\")} for r in rows}))\nif __name__ == \"__main__\":\n    main()\n",
+  "experiment_id": "20260906_periodic_boundary_growth_primary",
+  "git_commit": "7ea31d2a558456c40a218df4ff7222b79167f5cd",
+  "hardware": {
+    "cpu": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "logical_cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Some admissible stored periodic schedule has boundary mean>=1; else named controls get exact all-age growth laws.",
+  "interpretation": "The finite computations verify score periods and increments on the named certificates. The separate proof in problem1_periodic_boundary_growth.md derives all-age laws from spatial-tail periodicity and reversal of the boundary-sum index; t/u are inadmissible controls only.",
+  "limitations": [
+    "No claim about arbitrary or ordinary schedules.",
+    "Growth-law identity depends on the separate mathematical note; this record supplies exact M_e, slopes, offsets and finite identity checks.",
+    "Both methods ran locally in the Muse worker implementation; the lead cell-vector replay is a separate record.",
+    "Lead integration corrected the proof-dependency and executor wording and added score-period hashes before this final run.",
+    "Base Git plus source/input hashes identify exact contents."
+  ],
+  "parameters": {
+    "law": "Psi_(s+L)(X_j)=Psi_s(X_j)+M_(j+s-2 mod p), s>=d0+1",
+    "memory_limit_gib": 1,
+    "schedules": [
+      "t",
+      "u",
+      "ututtt",
+      "ttututt",
+      "ut"
+    ],
+    "score": "J=I(Ay)+I(pi y), I=1 iff low6bits in {0,5}",
+    "wall_seconds": 120
+  },
+  "proof_scope": "Only the four stored certificates plus the explicit ut control; no regenerated recurrences, no new search, no cap increase.",
+  "question": "problem1",
+  "result_hashes": {
+    "summary_sha256": "c8783d7e97d5db8ac4a2db7a2fad7ba392d4c77dca3972c04f60cd3efe927695"
+  },
+  "result_summary": {
+    "countermodels": [],
+    "hypothesis_outcome": "no admissible schedule reaches mean>=1; named classes get exact growth laws, broader bound stays open",
+    "inadmissible_controls": [
+      "t",
+      "u"
+    ],
+    "rows": [
+      {
+        "L": 1,
+        "M_per_phase": [
+          0
+        ],
+        "a": 2,
+        "admissible_cyclic": false,
+        "d0": 1,
+        "growth_checks_passed": 3,
+        "growth_checks_total": 3,
+        "initial_scores_sha256": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "is_countermodel": false,
+        "kind": "stored-certificate",
+        "lambda": 2,
+        "method_A_B_agree": true,
+        "offsets_at_d0_plus_1": [
+          0
+        ],
+        "overall_mean": "0",
+        "p": 1,
+        "q": "t",
+        "runtime_seconds": 0.0001493730815127492,
+        "score_period_sha256": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "slopes_per_phase": [
+          "0"
+        ]
+      },
+      {
+        "L": 1,
+        "M_per_phase": [
+          0
+        ],
+        "a": 2,
+        "admissible_cyclic": false,
+        "d0": 1,
+        "growth_checks_passed": 3,
+        "growth_checks_total": 3,
+        "initial_scores_sha256": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "is_countermodel": false,
+        "kind": "stored-certificate",
+        "lambda": 2,
+        "method_A_B_agree": true,
+        "offsets_at_d0_plus_1": [
+          0
+        ],
+        "overall_mean": "0",
+        "p": 1,
+        "q": "u",
+        "runtime_seconds": 7.205596193671227e-05,
+        "score_period_sha256": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "slopes_per_phase": [
+          "0"
+        ]
+      },
+      {
+        "L": 138,
+        "M_per_phase": [
+          6,
+          15,
+          6,
+          6,
+          15,
+          6
+        ],
+        "a": 2,
+        "admissible_cyclic": true,
+        "d0": 1,
+        "growth_checks_passed": 840,
+        "growth_checks_total": 840,
+        "initial_scores_sha256": "74e32164362d10006c940d4cc3f182804c04bb348e5190bc1ad48b2766b6b27f",
+        "is_countermodel": false,
+        "kind": "stored-certificate",
+        "lambda": 138,
+        "method_A_B_agree": true,
+        "offsets_at_d0_plus_1": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "overall_mean": "3/46",
+        "p": 6,
+        "q": "ututtt",
+        "runtime_seconds": 0.004335787030868232,
+        "score_period_sha256": "b405ccd95e12e4614d3e2e03c1349141e0a516a86a94309aeebfc719145fe307",
+        "slopes_per_phase": [
+          "1/23",
+          "5/46",
+          "1/23",
+          "1/23",
+          "5/46",
+          "1/23"
+        ]
+      },
+      {
+        "L": 364,
+        "M_per_phase": [
+          29,
+          29,
+          29,
+          29,
+          29,
+          29,
+          29
+        ],
+        "a": 2,
+        "admissible_cyclic": true,
+        "d0": 1,
+        "growth_checks_passed": 2562,
+        "growth_checks_total": 2562,
+        "initial_scores_sha256": "51b111d65b0f9fdfbc483dc2eff223277f3e9344c2ad4eef5970e738586bf6bc",
+        "is_countermodel": false,
+        "kind": "stored-certificate",
+        "lambda": 728,
+        "method_A_B_agree": true,
+        "offsets_at_d0_plus_1": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "overall_mean": "29/364",
+        "p": 7,
+        "q": "ttututt",
+        "runtime_seconds": 0.014517306932248175,
+        "score_period_sha256": "46ce85c1c26b19427f1998a5aa8984956a79afd635fd579af9436729a9a05c4c",
+        "slopes_per_phase": [
+          "29/364",
+          "29/364",
+          "29/364",
+          "29/364",
+          "29/364",
+          "29/364",
+          "29/364"
+        ]
+      },
+      {
+        "L": 14,
+        "M_per_phase": [
+          1,
+          1
+        ],
+        "a": 0,
+        "admissible_cyclic": true,
+        "d0": 0,
+        "growth_checks_passed": 32,
+        "growth_checks_total": 32,
+        "initial_scores_sha256": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
+        "is_countermodel": false,
+        "kind": "explicit-probe-control",
+        "lambda": 7,
+        "method_A_B_agree": true,
+        "offsets_at_d0_plus_1": [
+          0,
+          0
+        ],
+        "overall_mean": "1/14",
+        "p": 2,
+        "q": "ut",
+        "runtime_seconds": 0.00020558596588671207,
+        "score_period_sha256": "166e54405e3eedf73717b72445cf164b65b8162a729c84c5810afcfc6fc253f5",
+        "slopes_per_phase": [
+          "1/14",
+          "1/14"
+        ]
+      }
+    ]
+  },
+  "runtime_seconds": 0.031648039002902806,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_and_input_hashes": {
+    "experiments/problem1_nonperiodicity/check_periodic_boundary_growth.py": "fb173d35f65c9965238cec6162d41b4a90555936365aa43d2efdf76a925387aa",
+    "results/problem1/20260905_periodic_rational_primary.json": "c6e5516aa9569c44bb7202f2aaacdc4be66316aca5156faa3f86d7c172ffa7ba",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T17:36:46.606318+00:00"
+}

@@ -1,4 +1,99 @@
-## Round 1 research checkpoint (2026-09-06, base `093d8cc`)
+## Round 1 maintenance rollover (2026-09-06, approximately 70 minutes)
+
+Research started at16:56UTC and checkpointed at18:04UTC. The first
+logical unit was committed and pushed as
+`7ea31d2a558456c40a218df4ff7222b79167f5cd`; the final unit is the
+current branch tip recorded by Git. This is routine time rollover,
+NOT goal achieved or mathematical blockage. Continue research next round.
+
+Fresh Muse accepted the new periodic-boundary structural theorem,
+phase oscillation and unbounded-increment deductions. Its only stated
+ut premise concern was a missing citation to the already proved and
+reviewed rational cycle; that exact dependency is now explicit.
+The followup and one delayed retry returnedprovider429. The prescribed
+MiMo fallback returned no verdict before rollover and was CLOSED while
+still running. There are no agent threads to wait for. The new section7
+finite-state additive approximation corollary remains lead-derived and
+lead-checked, with its fresh external corollary check missing. Full
+disposition: `results/problem1/20260906_periodic_boundary_growth_review.json`.
+
+Also read `proofs/informal/problem1_all_memory_triangular_review.md`
+for the expanded all-bit slice induction, correct circulation-subtraction
+sign, normalized mean, separate fiber conservation, PURE scanner iteration,
+and explicit rational requested-memory closure. This clarifies the SAME
+old no-go; no new graph or numerical controls ran. Its fresh ENTIRE
+external proof review remains missing. Atomic audit:
+`results/problem1/20260906_all_memory_expanded_audit.json`.
+Do not count either missing review as completed or reopen a width sweep.
+
+The immutable reference is unchanged. Generated hashes reload correctly;
+all established research is committed and pushed. Unrelated pre-existing
+untracked supervisor/worktree/result files were preserved.
+
+## Round 1 second research checkpoint (2026-09-06, base `7ea31d2`)
+
+Read `proofs/informal/problem1_periodic_boundary_growth.md` first,
+then the first-checkpoint core-separation result below. These concern
+the auxiliary branch schedules in the period-two route; temporal least
+periods >=3 remain unhandled.
+
+- `partial-proof`: for a period-p branch word whose phase survivors
+  have common spatial onset a and period lambda, put d0=ceil(a/2),
+  m=lambda/gcd(lambda,2), L=lcm(p,m). Reversing the boundary sum gives
+  Psi_s(X_j)=sum_(d=0..s-2) w_e(d), e=j+s-2 modp,
+  w_e(d)=J(pi^d X_(e-d)). For d>=d0 this score is L-periodic.
+  Thus Psi_(s+L)-Psi_s=M_e for EVERY s>=d0+1, with exact finite
+  offsets. M_e has at most gcd(p,m) phase classes. Ending phase
+  cannot be averaged away.
+- `refuted`: a single phase-independent asymptotic slope even on
+  every admissible periodic schedule. The ALREADY STORED ututtt
+  rational certificate has L138 and M=(6,15,6,6,15,6), so for every
+  start phase liminf Psi_s/s=1/23 and limsup=5/46. Its all-phase
+  average3/46 is not a valid all-age linear approximation.
+- `refuted`: uniformly bounded one-step increments of Psi on this
+  domain. At s=2+138v the increment increases by9 when s advances
+  by138; at s=3+138v it decreases by9. A literal nonnegative finite
+  replay gives Psi140=6,Psi141=15,Psi142=6 with143 actual branches.
+  That finite representative is NOT asserted ordinary.
+- `refuted`: LEFT-TO-RIGHT deterministic finite-state additive
+  readers approximating this schedule functional with o(s) two-sided
+  error. A reader's output on periodic input is alpha*s+O(1), so the
+  two slopes force limsup normalized absolute error>=3/92. Exact and
+  bounded-error representation, including fixed-range factor counts,
+  are impossible. This DOES NOT rule out additive UPPER BOUNDS,
+  reversed readers, unbounded registers, or finite automata on ordinary
+  history words. Do not conflate it with the older residue-weight no-go.
+- `partial-proof`: chopping at a periodic suffix beginning h and
+  bounding all earlier J terms by2 gives only
+  Psi_s<=mu*s+(2-mu)h+C. Its sufficient fractional threshold
+  h/s<(1-mu)/(2-mu)<=1/2 is already covered by the existing
+  fixed-period repetition criterion. This precise coarse method adds
+  no new asymptotic exclusion class; sharper early-term bounds remain open.
+- `finite-exhaustive`: Muse modular arithmetic and lead cell vectors
+  agree on complete score-period hashes for ONLY stored t,u,ututtt,
+  ttututt plus the new ut control. Other slopes: ut1/14, ttututt29/364;
+  inadmissible t/u controls0. None refutes a max-phase subunit upper
+  bound. Checks:3440 primary age increments,6812 independent period
+  comparisons,3423 independent age increments,81 direct boundary sums,
+  plus the one literal143-step control. No cycle or frontier is regenerated.
+
+Records: `results/problem1/20260906_periodic_boundary_growth_`
+`{primary,independent,verification}.json`. They retain complete source,
+input/admission snapshots, full base Git, hashes and atomic writes.
+The primary's dependency/executor wording was corrected at integration;
+verification stringifies age keys before hashing, so JSON reload hashes
+reproduce. Mathematical review disposition is recorded at final rollover.
+
+Current bottleneck: a phase-aware upper bound on the ACTUAL early
+boundary terms, retaining original length and every observed gate.
+The short-transient gap222 boundary subclass below is proved; arbitrary
+interruptions remain outside it. Nonlinear ordered-history information
+is still a distinct route. A reversed reader or a finite-state upper
+bound would need a proved state/inequality mechanism before any graph;
+no finite-memory, comparator, coefficient, core or occurrence sweep is
+admitted. The whole-tail conjecture and Problem1 remain open.
+
+## Round 1 first research checkpoint (2026-09-06, base `093d8cc`)
 
 Read the new notes before the historical frontier below:
 `proofs/informal/problem1_boundary_sum_periodic_tail_probe.md` and

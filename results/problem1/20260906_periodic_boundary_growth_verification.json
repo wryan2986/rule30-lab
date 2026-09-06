@@ -1,0 +1,148 @@
+{
+  "backend": "python-independent-record-comparison-and-literal-forced-map",
+  "executed_source": "import hashlib,json,os,platform,subprocess,tempfile,time\nfrom pathlib import Path\nfrom datetime import datetime,timezone\n\nroot=Path('/home/ryan/rule30-lab')\nbegan=time.monotonic()\ndigest=lambda v:hashlib.sha256(json.dumps(v,sort_keys=True,separators=(',',':')).encode()).hexdigest()\npp='results/problem1/20260906_periodic_boundary_growth_primary.json'\nip='results/problem1/20260906_periodic_boundary_growth_independent.json'\nold='results/problem1/20260905_periodic_rational_primary.json'\np=json.loads((root/pp).read_text())['result_summary']['rows']\ni=json.loads((root/ip).read_text())['result_summary']['rows']\nmatches=[]\nfor a,b in zip(p,i):\n assert a['q']==b['word']\n assert (a['a'],a['lambda'],a['d0'],a['L'])==(b['spatial_onset'],b['spatial_period'],b['d0'],b['L'])\n assert a['M_per_phase']==[r['M'] for r in b['phases']]\n assert a['slopes_per_phase']==[r['mean'] for r in b['phases']]\n assert a['score_period_sha256']==digest([r['period_scores'] for r in b['phases']])\n assert a['initial_scores_sha256']==digest([r['initial_scores'] for r in b['phases']])\n assert a['admissible_cyclic']==b['admissible']\n matches.append({'word':a['q'],'complete_score_hash':a['score_period_sha256'],'initial_hash':a['initial_scores_sha256'],'M':a['M_per_phase']})\nassert len(p)==len(i)==5\n\n# Additional admission: on the SAME ututtt certificate, check six named\n# ages by literal nonnegative forced evolution. A mismatch would refute\n# the source phase alignment or boundary interpretation; no new schedule\n# or ordinary membership search is admitted. The 288-bit precision is\n# derived from the largest named age142, not a search parameter.\nages=[2,3,4,140,141,142]\nprecision=2*max(ages)+4\ncase=next(r for r in json.loads((root/old).read_text())['result_summary']['rows'] if r['q']=='ututtt')\nphase=case['rational_phases'][0]\nnum=int(phase['numerator_hex'],16);den=int(phase['denominator_hex'],16)\nx0=num*pow(den,-1,1<<precision)%(1<<precision)\nA=lambda x:(x>>2)^((x>>1)|x)\nI=lambda x:int((x&63) in (0,5))\nJ=lambda x:I(A(x))+I(x>>2)\norbit=[x0];branches=''\nfor t in range(max(ages)+1):\n x=orbit[-1]\n q={7:'u',11:'t'}.get(x&15)\n assert q=='ututtt'[t%6]\n y=A(x);f=y^((y<<1)|(y<<2))^(q=='u')\n assert f==4*A(A(x))+3\n orbit.append(f);branches+=q\nvalues={s:sum(J(orbit[t]>>(2*(s-t-2))) for t in range(s-1)) for s in ages}\nassert values=={2:0,3:0,4:0,140:6,141:15,142:6}\nsummary={'matches':matches,'counts':{'primary_growth_checks':sum(r['growth_checks_total'] for r in p),'independent_score_period_checks':sum(r['score_period_checks'] for r in i),'independent_age_increment_checks':sum(r['age_increment_checks'] for r in i),'independent_direct_forward_checks':sum(r['direct_forward_checks'] for r in i)},'nonnegative_literal_control':{'precision_bits':precision,'initial_x_hex':hex(x0),'initial_bit_length':x0.bit_length(),'observed_branches':branches,'actual_steps':len(branches),'ages':ages,'Psi':{str(k):v for k,v in values.items()},'orbit_sha256':digest(orbit),'ordinary_membership':'not asserted or tested'},'all_checks_passed':True}\npaths=[pp,ip,old,'proofs/informal/problem1_periodic_boundary_growth.md','experiments/problem1_nonperiodicity/check_periodic_boundary_growth.py','experiments/problem1_nonperiodicity/check_periodic_boundary_growth_independent.py','src/python/rule30_research_reference.py']\nrecord={'experiment_id':'20260906_periodic_boundary_growth_verification','timestamp_utc':datetime.now(timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'question':'problem1','hypothesis':'Complete independent score tables agree; the named horizon oscillation also holds by literal finite forced evolution of the same certified rational prefix.','backend':'python-independent-record-comparison-and-literal-forced-map','parameters':{'words':[r['q'] for r in p],'literal_control_ages':ages,'precision_bits':precision,'wall_seconds':120,'memory_limit_gib':1},'hardware':{'machine':platform.machine(),'logical_cpu_count':os.cpu_count()},'software':{'python':platform.python_version(),'platform':platform.platform()},'runtime_seconds':time.monotonic()-began,'source_and_input_hashes':{q:hashlib.sha256((root/q).read_bytes()).hexdigest() for q in paths},'executed_source':Path(__file__).read_text(),'proof_note_snapshot':(root/'proofs/informal/problem1_periodic_boundary_growth.md').read_text(),'result_summary':summary,'result_hashes':{'summary_sha256':digest(summary)},'status':'finite-exhaustive','interpretation':'The complete finite certificate comparison and literal named-age checks pass. Infinite oscillation and automaton no-go follow from the separate proved recurrence.','proof_scope':'Five existing periodic controls and one specified finite representative; no ordinary membership, new cycle, frontier, or period search.','limitations':['The finite representative is not asserted ordinary.','The old spatial recurrence certificates are reused, not regenerated.','The literal control and integration checks are lead-local.','The proof note hash identifies its pre-review form; later editorial changes do not alter the archived input.']}\nassert time.monotonic()-began<120\nout=root/'results/problem1/20260906_periodic_boundary_growth_verification.json'\nfd,tmp=tempfile.mkstemp(prefix=out.name+'.',suffix='.tmp',dir=out.parent)\nwith os.fdopen(fd,'w') as f:\n json.dump(record,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out)\nprint(json.dumps({'counts':summary['counts'],'Psi':values,'initial_bit_length':x0.bit_length(),'steps':len(branches)}))\n",
+  "experiment_id": "20260906_periodic_boundary_growth_verification",
+  "git_commit": "7ea31d2a558456c40a218df4ff7222b79167f5cd",
+  "hardware": {
+    "logical_cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Complete independent score tables agree; the named horizon oscillation also holds by literal finite forced evolution of the same certified rational prefix.",
+  "interpretation": "The complete finite certificate comparison and literal named-age checks pass. Infinite oscillation and automaton no-go follow from the separate proved recurrence.",
+  "limitations": [
+    "The finite representative is not asserted ordinary.",
+    "The old spatial recurrence certificates are reused, not regenerated.",
+    "The literal control and integration checks are lead-local.",
+    "The proof note hash identifies its pre-review form; later editorial changes do not alter the archived input."
+  ],
+  "parameters": {
+    "literal_control_ages": [
+      2,
+      3,
+      4,
+      140,
+      141,
+      142
+    ],
+    "memory_limit_gib": 1,
+    "precision_bits": 288,
+    "wall_seconds": 120,
+    "words": [
+      "t",
+      "u",
+      "ututtt",
+      "ttututt",
+      "ut"
+    ]
+  },
+  "proof_note_snapshot": "# Exact boundary growth for periodic auxiliary schedules\n\nStatus: `partial-proof` for the structural reduction below, pending fresh\nadversarial review. Finite controls are not yet asserted. The proposed\nuniform subunit bound and Problem 1 remain open.\n\n## Admission and route choice\n\nThe explicit ut survivor has boundary slope 1/14. General rationality of\neventually periodic auxiliary schedules is ALREADY proved in\n`problem1_periodic_schedule_rationality.md` and is not repeated here.\nThe new question is whether the boundary functional has a computable,\nphase-dependent exact growth law on each stored periodic survivor.\nThis is a test of the proposed schedule-only density bound, not another\nperiodicity search or an attempted proof from finite absence.\n\nUse ONLY the four existing rational phase certificates for t, u, ututtt\nand ttututt, and the new explicit ut control. No rational cycle, frontier,\nordinary endpoint or forced schedule is generated or extended. A slope\nat least one in an admissible example would refute every uniform\nsubunit bound. If all named slopes are below one, retain their exact\ncontrols and the structural phase reduction; no general upper bound\nor further scan follows. Constant t/u are inadmissible controls.\n\nDerive the all-period identity first. Compare modular evaluation of the\nstored rational fractions with independent extraction from their stored\nspatial bit-vector certificates. Verify one full score period and the\nfollowing period, including the spatial-onset boundary. Local one CPU,\n120 seconds and 1 GiB per implementation, atomic records with exact\nparameters, source/input hashes, full Git, hardware/software and timings.\n\n## 1. Reverse the finite boundary sum (`partial-proof`)\n\nLet q be a word of length p>=1 repeated indefinitely. Let X_j be its\nphase-j 2-adic survivor, j modulo p, so F(X_j)=X_(j+1). The existing\nrationality theorem supplies a COMMON spatial onset a>=0 and period\nlambda>=1 for all phase digit streams. These need not be minimal.\n\nRetain pi(x)=x>>2, I(z)=1 for z=0 or5 mod64 and 0 otherwise, and\nJ(y)=I(A(y))+I(pi(y)). The finite boundary functional is well-defined\non 2-adic survivors by its finite precision. Put\n\n    d0=ceil(a/2),\n    m=lambda/gcd(lambda,2),\n    L=lcm(p,m),\n    w_e(d)=J(pi^d(X_(e-d modp))).                    (1)\n\nFor every s>=1, setting e=j+s-2 modulo p and reversing the index\nd=s-t-2 in the established sum gives exactly\n\n    Psi_s(X_j)=sum_(d=0..s-2) w_e(d).               (2)\n\nThis keeps the ENDING phase e. Averaging it away is not justified.\nThe sum is empty at s=1, regardless of the chosen phase convention.\n\n## 2. Eventual periodicity of the score and exact increments\n\nStatus: `partial-proof`. For d>=d0, all bits used by J(pi^d X_j)\nare in the periodic spatial tail: the first tested position is at\nleast 2d>=a. Since 2m is a multiple of lambda and L a multiple of\nboth p and m,\n\n    w_e(d+L)=w_e(d),  for every d>=d0.               (3)\n\nDefine the nonnegative integer\n\n    M_e=sum_(d=d0..d0+L-1) w_e(d),\n    mu_e=M_e/L.                                    (4)\n\nBecause s+L has the same ending phase as s, equations (2)--(3) imply\n\n    Psi_(s+L)(X_j)-Psi_s(X_j)=M_(j+s-2 modp)\n                                      for s>=d0+1. (5)\n\nThe threshold includes the possibly exceptional low spatial prefix.\nIt cannot be discarded merely because the schedule is periodic.\nThis is an exact identity on arithmetic progressions of ages, not a\nnumerical estimate or an asymptotic extrapolation.\n\nThere are at most gcd(p,m) distinct phase means. Indeed, in the\nperiodic spatial region,\n\n    w_(e+m)(d+m)=w_e(d).\n\nSumming one full period gives M_(e+m)=M_e, and M_(e+p)=M_e is\nautomatic. Hence M_e depends only on e modulo gcd(p,m). It need\nnot be independent of e when that greatest common divisor exceeds one.\n\n## 3. Exact offsets and the uniformity obligation (`partial-proof`)\n\nFor N=s-1>=d0, write N-d0=qL+r with 0<=r<L. Then\n\n    Psi_s(X_j)=B_e+q M_e+R_e(r),\n    B_e=sum_(d=0..d0-1) w_e(d),\n    R_e(r)=sum_(d=d0..d0+r-1) w_e(d).               (6)\n\nThus a finite certificate supplies EVERY age of this fixed periodic\nschedule, including exact bounded offsets from each phase-dependent\nline. The finitely many N<d0 are handled directly by (2).\n\nIf a named admissible schedule has any mu_e>=1, choose j and an\narithmetic progression of s with that ending phase. Equation (5)\nthen refutes an inequality Psi_s<=alpha*s+C with alpha<1 and a\nconstant C valid for all such ages. No ordinary endpoint is asserted;\nthis refutes only the stronger schedule-only version of that bound.\n\nConversely, mu_e<1 for every phase of several named schedules does\nnot prove a uniform subunit estimate on all schedules. Even a theorem\ngiving mu_e<1 separately for EVERY periodic word would still need\na slope bounded away from one AND uniform control of the offsets\nin (6). Period and spatial onset are not bounded as the word varies.\nFinite admissible prefixes also cannot be replaced by a periodic word\nwithout verifying its continuation and retaining all observed gates.\n\nThe ordinary-domain route remains separate: with original nonroot\nlength n and enough actual branches, the established boundary identity\ngives Psi_s>=max(s-n-1,0). A bound intended to contradict infinite\nordinary survival must hold with the needed quantifiers on those\nactual histories. Equations (5)--(6) do not provide it.\n\n## 4. A coarse split at a periodic suffix (`partial-proof`)\n\nThere is also an exact split valid on ANY sufficiently long actual\nforced history, without ordinary membership. If 0<=h<=s-1, then\n\n    Psi_s(x)=sum_(t=0..h-1) J(pi^(s-t-2)(F^t(x)))\n                +Psi_(s-h)(F^h(x)).                 (7)\n\nThis simply separates the first h terms of the finite boundary sum.\nIn particular the first term on the right lies between 0 and 2h.\nSuppose the s+1 observed branches have an alternating suffix starting\nat h. Its length is s-h+1, so the finite precision theorem and the\nexplicit ut law give\n\n    Psi_s(x)<=2h+ceil((s-h-1)/14).                  (8)\n\nThe extra observed branch is retained; an unobserved admissibility\nletter cannot substitute for it. Equation (8) is not a theorem that\nthe prefix costs vanish, nor a bound independent of the suffix start.\n\nThis coarse method has an exact asymptotic limitation. More generally,\nassume the periodic suffix admits `Psi_v<=mu*v+C`, with fixed\n0<=mu<1 and C independent of the horizon in question. Discarding the\nfirst h terms by `J<=2` gives only\n\n    Psi_s <= mu*s+(2-mu)*h+C.                       (9)\n\nAgainst the ordinary padding lower bound s-n-1 (fixed n), this gives\na contradiction under the sufficient condition\n\n    limsup(h/s)<(1-mu)/(2-mu) <= 1/2.              (10)\n\nFor a suffix of fixed branch period p, the ALREADY PROVED repetition\ncriterion excludes ordinary infinite survival whenever\n`s-2h-2p` is unbounded. It therefore already excludes every history\nsatisfying (10). For mu>0 the fractional threshold in (10) is strictly\nsmaller than 1/2. Thus this coarse splitting plus a periodic suffix\nslope supplies no new asymptotic exclusion class of this form beyond\nthe existing repetition criterion. This is a limitation of the specified\nargument, not of the full boundary functional or sharper prefix estimates.\nFor periods or offsets varying with s, neither comparison silently\ndiscards their dependence on s.\n\nAn improvement must control the actual early terms in (7), rather\nthan merely replace every one by 2 and lengthen a periodic comparator.\n\n## 5. Exact named controls (`finite-exhaustive`)\n\nModular evaluation of the stored rational fractions agrees with an\nindependently written cell-vector replay on the following ending-phase\ntotals. No source rational cycle was regenerated.\n\n| schedule | admissible | d0 | L | M_e in phase order | phase slopes |\n| --- | --- | --- | --- | --- | --- |\n| t | no | 1 | 1 | 0 | 0 |\n| u | no | 1 | 1 | 0 | 0 |\n| ut | yes | 0 | 14 | 1,1 | 1/14 |\n| ututtt | yes | 1 | 138 | 6,15,6,6,15,6 | 1/23 or5/46 |\n| ttututt | yes | 1 | 364 | 29,29,29,29,29,29,29 | 29/364 |\n\nFor ututtt, gcd(p,m)=gcd(6,69)=3, and the three residue classes\nof phases have totals 6,15,6. For ttututt, gcd(7,364)=7 permits\nseven different means, but the named certificate has equal means.\nThe theorem limits how many distinct means there CAN be; it does\nnot assert that this maximum is attained.\n\nNo named admissible mean reaches one. This closes these controls as\ncountermodels to a uniform subunit slope, without proving that slope\non any broader family. Do not add more periods or comparator words.\n\nThe ut row has a separate exact dependency, not a missing general\nrationality certificate: `problem1_boundary_sum_periodic_tail_probe.md`\nsections 1--3 proves the pure seven-bit tails\nX=-7/127 and Y=-123/127 and their F cycle. In particular cyclic\nA^2 has values -126/127 and -97/127, and the permitted identity\nF(z)=4A^2(z)+3 gives F(X)=Y and F(Y)=X exactly. Thus its onset0,\nspatial period7 and all-age slope1/14 are proved by that elementary\ncycle, independently of any finite score replay here.\n\n## 6. Refuted averaging and bounded-increment simplifications\n\nStatus: `refuted` for a single phase-independent asymptotic slope even\non every admissible periodic schedule. For q=ututtt and ANY fixed\nstarting phase j, equations (5)--(6) give\n\n    liminf_(s->infinity) Psi_s(X_j)/s = 1/23,\n    limsup_(s->infinity) Psi_s(X_j)/s = 5/46.        (11)\n\nEach ending phase occurs along an infinite arithmetic progression\nof ages. Its bounded offset in (6) vanishes upon division by s.\nThe two unequal phase slopes therefore prove (11); no fitted trend\nor finite-to-infinite step is used. In particular the all-phase average\n3/46 cannot satisfy `Psi_s=(3/46)*s+O(1)` at every age, and there is\nno single scalar alpha with `Psi_s=alpha*s+O(1)` on this one schedule.\n\nStatus: `refuted` for uniformly bounded one-step increments of this\nboundary functional on admissible periodic schedules. For starting\nphase j=0 and s=2+138v, put Delta_s=Psi_(s+1)-Psi_s. Ending phase\n0 advances to phase1, so (5) gives exactly\n\n    Delta_(s+138)=Delta_s+(15-6)=Delta_s+9.          (12)\n\nFor s=3+138v the change is instead 6-15=-9. Thus both positive and\nnegative one-step changes are unbounded. Nonnegativity and the local\nbound J<=2 do NOT bound a horizon increment: changing s also changes\nthe earlier arguments and ending phase throughout the sum.\n\nThese are statements about the finite boundary functional of actual\nadmissible branch prefixes, represented here by a 2-adic periodic\nsurvivor. At every finite tested horizon a sufficiently precise\nnonnegative integer has exactly the same observed prefix and cost.\nIt is not asserted to be an ordinary frontier endpoint. The result\ndoes not refute a uniform upper bound using the MAXIMUM phase slope,\nnor the critical age-versus-original-length restriction.\n\n## 7. No finite-state additive approximation of this functional\n\nStatus: `refuted` for the following EXACTLY SPECIFIED representation\nclass, including approximation with sublinear error.\n\nA deterministic finite-state additive reader starts at one fixed state,\nreads the observed branch word left to right, assigns a fixed real\nweight to each state/letter transition, and outputs their sum plus a\nfixed initial constant and a terminal-state correction. All states,\nweights and corrections are fixed independently of word length. Let\nV(sigma) denote that output. Fixed-range factor counts, or a fixed\nfinite automaton supplying successive scalar increments, are included.\n\nThere is no such reader with\n\n    V(q_0...q_s)=Psi_s(X)+o(s)\n\non every admissible observed word. The ONE periodic schedule\nq=(ututtt)^infinity already refutes it. Pair the reader state with\nthe input phase modulo6. This is a deterministic map on a finite set,\nso its trajectory has a finite transient and a periodic cycle. Its\ntransition-weight sum is therefore alpha*s+O(1) for one real alpha.\nThe terminal correction is bounded and does not change this conclusion.\nEquation (11) gives two different limiting ratios for Psi_s, making\nsublinear approximation impossible.\n\nMore quantitatively, on this fixed schedule every such reader has\n\n    limsup |Psi_s(X)-V(q_0...q_s)|/s >= 3/92.        (13)\n\nIndeed its single limiting slope alpha must be at distance at least\nhalf of `5/46-1/23=3/46` from one of the two subsequential slopes.\nUniform bounded error and exact representation are special cases.\nIndependently, the unbounded increments (12) refute bounded-error\nrepresentation directly, since a finite reader has bounded append\nincrements and a bounded approximation error cannot change that fact.\n\nThis no-go concerns REPRESENTING Psi or approximating it with\nsublinear two-sided error. It does NOT exclude a finite-state\nadditive UPPER BOUND on Psi, state-dependent multiplication by an\nunbounded length counter, nonlinear updates of unbounded registers,\nor ordinary-history potentials on a restricted return domain.\nIn particular it is not an extension of the previous ordinary-prefix\nresidue-potential no-go to all finite automata on history words.\nA deterministic additive reader of the REVERSED schedule is also\noutside the stated left-to-right class.\n\n## 8. Verification and provenance\n\nStatus: `finite-exhaustive` for the declared checks. Muse implemented\nthe modular-fraction calculation and a vector replay. The lead wrote\na separate direct cell-vector implementation and independently reviewed\nthe contributed code before integration. Complete score-period and\nlow-prefix hashes agree on all five controls, not merely the totals.\nThe primary records3440 age-increment checks. The independent record\nhas6812 score-period checks,3423 age-increment checks and81 direct\nforward-boundary checks. The larger common period remains364;\nneither old rational cycle is regenerated or enlarged.\n\nA separate literal nonnegative replay uses the SAME ututtt rational\ncertificate truncated modulo2^288, the precision required by its\nlargest named age142. It executes143 actual admissible branches and\nindependently verifies both F=Q A and F=4A^2+3. The six boundary values\nare Psi_2=Psi_3=Psi_4=0, Psi_140=6, Psi_141=15, Psi_142=6.\nThe initial integer has287 bits; its exact value and orbit hash are\nretained. This is one specified precision/control, not a search or\nan assertion of ordinary-frontier membership.\n\nAtomic records in `results/problem1/` are\n`20260906_periodic_boundary_growth_{primary,independent,verification}.json`.\nExecutable sources are\n`experiments/problem1_nonperiodicity/check_periodic_boundary_growth.py`\nand `check_periodic_boundary_growth_independent.py` in the same directory.\nThe verification record embeds its complete comparison/literal-replay\nsource. The records retain exact inputs, admission snapshots, full base\nGit, source hashes, software/hardware, timings and limitations.\nLead integration corrected the primary's proof-dependency wording:\nthe all-age law follows from rational-tail periodicity and index\nreversal, not from the head/cylinder lemmas alone. It also clarified\nthat the primary was executed by the local Muse worker.\n\nThe next proof must retain ending phase and genuine correlations in\nthe early boundary terms. Phase averaging and a bounded additive\nleft-to-right computation of Psi are closed in the stated senses.\nFinite-state upper bounds, reversed readers, and unbounded nonlinear\nhistory information are not excluded. No new comparator/width search\nis justified by the named slopes; the uniform subunit inequality,\ngeneral return boundary exclusion and whole-tail conjecture remain open.\n",
+  "proof_scope": "Five existing periodic controls and one specified finite representative; no ordinary membership, new cycle, frontier, or period search.",
+  "question": "problem1",
+  "result_hashes": {
+    "summary_sha256": "855f67899497ff351bcb3ceeac00576c3c4c0ab0bbf2a5deb4e97c84b0ef2f1e"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "counts": {
+      "independent_age_increment_checks": 3423,
+      "independent_direct_forward_checks": 81,
+      "independent_score_period_checks": 6812,
+      "primary_growth_checks": 3440
+    },
+    "matches": [
+      {
+        "M": [
+          0
+        ],
+        "complete_score_hash": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "initial_hash": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "word": "t"
+      },
+      {
+        "M": [
+          0
+        ],
+        "complete_score_hash": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "initial_hash": "db407f11d7ede59abaab0e98e097ff2dae10a048207b801745d7199ef19c2387",
+        "word": "u"
+      },
+      {
+        "M": [
+          6,
+          15,
+          6,
+          6,
+          15,
+          6
+        ],
+        "complete_score_hash": "b405ccd95e12e4614d3e2e03c1349141e0a516a86a94309aeebfc719145fe307",
+        "initial_hash": "74e32164362d10006c940d4cc3f182804c04bb348e5190bc1ad48b2766b6b27f",
+        "word": "ututtt"
+      },
+      {
+        "M": [
+          29,
+          29,
+          29,
+          29,
+          29,
+          29,
+          29
+        ],
+        "complete_score_hash": "46ce85c1c26b19427f1998a5aa8984956a79afd635fd579af9436729a9a05c4c",
+        "initial_hash": "51b111d65b0f9fdfbc483dc2eff223277f3e9344c2ad4eef5970e738586bf6bc",
+        "word": "ttututt"
+      },
+      {
+        "M": [
+          1,
+          1
+        ],
+        "complete_score_hash": "166e54405e3eedf73717b72445cf164b65b8162a729c84c5810afcfc6fc253f5",
+        "initial_hash": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
+        "word": "ut"
+      }
+    ],
+    "nonnegative_literal_control": {
+      "Psi": {
+        "140": 6,
+        "141": 15,
+        "142": 6,
+        "2": 0,
+        "3": 0,
+        "4": 0
+      },
+      "actual_steps": 143,
+      "ages": [
+        2,
+        3,
+        4,
+        140,
+        141,
+        142
+      ],
+      "initial_bit_length": 287,
+      "initial_x_hex": "0x786a485b9a40dab318d70146c768dc867e1e1a9216e69036acc635c051b1da37219f8787",
+      "observed_branches": "ututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututttututt",
+      "orbit_sha256": "673b8f8d6268426d3cb82d120a47f4a68ef2bddff515be6b7cccd782f2dadde5",
+      "ordinary_membership": "not asserted or tested",
+      "precision_bits": 288
+    }
+  },
+  "runtime_seconds": 0.014427140005864203,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "source_and_input_hashes": {
+    "experiments/problem1_nonperiodicity/check_periodic_boundary_growth.py": "fb173d35f65c9965238cec6162d41b4a90555936365aa43d2efdf76a925387aa",
+    "experiments/problem1_nonperiodicity/check_periodic_boundary_growth_independent.py": "4625d0760beb67cabb4cffe3b803db53382dc6110e43b168432d088e4373d0e5",
+    "proofs/informal/problem1_periodic_boundary_growth.md": "ee8db5f25a5076cc0887287d85e699226a248e528c816eca637beba5837940c9",
+    "results/problem1/20260905_periodic_rational_primary.json": "c6e5516aa9569c44bb7202f2aaacdc4be66316aca5156faa3f86d7c172ffa7ba",
+    "results/problem1/20260906_periodic_boundary_growth_independent.json": "ac671cc861b61cf52cc4581bd04ad2d6803627dc5aab0ca6393669e52df0b732",
+    "results/problem1/20260906_periodic_boundary_growth_primary.json": "71605d69d6965aed8bbeddb640c07679784ff8fb070551a93bca0b6e27e19234",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T17:53:48.096679+00:00"
+}
