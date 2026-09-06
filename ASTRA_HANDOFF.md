@@ -11,6 +11,46 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest full-membership result (2026-09-06): read
+`proofs/informal/problem1_decoder_full_membership.md` first.
+
+- `finite-exhaustive`: the SAME153 r11 decoder candidates contain
+  exactly3 ordinary endpoints and150 nonmembers. The three are
+  u18/0x6473d46ab, u18/0x6473d46c7 and p19/0x37b38b3bc7, with
+  complete admissible words ttttutututu, utttutututu and uttuttuttutu.
+  The first endpoint was already known; the new result is the full
+  membership classification, not its rediscovery. The empty-base
+  strengthening is `refuted`.
+- Their genuine canonical cut sets are {4}, {0,4}, {0,3}. The old
+  decoder occurrences=[] fields only covered the near-boundary layers,
+  not all cuts. No new boundary violation is found.
+- `refuted`: long-word ordinary backward closure INCLUDING the base,
+  even with a genuine three-return occurrence. All six previously
+  stored positive forced predecessors are nonordinary. Admissible
+  prepends are respectively u,t,t; none gives an ordinary parent.
+  These are base-level examples, not counters to a STRICTLY-ABOVE-base
+  induction or a restriction to near-boundary return cuts.
+- Independent direct signed-generator recursion agrees on all153
+  verdicts. It verifies all6252 nodes/7454 edges of the150 negative
+  lift DAGs, the3 rooted ordinary words and their stored trajectories.
+  A separate lift check rejects all6 parents in48 nodes/47 edges, all
+  independently replayed. No new decoder, frontier or word set ran.
+- Raw primary lacks its run-start timestamp; packaging time and
+  original file mtime are separately labelled. Clean tracked Git status
+  did not include the preserved untracked files. No time or source
+  provenance is silently invented.
+
+Records: `results/problem1/20260906_decoder_full_membership_`
+followed by `{primary,independent}.json`.
+Final four-file review independently replayed the complete data and accepted
+the membership, base-only counterexample scopes and provenance without changes.
+
+Next: a backward induction must start strictly above a NONEMPTY base
+and retain the actual near-boundary return condition, or use a direct
+exclusion. Long-word membership and generic genuine returns alone are
+insufficient. Do not enlarge the decoder atlas to bypass this obstruction.
+B_all, signed nonvanishing, eventual alternation and Problem1 remain open.
+
 Newest composed-inverse result: read
 `proofs/informal/problem1_composed_inverse_sign.md` first.
 
