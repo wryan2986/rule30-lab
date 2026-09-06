@@ -11,6 +11,66 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest composed-inverse result: read
+`proofs/informal/problem1_composed_inverse_sign.md` first.
+
+- `partial-proof` (all lower-tail lengths): the two inverse stages have
+  exact16-state transfer, with only10 reachable states after x=3 mod4.
+  Both branch starts reach the same full set at lower length6, and its
+  transition image equals itself. Of the existing C8 output heads,
+  56937 and28468 force BOTH forced inverses positive at every lower
+  length>=2. The other six heads have both signs in EACH branch at
+  EVERY lower length>=6. Thus the general leading-core positivity
+  claim is `refuted`, even beyond stabilization, without any ordinary
+  membership inference. The t initial state was corrected from4 to6
+  before adoption; the u initial state is9.
+- `partial-proof`: if ordinary x at k has an ordinary last T/U parent,
+  its corresponding B inverse is positive for p,k>=9 or u,k>=10.
+  This does not prove predecessor membership. The source-P/two-inverse
+  product has174 reachable states. Existing SOURCE heads51292/25646
+  force both B signs positive; the other six allow both negative.
+- `refuted` on actual ordinary endpoints, but WITHOUT a current gate:
+  u,k13, rooted word uuuuuututuuup gives x29203507 with
+  B_t=-21630965 and B_u=-21631001. Its residue3 mod16 stops immediately.
+  It does not refute a continuation-restricted induction.
+- `refuted` with TWO actual admissible forward branches: u,k13,
+  rooted word uuuuuutuuputp gives x29203579 and states
+  29203579,116608679,467256739 (complete word tu, then undefined).
+  The only forced predecessors7289195 and7289223 are both positive
+  and allow admissible prepends, but both are absent from O_(u,12).
+  This refutes ordinary backward closure with a short valid future.
+  It is below the decoder's u,k18 threshold, has no genuine three-return
+  occurrence and does NOT refute closure restricted to long decoder words.
+- Independent arithmetic agrees on160 inverse head/state transfers,
+  1392 source-product classifications,32 signed head witnesses,8 core
+  histories and32 local order-four identities. Independent Boolean
+  replay also verifies both named ordinary endpoints and rejects both
+  positive predecessors by full ordinary recursion, without head pruning.
+  The gate follow-up tested49 words from one fixed81-word set, with
+  one eligible endpoint. No enlarged decoder or return census was run.
+- Execution corrections are explicit in the note and records: the
+  first Muse source does not run its advertised l<=12 sampling; the
+  second unnecessarily recovered core words by a root BFS through k10
+  and enumerated source suffixes, contrary to its no-frontier/no-word-scan
+  description. Those extra computations were stopped and not adopted
+  as new frontier evidence; independent checks replay only supplied
+  words and exact transfers. Preserve these scopes rather than repeating
+  the extra searches.
+
+Records: `results/problem1/20260905_composed_inverse_` followed by
+`{primary,independent}.json`, retaining raw sources and reporting corrections.
+Fresh final four-file review accepted the complete mathematical scopes,
+replayed all independent results, and verified the provenance corrections
+without remaining changes.
+
+Next: couple the long OBSERVED admissible word to full ordinary membership
+and the reachable inverse state, or obtain direct return exclusion. The
+sign machines do not track ordinary membership or an unbounded forward
+word. Generic head positivity and short-future backward closure are now
+closed routes; do not repeat them or enlarge their boxes. The long-word
+ordinary induction, boundary-sum inequality, B_all, signed nonvanishing,
+actual return exclusion and Problem1 remain open.
+
 Newest inverse/decoder result: read
 `proofs/informal/problem1_decoder_inverse_obstruction.md` first.
 
