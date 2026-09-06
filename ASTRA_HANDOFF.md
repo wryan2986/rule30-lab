@@ -71,17 +71,44 @@ This is a counterexample on a finite genuine occurrence, NOT a
 counterexample to an infinite-survivor-only claim or Problem 1.
 No further return, compensated-record, or level census is admitted.
 
-New proof-only work currently under review:
-`proofs/informal/problem1_effective_activity_levels.md` proposes an
-effective finite list E_K using rational finite-entry descriptions,
-exact eventual V cycles, and a compact finite-cylinder cover search.
-It also derives a rational bounded-or-positive-linear dichotomy.
-No E_K list or new numerical domain is run. Treat these NEW derivations
-as lead `partial-proof` pending the separate fresh review; they do not
-decide candidate equality with the actual infinite survivor. The single
-Muse reviewer owns only its new review file while lead continues the
-argument. This intermediate status will be superseded at rollover.
-Problem 1 remains open; research continues.
+New proof-only work now checked and independently ACCEPTED IN SCOPE:
+`proofs/informal/problem1_effective_activity_levels.md` (`partial-proof`).
+T^-h(y), y finite, is an effective rational via a2h-bit tail recurrence.
+For s>=h and z=pi^h T^h x finite,
+V_s(x)=sum_(t<h)bit_(2s)(T^t x)+V_(s-h)(z). Early terms are rational
+spatial cycles and the finite z term has an exact closed A-vector.
+Therefore bounded V is effectively eventually periodic, and R of every
+finite-entry candidate is computable exactly. A terminating finite-cylinder
+cover search plus exact candidate membership computes E_K as a finite
+rational list and a support-size bound B(K). This is a proved algorithm,
+NOT an executed or admitted E_K census; no practical bound is supplied.
+
+For ANY rational input with periodic tail onset a, spatial period p,
+ring temporal transient q and period ell, put D=max(1,ceil(a/2)),
+and let m_i count column-i ones on the temporal cycle. Then, s>=D,
+|V_s-(m_(2s modp)/ell)s|<=q+ell+D-1. A nonzero temporal cycle has
+every m_i>0, so liminf V_s/s>=1/ell; a zero cycle gives finite entry.
+Thus rational inputs have bounded activity or positive lower LINEAR
+growth at all large ages (phase-dependent coefficients are allowed).
+R is computable on GIVEN rational numerator/denominator inputs. This
+is not a dichotomy for arbitrary irrational inputs and supplies no
+rationality/irrationality premise for the actual survivor.
+
+Despite the computable finite list, no total FINITE-DIGIT-QUERY method
+decides E_K membership for arbitrary 2-adic oracles. The exact family
+2^(2m) has V_s=0 for s<m and V_m=m; choose m beyond any inspected
+positions/ages and K. Equality of any listed rational candidate with
+the FULL actual survivor remains a separate unresolved infinite test.
+This explicitly does NOT reopen first-witness searches.
+
+Complete corrected review is in
+`proofs/informal/problem1_effective_activity_levels_review.md` and the
+atomic `results/problem1/20260906_effective_activity_levels_review.json`.
+No new numerical run was made for this unit. One final review of all
+remaining all-depth sections of the old D/V notes is pending corrections
+in its assigned new review file; numerical claims and old all-memory/
+all-r reviews are outside that scope. This intermediate status will be
+superseded at rollover. Problem 1 remains open; research continues.
 
 ## Round 3 maintenance rollover (2026-09-06, approximately 70 minutes)
 
