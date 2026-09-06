@@ -1,0 +1,1320 @@
+{
+ "experiment_id": "20260906_activity_return_nonincrease_primary",
+ "timestamp_utc": "2026-09-06T20:51:26.348233+00:00",
+ "git_commit": "97d45d82941fdc27b526a4c75c3099527b60327a",
+ "git_log": "97d45d82941fdc27b526a4c75c3099527b60327a 2026-09-06 16:38:44 -0400 Prove finite activity levels with corrected isolation and scoped review",
+ "git_status": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_activity_return_nonincrease_independent.py\n?? experiments/problem1_nonperiodicity/check_activity_return_nonincrease_primary.py\n?? experiments/problem1_nonperiodicity/verify_activity_return_nonincrease.py\n?? proofs/informal/problem1_activity_return_nonincrease.md\n?? proofs/informal/problem1_activity_return_nonincrease_review.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_activity_return_nonincrease_independent.json\n?? results/problem1/20260906_activity_return_nonincrease_primary.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+ "question": "problem1",
+ "hypothesis": "Named control: R(x10)<=R(x4) on the fixed u18 return block times4..10 (x0=0x6473d46ab, branches ttttututut, final u gate confirmed unexecuted).",
+ "backend": "python3-packed-int-ordinary-history",
+ "parameters": {
+  "x0": "0x6473d46ab",
+  "from_zero_history": "uutuuttuupupuuupup",
+  "root": 1,
+  "observed_branches": "ttttututut",
+  "final_gate": "u_unexecuted",
+  "block": "times4..10",
+  "cpu": 1,
+  "time_cap_s": 120,
+  "mem_cap": "1GiB",
+  "max_tail_transitions_per_endpoint": 65536
+ },
+ "hardware": {
+  "uname": [
+   "Linux",
+   "Home-Server",
+   "7.0.0-30-generic",
+   "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+   "x86_64",
+   ""
+  ],
+  "cpu_count": 16,
+  "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+  "mem_total": "MemTotal:       31766236 kB",
+  "peak_rss_kb": 18852
+ },
+ "software": {
+  "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+  "executable": "/usr/bin/python3"
+ },
+ "runtime_seconds": 0.017587142065167427,
+ "result_hashes": {
+  "primary_payload_sha256": "f4695c1800ae223b7649076a8dd31738579a1d8398bef80edb3dd9cb4ad7cbb1",
+  "note_sha256": "9d433011836352cfb17ca51ae48c730101a20807bb92c4556a27911090468689",
+  "self_sha256": "c67470b68bff9a576f7dc5fcb96845e28f29f1417fc083bdf525c4f246b9010c",
+  "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+ },
+ "result_summary": {
+  "R_x4": 13,
+  "R_x10": 16,
+  "decision": "REFUTED_increase",
+  "x4_n": 21,
+  "x10_n": 27,
+  "x4_tail": [
+   32,
+   8,
+   21,
+   19
+  ],
+  "x10_tail": [
+   41,
+   8,
+   25,
+   22
+  ]
+ },
+ "interpretation": "Named nonincrease REFUTED: R(x4)=13 R(x10)=16. One exact control only.",
+ "status": "finite-exhaustive",
+ "proof_scope": "Exact closed endpoint-vector orbits for the two named prescribed histories; all-age maxima from first-repeat closure plus direct ages 0..n-1.",
+ "corrections": [
+  "Regenerated: fixed summary x10_n typo (21->27); maximizer now earliest across direct and tail on ties (x10 33->25); added immutable-reference hash and CPU model. Score streams and R values unchanged.",
+  "Reloadability: histories keys are strings and payload hash is over JSON-roundtripped canonical checks, so sha256 of the reloaded checks reproduces primary_payload_sha256."
+ ],
+ "reference": {
+  "path": "src/python/rule30_research_reference.py",
+  "sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+ },
+ "limitations": [
+  "Single named return block; no all-depth inequality inferred.",
+  "Independent cell/projection comparison pending in the separate lead-owned checker.",
+  "Inconclusive (not refuting) if any cap were reached; no cap was reached."
+ ],
+ "admission": {
+  "note": "proofs/informal/problem1_activity_return_nonincrease.md",
+  "note_sha256": "9d433011836352cfb17ca51ae48c730101a20807bb92c4556a27911090468689",
+  "note_text": "# Testing activity-record nonincrease across genuine returns\n\nStatus: `refuted` for universal activity-record nonincrease on admissible\nprescribed three-return blocks, subject to the exact verification record\nbelow. Closed finite vectors are `finite-exhaustive`; their all-age\ninterpretation uses the stated recurrence (`partial-proof`). Problem 1\nremains open. The following admission text preceded execution.\n\n## Mathematical decision and admission, before computation\n\nThe finite-level theorem in `problem1_activity_level_finiteness.md`\nshows that R(x)=sup_s V_s(x) has finite sublevel sets on Z_2. A\nfinite ordinary input in an infinite forced orbit has growing bit\nlength. Consequently, an all-depth theorem that R does not increase\non every admissible three-return block would exclude such an orbit:\nthe blocks have gaps 2..5, hence bounded lengths, and the intervening\none-step increase is at most one. R would remain uniformly bounded,\ncontradicting finiteness of its sublevel set and degree growth.\n\nThe universal one-step version is already refuted by the hand case\n27->111, but that successor has no continuing gate. A genuine\nthree-return test is therefore a materially different domain, not\nan attempt to repair the one-step formula. R is a maximum over all\nsampling ages, not an additive current-history cost; the older\nadditive-reader no-go results do not decide this candidate.\n\nTest ONLY the existing u/k18 state x0=0x6473d46ab, with recorded\nfrom-zero history uutuuttuupupuuupup. Its fixed root is 1, so the\nfirst u creates the root and is excluded from nonroot positions.\nReplay exactly the TEN already observed branches ttttututut, and\nconfirm the unobserved final u gate at time10 without executing it.\nThe tested three-return block is times4 through10, gap tuple222,\nwith its two actual prescribed histories retained. No new initial\nstate, branch, frontier level, return occurrence, or boundary cut is\nsearched. Compare R(x4) and R(x10).\n\nIf R(x10)>R(x4), the proposed nonincrease on all such actual\nprescribed return blocks is refuted and cannot supply termination.\nIf R(x10)<=R(x4), this is one exact named control only; proving the\nall-depth inequality would remain necessary. Failure of a formula,\nhistory, or closure check invalidates that certificate. Failure to\nclose under the limits below is inconclusive and does not admit a\nlarger computation.\n\nFor an ordinary history with n nonroot letters and prefix endpoints\nv0=root,...,vn=x, the established identity is\n\n    V_s(x)=sum_(i=0..n-1) bit_0(A^s(v_i)),  s>=n.\n\nThus an EXACT closed orbit of the vector of these n finite endpoints\nunder componentwise A certifies every age s>=n. Compute V_s directly\nfor s=0,...,n-1. For the tail, initialize the vector at age n and\niterate only until its FIRST repeated full vector. Record the full\nscore sequence, the first repeated vector, entry age and cycle length,\nand the earliest maximizing age. This yields R, with no inference\nfrom failure to see larger values at a finite horizon.\n\nPrimary: packed Python integers, ordinary generator/scanner histories.\nIndependent: explicit bit arrays implementing T and A cellwise, and\nan independently derived tail state with components\n\n    w_d=A^(n-d)(pi^d(x)), d=1,...,n.\n\nAt age n+r its score is sum_d bit_0(A^r(w_d)); this follows directly\nfrom the A-diagonal formula and pi^(n+1)x=0. These components need\nnot be the primary history components, so compare entire V score\nstreams through a common verified preperiod and common period; also\ncompare direct full temporal vectors for s=0,...,n+2. Each method\ncertifies its own exact closure. No source imports between them.\n\nBounds per implementation: one local CPU, 120 seconds, 1 GiB, at most\n65536 tail-vector transitions PER one of the two endpoints. Stop\ninconclusive on any bound, do not extend it. Record exact parameters,\nsource and executed-admission snapshots, input/history provenance,\nfull base Git commit, software/hardware, timings, hashes and atomic\nJSON. This is a named finite-state certificate, not an activity-level\nor frontier census, and no benchmark or optimized backend is involved.\n\nThe finite computational status will be `finite-exhaustive` for the\ndeclared closed vectors and histories. Any all-age inference additionally\nuses the explicitly proved finite-state recurrence above. Both the\nscope of the counterexample and that finite-to-all-age implication\nrequire fresh adversarial review before acceptance.\n\n## Named outcome and all-age certificate\n\nBoth independent methods give\n\n| Orbit time | Endpoint | Nonroot length | First max age | Full record R |\n| --- | --- | ---: | ---: | ---: |\n| 4 | 0x6473c6fc387 | 21 | 21 | 13 |\n| 10 | 0x6473c7a1004b27 | 27 | 25 | 16 |\n\nThe exact tail vectors enter cycles at ages32 and41, respectively,\nboth of period8. Their first closures are at ages40 and49. Direct\nages below21 or27, respectively, together with the complete finite\ntransient and one closed cycle, cover EVERY possible V age. The\nsecond record is attained already at age25, before its tail formula's\nstarting age27; a tail-only maximizer report would miss that first age.\n\nHence R(x10)-R(x4)=3>0 on this genuine prescribed gap222 block.\nThis refutes nonincrease on all such blocks. No further endpoint or\nreturn search is authorized by the result. In particular the admission\nis not extended to fit a compensated record, a modified gap family,\nor a larger cycle bound after this counterexample.\n\nThe two initial tail vectors coincide after REVERSING their component\norder, by pi^d(x)=A^d(v_(n-d)). Their independent constructions and\ncell-versus-packed updates agree on the full54 direct temporal bit\nvectors,41 tail scores,11 orbit states and both exact closures.\nIntegration independently replays the closed vectors and checks the\nearliest maxima across the entire direct-plus-tail age stream.\nSources and atomic records are the two\n`check_activity_return_nonincrease_{primary,independent}.py` scripts\nand `verify_activity_return_nonincrease.py` in the experiment directory,\nwith the three corresponding `20260906_activity_return_nonincrease_`\nJSON files in `results/problem1/`.\n\nLead integration corrected the primary's summary length typo for x10,\nits tail-preferred tie rule for the first maximum, and a non-reloadable\npayload hash caused by numeric history keys becoming JSON string keys.\nThese corrections do not change any activity score or R value. The\nexecuted source and admission snapshots are retained in the records;\nlater explanatory prose here is not silently substituted for them.\n\nFresh Muse adversarial review is retained in\n`problem1_activity_return_nonincrease_review.md`, with exact source\nhashes and lead disposition in the verification/review archive. Its\nscope is this universal prescribed-block candidate. Restricting a\ntheorem to an infinite actual survivor is not refuted by this finite\nreturn occurrence. Such a restriction would still need a new all-depth\nmechanism; neither finite levels nor this computation supplies one.\n"
+ },
+ "self_source": {
+  "path": "experiments/problem1_nonperiodicity/check_activity_return_nonincrease_primary.py",
+  "sha256": "c67470b68bff9a576f7dc5fcb96845e28f29f1417fc083bdf525c4f246b9010c",
+  "embedded_text": "\"\"\"Primary packed-int ordinary-history closed-vector certificate for activity return nonincrease.\n\nAdmission: proofs/informal/problem1_activity_return_nonincrease.md (read in full).\nScope ONLY: fixed u18 state x0=0x6473d46ab with from-zero history\n  uutuuttuupupuuupup (first u creates root 1, excluded from nonroot\n  positions), replay exactly the TEN observed forced branches ttttututut,\n  confirm the unobserved final u gate at time10 WITHOUT executing it.\nCompare R(x4) and R(x10) over the three-return block times4..10.\n\nMethod (primary only): packed Python ints, ordinary generator/scanner\nhistories. For an ordinary history with n nonroot letters and prefix\nendpoints v0=root..vn=x, V_s(x)=sum_{i<n} bit0(A^s(v_i)) for s>=n.\nDirect V_s for s=0..n+2 via packed T evolution; tail scores from age n\nuntil the FIRST repeated full endpoint vector. No imports from older\nscientific implementations; stdlib only. The independent cell/projection\nchecker is a separate lead-owned file and is not duplicated here.\n\nBounds: 1 CPU, 120 s, 1 GiB, at most 65536 tail transitions per endpoint.\nStop inconclusive at any cap, with no scope expansion.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport resource\nimport subprocess\nimport sys\nimport time\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nREPO = str(Path(__file__).resolve().parents[2])\nNOTE_REL = \"proofs/informal/problem1_activity_return_nonincrease.md\"\nSELF_REL = \"experiments/problem1_nonperiodicity/check_activity_return_nonincrease_primary.py\"\nOUT_REL = \"results/problem1/20260906_activity_return_nonincrease_primary.json\"\n\nX0 = 0x6473d46ab\nFROM_ZERO = \"uutuuttuupupuuupup\"\nNONROOT0 = \"utuuttuupupuuupup\"\nBRANCHES = \"ttttututut\"\nROOT = 1\nMAX_TAIL = 65536\n\n\ndef T(v):\n    return v ^ ((v << 1) | (v << 2))\n\n\ndef A(v):\n    return T(v) >> 2\n\n\ndef pi(v):\n    return v >> 2\n\n\ndef Gt(z):\n    return A(4 * z)\n\n\ndef Gu(z):\n    return A(4 * z + 1)\n\n\ndef Gp(z):\n    return A(4 * z + 2)\n\n\nGEN = {\"t\": Gt, \"u\": Gu, \"p\": Gp}\nSCAN = {0: \"t\", 1: \"u\", 2: \"p\", 3: \"p\"}\n\n\ndef apply_word(start, word):\n    v = start\n    for ch in word:\n        v = GEN[ch](v)\n    return v\n\n\ndef endpoints_of(start, word):\n    pts = [start]\n    for ch in word:\n        pts.append(GEN[ch](pts[-1]))\n    return pts\n\n\ndef h_step(letters, endpoints):\n    new_letters = [SCAN[e & 3] for e in endpoints[1:]]\n    new_endpoints = [A(e) for e in endpoints]\n    assert new_endpoints[0] == ROOT\n    check = endpoints_of(ROOT, new_letters)\n    assert check == new_endpoints, \"H-step endpoint/letter mismatch\"\n    return new_letters, new_endpoints\n\n\ndef V_direct(x, s):\n    if s == 0:\n        return 0, []\n    row = x\n    bits = []\n    for _ in range(s):\n        bits.append((row >> (2 * s)) & 1)\n        row = T(row)\n    return sum(bits), bits\n\n\ndef run(cmd):\n    try:\n        p = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=30)\n        return p.stdout.strip()\n    except Exception as e:\n        return \"unavailable: \" + str(e)\n\n\ndef sha_bytes(b):\n    return hashlib.sha256(b).hexdigest()\n\n\ndef certify(x, letters, endpoints, cap):\n    n = len(letters)\n    assert endpoints[-1] == x\n    assert len(endpoints) == n + 1\n    direct = []\n    for s in range(n + 3):\n        val, bits = V_direct(x, s)\n        direct.append({\"s\": s, \"V\": val, \"temporal_bits\": bits})\n    for s in range(n, n + 3):\n        tail_val = sum((A_pow(e, s)) & 1 for e in endpoints[:-1])\n        assert tail_val == direct[s][\"V\"], (s, tail_val, direct[s][\"V\"])\n    vec = tuple(A_pow(e, n) for e in endpoints[:-1])\n    seen = {vec: 0}\n    scores = [sum(v & 1 for v in vec)]\n    steps = 0\n    while True:\n        if steps >= cap:\n            return {\"inconclusive\": True, \"reason\": \"tail cap reached\"}\n        vec = tuple(A(v) for v in vec)\n        steps += 1\n        if vec in seen:\n            entry = seen[vec]\n            cycle = steps - entry\n            break\n        seen[vec] = steps\n        scores.append(sum(v & 1 for v in vec))\n    tail_R = max(scores)\n    direct_R = max(d[\"V\"] for d in direct[:n]) if n else 0\n    R = max(direct_R, tail_R)\n    candidates = []\n    if direct_R == R and n:\n        candidates.append(min(d[\"s\"] for d in direct[:n] if d[\"V\"] == R))\n    if tail_R == R:\n        candidates.append(scores.index(R) + n)\n    maximizer = min(candidates)\n    return {\n        \"inconclusive\": False,\n        \"n\": n,\n        \"direct\": direct,\n        \"tail_scores\": scores,\n        \"tail_entry_age\": entry + n,\n        \"tail_cycle_length\": cycle,\n        \"tail_transitions\": steps,\n        \"tail_R\": tail_R,\n        \"direct_R\": direct_R,\n        \"R\": R,\n        \"maximizer_age\": maximizer,\n        \"closed_vector\": list(vec),\n    }\n\n\ndef A_pow(v, k):\n    for _ in range(k):\n        v = A(v)\n    return v\n\n\ndef main():\n    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))\n    resource.setrlimit(resource.RLIMIT_AS, (1024 ** 3, 1024 ** 3))\n    t_all = time.perf_counter()\n    assert apply_word(0, FROM_ZERO) == X0, \"from-zero reconstruction failed\"\n    assert NONROOT0 == FROM_ZERO[1:], \"nonroot split\"\n    assert endpoints_of(ROOT, NONROOT0)[-1] == X0, \"rooted reconstruction failed\"\n    letters, endpoints = list(NONROOT0), endpoints_of(ROOT, NONROOT0)\n    x = X0\n    orbit = [x]\n    for t, ch in enumerate(BRANCHES):\n        gate = x & 15\n        assert gate in (7, 11), (t, gate)\n        want = \"u\" if gate == 7 else \"t\"\n        assert want == ch, (t, want, ch)\n        letters, endpoints = h_step(letters, endpoints)\n        Q = Gu if gate == 7 else Gt\n        xn = Q(A(x))\n        assert xn == 4 * A(A(x)) + 3, (t, \"F identity\")\n        letters = letters + [want]\n        x = xn\n        orbit.append(x)\n        assert endpoints_of(ROOT, letters)[-1] == x, (t, \"history endpoint drift\")\n        endpoints = endpoints_of(ROOT, letters)\n    assert len(orbit) == 11\n    x4, x10 = orbit[4], orbit[10]\n    assert (x10 & 15) == 7, \"final unobserved gate must be u\"\n    # rebuild per-time histories deterministically for the record\n    hist = {}\n    letters_r, x_r = list(NONROOT0), X0\n    e_r = endpoints_of(ROOT, letters_r)\n    hist[\"0\"] = {\"letters\": \"\".join(letters_r), \"x\": hex(x_r)}\n    for t, ch in enumerate(BRANCHES):\n        gate = x_r & 15\n        letters_r, e_r = h_step(letters_r, e_r)\n        Q = Gu if gate == 7 else Gt\n        xn = Q(A(x_r))\n        letters_r = letters_r + [ch]\n        x_r = xn\n        e_r = endpoints_of(ROOT, letters_r)\n        assert e_r[-1] == x_r\n        hist[str(t + 1)] = {\"letters\": \"\".join(letters_r), \"x\": hex(x_r)}\n    for r in (4, 10):\n        assert hist[str(r)][\"x\"] == hex(orbit[r])\n    e4 = endpoints_of(ROOT, list(hist[\"4\"][\"letters\"]))\n    e10 = endpoints_of(ROOT, list(hist[\"10\"][\"letters\"]))\n    c4 = certify(x4, list(hist[\"4\"][\"letters\"]), e4, MAX_TAIL)\n    c10 = certify(x10, list(hist[\"10\"][\"letters\"]), e10, MAX_TAIL)\n    assert not c4[\"inconclusive\"] and not c10[\"inconclusive\"]\n    decision = \"nonincrease_holds\" if c10[\"R\"] <= c4[\"R\"] else \"REFUTED_increase\"\n    note_p = os.path.join(REPO, NOTE_REL)\n    with open(note_p, \"rb\") as f:\n        note_bytes = f.read()\n    note_sha = sha_bytes(note_bytes)\n    note_text = note_bytes.decode(\"utf-8\")\n    self_p = os.path.join(REPO, SELF_REL)\n    with open(self_p, \"rb\") as f:\n        self_bytes = f.read()\n    self_sha = sha_bytes(self_bytes)\n    ref_p = os.path.join(REPO, \"src/python/rule30_research_reference.py\")\n    with open(ref_p, \"rb\") as f:\n        ref_bytes = f.read()\n    ref_sha = sha_bytes(ref_bytes)\n    cpu_model = \"unavailable\"\n    try:\n        with open(\"/proc/cpuinfo\") as fp:\n            for line in fp:\n                if line.startswith(\"model name\"):\n                    cpu_model = line.split(\":\", 1)[1].strip()\n                    break\n    except Exception:\n        pass\n    git_head = run([\"git\", \"rev-parse\", \"HEAD\"])\n    git_log = run([\"git\", \"log\", \"-1\", \"--format=%H %ci %s\"])\n    git_status = run([\"git\", \"status\", \"--porcelain\"])\n    mem_total = \"unavailable\"\n    try:\n        with open(\"/proc/meminfo\") as fp:\n            for line in fp:\n                if line.startswith(\"MemTotal\"):\n                    mem_total = line.strip()\n                    break\n    except Exception:\n        pass\n    try:\n        peak_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\n    except Exception:\n        peak_kb = None\n    checks = {\n        \"x0\": hex(X0),\n        \"from_zero_history\": FROM_ZERO,\n        \"observed_branches\": BRANCHES,\n        \"orbit\": [hex(v) for v in orbit],\n        \"final_gate_unexecuted\": int(x10 & 15),\n        \"histories\": hist,\n        \"x4\": {\"x\": hex(x4), \"cert\": c4},\n        \"x10\": {\"x\": hex(x10), \"cert\": c10},\n        \"decision\": decision,\n    }\n    canonical = json.loads(json.dumps(checks, sort_keys=True))\n    payload_sha = sha_bytes(json.dumps(canonical, sort_keys=True).encode(\"utf-8\"))\n    record = {\n        \"experiment_id\": \"20260906_activity_return_nonincrease_primary\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": git_head,\n        \"git_log\": git_log,\n        \"git_status\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Named control: R(x10)<=R(x4) on the fixed u18 return block times4..10 (x0=0x6473d46ab, branches ttttututut, final u gate confirmed unexecuted).\",\n        \"backend\": \"python3-packed-int-ordinary-history\",\n        \"parameters\": {\n            \"x0\": hex(X0), \"from_zero_history\": FROM_ZERO, \"root\": ROOT,\n            \"observed_branches\": BRANCHES, \"final_gate\": \"u_unexecuted\",\n            \"block\": \"times4..10\", \"cpu\": 1, \"time_cap_s\": 120,\n            \"mem_cap\": \"1GiB\", \"max_tail_transitions_per_endpoint\": MAX_TAIL,\n        },\n        \"hardware\": {\"uname\": list(platform.uname()), \"cpu_count\": os.cpu_count(), \"cpu_model\": cpu_model, \"mem_total\": mem_total, \"peak_rss_kb\": peak_kb},\n        \"software\": {\"python\": sys.version, \"executable\": sys.executable},\n        \"runtime_seconds\": time.perf_counter() - t_all,\n        \"result_hashes\": {\"primary_payload_sha256\": payload_sha, \"note_sha256\": note_sha, \"self_sha256\": self_sha, \"reference_sha256\": ref_sha},\n        \"result_summary\": {\n            \"R_x4\": c4[\"R\"], \"R_x10\": c10[\"R\"], \"decision\": decision,\n            \"x4_n\": c4[\"n\"], \"x10_n\": c10[\"n\"],\n            \"x4_tail\": [c4[\"tail_entry_age\"], c4[\"tail_cycle_length\"], c4[\"maximizer_age\"], c4[\"tail_transitions\"]],\n            \"x10_tail\": [c10[\"tail_entry_age\"], c10[\"tail_cycle_length\"], c10[\"maximizer_age\"], c10[\"tail_transitions\"]],\n        },\n        \"interpretation\": (\"Named control holds\" if decision == \"nonincrease_holds\" else \"Named nonincrease REFUTED\") + \": R(x4)=%d R(x10)=%d. One exact control only.\" % (c4[\"R\"], c10[\"R\"]),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exact closed endpoint-vector orbits for the two named prescribed histories; all-age maxima from first-repeat closure plus direct ages 0..n-1.\",\n        \"corrections\": [\"Regenerated: fixed summary x10_n typo (21->27); maximizer now earliest across direct and tail on ties (x10 33->25); added immutable-reference hash and CPU model. Score streams and R values unchanged.\", \"Reloadability: histories keys are strings and payload hash is over JSON-roundtripped canonical checks, so sha256 of the reloaded checks reproduces primary_payload_sha256.\"],\n        \"reference\": {\"path\": \"src/python/rule30_research_reference.py\", \"sha256\": ref_sha},\n        \"limitations\": [\"Single named return block; no all-depth inequality inferred.\", \"Independent cell/projection comparison pending in the separate lead-owned checker.\", \"Inconclusive (not refuting) if any cap were reached; no cap was reached.\"],\n        \"admission\": {\"note\": NOTE_REL, \"note_sha256\": note_sha, \"note_text\": note_text},\n        \"self_source\": {\"path\": SELF_REL, \"sha256\": self_sha, \"embedded_text\": self_bytes.decode(\"utf-8\")},\n        \"checks\": checks,\n    }\n    out_p = os.path.join(REPO, OUT_REL)\n    os.makedirs(os.path.dirname(out_p), exist_ok=True)\n    tmp_p = out_p + \".tmp.\" + str(os.getpid())\n    fp = open(tmp_p, \"w\")\n    json.dump(record, fp, indent=1)\n    fp.flush()\n    os.fsync(fp.fileno())\n    fp.close()\n    os.replace(tmp_p, out_p)\n    print(\"wrote \" + out_p)\n    print(\"R_x4=%d R_x10=%d %s\" % (c4[\"R\"], c10[\"R\"], decision))\n    print(\"x4 tail entry=%d cycle=%d maxage=%d trans=%d\" % (c4[\"tail_entry_age\"], c4[\"tail_cycle_length\"], c4[\"maximizer_age\"], c4[\"tail_transitions\"]))\n    print(\"x10 tail entry=%d cycle=%d maxage=%d trans=%d\" % (c10[\"tail_entry_age\"], c10[\"tail_cycle_length\"], c10[\"maximizer_age\"], c10[\"tail_transitions\"]))\n    print(\"payload_sha=\" + payload_sha)\n\n\nmain()\n"
+ },
+ "checks": {
+  "x0": "0x6473d46ab",
+  "from_zero_history": "uutuuttuupupuuupup",
+  "observed_branches": "ttttututut",
+  "orbit": [
+   "0x6473d46ab",
+   "0x190b934bab",
+   "0x6473c1c36b",
+   "0x190b976fdfb",
+   "0x6473c6fc387",
+   "0x190b96bc7dfb",
+   "0x6473c7b6a387",
+   "0x190b96a7fa5fb",
+   "0x6473c7a206187",
+   "0x190b96a6499e7b",
+   "0x6473c7a1004b27"
+  ],
+  "final_gate_unexecuted": 7,
+  "histories": {
+   "0": {
+    "letters": "utuuttuupupuuupup",
+    "x": "0x6473d46ab"
+   },
+   "1": {
+    "letters": "ppptttupupupptptpt",
+    "x": "0x190b934bab"
+   },
+   "2": {
+    "letters": "puppppptupptpuppupt",
+    "x": "0x6473c1c36b"
+   },
+   "3": {
+    "letters": "pptptpttupuptupupupt",
+    "x": "0x190b976fdfb"
+   },
+   "4": {
+    "letters": "pupttpuptptpupupupupt",
+    "x": "0x6473c6fc387"
+   },
+   "5": {
+    "letters": "pptttptpuppupupupupupu",
+    "x": "0x190b96bc7dfb"
+   },
+   "6": {
+    "letters": "pupupttptptupptupptuppt",
+    "x": "0x6473c7b6a387"
+   },
+   "7": {
+    "letters": "pptupppupttupuptpttupupu",
+    "x": "0x190b96a7fa5fb"
+   },
+   "8": {
+    "letters": "puptptptpuptptpupppptuppt",
+    "x": "0x6473c7a206187"
+   },
+   "9": {
+    "letters": "ppttpuppupupttptptpttupupu",
+    "x": "0x190b96a6499e7b"
+   },
+   "10": {
+    "letters": "pupupptptptpupttpupppptuppt",
+    "x": "0x6473c7a1004b27"
+   }
+  },
+  "x4": {
+   "x": "0x6473c6fc387",
+   "cert": {
+    "inconclusive": false,
+    "n": 21,
+    "direct": [
+     {
+      "s": 0,
+      "V": 0,
+      "temporal_bits": []
+     },
+     {
+      "s": 1,
+      "V": 1,
+      "temporal_bits": [
+       1
+      ]
+     },
+     {
+      "s": 2,
+      "V": 1,
+      "temporal_bits": [
+       0,
+       1
+      ]
+     },
+     {
+      "s": 3,
+      "V": 1,
+      "temporal_bits": [
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 4,
+      "V": 2,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 5,
+      "V": 2,
+      "temporal_bits": [
+       0,
+       1,
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "s": 6,
+      "V": 2,
+      "temporal_bits": [
+       0,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 7,
+      "V": 5,
+      "temporal_bits": [
+       1,
+       1,
+       1,
+       0,
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "s": 8,
+      "V": 3,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 9,
+      "V": 4,
+      "temporal_bits": [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 10,
+      "V": 5,
+      "temporal_bits": [
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "s": 11,
+      "V": 6,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 12,
+      "V": 6,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 13,
+      "V": 7,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 14,
+      "V": 6,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 15,
+      "V": 7,
+      "temporal_bits": [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 16,
+      "V": 8,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 17,
+      "V": 8,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 18,
+      "V": 11,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 19,
+      "V": 10,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 20,
+      "V": 10,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 21,
+      "V": 13,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 22,
+      "V": 11,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 23,
+      "V": 12,
+      "temporal_bits": [
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0
+      ]
+     }
+    ],
+    "tail_scores": [
+     13,
+     11,
+     12,
+     10,
+     11,
+     12,
+     11,
+     11,
+     12,
+     11,
+     13,
+     10,
+     12,
+     11,
+     12,
+     10,
+     13,
+     10,
+     12
+    ],
+    "tail_entry_age": 32,
+    "tail_cycle_length": 8,
+    "tail_transitions": 19,
+    "tail_R": 13,
+    "direct_R": 11,
+    "R": 13,
+    "maximizer_age": 21,
+    "closed_vector": [
+     1,
+     6,
+     27,
+     100,
+     444,
+     1607,
+     7129,
+     25646,
+     113875,
+     411452,
+     1825221,
+     6565466,
+     29152165,
+     105331834,
+     467256710,
+     1680759449,
+     7462954478,
+     26964949521,
+     119617717878,
+     430274419593,
+     1910516343998
+    ]
+   }
+  },
+  "x10": {
+   "x": "0x6473c7a1004b27",
+   "cert": {
+    "inconclusive": false,
+    "n": 27,
+    "direct": [
+     {
+      "s": 0,
+      "V": 0,
+      "temporal_bits": []
+     },
+     {
+      "s": 1,
+      "V": 1,
+      "temporal_bits": [
+       1
+      ]
+     },
+     {
+      "s": 2,
+      "V": 1,
+      "temporal_bits": [
+       0,
+       1
+      ]
+     },
+     {
+      "s": 3,
+      "V": 1,
+      "temporal_bits": [
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 4,
+      "V": 2,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "s": 5,
+      "V": 2,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 6,
+      "V": 3,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 7,
+      "V": 4,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 8,
+      "V": 3,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 9,
+      "V": 4,
+      "temporal_bits": [
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 10,
+      "V": 4,
+      "temporal_bits": [
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 11,
+      "V": 4,
+      "temporal_bits": [
+       0,
+       0,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 12,
+      "V": 9,
+      "temporal_bits": [
+       1,
+       1,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 13,
+      "V": 6,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 14,
+      "V": 6,
+      "temporal_bits": [
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 15,
+      "V": 8,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "s": 16,
+      "V": 7,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 17,
+      "V": 10,
+      "temporal_bits": [
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1,
+       0,
+       0
+      ]
+     },
+     {
+      "s": 18,
+      "V": 8,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 19,
+      "V": 10,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "s": 20,
+      "V": 12,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 21,
+      "V": 10,
+      "temporal_bits": [
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 22,
+      "V": 12,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 23,
+      "V": 13,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 24,
+      "V": 11,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 25,
+      "V": 16,
+      "temporal_bits": [
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       1,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 26,
+      "V": 12,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     },
+     {
+      "s": 27,
+      "V": 15,
+      "temporal_bits": [
+       1,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0
+      ]
+     },
+     {
+      "s": 28,
+      "V": 15,
+      "temporal_bits": [
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       0,
+       0,
+       1,
+       1
+      ]
+     },
+     {
+      "s": 29,
+      "V": 15,
+      "temporal_bits": [
+       0,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       0,
+       1,
+       0,
+       0,
+       1,
+       1,
+       1,
+       0,
+       1,
+       0,
+       1,
+       0,
+       1
+      ]
+     }
+    ],
+    "tail_scores": [
+     15,
+     15,
+     15,
+     13,
+     15,
+     13,
+     16,
+     12,
+     16,
+     14,
+     14,
+     12,
+     15,
+     13,
+     16,
+     13,
+     16,
+     14,
+     14,
+     13,
+     16,
+     14
+    ],
+    "tail_entry_age": 41,
+    "tail_cycle_length": 8,
+    "tail_transitions": 22,
+    "tail_R": 16,
+    "direct_R": 16,
+    "R": 16,
+    "maximizer_age": 25,
+    "closed_vector": [
+     1,
+     6,
+     25,
+     111,
+     400,
+     1779,
+     6428,
+     28519,
+     102585,
+     455502,
+     1645809,
+     7300886,
+     26261866,
+     116608663,
+     421327336,
+     1869026843,
+     6723037797,
+     29851817915,
+     107859798085,
+     478470871514,
+     1721097678374,
+     7642065375993,
+     27612108356879,
+     122488543183664,
+     440601005067729,
+     1956368738890294,
+     7068699727355593
+    ]
+   }
+  },
+  "decision": "REFUTED_increase"
+ }
+}

@@ -1,0 +1,71 @@
+{
+  "backend": "archive-comparison-and-independent-local-cell-closure-replay",
+  "executed_source": "#!/usr/bin/env python3\n\"\"\"Compare the two existing named certificates; no new scientific domain.\"\"\"\nfrom datetime import datetime, timezone\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport subprocess\nimport tempfile\nimport time\n\nROOT = Path(__file__).resolve().parents[2]\nPRIMARY = ROOT / \"results/problem1/20260906_activity_return_nonincrease_primary.json\"\nINDEPENDENT = ROOT / \"results/problem1/20260906_activity_return_nonincrease_independent.json\"\nOUT = ROOT / \"results/problem1/20260906_activity_return_nonincrease_verification.json\"\n\n\ndef sha(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef canonical(obj):\n    return sha(json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode())\n\n\ndef a_cells_integer(x):\n    # Local cell rule, independent of packed T>>2.\n    digits = [int(c) for c in reversed(bin(x)[2:])] + [0, 0]\n    return sum((digits[i + 2] ^ max(digits[i + 1], digits[i])) * 2 ** i\n               for i in range(len(digits) - 2))\n\n\ndef a_iter(x, n):\n    for _ in range(n):\n        x = a_cells_integer(x)\n    return x\n\n\ndef main():\n    start = time.monotonic()\n    pb, ib = PRIMARY.read_bytes(), INDEPENDENT.read_bytes()\n    p, independent = json.loads(pb), json.loads(ib)\n    assert sha(json.dumps(p[\"checks\"], sort_keys=True).encode()) == p[\"result_hashes\"][\"primary_payload_sha256\"]\n    assert canonical(independent[\"results\"]) == independent[\"result_hashes\"][\"results_sha256\"]\n    assert canonical(independent[\"result_summary\"]) == independent[\"result_hashes\"][\"summary_sha256\"]\n    for text, expected in ((p[\"self_source\"][\"embedded_text\"], p[\"self_source\"][\"sha256\"]),\n                           (p[\"admission\"][\"note_text\"], p[\"admission\"][\"note_sha256\"]),\n                           (independent[\"provenance\"][\"source\"], independent[\"provenance\"][\"source_sha256\"]),\n                           (independent[\"provenance\"][\"admission\"], independent[\"provenance\"][\"admission_sha256\"])):\n        assert sha(text.encode()) == expected\n    for relative, expected in ((p[\"self_source\"][\"path\"], p[\"self_source\"][\"sha256\"]),\n                               (independent[\"provenance\"][\"source_path\"], independent[\"provenance\"][\"source_sha256\"])):\n        assert sha((ROOT / relative).read_bytes()) == expected\n    reference = sha((ROOT / \"src/python/rule30_research_reference.py\").read_bytes())\n    assert reference == p[\"reference\"][\"sha256\"] == independent[\"provenance\"][\"reference_sha256\"]\n    assert reference == \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\n    assert p[\"checks\"][\"orbit\"] == [r[\"x_hex\"] for r in independent[\"results\"][\"orbit\"]]\n    assert p[\"checks\"][\"final_gate_unexecuted\"] == 7\n    rows, direct_count, tail_count = [], 0, 0\n    for r in (4, 10):\n        pc = p[\"checks\"][\"x\" + str(r)][\"cert\"]\n        ic = independent[\"results\"][\"certificates\"][str(r)]\n        n = 17 + r\n        assert pc[\"n\"] == ic[\"n\"] == n\n        assert p[\"result_summary\"][\"x\" + str(r) + \"_n\"] == n\n        assert [row[\"temporal_bits\"] for row in pc[\"direct\"]] == ic[\"direct_temporal_vectors\"]\n        assert [row[\"V\"] for row in pc[\"direct\"]] == [sum(row) for row in ic[\"direct_temporal_vectors\"]]\n        assert pc[\"tail_scores\"] == ic[\"tail_scores\"]\n        assert pc[\"tail_entry_age\"] == ic[\"entry_age\"]\n        assert pc[\"tail_cycle_length\"] == ic[\"cycle_length\"]\n        assert pc[\"n\"] + pc[\"tail_transitions\"] == ic[\"closure_age\"]\n        assert pc[\"closed_vector\"] == list(reversed(ic[\"repeated_vector\"]))\n        closed = pc[\"closed_vector\"]\n        assert [a_iter(v, ic[\"cycle_length\"]) for v in closed] == closed\n        initial = list(reversed(ic[\"initial_vector\"]))\n        assert [a_iter(v, ic[\"entry_age\"] - n) for v in initial] == closed\n        vector, replay_scores = initial, []\n        for _ in pc[\"tail_scores\"]:\n            replay_scores.append(sum(v % 2 for v in vector))\n            vector = [a_cells_integer(v) for v in vector]\n        assert replay_scores == pc[\"tail_scores\"]\n        assert vector == closed\n        all_scores = [row[\"V\"] for row in pc[\"direct\"][:n]] + replay_scores\n        assert max(all_scores) == pc[\"R\"] == ic[\"R\"]\n        assert all_scores.index(max(all_scores)) == pc[\"maximizer_age\"] == ic[\"first_maximizing_age\"]\n        direct_count += len(pc[\"direct\"])\n        tail_count += len(replay_scores)\n        rows.append({\"time\": r, \"x_hex\": ic[\"x_hex\"], \"n\": n, \"entry_age\": ic[\"entry_age\"],\n                     \"period\": ic[\"cycle_length\"], \"R\": pc[\"R\"], \"first_maximizing_age\": pc[\"maximizer_age\"]})\n    assert [row[\"R\"] for row in rows] == [13, 16]\n    assert p[\"runtime_seconds\"] < 120 and independent[\"runtime_seconds\"] < 120\n    source = Path(__file__).read_bytes()\n    summary = {\"rows\": rows, \"direct_full_vectors_compared\": direct_count,\n               \"tail_scores_compared_and_replayed\": tail_count, \"orbit_states_compared\": 11,\n               \"exact_closures_checked\": 2, \"all_checks_passed\": True}\n    result = {\n        \"experiment_id\": \"20260906-activity-return-nonincrease-verification\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\", \"hypothesis\": \"The two named complete finite recurrence certificates agree\",\n        \"backend\": \"archive-comparison-and-independent-local-cell-closure-replay\",\n        \"parameters\": {\"input_records\": [str(PRIMARY.relative_to(ROOT)), str(INDEPENDENT.relative_to(ROOT))],\n                       \"new_scientific_inputs\": 0, \"target_times\": [4, 10]},\n        \"hardware\": {\"machine\": platform.machine(), \"logical_cpus\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": time.monotonic() - start,\n        \"result_hashes\": {\"primary_sha256\": sha(pb), \"independent_sha256\": sha(ib),\n                          \"summary_sha256\": canonical(summary), \"source_sha256\": sha(source)},\n        \"result_summary\": summary, \"executed_source\": source.decode(), \"reference_sha256\": reference,\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exactly the two admitted named endpoints and their complete closed recurrences.\",\n        \"interpretation\": \"Named R nonincrease fails by three; all-age scope uses the proved recurrence and exact closure.\",\n        \"limitations\": [\"Fresh adversarial scope review is recorded separately.\", \"No survivor-only claim is refuted.\",\n                        \"No census, expanded orbit or numerical cap change was performed.\"]}\n    with tempfile.NamedTemporaryFile(\"w\", dir=OUT.parent, delete=False) as f:\n        json.dump(result, f, indent=2, sort_keys=True)\n        f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n        temp = f.name\n    os.replace(temp, OUT)\n    print(json.dumps(summary, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n",
+  "experiment_id": "20260906-activity-return-nonincrease-verification",
+  "git_commit": "97d45d82941fdc27b526a4c75c3099527b60327a",
+  "hardware": {
+    "logical_cpus": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "The two named complete finite recurrence certificates agree",
+  "interpretation": "Named R nonincrease fails by three; all-age scope uses the proved recurrence and exact closure.",
+  "limitations": [
+    "Fresh adversarial scope review is recorded separately.",
+    "No survivor-only claim is refuted.",
+    "No census, expanded orbit or numerical cap change was performed."
+  ],
+  "parameters": {
+    "input_records": [
+      "results/problem1/20260906_activity_return_nonincrease_primary.json",
+      "results/problem1/20260906_activity_return_nonincrease_independent.json"
+    ],
+    "new_scientific_inputs": 0,
+    "target_times": [
+      4,
+      10
+    ]
+  },
+  "proof_scope": "Exactly the two admitted named endpoints and their complete closed recurrences.",
+  "question": "problem1",
+  "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+  "result_hashes": {
+    "independent_sha256": "b175766eb452da2d5955ca90a89e96ab99b62bc057d33a1dda18a907e3e42e6b",
+    "primary_sha256": "199538a1cd1111bb054414a74effbf5fc64c1d46b668845e4e66e1f854473e0e",
+    "source_sha256": "20142a1f35f8a9f1f6a2946ebe9660ec74714fa69a084aa80d6f60b8730be035",
+    "summary_sha256": "ad31243466df26a2e4679913cfff60473dfac9f63278d53d610d8a5dd51ddcbc"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "direct_full_vectors_compared": 54,
+    "exact_closures_checked": 2,
+    "orbit_states_compared": 11,
+    "rows": [
+      {
+        "R": 13,
+        "entry_age": 32,
+        "first_maximizing_age": 21,
+        "n": 21,
+        "period": 8,
+        "time": 4,
+        "x_hex": "0x6473c6fc387"
+      },
+      {
+        "R": 16,
+        "entry_age": 41,
+        "first_maximizing_age": 25,
+        "n": 27,
+        "period": 8,
+        "time": 10,
+        "x_hex": "0x6473c7a1004b27"
+      }
+    ],
+    "tail_scores_compared_and_replayed": 41
+  },
+  "runtime_seconds": 0.028788802097551525,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T20:52:57.008229+00:00"
+}

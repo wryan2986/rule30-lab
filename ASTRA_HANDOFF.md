@@ -47,18 +47,41 @@ the exact reviewed original sources, new source and full corrected review.
 This closes the specified review gap, NOT an all-section verdict on
 every earlier D/V claim; old all-memory/all-r review limits are unchanged.
 
-Current NEW admitted test, still pending integration at this checkpoint:
+Round-four return test now verified and integrated:
 `proofs/informal/problem1_activity_return_nonincrease.md` tests R at
 times4 and10 on the ALREADY stored u18/0x6473d46ab, ten observed
 branches ttttututut with final u checked but unexecuted. Exact closed
 finite A vectors certify full-age R; no larger frontier or occurrence.
 Three-return nonincrease plus finite levels WOULD force termination.
-The independent cell/projection certificate reports R4=13,R10=16,
-but primary comparison and fresh scope review remain pending. Do NOT
-mark this return claim refuted until those checks are integrated.
-The single Muse worker is now implementing the primary in its assigned
-disjoint source/result files. This intermediate status will be superseded
-at the next checkpoint. Problem 1 remains open; research continues.
+That universal prescribed-block candidate is now `refuted`: both exact
+closed recurrences give R4=13 at x4=0x6473c6fc387 and R10=16 at
+x10=0x6473c7a1004b27. First maximizing ages21 and25, nonroot lengths
+21 and27, tail entry ages32 and41, both period8. The independent
+cell/projection vector is the reverse of the primary history vector.
+All54 complete direct temporal vectors,41 tail scores,11 orbit states
+and2 exact closures agree and were independently replayed. Records
+are the primary, independent and verification
+`results/problem1/20260906_activity_return_nonincrease_*.json` files.
+The primary metadata length/tie-rule errors and a JSON numeric-key
+payload-hash bug were corrected; score streams and records13/16 did
+not change. Source/admission snapshots and reference hashes reload.
+Fresh Muse scope review is in
+`proofs/informal/problem1_activity_return_nonincrease_review.md`.
+This is a counterexample on a finite genuine occurrence, NOT a
+counterexample to an infinite-survivor-only claim or Problem 1.
+No further return, compensated-record, or level census is admitted.
+
+New proof-only work currently under review:
+`proofs/informal/problem1_effective_activity_levels.md` proposes an
+effective finite list E_K using rational finite-entry descriptions,
+exact eventual V cycles, and a compact finite-cylinder cover search.
+It also derives a rational bounded-or-positive-linear dichotomy.
+No E_K list or new numerical domain is run. Treat these NEW derivations
+as lead `partial-proof` pending the separate fresh review; they do not
+decide candidate equality with the actual infinite survivor. The single
+Muse reviewer owns only its new review file while lead continues the
+argument. This intermediate status will be superseded at rollover.
+Problem 1 remains open; research continues.
 
 ## Round 3 maintenance rollover (2026-09-06, approximately 70 minutes)
 
