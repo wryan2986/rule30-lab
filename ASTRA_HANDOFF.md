@@ -1,202 +1,153 @@
-# Astra handoff: round 5 maintenance checkpoint, 2026-09-06
+# Astra handoff: round 6 research checkpoint, 2026-09-06
 
-Problem1 remains OPEN. This is time-maintenance rollover, not goal achieved,
-research blocked, or research exhaustion. Research continues on
-`research/astra-next`. Round five began at21:20:55UTC; the final atomic audit
-records the checkpoint time and elapsed seconds. Read ASTRA_GOAL.md first.
-The incoming handoff is preserved byte for byte in
-`docs/astra_handoff_archive_20260906_round5.md`.
+Problem 1 remains OPEN. Round six is still working at this intermediate
+checkpoint. It began at 22:26:45 UTC. This is not goal achieved or research
+blocked. Research continues on `research/astra-next`. Read ASTRA_GOAL.md first.
+The incoming round-five handoff is preserved byte for byte in
+`docs/astra_handoff_archive_20260906_round6.md`.
 
 ## Current bottleneck and reading order
 
-Prove activity growth for ONE FIXED ACTUAL period-two survivor, keeping its
-FULL fringe coupling. New work has provided inequalities and a weaker
-anchored target, but has NOT supplied that coupling mechanism.
+Prove that the FULL-FRINGE inverse-scan diagonal is incompatible with finite
+entry for ONE FIXED ACTUAL survivor. Round six has now stated both sides
+in the same temporal coordinates; incompatibility remains unproved.
 
-Read the following notes in proofs/informal, in this order:
+Read these notes in proofs/informal:
 
-1. `problem1_activity_joint_window_target.md` (latest sufficient target).
-2. `problem1_activity_temporal_gate_bridge.md` (exact boundary conversion).
-3. `problem1_activity_transport_inequality.md` (general counting proof).
-4. `problem1_activity_sparse_temporal_codes.md` (density necessity refuted).
-5. `problem1_activity_staircase_bound.md` (explicit support bound).
+1. `problem1_full_fringe_temporal_diagonal.md` (exact full-fringe premise).
+2. `problem1_anchored_activity_finite_entry.md` (new equivalence and bounds).
+3. Their corresponding `_review.md` files (both accepted in scope).
 
-All five all-depth units retain status `partial-proof` relative to the prize,
-with independent review accepted in the stated scopes. Every actual-survivor
-growth assertion remains `inconclusive`. No infinite conclusion is inferred
-from the finite local checks.
+The round-five gate bridge, joint-window target, transport, sparse-code,
+and staircase results remain established and need not be repeated.
+Their compact formulas and references are in the incoming handoff archive.
+All new all-depth results retain `partial-proof` relative to the prize;
+actual-survivor growth remains `inconclusive`.
 
-## Latest target: anchored characteristic activity
+## Exact full-fringe diagonal, not just permitted gates
 
-Use
+Let b=Theta(x), Theta(x)_t=A^t(x) mod4, Phi Theta=Theta pi, and define
 
-    T(x)=x XOR((x<<1) OR(x<<2)), pi(x)=x>>2, A=pi T,
-    V_s(x)=sum_(t=0..s-1)bit_(2s)(T^t x), V_0=0,
-    R(x)=sup_s V_s(x), E_K={x:R(x)<=K},
-    P_n(t)=bit_(2n)(A^t x) OR bit_(2n+1)(A^t x),
-    C_n(a,W)=sum_(t=a..a+W-1)P_n(t), J_n(x)=C_n(0,n).
+    (I_a b)_0=a,
+    (I_a b)_(t+1)=h((I_a b)_t,b_t),
+    h((a0,a1),(r,s))=(r XOR(a0 ORa1),s XOR(a1 ORr)).
 
-Let H_odd(r)=sum_(j=0..r)1/(2j+1),
-H_n=H_odd(floor((n-1)/2)),
-g(K)=min{r:H_odd(r)>K}, h_V(K)=min{r:H_odd(r)>3K/2}.
+Then Theta(4x+a)=I_a Theta(x) and Phi I_a=id. The symbol a is an
+INITIAL spatial pair, not a u/t branch. For the attached initial right
+half use the facing-inward symbols a_j=r_(2j)(0)+2r_(2j-1)(0). Put
 
-The new sufficient target is simply sup_n J_n(x)=infinity for the SAME
-actual x. No positive density is necessary for this implication. Exactly,
+    B_m=I_(a_m)...I_(a_1)b,
+    C_m=shift^(2m) B_m, D_m=(B_m)_(2m).
 
-    R(x)<=K implies sup_n J_n(x)<=max(h_V(K),2g(K)).
+C_m is exactly Theta of the ACTUAL center-and-left row at time 2m.
+The initial cut at physical 2m contains every relevant backward cone.
+The center is 1010... at ALL times iff D_m=3 at EVERY m>=0.
+For the original zero right half this becomes
 
-Proof: z=A^h x=pi^h T^h x is finite, R(z)<=K and bitlen(z)<=4g+2.
-For n>=2g+1 and t>=h, P_n(t)=0; smaller n have J_n<=n<=2g.
-This imports the reviewed finite-entry theorem; it is NOT a new proof
-of that theorem. Bounded J => bounded R is NOT asserted.
+    (I_0^m b)_(2m)=3 for all m>=0.                    (FULL)
 
-The stronger direct finite bound is, for ALL n>=1,a>=0,W>=1,
+For each fixed initial right half, b -> (D_m)_m is a triangular
+homeomorphism: D_m is a permutation of b_m when the earlier symbols
+are fixed. This proves exact realization, NOT growth. Hand checks only:
+zero-right D0,D1,D2 force b0,b1,b2=3,2,2; no longer prefix was generated.
 
-    sum_(s=a+2..a+W+n)V_s(x)
-      >=sum_(r=0..floor((n-1)/2))ceil(C_n(a,W)/(2r+1))
-      >=C_n(a,W)H_n.
+Phi C_(m+1)=shift^2 C_m always. Under FULL, C_(m+1)=I_3 shift^2 C_m,
+which recovers the old gate bridge but by itself loses the full initial
+right boundary. At any actual even row, b1=2 iff its right pair is00
+(u); otherwise b1=1 (t). The known constant-u survivor5/3 has b2=1
+and D2=2 under zero initial right fringe, so infinite gate permission
+still does not give FULL. This is a coordinate check of an old countermodel.
 
-The window has W+n-1 ages. Original transport was stated only for
-a>=n-1; the latest note proves a>=0 by retaining each selected pair's
-own valid interval. Never define w_j(s) at s<j. In particular,
+DO NOT replace shift^(2m) I_0^m by (shift^2 I_0)^m: that resets the
+right fringe after every block. Eventual period two must first be rebased
+at an actual phase-one row beyond its transient, retaining the resulting
+a_j (eventually zero under finite support, generally not all zero).
+Uniform exclusion for all finite fringes would be a sufficient stronger
+statement, not an asserted equivalence of all those quantifiers.
 
-    R_(2n)(x)>=J_n(x)H_n/(2n-1).
+## Anchored activity is now an EQUIVALENT target
 
-Jointly growing n,W can retain intermittent events lost in a fixed-n
-density limit. No actual growing windows or unbounded J have been proved,
-and no ray or prefix campaign is admitted by naming these observables.
+Use T(x)=x XOR((x<<1) OR(x<<2)), pi=x>>2, A=pi T, and the existing
+P_n(x,t)=OR of bits2n,2n+1 of A^t x, J_n=sum_(t=0..n-1)P_n(x,t).
+Write Q(x)=sup_n J_n(x); Q here is a record, NOT the old forward generator.
+Let H_m=sum_(r=1..m)1/r and h_J(K)=min{h>=0:H_(h+1)>K}.
 
-## Staircase inequality and explicit bounded alternative
+The new theorem proves, for arbitrary 2-adic x,
 
-For finite x put n=max(ceil(bitlen(x)/2)-1,0),
-u_i(t)=bit_i(A^t x), w_j(s)=u_(2j)(s-j). For s>=n,
-V_s=sum_(j=1..n)w_j(s). The top pair2n,2n+1 stays nonzero.
-A zero adjacent pair over L times forces the next higher pair zero over
-L-1 times. Thus w_j,w_(j+1) cannot both vanish for n-j+1 consecutive
-ages starting at S>=n+1. Disjoint pairs j=n,n-2,... give
+    Q(x)<=K => A^h x and T^h x are finite, h=h_J(K),
+    Q(x)<infinity iff R(x)<infinity iff finite entry under T or A.
 
-    sum_(s=S..S+W-1)V_s(x)
-      >=sum_(r=0..floor((n-1)/2))floor(W/(2r+1)),
-    R(x)>=H_n, bitlen(x)<=4g(K)+2 if finite x in E_K.
+The unasserted converse from round five is now proved. The new proof
+uses the bi-infinite A rule: adjacent temporal pair codes satisfy
+b_(j+1)=Phi b_j; g(a,0)=3 for a!=0 preserves the last nonzero time.
+If each pair has <=K active times, all share last time M and final row1.
+Every r+1-pair input interval for that row contains a one at time M-r,
+so H_(M+1)<=K. Even spatial limits of bounded J inherit this total
+budget, and ALL vanish at the SAME h_J(K); compactness gives finite entry.
 
-This is growth with ORIGINAL support size, not age growth of a fixed
-finite input. An explicit late-age witness interval is proved, not run.
-For general x in E_K, the exact finite-entry decomposition gives
-R(pi^h T^h x)<=K, hence
+For finite z, EXACTLY Q(z)=N(z)=max(ceil(bitlen(z)/2)-1,0), because
+the top pair stays active forever under A. Also Q(A^h x)<=Q(x)+h.
+Consequently Q(x)<=K gives
 
-    bitlen(T^h x)<=B_explicit(K)=2h_V(K)+4g(K)+2.
+    bitlen(A^h x)<=2(K+h+1),
+    bitlen(T^h x)<=2K+4h+2,
+    {x:Q(x)<=K} subset {T^(-h)y:0<=y<2^(2K+4h+2)}.
 
-This replaces the nonconstructive support bound and terminating cover
-search with an explicit exponential bound. It still does NOT enumerate
-E_K or decide equality of a candidate with the full actual survivor.
+These are explicit finite rational supersets, NOT an executed enumeration
+or a decision that a candidate equals the actual survivor. Q levels are
+NOT A-invariant: x=-3*4^(n+1), n>=2, gives Q(x)=n-1 and Q(Ax)=n.
+Never import A-invariance from the older R levels.
 
-For arbitrary x, keep w_(n+1) rather than setting it zero. Each event P_n(t)
-forces a staggered event in each chosen disjoint index pair over a time
-interval of length1,3,5,...; a single occurrence accounts for at most that
-many high events. This is the transport counting proof. The physical rays
-are -2n-t,-2n-t-1; their backward cones avoid the attached right fringe.
-The actual u/t branch is on a DIFFERENT line. Its bounded gaps alone
-supply neither characteristic density nor anchored J growth.
+The remaining exact question on the SAME b is FULL =>
 
-## Temporal coding, its obstruction, and actual gate bridge
+    sup_n sum_(t=0..n-1)1[(Phi^n b)_t!=0]=infinity.
 
-Theta(x)_t=A^t x mod4 is a computable triangular homeomorphism to the
-four-symbol one-sided shift; Theta A=shift Theta. Spatial deletion becomes
-Theta pi=Phi Theta, where
+No periodicity, density, finite list, branch-frequency or cone argument
+has established this implication. No census is admitted by naming it.
 
-    g((a0,a1),(b0,b1))=(r,s),
-    r=b0 XOR(a0 ORa1), s=b1 XOR(a1 ORr),
-    (Phi b)_t=g(b_t,b_(t+1)).
+## Review corrections and verification state
 
-x is rational iff Theta(x) is eventually periodic: A preserves a given
-finite spatial-tail class; Phi preserves a given finite temporal-tail
-class. This is not Delta and reopens no universal finite-state claim.
+One Muse worker (`opencode-go/muse-spark-1.3-contributor`, thread
+01a078d5-58aa-7ee3-9c1d-15b1bbaa1eed) supplied the two scoped reviews;
+the lead independently audited and accepted both. Its first anchored
+review falsely extended AFTER deleting low bits, pinning an artificial
+boundary at zero. The actual proof extends the original row FIRST and
+then translates: v_i^(l)=bar{x}_(i+2n_l) for ALL integer i. Every fixed
+negative offset eventually reads genuine input bits. The reviewer
+withdrew its counterexample and re-derived the full original theorem.
+Exact rejected and corrected versions are retained in the audit.
 
-Density NECESSITY is `refuted` on general inputs. Temporal symbol1 exactly
-at powers of two, symbol0 elsewhere, optionally after ANY fixed code
-prefix, gives computable irrational x with R=infinity but EVERY
+The sidecar cone memo is corrected EXPOSITION, not a new no-go. Actual
+branch points are (-2,2m),(-3,2m), not merely columns>=-1; the only even
+branch points in the n>=1 ray cones are the m=0 pair in n=1. Odd-time
+(-3,1) is an explicit exception to the formerly overbroad claim.
+Causality alone does NOT refute a constraint from global center consistency.
+The valid forced-to-original anchored budget is n>t+3m; no multiplicity
+mechanism follows. See `problem1_round6_muse_characteristic_coupling.md`.
 
-    d_n^*=limsup_(W->infinity) sup_(a>=n-1) C_n(a,W)/W=0.
+The fixed six-cell vertical-alignment counterexample is currently under
+independent verification in this round; it is not needed by either accepted
+unit above. Do not treat that pending check as a new search authorization.
+The worker is active on that assigned review/check only. No provider429 or
+fallback occurred. No mainproblem proof candidate or final review is claimed.
 
-Any W-window has <=1+floor(log2 W) sparse events plus the fixed prefix;
-Phi^n uses n+1 consecutive symbols. Bounded R would trap the A orbit
-in finite A-invariant E_K and force eventual code periodicity. These
-counterexamples meet every finite cylinder/observed branch prefix but
-are NOT proved infinite forced or full-fringe survivors. No numerical
-run was performed for this counterexample. Sufficiency R>=d_n^*H_n
-and finite-window transport survive; density is not an equivalence.
-
-For a permitted step b=Theta x,c=Theta F(x),
-
-    Phi c=shift^2 b, c0=3,
-    c_(t+1)=h(c_t,b_(t+2)),
-    h(a,(r,s))=(r XOR(a0 ORa1),s XOR(a1 ORr)).
-
-The table rows a0..3 are [0,3,2,1],[1,2,3,0],[3,2,1,0],[3,2,1,0].
-Gate x mod16=7(u)/11(t) is b0=3,b1=2/1. The scan bijects b_(>=2)
-with c0=3 codes. F on the unrestricted TWO gate cylinders is TWO-to-one;
-one needs b1 (the actual fringe-supplied branch) to recover x uniquely.
-It supplies no new monotone group gauge or finite-state closure.
-
-For m permitted steps and n>=m,
-
-    P_n(F^m x,t)=P_(n-m)(x,t+2m).
-
-Depth-zero boundary events are OUTSIDE the pullback formula. The draft's
-substitution c0=3 => P0(x,2)=1 is `refuted`: x11 has A11=13,A^2(11)=12,
-F11=51, so P0(F11,0)=1 while P0(11,2)=0. P1(F11,0)=0 correctly matches
-the valid formula. This precise index error and a fiber ambiguity were
-fixed, independently rechecked, and lead-audited before acceptance.
-
-## Verification, records, and maintenance state
-
-One Muse (`opencode-go/muse-spark-1.3-contributor`) supplied five scoped
-reviews and a final read-only cross-file audit; it is CLOSED. No pending
-worker, missing new-unit review, rate-limit retry or fallback remains.
-Lead independently checked every contribution. Old all-memory/all-r
-review limitations remain unchanged, as recorded in the incoming handoff.
-
-Only new scientific computation:8 three-bit neighborhoods,16 four-bit
-L=2 rectangles,64 six-bit L=3 rectangles. Packed-A and independent bit
-arrays agree on all88 FULL local trajectories, premise counts1/1/1.
-The independent implementation reran the SAME88 cases after correcting
-unenforced CPU/wall caps and an omitted reference hash; its full prior
-execution is retained. No old R controls were rerun. No frontier, return,
-activity-level, period, ray, comparator, or first-witness census occurred.
-
-Exact reviewed/current sources, reviews, source/admission snapshots,
-full Git, timings, hashes and atomic provenance are in:
-
-- results/problem1/20260906_activity_staircase_{primary,independent,verification}.json
-- results/problem1/20260906_activity_sparse_temporal_codes_review.json
-- results/problem1/20260906_round5_final_audit.json
-
-Corresponding check/verify/archive/audit scripts are in
-experiments/problem1_nonperiodicity. Scientific counts are finite-exhaustive
-only in the declared local domains; proof scopes remain partial-proof.
-The rejected initial boundary/defect route is preserved in
-problem1_round5_muse_boundary_proposal.md. Its physical speed2 error was
-corrected to speed1; the correct transported support bound was already
-known. No universal fixed-width defect no-go was established.
-
-Commits pushed this round include d87aabf (staircase/transport) and95db571
-(temporal codes/sparse obstruction); later bridge/maintenance commits are
-in Git history. Immutable reference SHA256 remains
+Exact reviewed/current sources, initial failed review, dependencies,
+full Git, timings, hashes and atomic provenance are in
+`results/problem1/20260906_round6_audit.json`; builder
+`experiments/problem1_nonperiodicity/audit_astra_round6.py`.
+Immutable reference SHA256 remains
 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
-Unrelated supervisor files, ASTRA_GOAL.md, worktrees and old untracked
-results were preserved. Never edit the reference or force-push.
+Unrelated supervisor files, ASTRA_GOAL.md, worktrees and old untracked results
+remain untouched. Never force-push or edit the immutable reference.
 
 ## Continue without repeating completed work
 
-Attack an actual full-fringe mechanism for unbounded anchored J_n or the
-original fixed-survivor record. The code bridge states the exact boundary
-data available; it does not give the required deep-ray events. Neither
-finite-cylinder matching, initial high ones, periodic high-front behavior,
-nor growth across forced shifts settles that gap. No new experiment is
-pre-admitted; state a concrete falsifiable mechanism and both outcomes
-before any future run. Do not repeat the five round-five proofs/checks,
-round-four finite-entry/isolation/effectivity/return tests, group gauges,
-or earlier frozen searches. B_all and signed nonvanishing remain unproved.
-Period1 is closed; least periods>=3 are unhandled. Pure alternating traces,
-all eventual period-two traces and all finite seeds retain distinct
-quantifiers. This is maintenance rollover, not research blockage.
+Attack an actual incompatibility between the fixed-boundary inverse-scan
+diagonal and finite entry. The two sides are now exact; more observables,
+finite ray samples, larger prefix boxes, or a finite-level list would not
+supply the missing mechanism. State both outcomes of any concrete new
+experiment before running it. Do not repeat the old R-return nonincrease,
+finite-entry/isolation/effectivity, staircase, density, gate or group-gauge
+work. B_all and signed nonvanishing remain open. Period1 is closed;
+least periods>=3 are unhandled. Pure traces, arbitrary eventual traces,
+and arbitrary finite seeds/fringes retain distinct quantifiers.
