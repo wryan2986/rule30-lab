@@ -11,6 +11,50 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+## Execution/review block at the context handoff (2026-09-06)
+
+The latest mathematical checkpoint is
+`f32f5dbd5dd959299910f0a629fdbcb3df82e42c`, verified identical to origin.
+The subsequent goal continuation produced no new mathematical result.
+It revalidated that checkpoint and made one final fresh adversarial-review
+request using ONLY `opencode-go/muse-spark-1.3-contributor`.
+
+That eighth Muse attempt is terminal, not running: agent
+`01a07743-2056-7242-8b42-eae39d957244` returned provider429/retry-limit
+error, request `a36e635cbe9e5749-CLE`. The same required-model review
+failure recurred across three consecutive goal turns: the sixth attempt
+on the sixteen-state proof, the seventh on the all-memory proof, and
+this eighth final review. No alternate model was substituted. The old
+errored threads were closed; there is no review process to wait for.
+
+The run is blocked at the fresh-verification/context handoff, NOT because
+Problem1 has been solved or because all possible mathematical directions
+are exhausted. Earlier lead-local arithmetic and proof audits remain
+recorded honestly; a successful fresh external proof review is missing.
+The accumulated lead thread has repeatedly been checkpointed for a fresh
+Astra session under ASTRA_GOAL.md's context-discipline instruction. Do not
+launch another long research phase in this same lead context to bypass
+that instruction or silently replace the unavailable review model.
+
+Resume from this handoff in a fresh Astra session. First obtain fresh
+adversarial scrutiny of `problem1_all_residue_memory_rigidity.md`, with
+particular attention to controllability, PURE-scanner iteration, the
+2r-2>=b averaging threshold, lifted-cycle conservation and closure at the
+requested memory. Retry the exact Muse model when its provider permits;
+preserve its failures and distinguish any fresh lead review from Muse.
+
+Then attack the remaining mathematical obstruction: an all-depth bound
+on ACTUAL near-boundary returns retaining prescribed age versus original
+length. The boundary-sum identity is the strongest retained concrete
+route; a nonlinear or history-word-state observable is a distinct next
+direction. All finite-residue-memory universal additive strict descent
+is ruled out by the recorded proof, subject to the explicitly missing
+fresh external review. No width sweep, larger coefficient box, repeated
+timed-out LP or first-witness census is justified.
+
+The goal is unfinished. This is an external verification/context block,
+not a mathematical impossibility claim or a successful Problem1 proof.
+
 Newest all-memory no-go (2026-09-06): read
 `proofs/informal/problem1_all_residue_memory_rigidity.md` first.
 

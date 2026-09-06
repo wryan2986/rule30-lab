@@ -247,6 +247,10 @@ No model substitution or successful fresh external proof review is
 claimed. The lead checked both reachability/section induction and the
 uniform lifted-cycle argument, and derived the needed closed residue
 both through a periodic survivor and finite inverse-branch iteration.
+An eighth final adversarial Muse request in the next goal continuation
+also terminated with provider429. The exact terminal status and the
+fresh-verification/context handoff are recorded at the top of
+ASTRA_HANDOFF.md. No new mathematical computation followed that failure.
 
 The next research step must retain an additional restriction that this
 universal class discards: prescribed age relative to ORIGINAL length,
