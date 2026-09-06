@@ -174,7 +174,11 @@ The final replay wrapper changes only authenticated archival loading and
 error handling; its successful scientific code matches the executed version.
 A metadata-only replay with /tmp disabled verifies the already-written
 record without recomputing a trajectory; both source versions are archived.
-No provider429 or fallback occurred. No mainproblem proof candidate is claimed.
+The worker is CLOSED after the four reviews and final read-only cross-file
+audit (`problem1_round6_final_review.md`); no pending review or worker remains.
+The lead checked actual archived-to-current source diffs and corrected the
+final review's inaccurate untracked-file remarks. No provider429 or fallback
+occurred. No mainproblem proof candidate is claimed.
 
 Exact reviewed/current sources, initial failed review, dependencies,
 full Git, timings, hashes and atomic provenance are in
@@ -182,8 +186,9 @@ full Git, timings, hashes and atomic provenance are in
 `experiments/problem1_nonperiodicity/audit_astra_round6.py`.
 Scientific records are `results/problem1/20260906_anchored_spine_`
 `{primary,independent}.json`; matching check scripts are in the experiment
-directory. Checkpoint94f28fc contains the first two accepted units;
-later logical/maintenance commits are in Git history.
+directory. Checkpoints94f28fc and57127cf contain the four established units;
+the later maintenance commit is in Git history. Final archive recovery is
+also checked using repository records alone, with /tmp history disabled.
 Immutable reference SHA256 remains
 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
 Unrelated supervisor files, ASTRA_GOAL.md, worktrees and old untracked results

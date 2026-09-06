@@ -58,6 +58,7 @@ def helper_tree(source, name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage", choices=("core", "spine", "tower", "final"), required=True)
+    parser.add_argument("--repo-only", action="store_true", help="Recover historical bytes from repository records, never /tmp")
     args = parser.parse_args()
     started = time.perf_counter()
     previous = json.loads(OUT.read_text()) if OUT.exists() else None
@@ -75,14 +76,14 @@ def main():
         external = snapshot("proofs/informal/"+review)
         temp = Path("/tmp/astra-round6-"+temporary+".md")
         reviewed = (dict(path=source["path"], sha256=digest(temp.read_bytes()), text=temp.read_text())
-                    if temp.exists() else previous["proof_units"][name]["reviewed_source"])
+                    if not args.repo_only and temp.exists() else previous["proof_units"][name]["reviewed_source"])
         assert reviewed["sha256"] == expected and expected in external["text"]
         assert digest(reviewed["text"].encode()) == expected
         units[name] = {"reviewed_source": reviewed, "current_source": source, "review": external,
                        "lead_disposition": "accepted partial-proof in declared scope; no actual-survivor growth"}
     rejected_temp = Path("/tmp/astra-round6-anchored-review-initial.md")
     initial_review = (dict(path="initial anchored review (superseded)", text=rejected_temp.read_text(),
-                          sha256=digest(rejected_temp.read_bytes())) if rejected_temp.exists()
+                          sha256=digest(rejected_temp.read_bytes())) if not args.repo_only and rejected_temp.exists()
                       else previous["superseded_initial_review"])
     assert digest(initial_review["text"].encode()) == initial_review["sha256"]
     scientific = {}
@@ -153,16 +154,20 @@ def main():
                     "problem1_frontier_head_dynamics.md"]
     initial_spine_path = Path("/tmp/astra-round6-spine-review-initial.md")
     initial_spine_review = (dict(text=initial_spine_path.read_text(), sha256=digest(initial_spine_path.read_bytes()))
-                            if initial_spine_path.exists() else previous.get("superseded_initial_spine_review") if previous else None)
+                            if not args.repo_only and initial_spine_path.exists() else previous.get("superseded_initial_spine_review") if previous else None)
     final_review_path = ROOT / "proofs/informal/problem1_round6_final_review.md"
+    if args.stage == "final":
+        assert final_review_path.exists()
     record = {
         "experiment_id": "20260906_round6_audit", "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": git("rev-parse", "HEAD"), "question": "problem1",
         "hypothesis": "Round-six established proof units, corrected reviews and the optional fixed witness have exact archived provenance.",
         "backend": "archival-audit-no-scientific-rerun",
-        "parameters": {"stage": args.stage, "round_base_commit": BASE, "round_started_utc": START.isoformat(),
+        "parameters": {"stage": args.stage, "repository_only_history": args.repo_only,
+                       "round_base_commit": BASE, "round_started_utc": START.isoformat(),
                        "reviewer_model": "opencode-go/muse-spark-1.3-contributor",
-                       "reviewer_thread": "01a078d5-58aa-7ee3-9c1d-15b1bbaa1eed", "scientific_reruns": 0},
+                       "reviewer_thread": "01a078d5-58aa-7ee3-9c1d-15b1bbaa1eed", "scientific_reruns": 0,
+                       "reviewer_closed_utc": "2026-09-06T23:30:23Z" if args.stage == "final" else None},
         "hardware": {"uname": list(platform.uname()), "logical_cpus": os.cpu_count()},
         "software": {"python": sys.version, "executable": sys.executable},
         "runtime_seconds": time.perf_counter()-started,
