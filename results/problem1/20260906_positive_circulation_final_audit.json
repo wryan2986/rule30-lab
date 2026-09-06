@@ -1,0 +1,57 @@
+{
+  "backend": "rational-kernel-minor-and-dependency-audit",
+  "experiment_id": "problem1-positive-circulation-final-audit-20260906",
+  "git_commit": "934cef45b8c19b3725140799035f3f8da08a6352",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Known kernel vectors are independent and exact normalization/birth arithmetic supports the algebraic LP optimum.",
+  "inputs": {
+    "results/problem1/20260906_closed_block_potential_independent.json": "d4505e1a927fc2258937d727c628da6280076b33f710d272515f6b82872c47f5",
+    "results/problem1/20260906_fixed_block_potential_verification.json": "d7d8e9b24d09cac522e29fdbaf0097288094bc2e11054271d0825198df622238",
+    "results/problem1/20260906_positive_circulation_rank_independent.json": "83494d3c2e4ae073482df1b29f034f68aaf77a30ead5ac61de41e3ac766c8b3a",
+    "results/problem1/20260906_positive_circulation_rank_primary.json": "e991514e133a551720519d6048a962b8605fb2e6e392edb0ea38f203e3417dff"
+  },
+  "interpretation": "Finite exact identities and dependency checks pass; the note derives the exact -1/8 optimum and no-go theorem.",
+  "limitations": [
+    "Six fresh Muse attempts returned provider429; lead-local audit, no successful fresh external proof review.",
+    "The old LP timeout is preserved as its numerical outcome. No optimizer was rerun.",
+    "This does not prove actual-return exclusion, period-two exclusion or Problem1."
+  ],
+  "parameters": {
+    "fixed_birth_positions": 6,
+    "kernel_minor_size": 16,
+    "new_solver_runs": 0,
+    "weights": 48
+  },
+  "proof_scope": "Sixteen-kernel independence, exact feasible uniform margin and dependency hashes. The upper bound uses the separate positive-slack and rank proof.",
+  "question": "problem1",
+  "result_hashes": {
+    "source_sha256": "6b35a018c6ca021c10a5f4505838a4bd8050dcb18228b69698ed6439b6e87b2b",
+    "summary_sha256": "30f5e95b81c079c00324e78617a2f96aa83be6c493b892327f09217cd98224d4"
+  },
+  "result_summary": {
+    "birth_length": 6,
+    "exact_normalized_lp_optimum": "-1/8",
+    "exact_primal": {
+      "all48_weights": "1/48",
+      "all65536_h_values": 0,
+      "epsilon": "-1/8"
+    },
+    "known_kernel_minor_determinant": "1",
+    "known_kernel_rank": 16,
+    "new_solver_runs": 0,
+    "normalization_factor": 48,
+    "reachability_dependency_hashes_match": true,
+    "selected_row_minor_determinant": "1"
+  },
+  "runtime_seconds": 0.01114090601913631,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Exact known-kernel independence and rational LP optimum witness audit.\"\"\"\nimport datetime,hashlib,json,os,platform,subprocess,sys,tempfile,time\nfrom fractions import Fraction\nfrom pathlib import Path\nstart=time.monotonic();root=Path('/home/ryan/rule30-lab');sha=lambda b:hashlib.sha256(b).hexdigest()\npaths=[root/'results/problem1/20260906_positive_circulation_rank_primary.json',root/'results/problem1/20260906_positive_circulation_rank_independent.json',root/'results/problem1/20260906_closed_block_potential_independent.json',root/'results/problem1/20260906_fixed_block_potential_verification.json']\np,i,g,b=[json.loads(x.read_text())for x in paths]\nassert i['inputs'][str(paths[0].relative_to(root))]==sha(paths[0].read_bytes())\nfor d in [p,i,g,b]:assert sha(d['source_text'].encode())==d['result_hashes']['source_sha256']\nclosed=root/'results/problem1/20260906_closed_block_potential_primary.json'\nassert g['inputs'][str(closed.relative_to(root))]==sha(closed.read_bytes())==p['inputs'][str(closed.relative_to(root))]\nassert g['result_summary']['all_vertices_root_reachable'] and g['result_summary']['all_vertices_target_coaccessible']\nfree=[j for j in range(48)if j not in p['results']['pivot_columns']];M=[[row[j]for j in free]for row in i['results']['kernel_vectors']]\ndef det(m):\n a=[list(map(Fraction,row))for row in m];out=Fraction(1);n=len(a)\n for k in range(n):\n  j=next(j for j in range(k,n)if a[j][k])\n  if j!=k:a[j],a[k]=a[k],a[j];out=-out\n  pivot=a[k][k];out*=pivot\n  for j in range(k+1,n):\n   scale=a[j][k]/pivot\n   for t in range(k,n):a[j][t]-=scale*a[k][t]\n return out\nkd=det(M);assert kd\nassert sum(i['results']['kernel_vectors'][0])==48\nassert all(sum(row)==0 for row in i['results']['kernel_vectors'][1:])\nbirth=next(c['birth_vector']for c in b['results']['terminal_classes']if c['residue']==50055);assert sum(birth)==6\nomega=Fraction(1,48);epsilon=-6*omega;assert 48*omega==1 and epsilon==Fraction(-1,8)\nassert all(sum(row['row'])==0 for row in i['results']['rows'])\nsummary={'selected_row_minor_determinant':i['result_summary']['exact_minor_determinant'],'known_kernel_minor_determinant':str(kd),'known_kernel_rank':16,'normalization_factor':48,'birth_length':6,'exact_normalized_lp_optimum':'-1/8','exact_primal':{'all48_weights':'1/48','all65536_h_values':0,'epsilon':'-1/8'},'reachability_dependency_hashes_match':True,'new_solver_runs':0}\nsource=Path(__file__).read_text();rec={'experiment_id':'problem1-positive-circulation-final-audit-20260906','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'question':'problem1','hypothesis':'Known kernel vectors are independent and exact normalization/birth arithmetic supports the algebraic LP optimum.','backend':'rational-kernel-minor-and-dependency-audit','parameters':{'kernel_minor_size':16,'weights':48,'fixed_birth_positions':6,'new_solver_runs':0},'hardware':{'cpu_count':os.cpu_count(),'machine':platform.machine()},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'source_text':source,'inputs':{str(x.relative_to(root)):sha(x.read_bytes())for x in paths},'result_hashes':{'source_sha256':sha(source.encode()),'summary_sha256':sha(json.dumps(summary,sort_keys=True).encode())},'result_summary':summary,'status':'finite-exhaustive','proof_scope':'Sixteen-kernel independence, exact feasible uniform margin and dependency hashes. The upper bound uses the separate positive-slack and rank proof.','interpretation':'Finite exact identities and dependency checks pass; the note derives the exact -1/8 optimum and no-go theorem.','limitations':['Six fresh Muse attempts returned provider429; lead-local audit, no successful fresh external proof review.','The old LP timeout is preserved as its numerical outcome. No optimizer was rerun.','This does not prove actual-return exclusion, period-two exclusion or Problem1.']}\nout=root/'results/problem1/20260906_positive_circulation_final_audit.json';fd,tmp=tempfile.mkstemp(dir=out.parent,prefix=out.name+'.')\nwith os.fdopen(fd,'w')as f:json.dump(rec,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out);print(json.dumps(summary))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T14:42:27.397715+00:00"
+}

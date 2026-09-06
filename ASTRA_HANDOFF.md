@@ -11,6 +11,60 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest exact no-go (2026-09-06): read
+`proofs/informal/problem1_positive_circulation_rigidity.md` first.
+
+- `refuted`: the ENTIRE class of fixed REAL weights on old prefix
+  residue modulo16 and generator, bounded below over ALL finite
+  ordinary phase-u histories, with strict decrease across every genuine
+  closed ututut block. This is an all-history no-go, not another fitted
+  potential or bounded counterexample search. It also rules out a
+  shared-weight universal class and phase-specific weights that must
+  work in both phases. No separate phase-p-only claim is made here.
+- `partial-proof`: on the exact65536-state graph, uniform t/u/p
+  circulations C_g have per-residue triples1024*(-3,1,2),
+  1024*(1,-3,2),1024*(1,1,-2). Thus F=C_t+C_u+2C_p is a strictly
+  positive EDGE FLOW with zero signed count-change vector. Universal
+  accepted-path descent forces cycle rewards<=0. Subtracting any
+  cycle from this positive zero-weight flow forces every cycle's reward0.
+  Consequently all signed tree-path-difference constraints are equalities.
+- `finite-exhaustive`: just44 examined edges supply32 independent
+  rows. Independent cell/scanner replay verifies each row; the exact
+  integer32x32 minor has determinant1. The16 known constant/coboundary
+  kernel vectors have512 zero dots and an independent16x16 minor of
+  determinant1. The12288 emitted-letter controls also agree. No large
+  inequality solve, frontier, occurrence or wider graph was repeated.
+- `partial-proof`: the equalities force EVERY universally strict
+  weight to be omega(r,g)=c+phi(r)-phi(G_g(r) mod16). Boundedness
+  below on all ordinary words implies c>=0, but a closed block changes
+  cost by6c>=0. Equivalently: for EVERY bounded-below weight there
+  EXISTS a finite ordinary word ending50055 mod65536 with nonnegative
+  block change. No common witness or witness-length bound is asserted.
+- `partial-proof`: the previous normalized LP is now solved EXACTLY
+  by algebra, with optimum epsilon=-1/8. Positive-flow weighting forces
+  all h-edge slacks0; rigidity plus sum omega=1 gives c=1/48. The
+  exact constant primal omega=1/48,h=0 attains epsilon=-1/8. The old
+  numerical timeout remains unchanged; no solver result was invented.
+- Six fresh Muse attempts have returned provider429, including the
+  final adversarial review request. Independent arithmetic, determinants
+  and the cycle-pumping/slack proof derivations were lead-local. No
+  other model was substituted and no successful fresh external proof
+  review is claimed.
+- Records: `results/problem1/20260906_positive_circulation_rank_`
+  followed by `{primary,independent}.json`, plus
+  `20260906_positive_circulation_final_audit.json`. Original sources,
+  admission snapshot, provenance and reachability dependencies are retained.
+
+Next: leave the sixteen-state universal additive route CLOSED. Do not
+refit its weights, repeat its LP, enlarge its boxes or search for a dual
+flow now that exact rigidity settles it. Return to prescribed age versus
+original length in the boundary-sum argument, or derive an ALL-MEMORY
+rigidity theorem structurally; the finite rank32 certificate does not
+establish one at larger memory. Nonlinear or age-restricted mechanisms,
+actual return exclusion, B_all and Problem1 remain open. The older LP
+entries immediately below are historical and their unsolved-feasibility
+next steps are superseded by this exact result.
+
 Newest bounded continuation (2026-09-06): read
 `proofs/informal/problem1_closed_block_potential_feasibility.md` first,
 then `problem1_fixed_block_potential_decision.md` for the exact reduction.
