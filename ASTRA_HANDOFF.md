@@ -11,6 +11,45 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+## Fresh fallback review audit (2026-09-06)
+
+Resume with `proofs/informal/problem1_all_memory_fallback_review_audit.md`.
+The starting checkout was `432934578b6696fa153403897f7764f8ce007e89`,
+freshly fetched and identical to origin/research/astra-next.
+
+The current ASTRA_GOAL.md supersedes the historical Muse-only restriction
+below: after two Muse provider429 failures, including one delayed retry,
+the prescribed opencode-go/mimo-v2.5 fallback WAS used. It returned an
+initial review and one correction, both rejected as proof-critical
+verification. No different subagent model was substituted. All three
+new agent threads are terminal and closed; nothing remains to wait for.
+
+- `refuted`: the initial review's c=0 inference drops the original
+  cycle cost. Correctly, sum_cycle omega=c*length. Constant omega=1
+  has d6=0 and c=1; it tests the intermediate algebra, not strict descent.
+  The correction also omitted the 2^(-b) normalization in c.
+- `refuted`: its one-bit precision-loss claim for A, by q=0 and4
+  at output width1: A(0)=0, A(4)=7. The correction still conflated
+  pure H/A with forced F in survivor endpoint closure, and conflated
+  generator fiber bijection with joint scanner-output averaging.
+- `inconclusive`: fresh verification remains missing. These are review
+  errors, not established flaws in the all-memory source proof. Its
+  status is unchanged. No finite experiment or existing census was rerun.
+  Atomic provenance: `results/problem1/20260906_all_memory_mimo_review_audit.json`.
+
+The strongest bottleneck remains an all-depth bound on ACTUAL
+near-boundary returns retaining prescribed age versus ORIGINAL length.
+First route: the boundary-sum identity with all actual-gate constraints.
+Second route: a nonlinear or history-word observable outside the closed
+universal additive class. Neither route has been exhausted or proved.
+
+Execution limitation: this session identifies as GPT-6 and exposes no
+Astra model in its agent list. The user was asked whether to authorize
+this lead or resume in Astra; no answer had arrived at checkpoint time.
+No Astra final judgment is claimed. This is not mathematical exhaustion,
+not the context threshold, and not completion of ASTRA_GOAL.md.
+The earlier mathematical handoff below is retained as historical context.
+
 ## Execution/review block at the context handoff (2026-09-06)
 
 The latest mathematical checkpoint is

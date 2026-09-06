@@ -1,0 +1,93 @@
+{
+  "backend": "model-review archive; no mathematical computation run",
+  "experiment_id": "20260906_all_memory_mimo_review_audit",
+  "git_commit": "432934578b6696fa153403897f7764f8ce007e89",
+  "hardware": {
+    "local_hostname": "Home-Server",
+    "logical_cpus": 16,
+    "machine": "x86_64",
+    "provider_hardware": null
+  },
+  "hypothesis": "Can the prescribed fallback provide a usable fresh adversarial review of the all-memory no-go?",
+  "interpretation": "Review rejected for proof-critical verification; existing mathematical statuses unchanged.",
+  "limitations": [
+    "No successful fresh proof-critical review is claimed.",
+    "Initial report is represented by exact diagnostic excerpts, not its full text.",
+    "Corrected report is preserved verbatim inside the tool response; it contains rejected mathematical claims.",
+    "No independent finite controls were rerun.",
+    "Provider computation duration, hardware and software are not exposed.",
+    "runtime_seconds measures local archive preparation only; it is not inference runtime.",
+    "Astra final judgment and new lead research are pending the user's model/role clarification."
+  ],
+  "parameters": {
+    "explicit_retry_pause_seconds": 30,
+    "lead_identity": "session identifies as GPT-6; Astra lead authorization unresolved",
+    "mimo_correction_requests": 1,
+    "mimo_initial_reviews": 1,
+    "muse_attempts": 2,
+    "scope": "five named transitions; read-only; no experiment"
+  },
+  "proof_scope": "Audit of a review response, not a new all-memory proof or experiment.",
+  "question": "problem1",
+  "result_hashes": {
+    "review_evidence_sha256": "9ffcff91269ac1d349075f6dd5ab217fa097915372f2cc24cd4ae854814b7fe7"
+  },
+  "result_summary": {
+    "all_agents_terminal_and_closed": true,
+    "followup_errors": [
+      "missing 2^-b normalization in c",
+      "substitutes pure scanner H for forced F in periodic-survivor closure",
+      "conflates compatible-generator fiber bijection with joint scanner-output distribution"
+    ],
+    "initial_review_error": "dropped original cost in cycle equation, incorrectly concluding c=0",
+    "problem1_solved": false,
+    "source_proof_refuted": false,
+    "usable_fresh_review": false
+  },
+  "review_evidence": {
+    "corrected_review_tool_response": {
+      "status": {
+        "01a07779-227b-78a0-939f-e5390420a11a": {
+          "completed": "You are right on both counts. Here is the corrected analysis.\n\n---\n\n## Corrected Transition 4 — Cycle equation and c ≥ 0\n\nThe cycle averaging argument, corrected:\n\nFor any directed cycle (q₀, g₀), (q₁, g₁), …, (q_{L−1}, g_{L−1}) in the 2^b-state graph, lift uniformly to modulo 2^{b+2r} with weight 1/2^{2r} per lift. The lifted object is a circulation (each G_g is a bijection on fibers, see below). Summing equation (6) over the lifted cycle:\n\n- Right side (coboundary Psi_n): telescopes to 0.\n- Left side: each lifted edge contributes avg_r-step-change = c − ω(q_j, g_j), where c = Σ_{r' mod 2^b} [ω(r',t)/4 + ω(r',u)/4 + ω(r',p)/2] is the uniform average output ω, independent of q₀ and g by (7).\n\nSo: Σ_j (c − ω(q_j, g_j)) = 0, giving\n\n**Σ_cycle ω = c · L.**               (∗)\n\nThis holds for every cycle. Constant ω ≡ 1 satisfies (∗) with c = 1, d₆ = 0, bounded below — confirming c = 0 is not forced. From (∗) and strong connectivity, ω decomposes as ω(q,g) = c + φ(q) − φ(G_g(q)) (equation 9). Boundedness below over all finite ordinary words forces c ≥ 0 (φ is bounded on the finite residue set). The prescribed six-step block change is 6c ≥ 0, contradicting universal strict decrease.\n\n---\n\n## Corrected Transition 3/5 — Precision bounds for H^6 and H^5 G_g\n\nThe scanner H is not the CA transition T itself. H is the residue-level word scanner that intertwines with the generators G_g via equation (3). The relevant precision loss is per application of H, not per CA step.\n\n**Bound**: H(q) mod 2^k depends on q mod 2^{k+2}. Each application of H loses at most two bits of input precision (the transition at position k uses bits k−1, k, k+1, and the section decomposition shifts by 2).\n\nTherefore:\n- H^6(q) mod 2^b depends on q mod 2^{b+12}. — The six-fold iterate needs 6 × 2 = 12 bits above 2^b.\n- H^5(G_g(q)) mod 4 depends on G_g(q) mod 2^{5·2+2} = G_g(q) mod 2^{12}. Since G_g acts on the upper bits (v = q >> 2) as a permutation and preserves the section structure, G_g(q) mod 2^{12} depends on q mod 2^{12}.\n\nFor b ≥ 4, 2^{b+12} ≥ 2^{16} > 2^{12}, so the full d₆(q,g) is well-defined modulo 2^{b+12}. The twelve-bit loss bound for the endpoint closure is: if q ≡ X mod 2^{b+12}, then H^6(q) ≡ H^6(X) mod 2^b. With H^6(X) = X (the survivor), this gives H^6(q) ≡ q mod 2^b, so φ(x) = φ(H^6(x)) and the coboundary telescopes. The 12-bit count is exact, not heuristic.\n\n---\n\n## Corrected Fiber Bijection (not from controllability)\n\nThe fiber bijection — that uniform lifting of an edge (q₀, g) produces a uniform distribution of (H^r(q) mod 2^b, emitted letter) over 2^b residues × {t,u,p} with probabilities (1/4, 1/4, 1/2) — follows from **compatible permutations**, not from strong connectivity.\n\nEach G_g is a permutation of the upper bits (v ↦ G_g(v)), acting independently of the lower section bits. These permutations are compatible: composing G_g with H preserves the fiber structure because H and G_g intertwine (equation 3). Iterating H^r on a lift q of q₀ permutes the upper 2r bits bijectively (each H step is a permutation on the upper bits by triangularity). The condition 2r − 2 ≥ b ensures the two bits controlling the emitted letter (positions 2r−2, 2r−1) lie above the b bits determining H^r(q) mod 2^b, so the output residue and emitted letter are independent. The letter distribution (1/4, 1/4, 1/2) follows from the four-section structure S = (t,u,p,p).\n\nControllability (section 1) is used separately for the endpoint closure (path from root to witness), not for the fiber bijection.\n\n---\n\n## What remains unchecked\n\n1. **The 2-bits-per-step precision bound for H** — stated as a property of the scanner, verified for small cases by the independent controls. For general b, it follows from the section decomposition T(4v+s) >> 2 = G_{S_s}(v) shifting by 2. Not independently derived from scratch in this proof; relies on the standard triangularity of Rule 30.\n\n2. **The per-residue letter-count identity** — the claim that among 2^{12} lifts, the emitted letter at step 6 has counts (1024, 1024, 2048) for each input generator and each output residue. Verified by the 3264 lifted-edge and 60 fiber-group controls. For general b, follows from the independence of the last emitted letter from the first generator (after 6 mixing steps, the lower bits that determine the letter are decoupled from the initial section). Not proved in full generality within this document.\n\n3. **The schedule-survivor existence** (F^6(X) = X, X ≡ 50055 mod 65536) — stated as established in `problem1_period_two_schedule_survivor.md`. The alternative finite-inverse-branch derivation (section 6) is self-contained and does not depend on the 2-adic framework, but its correctness depends on each B_g being a well-defined right inverse with 2-bit agreement increase per step. This is a property of Rule 30's surjectivity on each cell, not verified within this proof document.\n\n4. **The cycle decomposition into directed cycles** — standard flow decomposition in a strongly connected directed graph. Correct, but the proof does not cite the specific theorem. Minor.\n\n5. **The uniqueness of the coboundary decomposition** — given (∗), strong connectivity and the spanning-tree argument give φ unique up to an additive constant. This is standard but not explicitly proved.\n\nNone of these are fatal. The structural argument (controllability → coboundary → averaging → endpoint closure) is sound. The unchecked items are standard properties of Rule 30's triangularity, corroborated by the finite controls but not independently derived in full generality within this document."
+        }
+      },
+      "timed_out": false
+    },
+    "initial_review_exact_excerpts": [
+      "By equation (7), each lifted edge contributes an average of c, giving c · cycle_length = 0 for every cycle. Hence c = 0.",
+      "Each CA step loses ≤ 1 bit for the state (A(q) mod 2^k depends on q mod 2^{k+1}), giving 6 bits over 6 steps."
+    ],
+    "provider_failures": [
+      {
+        "agent_id": "01a07777-97db-70d0-be5f-39814c6a3579",
+        "error": "exceeded retry limit, last status: 429 Too Many Requests",
+        "model": "opencode-go/muse-spark-1.3-contributor",
+        "request_id": "a36eb6ff1c41ecd4-CMH"
+      },
+      {
+        "agent_id": "01a07778-98b5-7e21-98f1-5ad41ec07d10",
+        "error": "exceeded retry limit, last status: 429 Too Many Requests",
+        "model": "opencode-go/muse-spark-1.3-contributor",
+        "request_id": "a36eb8d0a8963014-CMH"
+      }
+    ],
+    "reviewer_agent_id": "01a07779-227b-78a0-939f-e5390420a11a",
+    "reviewer_model": "opencode-go/mimo-v2.5"
+  },
+  "runtime_seconds": 0.0071061140624806285,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4",
+    "reviewer_model": "opencode-go/mimo-v2.5",
+    "source_sha256": {
+      "ASTRA_GOAL.md": "2b7dc21cbdea6008065f32e6d314ec7cdf11533caaa541ea752519ed04937763",
+      "proofs/informal/problem1_all_residue_memory_rigidity.md": "118fd4cb3d2ae9cd3ffb350f16d451c4e3a0688261b82fd5d26adec401dae18f",
+      "proofs/informal/problem1_fixed_block_potential_decision.md": "db8b9612190f74d210d356507ef8b366e60de1f6e7e7c86405716ba12217bbd3",
+      "proofs/informal/problem1_history_synchronization.md": "984ea7991ffc1d2a1d5967f0f3626c4723c300199a4b03680a5eb41e15d06184",
+      "proofs/informal/problem1_period_two_schedule_survivor.md": "d8b664dbf296cd72651767fb0a9c86c294f2c2ea1ae614892aa6bf32d0c8a1c5",
+      "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+    }
+  },
+  "status": "inconclusive",
+  "timestamp_utc": "2026-09-06T16:17:19.728321+00:00"
+}
