@@ -1,8 +1,10 @@
 # A single-column record for eventual finite support
 
 Status: `partial-proof`, lead-derived and lead-checked; the finite checks
-are complete, but a usable full external proof review remains missing.
-Its scoped content is recorded below. Problem 1 remains open.
+are complete. Round four supplies a complete scoped external derivation
+of Section3's uniform finite-entry theorem; review of every other
+section is not inferred. Its scoped content is recorded below.
+Problem 1 remains open.
 This continues `problem1_temporal_activity_deficit.md` and replaces
 its six-cell score by one bit at each sampled time.
 
@@ -212,12 +214,23 @@ the shared `20260906_temporal_activity_deficit_{primary,verification}.json`
 in `results/problem1/`. Executed source and admission snapshots are
 retained even where later prose expanded (4a) or verification details.
 
-The all-depth arguments above remain lead-derived and lead-checked,
-with a complete usable external verification still missing. The initial
+The all-depth arguments above remain lead-derived and lead-checked.
+Round four adds a complete fresh Muse derivation of Section3, including
+the fixed-input versus spatial-limit quantifiers, odd-column inequality,
+last-time rigidity, harmonic estimate and common-time compactness step.
+The lead accepted that scoped derivation, archived in
+`problem1_activity_finiteness_independent_review.md` with source hashes.
+That record also documents a subsequently inserted false one-sided
+commutation sentence: it was rejected and removed before acceptance of
+the revised review. No full verdict on all other sections is inferred.
+The new corrected finite-level theorem is in
+`problem1_activity_level_finiteness.md`.
+
+The earlier round-three initial
 blanket acceptance was rejected for three proof-critical review errors;
 the corrective source audit is retained only in its actual scope.
 The provider attempts, accepted last-time/harmonic derivations and the
 separate superseded primary-record correction are detailed in the
 temporal-deficit note and `20260906_temporal_activity_review.json`.
-All agent threads are closed. No full reviewer acceptance or actual
-growth result is inferred from these finite comparisons.
+That round's agent threads were closed. No all-section reviewer
+acceptance or actual growth result is inferred from finite comparisons.

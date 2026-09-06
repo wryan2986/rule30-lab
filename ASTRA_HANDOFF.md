@@ -1,3 +1,65 @@
+## Round 4 research checkpoint (2026-09-06, base `726e758`)
+
+Start with `proofs/informal/problem1_activity_level_finiteness.md`.
+The previous draft is superseded by its corrected proof, not a new
+sublevel census. `partial-proof`: E_K={x:sup_s V_s(x)<=K} is FINITE
+for each fixed K. The finite-entry theorem supplies h=h_V(K);
+time translation costs at most h activity. A finite y of bit length B
+is isolated among activity<=L inputs by first-difference position
+a>=B+4L+4. T preserves that first difference, so every point of the
+compact E_K is isolated and E_K is finite. Consequently a uniform
+finite output-size bound EXISTS at each K, but no explicit formula
+for it is supplied. No finite E_K graph has been computed.
+
+The draft's claim that BOTH lower neighbors stay zero through
+N=floor((a-B-1)/2) is `refuted`: y1,z17,a4,N1 has Tz119 with bit2=1.
+Correct N=floor((a-B-2)/2); all even/odd seams and B0 are covered.
+The original draft remains archival, with a pointer to the correction.
+
+New exact transitions (`partial-proof`), s>=1:
+
+    V_s(Ax)=V_(s+1)(x)-bit_(2s+2)x;
+    V_s(pi x)=V_(s+1)(x)-bit_2(A^s x);
+    V_s(Gx)=V_s(x)-bit_(2s)x+bit_0(A^s x), G=T,U,P.
+
+Thus A and pi preserve E_K; a generator and a permitted F step give
+only E_(K+1). E0={0,1,2,3}. Universal one-step R nonincrease is
+`refuted`, even ordinary: P,U from root1 gives27, F27=111,
+R27=1,R111=2 by the exact A cycles25<->27 and100<->111.
+111 has no further gate; this is NOT an infinite-survivor counterexample.
+Conditional warning: if R(x)<infinity and x has an infinite forced
+orbit, then R(F^r x)->infinity nevertheless, since after finite entry
+the degree grows and each E_K is finite. Also R(F^r x)<=R(x)+r.
+Growth across ORBIT SHIFTS is not the desired growth in AGE of ONE
+fixed actual survivor. The latter remains the strongest bottleneck.
+
+Fresh Muse proof-only review now ACCEPTED IN SCOPE: V Section3's
+complete uniform finite-entry theorem (including the imported last-time,
+harmonic and spatial-limit arguments); the corrected finite-level proof;
+the A/G/pi identities and E0; the sharp one-step and conditional-orbit
+arguments. `proofs/informal/problem1_activity_finiteness_independent_review.md`
+contains full corrected derivations. Lead rejected the review's false
+claims pi T=T pi and A T=T A, plus a finite-only E0 argument and wrong
+support-bound wording, before accepting its explicit corrected verdict.
+Those commutations are FALSE (x1 suffices), though pi A=A pi is true.
+Record `results/problem1/20260906_activity_finiteness_review.json` preserves
+the exact reviewed original sources, new source and full corrected review.
+This closes the specified review gap, NOT an all-section verdict on
+every earlier D/V claim; old all-memory/all-r review limits are unchanged.
+
+Current NEW admitted test, still pending integration at this checkpoint:
+`proofs/informal/problem1_activity_return_nonincrease.md` tests R at
+times4 and10 on the ALREADY stored u18/0x6473d46ab, ten observed
+branches ttttututut with final u checked but unexecuted. Exact closed
+finite A vectors certify full-age R; no larger frontier or occurrence.
+Three-return nonincrease plus finite levels WOULD force termination.
+The independent cell/projection certificate reports R4=13,R10=16,
+but primary comparison and fresh scope review remain pending. Do NOT
+mark this return claim refuted until those checks are integrated.
+The single Muse worker is now implementing the primary in its assigned
+disjoint source/result files. This intermediate status will be superseded
+at the next checkpoint. Problem 1 remains open; research continues.
+
 ## Round 3 maintenance rollover (2026-09-06, approximately 70 minutes)
 
 This round began at19:10:52UTC and finishes near20:20UTC. Established

@@ -3,6 +3,9 @@
 Status: `partial-proof` for the all-depth statements below. The declared
 finite checks are complete; a usable complete external proof review is
 still missing. Scoped review and its corrections are recorded in Section6.
+Round four independently verifies the Section3 last-time/harmonic lemmas
+and the spatial-limit argument as used for the single-column V theorem;
+this does not imply acceptance of every Z-specific section here.
 This is a new support criterion and a reformulation of the active
 period-two bottleneck, not an exclusion of period two or a solution of
 Problem 1. Base checkpoint: `a60d87f4c88343afe22b7ee5ee9f8180b96ecaee`.
@@ -326,6 +329,12 @@ closed. Exact disposition, critical initial excerpts, the full corrective
 response and reviewed source snapshots are archived in
 `results/problem1/20260906_temporal_activity_review.json`.
 The finite checks do not discharge the missing review or actual growth.
+Round-four update: a fresh complete Muse derivation of the single-column
+finite-entry theorem, including this note's last-time/harmonic lemmas and
+its common-time spatial-limit argument, is now accepted in that precise
+scope. See `problem1_activity_finiteness_independent_review.md`; it also
+records correction of the review's subsequently inserted false one-sided
+commutation claim. No blanket verdict on all Z-specific sections follows.
 The immutable reference is unchanged, and source/admission hashes reload.
 The signed-mass and B_all routes
 remain open; this note proves neither a new occurrence exclusion nor

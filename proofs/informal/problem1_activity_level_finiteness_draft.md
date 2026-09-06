@@ -1,5 +1,12 @@
 # Next candidate: finite levels of the activity record
 
+Round-four disposition: the final-time zero-neighbor assertion below has
+a hand counterexample, and a shorter window repairs it. The resulting
+finite-level theorem, exact transitions and scoped independent review are
+now in `problem1_activity_level_finiteness.md` and
+`problem1_activity_finiteness_independent_review.md`. This draft is kept
+as historical work in progress, not the current proof source.
+
 Status: `inconclusive` as a proposed research route. The derivation below
 is lead work in progress, not an externally verified theorem. It depends
 on the temporal-activity finite-entry theorem, whose review disposition
