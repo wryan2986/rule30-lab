@@ -1,3 +1,20 @@
+## Round 2 first checkpoint (2026-09-06, base `b264a4c`)
+
+Fresh Muse adversarial review ACCEPTED section7 of
+`proofs/informal/problem1_periodic_boundary_growth.md`: the precise
+left-to-right finite-state additive o(s) approximation no-go, including
+the single-slope proof, two phase slopes, and error lower bound3/92.
+The initial provider429 was followed by one successful delayed retry.
+Exact verdict and reviewed-source provenance are archived in
+`results/problem1/20260906_round2_additive_review.json`.
+This closes THAT missing review only; the full old all-memory external
+review is still missing. No old finite experiment was repeated.
+
+Round2 research continues on interrupted boundary histories. The new
+terminal-defect work is not part of this first checkpoint until its
+separate verification and integration finish. This is maintenance,
+not goal completion or mathematical blockage.
+
 ## Round 1 maintenance rollover (2026-09-06, approximately 70 minutes)
 
 Research started at16:56UTC and checkpointed at18:04UTC. The first

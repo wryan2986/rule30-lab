@@ -283,6 +283,16 @@ outside the stated left-to-right class.
 
 ## 8. Verification and provenance
 
+Round 2 update (2026-09-06): a fresh bounded Muse adversarial review
+ACCEPTED Section7 in its stated scope, including the periodic reader's
+single slope, the two phase slopes, the 3/92 error bound and the separate
+bounded-increment argument. It used Sections1--6 and the stored ututtt
+certificate dependencies. The initial provider429 was followed by one
+successful delayed retry. This closes the missing Section7 review below;
+it is not a review of the entire older all-memory proof. Exact verdict,
+reviewed source snapshot and provenance are archived in
+`results/problem1/20260906_round2_additive_review.json`.
+
 Status: `finite-exhaustive` for the declared checks. Muse implemented
 the modular-fraction calculation and a vector replay. The lead wrote
 a separate direct cell-vector implementation and independently reviewed
