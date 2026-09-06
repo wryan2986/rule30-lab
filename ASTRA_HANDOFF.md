@@ -1,3 +1,5 @@
+## Dry-run test (round 1) - 2026-09-06 12:51:06
+
 # Astra handoff (2026-09-04, base `a9af399`)
 
 Repo does not solve any prize problem. Finite evidence is never proof of an infinite statement. Claim statuses (`empirical`, `finite-exhaustive`, `partial-proof`, `inconclusive`, ...) per `docs/experiment_protocol.md`.
