@@ -1,0 +1,54 @@
+{
+  "backend": "saved-cell-replay-comparison-and-packed-prefix-formula",
+  "experiment_id": "problem1-wdagger-continuation-verification-20260906",
+  "git_commit": "b0f81633845b86599560b640bb6f88e72f77b4bf",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Recovered Wdagger certificates reproduce exactly and prescribed histories agree with independent prefix/birth formulas.",
+  "inputs": {
+    "results/problem1/20260906_wdagger_zero_independent.json": "cd093849e0699340aad0411852c09b8f0e735feca7e2487b56a8402ffb65d187",
+    "results/problem1/20260906_wdagger_zero_primary.json": "44e2dee404665d538b955f3bad20d41ce289f46d702cf149aafaa8ab174c44b0"
+  },
+  "interpretation": "Both Wdagger refutations and the saved certificate data pass. No Problem 1 proof.",
+  "limitations": [
+    "Two fresh Muse audit attempts returned provider429; this continuation verification was performed by the lead locally.",
+    "Saved raw record labelled as Muse is preserved; no fresh successful Muse audit is claimed.",
+    "Raw P small-control branch was a no-op; full independent cell replay supplies P verification.",
+    "Original raw searches were not rerun.",
+    "Replaying this wrapper needs the saved independent verifier run first with output /tmp/astra-wdagger-audit-replay.json."
+  ],
+  "parameters": {
+    "existing_graph_edges": 45056,
+    "existing_graph_vertices": 16384,
+    "new_searches": 0,
+    "prescribed_updates": 12,
+    "witnesses": 2
+  },
+  "proof_scope": "Two stored witnesses and saved full graph certificate replay; separate algebra gives four-constraint separation.",
+  "question": "problem1",
+  "result_hashes": {
+    "saved_replay_sha256": "1bf537d045708db13ced3fb4960f44531a402a52cd93845aa56cd52463d42855",
+    "source_sha256": "3e8f048fc2e60216b8344599b3ea084d01abdebb802d4d1d21885e62e4a05cc2"
+  },
+  "result_summary": {
+    "closed_separator_dots": [
+      -1,
+      -1,
+      -1,
+      -4
+    ],
+    "complete_summary_and_rows_match": true,
+    "prefix_birth_formula_checks": 12
+  },
+  "runtime_seconds": 0.025463953032158315,
+  "saved_replay_runtime_seconds": 0.615350850042887,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Check saved independent replay and audit provenance; no new search.\"\"\"\nimport datetime, hashlib, json, os, pathlib, platform, subprocess, sys, tempfile, time\nstart=time.monotonic(); stamp=datetime.datetime.now(datetime.timezone.utc).isoformat()\nroot=pathlib.Path('/home/ryan/rule30-lab'); sha=lambda b:hashlib.sha256(b).hexdigest()\npaths=[root/'results/problem1/20260906_wdagger_zero_primary.json',root/'results/problem1/20260906_wdagger_zero_independent.json']\np,i=[json.loads(x.read_text()) for x in paths]\nreplay_path=pathlib.Path('/tmp/astra-wdagger-audit-replay.json'); r=json.loads(replay_path.read_text())\nassert i['result_summary']==r['result_summary'] and i['results']==r['results']\nassert i['source_text']==r['source_text']\nfor x in [p,i,r]:\n assert sha(x['source_text'].encode())==x['result_hashes']['source_sha256']\n assert sha(json.dumps(x['result_summary'],sort_keys=True).encode())==x['result_hashes']['summary_sha256']\nraw=json.loads(p['raw_json_text']); closed=json.loads(p['closed_json_text'])\nassert sha(p['raw_json_text'].encode())==p['raw_sha256']\nassert sha(p['closed_json_text'].encode())==p['closed_sha256']\nassert sha(p['closed_note_snapshot'].encode())==closed['result_hashes']['notes']['proofs/informal/problem1_wdagger_zero_language.md']\nassert sha((root/'src/python/rule30_research_reference.py').read_bytes())==raw['result_hashes']['reference_sha256']\n# Direct odd-section generator and independent position-by-position derivation.\ndef T(x): return x^((x<<1)|(x<<2))\ndef G(x,g): return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\ndef A(x): return T(x)>>2\ndef iterate(x,n):\n for _ in range(n): x=A(x)\n return x\ndef prefixes(a,w):\n out=[3 if a=='p' else 1]\n for g in w: out.append(G(out[-1],g))\n return out\nchecks=0\nfor row in i['results']['rows']:\n a=row['phase']; w=row['histories'][0]; pref=prefixes(a,w); states=row['states']\n for s in range(1,7):\n  original=''.join('tupp'[iterate(z,s-1)%4] for z in pref[1:])\n  born=''.join('ututut'[t-1] if t==s else 'tupp'[iterate(states[t],s-t-1)%4] for t in range(1,s+1))\n  assert original+born==row['histories'][s]\n  assert prefixes(a,original+born)[-1]==states[s]\n  checks+=1\nsource=pathlib.Path(__file__).read_text()\nrec={'experiment_id':'problem1-wdagger-continuation-verification-20260906','timestamp_utc':stamp,\n 'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),\n 'question':'problem1','hypothesis':'Recovered Wdagger certificates reproduce exactly and prescribed histories agree with independent prefix/birth formulas.',\n 'backend':'saved-cell-replay-comparison-and-packed-prefix-formula',\n 'parameters':{'existing_graph_vertices':16384,'existing_graph_edges':45056,'witnesses':2,'prescribed_updates':12,'new_searches':0},\n 'hardware':{'machine':platform.machine(),'cpu_count':os.cpu_count()},'software':{'python':sys.version,'platform':platform.platform()},\n 'runtime_seconds':time.monotonic()-start,'saved_replay_runtime_seconds':r['runtime_seconds'],\n 'inputs':{str(x.relative_to(root)):sha(x.read_bytes()) for x in paths},\n 'result_summary':{'complete_summary_and_rows_match':True,'prefix_birth_formula_checks':checks,'closed_separator_dots':[-1,-1,-1,-4]},\n 'source_text':source,'result_hashes':{'source_sha256':sha(source.encode()),'saved_replay_sha256':sha(replay_path.read_bytes())},\n 'status':'finite-exhaustive','proof_scope':'Two stored witnesses and saved full graph certificate replay; separate algebra gives four-constraint separation.',\n 'interpretation':'Both Wdagger refutations and the saved certificate data pass. No Problem 1 proof.',\n 'limitations':['Two fresh Muse audit attempts returned provider429; this continuation verification was performed by the lead locally.','Saved raw record labelled as Muse is preserved; no fresh successful Muse audit is claimed.','Raw P small-control branch was a no-op; full independent cell replay supplies P verification.','Original raw searches were not rerun.','Replaying this wrapper needs the saved independent verifier run first with output /tmp/astra-wdagger-audit-replay.json.']}\nout=root/'results/problem1/20260906_wdagger_zero_verification.json';fd,tmp=tempfile.mkstemp(dir=out.parent,prefix=out.name+'.')\nwith os.fdopen(fd,'w') as f:json.dump(rec,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out);print(json.dumps(rec['result_summary']))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T13:53:07.994933+00:00"
+}

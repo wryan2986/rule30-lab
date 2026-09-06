@@ -11,6 +11,45 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest recovered checkpoint (2026-09-06): read
+`proofs/informal/problem1_wdagger_zero_language.md` first.
+
+- The Wdagger files were already untracked at continuation start; their
+  completed searches were recovered, not rerun. Origin was verified at
+  b0f81633845b86599560b640bb6f88e72f77b4bf before integration.
+- `refuted`: universal strict Wdagger descent, with genuine cut0,gaps222
+  histories p14/0xde68387 and u18/0x642e4c387. Rooted words are
+  ptuuupttuttttp and upuuutututttututup. Costs are0->0 and0->1 across
+  six actual ututut branches. Thus nonincrease also fails in phase u.
+  The final admissibility u is unobserved. No age or boundary counter
+  is inferred.
+- `finite-exhaustive`: all16384 residues reached from both roots using
+  45056 zero edges; shortest nonroot lengths13 and17. Independent cell
+  graph certificates and reverse distances agree, as do14 states,
+  12 prescribed updates and all four48-component count tables.
+- `partial-proof`: all eight stored block differences start at residue7,
+  so any nonnegative circulation combination uses only blocks ending7.
+  These four closed u-blocks have separator V=N_(3,t)+N_(3,u), with
+  dots(-1,-1,-1,-4). Hence NO nonzero nonnegative real combination of
+  the eight differences is a componentwise nonnegative circulation.
+  This supersedes the stored624-tuple closed-four absence. No larger
+  coefficient box on these vectors is admissible. V is not universal.
+- Primary small P control was a no-op; independent full cell arithmetic
+  supplies the actual P verification. Packaging and raw computational
+  times remain separate; original note snapshot and all raw sources
+  are preserved. No invented preregistration chronology.
+- Two fresh Muse audits failed provider HTTP429; lead independently
+  replayed the existing cell verifier locally, with exact agreement,
+  and checked all12 histories again by original-prefix/birth formulas.
+  No native/default subagent substituted and no fresh successful Muse
+  audit is claimed. The compact continuation audit is in
+  `results/problem1/20260906_wdagger_zero_verification.json`.
+
+Next: test a structural constraint on the sixteen-state potential class,
+or retain prescribed age versus original length in a new argument.
+Do not rerun the Wdagger zero language or refit finite witnesses as if
+this were universal descent. B_all and Problem1 remain open.
+
 Newest potential feasibility result (2026-09-06): read
 `proofs/informal/problem1_sixteen_state_potential_feasibility.md` first.
 
