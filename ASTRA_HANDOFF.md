@@ -11,6 +11,57 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest all-memory no-go (2026-09-06): read
+`proofs/informal/problem1_all_residue_memory_rigidity.md` first.
+
+- `refuted`: fixed additive old-prefix-residue potentials at EVERY
+  finite memory, for BOTH phase roots, bounded below on ALL ordinary
+  histories and strictly decreasing on every prescribed ututut block
+  in the50055-mod65536 sublanguage. This is a structural all-b theorem,
+  not an extension of the32-row rank experiment to larger widths.
+- `partial-proof`: every finite T/U/P residue graph is controllable
+  from every root. PT^-1 rotates the lowest two bits, and the four
+  sections of T are T,U,P,P. An invariant-function induction removes
+  two bits at a time. No larger reachability graph is needed.
+- `partial-proof`: the positive zero-change circulation works for
+  every b, so universal strict descent makes d6 a coboundary. Iterating
+  PURE H6 gives the same identity for r=6n; this does NOT assume6n
+  actual forced steps. At2r-2>=b, averaging higher-bit lifts of any
+  original edge yields a uniform prefix and letter probabilities
+  (1/4,1/4,1/2), independently of the original edge. Lift a base cycle
+  uniformly: coboundary cancellation forces its cost to equal c times
+  length. Hence omega=c+endpoint coboundary at EVERY finite b.
+- For b>4 the old closed16-bit condition alone does not cancel the
+  endpoint terms. The periodic(ut)^infinity2-adic survivor supplies,
+  for EACH b, a residue closed under F6 modulo2^b. All-width
+  controllability gives a finite ordinary word congruent to it through
+  b+12 bits. Its block change is6c>=0. An independent finite inverse-
+  branch contraction argument supplies the same residue existence.
+  Neither makes the survivor ordinary or gives one word for all b.
+- Exact quantifiers: EVERY b, phase and bounded-below weight table
+  has SOME finite ordinary word x=50055 mod65536 with nonnegative
+  six-step change. No common witness or witness-length bound is claimed.
+- `finite-exhaustive`: two small implementations agree on64 section
+  cases,64 rotations,60 fiber groups/3264 lifts and9632 literal
+  scanner intertwining checks. `refuted` early-averaging claim:
+  b4,r2,q0,g=t gives16 t emissions instead of(4,4,8). The condition
+  2r-2>=b is essential and retained. Largest control modulus1024;
+  no wider graph/rank/frontier/occurrence/solver run.
+- Seventh fresh Muse proof review returnedprovider429. Old errored
+  threads were closed before retrying; no different model was used.
+  All new verification and proof audits are lead-local; no successful
+  fresh external proof review is claimed. Records:
+  `results/problem1/20260906_all_memory_{primary,independent}.json`.
+
+Next: leave ALL finite-residue-memory universal additive strict descent
+closed. Return to age versus original length and actual near-boundary
+returns in the boundary-sum argument, or specify a nonlinear/word-state
+mechanism outside this class. Arbitrary finite automata on history words,
+age-dependent weights and restricted prescribed histories are NOT ruled
+out. B_all, actual return exclusion, the whole-tail conjecture and
+Problem1 remain open. The older suggestion to generalize residue-memory
+rigidity below is now superseded; do not run a width sweep.
+
 Newest exact no-go (2026-09-06): read
 `proofs/informal/problem1_positive_circulation_rigidity.md` first.
 
