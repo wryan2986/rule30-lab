@@ -1,3 +1,88 @@
+## Round 3 research checkpoint (2026-09-06, base `a60d87f`)
+
+Read `proofs/informal/problem1_temporal_activity_deficit.md` and
+`proofs/informal/problem1_single_column_activity.md` first. These are
+new exact support criteria and a simpler ordered-history target. They
+DO NOT prove growth on the actual survivor, B_all, or Problem 1.
+
+- `partial-proof`, lead-derived/checked, fresh external review PENDING:
+  A^r=pi^r T^r turns the old original-position cost into
+  D_s=sum_(t=0..s-1) I(pi^(s-1)T^t x). Thus Z_s=s-D_s counts
+  noncharge times in one six-cell spatial window. For ANY 2-adic x,
+  bounded Z_s is equivalent to some T^h(x) being nonnegative finite.
+  It is NOT equivalent to x initially finite: T(-1)=1 and
+  T(-1/7)=-1,T²(-1/7)=1, with Z respectively1 and min(s,2).
+- `partial-proof`: the new mechanism is temporal-activity rigidity on
+  BI-INFINITE spatial limits. Finite last active times satisfy
+  m_i=max(m_(i-1),m_(i-2)), hence all are the same M and the last
+  active row is all ones. At most B active times per column implies
+  sum_(r=0..M)1/(2r+1)<=B. Every charge-5 time is followed by a
+  noncharge, so Z<=K gives activity<=2K in every spatial limit.
+  h(K)=min{h:sum_(r=0..h)1/(2r+1)>2K} is a UNIFORM extinction
+  time there, forcing T^h(K)x finite. No uniform output size is asserted.
+- `partial-proof`: the simpler V_0=0,
+  V_s=sum_(t=0..s-1)bit_(2s)(T^t x), is determined by only s
+  OBSERVED branches. For finite entry y=T^h x of complexity k,
+  V_s<=min(s,max(h,k-1)); positive finite x gives V_s<=k-1.
+  V_s<=2Z_s+1 and
+  Z_s<=V_(s-1)+3V_s+3V_(s+1)+2V_(s+2)+2 imply boundedness
+  equivalence. Direct even-column activity also gives entry threshold
+  h_V(K)=min{h:sum_(r=0..h)1/(2r+1)>3K/2}.
+- `partial-proof`: with original nonroot length n and s>=n,
+  V_s=sum_(i=0..n-1)bit_0(A^s(v_i)). It IS additive over PURE
+  scanner images of ORIGINAL positions; it omits appended positions.
+  Do not misapply the old universal TOTAL-current-history additive no-go.
+- `partial-proof`: across one ACTUAL first gate,
+  V_(s+1)(x)-V_s(Fx)=bit_(2s+2)x+bit_(2s+2)Tx-bit_0 A^(s+1)x,
+  between -1 and2. The analogous Z seam has the same bounds.
+  Record unboundedness is invariant under any fixed actual prefix
+  removal. pi^r F^r=A^(2r)x equates eventual finite entry under T
+  and F on an infinite forced orbit. Thus unbounded V (or Z) means
+  EVERY actual forced state has infinite support; no actual growth
+  premise is supplied by this equivalence.
+- `finite-exhaustive`: modular A-diagonal and independent cell T /
+  rational-long-division methods agree on192 D full temporal vectors,
+  160 D bounds,256 local charge rows,64 finite temporal-word rows,
+  harmonic thresholds K0,1,2 -> h0,7,418, two two-step gate orbits,
+  32 complete D seams,204 V full vectors,170 V bounds,168 V/Z
+  comparisons and30 complete V seams. ONLY twelve named rational
+  inputs at ages<=16 were used (D seam also needs its declared next
+  age); no new frontier, occurrence, comparator or width sweep ran.
+
+Records in `results/problem1/`:
+`20260906_temporal_activity_deficit_{initial,primary,independent,verification}.json`
+and `20260906_single_column_activity_independent.json`. Four executable
+sources in `experiments/problem1_nonperiodicity/` retain exact source and
+executed-note hashes. The initial primary is preserved as SUPERSEDED:
+its modular finite-entry detection is not an infinite certificate.
+The corrected primary uses the stated exact identities and compares
+all vectors. Reference hash358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01
+is unchanged.
+
+Review disposition AT THIS INTERMEDIATE CHECKPOINT: Muse supplied a
+partial modular implementation but its followup and one delayed retry
+returned429; no full new proof verdict was delivered. Lead corrected
+an unadmitted modular entry search and missing provenance, and added
+only the separately admitted V controls. MiMo primary fallback was
+closed while still running after approximately13minutes without a
+usable correction/verdict; it has no accepted contributed result.
+Fresh PROOF-ONLY Muse review also returned429 and delayed-retry429.
+Its MiMo fallback is currently running as agent
+`01a07847-a3ad-71e2-95d1-be69853efb60`; it owns no files. Final maintenance
+will supersede this pending disposition. Old all-memory and all-r
+external review limitations remain unchanged.
+
+Strongest current bottleneck: prove that the record
+R_N^V=max_(0<=s<=N)V_s grows unboundedly on the ACTUAL period-two
+survivor with its full fringe coupling. This only needs record growth,
+not positive density, a linear slope, or growth at every age. The
+finite-entry theorem does not discharge that obligation. A direct
+ordered-history mechanism on original positions is now precisely
+formulated; no experiment to test such a mechanism is admitted yet.
+Do not transfer old Psi slopes/edit laws to V or D without derivation.
+General temporal least periods>=3 remain unhandled. Research continues;
+this intermediate checkpoint is neither success nor mathematical blockage.
+
 ## Round 2 maintenance rollover (2026-09-06, approximately 65 minutes)
 
 Research started at18:05UTC; final maintenance is around19:10UTC.

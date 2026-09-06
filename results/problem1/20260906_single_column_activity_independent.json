@@ -1,0 +1,5982 @@
+{
+  "backend": "independent-python-cell-arrays-rational-long-division",
+  "experiment_id": "20260906-single-column-activity-independent",
+  "git_commit": "a60d87f4c88343afe22b7ee5ee9f8180b96ecaee",
+  "hardware": {
+    "logical_cpus": 16,
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "hypothesis": "Single-column finite-entry bound, comparison with D deficit, and exact first-gate seam",
+  "interpretation": "Finite identities on the named inputs only; actual record growth and all-depth transitions need proof.",
+  "limitations": [
+    "No new survivor, period, frontier, occurrence, or memory sweep.",
+    "This is independent of the primary modular implementation but reuses the earlier cell helpers.",
+    "No infinite claim follows from finite agreement."
+  ],
+  "parameters": {
+    "ages": [
+      0,
+      16
+    ],
+    "comparison_ages": [
+      1,
+      14
+    ],
+    "cpu_concurrency": 1,
+    "inputs": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "5",
+      "7",
+      "-1",
+      "-2",
+      "-3",
+      "-1/7",
+      "1/3",
+      "-1/3"
+    ],
+    "memory_cap_bytes": 1073741824,
+    "seam_ages": [
+      1,
+      15
+    ],
+    "seam_inputs": [
+      7,
+      43
+    ],
+    "wall_cap_seconds": 120
+  },
+  "proof_scope": "Exactly twelve rational controls, ages0..16, and the declared comparison/seam subranges.",
+  "provenance": {
+    "admission": "# A single-column record for eventual finite support\n\nStatus: `partial-proof`, lead-derived; verification and fresh external\nreview are recorded separately below. Problem 1 remains open.\nThis continues `problem1_temporal_activity_deficit.md` and replaces\nits six-cell score by one bit at each sampled time.\n\n## Purpose and admission\n\nThe temporal-deficit theorem distinguishes eventual entry into finite\nsupport from permanent infinite support. Its proof suggests that the\nspecial weight I and the additional observed gate are unnecessary for\nthe resulting unboundedness target. Derive a single-column observable\nfirst; a failed precision or finite-entry argument would invalidate\nthat simplification. No larger schedule or spatial-width search follows.\n\nThe optional finite verification is restricted to the SAME twelve\nrational inputs and ages 0..16 already admitted in the temporal-deficit\nnote. Check the comparison inequality only for s=1..14 so that s+2\nstays within that bound, and the seam only at x=7,43, s=1..15.\nThe added zero age is the empty sum. The local Rule 30 rows already\nneeded for D cover the bit used here. Retain full count vectors, not\nonly totals. A disagreement corrects a proof identity; agreement says\nnothing about actual-survivor unboundedness. No input, comparator,\nfrontier, occurrence or memory-width extension is admitted.\nLocal one CPU, 120 seconds and 1 GiB per implementation; any run\nmust retain the full atomic protocol and source/admission snapshots.\n\n## 1. The observable and its gate precision (`partial-proof`)\n\nFor any 2-adic x put V_0(x)=0, and for s>=1 define\n\n    V_s(x)=sum_(t=0..s-1) bit_(2s)(T^t(x)).               (1)\n\nIt counts active times in the single spatial column 2s, before time s.\nAlways 0<=V_s<=s. In the notation of the preceding note,\n\n    V_s(x)=sum_(t=0..s-1) bit_0(A^t(pi^(s-t)(x))).        (2)\n\nThis follows from A^t=pi^t T^t and pi A=A pi. Every term uses only\nbits 0,...,2s of x, because T is causal toward increasing indices.\nTherefore the first s OBSERVED forced branches, whose cylinder has\nprecision 2s+2, determine V_s. No additional observed branch or\nunobserved admissibility letter is needed. The case s=0 is constant.\n\nIf y=T^h(x) is a nonnegative integer and k=ceil(bitlen(y)/2), with\nbitlen(0)=0, the finite propagation bound gives\n\n    V_s(x)<=min(s,max(h,k-1)).                            (3)\n\nFor times t>=h the column 2s is zero if t<=s+h-k. At most h early\ntimes and max(k-h-1,0) late times remain. When the proposed bound\nexceeds s, use V_s<=s. In particular, for positive finite x of\noriginal complexity k,\n\n    V_s(x)<=k-1  for every s.                            (4)\n\nThis bound uses ORIGINAL size and does not require ordinary-frontier\nmembership. An infinite initial tail is not excluded by bounded V:\nthe finite-entry examples -1 and -1/7 from the preceding note remain\nessential scope controls.\n\n## 2. Quantitative comparison with the deficit (`partial-proof`)\n\nLet R_N^V=max_(0<=s<=N)V_s and R_N^Z=max_(1<=s<=N)Z_s, for N>=1.\nFor all 2-adic x and s>=1,\n\n    V_s <= 2 Z_s+1,                                     (5)\n    Z_s <= V_(s-1)+3V_s+3V_(s+1)+2V_(s+2)+2.             (6)\n\nTo prove (5), the bit at 2s belongs to the six-cell window starting\nat 2s-2 used by Z_s. A zero window contributes no active bit.\nEvery nonzero window is either a noncharge or the charge pattern 5.\nEvery charge-5 time except possibly the final sampled time is followed\nby a noncharge time, as proved in the temporal-deficit note. Thus the\nnumber of nonzero-window times is at most 2Z_s+1.\n\nFor (6), a noncharge window is necessarily nonzero, so bound its\nindicator by the sum of its six bits. Write u_i(t)=bit_i(T^t(x)).\nFor any i>=2 the local rule gives\n\n    u_(i-1)(t) <= u_i(t) XOR u_i(t+1)\n                 <= u_i(t)+u_i(t+1).                    (7)\n\nIndeed the XOR is u_(i-1)(t) OR u_(i-2)(t). Over times 0,...,s-1,\nthe three even columns 2s-2,2s,2s+2 have total activity at most\nV_(s-1)+1, V_s, V_(s+1), respectively. Apply (7) to the three\nodd columns using their NEXT even columns. Their activities are at\nmost 2V_s+1, 2V_(s+1), and 2V_(s+2), respectively. All sampled\ntimes lie within the defining horizons of these V terms. For s=1,\nthe first even-column bound is V_0+1=1; no negative age is used.\nAdding the six bounds proves (6).\n\nConsequently\n\n    R_N^V<=2R_N^Z+1,\n    R_N^Z<=9R_(N+2)^V+2.                                (8)\n\nIn particular V_s is bounded in s if and only if Z_s is bounded.\nThe constants in these elementary comparisons are not claimed optimal.\nCombining (8) with the preceding theorem proves\n\n    sup_s V_s(x)<infinity\n      iff some T^h(x) is nonnegative finite.              (9)\n\nNo assumption that the counts grow monotonically at every age is\nmade. Their RECORD maxima are monotone by definition.\n\n## 3. A direct single-column proof and an entry-time bound\n\nStatus: `partial-proof`. The spatial-limit argument can also be made\ndirectly with V and gives a somewhat better extinction estimate.\nIf V_s<=K at every s, take any spatial limit of even shifts tending\nto infinity. Every even column of that bi-infinite limiting spacetime\nhas at most K active times. This follows by using age s+a for the\ncolumn shifted by 2a and then letting s tend to infinity.\n\nEquation (7) implies that every odd column has at most 2K active\ntimes: the next even column has finite support in time, hence at\nmost 2K temporal flips. Thus every column has finite activity.\nThe last-activity lemma makes the final active row identically one\nat one common finite time M, unless the spacetime is already zero.\n\nIn N consecutive columns, the total activity over ALL times is at\nmost (3K/2)N+O(K), because half the columns have bound K and the\nother half have bound 2K. The same disjoint-interval count used in\nthe preceding note now gives\n\n    sum_(r=0..M) 1/(2r+1) <= 3K/2.                      (10)\n\nDefine\n\n    h_V(K)=min{h>=0: sum_(r=0..h)1/(2r+1)>3K/2}.\n\nAll spatial limits vanish by this common time. The same compactness\nargument therefore proves that T^h_V(K)(x) is nonnegative finite.\nFor K=0 the limiting spacetime is zero initially and h_V(0)=0.\nThis proof, like the deficit theorem, bounds an entry TIME, not the\nsize of the eventual finite row. It uses no bounded-state model of\nthe actual survivor and no experimental period bound.\n\n## 4. An exact actual-gate seam (`partial-proof`)\n\nIf the first forced step of x is defined, then for every s>=1,\n\n    V_(s+1)(x)-V_s(F(x))\n      =bit_(2s+2)(x)+bit_(2s+2)(T(x))\n          -bit_0(A^(s+1)(x)),\n    -1 <= V_(s+1)(x)-V_s(F(x)) <= 2.                    (11)\n\nTo see this, each projection exponent s-t in (2) is at least one.\nUse pi F=A^2 and commute A with pi:\n\n    V_s(F(x))\n      =sum_(t=0..s-1)bit_0(A^(t+2)(pi^(s-t-1)(x)))\n      =sum_(r=2..s+1)bit_(2s+2)(T^r(x)).\n\nSubtract this from V_(s+1)(x), whose time indices are 0,...,s.\nThe only unmatched terms are 0,1 and s+1. Identity A^(s+1)=\npi^(s+1)T^(s+1) gives the last term in (11).\n\nAfter h actual steps the difference between V_(s+h)(x) and\nV_s(F^h(x)) lies between -h and 2h. Thus record unboundedness\nis invariant under removal of a fixed finite actual branch prefix.\nFor infinite forced survivors, (9) and the finite-entry equivalence\nfor T and F show that unbounded V is exactly absence of a finite\nstate anywhere on that forced orbit.\n\n## 5. The remaining research obligation\n\nStatus: `inconclusive` for growth on the ACTUAL period-two survivor.\nThe concrete target is now an unbounded record R_N^V, using each\ncomplete observed prefix with no extra gate. For any fixed finite\ninitial state, (4) instead bounds this record by its original k-1.\nA proof of record growth would therefore exclude finite support.\nNeither positive density nor a uniform linear slope is required.\n\nThis is an ordered temporal observable with growing sampling length.\nIt is not a universal fixed-memory additive history potential, and\nthe earlier no-go results for those potentials do not supply a proof\nor a refutation of its growth. No growth conclusion follows merely\nfrom naming the record or proving (9). No occurrence-cut bound,\nsigned nonvanishing theorem, or result for temporal least periods\nat least three is established here.\n\nVerification status will be recorded after the declared checks and\nfresh external review. The all-depth arguments above are currently\nlead-derived and lead-checked, with external verification pending.\n",
+    "admission_path": "proofs/informal/problem1_single_column_activity.md",
+    "admission_sha256": "a05a319f9799634e08a7dbc6d1949b4e101b7b681404d2abeb952384680cd840",
+    "deficit_record_path": "results/problem1/20260906_temporal_activity_deficit_independent.json",
+    "deficit_record_sha256": "69e8a074bc8b03cd54e6b0b975174e5cfa7bc5bac1223473869a852e1521e8ff",
+    "dependency": "#!/usr/bin/env python3\n\"\"\"Independent cell/long-division checks of the fixed temporal-deficit admission.\"\"\"\nfrom datetime import datetime, timezone\nfrom fractions import Fraction\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport tempfile\nimport time\n\nROOT = Path(__file__).resolve().parents[2]\nNOTE = ROOT / \"proofs/informal/problem1_temporal_activity_deficit.md\"\nOUT = ROOT / \"results/problem1/20260906_temporal_activity_deficit_independent.json\"\nINPUTS = [(\"0\", 0, 1), (\"1\", 1, 1), (\"2\", 2, 1), (\"3\", 3, 1),\n          (\"5\", 5, 1), (\"7\", 7, 1), (\"-1\", -1, 1), (\"-2\", -2, 1),\n          (\"-3\", -3, 1), (\"-1/7\", -1, 7), (\"1/3\", 1, 3), (\"-1/3\", -1, 3)]\n\n\ndef sha(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef digest(value):\n    return sha(json.dumps(value, sort_keys=True, separators=(\",\", \":\")).encode())\n\n\ndef atomic(path, value):\n    fd, tmp = tempfile.mkstemp(prefix=path.name + \".\", dir=path.parent)\n    try:\n        with os.fdopen(fd, \"w\") as stream:\n            json.dump(value, stream, sort_keys=True, indent=2)\n            stream.write(\"\\n\")\n            stream.flush()\n            os.fsync(stream.fileno())\n        os.replace(tmp, path)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef digits(numerator, denominator, width):\n    # Successive exact rational remainders, independently of modular inversion.\n    out = []\n    for _ in range(width):\n        bit = numerator % 2\n        out.append(bit)\n        numerator = (numerator - bit * denominator) // 2\n    return out\n\n\ndef number(cells):\n    return sum(bit * (2 ** i) for i, bit in enumerate(cells))\n\n\ndef t_cells(cells):\n    return [bit ^ ((cells[i - 1] if i >= 1 else 0)\n                   | (cells[i - 2] if i >= 2 else 0))\n            for i, bit in enumerate(cells)]\n\n\ndef a_cells(cells):\n    pad = cells + [0, 0]\n    return [pad[i + 2] ^ (pad[i + 1] | pad[i]) for i in range(len(cells))]\n\n\ndef charged(cells):\n    assert len(cells) == 6\n    return int(cells == [0] * 6 or cells == [1, 0, 1, 0, 0, 0])\n\n\ndef temporal(cells, s):\n    # All causal dependencies for these six cells are within this initial row.\n    assert len(cells) >= 2 * s + 4\n    values = []\n    row = cells[:]\n    for _ in range(s):\n        values.append(charged(row[2 * s - 2:2 * s + 4]))\n        row = t_cells(row)\n    return values\n\n\ndef forced(cells):\n    # Independent odd-section construction Q(P(x>>2)), not 4 A^2(x)+3.\n    gate = number(cells[:4])\n    assert gate in (7, 11)\n    z = cells[2:]\n    p = t_cells([1] + z + [0, 0])[1:]\n    out = t_cells(p + [0, 0])\n    if gate == 7:\n        out[0] ^= 1\n    return out\n\n\ndef run():\n    started = time.monotonic()\n    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))\n    resource.setrlimit(resource.RLIMIT_AS, (1024 ** 3, 1024 ** 3))\n    rows, entry_checks = [], []\n    for label, n, den in INPUTS:\n        if den == 1 and n >= 0:\n            entry = (0, n)\n        elif label in (\"-1\", \"-2\", \"-3\"):\n            entry = (1, -n)\n        elif label == \"-1/7\":\n            entry = (2, 1)\n        else:\n            entry = None\n        for s in range(1, 17):\n            cells = digits(n, den, 2 * s + 4)\n            values = temporal(cells, s)\n            z = s - sum(values)\n            if entry is not None:\n                h, finite = entry\n                k = (finite.bit_length() + 1) // 2\n                assert z <= min(s, max(h, k))\n                entry_checks.append([label, s, h, k, z, min(s, max(h, k))])\n            if label in (\"-1\", \"-2\", \"-3\", \"1\", \"2\", \"3\"):\n                assert z == 1\n            if label == \"-1/7\":\n                assert z == min(s, 2)\n            if label in (\"1/3\", \"-1/3\"):\n                assert z == s\n            if label == \"0\":\n                assert z == 0\n            rows.append({\"input\": label, \"s\": s, \"temporal_scores\": values,\n                         \"D\": sum(values), \"Z\": z})\n\n    local = []\n    for neighborhood in range(256):\n        cells = digits(neighborhood, 1, 8)\n        window = number(cells[2:])\n        successor = number(t_cells(cells)[2:])\n        implication = window != 5 or successor in (26, 27)\n        assert implication\n        local.append([neighborhood, window, successor, implication])\n\n    temporal_words = []\n    for a in range(8):\n        for b in range(8):\n            aa, bb = digits(a, 1, 3), digits(b, 1, 3)\n            cc = [0, 0, 0, 0]\n            for t in reversed(range(3)):\n                cc[t] = cc[t + 1] ^ (aa[t] | bb[t])\n            last = lambda word: max((i for i, bit in enumerate(word) if bit), default=-1)\n            assert last(cc) == max(last(aa), last(bb))\n            assert all((cc[t] ^ cc[t + 1]) == (aa[t] | bb[t]) for t in range(3))\n            temporal_words.append([a, b, number(cc), last(aa), last(bb), last(cc)])\n\n    harmonics = []\n    for k in (0, 1, 2):\n        total, h = Fraction(0), 0\n        while True:\n            previous = total\n            total += Fraction(1, 2 * h + 1)\n            if total > 2 * k:\n                break\n            h += 1\n        assert previous <= 2 * k < total\n        harmonics.append({\"K\": k, \"h\": h,\n                          \"sum\": [total.numerator, total.denominator],\n                          \"previous_sum\": [previous.numerator, previous.denominator]})\n\n    seams, forced_rows = [], []\n    for x in (7, 43):\n        actual = digits(x, 1, max(4, x.bit_length()))\n        states, gates = [x], []\n        for _ in range(2):\n            gates.append(\"u\" if number(actual[:4]) == 7 else \"t\")\n            actual = forced(actual)\n            states.append(number(actual))\n        if x == 7:\n            assert states == [7, 27, 111] and number(actual[:4]) == 15\n        forced_rows.append({\"x\": x, \"states\": states, \"gates\": gates})\n        for s in range(1, 17):\n            initial = digits(x, 1, 2 * s + 6)\n            nxt = forced(initial)\n            zx = s + 1 - sum(temporal(initial, s + 1))\n            zf = s - sum(temporal(nxt, s))\n            aged = nxt[:]\n            for _ in range(s - 1):\n                aged = a_cells(aged)\n            term_i = charged(aged[:6])\n            projected = initial[2 * s - 2:]\n            term_j = charged(a_cells(projected)[:6]) + charged(projected[2:8])\n            assert zx - zf == 1 + term_i - term_j\n            assert -1 <= zx - zf <= 2\n            seams.append({\"x\": x, \"s\": s, \"Z_next_age\": zx,\n                          \"Z_forced\": zf, \"I\": term_i, \"J\": term_j,\n                          \"difference\": zx - zf})\n\n    output = {\"rows\": rows, \"entry_checks\": entry_checks,\n              \"local_charge_rows\": local, \"temporal_word_rows\": temporal_words,\n              \"harmonics\": harmonics, \"forced_rows\": forced_rows, \"seams\": seams}\n    runtime = time.monotonic() - started\n    assert runtime < 120\n    source, admission = Path(__file__).read_bytes(), NOTE.read_bytes()\n    record = {\n        \"experiment_id\": \"20260906-temporal-activity-deficit-independent\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Fixed temporal D identity, finite-entry deficit bound, charge-5 implication, last-time identity and actual one-gate seam\",\n        \"backend\": \"independent-python-cell-arrays-rational-long-division\",\n        \"parameters\": {\"inputs\": [x[0] for x in INPUTS], \"ages\": [1, 16],\n                       \"local_neighborhoods\": [0, 255], \"temporal_words\": [0, 7],\n                       \"harmonic_K\": [0, 1, 2], \"forced_inputs\": [7, 43],\n                       \"forced_updates\": 2, \"wall_cap_seconds\": 120,\n                       \"memory_cap_bytes\": 1024 ** 3, \"cpu_concurrency\": 1},\n        \"hardware\": {\"machine\": platform.machine(), \"processor\": platform.processor(),\n                     \"logical_cpus\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": runtime,\n        \"result_hashes\": {key: digest(value) for key, value in output.items()},\n        \"result_summary\": {\"temporal_rows\": len(rows), \"entry_bounds\": len(entry_checks),\n                           \"local_rows\": len(local), \"temporal_word_rows\": len(temporal_words),\n                           \"seams\": len(seams), \"harmonic_thresholds\": [[r[\"K\"], r[\"h\"]] for r in harmonics],\n                           \"all_checks_passed\": True},\n        \"interpretation\": \"Finite controls only; the all-depth last-time and spatial-limit arguments require proof review.\",\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exactly the declared rational/age and Boolean domains, with full vectors retained.\",\n        \"limitations\": [\"No compactness implication follows from finite controls.\",\n                        \"No actual-survivor growth, occurrence exclusion, or Problem 1 solution is asserted.\",\n                        \"No optimized backend, additional comparator or larger frontier was tested.\"],\n        \"provenance\": {\"source_path\": str(Path(__file__).relative_to(ROOT)),\n                       \"source_sha256\": sha(source), \"source\": source.decode(),\n                       \"admission_path\": str(NOTE.relative_to(ROOT)),\n                       \"admission_sha256\": sha(admission), \"admission\": admission.decode(),\n                       \"reference_sha256\": sha((ROOT / \"src/python/rule30_research_reference.py\").read_bytes())},\n        \"results\": output,\n    }\n    atomic(OUT, record)\n    print(json.dumps(record[\"result_summary\"], sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    run()\n",
+    "dependency_path": "experiments/problem1_nonperiodicity/check_temporal_activity_deficit_independent.py",
+    "dependency_sha256": "6871428c015ff92b1b5c5f11c6f2b020a6d01ade2f4974929e82171f47e62aec",
+    "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "source": "#!/usr/bin/env python3\n\"\"\"Named single-column controls; no new input or age beyond the admission.\"\"\"\nfrom datetime import datetime, timezone\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport time\n\nfrom check_temporal_activity_deficit_independent import (\n    ROOT, INPUTS, digits, t_cells, a_cells, forced, atomic, sha, digest,\n)\n\nNOTE = ROOT / \"proofs/informal/problem1_single_column_activity.md\"\nDEFICIT = ROOT / \"results/problem1/20260906_temporal_activity_deficit_independent.json\"\nDEPENDENCY = Path(__file__).with_name(\"check_temporal_activity_deficit_independent.py\")\nOUT = ROOT / \"results/problem1/20260906_single_column_activity_independent.json\"\n\n\ndef activity(cells, s):\n    if s == 0:\n        return []\n    assert len(cells) >= 2 * s + 1\n    row, vector = cells[:], []\n    for _ in range(s):\n        vector.append(row[2 * s])\n        row = t_cells(row)\n    return vector\n\n\ndef run():\n    started = time.monotonic()\n    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))\n    resource.setrlimit(resource.RLIMIT_AS, (1024 ** 3, 1024 ** 3))\n    deficit_bytes = DEFICIT.read_bytes()\n    deficit = json.loads(deficit_bytes)\n    for key, expected in deficit[\"result_hashes\"].items():\n        assert digest(deficit[\"results\"][key]) == expected\n    old_z = {(r[\"input\"], r[\"s\"]): r[\"Z\"] for r in deficit[\"results\"][\"rows\"]}\n    rows, bounds, comparisons = [], [], []\n    for label, numerator, denominator in INPUTS:\n        values = []\n        if denominator == 1 and numerator >= 0:\n            entry = (0, numerator)\n        elif label in (\"-1\", \"-2\", \"-3\"):\n            entry = (1, -numerator)\n        elif label == \"-1/7\":\n            entry = (2, 1)\n        else:\n            entry = None\n        for s in range(17):\n            vector = activity(digits(numerator, denominator, 2 * s + 1), s)\n            v = sum(vector)\n            values.append(v)\n            rows.append({\"input\": label, \"s\": s, \"temporal_bits\": vector, \"V\": v})\n            if entry is not None:\n                h, finite = entry\n                k = (finite.bit_length() + 1) // 2\n                bound = min(s, max(h, k - 1))\n                assert v <= bound\n                bounds.append([label, s, h, k, v, bound])\n            if label in (\"0\", \"1\", \"2\", \"3\"):\n                assert v == 0\n            if label in (\"-1\", \"-2\", \"-3\"):\n                assert v == int(s > 0)\n            if label == \"-1/7\":\n                assert v == (0 if s <= 1 else 1 + int(s % 3 == 0))\n            if label == \"1/3\":\n                assert v == s // 2\n            if label == \"-1/3\":\n                assert v == (s + 1) // 2\n            if s > 0:\n                assert v <= 2 * old_z[label, s] + 1\n        for s in range(1, 15):\n            upper = values[s - 1] + 3 * values[s] + 3 * values[s + 1] + 2 * values[s + 2] + 2\n            assert old_z[label, s] <= upper\n            comparisons.append([label, s, values[s], old_z[label, s], upper])\n\n    seams = []\n    for x in (7, 43):\n        for s in range(1, 16):\n            cells = digits(x, 1, 2 * s + 4)\n            next_cells = forced(cells)\n            vx = sum(activity(cells, s + 1))\n            vf = sum(activity(next_cells, s))\n            b0, b1 = cells[2 * s + 2], t_cells(cells)[2 * s + 2]\n            aged = cells[:]\n            for _ in range(s + 1):\n                aged = a_cells(aged)\n            end = aged[0]\n            assert vx - vf == b0 + b1 - end\n            assert -1 <= vx - vf <= 2\n            seams.append({\"x\": x, \"s\": s, \"V_next_age\": vx, \"V_forced\": vf,\n                          \"initial_bit\": b0, \"next_bit\": b1, \"aged_bit\": end,\n                          \"difference\": vx - vf})\n\n    result = {\"rows\": rows, \"entry_bounds\": bounds, \"comparisons\": comparisons, \"seams\": seams}\n    source, admission, dependency = Path(__file__).read_bytes(), NOTE.read_bytes(), DEPENDENCY.read_bytes()\n    runtime = time.monotonic() - started\n    assert runtime < 120\n    record = {\n        \"experiment_id\": \"20260906-single-column-activity-independent\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Single-column finite-entry bound, comparison with D deficit, and exact first-gate seam\",\n        \"backend\": \"independent-python-cell-arrays-rational-long-division\",\n        \"parameters\": {\"inputs\": [r[0] for r in INPUTS], \"ages\": [0, 16],\n                       \"comparison_ages\": [1, 14], \"seam_inputs\": [7, 43], \"seam_ages\": [1, 15],\n                       \"cpu_concurrency\": 1, \"memory_cap_bytes\": 1024 ** 3, \"wall_cap_seconds\": 120},\n        \"hardware\": {\"machine\": platform.machine(), \"processor\": platform.processor(), \"logical_cpus\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": runtime,\n        \"result_hashes\": {key: digest(value) for key, value in result.items()},\n        \"result_summary\": {\"rows\": len(rows), \"entry_bounds\": len(bounds), \"comparisons\": len(comparisons),\n                           \"seams\": len(seams), \"all_checks_passed\": True},\n        \"interpretation\": \"Finite identities on the named inputs only; actual record growth and all-depth transitions need proof.\",\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exactly twelve rational controls, ages0..16, and the declared comparison/seam subranges.\",\n        \"limitations\": [\"No new survivor, period, frontier, occurrence, or memory sweep.\",\n                        \"This is independent of the primary modular implementation but reuses the earlier cell helpers.\",\n                        \"No infinite claim follows from finite agreement.\"],\n        \"provenance\": {\"source_path\": str(Path(__file__).relative_to(ROOT)), \"source_sha256\": sha(source), \"source\": source.decode(),\n                       \"admission_path\": str(NOTE.relative_to(ROOT)), \"admission_sha256\": sha(admission), \"admission\": admission.decode(),\n                       \"dependency_path\": str(DEPENDENCY.relative_to(ROOT)), \"dependency_sha256\": sha(dependency), \"dependency\": dependency.decode(),\n                       \"deficit_record_path\": str(DEFICIT.relative_to(ROOT)), \"deficit_record_sha256\": sha(deficit_bytes),\n                       \"reference_sha256\": sha((ROOT / \"src/python/rule30_research_reference.py\").read_bytes())},\n        \"results\": result,\n    }\n    atomic(OUT, record)\n    print(json.dumps(record[\"result_summary\"], sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    run()\n",
+    "source_path": "experiments/problem1_nonperiodicity/check_single_column_activity_independent.py",
+    "source_sha256": "5a2727638d6051d5323fb0027fdcb5caf18a552f1d423df7b8c67f190bb486f6"
+  },
+  "question": "problem1",
+  "result_hashes": {
+    "comparisons": "44f1378dd5103a31280024c49a8c83b8376b914ed7b2d6c4e73428d1cc1c71d6",
+    "entry_bounds": "b9b08d7f2e95315833ef79abda446918443b45108536754b94eb863a7c87b8d0",
+    "rows": "c322342151540d888696334dc56da3399861a68a1be0832ac71900d9786048cc",
+    "seams": "e1d4cc1721a224f022ac504bfa7ec71287b107da982e535d549a1f470ca5c204"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "comparisons": 168,
+    "entry_bounds": 170,
+    "rows": 204,
+    "seams": 30
+  },
+  "results": {
+    "comparisons": [
+      [
+        "0",
+        1,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        2,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        3,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        4,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        5,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        6,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        7,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        8,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        9,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        10,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        11,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        12,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        13,
+        0,
+        0,
+        2
+      ],
+      [
+        "0",
+        14,
+        0,
+        0,
+        2
+      ],
+      [
+        "1",
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        2,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        3,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        4,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        5,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        6,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        7,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        8,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        9,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        10,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        11,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        12,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        13,
+        0,
+        1,
+        2
+      ],
+      [
+        "1",
+        14,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        2,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        3,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        4,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        5,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        6,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        7,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        8,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        9,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        10,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        11,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        12,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        13,
+        0,
+        1,
+        2
+      ],
+      [
+        "2",
+        14,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        1,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        2,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        3,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        4,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        5,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        6,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        7,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        8,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        9,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        10,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        11,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        12,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        13,
+        0,
+        1,
+        2
+      ],
+      [
+        "3",
+        14,
+        0,
+        1,
+        2
+      ],
+      [
+        "5",
+        1,
+        1,
+        0,
+        10
+      ],
+      [
+        "5",
+        2,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        3,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        4,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        5,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        6,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        7,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        8,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        9,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        10,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        11,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        12,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        13,
+        1,
+        2,
+        11
+      ],
+      [
+        "5",
+        14,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        1,
+        1,
+        1,
+        10
+      ],
+      [
+        "7",
+        2,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        3,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        4,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        5,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        6,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        7,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        8,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        9,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        10,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        11,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        12,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        13,
+        1,
+        2,
+        11
+      ],
+      [
+        "7",
+        14,
+        1,
+        2,
+        11
+      ],
+      [
+        "-1",
+        1,
+        1,
+        1,
+        10
+      ],
+      [
+        "-1",
+        2,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        3,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        4,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        5,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        6,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        7,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        8,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        9,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        10,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        11,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        12,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        13,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1",
+        14,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        1,
+        1,
+        1,
+        10
+      ],
+      [
+        "-2",
+        2,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        3,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        4,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        5,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        6,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        7,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        8,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        9,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        10,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        11,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        12,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        13,
+        1,
+        1,
+        11
+      ],
+      [
+        "-2",
+        14,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        1,
+        1,
+        1,
+        10
+      ],
+      [
+        "-3",
+        2,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        3,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        4,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        5,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        6,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        7,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        8,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        9,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        10,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        11,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        12,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        13,
+        1,
+        1,
+        11
+      ],
+      [
+        "-3",
+        14,
+        1,
+        1,
+        11
+      ],
+      [
+        "-1/7",
+        1,
+        0,
+        1,
+        9
+      ],
+      [
+        "-1/7",
+        2,
+        1,
+        2,
+        13
+      ],
+      [
+        "-1/7",
+        3,
+        2,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        4,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        5,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        6,
+        2,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        7,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        8,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        9,
+        2,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        10,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        11,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        12,
+        2,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        13,
+        1,
+        2,
+        14
+      ],
+      [
+        "-1/7",
+        14,
+        1,
+        2,
+        14
+      ],
+      [
+        "1/3",
+        1,
+        0,
+        1,
+        7
+      ],
+      [
+        "1/3",
+        2,
+        1,
+        2,
+        12
+      ],
+      [
+        "1/3",
+        3,
+        1,
+        3,
+        16
+      ],
+      [
+        "1/3",
+        4,
+        2,
+        4,
+        21
+      ],
+      [
+        "1/3",
+        5,
+        2,
+        5,
+        25
+      ],
+      [
+        "1/3",
+        6,
+        3,
+        6,
+        30
+      ],
+      [
+        "1/3",
+        7,
+        3,
+        7,
+        34
+      ],
+      [
+        "1/3",
+        8,
+        4,
+        8,
+        39
+      ],
+      [
+        "1/3",
+        9,
+        4,
+        9,
+        43
+      ],
+      [
+        "1/3",
+        10,
+        5,
+        10,
+        48
+      ],
+      [
+        "1/3",
+        11,
+        5,
+        11,
+        52
+      ],
+      [
+        "1/3",
+        12,
+        6,
+        12,
+        57
+      ],
+      [
+        "1/3",
+        13,
+        6,
+        13,
+        61
+      ],
+      [
+        "1/3",
+        14,
+        7,
+        14,
+        66
+      ],
+      [
+        "-1/3",
+        1,
+        1,
+        1,
+        12
+      ],
+      [
+        "-1/3",
+        2,
+        1,
+        2,
+        16
+      ],
+      [
+        "-1/3",
+        3,
+        2,
+        3,
+        21
+      ],
+      [
+        "-1/3",
+        4,
+        2,
+        4,
+        25
+      ],
+      [
+        "-1/3",
+        5,
+        3,
+        5,
+        30
+      ],
+      [
+        "-1/3",
+        6,
+        3,
+        6,
+        34
+      ],
+      [
+        "-1/3",
+        7,
+        4,
+        7,
+        39
+      ],
+      [
+        "-1/3",
+        8,
+        4,
+        8,
+        43
+      ],
+      [
+        "-1/3",
+        9,
+        5,
+        9,
+        48
+      ],
+      [
+        "-1/3",
+        10,
+        5,
+        10,
+        52
+      ],
+      [
+        "-1/3",
+        11,
+        6,
+        11,
+        57
+      ],
+      [
+        "-1/3",
+        12,
+        6,
+        12,
+        61
+      ],
+      [
+        "-1/3",
+        13,
+        7,
+        13,
+        66
+      ],
+      [
+        "-1/3",
+        14,
+        7,
+        14,
+        70
+      ]
+    ],
+    "entry_bounds": [
+      [
+        "0",
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        8,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        9,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        11,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        12,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        13,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        14,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        15,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        16,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "1",
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        3,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        4,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        5,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        6,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        7,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        8,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        9,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        10,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        11,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        12,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        13,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        14,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        15,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "1",
+        16,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        3,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        4,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        5,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        6,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        7,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        8,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        9,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        10,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        11,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        12,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        13,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        14,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        15,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "2",
+        16,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        2,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        3,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        4,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        5,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        6,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        7,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        8,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        9,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        10,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        11,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        12,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        13,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        14,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        15,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "3",
+        16,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        "5",
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        "5",
+        1,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        2,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        3,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        4,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        5,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        6,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        7,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        8,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        9,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        10,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        11,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        12,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        13,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        14,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        15,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "5",
+        16,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        "7",
+        1,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        2,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        3,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        4,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        5,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        6,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        7,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        8,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        9,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        10,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        11,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        12,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        13,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        14,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        15,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        16,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "-1",
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        "-1",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        "-2",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        "-3",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1/7",
+        0,
+        2,
+        1,
+        0,
+        0
+      ],
+      [
+        "-1/7",
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        "-1/7",
+        2,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        3,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        4,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        5,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        6,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        7,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        8,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        9,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        10,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        11,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        12,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        13,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        14,
+        2,
+        1,
+        1,
+        2
+      ],
+      [
+        "-1/7",
+        15,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        16,
+        2,
+        1,
+        1,
+        2
+      ]
+    ],
+    "rows": [
+      {
+        "V": 0,
+        "input": "0",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "0",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "2",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "3",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "5",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "5",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 0,
+        "input": "7",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "7",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 0,
+        "input": "-1",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 2,
+        "temporal_bits": [
+          1,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 3,
+        "temporal_bits": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 4,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 5,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 6,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 7,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 8,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 9,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 10,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 11,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 12,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 13,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 14,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 15,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1",
+        "s": 16,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "-2",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 2,
+        "temporal_bits": [
+          1,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 3,
+        "temporal_bits": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 4,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 5,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 6,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 7,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 8,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 9,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 10,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 11,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 12,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 13,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 14,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 15,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-2",
+        "s": 16,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "-3",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 2,
+        "temporal_bits": [
+          1,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 3,
+        "temporal_bits": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 4,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 5,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 6,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 7,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 8,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 9,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 10,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 11,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 12,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 13,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 14,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 15,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-3",
+        "s": 16,
+        "temporal_bits": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "-1/7",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "-1/7",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          1
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/7",
+        "s": 3,
+        "temporal_bits": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/7",
+        "s": 6,
+        "temporal_bits": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/7",
+        "s": 9,
+        "temporal_bits": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/7",
+        "s": 12,
+        "temporal_bits": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/7",
+        "s": 15,
+        "temporal_bits": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/7",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "V": 0,
+        "input": "1/3",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 0,
+        "input": "1/3",
+        "s": 1,
+        "temporal_bits": [
+          0
+        ]
+      },
+      {
+        "V": 1,
+        "input": "1/3",
+        "s": 2,
+        "temporal_bits": [
+          0,
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "1/3",
+        "s": 3,
+        "temporal_bits": [
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "1/3",
+        "s": 4,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 2,
+        "input": "1/3",
+        "s": 5,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 3,
+        "input": "1/3",
+        "s": 6,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 3,
+        "input": "1/3",
+        "s": 7,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 4,
+        "input": "1/3",
+        "s": 8,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 4,
+        "input": "1/3",
+        "s": 9,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 5,
+        "input": "1/3",
+        "s": 10,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 5,
+        "input": "1/3",
+        "s": 11,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 6,
+        "input": "1/3",
+        "s": 12,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 6,
+        "input": "1/3",
+        "s": 13,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 7,
+        "input": "1/3",
+        "s": 14,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 7,
+        "input": "1/3",
+        "s": 15,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 8,
+        "input": "1/3",
+        "s": 16,
+        "temporal_bits": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 0,
+        "input": "-1/3",
+        "s": 0,
+        "temporal_bits": []
+      },
+      {
+        "V": 1,
+        "input": "-1/3",
+        "s": 1,
+        "temporal_bits": [
+          1
+        ]
+      },
+      {
+        "V": 1,
+        "input": "-1/3",
+        "s": 2,
+        "temporal_bits": [
+          1,
+          0
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/3",
+        "s": 3,
+        "temporal_bits": [
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 2,
+        "input": "-1/3",
+        "s": 4,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 3,
+        "input": "-1/3",
+        "s": 5,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 3,
+        "input": "-1/3",
+        "s": 6,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 4,
+        "input": "-1/3",
+        "s": 7,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 4,
+        "input": "-1/3",
+        "s": 8,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 5,
+        "input": "-1/3",
+        "s": 9,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 5,
+        "input": "-1/3",
+        "s": 10,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 6,
+        "input": "-1/3",
+        "s": 11,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 6,
+        "input": "-1/3",
+        "s": 12,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 7,
+        "input": "-1/3",
+        "s": 13,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 7,
+        "input": "-1/3",
+        "s": 14,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "V": 8,
+        "input": "-1/3",
+        "s": 15,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      {
+        "V": 8,
+        "input": "-1/3",
+        "s": 16,
+        "temporal_bits": [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      }
+    ],
+    "seams": [
+      {
+        "V_forced": 0,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 1,
+        "initial_bit": 0,
+        "next_bit": 1,
+        "s": 1,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 2,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 3,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 4,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 5,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 6,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 7,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 8,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 9,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 10,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 11,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 12,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 13,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 14,
+        "x": 7
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 15,
+        "x": 7
+      },
+      {
+        "V_forced": 0,
+        "V_next_age": 1,
+        "aged_bit": 0,
+        "difference": 1,
+        "initial_bit": 0,
+        "next_bit": 1,
+        "s": 1,
+        "x": 43
+      },
+      {
+        "V_forced": 1,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 1,
+        "s": 2,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 3,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 4,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 5,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 6,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 7,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 8,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 9,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 10,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 11,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 12,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 13,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 1,
+        "aged_bit": 1,
+        "difference": -1,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 14,
+        "x": 43
+      },
+      {
+        "V_forced": 2,
+        "V_next_age": 2,
+        "aged_bit": 0,
+        "difference": 0,
+        "initial_bit": 0,
+        "next_bit": 0,
+        "s": 15,
+        "x": 43
+      }
+    ]
+  },
+  "runtime_seconds": 0.011441900976933539,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T19:43:10.624296+00:00"
+}

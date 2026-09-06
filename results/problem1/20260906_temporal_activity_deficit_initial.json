@@ -1,0 +1,5885 @@
+{
+ "experiment_id": "20260906_temporal_activity_deficit_primary",
+ "timestamp_utc": "2026-09-06T19:39:54.459767+00:00",
+ "git_commit": "a60d87f4c88343afe22b7ee5ee9f8180b96ecaee",
+ "git_log": "a60d87f4c88343afe22b7ee5ee9f8180b96ecaee 2026-09-06 15:10:07 -0400 Checkpoint round two research and reproducibility audit",
+ "git_status": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_temporal_activity_deficit_independent.py\n?? experiments/problem1_nonperiodicity/check_temporal_activity_deficit_primary.py\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? proofs/informal/problem1_temporal_activity_deficit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_temporal_activity_deficit_independent.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+ "question": "problem1",
+ "hypothesis": "Admitted finite controls of the temporal activity deficit note: A-diagonal D_s/Z_s values on 12 named inputs x ages 1..16 with temporal-order score vectors; finite-entry max(h,k) bound; charge-5 local transition on 256 neighborhoods; last-activity identity on 64 temporal word pairs; exact harmonic thresholds K=0,1,2; gate replay of first 2 updates for x=7,43 with 111 stopped; one-step deficit seam identity and bounds.",
+ "backend": "python3-modular-A-diagonal",
+ "parameters": {
+  "inputs": [
+   "0",
+   "1",
+   "2",
+   "3",
+   "5",
+   "7",
+   "-1",
+   "-2",
+   "-3",
+   "-1/7",
+   "1/3",
+   "-1/3"
+  ],
+  "ages": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16
+  ],
+  "mod_bits": 128,
+  "dz_rows": 192,
+  "local_rows": 256,
+  "temporal_rows": 64,
+  "harmonic_K": [
+   0,
+   1,
+   2
+  ],
+  "seam_inputs": [
+   "7",
+   "43"
+  ],
+  "gate_updates_each": 2,
+  "cpu": 1,
+  "time_cap_s": 120,
+  "mem_cap": "1GiB"
+ },
+ "hardware": {
+  "uname": [
+   "Linux",
+   "Home-Server",
+   "7.0.0-30-generic",
+   "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+   "x86_64",
+   ""
+  ],
+  "cpu_count": 16,
+  "mem_total": "MemTotal:       31766236 kB",
+  "peak_rss_kb": 18908
+ },
+ "software": {
+  "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+  "executable": "/usr/bin/python3"
+ },
+ "runtime_seconds": 0.025591227924451232,
+ "phase_seconds": {
+  "setup": 1.2569013051688671e-05,
+  "dz": 0.004000019980594516,
+  "entry": 0.003932563005946577,
+  "local": 0.00010621093679219484,
+  "temporal": 0.0001387420343235135,
+  "harmonic": 0.0018622219795361161,
+  "gates_seam": 0.0012905540643259883,
+  "provenance": 0.01005784806329757
+ },
+ "result_hashes": {
+  "primary_payload_sha256": "1b8debca00f151b59b18bbe32f74af025944876d3f8ec701665009931b3ffa8a",
+  "note_sha256": "ec4c735b13f0878cb6af0711a3ec55735633060dbc4786b73b20414c84f41ca7",
+  "self_sha256": "c42a8f42ee7cdd6bbcdf108d2c1ccd30b4b33bfcd17474ccb841af65852d9d06",
+  "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+ },
+ "result_summary": {
+  "dz_rows": 192,
+  "dz_ok": true,
+  "entry": {
+   "0": {
+    "h": 0,
+    "c": 0,
+    "k": 0,
+    "bound_ok": true
+   },
+   "1": {
+    "h": 0,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true
+   },
+   "2": {
+    "h": 0,
+    "c": 2,
+    "k": 1,
+    "bound_ok": true
+   },
+   "3": {
+    "h": 0,
+    "c": 3,
+    "k": 1,
+    "bound_ok": true
+   },
+   "5": {
+    "h": 0,
+    "c": 5,
+    "k": 2,
+    "bound_ok": true
+   },
+   "7": {
+    "h": 0,
+    "c": 7,
+    "k": 2,
+    "bound_ok": true
+   },
+   "-1": {
+    "h": 1,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true
+   },
+   "-2": {
+    "h": 1,
+    "c": 2,
+    "k": 1,
+    "bound_ok": true
+   },
+   "-3": {
+    "h": 1,
+    "c": 3,
+    "k": 1,
+    "bound_ok": true
+   },
+   "-1/7": {
+    "h": 2,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true
+   },
+   "1/3": {
+    "h": null,
+    "c": null,
+    "k": null,
+    "bound_ok": null
+   },
+   "-1/3": {
+    "h": null,
+    "c": null,
+    "k": null,
+    "bound_ok": null
+   }
+  },
+  "entry_ok": true,
+  "thirds_swap_ok": true,
+  "thirds_Zeqs_ok": true,
+  "local_rows": 256,
+  "local_ok": true,
+  "temporal_rows": 64,
+  "temporal_ok": true,
+  "harmonic": {
+   "0": {
+    "h": 0,
+    "sum": "1/1"
+   },
+   "1": {
+    "h": 7,
+    "sum": "91072/45045"
+   },
+   "2": {
+    "h": 418,
+    "sum": "450275730082333311841250837105819021388140719696087200922048291667553169344602233272279341912190394131099555618327009989079138501940298650389696693952970216555653364433881288148376952034370467804246938531555932310464691401388001849989610639461836662653074973561876443829582579998009945103999806018249256000257490214422645942228470670267388605880651762205030949/112549501084481395169276970606286561949561185789536709565117449572268713333540449064246687100285060879092474039143050810699903278775670994498531050110079611831983911687237856179804717108929414915093454248202597254096084232563233453180447762633634243932755395067320150978111394057611436378520261112346965884161108204192538438528099166303458019529899430629618125"
+   }
+  },
+  "harmonic_ok": true,
+  "gates": {
+   "x7": [
+    7,
+    27,
+    111
+   ],
+   "x43": [
+    43,
+    203,
+    803
+   ]
+  },
+  "gates_ok": true,
+  "stopped111": true,
+  "seam_rows": 32,
+  "seam_ok": true,
+  "all_ok": true
+ },
+ "interpretation": "PASS: all admitted finite controls agree.",
+ "status": "finite-exhaustive",
+ "proof_scope": "Exact finite identities on declared domains: 192 D/Z rows with temporal-order score vectors; 256 local rows; 64 temporal rows; 3 exact harmonic thresholds; 32 seam rows; gate orbits [7,27,111] and [43,203,803] with stopped-111. D/Z/score/seam outputs need at most 40 low bits and are exact under 128-bit modular arithmetic. Finite-entry h/c matches are congruences mod 2**128 corroborating exact note identities.",
+ "limitations": [
+  "Finite-entry h/c certificates are modular (mod 2**128) corroborations, not standalone 2-adic equality proofs.",
+  "Finite agreement cannot establish compactness, limit, or all-depth implications; those need derivation and review.",
+  "Lead direct-T cell comparison pending; no occurrence, frontier, or width claims made.",
+  "Gate of orbit endpoint 803 not evaluated per admission."
+ ],
+ "admission": {
+  "note": "proofs/informal/problem1_temporal_activity_deficit.md",
+  "note_sha256": "ec4c735b13f0878cb6af0711a3ec55735633060dbc4786b73b20414c84f41ca7",
+  "admission_text": "## Admission and route selection\n\nThe current boundary functional is Psi_s=D_s+beta_s, with beta_s>=0.\nIts original-history lower bound motivated a subunit upper bound, but\nthe last round showed that sparse interruptions can change Psi by a\nlinear amount. No further comparator, suffix-width, or memory sweep is\nadmitted. The ranked structural alternatives are:\n\n1. Retain D_s alone and its ordered temporal interpretation. An\n   all-depth support criterion would remove the appended-letter cost\n   from this route without discarding any observed gate.\n2. Close the projected boundary evolution. Its exact update needs four\n   further lower bits; the visible row alone is not a closed state.\n   This failure does not rule out averaged inequalities with more state.\n3. Control a nonlinear observable on the complete prescribed history.\n   This remains available if the temporal criterion adds no mechanism.\n\nChoose route 1. The proof comes before computation. The proposed\nequivalence is: for ANY 2-adic input x, bounded Z_s=s-D_s is equivalent\nto T^h(x) being a nonnegative integer for some finite h. It is NOT\nequivalence to x itself being a nonnegative integer. The negative\ninteger -1 and the nonintegral rational -1/7 are mandatory controls.\n\nVerification admission, fixed before execution: check the temporal\nidentity and finite-entry bound by two simple independent methods on\nthe named rational inputs 0,1,2,3,5,7,-1,-2,-3,-1/7,1/3,-1/3 and\nages 1..16 only. One method may use modular bit operations and A;\nthe other must use cell-array T evolution with sufficient initial\nprecision. Check all 256 local eight-bit neighborhoods for the charge-5\ntransition, and the 64 pairs of length-three finite temporal words for\nthe last-activity identity whenever their induced third word is finite.\nThe latter check must include the terminal time; it is only a local\nidentity check, not a spatial-orbit census. Compute exact rational\nharmonic thresholds for K=0,1,2. Replay only the stored ordinary\nendpoint 7's defined forced prefix, plus the named two-branch inputs\n7 and 43, to check the one-step deficit seam for ages 1..16; the\nalgebraic seam needs a first gate only, not a longer observed word.\nNo other input, frontier, occurrence, comparator or width is admitted.\n\nA mismatch refutes an identity, constant, or seam used in the proof.\nAgreement verifies exactly these finite controls and cannot establish\nthe compactness or all-depth implications. The latter need independent\nderivation and fresh adversarial review. Each implementation is local,\none CPU, at most 120 seconds and 1 GiB, with atomic JSON, full Git,\nexecuted source and admission snapshots, hashes, software/hardware facts,\ntimings and limitations. No optimized backend or benchmark is involved."
+ },
+ "self_source": {
+  "path": "experiments/problem1_nonperiodicity/check_temporal_activity_deficit_primary.py",
+  "sha256": "c42a8f42ee7cdd6bbcdf108d2c1ccd30b4b33bfcd17474ccb841af65852d9d06",
+  "embedded_text": "\"\"\"Primary fixed checks for the temporal activity deficit note.\n\nMethod: modular 2-adic bit operations at precision 2**128 with the\nA-diagonal form of D_s. The independent lead method uses direct-T\ncell arrays with rational long division and is not implemented here.\n\nAdmitted finite domains only (see admission snapshot in the record):\n  * 12 named rational inputs in fixed order, ages 1..16: exact D_s / Z_s\n    and temporal-order score vectors (r = 0..s-1).\n  * finite-entry certificates h/k with the max(h,k) bound check.\n  * 256 local eight-bit neighborhoods (charge-5 transition).\n  * 64 length-three temporal word pairs (last-activity identity).\n  * exact rational harmonic thresholds K = 0, 1, 2.\n  * gate replay: exactly first 2 updates each for x = 7 and x = 43;\n    x = 7 afterward 111 verifies stopped; 43 not continued longer.\n  * forced seam identity on inputs 7 and 43, ages 1..16.\nSingle CPU, stdlib only. No other input is admitted.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport subprocess\nimport sys\nimport time\nfrom datetime import datetime, timezone\nfrom fractions import Fraction\n\nREPO = \"/home/ryan/rule30-lab\"\nNOTE_REL = \"proofs/informal/problem1_temporal_activity_deficit.md\"\nSELF_REL = \"experiments/problem1_nonperiodicity/check_temporal_activity_deficit_primary.py\"\nOUT_REL = \"results/problem1/20260906_temporal_activity_deficit_primary.json\"\nREF_REL = \"src/python/rule30_research_reference.py\"\nMOD_BITS = 128\nMASK = (1 << MOD_BITS) - 1\nAGES = list(range(1, 17))\nORDER = [\"0\", \"1\", \"2\", \"3\", \"5\", \"7\", \"-1\", \"-2\", \"-3\", \"-1/7\", \"1/3\", \"-1/3\"]\n\ndef inv_odd(a):\n    a &= MASK\n    x = 1\n    for _ in range(7):\n        x = (x * (2 - a * x)) & MASK\n    return x\n\ndef Tmod(v):\n    return (v ^ ((((v << 1) & MASK) | ((v << 2) & MASK)))) & MASK\n\ndef pimod(v):\n    return (v >> 2) & MASK\n\ndef Amob(v):\n    return Tmod(v) >> 2\n\ndef apow(v, k):\n    for _ in range(k):\n        v = Amob(v)\n    return v\n\ndef I64(v):\n    return 1 if (v & 63) in (0, 5) else 0\n\ndef Texact_small(v):\n    return v ^ ((v << 1) | (v << 2))\n\ndef Aexact_small(v):\n    return Texact_small(v) >> 2\n\ndef D_of(s, x):\n    tot = 0\n    for d in range(s):\n        tot += I64(apow(x >> (2 * d), s - 1 - d))\n    return tot\n\ndef scores_of(s, x):\n    return [I64(apow(x >> (2 * (s - 1 - r)), r)) for r in range(s)]\n\ndef Jon(w):\n    return I64(Amob(w)) + I64(pimod(w))\n\ndef Fon(x):\n    return ((4 * apow(x, 2)) + 3) & MASK\n\ndef last_active3(w):\n    m = -1\n    for t in range(3):\n        if (w >> t) & 1:\n            m = t\n    return m\n\ndef run(cmd):\n    try:\n        p = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, timeout=30)\n        return p.stdout.strip()\n    except Exception as e:\n        return \"unavailable: \" + str(e)\n\ndef sha_bytes(b):\n    return hashlib.sha256(b).hexdigest()\n\ndef main():\n    t_all = time.perf_counter()\n    phases = {}\n    t0 = time.perf_counter()\n    INV3 = inv_odd(3)\n    INV7 = inv_odd(7)\n    assert (3 * INV3) & MASK == 1\n    assert (7 * INV7) & MASK == 1\n    X = {\n        \"0\": 0, \"1\": 1, \"2\": 2, \"3\": 3, \"5\": 5, \"7\": 7,\n        \"-1\": (-1) & MASK, \"-2\": (-2) & MASK, \"-3\": (-3) & MASK,\n        \"-1/7\": (-INV7) & MASK, \"1/3\": INV3, \"-1/3\": (-INV3) & MASK,\n    }\n    phases[\"setup\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    dz_rows = []\n    dz_ok = True\n    for name in ORDER:\n        x = X[name]\n        for s in AGES:\n            sc = scores_of(s, x)\n            D = sum(sc)\n            Z = s - D\n            if not (0 <= Z <= s and D + Z == s):\n                dz_ok = False\n            dz_rows.append({\"input\": name, \"s\": s, \"temporal_scores\": sc, \"D\": D, \"Z\": Z})\n    phases[\"dz\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    entry = {}\n    entry_ok = True\n    for name in ORDER:\n        x = X[name]\n        h = None\n        c = None\n        v = x\n        for hh in range(0, 9):\n            if (v >> 24) == 0:\n                h = hh\n                c = v\n                break\n            v = Tmod(v)\n        if h is None:\n            entry[name] = {\"h\": None, \"c\": None, \"k\": None, \"bound_ok\": None, \"note\": \"no_entry_in_window\"}\n        else:\n            k = (c.bit_length() + 1) // 2\n            ok = True\n            for s in AGES:\n                Z = s - D_of(s, x)\n                if Z > min(s, max(h, k)):\n                    ok = False\n            entry[name] = {\"h\": h, \"c\": c, \"k\": k, \"bound_ok\": ok, \"note\": \"modular_certificate\"}\n            entry_ok = entry_ok and ok\n    swap_ok = (Tmod(X[\"1/3\"]) == X[\"-1/3\"] and Tmod(X[\"-1/3\"]) == X[\"1/3\"])\n    thirds_ok = True\n    for name in (\"1/3\", \"-1/3\"):\n        for s in AGES:\n            if s - D_of(s, X[name]) != s:\n                thirds_ok = False\n    phases[\"entry\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    local_rows = []\n    local_ok = True\n    images5 = set()\n    for v in range(256):\n        w = (v >> 2) & 63\n        Tv = Texact_small(v)\n        z = (Tv >> 2) & 63\n        imp = True if (w != 5 or z not in (0, 5)) else False\n        if not imp:\n            local_ok = False\n        if w == 5:\n            images5.add(z)\n        local_rows.append([v, w, z, imp])\n    phases[\"local\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    temporal_rows = []\n    temporal_ok = True\n    for a in range(8):\n        for b in range(8):\n            u = [(((a >> t) & 1) | ((b >> t) & 1)) for t in range(3)]\n            c = [0, 0, 0, 0]\n            c[3] = 0\n            for t in (2, 1, 0):\n                c[t] = c[t + 1] ^ u[t]\n            cc = c[0] | (c[1] << 1) | (c[2] << 2)\n            la = last_active3(a)\n            lb = last_active3(b)\n            lc = last_active3(cc)\n            ok = (lc == max(la, lb))\n            if not ok:\n                temporal_ok = False\n            temporal_rows.append([a, b, cc, la, lb, lc])\n    phases[\"temporal\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    harmonic = {}\n    harmonic_ok = True\n    for K in (0, 1, 2):\n        s = Fraction(0, 1)\n        r = 0\n        while True:\n            s = s + Fraction(1, 2 * r + 1)\n            if s > 2 * K:\n                break\n            r = r + 1\n        prev = s - Fraction(1, 2 * r + 1)\n        harmonic[str(K)] = {\n            \"K\": K, \"h\": r,\n            \"sum_num\": s.numerator, \"sum_den\": s.denominator,\n            \"prev_num\": prev.numerator, \"prev_den\": prev.denominator,\n        }\n        if not (prev <= 2 * K < s):\n            harmonic_ok = False\n    phases[\"harmonic\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    F7 = 4 * Aexact_small(Aexact_small(7)) + 3\n    F27 = 4 * Aexact_small(Aexact_small(27)) + 3\n    F43 = 4 * Aexact_small(Aexact_small(43)) + 3\n    F203 = 4 * Aexact_small(Aexact_small(203)) + 3\n    gates = {\"x7\": [7, F7, F27], \"x43\": [43, F43, F203]}\n    gates_ok = (F7 == 27 and F27 == 111 and F43 == 203)\n    stopped111 = ((111 & 15) not in (7, 11))\n    gates_ok = gates_ok and stopped111\n    gate7 = 7 & 15\n    gate43 = 43 & 15\n    gates_ok = gates_ok and gate7 == 7 and gate43 == 11\n    if Fon(7) != 27 or Fon(43) != 203:\n        gates_ok = False\n    seam_rows = []\n    seam_ok = True\n    for name, xv in ((\"7\", 7), (\"43\", 43)):\n        Fx = Fon(xv)\n        for s in AGES:\n            Zl = (s + 1) - D_of(s + 1, xv)\n            Zr = s - D_of(s, Fx)\n            lhs = Zl - Zr\n            rhs = 1 + I64(apow(Fx, s - 1)) - Jon(xv >> (2 * (s - 1)))\n            ok = (lhs == rhs) and (-1 <= lhs <= 2)\n            if not ok:\n                seam_ok = False\n            seam_rows.append({\"input\": name, \"s\": s, \"Z_next\": Zl, \"Z_F\": Zr, \"lhs\": lhs, \"rhs\": rhs, \"ok\": ok})\n    phases[\"gates_seam\"] = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    note_p = os.path.join(REPO, NOTE_REL)\n    with open(note_p, \"rb\") as f:\n        note_bytes = f.read()\n    note_sha = sha_bytes(note_bytes)\n    note_text = note_bytes.decode(\"utf-8\")\n    a0 = note_text.find(\"## Admission and route selection\")\n    a1 = note_text.find(\"## 1.\")\n    admission_text = note_text[a0:a1].strip() if (a0 >= 0 and a1 > a0) else \"\"\n    self_p = os.path.join(REPO, SELF_REL)\n    with open(self_p, \"rb\") as f:\n        self_bytes = f.read()\n    self_sha = sha_bytes(self_bytes)\n    ref_p = os.path.join(REPO, REF_REL)\n    with open(ref_p, \"rb\") as f:\n        ref_bytes = f.read()\n    ref_sha = sha_bytes(ref_bytes)\n    git_head = run([\"git\", \"rev-parse\", \"HEAD\"])\n    git_log = run([\"git\", \"log\", \"-1\", \"--format=%H %ci %s\"])\n    git_status = run([\"git\", \"status\", \"--porcelain\"])\n    mem_total = \"\"\n    try:\n        fp = open(\"/proc/meminfo\")\n        for line in fp:\n            if line.startswith(\"MemTotal\"):\n                mem_total = line.strip()\n                break\n        fp.close()\n    except Exception:\n        mem_total = \"unavailable\"\n    peak_kb = None\n    try:\n        import resource\n        peak_kb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss\n    except Exception:\n        peak_kb = None\n    phases[\"provenance\"] = time.perf_counter() - t0\n    checks = {\n        \"dz_rows\": dz_rows,\n        \"entry\": entry,\n        \"thirds_swap_ok\": swap_ok,\n        \"thirds_Zeqs_ok\": thirds_ok,\n        \"local256\": {\"rows\": local_rows, \"charge5_images\": sorted(images5)},\n        \"temporal64\": {\"rows\": temporal_rows},\n        \"harmonic\": harmonic,\n        \"gates\": gates,\n        \"stopped111\": stopped111,\n        \"gate43_endpoint_note\": \"803 recorded as orbit endpoint; its gate not evaluated per admission\",\n        \"seam_rows\": seam_rows,\n    }\n    payload_sha = sha_bytes(json.dumps(checks, sort_keys=True).encode(\"utf-8\"))\n    all_ok = dz_ok and entry_ok and swap_ok and thirds_ok and local_ok and temporal_ok and harmonic_ok and gates_ok and seam_ok\n    record = {\n        \"experiment_id\": \"20260906_temporal_activity_deficit_primary\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": git_head,\n        \"git_log\": git_log,\n        \"git_status\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Admitted finite controls of the temporal activity deficit note: A-diagonal D_s/Z_s values on 12 named inputs x ages 1..16 with temporal-order score vectors; finite-entry max(h,k) bound; charge-5 local transition on 256 neighborhoods; last-activity identity on 64 temporal word pairs; exact harmonic thresholds K=0,1,2; gate replay of first 2 updates for x=7,43 with 111 stopped; one-step deficit seam identity and bounds.\",\n        \"backend\": \"python3-modular-A-diagonal\",\n        \"parameters\": {\n            \"inputs\": ORDER, \"ages\": AGES, \"mod_bits\": MOD_BITS,\n            \"dz_rows\": 192, \"local_rows\": 256, \"temporal_rows\": 64,\n            \"harmonic_K\": [0, 1, 2], \"seam_inputs\": [\"7\", \"43\"],\n            \"gate_updates_each\": 2, \"cpu\": 1, \"time_cap_s\": 120, \"mem_cap\": \"1GiB\",\n        },\n        \"hardware\": {\"uname\": list(platform.uname()), \"cpu_count\": os.cpu_count(), \"mem_total\": mem_total, \"peak_rss_kb\": peak_kb},\n        \"software\": {\"python\": sys.version, \"executable\": sys.executable},\n        \"runtime_seconds\": time.perf_counter() - t_all,\n        \"phase_seconds\": phases,\n        \"result_hashes\": {\"primary_payload_sha256\": payload_sha, \"note_sha256\": note_sha, \"self_sha256\": self_sha, \"reference_sha256\": ref_sha},\n        \"result_summary\": {\n            \"dz_rows\": len(dz_rows), \"dz_ok\": dz_ok,\n            \"entry\": {k: {\"h\": v[\"h\"], \"c\": v[\"c\"], \"k\": v[\"k\"], \"bound_ok\": v[\"bound_ok\"]} for k, v in entry.items()},\n            \"entry_ok\": entry_ok, \"thirds_swap_ok\": swap_ok, \"thirds_Zeqs_ok\": thirds_ok,\n            \"local_rows\": len(local_rows), \"local_ok\": local_ok,\n            \"temporal_rows\": len(temporal_rows), \"temporal_ok\": temporal_ok,\n            \"harmonic\": {k: {\"h\": v[\"h\"], \"sum\": \"%d/%d\" % (v[\"sum_num\"], v[\"sum_den\"])} for k, v in harmonic.items()},\n            \"harmonic_ok\": harmonic_ok,\n            \"gates\": gates, \"gates_ok\": gates_ok, \"stopped111\": stopped111,\n            \"seam_rows\": len(seam_rows), \"seam_ok\": seam_ok,\n            \"all_ok\": all_ok,\n        },\n        \"interpretation\": \"PASS: all admitted finite controls agree.\" if all_ok else \"FAIL: a finite control mismatches; see flags.\",\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exact finite identities on declared domains: 192 D/Z rows with temporal-order score vectors; 256 local rows; 64 temporal rows; 3 exact harmonic thresholds; 32 seam rows; gate orbits [7,27,111] and [43,203,803] with stopped-111. D/Z/score/seam outputs need at most 40 low bits and are exact under 128-bit modular arithmetic. Finite-entry h/c matches are congruences mod 2**128 corroborating exact note identities.\",\n        \"limitations\": [\n            \"Finite-entry h/c certificates are modular (mod 2**128) corroborations, not standalone 2-adic equality proofs.\",\n            \"Finite agreement cannot establish compactness, limit, or all-depth implications; those need derivation and review.\",\n            \"Lead direct-T cell comparison pending; no occurrence, frontier, or width claims made.\",\n            \"Gate of orbit endpoint 803 not evaluated per admission.\",\n        ],\n        \"admission\": {\"note\": NOTE_REL, \"note_sha256\": note_sha, \"admission_text\": admission_text},\n        \"self_source\": {\"path\": SELF_REL, \"sha256\": self_sha, \"embedded_text\": self_bytes.decode(\"utf-8\")},\n        \"reference\": {\"path\": REF_REL, \"sha256\": ref_sha},\n        \"checks\": checks,\n    }\n    out_p = os.path.join(REPO, OUT_REL)\n    os.makedirs(os.path.dirname(out_p), exist_ok=True)\n    tmp_p = out_p + \".tmp.\" + str(os.getpid())\n    fp = open(tmp_p, \"w\")\n    json.dump(record, fp, indent=1)\n    fp.flush()\n    os.fsync(fp.fileno())\n    fp.close()\n    os.replace(tmp_p, out_p)\n    print(\"wrote \" + out_p)\n    print(\"all_ok=\" + str(all_ok))\n    print(\"harmonic=\" + str({k: v[\"h\"] for k, v in harmonic.items()}))\n    print(\"entry=\" + str({k: (v[\"h\"], v[\"c\"], v[\"k\"]) for k, v in entry.items()}))\n    print(\"payload_sha=\" + payload_sha)\n\nmain()\n\n"
+ },
+ "reference": {
+  "path": "src/python/rule30_research_reference.py",
+  "sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+ },
+ "checks": {
+  "dz_rows": [
+   {
+    "input": "0",
+    "s": 1,
+    "temporal_scores": [
+     1
+    ],
+    "D": 1,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 2,
+    "temporal_scores": [
+     1,
+     1
+    ],
+    "D": 2,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     1,
+     1
+    ],
+    "D": 3,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 4,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 5,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 6,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 7,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 8,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 9,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 10,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 11,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 12,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 13,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 14,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 15,
+    "Z": 0
+   },
+   {
+    "input": "0",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 16,
+    "Z": 0
+   },
+   {
+    "input": "1",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 2,
+    "temporal_scores": [
+     1,
+     0
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     1,
+     0
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "1",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 2,
+    "temporal_scores": [
+     1,
+     0
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     1,
+     0
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "2",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 2,
+    "temporal_scores": [
+     1,
+     0
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     1,
+     0
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "3",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "5",
+    "s": 1,
+    "temporal_scores": [
+     1
+    ],
+    "D": 1,
+    "Z": 0
+   },
+   {
+    "input": "5",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     0,
+     0
+    ],
+    "D": 1,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 2,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 3,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 4,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 5,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 6,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 7,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 8,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 9,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 10,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 11,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 12,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 13,
+    "Z": 2
+   },
+   {
+    "input": "5",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 14,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "7",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 3,
+    "temporal_scores": [
+     1,
+     0,
+     0
+    ],
+    "D": 1,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 4,
+    "temporal_scores": [
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 2,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 5,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 3,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 6,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 4,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 7,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 5,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 8,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 6,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 9,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 7,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 10,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 8,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 11,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 9,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 12,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 10,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 13,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 11,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 14,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 12,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 15,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 13,
+    "Z": 2
+   },
+   {
+    "input": "7",
+    "s": 16,
+    "temporal_scores": [
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     0,
+     0
+    ],
+    "D": 14,
+    "Z": 2
+   },
+   {
+    "input": "-1",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     1
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     1,
+     1
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "-1",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     1
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     1,
+     1
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "-2",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     1
+    ],
+    "D": 1,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     1,
+     1
+    ],
+    "D": 2,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1
+    ],
+    "D": 3,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 4,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 5,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 6,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 7,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 8,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 9,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 10,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 11,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 12,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 13,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 14,
+    "Z": 1
+   },
+   {
+    "input": "-3",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 15,
+    "Z": 1
+   },
+   {
+    "input": "-1/7",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "-1/7",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     0,
+     1
+    ],
+    "D": 1,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1
+    ],
+    "D": 2,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1
+    ],
+    "D": 3,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 4,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 5,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 6,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 7,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 8,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 9,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 10,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 11,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 12,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 13,
+    "Z": 2
+   },
+   {
+    "input": "-1/7",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
+    ],
+    "D": 14,
+    "Z": 2
+   },
+   {
+    "input": "1/3",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "1/3",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 2
+   },
+   {
+    "input": "1/3",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 3
+   },
+   {
+    "input": "1/3",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 4
+   },
+   {
+    "input": "1/3",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 5
+   },
+   {
+    "input": "1/3",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 6
+   },
+   {
+    "input": "1/3",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 7
+   },
+   {
+    "input": "1/3",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 8
+   },
+   {
+    "input": "1/3",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 9
+   },
+   {
+    "input": "1/3",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 10
+   },
+   {
+    "input": "1/3",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 11
+   },
+   {
+    "input": "1/3",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 12
+   },
+   {
+    "input": "1/3",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 13
+   },
+   {
+    "input": "1/3",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 14
+   },
+   {
+    "input": "1/3",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 15
+   },
+   {
+    "input": "1/3",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 16
+   },
+   {
+    "input": "-1/3",
+    "s": 1,
+    "temporal_scores": [
+     0
+    ],
+    "D": 0,
+    "Z": 1
+   },
+   {
+    "input": "-1/3",
+    "s": 2,
+    "temporal_scores": [
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 2
+   },
+   {
+    "input": "-1/3",
+    "s": 3,
+    "temporal_scores": [
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 3
+   },
+   {
+    "input": "-1/3",
+    "s": 4,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 4
+   },
+   {
+    "input": "-1/3",
+    "s": 5,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 5
+   },
+   {
+    "input": "-1/3",
+    "s": 6,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 6
+   },
+   {
+    "input": "-1/3",
+    "s": 7,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 7
+   },
+   {
+    "input": "-1/3",
+    "s": 8,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 8
+   },
+   {
+    "input": "-1/3",
+    "s": 9,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 9
+   },
+   {
+    "input": "-1/3",
+    "s": 10,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 10
+   },
+   {
+    "input": "-1/3",
+    "s": 11,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 11
+   },
+   {
+    "input": "-1/3",
+    "s": 12,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 12
+   },
+   {
+    "input": "-1/3",
+    "s": 13,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 13
+   },
+   {
+    "input": "-1/3",
+    "s": 14,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 14
+   },
+   {
+    "input": "-1/3",
+    "s": 15,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 15
+   },
+   {
+    "input": "-1/3",
+    "s": 16,
+    "temporal_scores": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "D": 0,
+    "Z": 16
+   }
+  ],
+  "entry": {
+   "0": {
+    "h": 0,
+    "c": 0,
+    "k": 0,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "1": {
+    "h": 0,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "2": {
+    "h": 0,
+    "c": 2,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "3": {
+    "h": 0,
+    "c": 3,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "5": {
+    "h": 0,
+    "c": 5,
+    "k": 2,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "7": {
+    "h": 0,
+    "c": 7,
+    "k": 2,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "-1": {
+    "h": 1,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "-2": {
+    "h": 1,
+    "c": 2,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "-3": {
+    "h": 1,
+    "c": 3,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "-1/7": {
+    "h": 2,
+    "c": 1,
+    "k": 1,
+    "bound_ok": true,
+    "note": "modular_certificate"
+   },
+   "1/3": {
+    "h": null,
+    "c": null,
+    "k": null,
+    "bound_ok": null,
+    "note": "no_entry_in_window"
+   },
+   "-1/3": {
+    "h": null,
+    "c": null,
+    "k": null,
+    "bound_ok": null,
+    "note": "no_entry_in_window"
+   }
+  },
+  "thirds_swap_ok": true,
+  "thirds_Zeqs_ok": true,
+  "local256": {
+   "rows": [
+    [
+     0,
+     0,
+     0,
+     true
+    ],
+    [
+     1,
+     0,
+     1,
+     true
+    ],
+    [
+     2,
+     0,
+     3,
+     true
+    ],
+    [
+     3,
+     0,
+     3,
+     true
+    ],
+    [
+     4,
+     1,
+     7,
+     true
+    ],
+    [
+     5,
+     1,
+     6,
+     true
+    ],
+    [
+     6,
+     1,
+     6,
+     true
+    ],
+    [
+     7,
+     1,
+     6,
+     true
+    ],
+    [
+     8,
+     2,
+     14,
+     true
+    ],
+    [
+     9,
+     2,
+     15,
+     true
+    ],
+    [
+     10,
+     2,
+     13,
+     true
+    ],
+    [
+     11,
+     2,
+     13,
+     true
+    ],
+    [
+     12,
+     3,
+     13,
+     true
+    ],
+    [
+     13,
+     3,
+     12,
+     true
+    ],
+    [
+     14,
+     3,
+     12,
+     true
+    ],
+    [
+     15,
+     3,
+     12,
+     true
+    ],
+    [
+     16,
+     4,
+     28,
+     true
+    ],
+    [
+     17,
+     4,
+     29,
+     true
+    ],
+    [
+     18,
+     4,
+     31,
+     true
+    ],
+    [
+     19,
+     4,
+     31,
+     true
+    ],
+    [
+     20,
+     5,
+     27,
+     true
+    ],
+    [
+     21,
+     5,
+     26,
+     true
+    ],
+    [
+     22,
+     5,
+     26,
+     true
+    ],
+    [
+     23,
+     5,
+     26,
+     true
+    ],
+    [
+     24,
+     6,
+     26,
+     true
+    ],
+    [
+     25,
+     6,
+     27,
+     true
+    ],
+    [
+     26,
+     6,
+     25,
+     true
+    ],
+    [
+     27,
+     6,
+     25,
+     true
+    ],
+    [
+     28,
+     7,
+     25,
+     true
+    ],
+    [
+     29,
+     7,
+     24,
+     true
+    ],
+    [
+     30,
+     7,
+     24,
+     true
+    ],
+    [
+     31,
+     7,
+     24,
+     true
+    ],
+    [
+     32,
+     8,
+     56,
+     true
+    ],
+    [
+     33,
+     8,
+     57,
+     true
+    ],
+    [
+     34,
+     8,
+     59,
+     true
+    ],
+    [
+     35,
+     8,
+     59,
+     true
+    ],
+    [
+     36,
+     9,
+     63,
+     true
+    ],
+    [
+     37,
+     9,
+     62,
+     true
+    ],
+    [
+     38,
+     9,
+     62,
+     true
+    ],
+    [
+     39,
+     9,
+     62,
+     true
+    ],
+    [
+     40,
+     10,
+     54,
+     true
+    ],
+    [
+     41,
+     10,
+     55,
+     true
+    ],
+    [
+     42,
+     10,
+     53,
+     true
+    ],
+    [
+     43,
+     10,
+     53,
+     true
+    ],
+    [
+     44,
+     11,
+     53,
+     true
+    ],
+    [
+     45,
+     11,
+     52,
+     true
+    ],
+    [
+     46,
+     11,
+     52,
+     true
+    ],
+    [
+     47,
+     11,
+     52,
+     true
+    ],
+    [
+     48,
+     12,
+     52,
+     true
+    ],
+    [
+     49,
+     12,
+     53,
+     true
+    ],
+    [
+     50,
+     12,
+     55,
+     true
+    ],
+    [
+     51,
+     12,
+     55,
+     true
+    ],
+    [
+     52,
+     13,
+     51,
+     true
+    ],
+    [
+     53,
+     13,
+     50,
+     true
+    ],
+    [
+     54,
+     13,
+     50,
+     true
+    ],
+    [
+     55,
+     13,
+     50,
+     true
+    ],
+    [
+     56,
+     14,
+     50,
+     true
+    ],
+    [
+     57,
+     14,
+     51,
+     true
+    ],
+    [
+     58,
+     14,
+     49,
+     true
+    ],
+    [
+     59,
+     14,
+     49,
+     true
+    ],
+    [
+     60,
+     15,
+     49,
+     true
+    ],
+    [
+     61,
+     15,
+     48,
+     true
+    ],
+    [
+     62,
+     15,
+     48,
+     true
+    ],
+    [
+     63,
+     15,
+     48,
+     true
+    ],
+    [
+     64,
+     16,
+     48,
+     true
+    ],
+    [
+     65,
+     16,
+     49,
+     true
+    ],
+    [
+     66,
+     16,
+     51,
+     true
+    ],
+    [
+     67,
+     16,
+     51,
+     true
+    ],
+    [
+     68,
+     17,
+     55,
+     true
+    ],
+    [
+     69,
+     17,
+     54,
+     true
+    ],
+    [
+     70,
+     17,
+     54,
+     true
+    ],
+    [
+     71,
+     17,
+     54,
+     true
+    ],
+    [
+     72,
+     18,
+     62,
+     true
+    ],
+    [
+     73,
+     18,
+     63,
+     true
+    ],
+    [
+     74,
+     18,
+     61,
+     true
+    ],
+    [
+     75,
+     18,
+     61,
+     true
+    ],
+    [
+     76,
+     19,
+     61,
+     true
+    ],
+    [
+     77,
+     19,
+     60,
+     true
+    ],
+    [
+     78,
+     19,
+     60,
+     true
+    ],
+    [
+     79,
+     19,
+     60,
+     true
+    ],
+    [
+     80,
+     20,
+     44,
+     true
+    ],
+    [
+     81,
+     20,
+     45,
+     true
+    ],
+    [
+     82,
+     20,
+     47,
+     true
+    ],
+    [
+     83,
+     20,
+     47,
+     true
+    ],
+    [
+     84,
+     21,
+     43,
+     true
+    ],
+    [
+     85,
+     21,
+     42,
+     true
+    ],
+    [
+     86,
+     21,
+     42,
+     true
+    ],
+    [
+     87,
+     21,
+     42,
+     true
+    ],
+    [
+     88,
+     22,
+     42,
+     true
+    ],
+    [
+     89,
+     22,
+     43,
+     true
+    ],
+    [
+     90,
+     22,
+     41,
+     true
+    ],
+    [
+     91,
+     22,
+     41,
+     true
+    ],
+    [
+     92,
+     23,
+     41,
+     true
+    ],
+    [
+     93,
+     23,
+     40,
+     true
+    ],
+    [
+     94,
+     23,
+     40,
+     true
+    ],
+    [
+     95,
+     23,
+     40,
+     true
+    ],
+    [
+     96,
+     24,
+     40,
+     true
+    ],
+    [
+     97,
+     24,
+     41,
+     true
+    ],
+    [
+     98,
+     24,
+     43,
+     true
+    ],
+    [
+     99,
+     24,
+     43,
+     true
+    ],
+    [
+     100,
+     25,
+     47,
+     true
+    ],
+    [
+     101,
+     25,
+     46,
+     true
+    ],
+    [
+     102,
+     25,
+     46,
+     true
+    ],
+    [
+     103,
+     25,
+     46,
+     true
+    ],
+    [
+     104,
+     26,
+     38,
+     true
+    ],
+    [
+     105,
+     26,
+     39,
+     true
+    ],
+    [
+     106,
+     26,
+     37,
+     true
+    ],
+    [
+     107,
+     26,
+     37,
+     true
+    ],
+    [
+     108,
+     27,
+     37,
+     true
+    ],
+    [
+     109,
+     27,
+     36,
+     true
+    ],
+    [
+     110,
+     27,
+     36,
+     true
+    ],
+    [
+     111,
+     27,
+     36,
+     true
+    ],
+    [
+     112,
+     28,
+     36,
+     true
+    ],
+    [
+     113,
+     28,
+     37,
+     true
+    ],
+    [
+     114,
+     28,
+     39,
+     true
+    ],
+    [
+     115,
+     28,
+     39,
+     true
+    ],
+    [
+     116,
+     29,
+     35,
+     true
+    ],
+    [
+     117,
+     29,
+     34,
+     true
+    ],
+    [
+     118,
+     29,
+     34,
+     true
+    ],
+    [
+     119,
+     29,
+     34,
+     true
+    ],
+    [
+     120,
+     30,
+     34,
+     true
+    ],
+    [
+     121,
+     30,
+     35,
+     true
+    ],
+    [
+     122,
+     30,
+     33,
+     true
+    ],
+    [
+     123,
+     30,
+     33,
+     true
+    ],
+    [
+     124,
+     31,
+     33,
+     true
+    ],
+    [
+     125,
+     31,
+     32,
+     true
+    ],
+    [
+     126,
+     31,
+     32,
+     true
+    ],
+    [
+     127,
+     31,
+     32,
+     true
+    ],
+    [
+     128,
+     32,
+     32,
+     true
+    ],
+    [
+     129,
+     32,
+     33,
+     true
+    ],
+    [
+     130,
+     32,
+     35,
+     true
+    ],
+    [
+     131,
+     32,
+     35,
+     true
+    ],
+    [
+     132,
+     33,
+     39,
+     true
+    ],
+    [
+     133,
+     33,
+     38,
+     true
+    ],
+    [
+     134,
+     33,
+     38,
+     true
+    ],
+    [
+     135,
+     33,
+     38,
+     true
+    ],
+    [
+     136,
+     34,
+     46,
+     true
+    ],
+    [
+     137,
+     34,
+     47,
+     true
+    ],
+    [
+     138,
+     34,
+     45,
+     true
+    ],
+    [
+     139,
+     34,
+     45,
+     true
+    ],
+    [
+     140,
+     35,
+     45,
+     true
+    ],
+    [
+     141,
+     35,
+     44,
+     true
+    ],
+    [
+     142,
+     35,
+     44,
+     true
+    ],
+    [
+     143,
+     35,
+     44,
+     true
+    ],
+    [
+     144,
+     36,
+     60,
+     true
+    ],
+    [
+     145,
+     36,
+     61,
+     true
+    ],
+    [
+     146,
+     36,
+     63,
+     true
+    ],
+    [
+     147,
+     36,
+     63,
+     true
+    ],
+    [
+     148,
+     37,
+     59,
+     true
+    ],
+    [
+     149,
+     37,
+     58,
+     true
+    ],
+    [
+     150,
+     37,
+     58,
+     true
+    ],
+    [
+     151,
+     37,
+     58,
+     true
+    ],
+    [
+     152,
+     38,
+     58,
+     true
+    ],
+    [
+     153,
+     38,
+     59,
+     true
+    ],
+    [
+     154,
+     38,
+     57,
+     true
+    ],
+    [
+     155,
+     38,
+     57,
+     true
+    ],
+    [
+     156,
+     39,
+     57,
+     true
+    ],
+    [
+     157,
+     39,
+     56,
+     true
+    ],
+    [
+     158,
+     39,
+     56,
+     true
+    ],
+    [
+     159,
+     39,
+     56,
+     true
+    ],
+    [
+     160,
+     40,
+     24,
+     true
+    ],
+    [
+     161,
+     40,
+     25,
+     true
+    ],
+    [
+     162,
+     40,
+     27,
+     true
+    ],
+    [
+     163,
+     40,
+     27,
+     true
+    ],
+    [
+     164,
+     41,
+     31,
+     true
+    ],
+    [
+     165,
+     41,
+     30,
+     true
+    ],
+    [
+     166,
+     41,
+     30,
+     true
+    ],
+    [
+     167,
+     41,
+     30,
+     true
+    ],
+    [
+     168,
+     42,
+     22,
+     true
+    ],
+    [
+     169,
+     42,
+     23,
+     true
+    ],
+    [
+     170,
+     42,
+     21,
+     true
+    ],
+    [
+     171,
+     42,
+     21,
+     true
+    ],
+    [
+     172,
+     43,
+     21,
+     true
+    ],
+    [
+     173,
+     43,
+     20,
+     true
+    ],
+    [
+     174,
+     43,
+     20,
+     true
+    ],
+    [
+     175,
+     43,
+     20,
+     true
+    ],
+    [
+     176,
+     44,
+     20,
+     true
+    ],
+    [
+     177,
+     44,
+     21,
+     true
+    ],
+    [
+     178,
+     44,
+     23,
+     true
+    ],
+    [
+     179,
+     44,
+     23,
+     true
+    ],
+    [
+     180,
+     45,
+     19,
+     true
+    ],
+    [
+     181,
+     45,
+     18,
+     true
+    ],
+    [
+     182,
+     45,
+     18,
+     true
+    ],
+    [
+     183,
+     45,
+     18,
+     true
+    ],
+    [
+     184,
+     46,
+     18,
+     true
+    ],
+    [
+     185,
+     46,
+     19,
+     true
+    ],
+    [
+     186,
+     46,
+     17,
+     true
+    ],
+    [
+     187,
+     46,
+     17,
+     true
+    ],
+    [
+     188,
+     47,
+     17,
+     true
+    ],
+    [
+     189,
+     47,
+     16,
+     true
+    ],
+    [
+     190,
+     47,
+     16,
+     true
+    ],
+    [
+     191,
+     47,
+     16,
+     true
+    ],
+    [
+     192,
+     48,
+     16,
+     true
+    ],
+    [
+     193,
+     48,
+     17,
+     true
+    ],
+    [
+     194,
+     48,
+     19,
+     true
+    ],
+    [
+     195,
+     48,
+     19,
+     true
+    ],
+    [
+     196,
+     49,
+     23,
+     true
+    ],
+    [
+     197,
+     49,
+     22,
+     true
+    ],
+    [
+     198,
+     49,
+     22,
+     true
+    ],
+    [
+     199,
+     49,
+     22,
+     true
+    ],
+    [
+     200,
+     50,
+     30,
+     true
+    ],
+    [
+     201,
+     50,
+     31,
+     true
+    ],
+    [
+     202,
+     50,
+     29,
+     true
+    ],
+    [
+     203,
+     50,
+     29,
+     true
+    ],
+    [
+     204,
+     51,
+     29,
+     true
+    ],
+    [
+     205,
+     51,
+     28,
+     true
+    ],
+    [
+     206,
+     51,
+     28,
+     true
+    ],
+    [
+     207,
+     51,
+     28,
+     true
+    ],
+    [
+     208,
+     52,
+     12,
+     true
+    ],
+    [
+     209,
+     52,
+     13,
+     true
+    ],
+    [
+     210,
+     52,
+     15,
+     true
+    ],
+    [
+     211,
+     52,
+     15,
+     true
+    ],
+    [
+     212,
+     53,
+     11,
+     true
+    ],
+    [
+     213,
+     53,
+     10,
+     true
+    ],
+    [
+     214,
+     53,
+     10,
+     true
+    ],
+    [
+     215,
+     53,
+     10,
+     true
+    ],
+    [
+     216,
+     54,
+     10,
+     true
+    ],
+    [
+     217,
+     54,
+     11,
+     true
+    ],
+    [
+     218,
+     54,
+     9,
+     true
+    ],
+    [
+     219,
+     54,
+     9,
+     true
+    ],
+    [
+     220,
+     55,
+     9,
+     true
+    ],
+    [
+     221,
+     55,
+     8,
+     true
+    ],
+    [
+     222,
+     55,
+     8,
+     true
+    ],
+    [
+     223,
+     55,
+     8,
+     true
+    ],
+    [
+     224,
+     56,
+     8,
+     true
+    ],
+    [
+     225,
+     56,
+     9,
+     true
+    ],
+    [
+     226,
+     56,
+     11,
+     true
+    ],
+    [
+     227,
+     56,
+     11,
+     true
+    ],
+    [
+     228,
+     57,
+     15,
+     true
+    ],
+    [
+     229,
+     57,
+     14,
+     true
+    ],
+    [
+     230,
+     57,
+     14,
+     true
+    ],
+    [
+     231,
+     57,
+     14,
+     true
+    ],
+    [
+     232,
+     58,
+     6,
+     true
+    ],
+    [
+     233,
+     58,
+     7,
+     true
+    ],
+    [
+     234,
+     58,
+     5,
+     true
+    ],
+    [
+     235,
+     58,
+     5,
+     true
+    ],
+    [
+     236,
+     59,
+     5,
+     true
+    ],
+    [
+     237,
+     59,
+     4,
+     true
+    ],
+    [
+     238,
+     59,
+     4,
+     true
+    ],
+    [
+     239,
+     59,
+     4,
+     true
+    ],
+    [
+     240,
+     60,
+     4,
+     true
+    ],
+    [
+     241,
+     60,
+     5,
+     true
+    ],
+    [
+     242,
+     60,
+     7,
+     true
+    ],
+    [
+     243,
+     60,
+     7,
+     true
+    ],
+    [
+     244,
+     61,
+     3,
+     true
+    ],
+    [
+     245,
+     61,
+     2,
+     true
+    ],
+    [
+     246,
+     61,
+     2,
+     true
+    ],
+    [
+     247,
+     61,
+     2,
+     true
+    ],
+    [
+     248,
+     62,
+     2,
+     true
+    ],
+    [
+     249,
+     62,
+     3,
+     true
+    ],
+    [
+     250,
+     62,
+     1,
+     true
+    ],
+    [
+     251,
+     62,
+     1,
+     true
+    ],
+    [
+     252,
+     63,
+     1,
+     true
+    ],
+    [
+     253,
+     63,
+     0,
+     true
+    ],
+    [
+     254,
+     63,
+     0,
+     true
+    ],
+    [
+     255,
+     63,
+     0,
+     true
+    ]
+   ],
+   "charge5_images": [
+    26,
+    27
+   ]
+  },
+  "temporal64": {
+   "rows": [
+    [
+     0,
+     0,
+     0,
+     -1,
+     -1,
+     -1
+    ],
+    [
+     0,
+     1,
+     1,
+     -1,
+     0,
+     0
+    ],
+    [
+     0,
+     2,
+     3,
+     -1,
+     1,
+     1
+    ],
+    [
+     0,
+     3,
+     2,
+     -1,
+     1,
+     1
+    ],
+    [
+     0,
+     4,
+     7,
+     -1,
+     2,
+     2
+    ],
+    [
+     0,
+     5,
+     6,
+     -1,
+     2,
+     2
+    ],
+    [
+     0,
+     6,
+     4,
+     -1,
+     2,
+     2
+    ],
+    [
+     0,
+     7,
+     5,
+     -1,
+     2,
+     2
+    ],
+    [
+     1,
+     0,
+     1,
+     0,
+     -1,
+     0
+    ],
+    [
+     1,
+     1,
+     1,
+     0,
+     0,
+     0
+    ],
+    [
+     1,
+     2,
+     2,
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     3,
+     2,
+     0,
+     1,
+     1
+    ],
+    [
+     1,
+     4,
+     6,
+     0,
+     2,
+     2
+    ],
+    [
+     1,
+     5,
+     6,
+     0,
+     2,
+     2
+    ],
+    [
+     1,
+     6,
+     5,
+     0,
+     2,
+     2
+    ],
+    [
+     1,
+     7,
+     5,
+     0,
+     2,
+     2
+    ],
+    [
+     2,
+     0,
+     3,
+     1,
+     -1,
+     1
+    ],
+    [
+     2,
+     1,
+     2,
+     1,
+     0,
+     1
+    ],
+    [
+     2,
+     2,
+     3,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     3,
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     2,
+     4,
+     4,
+     1,
+     2,
+     2
+    ],
+    [
+     2,
+     5,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     2,
+     6,
+     4,
+     1,
+     2,
+     2
+    ],
+    [
+     2,
+     7,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     3,
+     0,
+     2,
+     1,
+     -1,
+     1
+    ],
+    [
+     3,
+     1,
+     2,
+     1,
+     0,
+     1
+    ],
+    [
+     3,
+     2,
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     3,
+     2,
+     1,
+     1,
+     1
+    ],
+    [
+     3,
+     4,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     3,
+     5,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     3,
+     6,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     3,
+     7,
+     5,
+     1,
+     2,
+     2
+    ],
+    [
+     4,
+     0,
+     7,
+     2,
+     -1,
+     2
+    ],
+    [
+     4,
+     1,
+     6,
+     2,
+     0,
+     2
+    ],
+    [
+     4,
+     2,
+     4,
+     2,
+     1,
+     2
+    ],
+    [
+     4,
+     3,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     4,
+     4,
+     7,
+     2,
+     2,
+     2
+    ],
+    [
+     4,
+     5,
+     6,
+     2,
+     2,
+     2
+    ],
+    [
+     4,
+     6,
+     4,
+     2,
+     2,
+     2
+    ],
+    [
+     4,
+     7,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     5,
+     0,
+     6,
+     2,
+     -1,
+     2
+    ],
+    [
+     5,
+     1,
+     6,
+     2,
+     0,
+     2
+    ],
+    [
+     5,
+     2,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     5,
+     3,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     5,
+     4,
+     6,
+     2,
+     2,
+     2
+    ],
+    [
+     5,
+     5,
+     6,
+     2,
+     2,
+     2
+    ],
+    [
+     5,
+     6,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     5,
+     7,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     6,
+     0,
+     4,
+     2,
+     -1,
+     2
+    ],
+    [
+     6,
+     1,
+     5,
+     2,
+     0,
+     2
+    ],
+    [
+     6,
+     2,
+     4,
+     2,
+     1,
+     2
+    ],
+    [
+     6,
+     3,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     6,
+     4,
+     4,
+     2,
+     2,
+     2
+    ],
+    [
+     6,
+     5,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     6,
+     6,
+     4,
+     2,
+     2,
+     2
+    ],
+    [
+     6,
+     7,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     7,
+     0,
+     5,
+     2,
+     -1,
+     2
+    ],
+    [
+     7,
+     1,
+     5,
+     2,
+     0,
+     2
+    ],
+    [
+     7,
+     2,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     7,
+     3,
+     5,
+     2,
+     1,
+     2
+    ],
+    [
+     7,
+     4,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     7,
+     5,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     7,
+     6,
+     5,
+     2,
+     2,
+     2
+    ],
+    [
+     7,
+     7,
+     5,
+     2,
+     2,
+     2
+    ]
+   ]
+  },
+  "harmonic": {
+   "0": {
+    "K": 0,
+    "h": 0,
+    "sum_num": 1,
+    "sum_den": 1,
+    "prev_num": 0,
+    "prev_den": 1
+   },
+   "1": {
+    "K": 1,
+    "h": 7,
+    "sum_num": 91072,
+    "sum_den": 45045,
+    "prev_num": 88069,
+    "prev_den": 45045
+   },
+   "2": {
+    "K": 2,
+    "h": 418,
+    "sum_num": 450275730082333311841250837105819021388140719696087200922048291667553169344602233272279341912190394131099555618327009989079138501940298650389696693952970216555653364433881288148376952034370467804246938531555932310464691401388001849989610639461836662653074973561876443829582579998009945103999806018249256000257490214422645942228470670267388605880651762205030949,
+    "sum_den": 112549501084481395169276970606286561949561185789536709565117449572268713333540449064246687100285060879092474039143050810699903278775670994498531050110079611831983911687237856179804717108929414915093454248202597254096084232563233453180447762633634243932755395067320150978111394057611436378520261112346965884161108204192538438528099166303458019529899430629618125,
+    "prev_num": 450141262339102151273545607750255955005883179450221565665698091608327041849580082198128509550063410784768501288531140155374598593602454360073688891025718030639486119617050657495832382479879512708768929625644101250423955338983505752673982864357136980163310630198594101952667273672970982814419734021699259625246545043330420687224255498025687939190651882359595324,
+    "prev_den": 112549501084481395169276970606286561949561185789536709565117449572268713333540449064246687100285060879092474039143050810699903278775670994498531050110079611831983911687237856179804717108929414915093454248202597254096084232563233453180447762633634243932755395067320150978111394057611436378520261112346965884161108204192538438528099166303458019529899430629618125
+   }
+  },
+  "gates": {
+   "x7": [
+    7,
+    27,
+    111
+   ],
+   "x43": [
+    43,
+    203,
+    803
+   ]
+  },
+  "stopped111": true,
+  "gate43_endpoint_note": "803 recorded as orbit endpoint; its gate not evaluated per admission",
+  "seam_rows": [
+   {
+    "input": "7",
+    "s": 1,
+    "Z_next": 2,
+    "Z_F": 1,
+    "lhs": 1,
+    "rhs": 1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 2,
+    "Z_next": 2,
+    "Z_F": 2,
+    "lhs": 0,
+    "rhs": 0,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 3,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 4,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 5,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 6,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 7,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 8,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 9,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 10,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 11,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 12,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 13,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 14,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 15,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "7",
+    "s": 16,
+    "Z_next": 2,
+    "Z_F": 3,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 1,
+    "Z_next": 2,
+    "Z_F": 1,
+    "lhs": 1,
+    "rhs": 1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 2,
+    "Z_next": 3,
+    "Z_F": 2,
+    "lhs": 1,
+    "rhs": 1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 3,
+    "Z_next": 3,
+    "Z_F": 3,
+    "lhs": 0,
+    "rhs": 0,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 4,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 5,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 6,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 7,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 8,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 9,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 10,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 11,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 12,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 13,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 14,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 15,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   },
+   {
+    "input": "43",
+    "s": 16,
+    "Z_next": 3,
+    "Z_F": 4,
+    "lhs": -1,
+    "rhs": -1,
+    "ok": true
+   }
+  ]
+ }
+}

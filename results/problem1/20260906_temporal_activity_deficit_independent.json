@@ -1,0 +1,6967 @@
+{
+  "backend": "independent-python-cell-arrays-rational-long-division",
+  "experiment_id": "20260906-temporal-activity-deficit-independent",
+  "git_commit": "a60d87f4c88343afe22b7ee5ee9f8180b96ecaee",
+  "hardware": {
+    "logical_cpus": 16,
+    "machine": "x86_64",
+    "processor": ""
+  },
+  "hypothesis": "Fixed temporal D identity, finite-entry deficit bound, charge-5 implication, last-time identity and actual one-gate seam",
+  "interpretation": "Finite controls only; the all-depth last-time and spatial-limit arguments require proof review.",
+  "limitations": [
+    "No compactness implication follows from finite controls.",
+    "No actual-survivor growth, occurrence exclusion, or Problem 1 solution is asserted.",
+    "No optimized backend, additional comparator or larger frontier was tested."
+  ],
+  "parameters": {
+    "ages": [
+      1,
+      16
+    ],
+    "cpu_concurrency": 1,
+    "forced_inputs": [
+      7,
+      43
+    ],
+    "forced_updates": 2,
+    "harmonic_K": [
+      0,
+      1,
+      2
+    ],
+    "inputs": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "5",
+      "7",
+      "-1",
+      "-2",
+      "-3",
+      "-1/7",
+      "1/3",
+      "-1/3"
+    ],
+    "local_neighborhoods": [
+      0,
+      255
+    ],
+    "memory_cap_bytes": 1073741824,
+    "temporal_words": [
+      0,
+      7
+    ],
+    "wall_cap_seconds": 120
+  },
+  "proof_scope": "Exactly the declared rational/age and Boolean domains, with full vectors retained.",
+  "provenance": {
+    "admission": "# Temporal activity and the original-position deficit\n\nStatus: `partial-proof` for the all-depth statements below, pending the\nseparately recorded independent checks and fresh adversarial review.\nThis is a new support criterion and a reformulation of the active\nperiod-two bottleneck, not an exclusion of period two or a solution of\nProblem 1. Base checkpoint: `a60d87f4c88343afe22b7ee5ee9f8180b96ecaee`.\n\n## Admission and route selection\n\nThe current boundary functional is Psi_s=D_s+beta_s, with beta_s>=0.\nIts original-history lower bound motivated a subunit upper bound, but\nthe last round showed that sparse interruptions can change Psi by a\nlinear amount. No further comparator, suffix-width, or memory sweep is\nadmitted. The ranked structural alternatives are:\n\n1. Retain D_s alone and its ordered temporal interpretation. An\n   all-depth support criterion would remove the appended-letter cost\n   from this route without discarding any observed gate.\n2. Close the projected boundary evolution. Its exact update needs four\n   further lower bits; the visible row alone is not a closed state.\n   This failure does not rule out averaged inequalities with more state.\n3. Control a nonlinear observable on the complete prescribed history.\n   This remains available if the temporal criterion adds no mechanism.\n\nChoose route 1. The proof comes before computation. The proposed\nequivalence is: for ANY 2-adic input x, bounded Z_s=s-D_s is equivalent\nto T^h(x) being a nonnegative integer for some finite h. It is NOT\nequivalence to x itself being a nonnegative integer. The negative\ninteger -1 and the nonintegral rational -1/7 are mandatory controls.\n\nVerification admission, fixed before execution: check the temporal\nidentity and finite-entry bound by two simple independent methods on\nthe named rational inputs 0,1,2,3,5,7,-1,-2,-3,-1/7,1/3,-1/3 and\nages 1..16 only. One method may use modular bit operations and A;\nthe other must use cell-array T evolution with sufficient initial\nprecision. Check all 256 local eight-bit neighborhoods for the charge-5\ntransition, and the 64 pairs of length-three finite temporal words for\nthe last-activity identity whenever their induced third word is finite.\nThe latter check must include the terminal time; it is only a local\nidentity check, not a spatial-orbit census. Compute exact rational\nharmonic thresholds for K=0,1,2. Replay only the stored ordinary\nendpoint 7's defined forced prefix, plus the named two-branch inputs\n7 and 43, to check the one-step deficit seam for ages 1..16; the\nalgebraic seam needs a first gate only, not a longer observed word.\nNo other input, frontier, occurrence, comparator or width is admitted.\n\nA mismatch refutes an identity, constant, or seam used in the proof.\nAgreement verifies exactly these finite controls and cannot establish\nthe compactness or all-depth implications. The latter need independent\nderivation and fresh adversarial review. Each implementation is local,\none CPU, at most 120 seconds and 1 GiB, with atomic JSON, full Git,\nexecuted source and admission snapshots, hashes, software/hardware facts,\ntimings and limitations. No optimized backend or benchmark is involved.\n\n## 1. A fixed spatial window (`partial-proof`)\n\nUse the established maps on the 2-adic integers:\n\n    T(x)=x XOR((x<<1) OR(x<<2)),\n    pi(x)=x>>2,       A(x)=pi(T(x)),\n    I(z)=1 if z mod64 is 0 or 5, and 0 otherwise.\n\nRight shift deletes the lowest two binary digits, also for negative or\nnonintegral 2-adic inputs. Bitwise operations have their usual digitwise\nmeaning. The original cost note defines, for s>=1,\n\n    D_s(x)=sum_(d=0..s-1) I(A^(s-1-d)(pi^d(x))),\n    Z_s(x)=s-D_s(x).                                      (1)\n\nThese definitions require no forced gate or ordinary membership.\nAlways 0<=Z_s<=s. The previously proved commutation pi A=A pi gives\n\n    A^r(x)=pi^r(T^r(x))                                  (2)\n\nfor all r>=0: if it holds at r, commute A past pi^r and use A=pi T.\nIt follows, putting r=s-1-d in (1), that\n\n    D_s(x)=sum_(r=0..s-1) I(pi^(s-1)(T^r(x))).             (3)\n\nThus Z_s counts the times r=0,...,s-1 when the SIX-cell window\nat positions 2s-2,...,2s+3 is neither 000000 nor 101000, with\nbits written from low index to high index. It samples one fixed\nspatial window at consecutive times. It is not the sum along a\nclosed trajectory of projected boundary rows.\n\nFor a finite observed branch word of length s+1, the existing cylinder\nprecision 2s+4 determines every term in (1), hence Z_s. This is a\nschedule functional when that entire word is actually observed.\nAn unobserved admissibility letter supplies no precision.\n\n## 2. Finite entry gives bounded deficit (`partial-proof`)\n\nSuppose y=T^h(x) is a nonnegative integer, h>=0, and put\nk=ceil(bitlen(y)/2), taking bitlen(0)=0. Then for every s>=1,\n\n    Z_s(x)<=min(s,max(h,k)).                              (4)\n\nFor r>=h, the highest possible nonzero position of T^r(x) is below\n2k+2(r-h); if y=0 the whole row is zero. Its window starting at\n2s-2 is therefore zero whenever h<=r<=s+h-k-1.\nIf h>=k, all r>=h in the sampled range are zero windows and at most\nh earlier times can pay Z. If k>h, at most h early and k-h late\ntimes can pay. When s<=max(h,k), use Z_s<=s. This proves (4),\nwithout assuming anything about the other sampled windows.\n\nIn particular a positive finite x of complexity k has Z_s<=k at\nevery age. No generator history or ordinary-frontier condition is needed.\n\nThe converse cannot say that x is finite. Exactly,\n\n    T(-1)=1,       Z_s(-1)=1;\n    T(-1/7)=-1,    T^2(-1/7)=1,\n    Z_s(-1/7)=min(s,2).                                  (5)\n\nFor -1/7 the initial spatial word repeats 100; its six-bit rotations\nare 9,18,36, all uncharged by I. Its next row is -1, also uncharged.\nAll later sampled windows are zero, by the speed bound with h=2,k=1.\nThese are exact identities, not extrapolations of the verification ages.\n\n## 3. Last activity is spatially rigid (`partial-proof`)\n\nHere use the SAME local rule on a BI-INFINITE spatial row, with\ntime t>=0:\n\n    u_i(t+1)=u_i(t) XOR(u_(i-1)(t) OR u_(i-2)(t)).\n\nSuppose each spatial column has finitely many active times. Define\nE_i={t>=0:u_i(t)=1}, and m_i=max(E_i), with max(empty)=-infinity.\nThen either the whole spacetime is zero, or there is one M>=0 such\nthat m_i=M for EVERY i. In the second case row M is identically one\nand all rows after M are identically zero.\n\nIndeed the temporal difference of a finite-support binary sequence\nhas the same last nonzero time as that sequence, including time zero:\n\n    last(u_i(t+1) XOR u_i(t))=m_i.\n\nThe local rule identifies that difference with the OR of the two\nlower-index columns. Hence\n\n    m_i=max(m_(i-1),m_(i-2)).                             (6)\n\nThis makes m_i>=m_(i-1), and then\nm_(i+1)=max(m_i,m_(i-1))=m_i. It holds at every spatial index,\nso all last times are equal, including the possible value -infinity.\n\nThere is also a quantitative bound. If EVERY column has at most B\nactive times, the nonzero case satisfies\n\n    sum_(r=0..M) 1/(2r+1) <= B.                          (7)\n\nAt time M-r, each spatial interval of length 2r+1 contains a one:\notherwise the rightmost cell of that interval would still be zero\nafter r updates, whereas row M is all ones. Partition N consecutive\ncolumns into such intervals. At that time there are at least\nfloor(N/(2r+1)) active cells in those columns. Sum over r=0,...,M,\ncompare with BN, divide by N, and let N tend to infinity. The sum\nover r is finite, so no interchange of infinite sums is involved.\n\nThe odd harmonic sums diverge (grouping r into dyadic intervals\nalready proves this). Thus a uniform bound B on per-column activity\ngives a uniform finite extinction time. This is proved for this rule\nand this domain; no general cellular-automaton nilpotency theorem is used.\n\n## 4. Bounded deficit forces finite entry (`partial-proof`)\n\nFor an integer K>=0 define the finite integer\n\n    h(K)=min{h>=0: sum_(r=0..h) 1/(2r+1)>2K}.             (8)\n\n**Theorem.** For every 2-adic x, if Z_s(x)<=K for all s>=1, then\nT^h(K)(x) is a nonnegative integer.\n\nFirst, check the only local conversion needed. If the current six-bit\nwindow equals 5, its next window equals 26 or 27, depending on the\ntwo bits just below it. Both are uncharged by I. The bits in positions\n2,...,5 of the next window are always 0,1,1,0, independently of\nthose lower boundary bits. Thus every charge-5 time is followed by a\nnoncharge time. On an infinite temporal word with at most K noncharge\ntimes, there are at most K charge-5 times and at most 2K times with\na NONZERO window. Distinct charge-5 times have distinct successors.\n\nExtend the binary digits of x by zero at negative spatial indices.\nTake any subsequential spatial limit obtained by shifting x by even\namounts j_n tending to infinity, and call its bi-infinite initial row\nv. A subsequence exists by diagonal selection on finite windows.\nFor every fixed even offset 2a and finite time horizon, the window\nof v at 2a is the limit of the windows of x at j_n+2a. Those input\nwindows are controlled by (3) at ages (j_n/2)+a+1, which tend to\ninfinity. Local evolution commutes with these limits: each fixed\noutput window and finite time uses only finitely many input cells,\neventually far from the artificial negative-index boundary.\n\nConsequently every even-aligned six-cell window of v has at most K\nnoncharge times over ALL t>=0. If it had K+1, their finite set of\ntimes would contradict the corresponding sufficiently large input age.\nThe local conversion above gives at most 2K nonzero times per such\nwindow. Every spatial column lies in an even-aligned window, so each\ncolumn of v has at most 2K active times.\n\nApply Section 3 with B=2K. Either v is already zero or its common\nlast time M satisfies the harmonic bound (7), hence M<h(K). In\neither case T^h(K)(v) is the zero row. For K=0, h(0)=0 and the\nactivity bound already says v itself is zero.\n\nEvery such spatial limit is therefore zero after the SAME finite\ntime h(K). If T^h(K)(x) had infinitely many nonzero binary digits,\nchoose even shifts immediately below a sequence of these positions.\nAfter taking a subsequence, one of positions 0 or 1 of the shifted\noutput is always one. A limit of the shifted INPUT rows then has\na nonzero output at that position after h(K) updates, a contradiction.\nThus the output has only finitely many nonzero binary digits.\n\nCombining Sections 2 and 4 proves the exact equivalence\n\n    sup_(s>=1) Z_s(x)<infinity\n      iff T^h(x) is nonnegative finite for some h>=0.      (9)\n\nThe output support size is not bounded by (8). It may depend on x;\nthe theorem bounds an entry time, not a uniform support window.\nThe proof uses bounded activity in SPATIAL LIMITS, not a false claim\nthat the original one-sided columns become temporally zero.\n\n## 5. The forced-orbit seam and remaining target (`partial-proof`)\n\nSuppose x has an infinite actual forced orbit x_r=F^r(x), with the\nusual gate 7 or 11 modulo16 at every step. The established identity\n\n    pi^r(F^r(x))=A^(2r)(x)\n\nand (2) imply\n\n    some T iterate of x is nonnegative finite\n      iff some actual F iterate of x is nonnegative finite. (10)\n\nIn one direction, if T^h(x) is finite, choose 2r>=h. Then\nA^(2r)(x)=pi^(2r)(T^(2r)(x)) is finite, and adding back the r\ndeleted low pairs makes F^r(x) finite. In the other direction,\nfinite F^r(x) makes A^(2r)(x) finite; adding back 2r deleted low\npairs makes T^(2r)(x) finite. Deleting finitely many low digits\ndoes not turn an infinite high tail into a finite one.\n\nThus unbounded Z_s on an infinite forced survivor is equivalent to\nEVERY one of its actual forced states having infinite support. This\nis an equivalence of escape from eventual finite support, not a proof\nthat the survivor in the actual period-two problem escapes.\n\nThere is also a direct finite seam identity. If the first gate of x\nis defined, the established D recurrence gives, for every s>=1,\n\n    Z_(s+1)(x)-Z_s(F(x))\n       =1+I(A^(s-1)(F(x)))-J(pi^(s-1)(x)),\n    -1 <= Z_(s+1)(x)-Z_s(F(x)) <= 2,                    (11)\n\nwhere J(y)=I(A(y))+I(pi(y)). Its algebra only needs this first\nactual gate. To interpret both sides from observed branch WORDS\nstill requires the full lengths s+2 and s+1 respectively.\nIterating (11) across h actual steps bounds the difference between\nZ_(s+h)(x) and Z_s(F^h(x)) between -h and 2h. Hence unboundedness\nis unchanged by removing any fixed finite actual branch prefix.\n\nFor an observed infinite schedule define the monotone record\n\n    R_N^D=max_(1<=s<=N) Z_s.                             (12)\n\nAny proof that R_N^D tends to infinity on the ACTUAL required\nsurvivor would exclude finite support, with every finite temporal\ntransient handled by (11). A uniform positive linear growth rate,\nor growth at every age, is not necessary. For positive finite input\nof original complexity k, (4) gives R_N^D<=k.\n\nThis removes beta_s from the sufficient inequality target. Precisely,\n\n    s-1-Psi_s=Z_s-1-beta_s <= Z_s-1.\n\nUnbounded positive deficit of Psi therefore implies unbounded Z,\nwhile the reverse implication is not established here. The old\nperiodic-comparator and terminal-edit results concerned Psi; their\nslopes and sensitivity claims must not be silently transferred to D.\nNo new all-depth growth assertion is made for the actual survivor.\nLeast temporal periods >=3 remain outside this auxiliary forced route.\n\n## 6. Verification and scope\n\nThe finite checks and external-review disposition will be recorded\nhere after completion. Until then the arguments are lead-derived,\nwith independent review pending. The signed-mass and B_all routes\nremain open; this note proves neither a new occurrence exclusion nor\nthe required unboundedness on the actual fringe.\n\nDependencies are the exact definitions and D recurrence in\n`problem1_critical_cost_schedule_identity.md`, the all-bit and\nforced leading-block identities in `problem1_frontier_head_dynamics.md`,\nand the finite branch-cylinder precision in\n`problem1_finite_schedule_repetition_bound.md`. Section 3 and the\nspatial-limit argument in Section 4 are proved in full here.\n",
+    "admission_path": "proofs/informal/problem1_temporal_activity_deficit.md",
+    "admission_sha256": "ec4c735b13f0878cb6af0711a3ec55735633060dbc4786b73b20414c84f41ca7",
+    "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "source": "#!/usr/bin/env python3\n\"\"\"Independent cell/long-division checks of the fixed temporal-deficit admission.\"\"\"\nfrom datetime import datetime, timezone\nfrom fractions import Fraction\nimport hashlib\nimport json\nimport os\nfrom pathlib import Path\nimport platform\nimport resource\nimport subprocess\nimport tempfile\nimport time\n\nROOT = Path(__file__).resolve().parents[2]\nNOTE = ROOT / \"proofs/informal/problem1_temporal_activity_deficit.md\"\nOUT = ROOT / \"results/problem1/20260906_temporal_activity_deficit_independent.json\"\nINPUTS = [(\"0\", 0, 1), (\"1\", 1, 1), (\"2\", 2, 1), (\"3\", 3, 1),\n          (\"5\", 5, 1), (\"7\", 7, 1), (\"-1\", -1, 1), (\"-2\", -2, 1),\n          (\"-3\", -3, 1), (\"-1/7\", -1, 7), (\"1/3\", 1, 3), (\"-1/3\", -1, 3)]\n\n\ndef sha(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef digest(value):\n    return sha(json.dumps(value, sort_keys=True, separators=(\",\", \":\")).encode())\n\n\ndef atomic(path, value):\n    fd, tmp = tempfile.mkstemp(prefix=path.name + \".\", dir=path.parent)\n    try:\n        with os.fdopen(fd, \"w\") as stream:\n            json.dump(value, stream, sort_keys=True, indent=2)\n            stream.write(\"\\n\")\n            stream.flush()\n            os.fsync(stream.fileno())\n        os.replace(tmp, path)\n    finally:\n        if os.path.exists(tmp):\n            os.unlink(tmp)\n\n\ndef digits(numerator, denominator, width):\n    # Successive exact rational remainders, independently of modular inversion.\n    out = []\n    for _ in range(width):\n        bit = numerator % 2\n        out.append(bit)\n        numerator = (numerator - bit * denominator) // 2\n    return out\n\n\ndef number(cells):\n    return sum(bit * (2 ** i) for i, bit in enumerate(cells))\n\n\ndef t_cells(cells):\n    return [bit ^ ((cells[i - 1] if i >= 1 else 0)\n                   | (cells[i - 2] if i >= 2 else 0))\n            for i, bit in enumerate(cells)]\n\n\ndef a_cells(cells):\n    pad = cells + [0, 0]\n    return [pad[i + 2] ^ (pad[i + 1] | pad[i]) for i in range(len(cells))]\n\n\ndef charged(cells):\n    assert len(cells) == 6\n    return int(cells == [0] * 6 or cells == [1, 0, 1, 0, 0, 0])\n\n\ndef temporal(cells, s):\n    # All causal dependencies for these six cells are within this initial row.\n    assert len(cells) >= 2 * s + 4\n    values = []\n    row = cells[:]\n    for _ in range(s):\n        values.append(charged(row[2 * s - 2:2 * s + 4]))\n        row = t_cells(row)\n    return values\n\n\ndef forced(cells):\n    # Independent odd-section construction Q(P(x>>2)), not 4 A^2(x)+3.\n    gate = number(cells[:4])\n    assert gate in (7, 11)\n    z = cells[2:]\n    p = t_cells([1] + z + [0, 0])[1:]\n    out = t_cells(p + [0, 0])\n    if gate == 7:\n        out[0] ^= 1\n    return out\n\n\ndef run():\n    started = time.monotonic()\n    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))\n    resource.setrlimit(resource.RLIMIT_AS, (1024 ** 3, 1024 ** 3))\n    rows, entry_checks = [], []\n    for label, n, den in INPUTS:\n        if den == 1 and n >= 0:\n            entry = (0, n)\n        elif label in (\"-1\", \"-2\", \"-3\"):\n            entry = (1, -n)\n        elif label == \"-1/7\":\n            entry = (2, 1)\n        else:\n            entry = None\n        for s in range(1, 17):\n            cells = digits(n, den, 2 * s + 4)\n            values = temporal(cells, s)\n            z = s - sum(values)\n            if entry is not None:\n                h, finite = entry\n                k = (finite.bit_length() + 1) // 2\n                assert z <= min(s, max(h, k))\n                entry_checks.append([label, s, h, k, z, min(s, max(h, k))])\n            if label in (\"-1\", \"-2\", \"-3\", \"1\", \"2\", \"3\"):\n                assert z == 1\n            if label == \"-1/7\":\n                assert z == min(s, 2)\n            if label in (\"1/3\", \"-1/3\"):\n                assert z == s\n            if label == \"0\":\n                assert z == 0\n            rows.append({\"input\": label, \"s\": s, \"temporal_scores\": values,\n                         \"D\": sum(values), \"Z\": z})\n\n    local = []\n    for neighborhood in range(256):\n        cells = digits(neighborhood, 1, 8)\n        window = number(cells[2:])\n        successor = number(t_cells(cells)[2:])\n        implication = window != 5 or successor in (26, 27)\n        assert implication\n        local.append([neighborhood, window, successor, implication])\n\n    temporal_words = []\n    for a in range(8):\n        for b in range(8):\n            aa, bb = digits(a, 1, 3), digits(b, 1, 3)\n            cc = [0, 0, 0, 0]\n            for t in reversed(range(3)):\n                cc[t] = cc[t + 1] ^ (aa[t] | bb[t])\n            last = lambda word: max((i for i, bit in enumerate(word) if bit), default=-1)\n            assert last(cc) == max(last(aa), last(bb))\n            assert all((cc[t] ^ cc[t + 1]) == (aa[t] | bb[t]) for t in range(3))\n            temporal_words.append([a, b, number(cc), last(aa), last(bb), last(cc)])\n\n    harmonics = []\n    for k in (0, 1, 2):\n        total, h = Fraction(0), 0\n        while True:\n            previous = total\n            total += Fraction(1, 2 * h + 1)\n            if total > 2 * k:\n                break\n            h += 1\n        assert previous <= 2 * k < total\n        harmonics.append({\"K\": k, \"h\": h,\n                          \"sum\": [total.numerator, total.denominator],\n                          \"previous_sum\": [previous.numerator, previous.denominator]})\n\n    seams, forced_rows = [], []\n    for x in (7, 43):\n        actual = digits(x, 1, max(4, x.bit_length()))\n        states, gates = [x], []\n        for _ in range(2):\n            gates.append(\"u\" if number(actual[:4]) == 7 else \"t\")\n            actual = forced(actual)\n            states.append(number(actual))\n        if x == 7:\n            assert states == [7, 27, 111] and number(actual[:4]) == 15\n        forced_rows.append({\"x\": x, \"states\": states, \"gates\": gates})\n        for s in range(1, 17):\n            initial = digits(x, 1, 2 * s + 6)\n            nxt = forced(initial)\n            zx = s + 1 - sum(temporal(initial, s + 1))\n            zf = s - sum(temporal(nxt, s))\n            aged = nxt[:]\n            for _ in range(s - 1):\n                aged = a_cells(aged)\n            term_i = charged(aged[:6])\n            projected = initial[2 * s - 2:]\n            term_j = charged(a_cells(projected)[:6]) + charged(projected[2:8])\n            assert zx - zf == 1 + term_i - term_j\n            assert -1 <= zx - zf <= 2\n            seams.append({\"x\": x, \"s\": s, \"Z_next_age\": zx,\n                          \"Z_forced\": zf, \"I\": term_i, \"J\": term_j,\n                          \"difference\": zx - zf})\n\n    output = {\"rows\": rows, \"entry_checks\": entry_checks,\n              \"local_charge_rows\": local, \"temporal_word_rows\": temporal_words,\n              \"harmonics\": harmonics, \"forced_rows\": forced_rows, \"seams\": seams}\n    runtime = time.monotonic() - started\n    assert runtime < 120\n    source, admission = Path(__file__).read_bytes(), NOTE.read_bytes()\n    record = {\n        \"experiment_id\": \"20260906-temporal-activity-deficit-independent\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip(),\n        \"question\": \"problem1\",\n        \"hypothesis\": \"Fixed temporal D identity, finite-entry deficit bound, charge-5 implication, last-time identity and actual one-gate seam\",\n        \"backend\": \"independent-python-cell-arrays-rational-long-division\",\n        \"parameters\": {\"inputs\": [x[0] for x in INPUTS], \"ages\": [1, 16],\n                       \"local_neighborhoods\": [0, 255], \"temporal_words\": [0, 7],\n                       \"harmonic_K\": [0, 1, 2], \"forced_inputs\": [7, 43],\n                       \"forced_updates\": 2, \"wall_cap_seconds\": 120,\n                       \"memory_cap_bytes\": 1024 ** 3, \"cpu_concurrency\": 1},\n        \"hardware\": {\"machine\": platform.machine(), \"processor\": platform.processor(),\n                     \"logical_cpus\": os.cpu_count()},\n        \"software\": {\"python\": platform.python_version(), \"platform\": platform.platform()},\n        \"runtime_seconds\": runtime,\n        \"result_hashes\": {key: digest(value) for key, value in output.items()},\n        \"result_summary\": {\"temporal_rows\": len(rows), \"entry_bounds\": len(entry_checks),\n                           \"local_rows\": len(local), \"temporal_word_rows\": len(temporal_words),\n                           \"seams\": len(seams), \"harmonic_thresholds\": [[r[\"K\"], r[\"h\"]] for r in harmonics],\n                           \"all_checks_passed\": True},\n        \"interpretation\": \"Finite controls only; the all-depth last-time and spatial-limit arguments require proof review.\",\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Exactly the declared rational/age and Boolean domains, with full vectors retained.\",\n        \"limitations\": [\"No compactness implication follows from finite controls.\",\n                        \"No actual-survivor growth, occurrence exclusion, or Problem 1 solution is asserted.\",\n                        \"No optimized backend, additional comparator or larger frontier was tested.\"],\n        \"provenance\": {\"source_path\": str(Path(__file__).relative_to(ROOT)),\n                       \"source_sha256\": sha(source), \"source\": source.decode(),\n                       \"admission_path\": str(NOTE.relative_to(ROOT)),\n                       \"admission_sha256\": sha(admission), \"admission\": admission.decode(),\n                       \"reference_sha256\": sha((ROOT / \"src/python/rule30_research_reference.py\").read_bytes())},\n        \"results\": output,\n    }\n    atomic(OUT, record)\n    print(json.dumps(record[\"result_summary\"], sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    run()\n",
+    "source_path": "experiments/problem1_nonperiodicity/check_temporal_activity_deficit_independent.py",
+    "source_sha256": "6871428c015ff92b1b5c5f11c6f2b020a6d01ade2f4974929e82171f47e62aec"
+  },
+  "question": "problem1",
+  "result_hashes": {
+    "entry_checks": "3c7571d7fef5eb339ae28d76d89d6bcdec41dc66b6e71b316b8bc8b82a1c2ec9",
+    "forced_rows": "85fe324a98e8da01c6deea7dff28ae5e2ff9e77474c34a2176f2213166dd4402",
+    "harmonics": "69d22c8b8c17316404c9cf5916a8a9654a3ab54fcc82e53b53e4083216de95f6",
+    "local_charge_rows": "0632ee4af42f2a5a72066d7f0dbc289e8c23b3cdd3928503619d7f764866be8c",
+    "rows": "3ae7964330497b2e2d2b932297f20176976675020716d2735767126a9c428bc1",
+    "seams": "4ca880f617d2167724e71a1e1df47edeba7d0255705270715ddac3c45d1cdf4e",
+    "temporal_word_rows": "9208972a75adbe34ac724bc1b889cccdf56f7af237ebc539ee40377ada1783e8"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "entry_bounds": 160,
+    "harmonic_thresholds": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        2,
+        418
+      ]
+    ],
+    "local_rows": 256,
+    "seams": 32,
+    "temporal_rows": 192,
+    "temporal_word_rows": 64
+  },
+  "results": {
+    "entry_checks": [
+      [
+        "0",
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        6,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        8,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        9,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        10,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        11,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        12,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        13,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        14,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        15,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "0",
+        16,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        "1",
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        2,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        3,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        4,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        5,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        6,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        7,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        8,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        9,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        10,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        11,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        12,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        13,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        14,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        15,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "1",
+        16,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        2,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        3,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        4,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        5,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        6,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        7,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        8,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        9,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        10,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        11,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        12,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        13,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        14,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        15,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "2",
+        16,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        1,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        2,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        3,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        4,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        5,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        6,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        7,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        8,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        9,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        10,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        11,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        12,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        13,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        14,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        15,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "3",
+        16,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        "5",
+        1,
+        0,
+        2,
+        0,
+        1
+      ],
+      [
+        "5",
+        2,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        3,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        4,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        5,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        6,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        7,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        8,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        9,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        10,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        11,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        12,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        13,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        14,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        15,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "5",
+        16,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        1,
+        0,
+        2,
+        1,
+        1
+      ],
+      [
+        "7",
+        2,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        3,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        4,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        5,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        6,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        7,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        8,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        9,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        10,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        11,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        12,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        13,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        14,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        15,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "7",
+        16,
+        0,
+        2,
+        2,
+        2
+      ],
+      [
+        "-1",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-2",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        2,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        5,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        6,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        7,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        8,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        9,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        10,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        11,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        12,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        13,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        14,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        15,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-3",
+        16,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1/7",
+        1,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        "-1/7",
+        2,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        3,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        4,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        5,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        6,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        7,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        8,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        9,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        10,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        11,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        12,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        13,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        14,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        15,
+        2,
+        1,
+        2,
+        2
+      ],
+      [
+        "-1/7",
+        16,
+        2,
+        1,
+        2,
+        2
+      ]
+    ],
+    "forced_rows": [
+      {
+        "gates": [
+          "u",
+          "t"
+        ],
+        "states": [
+          7,
+          27,
+          111
+        ],
+        "x": 7
+      },
+      {
+        "gates": [
+          "t",
+          "t"
+        ],
+        "states": [
+          43,
+          203,
+          803
+        ],
+        "x": 43
+      }
+    ],
+    "harmonics": [
+      {
+        "K": 0,
+        "h": 0,
+        "previous_sum": [
+          0,
+          1
+        ],
+        "sum": [
+          1,
+          1
+        ]
+      },
+      {
+        "K": 1,
+        "h": 7,
+        "previous_sum": [
+          88069,
+          45045
+        ],
+        "sum": [
+          91072,
+          45045
+        ]
+      },
+      {
+        "K": 2,
+        "h": 418,
+        "previous_sum": [
+          450141262339102151273545607750255955005883179450221565665698091608327041849580082198128509550063410784768501288531140155374598593602454360073688891025718030639486119617050657495832382479879512708768929625644101250423955338983505752673982864357136980163310630198594101952667273672970982814419734021699259625246545043330420687224255498025687939190651882359595324,
+          112549501084481395169276970606286561949561185789536709565117449572268713333540449064246687100285060879092474039143050810699903278775670994498531050110079611831983911687237856179804717108929414915093454248202597254096084232563233453180447762633634243932755395067320150978111394057611436378520261112346965884161108204192538438528099166303458019529899430629618125
+        ],
+        "sum": [
+          450275730082333311841250837105819021388140719696087200922048291667553169344602233272279341912190394131099555618327009989079138501940298650389696693952970216555653364433881288148376952034370467804246938531555932310464691401388001849989610639461836662653074973561876443829582579998009945103999806018249256000257490214422645942228470670267388605880651762205030949,
+          112549501084481395169276970606286561949561185789536709565117449572268713333540449064246687100285060879092474039143050810699903278775670994498531050110079611831983911687237856179804717108929414915093454248202597254096084232563233453180447762633634243932755395067320150978111394057611436378520261112346965884161108204192538438528099166303458019529899430629618125
+        ]
+      }
+    ],
+    "local_charge_rows": [
+      [
+        0,
+        0,
+        0,
+        true
+      ],
+      [
+        1,
+        0,
+        1,
+        true
+      ],
+      [
+        2,
+        0,
+        3,
+        true
+      ],
+      [
+        3,
+        0,
+        3,
+        true
+      ],
+      [
+        4,
+        1,
+        7,
+        true
+      ],
+      [
+        5,
+        1,
+        6,
+        true
+      ],
+      [
+        6,
+        1,
+        6,
+        true
+      ],
+      [
+        7,
+        1,
+        6,
+        true
+      ],
+      [
+        8,
+        2,
+        14,
+        true
+      ],
+      [
+        9,
+        2,
+        15,
+        true
+      ],
+      [
+        10,
+        2,
+        13,
+        true
+      ],
+      [
+        11,
+        2,
+        13,
+        true
+      ],
+      [
+        12,
+        3,
+        13,
+        true
+      ],
+      [
+        13,
+        3,
+        12,
+        true
+      ],
+      [
+        14,
+        3,
+        12,
+        true
+      ],
+      [
+        15,
+        3,
+        12,
+        true
+      ],
+      [
+        16,
+        4,
+        28,
+        true
+      ],
+      [
+        17,
+        4,
+        29,
+        true
+      ],
+      [
+        18,
+        4,
+        31,
+        true
+      ],
+      [
+        19,
+        4,
+        31,
+        true
+      ],
+      [
+        20,
+        5,
+        27,
+        true
+      ],
+      [
+        21,
+        5,
+        26,
+        true
+      ],
+      [
+        22,
+        5,
+        26,
+        true
+      ],
+      [
+        23,
+        5,
+        26,
+        true
+      ],
+      [
+        24,
+        6,
+        26,
+        true
+      ],
+      [
+        25,
+        6,
+        27,
+        true
+      ],
+      [
+        26,
+        6,
+        25,
+        true
+      ],
+      [
+        27,
+        6,
+        25,
+        true
+      ],
+      [
+        28,
+        7,
+        25,
+        true
+      ],
+      [
+        29,
+        7,
+        24,
+        true
+      ],
+      [
+        30,
+        7,
+        24,
+        true
+      ],
+      [
+        31,
+        7,
+        24,
+        true
+      ],
+      [
+        32,
+        8,
+        56,
+        true
+      ],
+      [
+        33,
+        8,
+        57,
+        true
+      ],
+      [
+        34,
+        8,
+        59,
+        true
+      ],
+      [
+        35,
+        8,
+        59,
+        true
+      ],
+      [
+        36,
+        9,
+        63,
+        true
+      ],
+      [
+        37,
+        9,
+        62,
+        true
+      ],
+      [
+        38,
+        9,
+        62,
+        true
+      ],
+      [
+        39,
+        9,
+        62,
+        true
+      ],
+      [
+        40,
+        10,
+        54,
+        true
+      ],
+      [
+        41,
+        10,
+        55,
+        true
+      ],
+      [
+        42,
+        10,
+        53,
+        true
+      ],
+      [
+        43,
+        10,
+        53,
+        true
+      ],
+      [
+        44,
+        11,
+        53,
+        true
+      ],
+      [
+        45,
+        11,
+        52,
+        true
+      ],
+      [
+        46,
+        11,
+        52,
+        true
+      ],
+      [
+        47,
+        11,
+        52,
+        true
+      ],
+      [
+        48,
+        12,
+        52,
+        true
+      ],
+      [
+        49,
+        12,
+        53,
+        true
+      ],
+      [
+        50,
+        12,
+        55,
+        true
+      ],
+      [
+        51,
+        12,
+        55,
+        true
+      ],
+      [
+        52,
+        13,
+        51,
+        true
+      ],
+      [
+        53,
+        13,
+        50,
+        true
+      ],
+      [
+        54,
+        13,
+        50,
+        true
+      ],
+      [
+        55,
+        13,
+        50,
+        true
+      ],
+      [
+        56,
+        14,
+        50,
+        true
+      ],
+      [
+        57,
+        14,
+        51,
+        true
+      ],
+      [
+        58,
+        14,
+        49,
+        true
+      ],
+      [
+        59,
+        14,
+        49,
+        true
+      ],
+      [
+        60,
+        15,
+        49,
+        true
+      ],
+      [
+        61,
+        15,
+        48,
+        true
+      ],
+      [
+        62,
+        15,
+        48,
+        true
+      ],
+      [
+        63,
+        15,
+        48,
+        true
+      ],
+      [
+        64,
+        16,
+        48,
+        true
+      ],
+      [
+        65,
+        16,
+        49,
+        true
+      ],
+      [
+        66,
+        16,
+        51,
+        true
+      ],
+      [
+        67,
+        16,
+        51,
+        true
+      ],
+      [
+        68,
+        17,
+        55,
+        true
+      ],
+      [
+        69,
+        17,
+        54,
+        true
+      ],
+      [
+        70,
+        17,
+        54,
+        true
+      ],
+      [
+        71,
+        17,
+        54,
+        true
+      ],
+      [
+        72,
+        18,
+        62,
+        true
+      ],
+      [
+        73,
+        18,
+        63,
+        true
+      ],
+      [
+        74,
+        18,
+        61,
+        true
+      ],
+      [
+        75,
+        18,
+        61,
+        true
+      ],
+      [
+        76,
+        19,
+        61,
+        true
+      ],
+      [
+        77,
+        19,
+        60,
+        true
+      ],
+      [
+        78,
+        19,
+        60,
+        true
+      ],
+      [
+        79,
+        19,
+        60,
+        true
+      ],
+      [
+        80,
+        20,
+        44,
+        true
+      ],
+      [
+        81,
+        20,
+        45,
+        true
+      ],
+      [
+        82,
+        20,
+        47,
+        true
+      ],
+      [
+        83,
+        20,
+        47,
+        true
+      ],
+      [
+        84,
+        21,
+        43,
+        true
+      ],
+      [
+        85,
+        21,
+        42,
+        true
+      ],
+      [
+        86,
+        21,
+        42,
+        true
+      ],
+      [
+        87,
+        21,
+        42,
+        true
+      ],
+      [
+        88,
+        22,
+        42,
+        true
+      ],
+      [
+        89,
+        22,
+        43,
+        true
+      ],
+      [
+        90,
+        22,
+        41,
+        true
+      ],
+      [
+        91,
+        22,
+        41,
+        true
+      ],
+      [
+        92,
+        23,
+        41,
+        true
+      ],
+      [
+        93,
+        23,
+        40,
+        true
+      ],
+      [
+        94,
+        23,
+        40,
+        true
+      ],
+      [
+        95,
+        23,
+        40,
+        true
+      ],
+      [
+        96,
+        24,
+        40,
+        true
+      ],
+      [
+        97,
+        24,
+        41,
+        true
+      ],
+      [
+        98,
+        24,
+        43,
+        true
+      ],
+      [
+        99,
+        24,
+        43,
+        true
+      ],
+      [
+        100,
+        25,
+        47,
+        true
+      ],
+      [
+        101,
+        25,
+        46,
+        true
+      ],
+      [
+        102,
+        25,
+        46,
+        true
+      ],
+      [
+        103,
+        25,
+        46,
+        true
+      ],
+      [
+        104,
+        26,
+        38,
+        true
+      ],
+      [
+        105,
+        26,
+        39,
+        true
+      ],
+      [
+        106,
+        26,
+        37,
+        true
+      ],
+      [
+        107,
+        26,
+        37,
+        true
+      ],
+      [
+        108,
+        27,
+        37,
+        true
+      ],
+      [
+        109,
+        27,
+        36,
+        true
+      ],
+      [
+        110,
+        27,
+        36,
+        true
+      ],
+      [
+        111,
+        27,
+        36,
+        true
+      ],
+      [
+        112,
+        28,
+        36,
+        true
+      ],
+      [
+        113,
+        28,
+        37,
+        true
+      ],
+      [
+        114,
+        28,
+        39,
+        true
+      ],
+      [
+        115,
+        28,
+        39,
+        true
+      ],
+      [
+        116,
+        29,
+        35,
+        true
+      ],
+      [
+        117,
+        29,
+        34,
+        true
+      ],
+      [
+        118,
+        29,
+        34,
+        true
+      ],
+      [
+        119,
+        29,
+        34,
+        true
+      ],
+      [
+        120,
+        30,
+        34,
+        true
+      ],
+      [
+        121,
+        30,
+        35,
+        true
+      ],
+      [
+        122,
+        30,
+        33,
+        true
+      ],
+      [
+        123,
+        30,
+        33,
+        true
+      ],
+      [
+        124,
+        31,
+        33,
+        true
+      ],
+      [
+        125,
+        31,
+        32,
+        true
+      ],
+      [
+        126,
+        31,
+        32,
+        true
+      ],
+      [
+        127,
+        31,
+        32,
+        true
+      ],
+      [
+        128,
+        32,
+        32,
+        true
+      ],
+      [
+        129,
+        32,
+        33,
+        true
+      ],
+      [
+        130,
+        32,
+        35,
+        true
+      ],
+      [
+        131,
+        32,
+        35,
+        true
+      ],
+      [
+        132,
+        33,
+        39,
+        true
+      ],
+      [
+        133,
+        33,
+        38,
+        true
+      ],
+      [
+        134,
+        33,
+        38,
+        true
+      ],
+      [
+        135,
+        33,
+        38,
+        true
+      ],
+      [
+        136,
+        34,
+        46,
+        true
+      ],
+      [
+        137,
+        34,
+        47,
+        true
+      ],
+      [
+        138,
+        34,
+        45,
+        true
+      ],
+      [
+        139,
+        34,
+        45,
+        true
+      ],
+      [
+        140,
+        35,
+        45,
+        true
+      ],
+      [
+        141,
+        35,
+        44,
+        true
+      ],
+      [
+        142,
+        35,
+        44,
+        true
+      ],
+      [
+        143,
+        35,
+        44,
+        true
+      ],
+      [
+        144,
+        36,
+        60,
+        true
+      ],
+      [
+        145,
+        36,
+        61,
+        true
+      ],
+      [
+        146,
+        36,
+        63,
+        true
+      ],
+      [
+        147,
+        36,
+        63,
+        true
+      ],
+      [
+        148,
+        37,
+        59,
+        true
+      ],
+      [
+        149,
+        37,
+        58,
+        true
+      ],
+      [
+        150,
+        37,
+        58,
+        true
+      ],
+      [
+        151,
+        37,
+        58,
+        true
+      ],
+      [
+        152,
+        38,
+        58,
+        true
+      ],
+      [
+        153,
+        38,
+        59,
+        true
+      ],
+      [
+        154,
+        38,
+        57,
+        true
+      ],
+      [
+        155,
+        38,
+        57,
+        true
+      ],
+      [
+        156,
+        39,
+        57,
+        true
+      ],
+      [
+        157,
+        39,
+        56,
+        true
+      ],
+      [
+        158,
+        39,
+        56,
+        true
+      ],
+      [
+        159,
+        39,
+        56,
+        true
+      ],
+      [
+        160,
+        40,
+        24,
+        true
+      ],
+      [
+        161,
+        40,
+        25,
+        true
+      ],
+      [
+        162,
+        40,
+        27,
+        true
+      ],
+      [
+        163,
+        40,
+        27,
+        true
+      ],
+      [
+        164,
+        41,
+        31,
+        true
+      ],
+      [
+        165,
+        41,
+        30,
+        true
+      ],
+      [
+        166,
+        41,
+        30,
+        true
+      ],
+      [
+        167,
+        41,
+        30,
+        true
+      ],
+      [
+        168,
+        42,
+        22,
+        true
+      ],
+      [
+        169,
+        42,
+        23,
+        true
+      ],
+      [
+        170,
+        42,
+        21,
+        true
+      ],
+      [
+        171,
+        42,
+        21,
+        true
+      ],
+      [
+        172,
+        43,
+        21,
+        true
+      ],
+      [
+        173,
+        43,
+        20,
+        true
+      ],
+      [
+        174,
+        43,
+        20,
+        true
+      ],
+      [
+        175,
+        43,
+        20,
+        true
+      ],
+      [
+        176,
+        44,
+        20,
+        true
+      ],
+      [
+        177,
+        44,
+        21,
+        true
+      ],
+      [
+        178,
+        44,
+        23,
+        true
+      ],
+      [
+        179,
+        44,
+        23,
+        true
+      ],
+      [
+        180,
+        45,
+        19,
+        true
+      ],
+      [
+        181,
+        45,
+        18,
+        true
+      ],
+      [
+        182,
+        45,
+        18,
+        true
+      ],
+      [
+        183,
+        45,
+        18,
+        true
+      ],
+      [
+        184,
+        46,
+        18,
+        true
+      ],
+      [
+        185,
+        46,
+        19,
+        true
+      ],
+      [
+        186,
+        46,
+        17,
+        true
+      ],
+      [
+        187,
+        46,
+        17,
+        true
+      ],
+      [
+        188,
+        47,
+        17,
+        true
+      ],
+      [
+        189,
+        47,
+        16,
+        true
+      ],
+      [
+        190,
+        47,
+        16,
+        true
+      ],
+      [
+        191,
+        47,
+        16,
+        true
+      ],
+      [
+        192,
+        48,
+        16,
+        true
+      ],
+      [
+        193,
+        48,
+        17,
+        true
+      ],
+      [
+        194,
+        48,
+        19,
+        true
+      ],
+      [
+        195,
+        48,
+        19,
+        true
+      ],
+      [
+        196,
+        49,
+        23,
+        true
+      ],
+      [
+        197,
+        49,
+        22,
+        true
+      ],
+      [
+        198,
+        49,
+        22,
+        true
+      ],
+      [
+        199,
+        49,
+        22,
+        true
+      ],
+      [
+        200,
+        50,
+        30,
+        true
+      ],
+      [
+        201,
+        50,
+        31,
+        true
+      ],
+      [
+        202,
+        50,
+        29,
+        true
+      ],
+      [
+        203,
+        50,
+        29,
+        true
+      ],
+      [
+        204,
+        51,
+        29,
+        true
+      ],
+      [
+        205,
+        51,
+        28,
+        true
+      ],
+      [
+        206,
+        51,
+        28,
+        true
+      ],
+      [
+        207,
+        51,
+        28,
+        true
+      ],
+      [
+        208,
+        52,
+        12,
+        true
+      ],
+      [
+        209,
+        52,
+        13,
+        true
+      ],
+      [
+        210,
+        52,
+        15,
+        true
+      ],
+      [
+        211,
+        52,
+        15,
+        true
+      ],
+      [
+        212,
+        53,
+        11,
+        true
+      ],
+      [
+        213,
+        53,
+        10,
+        true
+      ],
+      [
+        214,
+        53,
+        10,
+        true
+      ],
+      [
+        215,
+        53,
+        10,
+        true
+      ],
+      [
+        216,
+        54,
+        10,
+        true
+      ],
+      [
+        217,
+        54,
+        11,
+        true
+      ],
+      [
+        218,
+        54,
+        9,
+        true
+      ],
+      [
+        219,
+        54,
+        9,
+        true
+      ],
+      [
+        220,
+        55,
+        9,
+        true
+      ],
+      [
+        221,
+        55,
+        8,
+        true
+      ],
+      [
+        222,
+        55,
+        8,
+        true
+      ],
+      [
+        223,
+        55,
+        8,
+        true
+      ],
+      [
+        224,
+        56,
+        8,
+        true
+      ],
+      [
+        225,
+        56,
+        9,
+        true
+      ],
+      [
+        226,
+        56,
+        11,
+        true
+      ],
+      [
+        227,
+        56,
+        11,
+        true
+      ],
+      [
+        228,
+        57,
+        15,
+        true
+      ],
+      [
+        229,
+        57,
+        14,
+        true
+      ],
+      [
+        230,
+        57,
+        14,
+        true
+      ],
+      [
+        231,
+        57,
+        14,
+        true
+      ],
+      [
+        232,
+        58,
+        6,
+        true
+      ],
+      [
+        233,
+        58,
+        7,
+        true
+      ],
+      [
+        234,
+        58,
+        5,
+        true
+      ],
+      [
+        235,
+        58,
+        5,
+        true
+      ],
+      [
+        236,
+        59,
+        5,
+        true
+      ],
+      [
+        237,
+        59,
+        4,
+        true
+      ],
+      [
+        238,
+        59,
+        4,
+        true
+      ],
+      [
+        239,
+        59,
+        4,
+        true
+      ],
+      [
+        240,
+        60,
+        4,
+        true
+      ],
+      [
+        241,
+        60,
+        5,
+        true
+      ],
+      [
+        242,
+        60,
+        7,
+        true
+      ],
+      [
+        243,
+        60,
+        7,
+        true
+      ],
+      [
+        244,
+        61,
+        3,
+        true
+      ],
+      [
+        245,
+        61,
+        2,
+        true
+      ],
+      [
+        246,
+        61,
+        2,
+        true
+      ],
+      [
+        247,
+        61,
+        2,
+        true
+      ],
+      [
+        248,
+        62,
+        2,
+        true
+      ],
+      [
+        249,
+        62,
+        3,
+        true
+      ],
+      [
+        250,
+        62,
+        1,
+        true
+      ],
+      [
+        251,
+        62,
+        1,
+        true
+      ],
+      [
+        252,
+        63,
+        1,
+        true
+      ],
+      [
+        253,
+        63,
+        0,
+        true
+      ],
+      [
+        254,
+        63,
+        0,
+        true
+      ],
+      [
+        255,
+        63,
+        0,
+        true
+      ]
+    ],
+    "rows": [
+      {
+        "D": 1,
+        "Z": 0,
+        "input": "0",
+        "s": 1,
+        "temporal_scores": [
+          1
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 0,
+        "input": "0",
+        "s": 2,
+        "temporal_scores": [
+          1,
+          1
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 0,
+        "input": "0",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 0,
+        "input": "0",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 0,
+        "input": "0",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 0,
+        "input": "0",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 0,
+        "input": "0",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 0,
+        "input": "0",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 0,
+        "input": "0",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 0,
+        "input": "0",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 0,
+        "input": "0",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 0,
+        "input": "0",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 0,
+        "input": "0",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 0,
+        "input": "0",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 0,
+        "input": "0",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 16,
+        "Z": 0,
+        "input": "0",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "1",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "1",
+        "s": 2,
+        "temporal_scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "1",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "1",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "1",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "1",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "1",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "1",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "1",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "1",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "1",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "1",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "1",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "1",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "1",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "1",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "2",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "2",
+        "s": 2,
+        "temporal_scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "2",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "2",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "2",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "2",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "2",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "2",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "2",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "2",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "2",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "2",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "2",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "2",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "2",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "2",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "3",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "3",
+        "s": 2,
+        "temporal_scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "3",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "3",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "3",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "3",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "3",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "3",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "3",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "3",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "3",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "3",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "3",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "3",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "3",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "3",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 0,
+        "input": "5",
+        "s": 1,
+        "temporal_scores": [
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 2,
+        "input": "5",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 2,
+        "input": "5",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 2,
+        "input": "5",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 2,
+        "input": "5",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 2,
+        "input": "5",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 2,
+        "input": "5",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 2,
+        "input": "5",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 2,
+        "input": "5",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 2,
+        "input": "5",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 2,
+        "input": "5",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 2,
+        "input": "5",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 2,
+        "input": "5",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 2,
+        "input": "5",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 2,
+        "input": "5",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 2,
+        "input": "5",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "7",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 2,
+        "input": "7",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 2,
+        "input": "7",
+        "s": 3,
+        "temporal_scores": [
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 2,
+        "input": "7",
+        "s": 4,
+        "temporal_scores": [
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 2,
+        "input": "7",
+        "s": 5,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 2,
+        "input": "7",
+        "s": 6,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 2,
+        "input": "7",
+        "s": 7,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 2,
+        "input": "7",
+        "s": 8,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 2,
+        "input": "7",
+        "s": 9,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 2,
+        "input": "7",
+        "s": 10,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 2,
+        "input": "7",
+        "s": 11,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 2,
+        "input": "7",
+        "s": 12,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 2,
+        "input": "7",
+        "s": 13,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 2,
+        "input": "7",
+        "s": 14,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 2,
+        "input": "7",
+        "s": 15,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 2,
+        "input": "7",
+        "s": 16,
+        "temporal_scores": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "-1",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "-1",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          1
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "-1",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "-1",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "-1",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "-1",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "-1",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "-1",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "-1",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "-1",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "-1",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "-1",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "-1",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "-1",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "-1",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "-1",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "-2",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "-2",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          1
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "-2",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "-2",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "-2",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "-2",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "-2",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "-2",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "-2",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "-2",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "-2",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "-2",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "-2",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "-2",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "-2",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "-2",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "-3",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 1,
+        "input": "-3",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          1
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 1,
+        "input": "-3",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 1,
+        "input": "-3",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 1,
+        "input": "-3",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 1,
+        "input": "-3",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 1,
+        "input": "-3",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 1,
+        "input": "-3",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 1,
+        "input": "-3",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 1,
+        "input": "-3",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 1,
+        "input": "-3",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 1,
+        "input": "-3",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 1,
+        "input": "-3",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 1,
+        "input": "-3",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 1,
+        "input": "-3",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 15,
+        "Z": 1,
+        "input": "-3",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "-1/7",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "D": 1,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "D": 2,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 3,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 4,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 5,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 6,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 7,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 8,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 9,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 10,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 11,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 12,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 13,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 14,
+        "Z": 2,
+        "input": "-1/7",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "1/3",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 2,
+        "input": "1/3",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 3,
+        "input": "1/3",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 4,
+        "input": "1/3",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 5,
+        "input": "1/3",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 6,
+        "input": "1/3",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 7,
+        "input": "1/3",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 8,
+        "input": "1/3",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 9,
+        "input": "1/3",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 10,
+        "input": "1/3",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 11,
+        "input": "1/3",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 12,
+        "input": "1/3",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 13,
+        "input": "1/3",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 14,
+        "input": "1/3",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 15,
+        "input": "1/3",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 16,
+        "input": "1/3",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 1,
+        "input": "-1/3",
+        "s": 1,
+        "temporal_scores": [
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 2,
+        "input": "-1/3",
+        "s": 2,
+        "temporal_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 3,
+        "input": "-1/3",
+        "s": 3,
+        "temporal_scores": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 4,
+        "input": "-1/3",
+        "s": 4,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 5,
+        "input": "-1/3",
+        "s": 5,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 6,
+        "input": "-1/3",
+        "s": 6,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 7,
+        "input": "-1/3",
+        "s": 7,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 8,
+        "input": "-1/3",
+        "s": 8,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 9,
+        "input": "-1/3",
+        "s": 9,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 10,
+        "input": "-1/3",
+        "s": 10,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 11,
+        "input": "-1/3",
+        "s": 11,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 12,
+        "input": "-1/3",
+        "s": 12,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 13,
+        "input": "-1/3",
+        "s": 13,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 14,
+        "input": "-1/3",
+        "s": 14,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 15,
+        "input": "-1/3",
+        "s": 15,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "D": 0,
+        "Z": 16,
+        "input": "-1/3",
+        "s": 16,
+        "temporal_scores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "seams": [
+      {
+        "I": 0,
+        "J": 0,
+        "Z_forced": 1,
+        "Z_next_age": 2,
+        "difference": 1,
+        "s": 1,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 1,
+        "Z_forced": 2,
+        "Z_next_age": 2,
+        "difference": 0,
+        "s": 2,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 3,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 4,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 5,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 6,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 7,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 8,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 9,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 10,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 11,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 12,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 13,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 14,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 15,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 3,
+        "Z_next_age": 2,
+        "difference": -1,
+        "s": 16,
+        "x": 7
+      },
+      {
+        "I": 0,
+        "J": 0,
+        "Z_forced": 1,
+        "Z_next_age": 2,
+        "difference": 1,
+        "s": 1,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 0,
+        "Z_forced": 2,
+        "Z_next_age": 3,
+        "difference": 1,
+        "s": 2,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 1,
+        "Z_forced": 3,
+        "Z_next_age": 3,
+        "difference": 0,
+        "s": 3,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 4,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 5,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 6,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 7,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 8,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 9,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 10,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 11,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 12,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 13,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 14,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 15,
+        "x": 43
+      },
+      {
+        "I": 0,
+        "J": 2,
+        "Z_forced": 4,
+        "Z_next_age": 3,
+        "difference": -1,
+        "s": 16,
+        "x": 43
+      }
+    ],
+    "temporal_word_rows": [
+      [
+        0,
+        0,
+        0,
+        -1,
+        -1,
+        -1
+      ],
+      [
+        0,
+        1,
+        1,
+        -1,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        3,
+        -1,
+        1,
+        1
+      ],
+      [
+        0,
+        3,
+        2,
+        -1,
+        1,
+        1
+      ],
+      [
+        0,
+        4,
+        7,
+        -1,
+        2,
+        2
+      ],
+      [
+        0,
+        5,
+        6,
+        -1,
+        2,
+        2
+      ],
+      [
+        0,
+        6,
+        4,
+        -1,
+        2,
+        2
+      ],
+      [
+        0,
+        7,
+        5,
+        -1,
+        2,
+        2
+      ],
+      [
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        3,
+        2,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        4,
+        6,
+        0,
+        2,
+        2
+      ],
+      [
+        1,
+        5,
+        6,
+        0,
+        2,
+        2
+      ],
+      [
+        1,
+        6,
+        5,
+        0,
+        2,
+        2
+      ],
+      [
+        1,
+        7,
+        5,
+        0,
+        2,
+        2
+      ],
+      [
+        2,
+        0,
+        3,
+        1,
+        -1,
+        1
+      ],
+      [
+        2,
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        2,
+        2,
+        3,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        3,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        4,
+        4,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        5,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        6,
+        4,
+        1,
+        2,
+        2
+      ],
+      [
+        2,
+        7,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        0,
+        2,
+        1,
+        -1,
+        1
+      ],
+      [
+        3,
+        1,
+        2,
+        1,
+        0,
+        1
+      ],
+      [
+        3,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        2,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        4,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        5,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        6,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        3,
+        7,
+        5,
+        1,
+        2,
+        2
+      ],
+      [
+        4,
+        0,
+        7,
+        2,
+        -1,
+        2
+      ],
+      [
+        4,
+        1,
+        6,
+        2,
+        0,
+        2
+      ],
+      [
+        4,
+        2,
+        4,
+        2,
+        1,
+        2
+      ],
+      [
+        4,
+        3,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        4,
+        4,
+        7,
+        2,
+        2,
+        2
+      ],
+      [
+        4,
+        5,
+        6,
+        2,
+        2,
+        2
+      ],
+      [
+        4,
+        6,
+        4,
+        2,
+        2,
+        2
+      ],
+      [
+        4,
+        7,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        5,
+        0,
+        6,
+        2,
+        -1,
+        2
+      ],
+      [
+        5,
+        1,
+        6,
+        2,
+        0,
+        2
+      ],
+      [
+        5,
+        2,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        5,
+        3,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        5,
+        4,
+        6,
+        2,
+        2,
+        2
+      ],
+      [
+        5,
+        5,
+        6,
+        2,
+        2,
+        2
+      ],
+      [
+        5,
+        6,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        5,
+        7,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        6,
+        0,
+        4,
+        2,
+        -1,
+        2
+      ],
+      [
+        6,
+        1,
+        5,
+        2,
+        0,
+        2
+      ],
+      [
+        6,
+        2,
+        4,
+        2,
+        1,
+        2
+      ],
+      [
+        6,
+        3,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        6,
+        4,
+        4,
+        2,
+        2,
+        2
+      ],
+      [
+        6,
+        5,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        6,
+        6,
+        4,
+        2,
+        2,
+        2
+      ],
+      [
+        6,
+        7,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        7,
+        0,
+        5,
+        2,
+        -1,
+        2
+      ],
+      [
+        7,
+        1,
+        5,
+        2,
+        0,
+        2
+      ],
+      [
+        7,
+        2,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        7,
+        3,
+        5,
+        2,
+        1,
+        2
+      ],
+      [
+        7,
+        4,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        7,
+        5,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        7,
+        6,
+        5,
+        2,
+        2,
+        2
+      ],
+      [
+        7,
+        7,
+        5,
+        2,
+        2,
+        2
+      ]
+    ]
+  },
+  "runtime_seconds": 0.016888089943677187,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T19:34:15.023474+00:00"
+}
