@@ -157,6 +157,13 @@ is not asserted. There is also a finite witness version of (5):
 
 No parameter search or ray sampling is admitted by these formulas.
 
+The subsequent `problem1_activity_sparse_temporal_codes.md` proves
+that (7) is NOT necessary: exact computable irrational inputs have
+R=infinity while every d_n^*=0. This does not refute (5), (6), or
+their sufficiency implications, and does not construct an actual
+survivor. Jointly growing n and W remains a distinct possible use
+of the finite inequality.
+
 ## 4. Geometry and the unresolved coupling (`partial-proof` / `inconclusive`)
 
 The identity A^t=pi^t T^t gives

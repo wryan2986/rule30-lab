@@ -107,15 +107,45 @@ Immutable reference SHA256 remains
 Pre-existing supervisor files, ASTRA_GOAL.md, worktrees and unrelated
 untracked results are preserved. Never force-push or edit the reference.
 
-## In progress / next logical unit
+## Sparse temporal codes: accepted second unit
 
-Lead wrote `problem1_activity_sparse_temporal_codes.md`; this is UNDER
-FRESH REVIEW, not yet accepted/committed. Candidate: Theta(x)_t=A^t x mod4
-conjugates A to the one-sided four-symbol shift; pi becomes a local
-map Phi on adjacent temporal symbols. A sparse powers-of-two temporal
-code may give computable irrational x with R=infinity but EVERY d_n^*=0,
-showing the density condition is not necessary. Do not claim this unit
-accepted before review and lead integration.
+Read `problem1_activity_sparse_temporal_codes.md` and its full review.
+Status `partial-proof`: Theta(x)_t=A^t x mod4 is a computable triangular
+homeomorphism conjugating A to the four-symbol one-sided shift. Spatial
+pair deletion pi becomes Phi on adjacent temporal symbols:
+
+    g((a0,a1),(b0,b1))=(r,s),
+    r=b0 XOR(a0 ORa1), s=b1 XOR(a1 ORr),
+    (Phi b)_t=g(b_t,b_(t+1)), Theta pi=Phi Theta.
+
+Given rational x, its A orbit lies in a fixed finite spatial-tail class;
+conversely an eventually periodic temporal code remains in a fixed finite
+class under Phi. Thus x is rational iff Theta(x) is eventually periodic.
+
+NECESSITY of positive characteristic density is now `refuted` on general
+inputs. Set temporal code symbol1 at powers of two and symbol0 elsewhere,
+optionally after ANY prescribed finite code prefix. Its inverse x is
+computable irrational, EVERY d_n^*=0, but R(x)=infinity. Any W-time window
+has <=1+floor(log2 W) sparse events plus the fixed prefix; Phi^n uses only
+n+1 consecutive temporal symbols. Bounded R would make the A orbit lie
+in finite A-invariant E_K and hence make the code eventually periodic.
+These counterexamples meet every finite binary cylinder, including any
+finite observed survivor prefix, but are NOT proved infinite forced or
+full-fringe survivors. No numerical experiment was run for this unit.
+
+The transport inequality remains valid. Fixed-n density limits can miss
+intermittent events relevant when n and W grow together. Do not mistake
+its sufficient condition for an equivalence or reopen a ray-density census.
+Exact proof/review snapshots, dependencies, lead disposition and archive
+builder are in `results/problem1/20260906_activity_sparse_temporal_codes_review.json`
+and `archive_activity_temporal_codes.py` in the experiment directory.
+
+The first unit is committed/pushed as d87aabf. This second unit is being
+checkpointed next. Muse is deriving the exact forced-step bridge in the
+new temporal-code coordinates; that bridge is NOT yet accepted. It adds
+no new monotone invariant or permission to repeat the old group gauges.
+
+## In progress / next logical unit
 
 A separate nearest-column temporal-defect route supplied only the known
 boundary equations. The initial Muse proposal mixed physical speed1
