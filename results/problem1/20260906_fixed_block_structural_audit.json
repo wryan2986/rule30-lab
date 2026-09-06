@@ -1,0 +1,70 @@
+{
+  "backend": "packed-exact-supplied-vector-and-loop-audit",
+  "experiment_id": "problem1-fixed-block-structural-audit-20260906",
+  "git_commit": "72f6868ef4813d9ed810545d113ddde962e88493",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64"
+  },
+  "hypothesis": "Stored six-birth suffixes are residue loops; complete closed blocks have zero divergence; small A identities support the dyadic-period no-go.",
+  "inputs": {
+    "results/problem1/20260906_fixed_block_potential_verification.json": "d7d8e9b24d09cac522e29fdbaf0097288094bc2e11054271d0825198df622238"
+  },
+  "interpretation": "Finite identities agree. Literal H^6-fixed accepted histories are excluded by the separate dyadic-period argument; full potential class remains undecided.",
+  "limitations": [
+    "Lead local verification after Muse provider429; no successful fresh external review.",
+    "No full graph search, numerical solver, coefficient box or new ordinary history."
+  ],
+  "parameters": {
+    "block_differences": 8,
+    "hand_controls": [
+      6,
+      7
+    ],
+    "new_searches": 0,
+    "terminal_classes": 4
+  },
+  "proof_scope": "Four supplied loop vectors and eight supplied divergences; all-depth dyadic-period/gauge arguments are stated separately.",
+  "question": "problem1",
+  "result_hashes": {
+    "source_sha256": "6e6b02105e970840e756a34dba0a7b2e356cf1a6be327b3d22f7ce21140a381c",
+    "summary_sha256": "3c8b7288cff8404378676b2f4a0d4a11c7a63373a4cfa3ee5a895b9c8794da21"
+  },
+  "result_summary": {
+    "A6": 6,
+    "A7": 6,
+    "closed_class": 50055,
+    "eight_complete_divergences_pass": true,
+    "four_birth_loops": [
+      {
+        "base": 11,
+        "circulation": true,
+        "residue": 903
+      },
+      {
+        "base": 15,
+        "circulation": true,
+        "residue": 17287
+      },
+      {
+        "base": 3,
+        "circulation": true,
+        "residue": 33671
+      },
+      {
+        "base": 7,
+        "circulation": true,
+        "residue": 50055
+      }
+    ],
+    "new_searches": 0
+  },
+  "runtime_seconds": 0.00630589690990746,
+  "software": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_text": "\"\"\"Audit four supplied terminal loops and the scanner-fixed obstruction.\"\"\"\nimport datetime,hashlib,json,os,platform,subprocess,sys,tempfile,time\nfrom pathlib import Path\nstart=time.monotonic();root=Path('/home/ryan/rule30-lab');sha=lambda b:hashlib.sha256(b).hexdigest()\np=root/'results/problem1/20260906_fixed_block_potential_verification.json';r=json.loads(p.read_text())\nassert sha(r['source_text'].encode())==r['result_hashes']['source_sha256']\nassert sha(r['admission_note_snapshot'].encode())==r['inputs']['proofs/informal/problem1_fixed_block_potential_decision.md']\ndef T(x):return x^((x<<1)|(x<<2))\ndef G(x,g):return T(x) if g=='t' else T(x)^1 if g=='u' else T(2*x+1)>>1\ndef div(d):\n out=[0]*16\n for q in range(16):\n  for j,g in enumerate('tup'):out[q]+=d[3*q+j];out[G(q,g)%16]-=d[3*q+j]\n return out\nassert T(7)>>2==T(6)>>2==6\nassert 903%64==7\nrows=[]\nfor c in r['results']['terminal_classes']:\n assert c['birth_letters']=='ptuppt'\n q=c['A6_mod16'];ps=[]\n for g in 'ptuppt':ps.append(q);q=G(q,g)%16\n assert ps==c['birth_prefix_residues'] and q==c['end_mod16']==c['A6_mod16']\n assert div(c['birth_vector'])==[0]*16\n rows.append({'residue':c['residue'],'base':q,'circulation':True})\nfor row in r['results']['blocks']:\n expected=[0]*16;expected[7]+=1;expected[row['end_residue']]-=1\n assert div(row['delta'])==expected\n if row['residue']==50055:assert row['end_residue']==7 and div(row['delta'])==[0]*16\nsummary={'four_birth_loops':rows,'eight_complete_divergences_pass':True,'A7':6,'A6':6,'closed_class':50055,'new_searches':0}\nsource=Path(__file__).read_text();rec={'experiment_id':'problem1-fixed-block-structural-audit-20260906','timestamp_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'question':'problem1','hypothesis':'Stored six-birth suffixes are residue loops; complete closed blocks have zero divergence; small A identities support the dyadic-period no-go.','backend':'packed-exact-supplied-vector-and-loop-audit','parameters':{'terminal_classes':4,'block_differences':8,'hand_controls':[6,7],'new_searches':0},'hardware':{'cpu_count':os.cpu_count(),'machine':platform.machine()},'software':{'python':sys.version,'platform':platform.platform()},'runtime_seconds':time.monotonic()-start,'source_text':source,'inputs':{str(p.relative_to(root)):sha(p.read_bytes())},'result_hashes':{'source_sha256':sha(source.encode()),'summary_sha256':sha(json.dumps(summary,sort_keys=True).encode())},'result_summary':summary,'status':'finite-exhaustive','proof_scope':'Four supplied loop vectors and eight supplied divergences; all-depth dyadic-period/gauge arguments are stated separately.','interpretation':'Finite identities agree. Literal H^6-fixed accepted histories are excluded by the separate dyadic-period argument; full potential class remains undecided.','limitations':['Lead local verification after Muse provider429; no successful fresh external review.','No full graph search, numerical solver, coefficient box or new ordinary history.']}\nout=root/'results/problem1/20260906_fixed_block_structural_audit.json';fd,tmp=tempfile.mkstemp(dir=out.parent,prefix=out.name+'.')\nwith os.fdopen(fd,'w') as f:json.dump(rec,f,indent=2,sort_keys=True);f.write('\\n');f.flush();os.fsync(f.fileno())\nos.replace(tmp,out);print(json.dumps(summary))\n",
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T14:05:20.692747+00:00"
+}

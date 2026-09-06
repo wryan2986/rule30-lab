@@ -11,6 +11,51 @@ rewrite history, merge to main, or include incomplete temporary files.
 
 ## Active frontier after the goal continuation (2026-09-05)
 
+Newest structural reduction (2026-09-06): read
+`proofs/informal/problem1_fixed_block_potential_decision.md` first.
+
+- `partial-proof`: the COMPLETE six-step count change for every ordinary
+  ututut history is a signed path sum on prefix residues modulo65536
+  plus one of four birth vectors. This follows from exact position
+  formulas; the graph precision is16bits, not a frontier-depth cutoff.
+- `partial-proof`: on the root-reachable/acceptance-coaccessible graph,
+  strict decrease for fixed real weights implies no positive reward
+  cycle. Removing nonpositive cycles gives a finite attained maximum,
+  hence a UNIFORM margin. Bounded-below48-edge weights exist with
+  universal strict decrease for this motif iff finite linear inequalities
+  (5)--(8) have a solution. Rational and integer certificates suffice.
+  This does not claim the inequalities are feasible or infeasible.
+- `finite-exhaustive`: packed position formulas versus six cell scanner
+  passes agree on125 original edges in all eight EXISTING block pairs,
+  all48-component differences, and the four terminal residues
+  903,17287,33671,50055. No new word or full graph traversal ran.
+- `partial-proof`: all four born suffixes are ptuppt and give closed
+  loops modulo16, based respectively at11,15,3,7. Only initial
+  residue50055 makes the COMPLETE block closed at7. On this necessary
+  sublanguage, gauging a bounded-below potential to nonnegative edges
+  preserves block changes. Thus the closed-class feasibility subproblem
+  can use omega>=0. Success would not settle the other three classes.
+- `partial-proof` no-go: an admitted history cannot have H^6(w)=w.
+  Such an endpoint would satisfy A^6(x)=x; dyadic finite A-cycle periods
+  force A^2(x)=x, but x=7 mod64 implies A^2(x)=2 mod4 while x=3 mod4.
+  This rules out literal original-word invariance, NOT count cancellation
+  between different words or the entire potential class. Do not run a
+  graph search for this impossible sufficient mechanism.
+- A fresh Muse mathematical review failed provider429 (third attempt
+  this continuation); lead verified two arithmetic formulations and
+  audited the cycle-removal, gauge and rational-feasibility arguments.
+  No default/native substitution or successful fresh external review.
+  Records: `results/problem1/20260906_fixed_block_` followed by
+  `potential_verification.json` and `structural_audit.json`, preserving
+  the original admission snapshot and exact source/provenance.
+
+Next: a separately admitted exact feasible certificate or dual
+obstruction for the finite inequalities, starting with closed class50055,
+would decide a necessary whole-class gate. No feasibility solve has run.
+No scipy/sympy/highspy or solver binary was found locally; that fact is
+not a mathematical block. Alternatively retain elapsed age versus original
+length in the boundary-sum argument. Problem1 and B_all remain open.
+
 Newest recovered checkpoint (2026-09-06): read
 `proofs/informal/problem1_wdagger_zero_language.md` first.
 
