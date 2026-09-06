@@ -1,7 +1,8 @@
 # Temporal activity and the original-position deficit
 
-Status: `partial-proof` for the all-depth statements below, pending the
-separately recorded independent checks and fresh adversarial review.
+Status: `partial-proof` for the all-depth statements below. The declared
+finite checks are complete; a usable complete external proof review is
+still missing. Scoped review and its corrections are recorded in Section6.
 This is a new support criterion and a reformulation of the active
 period-two bottleneck, not an exclusion of period two or a solution of
 Problem 1. Base checkpoint: `a60d87f4c88343afe22b7ee5ee9f8180b96ecaee`.
@@ -231,6 +232,10 @@ usual gate 7 or 11 modulo16 at every step. The established identity
 
 and (2) imply
 
+(The local identities also hold on 2-adic gate cylinders: every fixed
+finite gate prefix is preserved by sufficiently precise nonnegative
+truncations, and all involved maps are continuous there.)
+
     some T iterate of x is nonnegative finite
       iff some actual F iterate of x is nonnegative finite. (10)
 
@@ -304,9 +309,23 @@ agree with the corrected implementation and independent cell vectors.
 
 The MiMo primary fallback was closed while running without a usable
 correction or verdict. Fresh proof-only Muse review and its delayed retry
-also returned429; its prescribed MiMo review is pending at this checkpoint.
-Thus the all-depth arguments remain lead-derived and lead-checked with
-fresh external verification pending. The finite checks do not close it.
+also returned429. Its MiMo fallback independently checked the last-time
+recurrence and harmonic-density argument; those scoped derivations are
+retained. Lead rejected its blanket acceptance: the report wrongly used
+a universal V hypothesis instead of the ONE fixed input's Z bound,
+replaced an OR identity by a false equality, and confused the finite
+terminal remainder with the infinite-time bound2K. These were review
+errors, not demonstrated flaws in the source proof.
+
+The corrective response supplied a scoped source/quantifier audit and
+correct source hashes, fixing those three statements. It did not supply
+the requested complete replacement derivation or a renewed complete
+verdict. Thus full external proof verification remains missing; the
+initial blanket acceptance is not counted as complete. All threads are
+closed. Exact disposition, critical initial excerpts, the full corrective
+response and reviewed source snapshots are archived in
+`results/problem1/20260906_temporal_activity_review.json`.
+The finite checks do not discharge the missing review or actual growth.
 The immutable reference is unchanged, and source/admission hashes reload.
 The signed-mass and B_all routes
 remain open; this note proves neither a new occurrence exclusion nor

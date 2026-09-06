@@ -1,7 +1,8 @@
 # A single-column record for eventual finite support
 
-Status: `partial-proof`, lead-derived; verification and fresh external
-review are recorded separately below. Problem 1 remains open.
+Status: `partial-proof`, lead-derived and lead-checked; the finite checks
+are complete, but a usable full external proof review remains missing.
+Its scoped content is recorded below. Problem 1 remains open.
 This continues `problem1_temporal_activity_deficit.md` and replaces
 its six-cell score by one bit at each sampled time.
 
@@ -212,7 +213,11 @@ in `results/problem1/`. Executed source and admission snapshots are
 retained even where later prose expanded (4a) or verification details.
 
 The all-depth arguments above remain lead-derived and lead-checked,
-with fresh external verification pending. The provider attempts and
-the separate superseded primary-record correction are detailed in the
-temporal-deficit note. No reviewer acceptance or actual growth result
-is inferred from these finite comparisons.
+with a complete usable external verification still missing. The initial
+blanket acceptance was rejected for three proof-critical review errors;
+the corrective source audit is retained only in its actual scope.
+The provider attempts, accepted last-time/harmonic derivations and the
+separate superseded primary-record correction are detailed in the
+temporal-deficit note and `20260906_temporal_activity_review.json`.
+All agent threads are closed. No full reviewer acceptance or actual
+growth result is inferred from these finite comparisons.

@@ -1,3 +1,57 @@
+## Round 3 maintenance rollover (2026-09-06, approximately 70 minutes)
+
+This round began at19:10:52UTC and finishes near20:20UTC. Established
+research and finite verification were committed and pushed as
+`dc0a1d5`; the final maintenance commit is the current Git tip. This
+is a maintenance checkpoint, NOT goal achieved or mathematical blockage.
+Problem 1 and actual-survivor record growth remain open.
+
+Start with the two NEW notes named in the research checkpoint below.
+The new concrete target is unbounded
+V_s=sum_(t=0..s-1)bit_(2s)(T^t x) in RECORD maximum on the ACTUAL
+period-two survivor. Only s observed branches determine it. Bounded
+V (equivalently bounded Z=s-D) characterizes eventual finite entry,
+not necessarily initial finite support. No required record growth
+has been proved. Do not return to Psi comparator/suffix sweeps.
+
+Full fresh external verification of the new all-depth criteria is
+STILL MISSING. This supersedes the intermediate pending-agent status
+below. The MiMo proof reviewer supplied correct last-time/harmonic
+arguments, accepted ONLY in that scope. Lead rejected its blanket
+ACCEPT for a wrong fixed-input/spatial-limit quantifier, a false odd-
+column equality, and confusion between finite+1 and infinite2K bounds.
+Its corrective response gave a valid source/quantifier audit and exact
+matching source hashes, but not the requested complete replacement
+proof derivation or renewed full verdict. These are review limitations;
+no source counterexample was established. The record
+`results/problem1/20260906_temporal_activity_review.json` retains the
+critical initial excerpts, FULL corrective answer and reviewed sources.
+Both new notes remain lead-derived/checked `partial-proof`; numerical
+claims remain only `finite-exhaustive`. Old all-memory and all-r
+review limitations are unchanged. All FOUR agent threads are closed;
+there is nothing to wait for.
+
+An UNVERIFIED next structural candidate is preserved in
+`proofs/informal/problem1_activity_level_finiteness_draft.md`, status
+`inconclusive`. It proposes that E_K={x:sup_s V_s(x)<=K} is finite:
+use the uniform finite-entry time, show a first far-away difference
+above a fixed finite row forces large activity (odd/even index seams
+matter), isolate each point, then use compactness. Independently check
+this whole argument before treating it as established. The same draft
+records proposed exact A/G identities and the crucial limitation:
+A(E_K) subset E_K, but F(E_K) only subset E_(K+1), so finiteness at
+each level does NOT give a finite state space for an infinite forced
+orbit. No graph, activity-level census, or new experiment is admitted.
+
+The final archival audit is
+`results/problem1/20260906_round3_final_audit.json`. It checks saved
+result/source/admission/review hashes and the immutable reference,
+without repeating any scientific run. All established work and the
+explicitly unverified candidate are preserved; unrelated pre-existing
+untracked supervisor files, worktrees and results remain untouched.
+Continue the actual growth mechanism or verify the precise new candidate
+next round. This is not research exhaustion and not a Problem1 solution.
+
 ## Round 3 research checkpoint (2026-09-06, base `a60d87f`)
 
 Read `proofs/informal/problem1_temporal_activity_deficit.md` and
