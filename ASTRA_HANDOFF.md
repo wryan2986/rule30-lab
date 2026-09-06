@@ -1,8 +1,9 @@
-# Astra handoff: round 6 research checkpoint, 2026-09-06
+# Astra handoff: round 6 maintenance checkpoint, 2026-09-06
 
-Problem 1 remains OPEN. Round six is still working at this intermediate
-checkpoint. It began at 22:26:45 UTC. This is not goal achieved or research
-blocked. Research continues on `research/astra-next`. Read ASTRA_GOAL.md first.
+Problem 1 remains OPEN. This is time-maintenance rollover, not goal achieved,
+research blocked, or research exhaustion. Round six began at 22:26:45 UTC;
+the final atomic audit records the checkpoint time and elapsed seconds.
+Research continues on `research/astra-next`. Read ASTRA_GOAL.md first.
 The incoming round-five handoff is preserved byte for byte in
 `docs/astra_handoff_archive_20260906_round6.md`.
 
@@ -16,7 +17,9 @@ Read these notes in proofs/informal:
 
 1. `problem1_full_fringe_temporal_diagonal.md` (exact full-fringe premise).
 2. `problem1_anchored_activity_finite_entry.md` (new equivalence and bounds).
-3. Their corresponding `_review.md` files (both accepted in scope).
+3. `problem1_finite_entry_period_tower.md` (mortal spatial tail restriction).
+4. `problem1_anchored_activity_vertical_spine_obstruction.md` (failed shortcut).
+5. Corresponding review files (all accepted in their stated scopes).
 
 The round-five gate bridge, joint-window target, transport, sparse-code,
 and staircase results remain established and need not be repeated.
@@ -105,11 +108,47 @@ The remaining exact question on the SAME b is FULL =>
 No periodicity, density, finite list, branch-frequency or cone argument
 has established this implication. No census is admitted by naming it.
 
+## The bounded alternative has restricted spatial tail periods
+
+New `partial-proof`: every NONZERO bi-infinite A row with first extinction
+height e is periodic: e=1 gives the all-one row; e>=2 gives least BINARY
+spatial period p=3*2^k, 0<=k<=e-2. No initial periodicity is assumed.
+Inverse states s_i=v_i+2v_(i+1) obey f0=[0,2,3,3], f1=[2,0,1,1].
+A periodic output gives a four-state return map. At a zero output phase,
+f0 followed by either next map has rank<=2. Hence a nonconstant periodic
+output of least period p has preimages of least period p or2p, at most
+TWO preimages as actual bi-infinite rows. Constant1 instead has the three
+rotations of001 as preimages; constant0 has only constant0/1.
+
+With phases counted separately, S1=1,S2=3, S_e<=2S_(e-1), e>=3;
+therefore #{v:A^h v=0}<=3*2^(h-1)-1 for h>=1. This is a proved finite
+bound, NOT an enumerated mortality tree. For finite-entry x with entry h,
+its least eventual spatial period is1 or3*2^k, with common tail period
+P_0=P_1=1 and P_h=3*2^(h-2) for h>=2. Its reduced denominator divides
+2^P_h-1. Q<=K supplies h=h_J(K). These restrictions retain EVERY finite
+integer in the period1 case; they do not settle the main obstruction.
+
+The finite-A TEMPORAL dyadic clock is an OLD IMPORT from
+`problem1_frontier_head_dynamics.md` Section2. A duplicate draft derivation
+was replaced by that citation, not claimed as new; no old cycle check ran.
+
+## A precise failed vertical-alignment shortcut
+
+Status `refuted`: bounded pair activity K does NOT imply extinction by K,
+nor does a final all-one row supply one pair active at EVERY earlier age.
+The exact period-six row50 has A rows50,23,10,45,36,63,0 and temporal
+pair words (2,3,2,1,0,3), (0,1,2,3,1,3), (3,1,0,2,2,3), then zero.
+Each pair has five active times and misses a different time. Thus x=-50/63
+has Q(x)=5 but first finite entry6. The spatial-period/zero-row argument
+supplies the infinite scope; the computation checks the fixed certificate.
+This refutes only coefficient ONE, not every cK bound or harmonic optimality.
+It is not a permitted survivor and gives no actual-growth counterexample.
+
 ## Review corrections and verification state
 
 One Muse worker (`opencode-go/muse-spark-1.3-contributor`, thread
-01a078d5-58aa-7ee3-9c1d-15b1bbaa1eed) supplied the two scoped reviews;
-the lead independently audited and accepted both. Its first anchored
+01a078d5-58aa-7ee3-9c1d-15b1bbaa1eed) supplied the four scoped reviews;
+the lead independently audited and accepted them. Its first anchored
 review falsely extended AFTER deleting low bits, pinning an artificial
 boundary at zero. The actual proof extends the original row FIRST and
 then translates: v_i^(l)=bar{x}_(i+2n_l) for ALL integer i. Every fixed
@@ -125,16 +164,26 @@ Causality alone does NOT refute a constraint from global center consistency.
 The valid forced-to-original anchored budget is n>t+3m; no multiplicity
 mechanism follows. See `problem1_round6_muse_characteristic_coupling.md`.
 
-The fixed six-cell vertical-alignment counterexample is currently under
-independent verification in this round; it is not needed by either accepted
-unit above. Do not treat that pending check as a new search authorization.
-The worker is active on that assigned review/check only. No provider429 or
-fallback occurred. No mainproblem proof candidate or final review is claimed.
+Only new scientific computation: the SINGLE six-cell input50 for six updates
+(all seven complete rows), plus18 declared g seams. Packed cyclic A and
+independent physical Rule30 arrays agree on the complete payload and hash.
+The independent implementation ran this SAME case three times: initial,
+then two repairs of required provenance/caps. All executions are retained.
+There was no input, period, height, frontier, ray or prefix extension.
+The final replay wrapper changes only authenticated archival loading and
+error handling; its successful scientific code matches the executed version.
+A metadata-only replay with /tmp disabled verifies the already-written
+record without recomputing a trajectory; both source versions are archived.
+No provider429 or fallback occurred. No mainproblem proof candidate is claimed.
 
 Exact reviewed/current sources, initial failed review, dependencies,
 full Git, timings, hashes and atomic provenance are in
 `results/problem1/20260906_round6_audit.json`; builder
 `experiments/problem1_nonperiodicity/audit_astra_round6.py`.
+Scientific records are `results/problem1/20260906_anchored_spine_`
+`{primary,independent}.json`; matching check scripts are in the experiment
+directory. Checkpoint94f28fc contains the first two accepted units;
+later logical/maintenance commits are in Git history.
 Immutable reference SHA256 remains
 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
 Unrelated supervisor files, ASTRA_GOAL.md, worktrees and old untracked results

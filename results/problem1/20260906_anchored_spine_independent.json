@@ -1,0 +1,975 @@
+{
+  "experiment_id": "20260906_anchored_spine_independent",
+  "timestamp_utc": "2026-09-06T23:15:40Z",
+  "git_commit": "94f28fcc57151ea0819467539049bde980447cd7",
+  "git_status_porcelain": "M experiments/problem1_nonperiodicity/audit_astra_round6.py\n?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\n?? experiments/problem1_nonperiodicity/check_anchored_spine_primary.py\n?? proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\n?? proofs/informal/problem1_anchored_activity_vertical_spine_review.md\n?? proofs/informal/problem1_finite_entry_period_tower.md\n?? proofs/informal/problem1_finite_entry_period_tower_review.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_anchored_spine_independent.json\n?? results/problem1/20260906_anchored_spine_primary.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+  "question": "problem1",
+  "hypothesis": "Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, converted via u_i(t)=r_{(-i-t)}(t), reproduces the hand A-rows 50,23,10,45,36,63,0.",
+  "backend": "physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)",
+  "parameters": {
+    "period_bits": 6,
+    "initial_word": 50,
+    "updates": 6,
+    "rule": "r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6",
+    "conversion": "u_i(t)=r_{(-i-t) mod 6}(t)",
+    "cpu_budget_s": 120,
+    "ram_budget_b": 1073741824,
+    "wall_budget_s": 120,
+    "wall_enforcement": "signal.alarm fail-closed",
+    "history_via": "repo-fallback"
+  },
+  "hardware": {
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "cpu_count": 16,
+    "cpu_model": "x86_64"
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "repo": "local only, no cloud/remote"
+  },
+  "runtime_seconds": 1.574109774082899e-05,
+  "payload": {
+    "period_bits": 6,
+    "initial_word": 50,
+    "a_rows": [
+      [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "temporal_pairs": [
+      [
+        2,
+        3,
+        2,
+        1,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        1,
+        3,
+        0
+      ],
+      [
+        3,
+        1,
+        0,
+        2,
+        2,
+        3,
+        0
+      ]
+    ],
+    "pair_activity_counts": [
+      5,
+      5,
+      5
+    ],
+    "first_zero_time": 6
+  },
+  "source_snapshot": {
+    "path": "experiments/problem1_nonperiodicity/check_anchored_spine_independent.py",
+    "sha256": "c594690be7373f38ef8a8e5d6ab76b150c3efc56239cc13d2971ed3a3cb81248",
+    "text": "#!/usr/bin/env python3\n\"\"\"Independent check of the anchored vertical-spine hand certificate.\n\nImplements ONLY the physical Rule 30 rule\n    r_i' = r_{i-1} XOR (r_i OR r_{i+1})\non 6 cyclic cells (plain cell lists; no packed-A and no g/Phi reuse),\nstarting from r_i = u_{-i} with u = 50 = bits [0,1,0,0,1,1] low-to-high,\nfor 6 updates (rows t = 0..6). Each physical row is converted to the\nA-row via u_i(t) = r_{(-i-t) mod 6}(t) and compared against the hand\nvectors 50,23,10,45,36,63,0. Single fixed input; no search, no sweep.\n\nAdmission: lead note problem1_anchored_activity_vertical_spine_obstruction.md\n(ONLY admitted verification: these three six-symbol words + one six-cell\nperiod for six updates). Agree => fixed witness stands (finite-exhaustive\non this singleton trajectory only); disagree => exit nonzero, no record,\ncertificate withdrawn. Either way no infinite inference is drawn.\n\nProvenance v3 (wrapper repair): replayable from repo artifacts alone.\nAdmission resolves in order: live lead-note bytes if they still match the\nexact original admission SHA, else the committed primary record's\nadmission snapshot (content SHA re-verified), else fail closed -- so\nharmless status-header edits never break replay. Prior-execution history\nresolves in order: /tmp retention (container SHA verified) unless\nSPINE_REPLAY_NO_TMP=1, else the working v2 record (container SHA verified\nbefore reading a single mutable byte) with all embedded snapshot content\nSHAs re-verified. Every prior execution (v1, v2) is archived in the new\nrecord. Scientific formula and inputs unchanged since v1.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport re\nimport resource\nimport signal\nimport subprocess\nimport sys\nimport time\n\n# ---- enforced budgets (fail closed; wall enforced via signal.alarm) ----\nCPU_BUDGET_S = 120\nRAM_BUDGET_B = 2 ** 30  # 1 GiB\nWALL_BUDGET_S = 120     # explicit wall budget; expected use << 1 s\n\nREPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\nREF_REL = \"src/python/rule30_research_reference.py\"\nREF_SHA = \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\nLEAD_REL = \"proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\"\nLEAD_ADMISSION_SHA = \"e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7\"\nPRIMARY_REL = \"results/problem1/20260906_anchored_spine_primary.json\"\nSELF_REL = \"experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\"\nOUT_REL = \"results/problem1/20260906_anchored_spine_independent.json\"\nPRIOR_RECORD_PATH = \"/tmp/astra-round6-spine-independent-initial.json\"\nPRIOR_SOURCE_PATH = \"/tmp/astra-round6-spine-independent-source-initial.py\"\nPRIOR_RECORD_SHA = \"6134fdf096f8b97d2c8405cfcda9c0f9d773ba4379a1dafb640a0bea37f70be5\"\nPRIOR_SOURCE_SHA = \"a2c1f6cc9c7f23850e2a312fc74ecdd74f9fccc121b7485b4c259cb3bf95fc70\"\nV2_RECORD_SHA = \"aea8ea2dbfea2aa0b8b6c6707f48420c7d4c6d5c4cda5482321bd3bfe7e66ad8\"\n\nHAND_WORDS = [50, 23, 10, 45, 36, 63, 0]\n\n\ndef fail(msg):\n    print(\"FAIL-CLOSED: %s\" % msg, file=sys.stderr)\n    return 3\n\n\ndef sha256_bytes(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef read_exact(path):\n    with open(path, \"rb\") as f:\n        return f.read()\n\n\ndef bits_of(word, n=6):\n    return [(word >> i) & 1 for i in range(n)]\n\n\ndef words_of(a_rows):\n    return [sum(b << i for i, b in enumerate(row)) for row in a_rows]\n\n\ndef main():\n    signal.alarm(WALL_BUDGET_S)  # fail-closed wall enforcement\n    try:\n        resource.setrlimit(resource.RLIMIT_CPU, (CPU_BUDGET_S, CPU_BUDGET_S))\n        resource.setrlimit(resource.RLIMIT_AS, (RAM_BUDGET_B, RAM_BUDGET_B))\n    except Exception as exc:  # noqa: BLE001 -- fail closed, never tolerate\n        return fail(\"rlimits unset: %s\" % exc)\n\n    # Immutable reference: hash-check only, never imported or reused.\n    ref_sha = sha256_bytes(read_exact(os.path.join(REPO, REF_REL)))\n    if ref_sha != REF_SHA:\n        return fail(\"reference hash mismatch: %s\" % ref_sha)\n\n    # ---- admission snapshot (replay-proof ordering) ----\n    adm_data = read_exact(os.path.join(REPO, LEAD_REL))\n    recovered_from = None\n    if sha256_bytes(adm_data) == LEAD_ADMISSION_SHA:\n        adm_text = adm_data.decode(\"utf-8\")\n    else:\n        # Harmless status-header edits must not break replay: fall back to\n        # the primary record's admission snapshot (content SHA re-verified).\n        try:\n            primary = json.loads(\n                read_exact(os.path.join(REPO, PRIMARY_REL)).decode(\"utf-8\"))\n            snap = primary[\"admission_snapshot\"]\n            adm_text = snap[\"text\"]\n            recovered_from = PRIMARY_REL\n        except Exception as exc:  # noqa: BLE001\n            return fail(\"admission fallback unreadable: %s\" % exc)\n        if sha256_bytes(adm_text.encode(\"utf-8\")) != LEAD_ADMISSION_SHA:\n            return fail(\"admission content SHA mismatch\")\n    admission_snapshot = {\n        \"path\": LEAD_REL,\n        \"sha256\": LEAD_ADMISSION_SHA,\n        \"text\": adm_text,\n    }\n    if recovered_from:\n        admission_snapshot[\"recovered_from\"] = recovered_from\n\n    # Source snapshot: exact bytes of THIS script.\n    self_data = read_exact(os.path.join(REPO, SELF_REL))\n    source_snapshot = {\n        \"path\": SELF_REL,\n        \"sha256\": sha256_bytes(self_data),\n        \"text\": self_data.decode(\"utf-8\"),\n    }\n\n    # ---- prior-execution history (replay-proof ordering) ----\n    use_tmp = os.environ.get(\"SPINE_REPLAY_NO_TMP\") != \"1\"\n    v1_record = v1_source_text = v2_record = None\n    history_via = None\n    if use_tmp:\n        try:\n            tmp_rec = read_exact(PRIOR_RECORD_PATH)\n            tmp_src = read_exact(PRIOR_SOURCE_PATH).decode(\"utf-8\")\n        except Exception:\n            tmp_rec = tmp_src = None\n        if (tmp_rec is not None and sha256_bytes(tmp_rec) == PRIOR_RECORD_SHA\n                and sha256_bytes(tmp_src.encode(\"utf-8\")) == PRIOR_SOURCE_SHA):\n            v1_record = json.loads(tmp_rec.decode(\"utf-8\"))\n            v1_source_text = tmp_src\n            history_via = \"tmp\"\n    if v1_record is None:\n        # Fallback: working v2 record, container SHA verified BEFORE reading\n        # any mutable byte; every embedded content SHA re-verified after.\n        v2_data = read_exact(os.path.join(REPO, OUT_REL))\n        if sha256_bytes(v2_data) != V2_RECORD_SHA:\n            return fail(\"fallback v2 record hash mismatch (mutable output)\")\n        v2_record = json.loads(v2_data.decode(\"utf-8\"))\n        v1_record = v2_record.get(\"superseded_prior_record\")\n        sup_src = v2_record.get(\"superseded_source_snapshot\") or {}\n        v1_source_text = sup_src.get(\"text\")\n        if not v1_record or not v1_source_text:\n            return fail(\"fallback v2 record lacks v1 retention\")\n        if sha256_bytes(v1_source_text.encode(\"utf-8\")) != sup_src.get(\"sha256\"):\n            return fail(\"fallback v1 source content SHA mismatch\")\n        for key in (\"source_snapshot\", \"admission_snapshot\"):\n            s = v2_record.get(key) or {}\n            if sha256_bytes(s.get(\"text\", \"\").encode(\"utf-8\")) != s.get(\"sha256\"):\n                return fail(\"fallback v2 %s content SHA mismatch\" % key)\n        if v2_record[\"admission_snapshot\"][\"sha256\"] != LEAD_ADMISSION_SHA:\n            return fail(\"fallback v2 admission SHA mismatch\")\n        history_via = \"repo-fallback\"\n    if words_of(v1_record[\"result_summary\"][\"a_rows\"]) != HAND_WORDS:\n        return fail(\"history is for a different computation\")\n    v1_source_snapshot = {\n        \"path\": PRIOR_SOURCE_PATH,\n        \"repo_path\": SELF_REL,\n        \"sha256\": sha256_bytes(v1_source_text.encode(\"utf-8\")),\n        \"text\": v1_source_text,\n    }\n    if v2_record is None:\n        # /tmp path taken: still archive v2 from the verified working file.\n        v2_data = read_exact(os.path.join(REPO, OUT_REL))\n        if sha256_bytes(v2_data) != V2_RECORD_SHA:\n            return fail(\"v2 working record changed unexpectedly\")\n        v2_record = json.loads(v2_data.decode(\"utf-8\"))\n    archived_executions = [\n        {\"label\": \"v1-initial\", \"record\": v1_record},\n        {\"label\": \"v2-provenance-repair\", \"record\": v2_record,\n         \"record_sha256\": V2_RECORD_SHA},\n    ]\n\n    # Full git, validated 40-char commit, fail closed.\n    try:\n        proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO,\n                              capture_output=True, text=True, timeout=30)\n        git_commit = proc.stdout.strip()\n        proc2 = subprocess.run([\"git\", \"status\", \"--porcelain\"], cwd=REPO,\n                               capture_output=True, text=True, timeout=30)\n        git_status = proc2.stdout.strip()\n    except Exception as exc:  # noqa: BLE001\n        return fail(\"git unavailable: %s\" % exc)\n    if not re.fullmatch(r\"[0-9a-f]{40}\", git_commit):\n        return fail(\"git commit not a 40-char hash: %r\" % git_commit)\n\n    # ---- scientific computation (unchanged formula/inputs) ----\n    n = 6\n    u = bits_of(50, n)  # [0,1,0,0,1,1]\n    if sum(b << i for i, b in enumerate(u)) != 50:\n        return fail(\"initial word decode\")\n    r = [u[(-i) % n] for i in range(n)]\n\n    a_rows = []\n    t_start = time.perf_counter()\n    for t in range(7):\n        a_rows.append([r[(-i - t) % n] for i in range(n)])\n        if t < 6:\n            # physical Rule 30 on the cyclic row; comprehension reads old r\n            r = [r[(i - 1) % n] ^ (r[i] | r[(i + 1) % n]) for i in range(n)]\n    elapsed = time.perf_counter() - t_start\n\n    got_words = words_of(a_rows)\n    if got_words != HAND_WORDS:\n        print(\"MISMATCH: got %r expected %r\" % (got_words, HAND_WORDS),\n              file=sys.stderr)\n        return 1  # no record written; certificate withdrawn\n\n    temporal_pairs = []\n    for j in range(3):\n        temporal_pairs.append([a_rows[t][2 * j] + 2 * a_rows[t][2 * j + 1]\n                               for t in range(7)])\n    pair_activity_counts = [sum(1 for s in col if s != 0)\n                            for col in temporal_pairs]\n    first_zero_time = next(t for t in range(7)\n                           if all(b == 0 for b in a_rows[t]))\n    if pair_activity_counts != [5, 5, 5] or first_zero_time != 6:\n        return fail(\"derived counts differ\")\n\n    # Top-level payload: exact assigned keys.\n    payload = {\n        \"period_bits\": 6,\n        \"initial_word\": 50,\n        \"a_rows\": a_rows,\n        \"temporal_pairs\": temporal_pairs,\n        \"pair_activity_counts\": pair_activity_counts,\n        \"first_zero_time\": first_zero_time,\n    }\n    payload_hash = sha256_bytes(\n        json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode())\n\n    record = {\n        \"experiment_id\": \"20260906_anchored_spine_independent\",\n        \"timestamp_utc\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"git_commit\": git_commit,\n        \"git_status_porcelain\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": (\"Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, \"\n                         \"converted via u_i(t)=r_{(-i-t)}(t), reproduces the \"\n                         \"hand A-rows 50,23,10,45,36,63,0.\"),\n        \"backend\": \"physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)\",\n        \"parameters\": {\n            \"period_bits\": 6,\n            \"initial_word\": 50,\n            \"updates\": 6,\n            \"rule\": \"r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6\",\n            \"conversion\": \"u_i(t)=r_{(-i-t) mod 6}(t)\",\n            \"cpu_budget_s\": CPU_BUDGET_S,\n            \"ram_budget_b\": RAM_BUDGET_B,\n            \"wall_budget_s\": WALL_BUDGET_S,\n            \"wall_enforcement\": \"signal.alarm fail-closed\",\n            \"history_via\": history_via,\n        },\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"cpu_count\": os.cpu_count(),\n            \"cpu_model\": platform.processor() or platform.machine(),\n        },\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"repo\": \"local only, no cloud/remote\",\n        },\n        \"runtime_seconds\": elapsed,\n        \"payload\": payload,\n        \"source_snapshot\": source_snapshot,\n        \"admission_snapshot\": admission_snapshot,\n        \"source_sha256\": source_snapshot[\"sha256\"],\n        \"admission_sha256\": LEAD_ADMISSION_SHA,\n        \"immutable_reference_sha256\": ref_sha,\n        \"result_hashes\": {\n            \"payload_sha256\": payload_hash,\n            \"payload_canonical\": \"json.dumps(sort_keys=True, separators=(',',':'))\",\n            \"source_sha256\": source_snapshot[\"sha256\"],\n            \"admission_sha256\": LEAD_ADMISSION_SHA,\n            \"immutable_reference_sha256\": ref_sha,\n        },\n        \"result_summary\": payload,\n        \"interpretation\": (\"Agreement certifies ONLY this fixed witness \"\n                            \"trajectory; no infinite inference is drawn.\"),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": (\"singleton fixed trajectory: one 6-cell cyclic \"\n                         \"physical Rule 30 input, 6 updates\"),\n        \"limitations\": [\n            \"single fixed witness; not a census over periods, inputs, or heights\",\n            \"agreement checks the certificate only; growth claims untouched\",\n            \"low pair 2: not a permitted actual survivor\",\n        ],\n        \"admission\": {\n            \"basis\": (\"lead-note admission section + problem1_focus_program \"\n                       \"critical path (aligned-witness strengthening test)\"),\n            \"either_outcome\": (\"agree=>witness stands; disagree=>withdrawn, \"\n                                \"no search expansion\"),\n        },\n        \"provenance_repair\": {\n            \"reason\": (\"v3 wrapper: replay from repo artifacts alone; \"\n                        \"admission/history fallback chains; v1+v2 archived\"),\n            \"reruns\": 2,\n            \"executions_total\": 3,\n            \"scope\": \"same input, same 6 updates; repair, not expansion\",\n        },\n        \"superseded_prior_record\": v1_record,\n        \"superseded_source_snapshot\": v1_source_snapshot,\n        \"archived_executions\": archived_executions,\n    }\n    out_path = os.path.join(REPO, OUT_REL)\n    tmp_path = out_path + \".tmp-%d\" % os.getpid()\n    with open(tmp_path, \"w\") as f:\n        json.dump(record, f, indent=2)\n        f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n    os.replace(tmp_path, out_path)\n    signal.alarm(0)\n    print(\"wrote %s words=%r elapsed=%.4fs payload=%s via=%s\" %\n          (OUT_REL, got_words, elapsed, payload_hash[:16], history_via))\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+  },
+  "admission_snapshot": {
+    "path": "proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md",
+    "sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+    "text": "# A mortal periodic tail need not have a pair active at every age\n\nStatus: `partial-proof` / `refuted` by the hand certificate below, pending\nindependent verification. Problem 1 remains open. No general linear-bound\nimpossibility or actual-survivor counterexample is claimed.\n\n## Admission and precise route\n\nThe new anchored finite-entry proof counts activity in different spatial\nintervals at different ages. A tempting strengthening would align those\nwitnesses in one fixed pair: whenever a bi-infinite A spacetime has final\nnonzero row at time M, some even-aligned pair is nonzero at EVERY time\n0,...,M. Under a per-pair budget K this would give M+1<=K, replacing the\nharmonic extinction estimate by h<=K. This would substantially strengthen\nthe bounded-activity alternative available to a full-fringe argument.\n\nThe three temporal words below were derived by hand from the inverse scan,\nwithout any search. Their proposed cycle would refute this alignment claim\nand the coefficient-one extinction bound. If a local identity fails, the\nclaimed counterexample must be withdrawn; no search expansion follows.\nThe ONLY admitted computational verification is these three six-symbol\nwords and the corresponding single six-cell spatial period for six updates,\nusing packed arithmetic and an independent cell-array rule. No period,\nfrontier, ray, mortality-level, or prefix census is admitted. Local one CPU,\n120 seconds, 1 GiB, with exact sources, full Git, hashes, hardware/software,\ntiming and an atomic record. Agreement certifies only this fixed witness.\n\n## 1. Three temporal words (`partial-proof`, exact hand calculation)\n\nExtend each displayed temporal word by zero forever:\n\n    v_0=(2,3,2,1,0,3),\n    v_1=(0,1,2,3,1,3),\n    v_2=(3,1,0,2,2,3).\n\nUse the established deletion rule (Phi v)_t=g(v_t,v_(t+1)), with\n\n    g((a0,a1),(b0,b1))=(r,s),\n    r=b0 XOR(a0 OR a1), s=b1 XOR(a1 OR r).\n\nThe exact identities are\n\n    Phi v_0=v_1, Phi v_1=v_2, Phi v_2=v_0.            (1)\n\nFor example the six component evaluations in the first identity are\n\n    g(2,3)=0, g(3,2)=1, g(2,1)=2,\n    g(1,0)=3, g(0,3)=1, g(3,0)=3.\n\nThe terminal zero extensions stay zero since g(0,0)=0. Each word has\nexactly FIVE nonzero times, but misses a different time: respectively\n4,0,2. They all have final symbol 3 at time 5.\n\n## 2. The full bi-infinite spacetime (`partial-proof`)\n\nRepeat the initial spatial PAIRS (2,0,3) across all integer pair indices.\nThe corresponding six-bit spatial word has packed value 50, with low-to-high\nbits (0,1,0,0,1,1). Reading the three words in (1) as columns gives\nthe complete periodic A evolution below. Each integer encodes six cells;\nthe rule is cyclic on that period, not a finite row with zero boundaries.\n\n| time | three spatial pair symbols | six-bit word |\n| --- | --- | --- |\n| 0 | 2,0,3 | 50 |\n| 1 | 3,1,1 | 23 |\n| 2 | 2,2,0 | 10 |\n| 3 | 1,3,2 | 45 |\n| 4 | 0,1,2 | 36 |\n| 5 | 3,3,3 | 63 |\n| 6 and later | 0,0,0 | 0 |\n\nEquation (1) is precisely the local compatibility needed for these temporal\ncolumns to obey A at every cell and time; it was obtained by solving those\nsame two local equations. Equivalently verify each row by\n\n    u_i(t+1)=u_(i+2)(t) XOR(u_(i+1)(t) OR u_i(t)),\n    indices modulo 6.\n\nThe spatial period lifts the six-cell verification to ALL integer spatial\nindices. The final zero row is fixed, so the displayed finite temporal\ncertificate covers ALL later times. No extrapolation from a sampled tail\nis used.\n\n## 3. Exact scope of the obstruction (`refuted`)\n\nEvery even-aligned pair has five nonzero times, but none is active at all\nsix times before extinction. Thus the proposed vertical alignment claim is\nfalse, and the implication \"per-pair activity <=K => extinction by time K\"\nis false at K=5: this row is still all ones at time 5 and dies at time 6.\n\nThis also gives an exact one-sided rational example. Put\n\n    x=50/(1-64)=-50/63 in Z_2.\n\nIts pairs repeat (2,0,3) starting at index zero. Because A only uses bits at\nthe current or higher indices, the same cyclic rows describe its entire\none-sided A orbit. Every row before time 6 has a nonzero periodic tail;\nA^6 x=0. Therefore the first finite-entry time for A (and for T, using\nA^h=pi^h T^h) is exactly 6.\n\nFor every n>=6 the anchored horizon includes all six potentially nonzero\ntimes, so J_n(x)=5. For smaller n, J_n<=n<=5. Hence Q(x)=5 exactly.\nThis refutes even the anchored variant \"Q(x)<=K => A^K(x) finite\".\n\nThe harmonic theorem is unaffected: H_6=49/20<=5. This ONE counterexample\ndoes not refute an extinction bound cK for some larger constant c, establish\nsuperlinear optimal growth, or classify other mortality heights. Its low\npair is 2, so it is not even a permitted actual survivor. It supplies no\ncounterexample to full-fringe growth. The retained conclusion is only that\nthe different-time witnesses cannot universally be aligned in one pair.\n",
+    "recovered_from": "results/problem1/20260906_anchored_spine_primary.json"
+  },
+  "source_sha256": "c594690be7373f38ef8a8e5d6ab76b150c3efc56239cc13d2971ed3a3cb81248",
+  "admission_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+  "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+  "result_hashes": {
+    "payload_sha256": "b58afe368e42e8a1ddffbe08493adde4f6997cac05ac575048ffdbba94c95522",
+    "payload_canonical": "json.dumps(sort_keys=True, separators=(',',':'))",
+    "source_sha256": "c594690be7373f38ef8a8e5d6ab76b150c3efc56239cc13d2971ed3a3cb81248",
+    "admission_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "result_summary": {
+    "period_bits": 6,
+    "initial_word": 50,
+    "a_rows": [
+      [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "temporal_pairs": [
+      [
+        2,
+        3,
+        2,
+        1,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        1,
+        3,
+        0
+      ],
+      [
+        3,
+        1,
+        0,
+        2,
+        2,
+        3,
+        0
+      ]
+    ],
+    "pair_activity_counts": [
+      5,
+      5,
+      5
+    ],
+    "first_zero_time": 6
+  },
+  "interpretation": "Agreement certifies ONLY this fixed witness trajectory; no infinite inference is drawn.",
+  "status": "finite-exhaustive",
+  "proof_scope": "singleton fixed trajectory: one 6-cell cyclic physical Rule 30 input, 6 updates",
+  "limitations": [
+    "single fixed witness; not a census over periods, inputs, or heights",
+    "agreement checks the certificate only; growth claims untouched",
+    "low pair 2: not a permitted actual survivor"
+  ],
+  "admission": {
+    "basis": "lead-note admission section + problem1_focus_program critical path (aligned-witness strengthening test)",
+    "either_outcome": "agree=>witness stands; disagree=>withdrawn, no search expansion"
+  },
+  "provenance_repair": {
+    "reason": "v3 wrapper: replay from repo artifacts alone; admission/history fallback chains; v1+v2 archived",
+    "reruns": 2,
+    "executions_total": 3,
+    "scope": "same input, same 6 updates; repair, not expansion"
+  },
+  "superseded_prior_record": {
+    "experiment_id": "20260906_anchored_spine_independent",
+    "timestamp_utc": "2026-09-06T22:59:09Z",
+    "git_commit": "a3858002719830ec8e54227ade7b5d81fe5de089",
+    "git_status_porcelain": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? docs/astra_handoff_archive_20260906_round6.md\n?? experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\n?? proofs/informal/problem1_anchored_activity_finite_entry.md\n?? proofs/informal/problem1_anchored_activity_finite_entry_review.md\n?? proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal_review.md\n?? proofs/informal/problem1_round6_muse_characteristic_coupling.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+    "question": "problem1",
+    "hypothesis": "Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, converted via u_i(t)=r_{(-i-t)}(t), reproduces the hand A-rows 50,23,10,45,36,63,0.",
+    "backend": "physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)",
+    "parameters": {
+      "period_bits": 6,
+      "initial_word": 50,
+      "updates": 6,
+      "rule": "r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6",
+      "conversion": "u_i(t)=r_{(-i-t) mod 6}(t)",
+      "cpu_budget_s": 120,
+      "ram_budget_b": 1073741824,
+      "wall_budget_s": 120
+    },
+    "hardware": {
+      "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+      "cpu_count": 16,
+      "cpu_model": "x86_64"
+    },
+    "software": {
+      "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+      "repo": "local only, no cloud/remote"
+    },
+    "runtime_seconds": 1.619197428226471e-05,
+    "result_hashes": {
+      "payload_sha256": "1910ce9b0bde9a741dce3893eca0c7622a8215aa37adda854161f5600ef678ba",
+      "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+      "lead_source_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7"
+    },
+    "result_summary": {
+      "period_bits": 6,
+      "initial_word": 50,
+      "a_rows": [
+        [
+          0,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "temporal_pairs": [
+        [
+          2,
+          3,
+          2,
+          1,
+          0,
+          3,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          1,
+          3,
+          0
+        ],
+        [
+          3,
+          1,
+          0,
+          2,
+          2,
+          3,
+          0
+        ]
+      ],
+      "pair_activity_counts": [
+        5,
+        5,
+        5
+      ],
+      "first_zero_time": 6
+    },
+    "interpretation": "Agreement certifies ONLY this fixed witness trajectory; no infinite inference is drawn.",
+    "status": "finite-exhaustive",
+    "proof_scope": "singleton fixed trajectory: one 6-cell cyclic physical Rule 30 input, 6 updates",
+    "limitations": [
+      "single fixed witness; not a census over periods, inputs, or heights",
+      "agreement checks the certificate only; growth claims untouched",
+      "low pair 2: not a permitted actual survivor"
+    ],
+    "admission": {
+      "basis": "lead-note admission section + problem1_focus_program critical path (aligned-witness strengthening test)",
+      "either_outcome": "agree=>witness stands; disagree=>withdrawn, no search expansion"
+    }
+  },
+  "superseded_source_snapshot": {
+    "path": "/tmp/astra-round6-spine-independent-source-initial.py",
+    "repo_path": "experiments/problem1_nonperiodicity/check_anchored_spine_independent.py",
+    "sha256": "a2c1f6cc9c7f23850e2a312fc74ecdd74f9fccc121b7485b4c259cb3bf95fc70",
+    "text": "#!/usr/bin/env python3\n\"\"\"Independent check of the anchored vertical-spine hand certificate.\n\nImplements ONLY the physical Rule 30 rule\n    r_i' = r_{i-1} XOR (r_i OR r_{i+1})\non 6 cyclic cells (plain cell lists; no packed-A and no g/Phi reuse),\nstarting from r_i = u_{-i} with u = 50 = bits [0,1,0,0,1,1] low-to-high,\nfor 6 updates (rows t = 0..6). Each physical row is converted to the\nA-row via u_i(t) = r_{(-i-t) mod 6}(t) and compared against the hand\nvectors 50,23,10,45,36,63,0. Single fixed input; no search, no sweep.\n\nAdmission: lead note problem1_anchored_activity_vertical_spine_obstruction.md\n(ONLY admitted verification: these three six-symbol words + one six-cell\nperiod for six updates). Agree => fixed witness stands (finite-exhaustive\non this singleton trajectory only); disagree => exit nonzero, no record,\ncertificate withdrawn. Either way no infinite inference is drawn.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport subprocess\nimport sys\nimport time\n\n# ---- enforced budgets (explicit wall budget below) ----\nCPU_BUDGET_S = 120\nRAM_BUDGET_B = 2 ** 30  # 1 GiB\nWALL_BUDGET_S = 120     # explicit wall budget; expected use << 1 s\ntry:\n    import resource\n    resource.setrlimit(resource.RLIMIT_CPU, (CPU_BUDGET_S, CPU_BUDGET_S))\n    resource.setrlimit(resource.RLIMIT_AS, (RAM_BUDGET_B, RAM_BUDGET_B))\nexcept Exception as exc:  # noqa: BLE001 -- limits unavailable is non-fatal\n    print(\"warning: rlimits unset: %s\" % exc, file=sys.stderr)\n\nREPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\nREF_REL = \"src/python/rule30_research_reference.py\"\nREF_SHA = \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\nLEAD_REL = \"proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\"\nLEAD_SHA = \"e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7\"\nOUT_REL = \"results/problem1/20260906_anchored_spine_independent.json\"\n\nHAND_WORDS = [50, 23, 10, 45, 36, 63, 0]\n\n\ndef sha256_file(path):\n    h = hashlib.sha256()\n    with open(path, \"rb\") as f:\n        for chunk in iter(lambda: f.read(65536), b\"\"):\n            h.update(chunk)\n    return h.hexdigest()\n\n\ndef bits_of(word, n=6):\n    return [(word >> i) & 1 for i in range(n)]\n\n\ndef main():\n    # Immutable reference: hash-check only, never imported or reused.\n    ref_sha = sha256_file(os.path.join(REPO, REF_REL))\n    if ref_sha != REF_SHA:\n        print(\"reference hash mismatch: %s\" % ref_sha, file=sys.stderr)\n        return 2\n    lead_sha = sha256_file(os.path.join(REPO, LEAD_REL))\n    if lead_sha != LEAD_SHA:\n        print(\"lead source changed under review: %s\" % lead_sha, file=sys.stderr)\n        return 2\n\n    n = 6\n    u = bits_of(50, n)  # [0,1,0,0,1,1]\n    assert sum(b << i for i, b in enumerate(u)) == 50\n    r = [u[(-i) % n] for i in range(n)]\n\n    a_rows = []\n    t_start = time.perf_counter()\n    for t in range(7):\n        a_rows.append([r[(-i - t) % n] for i in range(n)])\n        if t < 6:\n            # physical Rule 30 on the cyclic row; comprehension reads old r\n            r = [r[(i - 1) % n] ^ (r[i] | r[(i + 1) % n]) for i in range(n)]\n    elapsed = time.perf_counter() - t_start\n\n    got_words = [sum(b << i for i, b in enumerate(row)) for row in a_rows]\n    if got_words != HAND_WORDS:\n        print(\"MISMATCH: got %r expected %r\" % (got_words, HAND_WORDS),\n              file=sys.stderr)\n        return 1  # no record written; certificate withdrawn\n\n    temporal_pairs = []\n    for j in range(3):\n        temporal_pairs.append([a_rows[t][2 * j] + 2 * a_rows[t][2 * j + 1]\n                               for t in range(7)])\n    pair_activity_counts = [sum(1 for s in col if s != 0)\n                            for col in temporal_pairs]\n    first_zero_time = next(t for t in range(7)\n                           if all(b == 0 for b in a_rows[t]))\n    assert pair_activity_counts == [5, 5, 5]\n    assert first_zero_time == 6\n\n    payload = {\n        \"period_bits\": 6,\n        \"initial_word\": 50,\n        \"a_rows\": a_rows,\n        \"temporal_pairs\": temporal_pairs,\n        \"pair_activity_counts\": pair_activity_counts,\n        \"first_zero_time\": first_zero_time,\n    }\n    payload_hash = hashlib.sha256(\n        json.dumps(payload, sort_keys=True).encode()).hexdigest()\n\n    try:\n        git_commit = subprocess.run(\n            [\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO, capture_output=True,\n            text=True, timeout=30).stdout.strip()\n        git_status = subprocess.run(\n            [\"git\", \"status\", \"--porcelain\"], cwd=REPO, capture_output=True,\n            text=True, timeout=30).stdout.strip()\n    except Exception:  # noqa: BLE001\n        git_commit, git_status = \"unknown\", \"unknown\"\n\n    record = {\n        \"experiment_id\": \"20260906_anchored_spine_independent\",\n        \"timestamp_utc\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"git_commit\": git_commit,\n        \"git_status_porcelain\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": (\"Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, \"\n                         \"converted via u_i(t)=r_{(-i-t)}(t), reproduces the \"\n                         \"hand A-rows 50,23,10,45,36,63,0.\"),\n        \"backend\": \"physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)\",\n        \"parameters\": {\n            \"period_bits\": 6,\n            \"initial_word\": 50,\n            \"updates\": 6,\n            \"rule\": \"r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6\",\n            \"conversion\": \"u_i(t)=r_{(-i-t) mod 6}(t)\",\n            \"cpu_budget_s\": CPU_BUDGET_S,\n            \"ram_budget_b\": RAM_BUDGET_B,\n            \"wall_budget_s\": WALL_BUDGET_S,\n        },\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"cpu_count\": os.cpu_count(),\n            \"cpu_model\": platform.processor() or platform.machine(),\n        },\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"repo\": \"local only, no cloud/remote\",\n        },\n        \"runtime_seconds\": elapsed,\n        \"result_hashes\": {\n            \"payload_sha256\": payload_hash,\n            \"reference_sha256\": ref_sha,\n            \"lead_source_sha256\": lead_sha,\n        },\n        \"result_summary\": payload,\n        \"interpretation\": (\"Agreement certifies ONLY this fixed witness \"\n                            \"trajectory; no infinite inference is drawn.\"),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": (\"singleton fixed trajectory: one 6-cell cyclic \"\n                         \"physical Rule 30 input, 6 updates\"),\n        \"limitations\": [\n            \"single fixed witness; not a census over periods, inputs, or heights\",\n            \"agreement checks the certificate only; growth claims untouched\",\n            \"low pair 2: not a permitted actual survivor\",\n        ],\n        \"admission\": {\n            \"basis\": (\"lead-note admission section + problem1_focus_program \"\n                       \"critical path (aligned-witness strengthening test)\"),\n            \"either_outcome\": (\"agree=>witness stands; disagree=>withdrawn, \"\n                                \"no search expansion\"),\n        },\n    }\n    out_path = os.path.join(REPO, OUT_REL)\n    tmp_path = out_path + \".tmp-%d\" % os.getpid()\n    with open(tmp_path, \"w\") as f:\n        json.dump(record, f, indent=2)\n        f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n    os.replace(tmp_path, out_path)\n    print(\"wrote %s words=%r elapsed=%.4fs\" % (OUT_REL, got_words, elapsed))\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+  },
+  "archived_executions": [
+    {
+      "label": "v1-initial",
+      "record": {
+        "experiment_id": "20260906_anchored_spine_independent",
+        "timestamp_utc": "2026-09-06T22:59:09Z",
+        "git_commit": "a3858002719830ec8e54227ade7b5d81fe5de089",
+        "git_status_porcelain": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? docs/astra_handoff_archive_20260906_round6.md\n?? experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\n?? proofs/informal/problem1_anchored_activity_finite_entry.md\n?? proofs/informal/problem1_anchored_activity_finite_entry_review.md\n?? proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal_review.md\n?? proofs/informal/problem1_round6_muse_characteristic_coupling.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+        "question": "problem1",
+        "hypothesis": "Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, converted via u_i(t)=r_{(-i-t)}(t), reproduces the hand A-rows 50,23,10,45,36,63,0.",
+        "backend": "physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)",
+        "parameters": {
+          "period_bits": 6,
+          "initial_word": 50,
+          "updates": 6,
+          "rule": "r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6",
+          "conversion": "u_i(t)=r_{(-i-t) mod 6}(t)",
+          "cpu_budget_s": 120,
+          "ram_budget_b": 1073741824,
+          "wall_budget_s": 120
+        },
+        "hardware": {
+          "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+          "cpu_count": 16,
+          "cpu_model": "x86_64"
+        },
+        "software": {
+          "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+          "repo": "local only, no cloud/remote"
+        },
+        "runtime_seconds": 1.619197428226471e-05,
+        "result_hashes": {
+          "payload_sha256": "1910ce9b0bde9a741dce3893eca0c7622a8215aa37adda854161f5600ef678ba",
+          "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+          "lead_source_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7"
+        },
+        "result_summary": {
+          "period_bits": 6,
+          "initial_word": 50,
+          "a_rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "temporal_pairs": [
+            [
+              2,
+              3,
+              2,
+              1,
+              0,
+              3,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              3,
+              1,
+              3,
+              0
+            ],
+            [
+              3,
+              1,
+              0,
+              2,
+              2,
+              3,
+              0
+            ]
+          ],
+          "pair_activity_counts": [
+            5,
+            5,
+            5
+          ],
+          "first_zero_time": 6
+        },
+        "interpretation": "Agreement certifies ONLY this fixed witness trajectory; no infinite inference is drawn.",
+        "status": "finite-exhaustive",
+        "proof_scope": "singleton fixed trajectory: one 6-cell cyclic physical Rule 30 input, 6 updates",
+        "limitations": [
+          "single fixed witness; not a census over periods, inputs, or heights",
+          "agreement checks the certificate only; growth claims untouched",
+          "low pair 2: not a permitted actual survivor"
+        ],
+        "admission": {
+          "basis": "lead-note admission section + problem1_focus_program critical path (aligned-witness strengthening test)",
+          "either_outcome": "agree=>witness stands; disagree=>withdrawn, no search expansion"
+        }
+      }
+    },
+    {
+      "label": "v2-provenance-repair",
+      "record": {
+        "experiment_id": "20260906_anchored_spine_independent",
+        "timestamp_utc": "2026-09-06T23:12:30Z",
+        "git_commit": "94f28fcc57151ea0819467539049bde980447cd7",
+        "git_status_porcelain": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\n?? experiments/problem1_nonperiodicity/check_anchored_spine_primary.py\n?? proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\n?? proofs/informal/problem1_anchored_activity_vertical_spine_review.md\n?? proofs/informal/problem1_finite_entry_period_tower.md\n?? proofs/informal/problem1_finite_entry_period_tower_review.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260906_anchored_spine_independent.json\n?? results/problem1/20260906_anchored_spine_primary.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+        "question": "problem1",
+        "hypothesis": "Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, converted via u_i(t)=r_{(-i-t)}(t), reproduces the hand A-rows 50,23,10,45,36,63,0.",
+        "backend": "physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)",
+        "parameters": {
+          "period_bits": 6,
+          "initial_word": 50,
+          "updates": 6,
+          "rule": "r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6",
+          "conversion": "u_i(t)=r_{(-i-t) mod 6}(t)",
+          "cpu_budget_s": 120,
+          "ram_budget_b": 1073741824,
+          "wall_budget_s": 120,
+          "wall_enforcement": "signal.alarm fail-closed"
+        },
+        "hardware": {
+          "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+          "cpu_count": 16,
+          "cpu_model": "x86_64"
+        },
+        "software": {
+          "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+          "repo": "local only, no cloud/remote"
+        },
+        "runtime_seconds": 1.5731086023151875e-05,
+        "payload": {
+          "period_bits": 6,
+          "initial_word": 50,
+          "a_rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "temporal_pairs": [
+            [
+              2,
+              3,
+              2,
+              1,
+              0,
+              3,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              3,
+              1,
+              3,
+              0
+            ],
+            [
+              3,
+              1,
+              0,
+              2,
+              2,
+              3,
+              0
+            ]
+          ],
+          "pair_activity_counts": [
+            5,
+            5,
+            5
+          ],
+          "first_zero_time": 6
+        },
+        "source_snapshot": {
+          "path": "experiments/problem1_nonperiodicity/check_anchored_spine_independent.py",
+          "sha256": "c9cf4e96666eed23bd7ecc41927532ca9c1831b803dce93118e13ee0679432c5",
+          "text": "#!/usr/bin/env python3\n\"\"\"Independent check of the anchored vertical-spine hand certificate.\n\nImplements ONLY the physical Rule 30 rule\n    r_i' = r_{i-1} XOR (r_i OR r_{i+1})\non 6 cyclic cells (plain cell lists; no packed-A and no g/Phi reuse),\nstarting from r_i = u_{-i} with u = 50 = bits [0,1,0,0,1,1] low-to-high,\nfor 6 updates (rows t = 0..6). Each physical row is converted to the\nA-row via u_i(t) = r_{(-i-t) mod 6}(t) and compared against the hand\nvectors 50,23,10,45,36,63,0. Single fixed input; no search, no sweep.\n\nAdmission: lead note problem1_anchored_activity_vertical_spine_obstruction.md\n(ONLY admitted verification: these three six-symbol words + one six-cell\nperiod for six updates). Agree => fixed witness stands (finite-exhaustive\non this singleton trajectory only); disagree => exit nonzero, no record,\ncertificate withdrawn. Either way no infinite inference is drawn.\n\nProvenance (repair v2): top-level exact payload; canonical compact-hash\nspacing; exact source/admission snapshots; fail-closed CPU/RAM/wall caps\n(signal.alarm wall enforcement); validated 40-char git commit; full\nretention of the superseded v1 record and v1 source. Scientific formula\nand inputs are byte-identical in behavior to v1.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport re\nimport resource\nimport signal\nimport subprocess\nimport sys\nimport time\n\n# ---- enforced budgets (fail closed; wall enforced via signal.alarm) ----\nCPU_BUDGET_S = 120\nRAM_BUDGET_B = 2 ** 30  # 1 GiB\nWALL_BUDGET_S = 120     # explicit wall budget; expected use << 1 s\n\nREPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\nREF_REL = \"src/python/rule30_research_reference.py\"\nREF_SHA = \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\nLEAD_REL = \"proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\"\nLEAD_SHA = \"e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7\"\nSELF_REL = \"experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\"\nOUT_REL = \"results/problem1/20260906_anchored_spine_independent.json\"\nPRIOR_RECORD_PATH = \"/tmp/astra-round6-spine-independent-initial.json\"\nPRIOR_SOURCE_PATH = \"/tmp/astra-round6-spine-independent-source-initial.py\"\n\nHAND_WORDS = [50, 23, 10, 45, 36, 63, 0]\n\n\ndef fail(msg):\n    print(\"FAIL-CLOSED: %s\" % msg, file=sys.stderr)\n    return 3\n\n\ndef sha256_bytes(data):\n    return hashlib.sha256(data).hexdigest()\n\n\ndef read_exact(path):\n    with open(path, \"rb\") as f:\n        return f.read()\n\n\ndef bits_of(word, n=6):\n    return [(word >> i) & 1 for i in range(n)]\n\n\ndef main():\n    signal.alarm(WALL_BUDGET_S)  # fail-closed wall enforcement\n    try:\n        resource.setrlimit(resource.RLIMIT_CPU, (CPU_BUDGET_S, CPU_BUDGET_S))\n        resource.setrlimit(resource.RLIMIT_AS, (RAM_BUDGET_B, RAM_BUDGET_B))\n    except Exception as exc:  # noqa: BLE001 -- fail closed, never tolerate\n        return fail(\"rlimits unset: %s\" % exc)\n\n    # Immutable reference: hash-check only, never imported or reused.\n    ref_data = read_exact(os.path.join(REPO, REF_REL))\n    ref_sha = sha256_bytes(ref_data)\n    if ref_sha != REF_SHA:\n        return fail(\"reference hash mismatch: %s\" % ref_sha)\n\n    # Admission snapshot: exact lead-note bytes + verified sha.\n    adm_data = read_exact(os.path.join(REPO, LEAD_REL))\n    adm_sha = sha256_bytes(adm_data)\n    if adm_sha != LEAD_SHA:\n        return fail(\"lead source changed under review: %s\" % adm_sha)\n    admission_snapshot = {\n        \"path\": LEAD_REL,\n        \"sha256\": adm_sha,\n        \"text\": adm_data.decode(\"utf-8\"),\n    }\n\n    # Source snapshot: exact bytes of THIS script.\n    self_data = read_exact(os.path.join(REPO, SELF_REL))\n    source_snapshot = {\n        \"path\": SELF_REL,\n        \"sha256\": sha256_bytes(self_data),\n        \"text\": self_data.decode(\"utf-8\"),\n    }\n\n    # Superseded v1 retention (fail closed if history absent/tampered).\n    try:\n        prior_record = json.loads(read_exact(PRIOR_RECORD_PATH).decode(\"utf-8\"))\n        prior_source_text = read_exact(PRIOR_SOURCE_PATH).decode(\"utf-8\")\n    except Exception as exc:  # noqa: BLE001\n        return fail(\"superseded history unreadable: %s\" % exc)\n    try:\n        prior_words = [sum(b << i for i, b in enumerate(row))\n                       for row in prior_record[\"result_summary\"][\"a_rows\"]]\n    except Exception:  # noqa: BLE001\n        return fail(\"superseded record lacks expected payload\")\n    if prior_words != HAND_WORDS:\n        return fail(\"superseded record is for a different computation\")\n    superseded_source_snapshot = {\n        \"path\": PRIOR_SOURCE_PATH,\n        \"repo_path\": SELF_REL,\n        \"sha256\": sha256_bytes(prior_source_text.encode(\"utf-8\")),\n        \"text\": prior_source_text,\n    }\n\n    # Full git, validated 40-char commit, fail closed.\n    try:\n        proc = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO,\n                              capture_output=True, text=True, timeout=30)\n        git_commit = proc.stdout.strip()\n        proc2 = subprocess.run([\"git\", \"status\", \"--porcelain\"], cwd=REPO,\n                               capture_output=True, text=True, timeout=30)\n        git_status = proc2.stdout.strip()\n    except Exception as exc:  # noqa: BLE001\n        return fail(\"git unavailable: %s\" % exc)\n    if not re.fullmatch(r\"[0-9a-f]{40}\", git_commit):\n        return fail(\"git commit not a 40-char hash: %r\" % git_commit)\n\n    # ---- scientific computation (unchanged formula/inputs) ----\n    n = 6\n    u = bits_of(50, n)  # [0,1,0,0,1,1]\n    if sum(b << i for i, b in enumerate(u)) != 50:\n        return fail(\"initial word decode\")\n    r = [u[(-i) % n] for i in range(n)]\n\n    a_rows = []\n    t_start = time.perf_counter()\n    for t in range(7):\n        a_rows.append([r[(-i - t) % n] for i in range(n)])\n        if t < 6:\n            # physical Rule 30 on the cyclic row; comprehension reads old r\n            r = [r[(i - 1) % n] ^ (r[i] | r[(i + 1) % n]) for i in range(n)]\n    elapsed = time.perf_counter() - t_start\n\n    got_words = [sum(b << i for i, b in enumerate(row)) for row in a_rows]\n    if got_words != HAND_WORDS:\n        print(\"MISMATCH: got %r expected %r\" % (got_words, HAND_WORDS),\n              file=sys.stderr)\n        return 1  # no record written; certificate withdrawn\n\n    temporal_pairs = []\n    for j in range(3):\n        temporal_pairs.append([a_rows[t][2 * j] + 2 * a_rows[t][2 * j + 1]\n                               for t in range(7)])\n    pair_activity_counts = [sum(1 for s in col if s != 0)\n                            for col in temporal_pairs]\n    first_zero_time = next(t for t in range(7)\n                           if all(b == 0 for b in a_rows[t]))\n    if pair_activity_counts != [5, 5, 5] or first_zero_time != 6:\n        return fail(\"derived counts differ\")\n\n    # Top-level payload: exact assigned keys.\n    payload = {\n        \"period_bits\": 6,\n        \"initial_word\": 50,\n        \"a_rows\": a_rows,\n        \"temporal_pairs\": temporal_pairs,\n        \"pair_activity_counts\": pair_activity_counts,\n        \"first_zero_time\": first_zero_time,\n    }\n    payload_hash = sha256_bytes(\n        json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode())\n\n    record = {\n        \"experiment_id\": \"20260906_anchored_spine_independent\",\n        \"timestamp_utc\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"git_commit\": git_commit,\n        \"git_status_porcelain\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": (\"Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, \"\n                         \"converted via u_i(t)=r_{(-i-t)}(t), reproduces the \"\n                         \"hand A-rows 50,23,10,45,36,63,0.\"),\n        \"backend\": \"physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)\",\n        \"parameters\": {\n            \"period_bits\": 6,\n            \"initial_word\": 50,\n            \"updates\": 6,\n            \"rule\": \"r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6\",\n            \"conversion\": \"u_i(t)=r_{(-i-t) mod 6}(t)\",\n            \"cpu_budget_s\": CPU_BUDGET_S,\n            \"ram_budget_b\": RAM_BUDGET_B,\n            \"wall_budget_s\": WALL_BUDGET_S,\n            \"wall_enforcement\": \"signal.alarm fail-closed\",\n        },\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"cpu_count\": os.cpu_count(),\n            \"cpu_model\": platform.processor() or platform.machine(),\n        },\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"repo\": \"local only, no cloud/remote\",\n        },\n        \"runtime_seconds\": elapsed,\n        \"payload\": payload,\n        \"source_snapshot\": source_snapshot,\n        \"admission_snapshot\": admission_snapshot,\n        \"source_sha256\": source_snapshot[\"sha256\"],\n        \"admission_sha256\": adm_sha,\n        \"immutable_reference_sha256\": ref_sha,\n        \"result_hashes\": {\n            \"payload_sha256\": payload_hash,\n            \"payload_canonical\": \"json.dumps(sort_keys=True, separators=(',',':'))\",\n            \"source_sha256\": source_snapshot[\"sha256\"],\n            \"admission_sha256\": adm_sha,\n            \"immutable_reference_sha256\": ref_sha,\n        },\n        \"result_summary\": payload,\n        \"interpretation\": (\"Agreement certifies ONLY this fixed witness \"\n                            \"trajectory; no infinite inference is drawn.\"),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": (\"singleton fixed trajectory: one 6-cell cyclic \"\n                         \"physical Rule 30 input, 6 updates\"),\n        \"limitations\": [\n            \"single fixed witness; not a census over periods, inputs, or heights\",\n            \"agreement checks the certificate only; growth claims untouched\",\n            \"low pair 2: not a permitted actual survivor\",\n        ],\n        \"admission\": {\n            \"basis\": (\"lead-note admission section + problem1_focus_program \"\n                       \"critical path (aligned-witness strengthening test)\"),\n            \"either_outcome\": (\"agree=>witness stands; disagree=>withdrawn, \"\n                                \"no search expansion\"),\n        },\n        \"provenance_repair\": {\n            \"reason\": (\"v1 record lacked top-level payload, canonical \"\n                        \"spacing, snapshots, enforced caps, validated git\"),\n            \"reruns\": 1,\n            \"scope\": \"same input, same 6 updates; repair, not expansion\",\n        },\n        \"superseded_prior_record\": prior_record,\n        \"superseded_source_snapshot\": superseded_source_snapshot,\n    }\n    out_path = os.path.join(REPO, OUT_REL)\n    tmp_path = out_path + \".tmp-%d\" % os.getpid()\n    with open(tmp_path, \"w\") as f:\n        json.dump(record, f, indent=2)\n        f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n    os.replace(tmp_path, out_path)\n    signal.alarm(0)\n    print(\"wrote %s words=%r elapsed=%.4fs payload=%s\" %\n          (OUT_REL, got_words, elapsed, payload_hash[:16]))\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+        },
+        "admission_snapshot": {
+          "path": "proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md",
+          "sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+          "text": "# A mortal periodic tail need not have a pair active at every age\n\nStatus: `partial-proof` / `refuted` by the hand certificate below, pending\nindependent verification. Problem 1 remains open. No general linear-bound\nimpossibility or actual-survivor counterexample is claimed.\n\n## Admission and precise route\n\nThe new anchored finite-entry proof counts activity in different spatial\nintervals at different ages. A tempting strengthening would align those\nwitnesses in one fixed pair: whenever a bi-infinite A spacetime has final\nnonzero row at time M, some even-aligned pair is nonzero at EVERY time\n0,...,M. Under a per-pair budget K this would give M+1<=K, replacing the\nharmonic extinction estimate by h<=K. This would substantially strengthen\nthe bounded-activity alternative available to a full-fringe argument.\n\nThe three temporal words below were derived by hand from the inverse scan,\nwithout any search. Their proposed cycle would refute this alignment claim\nand the coefficient-one extinction bound. If a local identity fails, the\nclaimed counterexample must be withdrawn; no search expansion follows.\nThe ONLY admitted computational verification is these three six-symbol\nwords and the corresponding single six-cell spatial period for six updates,\nusing packed arithmetic and an independent cell-array rule. No period,\nfrontier, ray, mortality-level, or prefix census is admitted. Local one CPU,\n120 seconds, 1 GiB, with exact sources, full Git, hashes, hardware/software,\ntiming and an atomic record. Agreement certifies only this fixed witness.\n\n## 1. Three temporal words (`partial-proof`, exact hand calculation)\n\nExtend each displayed temporal word by zero forever:\n\n    v_0=(2,3,2,1,0,3),\n    v_1=(0,1,2,3,1,3),\n    v_2=(3,1,0,2,2,3).\n\nUse the established deletion rule (Phi v)_t=g(v_t,v_(t+1)), with\n\n    g((a0,a1),(b0,b1))=(r,s),\n    r=b0 XOR(a0 OR a1), s=b1 XOR(a1 OR r).\n\nThe exact identities are\n\n    Phi v_0=v_1, Phi v_1=v_2, Phi v_2=v_0.            (1)\n\nFor example the six component evaluations in the first identity are\n\n    g(2,3)=0, g(3,2)=1, g(2,1)=2,\n    g(1,0)=3, g(0,3)=1, g(3,0)=3.\n\nThe terminal zero extensions stay zero since g(0,0)=0. Each word has\nexactly FIVE nonzero times, but misses a different time: respectively\n4,0,2. They all have final symbol 3 at time 5.\n\n## 2. The full bi-infinite spacetime (`partial-proof`)\n\nRepeat the initial spatial PAIRS (2,0,3) across all integer pair indices.\nThe corresponding six-bit spatial word has packed value 50, with low-to-high\nbits (0,1,0,0,1,1). Reading the three words in (1) as columns gives\nthe complete periodic A evolution below. Each integer encodes six cells;\nthe rule is cyclic on that period, not a finite row with zero boundaries.\n\n| time | three spatial pair symbols | six-bit word |\n| --- | --- | --- |\n| 0 | 2,0,3 | 50 |\n| 1 | 3,1,1 | 23 |\n| 2 | 2,2,0 | 10 |\n| 3 | 1,3,2 | 45 |\n| 4 | 0,1,2 | 36 |\n| 5 | 3,3,3 | 63 |\n| 6 and later | 0,0,0 | 0 |\n\nEquation (1) is precisely the local compatibility needed for these temporal\ncolumns to obey A at every cell and time; it was obtained by solving those\nsame two local equations. Equivalently verify each row by\n\n    u_i(t+1)=u_(i+2)(t) XOR(u_(i+1)(t) OR u_i(t)),\n    indices modulo 6.\n\nThe spatial period lifts the six-cell verification to ALL integer spatial\nindices. The final zero row is fixed, so the displayed finite temporal\ncertificate covers ALL later times. No extrapolation from a sampled tail\nis used.\n\n## 3. Exact scope of the obstruction (`refuted`)\n\nEvery even-aligned pair has five nonzero times, but none is active at all\nsix times before extinction. Thus the proposed vertical alignment claim is\nfalse, and the implication \"per-pair activity <=K => extinction by time K\"\nis false at K=5: this row is still all ones at time 5 and dies at time 6.\n\nThis also gives an exact one-sided rational example. Put\n\n    x=50/(1-64)=-50/63 in Z_2.\n\nIts pairs repeat (2,0,3) starting at index zero. Because A only uses bits at\nthe current or higher indices, the same cyclic rows describe its entire\none-sided A orbit. Every row before time 6 has a nonzero periodic tail;\nA^6 x=0. Therefore the first finite-entry time for A (and for T, using\nA^h=pi^h T^h) is exactly 6.\n\nFor every n>=6 the anchored horizon includes all six potentially nonzero\ntimes, so J_n(x)=5. For smaller n, J_n<=n<=5. Hence Q(x)=5 exactly.\nThis refutes even the anchored variant \"Q(x)<=K => A^K(x) finite\".\n\nThe harmonic theorem is unaffected: H_6=49/20<=5. This ONE counterexample\ndoes not refute an extinction bound cK for some larger constant c, establish\nsuperlinear optimal growth, or classify other mortality heights. Its low\npair is 2, so it is not even a permitted actual survivor. It supplies no\ncounterexample to full-fringe growth. The retained conclusion is only that\nthe different-time witnesses cannot universally be aligned in one pair.\n"
+        },
+        "source_sha256": "c9cf4e96666eed23bd7ecc41927532ca9c1831b803dce93118e13ee0679432c5",
+        "admission_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+        "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+        "result_hashes": {
+          "payload_sha256": "b58afe368e42e8a1ddffbe08493adde4f6997cac05ac575048ffdbba94c95522",
+          "payload_canonical": "json.dumps(sort_keys=True, separators=(',',':'))",
+          "source_sha256": "c9cf4e96666eed23bd7ecc41927532ca9c1831b803dce93118e13ee0679432c5",
+          "admission_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+          "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+        },
+        "result_summary": {
+          "period_bits": 6,
+          "initial_word": 50,
+          "a_rows": [
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "temporal_pairs": [
+            [
+              2,
+              3,
+              2,
+              1,
+              0,
+              3,
+              0
+            ],
+            [
+              0,
+              1,
+              2,
+              3,
+              1,
+              3,
+              0
+            ],
+            [
+              3,
+              1,
+              0,
+              2,
+              2,
+              3,
+              0
+            ]
+          ],
+          "pair_activity_counts": [
+            5,
+            5,
+            5
+          ],
+          "first_zero_time": 6
+        },
+        "interpretation": "Agreement certifies ONLY this fixed witness trajectory; no infinite inference is drawn.",
+        "status": "finite-exhaustive",
+        "proof_scope": "singleton fixed trajectory: one 6-cell cyclic physical Rule 30 input, 6 updates",
+        "limitations": [
+          "single fixed witness; not a census over periods, inputs, or heights",
+          "agreement checks the certificate only; growth claims untouched",
+          "low pair 2: not a permitted actual survivor"
+        ],
+        "admission": {
+          "basis": "lead-note admission section + problem1_focus_program critical path (aligned-witness strengthening test)",
+          "either_outcome": "agree=>witness stands; disagree=>withdrawn, no search expansion"
+        },
+        "provenance_repair": {
+          "reason": "v1 record lacked top-level payload, canonical spacing, snapshots, enforced caps, validated git",
+          "reruns": 1,
+          "scope": "same input, same 6 updates; repair, not expansion"
+        },
+        "superseded_prior_record": {
+          "experiment_id": "20260906_anchored_spine_independent",
+          "timestamp_utc": "2026-09-06T22:59:09Z",
+          "git_commit": "a3858002719830ec8e54227ade7b5d81fe5de089",
+          "git_status_porcelain": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? docs/astra_handoff_archive_20260906_round6.md\n?? experiments/problem1_nonperiodicity/check_anchored_spine_independent.py\n?? proofs/informal/problem1_anchored_activity_finite_entry.md\n?? proofs/informal/problem1_anchored_activity_finite_entry_review.md\n?? proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal.md\n?? proofs/informal/problem1_full_fringe_temporal_diagonal_review.md\n?? proofs/informal/problem1_round6_muse_characteristic_coupling.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? run_astra_8h.sh\n?? watch_astra.sh",
+          "question": "problem1",
+          "hypothesis": "Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, converted via u_i(t)=r_{(-i-t)}(t), reproduces the hand A-rows 50,23,10,45,36,63,0.",
+          "backend": "physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)",
+          "parameters": {
+            "period_bits": 6,
+            "initial_word": 50,
+            "updates": 6,
+            "rule": "r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6",
+            "conversion": "u_i(t)=r_{(-i-t) mod 6}(t)",
+            "cpu_budget_s": 120,
+            "ram_budget_b": 1073741824,
+            "wall_budget_s": 120
+          },
+          "hardware": {
+            "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+            "cpu_count": 16,
+            "cpu_model": "x86_64"
+          },
+          "software": {
+            "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+            "repo": "local only, no cloud/remote"
+          },
+          "runtime_seconds": 1.619197428226471e-05,
+          "result_hashes": {
+            "payload_sha256": "1910ce9b0bde9a741dce3893eca0c7622a8215aa37adda854161f5600ef678ba",
+            "reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+            "lead_source_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7"
+          },
+          "result_summary": {
+            "period_bits": 6,
+            "initial_word": 50,
+            "a_rows": [
+              [
+                0,
+                1,
+                0,
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1,
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                1,
+                0,
+                1,
+                0,
+                0
+              ],
+              [
+                1,
+                0,
+                1,
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                1,
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "temporal_pairs": [
+              [
+                2,
+                3,
+                2,
+                1,
+                0,
+                3,
+                0
+              ],
+              [
+                0,
+                1,
+                2,
+                3,
+                1,
+                3,
+                0
+              ],
+              [
+                3,
+                1,
+                0,
+                2,
+                2,
+                3,
+                0
+              ]
+            ],
+            "pair_activity_counts": [
+              5,
+              5,
+              5
+            ],
+            "first_zero_time": 6
+          },
+          "interpretation": "Agreement certifies ONLY this fixed witness trajectory; no infinite inference is drawn.",
+          "status": "finite-exhaustive",
+          "proof_scope": "singleton fixed trajectory: one 6-cell cyclic physical Rule 30 input, 6 updates",
+          "limitations": [
+            "single fixed witness; not a census over periods, inputs, or heights",
+            "agreement checks the certificate only; growth claims untouched",
+            "low pair 2: not a permitted actual survivor"
+          ],
+          "admission": {
+            "basis": "lead-note admission section + problem1_focus_program critical path (aligned-witness strengthening test)",
+            "either_outcome": "agree=>witness stands; disagree=>withdrawn, no search expansion"
+          }
+        },
+        "superseded_source_snapshot": {
+          "path": "/tmp/astra-round6-spine-independent-source-initial.py",
+          "repo_path": "experiments/problem1_nonperiodicity/check_anchored_spine_independent.py",
+          "sha256": "a2c1f6cc9c7f23850e2a312fc74ecdd74f9fccc121b7485b4c259cb3bf95fc70",
+          "text": "#!/usr/bin/env python3\n\"\"\"Independent check of the anchored vertical-spine hand certificate.\n\nImplements ONLY the physical Rule 30 rule\n    r_i' = r_{i-1} XOR (r_i OR r_{i+1})\non 6 cyclic cells (plain cell lists; no packed-A and no g/Phi reuse),\nstarting from r_i = u_{-i} with u = 50 = bits [0,1,0,0,1,1] low-to-high,\nfor 6 updates (rows t = 0..6). Each physical row is converted to the\nA-row via u_i(t) = r_{(-i-t) mod 6}(t) and compared against the hand\nvectors 50,23,10,45,36,63,0. Single fixed input; no search, no sweep.\n\nAdmission: lead note problem1_anchored_activity_vertical_spine_obstruction.md\n(ONLY admitted verification: these three six-symbol words + one six-cell\nperiod for six updates). Agree => fixed witness stands (finite-exhaustive\non this singleton trajectory only); disagree => exit nonzero, no record,\ncertificate withdrawn. Either way no infinite inference is drawn.\n\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport subprocess\nimport sys\nimport time\n\n# ---- enforced budgets (explicit wall budget below) ----\nCPU_BUDGET_S = 120\nRAM_BUDGET_B = 2 ** 30  # 1 GiB\nWALL_BUDGET_S = 120     # explicit wall budget; expected use << 1 s\ntry:\n    import resource\n    resource.setrlimit(resource.RLIMIT_CPU, (CPU_BUDGET_S, CPU_BUDGET_S))\n    resource.setrlimit(resource.RLIMIT_AS, (RAM_BUDGET_B, RAM_BUDGET_B))\nexcept Exception as exc:  # noqa: BLE001 -- limits unavailable is non-fatal\n    print(\"warning: rlimits unset: %s\" % exc, file=sys.stderr)\n\nREPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\nREF_REL = \"src/python/rule30_research_reference.py\"\nREF_SHA = \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\nLEAD_REL = \"proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\"\nLEAD_SHA = \"e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7\"\nOUT_REL = \"results/problem1/20260906_anchored_spine_independent.json\"\n\nHAND_WORDS = [50, 23, 10, 45, 36, 63, 0]\n\n\ndef sha256_file(path):\n    h = hashlib.sha256()\n    with open(path, \"rb\") as f:\n        for chunk in iter(lambda: f.read(65536), b\"\"):\n            h.update(chunk)\n    return h.hexdigest()\n\n\ndef bits_of(word, n=6):\n    return [(word >> i) & 1 for i in range(n)]\n\n\ndef main():\n    # Immutable reference: hash-check only, never imported or reused.\n    ref_sha = sha256_file(os.path.join(REPO, REF_REL))\n    if ref_sha != REF_SHA:\n        print(\"reference hash mismatch: %s\" % ref_sha, file=sys.stderr)\n        return 2\n    lead_sha = sha256_file(os.path.join(REPO, LEAD_REL))\n    if lead_sha != LEAD_SHA:\n        print(\"lead source changed under review: %s\" % lead_sha, file=sys.stderr)\n        return 2\n\n    n = 6\n    u = bits_of(50, n)  # [0,1,0,0,1,1]\n    assert sum(b << i for i, b in enumerate(u)) == 50\n    r = [u[(-i) % n] for i in range(n)]\n\n    a_rows = []\n    t_start = time.perf_counter()\n    for t in range(7):\n        a_rows.append([r[(-i - t) % n] for i in range(n)])\n        if t < 6:\n            # physical Rule 30 on the cyclic row; comprehension reads old r\n            r = [r[(i - 1) % n] ^ (r[i] | r[(i + 1) % n]) for i in range(n)]\n    elapsed = time.perf_counter() - t_start\n\n    got_words = [sum(b << i for i, b in enumerate(row)) for row in a_rows]\n    if got_words != HAND_WORDS:\n        print(\"MISMATCH: got %r expected %r\" % (got_words, HAND_WORDS),\n              file=sys.stderr)\n        return 1  # no record written; certificate withdrawn\n\n    temporal_pairs = []\n    for j in range(3):\n        temporal_pairs.append([a_rows[t][2 * j] + 2 * a_rows[t][2 * j + 1]\n                               for t in range(7)])\n    pair_activity_counts = [sum(1 for s in col if s != 0)\n                            for col in temporal_pairs]\n    first_zero_time = next(t for t in range(7)\n                           if all(b == 0 for b in a_rows[t]))\n    assert pair_activity_counts == [5, 5, 5]\n    assert first_zero_time == 6\n\n    payload = {\n        \"period_bits\": 6,\n        \"initial_word\": 50,\n        \"a_rows\": a_rows,\n        \"temporal_pairs\": temporal_pairs,\n        \"pair_activity_counts\": pair_activity_counts,\n        \"first_zero_time\": first_zero_time,\n    }\n    payload_hash = hashlib.sha256(\n        json.dumps(payload, sort_keys=True).encode()).hexdigest()\n\n    try:\n        git_commit = subprocess.run(\n            [\"git\", \"rev-parse\", \"HEAD\"], cwd=REPO, capture_output=True,\n            text=True, timeout=30).stdout.strip()\n        git_status = subprocess.run(\n            [\"git\", \"status\", \"--porcelain\"], cwd=REPO, capture_output=True,\n            text=True, timeout=30).stdout.strip()\n    except Exception:  # noqa: BLE001\n        git_commit, git_status = \"unknown\", \"unknown\"\n\n    record = {\n        \"experiment_id\": \"20260906_anchored_spine_independent\",\n        \"timestamp_utc\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\", time.gmtime()),\n        \"git_commit\": git_commit,\n        \"git_status_porcelain\": git_status[:2000],\n        \"question\": \"problem1\",\n        \"hypothesis\": (\"Cyclic-6 physical Rule 30 from r_i=u_{-i}, u=50, \"\n                         \"converted via u_i(t)=r_{(-i-t)}(t), reproduces the \"\n                         \"hand A-rows 50,23,10,45,36,63,0.\"),\n        \"backend\": \"physical-cell-list-6cyclic-independent (no packed-A, no g/Phi)\",\n        \"parameters\": {\n            \"period_bits\": 6,\n            \"initial_word\": 50,\n            \"updates\": 6,\n            \"rule\": \"r_i'=r_{i-1} XOR (r_i OR r_{i+1}) mod 6\",\n            \"conversion\": \"u_i(t)=r_{(-i-t) mod 6}(t)\",\n            \"cpu_budget_s\": CPU_BUDGET_S,\n            \"ram_budget_b\": RAM_BUDGET_B,\n            \"wall_budget_s\": WALL_BUDGET_S,\n        },\n        \"hardware\": {\n            \"platform\": platform.platform(),\n            \"cpu_count\": os.cpu_count(),\n            \"cpu_model\": platform.processor() or platform.machine(),\n        },\n        \"software\": {\n            \"python\": sys.version.replace(\"\\n\", \" \"),\n            \"repo\": \"local only, no cloud/remote\",\n        },\n        \"runtime_seconds\": elapsed,\n        \"result_hashes\": {\n            \"payload_sha256\": payload_hash,\n            \"reference_sha256\": ref_sha,\n            \"lead_source_sha256\": lead_sha,\n        },\n        \"result_summary\": payload,\n        \"interpretation\": (\"Agreement certifies ONLY this fixed witness \"\n                            \"trajectory; no infinite inference is drawn.\"),\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": (\"singleton fixed trajectory: one 6-cell cyclic \"\n                         \"physical Rule 30 input, 6 updates\"),\n        \"limitations\": [\n            \"single fixed witness; not a census over periods, inputs, or heights\",\n            \"agreement checks the certificate only; growth claims untouched\",\n            \"low pair 2: not a permitted actual survivor\",\n        ],\n        \"admission\": {\n            \"basis\": (\"lead-note admission section + problem1_focus_program \"\n                       \"critical path (aligned-witness strengthening test)\"),\n            \"either_outcome\": (\"agree=>witness stands; disagree=>withdrawn, \"\n                                \"no search expansion\"),\n        },\n    }\n    out_path = os.path.join(REPO, OUT_REL)\n    tmp_path = out_path + \".tmp-%d\" % os.getpid()\n    with open(tmp_path, \"w\") as f:\n        json.dump(record, f, indent=2)\n        f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n    os.replace(tmp_path, out_path)\n    print(\"wrote %s words=%r elapsed=%.4fs\" % (OUT_REL, got_words, elapsed))\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n"
+        }
+      },
+      "record_sha256": "aea8ea2dbfea2aa0b8b6c6707f48420c7d4c6d5c4cda5482321bd3bfe7e66ad8"
+    }
+  ]
+}

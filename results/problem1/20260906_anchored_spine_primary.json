@@ -1,0 +1,167 @@
+{
+  "admission_snapshot": {
+    "path": "proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md",
+    "sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+    "text": "# A mortal periodic tail need not have a pair active at every age\n\nStatus: `partial-proof` / `refuted` by the hand certificate below, pending\nindependent verification. Problem 1 remains open. No general linear-bound\nimpossibility or actual-survivor counterexample is claimed.\n\n## Admission and precise route\n\nThe new anchored finite-entry proof counts activity in different spatial\nintervals at different ages. A tempting strengthening would align those\nwitnesses in one fixed pair: whenever a bi-infinite A spacetime has final\nnonzero row at time M, some even-aligned pair is nonzero at EVERY time\n0,...,M. Under a per-pair budget K this would give M+1<=K, replacing the\nharmonic extinction estimate by h<=K. This would substantially strengthen\nthe bounded-activity alternative available to a full-fringe argument.\n\nThe three temporal words below were derived by hand from the inverse scan,\nwithout any search. Their proposed cycle would refute this alignment claim\nand the coefficient-one extinction bound. If a local identity fails, the\nclaimed counterexample must be withdrawn; no search expansion follows.\nThe ONLY admitted computational verification is these three six-symbol\nwords and the corresponding single six-cell spatial period for six updates,\nusing packed arithmetic and an independent cell-array rule. No period,\nfrontier, ray, mortality-level, or prefix census is admitted. Local one CPU,\n120 seconds, 1 GiB, with exact sources, full Git, hashes, hardware/software,\ntiming and an atomic record. Agreement certifies only this fixed witness.\n\n## 1. Three temporal words (`partial-proof`, exact hand calculation)\n\nExtend each displayed temporal word by zero forever:\n\n    v_0=(2,3,2,1,0,3),\n    v_1=(0,1,2,3,1,3),\n    v_2=(3,1,0,2,2,3).\n\nUse the established deletion rule (Phi v)_t=g(v_t,v_(t+1)), with\n\n    g((a0,a1),(b0,b1))=(r,s),\n    r=b0 XOR(a0 OR a1), s=b1 XOR(a1 OR r).\n\nThe exact identities are\n\n    Phi v_0=v_1, Phi v_1=v_2, Phi v_2=v_0.            (1)\n\nFor example the six component evaluations in the first identity are\n\n    g(2,3)=0, g(3,2)=1, g(2,1)=2,\n    g(1,0)=3, g(0,3)=1, g(3,0)=3.\n\nThe terminal zero extensions stay zero since g(0,0)=0. Each word has\nexactly FIVE nonzero times, but misses a different time: respectively\n4,0,2. They all have final symbol 3 at time 5.\n\n## 2. The full bi-infinite spacetime (`partial-proof`)\n\nRepeat the initial spatial PAIRS (2,0,3) across all integer pair indices.\nThe corresponding six-bit spatial word has packed value 50, with low-to-high\nbits (0,1,0,0,1,1). Reading the three words in (1) as columns gives\nthe complete periodic A evolution below. Each integer encodes six cells;\nthe rule is cyclic on that period, not a finite row with zero boundaries.\n\n| time | three spatial pair symbols | six-bit word |\n| --- | --- | --- |\n| 0 | 2,0,3 | 50 |\n| 1 | 3,1,1 | 23 |\n| 2 | 2,2,0 | 10 |\n| 3 | 1,3,2 | 45 |\n| 4 | 0,1,2 | 36 |\n| 5 | 3,3,3 | 63 |\n| 6 and later | 0,0,0 | 0 |\n\nEquation (1) is precisely the local compatibility needed for these temporal\ncolumns to obey A at every cell and time; it was obtained by solving those\nsame two local equations. Equivalently verify each row by\n\n    u_i(t+1)=u_(i+2)(t) XOR(u_(i+1)(t) OR u_i(t)),\n    indices modulo 6.\n\nThe spatial period lifts the six-cell verification to ALL integer spatial\nindices. The final zero row is fixed, so the displayed finite temporal\ncertificate covers ALL later times. No extrapolation from a sampled tail\nis used.\n\n## 3. Exact scope of the obstruction (`refuted`)\n\nEvery even-aligned pair has five nonzero times, but none is active at all\nsix times before extinction. Thus the proposed vertical alignment claim is\nfalse, and the implication \"per-pair activity <=K => extinction by time K\"\nis false at K=5: this row is still all ones at time 5 and dies at time 6.\n\nThis also gives an exact one-sided rational example. Put\n\n    x=50/(1-64)=-50/63 in Z_2.\n\nIts pairs repeat (2,0,3) starting at index zero. Because A only uses bits at\nthe current or higher indices, the same cyclic rows describe its entire\none-sided A orbit. Every row before time 6 has a nonzero periodic tail;\nA^6 x=0. Therefore the first finite-entry time for A (and for T, using\nA^h=pi^h T^h) is exactly 6.\n\nFor every n>=6 the anchored horizon includes all six potentially nonzero\ntimes, so J_n(x)=5. For smaller n, J_n<=n<=5. Hence Q(x)=5 exactly.\nThis refutes even the anchored variant \"Q(x)<=K => A^K(x) finite\".\n\nThe harmonic theorem is unaffected: H_6=49/20<=5. This ONE counterexample\ndoes not refute an extinction bound cK for some larger constant c, establish\nsuperlinear optimal growth, or classify other mortality heights. Its low\npair is 2, so it is not even a permitted actual survivor. It supplies no\ncounterexample to full-fringe growth. The retained conclusion is only that\nthe different-time witnesses cannot universally be aligned in one pair.\n"
+  },
+  "backend": "python-packed-cyclic-A-and-local-g",
+  "experiment_id": "20260906_anchored_spine_primary",
+  "git_commit": "a3858002719830ec8e54227ade7b5d81fe5de089",
+  "hardware": {
+    "logical_cpus": 16,
+    "uname": [
+      "Linux",
+      "Home-Server",
+      "7.0.0-30-generic",
+      "#30-Ubuntu SMP PREEMPT_DYNAMIC Fri Jul 31 18:22:54 UTC 2026",
+      "x86_64",
+      ""
+    ]
+  },
+  "hypothesis": "The single stated period-six row dies first at time six, with exactly five active times at each aligned pair.",
+  "interpretation": "Exact verification of the one hand-derived witness, not a period or mortality search.",
+  "limitations": [
+    "No actual survivor is constructed or excluded.",
+    "Infinite spatial and temporal conclusions require the separate periodicity/zero-row proof.",
+    "Only coefficient-one lifetime bound is refuted; no conclusion about cK for larger c.",
+    "Immutable supplied reference is hashed, not modified or extended to a new backend."
+  ],
+  "parameters": {
+    "concurrency": 1,
+    "cpu_seconds_limit": 120,
+    "initial_inputs": 1,
+    "initial_word": 50,
+    "local_g_seams": 18,
+    "period_bits": 6,
+    "ram_bytes_limit": 1073741824,
+    "updates": 6,
+    "wall_seconds_limit": 120
+  },
+  "payload": {
+    "a_rows": [
+      [
+        0,
+        1,
+        0,
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "first_zero_time": 6,
+    "initial_word": 50,
+    "pair_activity_counts": [
+      5,
+      5,
+      5
+    ],
+    "period_bits": 6,
+    "temporal_pairs": [
+      [
+        2,
+        3,
+        2,
+        1,
+        0,
+        3,
+        0
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        1,
+        3,
+        0
+      ],
+      [
+        3,
+        1,
+        0,
+        2,
+        2,
+        3,
+        0
+      ]
+    ]
+  },
+  "proof_scope": "Singleton initial row 50 on a six-cell ring, exactly six updates and 18 declared g seams.",
+  "question": "problem1",
+  "result_hashes": {
+    "admission_sha256": "e7e44fcb19b358ff3191a9e8fdde80ae85e8af8de644ad389906d2c835141ee7",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "payload_sha256": "b58afe368e42e8a1ddffbe08493adde4f6997cac05ac575048ffdbba94c95522",
+    "source_sha256": "2748f1488ad1b8840c930c3ecea4f4bd0037433509d7b89fd7d2a6f0af822547"
+  },
+  "result_summary": {
+    "first_zero_time": 6,
+    "full_hand_rows_match": true,
+    "local_g_seams_match": 18,
+    "pair_activity_counts": [
+      5,
+      5,
+      5
+    ]
+  },
+  "runtime_seconds": 0.007282792939804494,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]"
+  },
+  "source_snapshot": {
+    "path": "experiments/problem1_nonperiodicity/check_anchored_spine_primary.py",
+    "sha256": "2748f1488ad1b8840c930c3ecea4f4bd0037433509d7b89fd7d2a6f0af822547",
+    "text": "\"\"\"Verify one hand-derived period-six mortality witness; no search.\"\"\"\nimport hashlib\nimport json\nimport os\nimport platform\nimport resource\nimport signal\nimport subprocess\nimport sys\nimport tempfile\nimport time\nfrom datetime import datetime, timezone\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[2]\nNOTE = \"proofs/informal/problem1_anchored_activity_vertical_spine_obstruction.md\"\nOUT = ROOT / \"results/problem1/20260906_anchored_spine_primary.json\"\nREFERENCE = \"358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01\"\n\n\ndef digest(raw):\n    return hashlib.sha256(raw).hexdigest()\n\n\ndef snapshot(path):\n    raw = (ROOT / path).read_bytes()\n    return {\"path\": path, \"sha256\": digest(raw), \"text\": raw.decode()}\n\n\ndef main():\n    started = time.perf_counter()\n    resource.setrlimit(resource.RLIMIT_CPU, (120, 120))\n    resource.setrlimit(resource.RLIMIT_AS, (1024**3, 1024**3))\n    signal.alarm(120)\n    assert digest((ROOT / \"src/python/rule30_research_reference.py\").read_bytes()) == REFERENCE\n    git_commit = subprocess.check_output([\"git\", \"rev-parse\", \"HEAD\"], cwd=ROOT, text=True).strip()\n    assert len(git_commit) == 40\n    expected = [50, 23, 10, 45, 36, 63, 0]\n    words = [50]\n    for _ in range(6):\n        value = words[-1]\n        rotate_one = (value >> 1) | ((value & 1) << 5)\n        rotate_two = (value >> 2) | ((value & 3) << 4)\n        words.append(rotate_two ^ (rotate_one | value))\n    assert words == expected\n    rows = [[(word >> i) & 1 for i in range(6)] for word in words]\n    pairs = [[(word >> (2*j)) & 3 for word in words] for j in range(3)]\n    expected_pairs = [[2, 3, 2, 1, 0, 3, 0], [0, 1, 2, 3, 1, 3, 0],\n                      [3, 1, 0, 2, 2, 3, 0]]\n    assert pairs == expected_pairs\n    # Verify exactly the 18 nontrivial temporal-deletion seams in the note.\n    for j in range(3):\n        for t in range(6):\n            a, b = pairs[j][t:t+2]\n            low = (b & 1) ^ ((a & 1) | ((a >> 1) & 1))\n            high = ((b >> 1) & 1) ^ (((a >> 1) & 1) | low)\n            assert low + 2*high == pairs[(j+1) % 3][t]\n    payload = {\"period_bits\": 6, \"initial_word\": 50, \"a_rows\": rows,\n               \"temporal_pairs\": pairs,\n               \"pair_activity_counts\": [sum(v != 0 for v in p) for p in pairs],\n               \"first_zero_time\": words.index(0)}\n    assert payload[\"pair_activity_counts\"] == [5, 5, 5]\n    source = snapshot(str(Path(__file__).relative_to(ROOT)))\n    admission = snapshot(NOTE)\n    record = {\n        \"experiment_id\": \"20260906_anchored_spine_primary\",\n        \"timestamp_utc\": datetime.now(timezone.utc).isoformat(),\n        \"git_commit\": git_commit, \"question\": \"problem1\",\n        \"hypothesis\": \"The single stated period-six row dies first at time six, with exactly five active times at each aligned pair.\",\n        \"backend\": \"python-packed-cyclic-A-and-local-g\",\n        \"parameters\": {\"initial_word\": 50, \"period_bits\": 6, \"updates\": 6,\n                       \"initial_inputs\": 1, \"local_g_seams\": 18,\n                       \"cpu_seconds_limit\": 120, \"wall_seconds_limit\": 120,\n                       \"ram_bytes_limit\": 1024**3, \"concurrency\": 1},\n        \"hardware\": {\"uname\": list(platform.uname()), \"logical_cpus\": os.cpu_count()},\n        \"software\": {\"python\": sys.version, \"executable\": sys.executable},\n        \"runtime_seconds\": time.perf_counter()-started,\n        \"result_hashes\": {\"payload_sha256\": digest(json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode()),\n                          \"source_sha256\": source[\"sha256\"], \"admission_sha256\": admission[\"sha256\"],\n                          \"immutable_reference_sha256\": REFERENCE},\n        \"result_summary\": {\"full_hand_rows_match\": True, \"local_g_seams_match\": 18,\n                           \"first_zero_time\": 6, \"pair_activity_counts\": [5, 5, 5]},\n        \"interpretation\": \"Exact verification of the one hand-derived witness, not a period or mortality search.\",\n        \"status\": \"finite-exhaustive\",\n        \"proof_scope\": \"Singleton initial row 50 on a six-cell ring, exactly six updates and 18 declared g seams.\",\n        \"limitations\": [\"No actual survivor is constructed or excluded.\",\n                        \"Infinite spatial and temporal conclusions require the separate periodicity/zero-row proof.\",\n                        \"Only coefficient-one lifetime bound is refuted; no conclusion about cK for larger c.\",\n                        \"Immutable supplied reference is hashed, not modified or extended to a new backend.\"],\n        \"payload\": payload, \"source_snapshot\": source, \"admission_snapshot\": admission}\n    fd, name = tempfile.mkstemp(prefix=OUT.name+\".\", suffix=\".tmp\", dir=OUT.parent)\n    with os.fdopen(fd, \"w\") as stream:\n        json.dump(record, stream, sort_keys=True, indent=2)\n        stream.write(\"\\n\")\n        stream.flush()\n        os.fsync(stream.fileno())\n    os.replace(name, OUT)\n    signal.alarm(0)\n    print(json.dumps({\"path\": str(OUT.relative_to(ROOT)), **record[\"result_summary\"]}, sort_keys=True))\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-06T23:00:36.247999+00:00"
+}
