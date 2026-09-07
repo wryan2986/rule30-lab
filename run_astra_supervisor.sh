@@ -130,7 +130,7 @@ get_astra_context_tokens() {
   [ -f "${usage_file}" ] || { echo 0; return; }
   grep 'gpt-6-astra' "${usage_file}" 2>/dev/null \
     | jq -r 'select(.provider=="openai" and (.model=="gpt-6-astra" or .resolvedModel=="gpt-6-astra") and .status==200) | .usage.inputTokens // 0' 2>/dev/null \
-    | grep -v '^null$' \
+    | grep -v '^null$' | grep -v '^0$' \
     | tail -1 || echo 0
 }
 
