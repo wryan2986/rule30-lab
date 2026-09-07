@@ -608,7 +608,15 @@ PROMPT_EOF
     ROLLOVER_ROUND_WINDOW=$(get_round_window)
 
     # -- EMERGENCY KILL --
-    if [ "${ROLLOVER_CTX}" -ge "${ROLLOVER_EMRG_SCALED}" ] || [ "${ROLLOVER_CUR_STATE}" = "EMERGENCY_KILL" ]; then
+    HARD_GRACE_ELAPSED=false
+    if [ "${ROLLOVER_CUR_STATE}" = "HARD_INTERRUPT" ]; then
+      ROLLOVER_HARD_TS_CHECK=$(get_rollover_field hard_ts 0)
+      if [ "${ROLLOVER_HARD_TS_CHECK}" -gt 0 ] 2>/dev/null; then
+        EMRG_CHECK_ELAPSED=$(( ROLLOVER_NOW - ROLLOVER_HARD_TS_CHECK ))
+        [ "${EMRG_CHECK_ELAPSED}" -ge "${ROLLOVER_EMERGENCY_GRACE}" ] && HARD_GRACE_ELAPSED=true
+      fi
+    fi
+    if [ "${ROLLOVER_CTX}" -ge "${ROLLOVER_EMRG_SCALED}" ] || [ "${ROLLOVER_CUR_STATE}" = "EMERGENCY_KILL" ] || [ "${HARD_GRACE_ELAPSED}" = "true" ]; then
       if [ "$(get_rollover_field emergency_sent 0)" != "1" ]; then
         ROLLOVER_HARD_TS=$(get_rollover_field hard_ts 0)
         EMRG_GRACE_OK=true
