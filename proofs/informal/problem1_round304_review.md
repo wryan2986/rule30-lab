@@ -4,7 +4,7 @@ Status: `partial-proof` / scoped `refuted` / `finite-exhaustive` as assigned
 in the reviewed note. This is a LEAD review, not an external independent
 review. Problem 1 remains OPEN.
 
-Reviewed unit: `problem1_finite_cycle_phase_fork.md` and its fixed checker.
+Reviewed first unit: `problem1_finite_cycle_phase_fork.md` and its fixed checker.
 The review objective was to find a fatal flaw, particularly an unjustified
 finite-support inference, confusion of phase with preperiod, or replacement
 of the actual right boundary by free lift choices.
@@ -94,3 +94,53 @@ and round303 notes and for this new round304 proof unit. The lead's separate
 algebraic derivations and independent programs do not satisfy that external
 review requirement. Rollover is a maintenance checkpoint, not research
 success, blockage or exhaustion.
+
+## 4. Second unit: reset anchoring geometry (lead review)
+
+Reviewed `problem1_reset_anchoring_geometry.md` as a separate derivation.
+No numerical experiment is used. Its statuses remain `partial-proof` and
+the scoped `refuted` same-cell assignment; no FULL orbit is constructed.
+
+* The reset driver is A^(T+1+rho)Y_t, so with lambda=T+rho+1 it is
+  A^lambda Y_t, not A^(lambda-1)Y_t. The wrong lift at scan time
+  lambda-1 is updated by this driver. The physical reset cell is
+  (-lambda,t+lambda), and erasure happens one physical time later at
+  the same site on the adjacent characteristic. This checks the offset
+  independently of the renewal's shorthand H_t.
+* The characteristic coordinate of the reset is t. Original activity
+  cells have characteristic -2n or -2n-1, with n>=1. This establishes
+  disjointness even before checking the shorter anchored horizon.
+* For the sharp L1 distance, the two bounds d>=t+j and
+  d>=t+2lambda-2j+2 use only the two linear coordinate functionals
+  of L1 norm one and s<n. Twice the first bound plus the second, divided
+  by three, gives d>=t+2(lambda+1)/3. The three residue classes of lambda
+  cover ALL lambda>=1; k>=1 in the 3k case prevents n=0. Each displayed
+  attainment point has nonnegative time and a valid anchored horizon.
+  Equality is only for the sampling domain; its nearest point need not
+  be active in the particular initial row.
+* The 55 control is nonvacuous. Its odd row100 has closed cycle
+  A(100)=25 XOR118=111, A(111)=27 XOR127=100. Together with the imported
+  55 and223 cycles, this gives R_1=1, lambda=1. The erasing point(-1,2)
+  is three spacetime steps from the active point(-2,0). No additional
+  physical prefix is used.
+* A purported uniform-radius charge under an unknown FULL/finite-entry
+  premise cannot simply be called refuted: the premise may be empty.
+  The note correctly states the conditional geometric obstruction and
+  leaves global transport open. This is an essential quantifier fence.
+* Q(-1)=1 and sum_n J_n(-1)=infinity follow from A(-1)=0, with no
+  periodic-center premise. This refutes only identifying a supremum of
+  per-ray counts with total count across all rays.
+* The rebase H=2ceil(h_J(K)/2) is chosen ONCE and has the correct
+  phase. The bound for A^H Y_0 uses preservation of finite width after
+  time h, not the false assertion that Q is A-invariant. Restoring H
+  low bits gives width<=H+2(K+h+1), whence Q(Y_H)<=K+h+H/2. The zero
+  projected-row case still satisfies this bound. The rebased right
+  half is the actual finite fringe, retained in full.
+* The finite capacity is for PAIR samples. Mapping to individual cells
+  can double that capacity. A multiplicity bound must be independent
+  of the later time horizon. Neither such a bound nor a charge has
+  been proved, so the final implication remains a reduction.
+
+Disposition: accepted by the lead in scope. This narrows the anchored
+route to global transport with controlled reuse, after a justified actual
+rebase; it does not settle its existence or the FULL incompatibility.

@@ -83,6 +83,48 @@ retest this parity hypothesis, enumerate more even-weight words, pursue
 published later fork positions, or substitute a universal left-side cycle.
 The anchored-charge route remains distinct and has no valid budget bound.
 
+## Round304: reset anchoring requires global transport
+
+`proofs/informal/problem1_reset_anchoring_geometry.md` supplies a second
+`partial-proof` unit, with a separate lead audit in the round304 review.
+No numerical experiment is used.
+
+For each actual injection R_t>0, put T=max(tau_t-1,0),
+lambda=tau_(t+1)=T+R_t. Its erasing 1 is EXACTLY
+
+    r_(-lambda)(t+lambda)=1.
+
+The preceding R_t-1 cells on that same characteristic are zero. The
+characteristic coordinate i+u equals t. Original anchored cells are
+(-2n-s-epsilon,s), n>=1, 0<=s<n, epsilon=0 or1, so their characteristic
+coordinates are <=-2. The reset never directly belongs to that domain.
+Its SHARP L1 distance to the entire sampling domain, active or not, is
+
+    t + ceil(2(lambda+1)/3) >= t+2.
+
+The lower bound follows from d>=t+j and d>=t+2lambda-2j+2;
+three cases lambda modulo3 attain it. Thus any actual charge to an active
+original sample needs displacement growing at least linearly in t.
+Do not claim that this refutes all FULL-only local-charge lemmas: the
+hypothetical FULL/finite-entry domain may be empty. The same-cell charge
+on general actual finite orbits is refuted by the existing55 event R_1=1.
+
+Also Q is a supremum per ray, not a total count: A(-1)=0 gives
+Q(-1)=1 but sum_n J_n(-1)=infinity. Bounded multiplicity alone therefore
+needs a finite target set or another counting argument. A valid fixed
+rebase repairs this capacity issue: for Q(Y_0)<=K, h=h_J(K),
+H=2ceil(h/2), the ACTUAL x=Y_H is finite with
+
+    Q(x)<=K'=K+h+H/2,
+    sum_n J_n(x)<=K'(K'+1)/2.
+
+Retain its ENTIRE actual finite right fringe; do not rebase again at each
+reset. A bounded-multiplicity assignment of all later resets to these
+active pair samples would contradict the renewal. No such assignment is
+constructed. The geometry requires global transport, and reuse of an
+ancestor still needs a bound. Repeating the direct ray shift or enlarging
+local neighborhoods cannot supply the missing step.
+
 ## Round303 strategy reset: three ranked routes
 
 Estimates and rankings are `heuristic`. Full analysis and proof:
@@ -223,7 +265,7 @@ was triggered. MiMo was not advertised. No native or other provider was
 substituted. External review remains missing for the incoming notes and
 for the new round304 unit; the new disposition is explicitly LEAD review.
 
-The round304 proof, lead review, fixed checker/result, incoming handoff
+The round304 proofs, lead review, fixed checker/result, incoming handoff
 archive and this handoff belong to this round. The older round303 ownership
 record below remains historical.
 
