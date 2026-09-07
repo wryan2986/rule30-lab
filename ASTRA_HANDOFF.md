@@ -44,6 +44,60 @@ actual boundary. They do not form two independently chosen streams or a
 finite-state update. No simultaneous infinite compatibility/exclusion is
 proved. Do not enumerate more backward suffixes, cores, forks, or prefixes.
 
+## Further round307 results (`partial-proof`)
+
+Read `proofs/informal/problem1_exit_wait_front_residence.md`. At a one-bit
+exit source v, its resetting core has an exact FORWARD first reset
+L=min{n>=1:b_n in{1,3}}, with 3<=L<=p-1. Then
+
+    delays at v,v+1,v+2: 1,L,L-1;
+    injections at v,v+1: L,0;
+    both physical steps preserve the clock.
+
+The original cut thresholds are s_v=v+1 and s_(v+1)=s_(v+2)=v+L+1.
+Thus the front resides on characteristic v+1 over [v+1,v+L+1), with
+EXACT b(Y_(v+k))=k for 1<=k<=L, and eraser(-L,v+L). This fixes its
+first residence, not the later jump/injections. Every late exit under
+boundK requires L<=K. UnderK=3 the exact source core prefix is2221.
+No longer wait or source prefix was sampled.
+
+The same note gives all one-bit-source renewal alternatives:
+
+    gate t,h=0: delays1,1,1; injections1,1;
+    gate t,h=1: delays1,0,1; injections0,1;
+    gate u,h=1: delays1,0,0; injections0,0;
+    gate u,h=0: delays1,L,L-1; injectionsL,0.
+
+Only the first step of the u,h=1 passage can double, precisely at a
+nonresetting core with odd high-bit weight. The second step never doubles.
+These are single-source statements without a future strip bound.
+
+Read `proofs/informal/problem1_nonresetting_core_returns.md`. For a finite
+initial row with Y0>0, let N_t mean identically-zero core low A-trace,
+and O_t identically-one. WITHOUT FULL or a strip premise, N_t iff O_(t+2).
+Positive Y0 is essential; do not use merely a nonzero seed to the right.
+
+Under eventualK=3, all sufficiently late ODD N and O are absent. This
+excludes even-parity, clock-preserving odd nonresetting extensions too.
+For an EVEN FULL N source, CURRENT spatial b<=2 already suffices for:
+
+    gate u: (d_-1,d_0)=(0,1), delay1, shadow right pair11;
+    gate t: (d_-1,d_0)=(1,1), delay2, shadow right pair01.
+
+Each returns in two physical steps to a cyclic even row with constant-one
+low core trace and actual gate t; both injections are0. The t source
+lies at repair offset4 in the eventual K=3 decomposition. The first step
+doubles iff the high-bit weight is odd; even parity still returns.
+Thus clock-preserving nonresetting returns require additional cyclic births:
+
+    sum B >= log2(clock ratio) + count(even-parity N returns)
+                            - initial I + final I.
+
+No finite-support bound on either count, no converse from cyclic repair
+to N, and no infinite FULL realization is supplied. These two new units
+use exact scalar/paired derivations and original-cut identities, with NO
+new experiment. Lead dispositions and missing review are recorded below.
+
 ## Preserved round306 frontier
 
 The incoming archive contains the full proofs and checks. In particular:
@@ -84,7 +138,11 @@ Muse sidecar thread01a07bb5-26b5-7111-9465-72a109c94737 and fresh review
 thread01a07bc1-fdfc-75a1-9667-347c9f3adc2e both failed before work/review text
 with MissingSessionID (missing x-opencode-session). Both CLOSED. Neither
 was429; MiMo was not advertised. No native/other provider was substituted
-and no settings changed. External review is explicitly missing.
+and no settings changed. The second-unit fresh review was assigned to Muse
+thread01a07bcc-8b83-7a02-8e97-cae2a53e2e31 and failed with the same
+MissingSessionID before review text; it too is CLOSED and was not429.
+The third unit received a fresh lead-only audit after those failures.
+External review is explicitly missing for all three units.
 
 Round307 owns only its new proof/review notes, fixed checker and record,
 incoming archive and this handoff. Unrelated supervisor files, worktrees,
