@@ -1,0 +1,1547 @@
+{
+  "backend": "python-double-loop-int-and-tuplecell",
+  "cases": [
+    {
+      "T": 0,
+      "a": 0,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        0
+      ],
+      "cell_traj_z": [
+        0
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 0,
+      "entry_z": 0,
+      "lowbit_at_T": 0,
+      "output_period": 1,
+      "phase_cyc_y": 0,
+      "phase_cyc_z": 0,
+      "repeat_y": 0,
+      "repeat_z": 0,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 0,
+      "traj_y": [
+        0
+      ],
+      "traj_z": [
+        0
+      ],
+      "y": 0,
+      "z": 0
+    },
+    {
+      "T": 0,
+      "a": 1,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        0
+      ],
+      "cell_traj_z": [
+        1
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 1,
+      "entry_y": 0,
+      "entry_z": 1,
+      "lowbit_at_T": 1,
+      "output_period": 1,
+      "phase_cyc_y": 0,
+      "phase_cyc_z": 1,
+      "repeat_y": 0,
+      "repeat_z": 1,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 0,
+      "traj_y": [
+        0
+      ],
+      "traj_z": [
+        1
+      ],
+      "y": 0,
+      "z": 1
+    },
+    {
+      "T": 1,
+      "a": 0,
+      "branch": "extra",
+      "case_ok": true,
+      "cell_traj_y": [
+        2,
+        3
+      ],
+      "cell_traj_z": [
+        4,
+        7,
+        6
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        },
+        {
+          "name": "extra_delay_equals_T_1_rho",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 3,
+      "entry_z": 6,
+      "lowbit_at_T": 1,
+      "output_period": 1,
+      "phase_cyc_y": 3,
+      "phase_cyc_z": 6,
+      "repeat_y": 3,
+      "repeat_z": 6,
+      "rho": 0,
+      "source_period": 1,
+      "tail": "reset",
+      "tau_z": 2,
+      "traj_y": [
+        2,
+        3
+      ],
+      "traj_z": [
+        4,
+        7,
+        6
+      ],
+      "y": 2,
+      "z": 4
+    },
+    {
+      "T": 1,
+      "a": 1,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        2,
+        3
+      ],
+      "cell_traj_z": [
+        5,
+        6
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 3,
+      "entry_z": 6,
+      "lowbit_at_T": 0,
+      "output_period": 1,
+      "phase_cyc_y": 3,
+      "phase_cyc_z": 6,
+      "repeat_y": 3,
+      "repeat_z": 6,
+      "rho": 0,
+      "source_period": 1,
+      "tail": "reset",
+      "tau_z": 1,
+      "traj_y": [
+        2,
+        3
+      ],
+      "traj_z": [
+        5,
+        6
+      ],
+      "y": 2,
+      "z": 5
+    },
+    {
+      "T": 0,
+      "a": 0,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        3
+      ],
+      "cell_traj_z": [
+        6
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 3,
+      "entry_z": 6,
+      "lowbit_at_T": 0,
+      "output_period": 1,
+      "phase_cyc_y": 3,
+      "phase_cyc_z": 6,
+      "repeat_y": 3,
+      "repeat_z": 6,
+      "rho": 0,
+      "source_period": 1,
+      "tail": "reset",
+      "tau_z": 0,
+      "traj_y": [
+        3
+      ],
+      "traj_z": [
+        6
+      ],
+      "y": 3,
+      "z": 6
+    },
+    {
+      "T": 0,
+      "a": 1,
+      "branch": "extra",
+      "case_ok": true,
+      "cell_traj_y": [
+        3
+      ],
+      "cell_traj_z": [
+        7,
+        6
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        },
+        {
+          "name": "extra_delay_equals_T_1_rho",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 3,
+      "entry_z": 6,
+      "lowbit_at_T": 1,
+      "output_period": 1,
+      "phase_cyc_y": 3,
+      "phase_cyc_z": 6,
+      "repeat_y": 3,
+      "repeat_z": 6,
+      "rho": 0,
+      "source_period": 1,
+      "tail": "reset",
+      "tau_z": 1,
+      "traj_y": [
+        3
+      ],
+      "traj_z": [
+        7,
+        6
+      ],
+      "y": 3,
+      "z": 7
+    },
+    {
+      "T": 0,
+      "a": 0,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        6
+      ],
+      "cell_traj_z": [
+        12,
+        13
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 6,
+      "entry_z": 12,
+      "lowbit_at_T": 0,
+      "output_period": 2,
+      "phase_cyc_y": 6,
+      "phase_cyc_z": 12,
+      "repeat_y": 6,
+      "repeat_z": 12,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 0,
+      "traj_y": [
+        6
+      ],
+      "traj_z": [
+        12,
+        13
+      ],
+      "y": 6,
+      "z": 12
+    },
+    {
+      "T": 0,
+      "a": 1,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        6
+      ],
+      "cell_traj_z": [
+        13,
+        12
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 1,
+      "entry_y": 6,
+      "entry_z": 13,
+      "lowbit_at_T": 1,
+      "output_period": 2,
+      "phase_cyc_y": 6,
+      "phase_cyc_z": 13,
+      "repeat_y": 6,
+      "repeat_z": 13,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 0,
+      "traj_y": [
+        6
+      ],
+      "traj_z": [
+        13,
+        12
+      ],
+      "y": 6,
+      "z": 13
+    },
+    {
+      "T": 1,
+      "a": 0,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        7,
+        6
+      ],
+      "cell_traj_z": [
+        14,
+        12,
+        13
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 6,
+      "entry_z": 12,
+      "lowbit_at_T": 0,
+      "output_period": 2,
+      "phase_cyc_y": 6,
+      "phase_cyc_z": 13,
+      "repeat_y": 6,
+      "repeat_z": 12,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 1,
+      "traj_y": [
+        7,
+        6
+      ],
+      "traj_z": [
+        14,
+        12,
+        13
+      ],
+      "y": 7,
+      "z": 14
+    },
+    {
+      "T": 1,
+      "a": 1,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        7,
+        6
+      ],
+      "cell_traj_z": [
+        15,
+        12,
+        13
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "perm_both_lifts_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "perm_tail_exact_delay_T",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 0,
+      "entry_y": 6,
+      "entry_z": 12,
+      "lowbit_at_T": 0,
+      "output_period": 2,
+      "phase_cyc_y": 6,
+      "phase_cyc_z": 13,
+      "repeat_y": 6,
+      "repeat_z": 12,
+      "rho": null,
+      "source_period": 1,
+      "tail": "perm",
+      "tau_z": 1,
+      "traj_y": [
+        7,
+        6
+      ],
+      "traj_z": [
+        15,
+        12,
+        13
+      ],
+      "y": 7,
+      "z": 15
+    },
+    {
+      "T": 0,
+      "a": 0,
+      "branch": "extra",
+      "case_ok": true,
+      "cell_traj_y": [
+        12,
+        13
+      ],
+      "cell_traj_z": [
+        24,
+        26,
+        25,
+        27
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        },
+        {
+          "name": "extra_delay_equals_T_1_rho",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 1,
+      "entry_y": 12,
+      "entry_z": 25,
+      "lowbit_at_T": 0,
+      "output_period": 2,
+      "phase_cyc_y": 12,
+      "phase_cyc_z": 25,
+      "repeat_y": 12,
+      "repeat_z": 25,
+      "rho": 1,
+      "source_period": 2,
+      "tail": "reset",
+      "tau_z": 2,
+      "traj_y": [
+        12,
+        13
+      ],
+      "traj_z": [
+        24,
+        26,
+        25,
+        27
+      ],
+      "y": 12,
+      "z": 24
+    },
+    {
+      "T": 0,
+      "a": 1,
+      "branch": "inherited",
+      "case_ok": true,
+      "cell_traj_y": [
+        12,
+        13
+      ],
+      "cell_traj_z": [
+        25,
+        27
+      ],
+      "checks": [
+        {
+          "name": "z_equals_2y_plus_a",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_y_recurrence",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_trajectory",
+          "ok": true
+        },
+        {
+          "name": "loops_agree_z_recurrence",
+          "ok": true
+        },
+        {
+          "name": "y_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "y_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "y_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "y_tail_type",
+          "ok": true
+        },
+        {
+          "name": "y_rho",
+          "ok": true
+        },
+        {
+          "name": "y_T_shift_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_tau_period_hand",
+          "ok": true
+        },
+        {
+          "name": "z_entry_state_on_cycle",
+          "ok": true
+        },
+        {
+          "name": "z_phase_cyc_hand",
+          "ok": true
+        },
+        {
+          "name": "lemma_tau_z_ge_T",
+          "ok": true
+        },
+        {
+          "name": "lift_bit_cyclic",
+          "ok": true
+        },
+        {
+          "name": "branch_matches_hand",
+          "ok": true
+        },
+        {
+          "name": "reset_tail_delay_alternative",
+          "ok": true
+        }
+      ],
+      "cyclic_lift_bit": 1,
+      "entry_y": 12,
+      "entry_z": 25,
+      "lowbit_at_T": 1,
+      "output_period": 2,
+      "phase_cyc_y": 12,
+      "phase_cyc_z": 25,
+      "repeat_y": 12,
+      "repeat_z": 25,
+      "rho": 1,
+      "source_period": 2,
+      "tail": "reset",
+      "tau_z": 0,
+      "traj_y": [
+        12,
+        13
+      ],
+      "traj_z": [
+        25,
+        27
+      ],
+      "y": 12,
+      "z": 25
+    }
+  ],
+  "enforcement": {
+    "address_space_cap_mib": 128,
+    "mechanisms": [
+      "SIGALRM handler raising CapExceeded",
+      "RLIMIT_AS set before compute",
+      "per-orbit step caps raising CapExceeded",
+      "fixed-width cell asserts against top-bit loss"
+    ],
+    "wall_alarm_s": 60
+  },
+  "experiment_id": "round10_delay_renewal_12ctl",
+  "git_branch": "research/astra-next",
+  "git_commit": "043a768d6624983d7871bc99a8a4ced08f09e51b",
+  "git_status": "?? .astra_dash_errors.sh\n?? .astra_dash_git.sh\n?? .astra_dash_lib.sh\n?? .astra_dash_live.sh\n?? .astra_dash_live_fullscreen.sh\n?? .astra_dash_pane0.sh\n?? .astra_dash_pane0.sh.bak\n?? .astra_dash_pane1.sh\n?? .astra_dash_pane1.sh.bak\n?? .astra_dash_pane2.sh\n?? .astra_dash_pane2.sh.bak\n?? .astra_dash_pane3.sh\n?? .astra_dash_pane3.sh.bak\n?? .astra_dash_status.sh\n?? .astra_dash_usage.sh\n?? .worktrees/\n?? ASTRA_GOAL.md\n?? astra-round-1.log\n?? astra-round-2.log\n?? astra-round-3.log\n?? astra-round-4.log\n?? astra-round-5.log\n?? astra-round-6.log\n?? astra-round-7.log\n?? astra-round-8.log\n?? astra-supervisor.log\n?? astra.sh\n?? astra_dashboard.sh\n?? astra_dashboard.sh.bak\n?? docs/astra_handoff_archive_20260907_round10.md\n?? experiments/problem1_nonperiodicity/audit_astra_round10.py\n?? experiments/problem1_nonperiodicity/check_round10_delay_renewal.py\n?? experiments/problem1_nonperiodicity/review_round10_mimo.py\n?? proofs/informal/problem1_cycle_delay_renewal.md\n?? proofs/informal/problem1_highest_wait_nonforcing.md\n?? proofs/informal/problem1_one_bit_strip_return_constraint.md\n?? proofs/informal/problem1_round10_bounded_strip_sidecar.md\n?? proofs/informal/problem1_signed_slice_transfer_audit.md\n?? results/problem1/20260905_three_return_signed_mass.json\n?? results/problem1/20260905_three_return_signed_mass_independent.json\n?? results/problem1/20260907_round10_delay_renewal.json\n?? results/problem1/20260907_round10_mimo_direct_review.json\n?? results/problem1/20260907_round10_superseded_run.json\n?? run_astra_8h.sh\n?? run_astra_8h.sh.v1.bak\n?? run_astra_supervisor.sh\n?? test_supervisor.sh\n?? watch_astra.sh",
+  "hardware": {
+    "cpu_count": 16,
+    "machine": "x86_64",
+    "mem_total_mib": 31021,
+    "node": "Home-Server",
+    "peak_rss_mib": 19.699,
+    "processor": ""
+  },
+  "hypothesis": "scalar one-bit extension preperiod recurrence holds on 12 fixed controls",
+  "interpretation": "a counterexample would falsify the candidate local formula; all named controls agree, which is finite-exhaustive over the 12 fixed controls only, not a proof of the infinite lemma",
+  "limitations": [
+    "agreement on fixed controls does not prove the infinite scalar lemma",
+    "no FULL-orbit claim",
+    "no expanded controls",
+    "timeout path exits without a record",
+    "runtime excludes record assembly and atomic write"
+  ],
+  "parameters": {
+    "a_values": [
+      0,
+      1
+    ],
+    "cell_width": 12,
+    "mem_cap_mib": 128,
+    "orbit_cap": 64,
+    "time_cap_s": 60,
+    "y_values": [
+      0,
+      2,
+      3,
+      6,
+      7,
+      12
+    ]
+  },
+  "proof_scope": "12 fixed hand-derived controls; no ranges or sweeps",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_payload_sha256": "004c44bcbe503ecb6749fefd797267b4c2cf5c96cba8557262166392b1037615"
+  },
+  "result_summary": {
+    "all16_states_seen": true,
+    "all_cases_ok": true,
+    "all_ok": true,
+    "caps_ok": true,
+    "hand_transitions_ok": true,
+    "n_cases": 12
+  },
+  "runtime_scope": "checks plus canonical hashing only; record assembly and atomic write excluded",
+  "runtime_seconds": 0.002,
+  "software": {
+    "platform": "Linux 7.0.0-30-generic",
+    "python": "3.14.4"
+  },
+  "source_hashes": {
+    "checker_sha256": "31d0c3a750461f7930b20d51f603c2a4e49f119c7fec3eda39e42489baed647c",
+    "dependency_proof_hashes": {
+      "proofs/informal/problem1_anchored_activity_finite_entry.md": "9e1b6663e760599801c2912ca1be587e0c240cc2e82b89d4bbbf52447211cc9f",
+      "proofs/informal/problem1_bounded_lag_doubling_controls.md": "d45a965818b4d4c89dc4453719724a6da4bf62edcd8c5b532618b2a42e2875e5",
+      "proofs/informal/problem1_cycle_completion_defect_transport.md": "f3beba062dc2a28339bea0ded4528bfd777c9f16413184d1101bb1bba1b7c4a4",
+      "proofs/informal/problem1_full_fringe_temporal_diagonal.md": "edea0f00c7d5353b88022881b2a2cceaccaa198de2a09ee323831a2e2a806e2e",
+      "proofs/informal/problem1_physical_time_cycle_defects.md": "87eafb58d1d3c9ff8d922eb7a1e569045381a7f01d219d7228e046554a6376a5",
+      "proofs/informal/problem1_round10_bounded_strip_sidecar.md": "e992a9badc62ea46f95de5ae54b111b2b1e8ef121fcf862f7796f1c26f5a8985"
+    },
+    "immutable_ref_live_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "immutable_ref_ok": true,
+    "immutable_ref_recorded_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-09-07T04:33:01Z",
+  "transitions": [
+    {
+      "A_state": 0,
+      "hand_next": 0,
+      "ok": true,
+      "state": 0
+    },
+    {
+      "A_state": 1,
+      "hand_next": 1,
+      "ok": true,
+      "state": 1
+    },
+    {
+      "A_state": 3,
+      "hand_next": 3,
+      "ok": true,
+      "state": 2
+    },
+    {
+      "A_state": 3,
+      "hand_next": 3,
+      "ok": true,
+      "state": 3
+    },
+    {
+      "A_state": 7,
+      "hand_next": 7,
+      "ok": true,
+      "state": 4
+    },
+    {
+      "A_state": 6,
+      "hand_next": 6,
+      "ok": true,
+      "state": 5
+    },
+    {
+      "A_state": 6,
+      "hand_next": 6,
+      "ok": true,
+      "state": 6
+    },
+    {
+      "A_state": 6,
+      "hand_next": 6,
+      "ok": true,
+      "state": 7
+    },
+    {
+      "A_state": 13,
+      "hand_next": 13,
+      "ok": true,
+      "state": 12
+    },
+    {
+      "A_state": 12,
+      "hand_next": 12,
+      "ok": true,
+      "state": 13
+    },
+    {
+      "A_state": 12,
+      "hand_next": 12,
+      "ok": true,
+      "state": 14
+    },
+    {
+      "A_state": 12,
+      "hand_next": 12,
+      "ok": true,
+      "state": 15
+    },
+    {
+      "A_state": 26,
+      "hand_next": 26,
+      "ok": true,
+      "state": 24
+    },
+    {
+      "A_state": 27,
+      "hand_next": 27,
+      "ok": true,
+      "state": 25
+    },
+    {
+      "A_state": 25,
+      "hand_next": 25,
+      "ok": true,
+      "state": 26
+    },
+    {
+      "A_state": 25,
+      "hand_next": 25,
+      "ok": true,
+      "state": 27
+    }
+  ]
+}
