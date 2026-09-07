@@ -1,11 +1,10 @@
-# Astra handoff: supervisor round 304 research checkpoint, 2026-09-07
+# Astra handoff: supervisor round 303 strategy reset, 2026-09-07
 
 Problem 1 remains OPEN. Continue on `research/astra-next`. This is a
-research checkpoint, NOT goal achieved, research blocked, or research
-exhaustion. The incoming round303 handoff is preserved byte for byte in
-`docs/astra_handoff_archive_20260907_round304.md`; the historical round-ten
-handoff remains in `docs/astra_handoff_archive_20260907_round303.md`.
-Round304 base commit: `c6873e33ee8b657fdc7c647aa050e02cf7b064e5`.
+strategy-reset research checkpoint, NOT goal achieved, research blocked,
+or research exhaustion. The incoming historical round-ten handoff is
+preserved byte for byte in `docs/astra_handoff_archive_20260907_round303.md`.
+Base commit: `921764aab83b3d08d1ca991dacc3fc64f31af60e`.
 
 Read ASTRA_GOAL.md first. The incoming archive retains the exact renewal,
 highest-wait no-go, conditional one-bit episodes, and their dependencies.
@@ -25,65 +24,7 @@ observations on the general cyclic-row domain. It does NOT exclude a
 bounded strip under infinite FULL, supply finite-support countermodels,
 transfer later events to Q(Y_0), or close period two.
 
-## Round304: finite support retains phase choices without clock growth
-
-Status: `partial-proof` for the structural consequence, `finite-exhaustive`
-for one certificate, `refuted` for the proposed odd-parity rigidity.
-Read `proofs/informal/problem1_finite_cycle_phase_fork.md` and the lead
-adversarial disposition `proofs/informal/problem1_round304_review.md`.
-The one-bit lift classification is an import, not a repeated new result.
-
-The tested hypothesis was that every positive FINITE cyclic row with low
-trace identically zero has odd high-bit weight over its least period.
-This would eliminate a retained phase choice without clock doubling.
-It is REFUTED by one exact word selected from Rowland's primary-source
-Section 5, author-PDF page17, not a source/period census:
-
-    b = 0000220002020022, least period16, six 2s,
-    Phi^26604 b = 0, every earlier iterate nonzero.
-
-Thus y=Theta^(-1)(b) is a FINITE cyclic integer of bit length53208.
-The record gives its full hexadecimal value. For z_e=2y+e, the low
-trace satisfies v_(t+1)=v_t XOR (b_t/2), v_0=e. Consequently
-
-    v^0 = 0000010000110001,
-    v^1 = 1111101111001110.
-
-Both z_0,z_1 are finite cyclic rows, with the SAME least period16,
-but lie on TWO DISTINCT cycles. A phase joining them would project
-to a return of y, hence be a multiple of16, which fixes each lift.
-Their low-trace weights4 and12 give a second separation. No delay
-or doubling occurs in either lift. Finite support therefore cannot
-supply a unique recurrent phase or justify charging every retained
-phase choice to a doubling.
-
-Attach the SAME arbitrary complete initial right fringe to z_0,z_1.
-For their actual rows, sigma^t Y^e_t=A^t z_e. The highest actual
-bit difference is exactly t for EVERY t; physically it stays at -t.
-The common neighbor at -t-1 is zero. With a finite common fringe
-both configurations are initially finite. This is a persistent phase
-DIFFERENCE BETWEEN TWO orbits, not either orbit's internal cycle defect
-or an infinite R_t supply on one FULL orbit. Subsequent clocks need not
-agree. It does not close the original bottleneck.
-
-Fixed checker: `experiments/problem1_nonperiodicity/check_round304_phase_fork.py`.
-Atomic record: `results/problem1/20260907_round304_phase_fork.json`.
-Two deletion loops agree on the entire trajectory and reconstructed digits;
-independent packed/Boolean-cell A updates compare all851328 bits over the
-full16-step source cycle. Both lifted cycles and the scalar recurrences
-agree. Runtime1.665s, peak RSS29286400 bytes; 60s/128MiB caps passed.
-Exact source SHA256 (minimal little-endian bytes):
-`1a03ba42f43e5e91429982cb129a256f4882b1465a135053b99be0fbad4564f7`.
-No minimal fork depth, later-fork list, infinite fork supply, finite-birth
-density, longer FULL shadow or actual prefix was searched or asserted.
-
-The surviving nilpotence route must retain the ENTIRE compatible phase
-history and the SAME original eventually-zero right boundary. Do not
-retest this parity hypothesis, enumerate more even-weight words, pursue
-published later fork positions, or substitute a universal left-side cycle.
-The anchored-charge route remains distinct and has no valid budget bound.
-
-## Round303 strategy reset: three ranked routes
+## Strategy reset: three ranked routes
 
 Estimates and rankings are `heuristic`. Full analysis and proof:
 `proofs/informal/problem1_cycle_birth_observation_no_go.md`.
@@ -214,20 +155,7 @@ was substituted and no provider configuration was changed. The next
 session should obtain authorized fresh review when routing is available.
 No new result has status `rigorous-proof`.
 
-## Round304 external review and checkpoint ownership
-
-Muse thread `01a07af9-afb9-7e03-833c-cbe7da1826b8` was assigned the missing
-round303 adversarial review and failed before text with MissingSessionID
-(missing x-opencode-session). It is CLOSED. No429 occurred; no fallback
-was triggered. MiMo was not advertised. No native or other provider was
-substituted. External review remains missing for the incoming notes and
-for the new round304 unit; the new disposition is explicitly LEAD review.
-
-The round304 proof, lead review, fixed checker/result, incoming handoff
-archive and this handoff belong to this round. The older round303 ownership
-record below remains historical.
-
-## Historical round303 checkpoint ownership
+## Checkpoint ownership
 
 Only the round303 proof, lead review, fixed checker/result, incoming
 handoff archive, and this handoff belong to the checkpoint unit. Unrelated
