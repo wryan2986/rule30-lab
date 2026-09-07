@@ -1,0 +1,195 @@
+{
+  "experiment_id": "round306-fixed-two-bit-strip-collapse-algebra",
+  "timestamp_utc": "2026-09-07T10:58:04Z",
+  "git_commit": "1f1818d49ebd3824d98a316c0056d7cf9f50010e",
+  "question": "problem1",
+  "hypothesis": "The four odd-doubling assignments force shadow output 1 at position -2, and the twelve post-exit assignments have exact next spatial disagreement depth 3.",
+  "backend": "Python-hand-truth-table/independent-packed-A-cut",
+  "parameters": {
+    "u": [
+      0,
+      1
+    ],
+    "shadow_centers": [
+      0,
+      1
+    ],
+    "exit_actual_right_pairs": [
+      1,
+      2,
+      3
+    ],
+    "exit_shadow_right_pairs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "pair_encoding": "position1 low, position2 high",
+    "exit_actual_positions_minus3_through0": [
+      1,
+      0,
+      1,
+      1
+    ],
+    "exit_shadow_positions_minus3_through0": [
+      1,
+      0,
+      0,
+      1
+    ],
+    "other_initial_cells": 0,
+    "physical_steps": 1,
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 131072
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 116293632
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.0007162760011851788,
+  "runtime_scope": "Main entry through fixed checks; excludes final provenance and serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "b2b01f347c5ff525dd7f618ebb266f42492a1f493d56de452c4d698fd82e0867"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round306_two_bit_collapse.py": "bf1e07973d48e6b93215978d9df059ba64f817cc1adabd0d992fed04b8400037",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "proofs/informal/problem1_two_bit_strip_collapse.md": "cdb939e645db320e529a47a3a6e9a1c0ec20bc3edd55e0544ea2915cb8439f4c",
+    "proofs/informal/problem1_one_bit_shadow_exit.md": "07ed93b54987037ff498675831c25b28d09444c99dc0a37f77b1e02b4bd58768",
+    "proofs/informal/problem1_cycle_delay_renewal.md": "658ecea91163b495a16fece1b4128a813ec32d5008418a00ca03e2870748c13a",
+    "proofs/informal/problem1_physical_time_cycle_defects.md": "87eafb58d1d3c9ff8d922eb7a1e569045381a7f01d219d7228e046554a6376a5"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "hand_rule_values": 8,
+    "odd_doubling_cases": 4,
+    "exit_cases": 12,
+    "caps_passed": true
+  },
+  "status": "finite-exhaustive",
+  "interpretation": "The two new local identities agree with independent cut updates. The eventual K=2-to-K=1 theorem is a separate conditional all-depth deduction.",
+  "proof_scope": "Exactly sixteen declared local assignments and eight hand rule values.",
+  "limitations": [
+    "No claim that a test shadow is E of its actual row.",
+    "No infinite FULL orbit, state search, or clock computation.",
+    "No numerical verification of clock growth or the infinite induction.",
+    "No eventual bound on delay is established.",
+    "External adversarial review is missing."
+  ],
+  "payload": {
+    "clock_cases": [
+      {
+        "u": 0,
+        "shadow_center": 0,
+        "actual_next_minus2": 0,
+        "shadow_next_minus2": 1,
+        "required_shadow_next_minus2": 0
+      },
+      {
+        "u": 0,
+        "shadow_center": 1,
+        "actual_next_minus2": 0,
+        "shadow_next_minus2": 1,
+        "required_shadow_next_minus2": 0
+      },
+      {
+        "u": 1,
+        "shadow_center": 0,
+        "actual_next_minus2": 1,
+        "shadow_next_minus2": 1,
+        "required_shadow_next_minus2": 0
+      },
+      {
+        "u": 1,
+        "shadow_center": 1,
+        "actual_next_minus2": 1,
+        "shadow_next_minus2": 1,
+        "required_shadow_next_minus2": 0
+      }
+    ],
+    "exit_cases": [
+      {
+        "actual_right_pair": 1,
+        "shadow_right_pair": 0,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 1,
+        "shadow_right_pair": 1,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 1,
+        "shadow_right_pair": 2,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 1,
+        "shadow_right_pair": 3,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 2,
+        "shadow_right_pair": 0,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 2,
+        "shadow_right_pair": 1,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 2,
+        "shadow_right_pair": 2,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 2,
+        "shadow_right_pair": 3,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 3,
+        "shadow_right_pair": 0,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 3,
+        "shadow_right_pair": 1,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 3,
+        "shadow_right_pair": 2,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      },
+      {
+        "actual_right_pair": 3,
+        "shadow_right_pair": 3,
+        "next_minus2_discrepancy": 1,
+        "next_spatial_depth": 3
+      }
+    ]
+  }
+}
