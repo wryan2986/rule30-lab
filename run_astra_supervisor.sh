@@ -215,6 +215,14 @@ post_rollover_git_safety() {
   fi
   return 0
 }
+
+# Find the active round tmux window name
+get_round_window() {
+  local w
+  w=$(tmux list-windows -t astra -F "#{window_name}" 2>/dev/null | grep -E "^r[0-9]+$" | sort -t"r" -k2 -n | tail -1) || true
+  echo "$w"
+}
+
 # Find the codex exec PID for the current round
 get_round_codex_pid() {
   local sup_pid="$1"
