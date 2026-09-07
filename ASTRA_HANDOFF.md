@@ -57,6 +57,40 @@ before its predeclared4095 cap. No fitted intercept or larger range.
 Do not sample shifted144 or9 to estimate a rate. A general unbounded-excess
 family is unproved; this sharp bound's falsification is complete.
 
+## Round305: one global front orders the injections (`partial-proof`)
+
+Read `proofs/informal/problem1_global_discrepancy_front.md`. For original
+cuts L_j and s_j=tau(L_j), define J(u)=min{j:s_j>u}. Its existence uses
+finite original support and the IMPORTED unbounded zero-extension delays.
+The WHOLE actual/shadow leftmost discrepancy is m(u)=J(u)-u, including
+when it lies right of the center. J(u)=j exactly on [s_(j-1),s_j).
+The shared left neighbor is0 until the residence's final time, when its1
+erases the front. The next front needs the remaining entire discrepancy tail.
+
+Physical R_t counts EXACTLY the portion of residence j=t+1 after center
+crossing: I_t=[max(s_t,t+1),s_(t+1)), length R_t. For R_t>0 the old residual
+at u=t+1+T_t is the GLOBAL leftmost discrepancy m=-T_t. Distinct injections
+have disjoint residence subintervals and ordered erasers. This is not
+uniqueness or bounded reuse of original discrepancy ancestors.
+
+Every clock-doubling target j has s_j=s_(j-1), so J NEVER visits that
+characteristic at any time. The converse is not claimed and no jump bound
+follows. Counting residences recovers the old renewal, not a finite budget.
+
+The exact full-driver cocycle in characteristic coordinates is
+Delta_j(u+1)=Delta_(j-2)+(1 XOR h_j)Delta_(j-1)
+                          +(1 XOR v_(j-1))Delta_j,
+where v and h are the complete actual/shadow rows. Its finite-cone solution
+is a PARITY of weighted paths from original discrepancies. The fixed112
+control has two active paths to the time-one center which cancel. Another
+valid OR factorization changes individual paths while preserving their XOR.
+Do not turn reachability into a positive count or assume coefficients remain
+fixed when the underlying actual/shadow pair changes.
+
+Fresh front-review Muse thread01a07b59-b4da-70d2-8671-c445e57100a3 also
+failed before text with MissingSessionID and is CLOSED. Lead audit only:
+`proofs/informal/problem1_round305_review.md` Section4. No external review.
+
 ## Preserved round304 frontier (still authoritative except for that update)
 
 ## Exact bottleneck and next attack

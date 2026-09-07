@@ -78,3 +78,50 @@ and unchanged, but seed9 is not FULL (its first two centers are1,1).
 This finite event cannot refute an eventual or a FULL-conditioned bound.
 Nor does it refute every width-plus-constant estimate. Those fences are
 load-bearing. External review is missing; this is a lead audit only.
+
+## 4. Global discrepancy front and path parity
+
+Fresh Muse thread `01a07b59-b4da-70d2-8671-c445e57100a3` was assigned the
+written front note, with explicit instructions to find offset errors and
+finite-to-infinite gaps. It also failed before review text with the same
+MissingSessionID provider error, and is CLOSED. This was not429; no fallback
+or configuration change occurred. No external review is claimed.
+
+Lead audit of `problem1_global_discrepancy_front.md`:
+
+1. The s_j are delays of ORIGINAL cuts for all integer j. They are not
+   physical delays tau(Y_j). Monotonicity, finiteness of every s_j, zero
+   values sufficiently far left, and imported divergence to the right are
+   exactly what make J(u) finite for every u and unbounded over time.
+2. At cut j-u, agreement of actual and shadow WHOLE left prefixes is
+   equivalent to s_j<=u. The first failure is therefore a differing LOW bit
+   with every bit strictly left agreeing. This proves m=J-u, rather than
+   merely locating some difference in a cone.
+3. Residence endpoints are s_(j-1) inclusive and s_j exclusive. For the
+   last occupied time s_j-1 the neighbor at j-s_j is1 and kills the front
+   on the NEXT update. This accounts for the eraser's time-minus-one.
+4. Direct substitution in the physical renewal yields R_t as the positive
+   part of s_(t+1)-max(s_t,t+1). Its entire interval is a SUBINTERVAL of
+   one residence; early residence before center crossing is not counted.
+5. The finite counting formula handles N<s_0, s_N<N, s_N>=N and N=0.
+   Its set proof needs no subtraction of infinite quantities. The old
+   telescoping formula is recovered as a consistency check, not advertised
+   as a new stronger estimate.
+6. Doubling forces equality of adjacent ORIGINAL onsets by the permutation
+   lift case. Thus the skipped-characteristic statement holds at every
+   physical time. The converse is not asserted: an empty residence need
+   not be a clock doubling. No bound on clock skips per front jump follows.
+7. The OR-difference identity expands to the same GF(2) polynomial on both
+   sides. In characteristic coordinates the parent indices are j-2,j-1,j.
+   This gives the cone j-2u..j and, at a residual, the earlier exact cone
+   -t-1-2T..t+1. Coefficients retain the full actual AND shadow histories.
+8. Swapping the mixed-coefficient factorization changes the right-hand
+   side by two equal products, which cancel in GF(2). The112 hand control
+   independently checks actual/shadow cancellation and factorization
+   dependence. No positive-path or unique-ancestor interpretation is used.
+
+Disposition: accept `partial-proof` for the scoped all-depth construction,
+residence/injection correspondence and full-driver parity identity. This
+does not prove a finite occupation budget, finite ancestor supply, bounded
+reuse, a FULL exclusion, or an autonomous update at a front reset. No new
+experiment was needed for these algebraic and counting arguments.
