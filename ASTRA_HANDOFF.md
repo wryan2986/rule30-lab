@@ -1,4 +1,4 @@
-# Astra handoff: supervisor round306 working checkpoint, 2026-09-07
+# Astra handoff: supervisor round306 maintenance checkpoint, 2026-09-07
 
 Problem1 remains OPEN. Continue on `research/astra-next`. This is a routine
 checkpoint, NOT goal achieved, research blocked, or exhaustion. Read
@@ -22,7 +22,9 @@ remains open. Ranked next routes (`heuristic`):
 1. Retain the whole actual/global-shadow pair and the complete periodic
    driver at each cyclic return. Control the simultaneous infinite birth
    supply and no-exit condition using the original finite support. The new
-   reduction means an exclusion of eventual K=1 would also exclude K=2.
+   collapse means an exclusion of eventual K=1 would also exclude K=2.
+   The final birth-count corollary below makes a finite cyclic-birth budget
+   sufficient to exclude eventual K=3 as well, without counting every repair.
 2. Under eventual K=3, control the FULL-SHADOW repair flag at the six-step
    exits below. A distinct K=3 alternative must sustain infinitely many
    disjoint repairs, each with mandatory injections3 and2. Repair is now
@@ -105,6 +107,15 @@ At most one clock doubling occurs in [v,v+6), and it can only be the
 even step v+4 -> v+5. If it occurs, the repair is cyclic (e=0). Cyclic
 repair does not conversely imply doubling. Repeated repairs are not bounded.
 
+For ORIGINAL cuts, the same profile fixes
+
+    (s_v,...,s_(v+6))=(v+1,v+4,v+4,v+6,v+6,v+6,v+6+e).
+
+Its two mandatory front residences are characteristic v+1 over [v+1,v+4)
+and characteristic v+3 over [v+4,v+6). Their erasing 1s occur at
+(-3,v+3) and (-3,v+5). This exact translation uses no new front sample
+and supplies no claim of distinct original ancestors or bounded reuse.
+
 The new flag also has an exact initial-shadow expression: if the shadow
 right bits at v are (0,a,b,c,d), then
 
@@ -131,6 +142,8 @@ Unbounded clocks supply an entry of either parity. Thereafter the one-bit
 table and six-step repairs cover the entire late orbit. In particular all
 late EVEN depths are<=2, and there are NO late odd doublings. This does
 NOT give all-physical depth<=2: the repair's odd depths remain3.
+Infinitely many remaining even doublings give infinitely many cyclic even
+returns, with no proved uniform gap bound between those returns.
 
 Consequently
 
@@ -140,6 +153,18 @@ An eventual even-time delay bound1 instead implies eventual K=1 via the
 two-bit-collapse theorem. If K=3 holds but eventual K=1 does not, there
 must be infinitely many disjoint six-step repair passages. No finite bound
 on those passages or their mandatory3,2 injection pairs is proved.
+
+The cyclic birth supply remains mandatory even with repairs. For late paired
+rows X_m=Y_(2m), put I_m=indicator[tau(X_m)>0] and
+B_m=indicator[I_m=0,I_(m+1)=1]. Every doubling is a 1->0 switch, so
+
+    sum_(m=M..N-1) B_m
+      >= log_2(p(X_N)/p(X_M)) - I_M + I_N.
+
+Here B_m=indicator[I_m=0]*(u_(2m) XOR hat u_(2m)), the SAME cyclic-source
+birth observable from round305. Hence infinitely many such births are
+necessary also under K=3; repeated internal repairs cannot replace them.
+No finite-support upper bound on this nonnegative count is proved.
 
 ## Preserved round305 birth, exit, and global-front facts
 
@@ -202,8 +227,10 @@ collapse-review thread01a07b83-13c1-7e31-946c-22d09696f35d both failed before
 review text with MissingSessionID (missing x-opencode-session); both CLOSED.
 Neither was429. MiMo was not advertised; no native/other provider was
 substituted or settings changed. External review is explicitly missing.
-Those failed threads did not review the later three-bit unit; its review
-is also explicitly lead-only, in Section4 of the round306 review note.
+The later three-bit unit received its own fresh Muse review assignment,
+thread01a07ba6-4d51-7be3-9f38-ca0d4b6ef219. It failed with the same
+MissingSessionID before review text and is CLOSED. Thus all three attempts
+failed, and Section4 of the round306 review remains explicitly lead-only.
 
 Round306 owns only its new proof/review notes, two fixed checkers and atomic
 records, incoming handoff archive, and this handoff. Unrelated supervisor

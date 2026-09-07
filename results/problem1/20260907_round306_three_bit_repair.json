@@ -1,7 +1,7 @@
 {
   "experiment_id": "round306-fixed-three-bit-exit-repair-algebra",
-  "timestamp_utc": "2026-09-07T11:34:07Z",
-  "git_commit": "78e778825485ed72c42edc8ba0f51228a1021b42",
+  "timestamp_utc": "2026-09-07T11:49:04Z",
+  "git_commit": "ccf027f76e210590b44573d93a6c860cfa3c5e79",
   "question": "problem1",
   "hypothesis": "The t-source table and four-step shadow flag hold on sixteen assignments each; the constant-one and odd-doubling entry implications hold on thirty-two assignments each.",
   "backend": "Python-hand-rule-truth-table/independent-packed-cut-and-right-row",
@@ -102,14 +102,14 @@
     "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
     "machine": "x86_64",
     "logical_cpus": 16,
-    "peak_rss_bytes": 20590592
+    "peak_rss_bytes": 20758528
   },
   "software": {
     "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
     "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
     "executable": "/usr/bin/python3"
   },
-  "runtime_seconds": 0.0037410049699246883,
+  "runtime_seconds": 0.003819067031145096,
   "runtime_scope": "Main entry through fixed checks; excludes final provenance and serialization.",
   "result_hashes": {
     "canonical_payload_sha256": "7af7b69b03753157fa1769639090453fd3fa68eb64e86cffc630d844656749d0"
@@ -118,7 +118,7 @@
     "experiments/problem1_nonperiodicity/check_round306_three_bit_repair.py": "49d3b628c41932d3beedac8cba0cd72b1e5a526527893829cbbb5876e14b339b",
     "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
     "experiments/problem1_nonperiodicity/check_round306_two_bit_collapse.py": "bf1e07973d48e6b93215978d9df059ba64f817cc1adabd0d992fed04b8400037",
-    "proofs/informal/problem1_three_bit_exit_repair.md": "f7f80e1ba22ee9cdad8db795967d45d06b4685d5e2936732b75fe3923224ba77",
+    "proofs/informal/problem1_three_bit_exit_repair.md": "ba8a545266d59a69feab3705f5071bc33d0dd02f438e5cf4e480234dcd1b2697",
     "proofs/informal/problem1_two_bit_strip_collapse.md": "2cc715ebd3a18c51fee2c402b704b12d4c620c0d58be17d6f58b41d6e1939cda",
     "proofs/informal/problem1_one_bit_shadow_exit.md": "07ed93b54987037ff498675831c25b28d09444c99dc0a37f77b1e02b4bd58768"
   },

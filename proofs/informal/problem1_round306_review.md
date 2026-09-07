@@ -85,8 +85,13 @@ edit, remote computation, or hardware change was involved.
 
 Reviewed source: `problem1_three_bit_exit_repair.md`. This was a new
 logical unit after the two-bit checkpoint; the two failed Muse threads
-in Section 1 did not review it. External review remains missing. The
-following is a fresh lead adversarial check with explicit dependencies.
+in Section 1 did not review it. A subsequent fresh review of this unit
+was assigned to Muse, thread `01a07ba6-4d51-7be3-9f38-ca0d4b6ef219`, with
+the explicit objective of finding a fatal flaw in its repair, entry, or
+decomposition arguments. That attempt also failed before review text with
+MissingSessionID, and the thread was closed. This was not a 429; no
+substitute model or provider setting change was made. External review
+remains missing. The following is a fresh lead check with explicit dependencies.
 
 * Section 2's next-gate variable is actual input bit4 only under the FULL
   paired bridge. The arbitrary finite test cones therefore call it bit4,
@@ -105,6 +110,11 @@ following is a fresh lead adversarial check with explicit dependencies.
   times, or with the common even left-neighbor eraser. The renewal profile
   sums to 5+e, agreeing independently with tau_end-tau_start plus six
   positive-delay source times. This is not an original-support budget.
+* The original-cut thresholds are determined even at the repaired e=0
+  endpoint: s_(v+5)=v+6 and monotonicity force s_(v+6)=v+6 there. This
+  justifies both exact front residence intervals and their erasers at
+  (-3,v+3),(-3,v+5). Event ordering still does not supply ancestor reuse
+  bounds. This is substitution into the imported identities, not a run.
 * Positive R excludes two possible doubling times, and the new odd-source
   spatial obstruction excludes the three odd ones. The only possible
   doubling is at offset4, with source tau=2; the old two-step consumption
@@ -136,6 +146,17 @@ following is a fresh lead adversarial check with explicit dependencies.
   absent, the passage induction would imply eventual K=1. Thus a distinct
   K=3 alternative needs infinitely many disjoint exit passages, rather
   than merely a single finite example with delay3.
+* Unbounded clocks still apply after entry, and every sufficiently late
+  doubling is even and returns to a cyclic even row. Thus those returns
+  occur infinitely often; their time gaps have not been uniformly bounded.
+* The final birth-count inequality is a finite telescoping count of the
+  binary noncyclic indicator. Each late doubling is a positive-to-zero
+  switch because its next even row is cyclic; the number of such switches
+  is births+I_M-I_N. Exclusion of odd doublings identifies the period-ratio
+  logarithm with the counted even doublings. Additional nonclock returns
+  can only strengthen the inequality. The round305 flag identity is used
+  only at cyclic sources. Repairs are not wrongly counted as new cyclic
+  births, and their unbounded possible number supplies no finite budget.
 
 Disposition: accept only these `partial-proof` conditional results. They
 identify a possible repair mechanism and its necessary repeated supply;

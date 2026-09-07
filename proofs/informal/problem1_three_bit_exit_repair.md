@@ -130,6 +130,24 @@ The total for this six-step passage is 5+e. This is an exact local
 account, not a nonnegative bound from original finite support. Repeated
 passages have not been bounded.
 
+The original-cut global-front identity gives a coordinate check and a
+precise target for a future budget argument. With s_j=tau(L_j) for the
+ORIGINAL cuts, the seven thresholds in this passage are
+
+    (s_v,...,s_(v+6))
+      =(v+1,v+4,v+4,v+6,v+6,v+6,v+6+e).            (4a)
+
+All but the last follow from positive tau_j=s_j-j. If e=0, monotonicity
+and s_(v+5)=v+6 force s_(v+6)=v+6, so the last equality holds too.
+Thus the first injection is the residence of characteristic v+1 over
+[v+1,v+4), and the second is the residence of v+3 over [v+4,v+6).
+Their erasing 1s are at physical cells (-3,v+3) and (-3,v+5), respectively.
+The global front is at -2 at both last residence times. At v+6 it is at
+0 if e=1 and strictly right of 0 if e=0; the global front still exists.
+These are ordered erasers in one spacetime, not distinct
+original ancestors or a proof of bounded ancestor reuse. No front sample
+or new experiment is used to obtain (4a).
+
 There can be AT MOST ONE physical clock doubling in [v,v+6): if it occurs
 it is the even step v+4 -> v+5. Indeed positive R excludes v and v+2.
 The round306 odd-doubling obstruction excludes v+1,v+3,v+5 because their
@@ -228,13 +246,15 @@ The odd-doubling obstruction then forbids EVERY sufficiently late odd
 doubling. All late even doublings have source delay at most 2 and return
 to a cyclic even row two steps later. If such a doubling lies within
 one of the exit passages, Section 4 places it precisely at offset 4.
+Unbounded clocks therefore give infinitely many cyclic even returns.
+No uniform bound on the time between those returns is established.
 
 This is an eventual decomposition under K=3, not a finite-state closure
 or a proof of eventual K=1. The one-bit exits may still occur infinitely
 often. Their return flags, their frequency, and the original finite
 support constraint remain part of the full coupled evolution.
 
-Two precise corollaries sharpen its scope. First,
+Further corollaries sharpen its scope. First,
 
     eventual all-physical tau<=3
       iff eventual EVEN-time tau<=2.                (8)
@@ -253,6 +273,35 @@ negative-half agreement forever and threshold transport would give K=1.
 Thus the remaining distinct three-bit alternative requires infinitely
 many of the exact 3,2 injection pairs in (4). This is a necessary supply,
 not a proof that a finite original boundary can or cannot supply it.
+
+Finally, the mandatory supply can still be counted at CYCLIC-source births,
+even though the intervening exits inject additional delay. Choose a late
+paired cutoff M after entry and the exclusion of odd doublings. Put
+
+    X_m=Y_(2m), I_m=indicator[tau(X_m)>0],
+    B_m=indicator[I_m=0 and I_(m+1)=1].
+
+Every late clock doubling has I_m=1 and I_(m+1)=0, by the even cyclic
+return just proved. There may also be returns without doubling. Counting
+binary 0->1 and 1->0 switches on [M,N) therefore gives
+
+    sum_(m=M..N-1) B_m
+      >= log_2(p(X_N)/p(X_M)) - I_M + I_N.           (9)
+
+Indeed the number of 1->0 switches is exactly sum B_m+I_M-I_N and bounds
+the number of doublings from above. Odd doublings are absent on this
+interval, so the latter number is exactly the logarithm in (9).
+Every B_m=1 is a cyclic-to-lag-one transition. The round305 birth identity
+identifies it, on these same original spacetimes, as
+
+    B_m=indicator[I_m=0] * (u_(2m) XOR hat u_(2m)).
+
+Thus unbounded clocks require infinitely many of the original cyclic-source
+gate disagreements even in the three-bit case. An infinite series of
+repairs within a single noncyclic episode cannot substitute for that birth
+supply: such an episode can contain at most one doubling, and that doubling
+ends it with a cyclic return.
+No upper bound on this birth count from finite initial support is supplied.
 
 ## 7. Verification and stopping fence
 
@@ -290,7 +339,9 @@ whether the complete finite actual boundary and uniquely selected shadow
 can sustain the required passages and clock doublings indefinitely.
 
 Dependencies: `problem1_one_bit_shadow_exit.md`;
+`problem1_shadow_gate_birth_phase.md` for the cyclic birth indicator;
 `problem1_two_bit_strip_collapse.md` Sections 2-3;
 `problem1_physical_time_cycle_defects.md` Section 2;
 `problem1_cycle_delay_renewal.md` Sections 2-3;
+`problem1_global_discrepancy_front.md` Sections 1-3 for (4a);
 `problem1_period_two_fringe_language.md` (no-uu and no-ttttt).
