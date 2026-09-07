@@ -1,0 +1,494 @@
+{
+  "experiment_id": "round307-fixed-complete-driver-exit-phase",
+  "timestamp_utc": "2026-09-07T12:04:53Z",
+  "git_commit": "0376025e8647918d5bcb62ca83421e62af349542",
+  "question": "problem1",
+  "hypothesis": "The one-bit reset maps, their composition updates, the nonresetting invariant pair and the fixed 7/6 phase certificate agree with independent cell updates.",
+  "backend": "Python-hand-rule-cells/independent-packed-A-and-map-tables",
+  "parameters": {
+    "letters": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "scalar_bits": [
+      0,
+      1
+    ],
+    "old_scalar_maps": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "pair_letters": [
+      0,
+      2
+    ],
+    "pair_states": [
+      1,
+      3
+    ],
+    "certificates": [
+      [
+        7,
+        1,
+        1,
+        6
+      ],
+      [
+        6,
+        0,
+        1,
+        6
+      ],
+      [
+        14,
+        1,
+        2,
+        13
+      ],
+      [
+        28,
+        1,
+        2,
+        27
+      ]
+    ],
+    "certificate_order": [
+      "seed",
+      "tau",
+      "period",
+      "cyc"
+    ],
+    "hand_edges": [
+      [
+        7,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        14,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        12
+      ],
+      [
+        28,
+        25
+      ],
+      [
+        25,
+        27
+      ],
+      [
+        27,
+        25
+      ]
+    ],
+    "max_certificate_steps": 8,
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 131072
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 93122560
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.0002733089495450258,
+  "runtime_scope": "Main entry through checks, excluding provenance serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "3bdb35f4f3b78cce2b126f2d69cf4ecf20ab864cdbcb6d2702f1cdd55ee84ff8"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round307_exit_phase.py": "e4cad4976beb4f26dd853bf5df44d8b14b5ce7eb6378f1cca33088bba79fdcb0",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "proofs/informal/problem1_full_driver_exit_phase.md": "f5bbeea8370d0c4f6766d10cce55af1d1f27c07462305a16b12343dddcb9057f",
+    "proofs/informal/problem1_global_cycle_shadow.md": "34b7fba122bb6d74d60492931317937bd355ab345d722eb14ae1e296e68a003f",
+    "proofs/informal/problem1_one_bit_shadow_exit.md": "07ed93b54987037ff498675831c25b28d09444c99dc0a37f77b1e02b4bd58768",
+    "proofs/informal/problem1_physical_time_cycle_defects.md": "87eafb58d1d3c9ff8d922eb7a1e569045381a7f01d219d7228e046554a6376a5"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "hand_rule_values": 8,
+    "hand_edges": 8,
+    "scalar_cases": 8,
+    "composition_cases": 16,
+    "invariant_pair_cases": 4,
+    "phase_certificates": 4,
+    "caps_passed": true
+  },
+  "status": "finite-exhaustive",
+  "interpretation": "Fixed algebra and the named phase certificate pass; the all-period formula and E phase selection are separate mathematical deductions.",
+  "proof_scope": "Eight letter/bit values, sixteen map compositions, four pair transitions, two first-step values and four named finite A orbits.",
+  "limitations": [
+    "No periodic-driver or source-word census.",
+    "No infinite FULL realization or eventual strip bound verified.",
+    "The fixed 7/6 example is not an infinite FULL orbit.",
+    "No finite original-support bound on births or repairs.",
+    "External adversarial review is missing."
+  ],
+  "payload": {
+    "scalar_cases": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        1,
+        1,
+        1
+      ],
+      [
+        2,
+        0,
+        1
+      ],
+      [
+        2,
+        1,
+        0
+      ],
+      [
+        3,
+        0,
+        0
+      ],
+      [
+        3,
+        1,
+        0
+      ]
+    ],
+    "composition_cases": [
+      {
+        "old_map": [
+          0,
+          1
+        ],
+        "letter": 0,
+        "new_map": [
+          0,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          1
+        ],
+        "letter": 1,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          1
+        ],
+        "letter": 2,
+        "new_map": [
+          1,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          1
+        ],
+        "letter": 3,
+        "new_map": [
+          0,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          1
+        ],
+        "letter": 0,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          1
+        ],
+        "letter": 1,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          1
+        ],
+        "letter": 2,
+        "new_map": [
+          0,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          1
+        ],
+        "letter": 3,
+        "new_map": [
+          0,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          0
+        ],
+        "letter": 0,
+        "new_map": [
+          1,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          0
+        ],
+        "letter": 1,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          0
+        ],
+        "letter": 2,
+        "new_map": [
+          0,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          1,
+          0
+        ],
+        "letter": 3,
+        "new_map": [
+          0,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          0
+        ],
+        "letter": 0,
+        "new_map": [
+          0,
+          0
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          0
+        ],
+        "letter": 1,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          0
+        ],
+        "letter": 2,
+        "new_map": [
+          1,
+          1
+        ]
+      },
+      {
+        "old_map": [
+          0,
+          0
+        ],
+        "letter": 3,
+        "new_map": [
+          0,
+          0
+        ]
+      }
+    ],
+    "invariant_pair_cases": [
+      [
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        3,
+        3
+      ],
+      [
+        2,
+        1,
+        3
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "phase_certificates": [
+      {
+        "seed": 7,
+        "rows_before_repeat": [
+          7,
+          6
+        ],
+        "tau": 1,
+        "period": 1,
+        "cyc": 6
+      },
+      {
+        "seed": 6,
+        "rows_before_repeat": [
+          6
+        ],
+        "tau": 0,
+        "period": 1,
+        "cyc": 6
+      },
+      {
+        "seed": 14,
+        "rows_before_repeat": [
+          14,
+          12,
+          13
+        ],
+        "tau": 1,
+        "period": 2,
+        "cyc": 13
+      },
+      {
+        "seed": 28,
+        "rows_before_repeat": [
+          28,
+          25,
+          27
+        ],
+        "tau": 1,
+        "period": 2,
+        "cyc": 27
+      }
+    ],
+    "paired_first_step": [
+      [
+        3,
+        0,
+        1
+      ],
+      [
+        2,
+        3,
+        1
+      ]
+    ],
+    "hand_edges": [
+      [
+        7,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        14,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        12
+      ],
+      [
+        28,
+        25
+      ],
+      [
+        25,
+        27
+      ],
+      [
+        27,
+        25
+      ]
+    ]
+  }
+}
