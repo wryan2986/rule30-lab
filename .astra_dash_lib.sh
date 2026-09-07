@@ -62,7 +62,7 @@ get_round_num() { echo "${1:-}" | sed 's/^r//'; }
 
 get_supervisor_start() {
   local line
-  line=$(grep -F "Astra supervisor starting\|Astra supervisor |" "$SUPERVISOR_LOG" 2>/dev/null | tail -1) || true
+  line=$(grep -E "Astra supervisor (starting|\|)" "$SUPERVISOR_LOG" 2>/dev/null | tail -1) || true
   [ -z "$line" ] && echo "" && return
   echo "$line" | sed "s/.*\[\([0-9-]* [0-9:]*\)\].*/\1/"
 }
@@ -89,8 +89,10 @@ progress_bar() {
   [ "$pct" -gt 100 ] && pct=100
   local filled=$(( pct * w / 100 )) empty=$(( w - filled ))
   local i bar=""
-  for ((i=0; i<filled; i++)); do bar+="\u2588"; done
-  for ((i=0; i<empty; i++)); do bar+="\u2591"; done
+  local filled_ch=$'\u2588'
+  local empty_ch=$'\u2591'
+  for ((i=0; i<filled; i++)); do bar+="${filled_ch}"; done
+  for ((i=0; i<empty; i++)); do bar+="${empty_ch}"; done
   printf "%s" "$bar"
 }
 
