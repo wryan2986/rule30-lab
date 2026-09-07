@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # .astra_dash_lib.sh - Shared functions for Astra dashboard panes
-# NO set -euo pipefail — monitoring dashboards must tolerate missing data
+# NO set -euo pipefail -- monitoring dashboards must tolerate missing data
 
 REPO="/home/ryan/rule30-lab"
 SUPERVISOR_LOG="$REPO/astra-supervisor.log"
-USAGE_FILE="/home/ryan/.opencodex/usage.jsonl"
+USAGE_FILE="$HOME/.opencodex/usage.jsonl"
 STOP_FILE="$REPO/astra-stop"
 STATEFILE="/tmp/astra-supervisor/state"
 METADATA="/tmp/astra-supervisor/metadata"
+ROLLOVER_STATEFILE="/tmp/astra-supervisor/rollover_state"
 
 RST=$'\033[0m'; BOLD=$'\033[1m'; DIM=$'\033[2m'
 GRN=$'\033[1;32m'; YEL=$'\033[1;33m'; RED=$'\033[1;31m'
@@ -88,35 +89,31 @@ progress_bar() {
   [ "$pct" -gt 100 ] && pct=100
   local filled=$(( pct * w / 100 )) empty=$(( w - filled ))
   local i bar=""
-  for ((i=0; i<filled; i++)); do bar+="█"; done
-  for ((i=0; i<empty; i++)); do bar+="░"; done
+  for ((i=0; i<filled; i++)); do bar+="\u2588"; done
+  for ((i=0; i<empty; i++)); do bar+="\u2591"; done
   printf "%s" "$bar"
 }
 
 trim_str() {
   local s="$1" mx="$2"
-  [ "${#s}" -gt "$mx" ] && { printf "%.*s…" "$((mx - 1))" "$s"; return; }
+  [ "${#s}" -gt "$mx" ] && { printf "%.*s\u2026" "$((mx - 1))" "$s"; return; }
   printf "%s" "$s"
 }
 
 # ── Process-based state detection ──
 
-# Find the supervisor PID (run_astra_supervisor.sh or run_astra_8h.sh)
 get_supervisor_pid() {
   pgrep -f "run_astra_supervisor.sh|run_astra_8h.sh" 2>/dev/null | head -1 || echo ""
 }
 
-# Find the codex exec child PID (active round)
 get_codex_child_pid() {
   local sup_pid="${1:-}"
   [ -z "$sup_pid" ] && echo "" && return
-  # Find timeout...codex exec children of the supervisor
   local child
   child=$(pgrep -P "$sup_pid" 2>/dev/null | while read cp; do
     cmdline=$(cat /proc/$cp/cmdline 2>/dev/null | tr "\0" " ")
     echo "$cmdline" | grep -q "codex exec" && echo "$cp" && break
   done) || true
-  # If not a direct child, search grandchildren
   if [ -z "$child" ]; then
     for cp in $(pgrep -P "$sup_pid" 2>/dev/null); do
       for gcp in $(pgrep -P "$cp" 2>/dev/null); do
@@ -131,16 +128,14 @@ get_codex_child_pid() {
   echo "$child"
 }
 
-# Extract round number from codex exec command line
 get_codex_round_num() {
   local pid="${1:-}"
   [ -z "$pid" ] && echo "" && return
   local cmdline
   cmdline=$(cat /proc/$pid/cmdline 2>/dev/null | tr "\0" " ") || true
-  echo "$cmdline" | grep -oP "round \K[0-9]+" || echo ""
+  echo "$cmdline" | grep -oP "round \\K[0-9]+" || echo ""
 }
 
-# Get codex process start time as epoch
 get_codex_start_time() {
   local pid="${1:-}"
   [ -z "$pid" ] && echo 0 && return
@@ -149,10 +144,7 @@ get_codex_start_time() {
   echo "$start"
 }
 
-# Detect supervisor state
-# Returns: RUNNING|BETWEEN_ROUNDS|AUDIT|DRAINING|PAUSED|FINISHED|STOPPED|BLOCKED
 detect_state() {
-  # First, check state file (authoritative for new supervisor)
   if [ -f "$STATEFILE" ]; then
     local file_state
     file_state=$(cat "$STATEFILE" 2>/dev/null | tr -d '\n')
@@ -163,21 +155,15 @@ detect_state() {
         ;;
     esac
   fi
-
-  # Fallback: process-based detection for old supervisor or stale state
   local sup_pid
   sup_pid=$(get_supervisor_pid)
-
-  # Supervisor not running
   if [ -z "$sup_pid" ]; then
-    # Check the supervisor log for the last known state
     if [ -f "$SUPERVISOR_LOG" ]; then
       if grep -q "DRAINING complete\|^Done\.\|DRAINING complete" "$SUPERVISOR_LOG" 2>/dev/null; then
         echo "FINISHED"
         return
       fi
       if grep -q "Stop file detected" "$SUPERVISOR_LOG" 2>/dev/null; then
-        # Only report STOPPED if the stop was the most recent termination reason
         local last_action
         last_action=$(tail -5 "$SUPERVISOR_LOG" 2>/dev/null) || true
         if echo "$last_action" | grep -q "Stop file detected"; then
@@ -186,19 +172,14 @@ detect_state() {
         fi
       fi
     fi
-    # Default: if supervisor is dead and no clear reason, it finished
     echo "FINISHED"
     return
   fi
-
-  # Supervisor alive — check for active codex child
   local codex_pid
   codex_pid=$(get_codex_child_pid "$sup_pid")
-
   if [ -n "$codex_pid" ]; then
     echo "RUNNING"
   else
-    # Supervisor alive but no codex child — between rounds or blocked
     if [ -f "$STOP_FILE" ]; then
       echo "BLOCKED"
     else
@@ -207,10 +188,42 @@ detect_state() {
   fi
 }
 
-# Read metadata value by key
 get_metadata() {
   local key="${1:-}"
   [ -z "$key" ] && echo "" && return
   [ -f "$METADATA" ] || { echo ""; return; }
   grep "^${key}=" "$METADATA" 2>/dev/null | head -1 | cut -d= -f2- || echo ""
+}
+
+# ── Usage rate computation ──
+# Computes total tokens (input+output) from usage.jsonl in a time window.
+# $1 = provider filter (e.g. "openai" or "all")
+# $2 = model filter (e.g. "gpt-6-astra" or "all")
+# $3 = epoch start (seconds)
+# $4 = epoch end (seconds)
+usage_tokens_in_window() {
+  local prov="${1:-all}" mdl="${2:-all}" t_start="${3:-0}" t_end="${4:-9999999999}"
+  [ ! -f "$USAGE_FILE" ] && { echo 0; return; }
+  jq -r --arg prov "$prov" --arg mdl "$mdl" --argjson ts "$t_start" --argjson te "$t_end" '
+    select(.status==200)
+    | select(if $prov=="all" then true else .provider==$prov end)
+    | select(if $mdl=="all" then true else .model==$mdl end)
+    | (.timestamp/1000|floor) as $t
+    | select($t >= $ts and $t < $te)
+    | ((.usage.inputTokens // 0) + (.usage.outputTokens // 0))
+  ' "$USAGE_FILE" 2>/dev/null | awk '{s+=$1} END {print s+0}'
+}
+
+# Count API calls in a time window
+usage_calls_in_window() {
+  local prov="${1:-all}" mdl="${2:-all}" t_start="${3:-0}" t_end="${4:-9999999999}"
+  [ ! -f "$USAGE_FILE" ] && { echo 0; return; }
+  jq -r --arg prov "$prov" --arg mdl "$mdl" --argjson ts "$t_start" --argjson te "$t_end" '
+    select(.status==200)
+    | select(if $prov=="all" then true else .provider==$prov end)
+    | select(if $mdl=="all" then true else .model==$mdl end)
+    | (.timestamp/1000|floor) as $t
+    | select($t >= $ts and $t < $te)
+    | 1
+  ' "$USAGE_FILE" 2>/dev/null | awk '{s+=$1} END {print s+0}'
 }
