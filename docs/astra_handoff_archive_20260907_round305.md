@@ -1,44 +1,12 @@
-# Astra handoff: supervisor round305 in-progress checkpoint, 2026-09-07
+# Astra handoff: supervisor round 304 maintenance checkpoint, 2026-09-07
 
-Problem1 remains OPEN. Continue on `research/astra-next`. Round305 base:
-`dc4ffc5ed8981dcb7f36509ade43d1277e9c83bd`.
-Incoming round304 handoff is preserved byte for byte in
-`docs/astra_handoff_archive_20260907_round305.md`.
-This is a maintenance checkpoint, not goal achieved or research blocked.
-
-## Round305: full driver plus phase map still loses transient memory
-
-New scoped `refuted` update in
-`proofs/informal/problem1_full_driver_phase_memory_obstruction.md`:
-let F_y(a)=bit0(cyc(2y+a)) and
-S(y)=(cyc(y),tau(y),F_y(0),F_y(1)). There is NO general function
-F_(2y+a)=H(S(y),a), even when only the next zero branch is requested.
-This retains the ENTIRE cyclic driver and exact least onset, and is
-therefore different from the earlier finite-observation no-go.
-
-Hand pair110/112: both map to100, with core111, delay1, period2 and
-F_y=(0,0). Attach the SAME zero: children220/224 have common core222,
-but delays3/1 and phase maps respectively0 and (a XOR1).
-Thus cyc440=444 but cyc448=445. These are phases of the SAME period4
-cycle, not a new cycle fork. Both zero branches differ. The witness
-refutes a general summary; it is NOT an infinite FULL counterexample
-or a refutation of an independently proved FULL-only summary.
-
-Fixed checker `experiments/problem1_nonperiodicity/check_round305_phase_transport.py`
-and atomic record `results/problem1/20260907_round305_phase_transport.json`:
-14 hand edges,14 closed certificates,four full phase maps and8 phase
-comparisons. Packed/cell and product/scalar implementations agree;
-10s/128MiB caps passed. Lead disposition is
-`proofs/informal/problem1_round305_review.md` Section2.
-
-Muse incoming-review thread01a07b36-d832-7f00-8d9d-b5d874a5cb16 failed
-before review text with MissingSessionID (missing x-opencode-session)
-and is CLOSED. Not429; no fallback, native substitution or config change.
-Fresh external review remains missing. Next: retain the whole transient
-in a proposed crossing transport, or justify an extra FULL-only constraint;
-do not refit this failed general summary with more local observations.
-
-## Preserved round304 frontier (still authoritative except for that update)
+Problem 1 remains OPEN. Continue on `research/astra-next`. This is a routine
+research maintenance checkpoint, NOT goal achieved, research blocked, or
+research exhaustion. Read ASTRA_GOAL.md first; do not repeat settled work.
+Round304 base: `c6873e33ee8b657fdc7c647aa050e02cf7b064e5`.
+Incoming round303 handoff is preserved byte for byte in
+`docs/astra_handoff_archive_20260907_round304.md`; the older round-ten handoff
+is in `docs/astra_handoff_archive_20260907_round303.md`.
 
 ## Exact bottleneck and next attack
 
