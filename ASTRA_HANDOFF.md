@@ -1,152 +1,104 @@
-# Astra handoff: supervisor round307 research checkpoint, 2026-09-07
+# Astra handoff: round309 checkpoint 1, 2026-09-07
 
-Problem1 remains OPEN. Continue on `research/astra-next`. This is a routine
-checkpoint, NOT goal achieved, research blocked, or exhaustion. Round307
-base is `0376025e8647918d5bcb62ca83421e62af349542`. The incoming round306
-handoff is preserved byte for byte in
-`docs/astra_handoff_archive_20260907_round307.md`, which is AUTHORITATIVE for
-all earlier statements, dependencies, checks, and stopping fences.
+Problem1 remains OPEN. Continue on `research/astra-next`. This is supervisor
+round 1 of the current unattended run, continuing the interrupted round307/
+308 work. The session is ONGOING; this logical-unit checkpoint is neither
+success nor research blocked. Session began at 14:32 UTC; requested final
+maintenance checkpoint is approximately 15:42 UTC.
+
+The incoming handoff is preserved BYTE FOR BYTE in
+`docs/astra_handoff_archive_20260907_round309.md`. That archive and its own
+round307 incoming archive remain AUTHORITATIVE for the older statements,
+checks, missing reviews and stopping fences. Do not redo those units.
 
 ## Current bottleneck
 
 FULL must contradict finite entry for ONE actual survivor with its COMPLETE
-original finite right fringe. Under eventual K=3 (including K=1 and K=2),
-infinitely many cyclic-source births are mandatory. No finite-support upper
-bound on their nonnegative count is proved. Without an eventual strip bound,
-the original global-front transport and bounded-reuse obligation remain open.
+original finite right fringe. Under eventual K=3, infinitely many cyclic
+births are mandatory. No finite-support upper bound on their nonnegative
+count is proved. Without an eventual strip bound, the global-front transport
+and bounded-reuse obligation remain open. No new core, phase, gate or prefix
+census is admitted.
 
-Round307 now fixes the full-driver phase deciding the one-bit exit. Read
-`proofs/informal/problem1_full_driver_exit_phase.md`. Status: `partial-proof`,
-with fresh external review missing. At an even one-bit source x=z+1,
-z=cyc(x), b=Theta(z), b_0=2:
+## Recovered and established: the fourth round307 unit
 
-* If b contains 1 or3, put ell=max{s<0:b_s in{1,3}} and let gamma be
-  the parity of 2s strictly between ell and0 in the PURE periodic code.
-  The global shadow's right bit is h=1[b_ell=1] XOR gamma. At an actual
-  u gate the exit occurs exactly when gamma=1[b_ell=1]. No exit instead
-  requires gamma=1[b_ell=3]. Lookback may use the whole period.
-* If b is contained in{0,2}, the actual one-bit transient selects the
-  shadow right pair11, even when the one-bit lift has an even-parity fork.
-  The proof uses A(2x+a)=2Az to fix the phase, then the unique constant-one
-  second lift. Independently the paired invariant set{1,3} gives
-  cyc(4x)=4z+3 on the actual u branch. Such a source returns to a cyclic
-  even row two steps later WITHOUT any future strip premise. Its first
-  physical step doubles iff the number of 2s per least period is odd.
+`proofs/informal/problem1_nonreset_return_birth_spacing.md` was already
+present but uncommitted at startup. Its conditional all-period argument is
+now lead-audited and freshly reviewed by MiMo, at `partial-proof` scope.
+This is recovered prior progress, not a new discovery in this session.
 
-Thus every K=3 repair starts from a RESETTING periodic core. A nonresetting
-phase fork is not a free choice of exit versus return on this fixed orbit.
-The old fork certificate remains valid on its original domain.
+At an even FULL nonresetting source t with current spatial b<=2, put
+u=1 for gate u and 0 for gate t, and d=2-u. The global shadow has centers
+0,0,1 at t,t+1,t+2 and right pair (1,u*(hat r3 OR hat r4)) at t+2.
+The next two even sources t+2,t+4 are cyclic, with actual gates t,u.
+The first cannot birth. At t+4 the birth flag beta retains the complete
+shadow, but the original TWO-BIT t source forces beta=1. Thus it must
+create a new one-bit even row at t+6. Its complete cyclic u-source at t+4
+is G(z)=16 A^4 z+7, conditional on the actual FULL code symbol c2=1.
+Do not apply that formula to arbitrary nonresetting cores.
 
-The necessary infinite birth test from round305 resets on code letters1/2
-and counts trailing3s; the new resetting no-exit test resets on1/3 and counts
-trailing2s. They concern the complete successive cores selected by the SAME
-actual boundary. They do not form two independently chosen streams or a
-finite-state update. No simultaneous infinite compatibility/exclusion is
-proved. Do not enumerate more backward suffixes, cores, forks, or prefixes.
+Delays at t through t+6 are d,d-1,0,0,0,0,beta. No N source occurs at
+any of t+1,...,t+7. Hence late nonresetting sources under eventual K=3
+are separated by at least8, including clock-preserving sources. This is
+separation, not a finite count or positive density. The forced regeneration
+still has to be included in any original-support birth budget.
 
-## Further round307 results (`partial-proof`)
+The old eight-cone JSON had a stale proof hash after a later proof edit.
+It is retained byte for byte as a historical record. The SAME eight cones
+were rerun with the same 10-second/128-MiB caps and a new output path:
+`results/problem1/20260907_round309_nonreset_return.json`. All six current
+source hashes and its canonical payload hash pass independent audit. No
+new input was tested. The checker now accepts `--output` to preserve the
+old record; exact reproduction arguments are in the new JSON.
 
-Read `proofs/informal/problem1_exit_wait_front_residence.md`. At a one-bit
-exit source v, its resetting core has an exact FORWARD first reset
-L=min{n>=1:b_n in{1,3}}, with 3<=L<=p-1. Then
+Fresh external review: `proofs/informal/problem1_round309_recovered_birth_review.md`.
+MiMo thread01a07c4e-caa2-7aa2-bd16-0c0ef70f6c92 completed and is CLOSED.
+It followed two Muse429 failures, threads01a07c49-8a14-7590-ab28-5a1f98a2ea86
+and01a07c4c-79a4-7330-90da-d2456b244cf9, both CLOSED, with a pause before
+the one retry. The required MiMo override worked despite not being advertised.
+No native/other model or settings change was used. Dependencies of the unit
+are imported, not claimed freshly reviewed end-to-end. Historical Missing-
+SessionID failures in the older archive are not failures of this new review.
 
-    delays at v,v+1,v+2: 1,L,L-1;
-    injections at v,v+1: L,0;
-    both physical steps preserve the clock.
+## Current independent review and next logical unit
 
-The original cut thresholds are s_v=v+1 and s_(v+1)=s_(v+2)=v+L+1.
-Thus the front resides on characteristic v+1 over [v+1,v+L+1), with
-EXACT b(Y_(v+k))=k for 1<=k<=L, and eraser(-L,v+L). This fixes its
-first residence, not the later jump/injections. Every late exit under
-boundK requires L<=K. UnderK=3 the exact source core prefix is2221.
-No longer wait or source prefix was sampled.
+Two further interrupted drafts were recovered:
+`problem1_three_bit_complete_core_system.md` and
+`problem1_complete_core_phase_transport.md` in `proofs/informal/`.
+They define C (finite cyclic states), P(z)=4*(z>>2)+3 and
+M(z)=cyc(4 A^2 z+3), with exact local EXTRA domain D and the complete
+actual fringe map V. This eliminates transient state on the late K=3
+alternative, while retaining full cyclicity, phase and fringe compatibility.
+Resetting passages commute with A phase; nonresetting passages have an
+explicit parity commutator. No phase-discarding quotient on D exists.
 
-The same note gives all one-bit-source renewal alternatives:
+The unfinished checker was corrected: the stricter domain contains 28 of
+32 gate-permitted six-bit inputs, and the check now verifies independent
+cell/packed A updates, equation13, and the NEXT row's gate convention.
+Atomic fixed record: `results/problem1/20260907_round308_core_domain.json`.
+No core, source or M orbit was searched. Review/provenance details are in
+`proofs/informal/problem1_round309_review.md`.
 
-    gate t,h=0: delays1,1,1; injections1,1;
-    gate t,h=1: delays1,0,1; injections0,1;
-    gate u,h=1: delays1,0,0; injections0,0;
-    gate u,h=0: delays1,L,L-1; injectionsL,0.
+New draft `proofs/informal/problem1_fixed_fringe_phase_collapse.md` proves
+that, for the SAME fringe and initial core width<=L, at most one core in D
+can pass H=ceil(L/2)-1 complete paired transitions (L>=3). The finite
+center prefix through2H+1 separates every different finite initial left
+row. Thus an initial-phase budget has at most one loss left after H;
+exclusion of that one continuing candidate still needs new mathematics.
+No finite prefix is promoted to an infinite FULL assertion.
 
-Only the first step of the u,h=1 passage can double, precisely at a
-nonresetting core with odd high-bit weight. The second step never doubles.
-These are single-source statements without a future strip bound.
+Fresh MiMo review of all three core/phase units is RUNNING in
+thread01a07c5e-bad0-7e32-addd-5d284f1e33ea. It owns only
+`proofs/informal/problem1_round309_core_system_external_review.md`.
+Lead must integrate and independently check that result before the next
+logical-unit commit. The corresponding source drafts/checker/record are
+still in the worktree during this intermediate checkpoint.
 
-Read `proofs/informal/problem1_nonresetting_core_returns.md`. For a finite
-initial row with Y0>0, let N_t mean identically-zero core low A-trace,
-and O_t identically-one. WITHOUT FULL or a strip premise, N_t iff O_(t+2).
-Positive Y0 is essential; do not use merely a nonzero seed to the right.
+## Ownership and constraints
 
-Under eventualK=3, all sufficiently late ODD N and O are absent. This
-excludes even-parity, clock-preserving odd nonresetting extensions too.
-For an EVEN FULL N source, CURRENT spatial b<=2 already suffices for:
-
-    gate u: (d_-1,d_0)=(0,1), delay1, shadow right pair11;
-    gate t: (d_-1,d_0)=(1,1), delay2, shadow right pair01.
-
-Each returns in two physical steps to a cyclic even row with constant-one
-low core trace and actual gate t; both injections are0. The t source
-lies at repair offset4 in the eventual K=3 decomposition. The first step
-doubles iff the high-bit weight is odd; even parity still returns.
-Thus clock-preserving nonresetting returns require additional cyclic births:
-
-    sum B >= log2(clock ratio) + count(even-parity N returns)
-                            - initial I + final I.
-
-No finite-support bound on either count, no converse from cyclic repair
-to N, and no infinite FULL realization is supplied. These two new units
-use exact scalar/paired derivations and original-cut identities, with NO
-new experiment. Lead dispositions and missing review are recorded below.
-
-## Preserved round306 frontier
-
-The incoming archive contains the full proofs and checks. In particular:
-
-* Eventual all-physical tau<=2 iff eventual tau<=1. Odd physical doubling
-  forces the NEXT even spatial depth>=3; a one-bit exit reaches b=3 at
-  its extra odd step. This is conditional, not an eventual bound.
-* Eventual all-physical tau<=3 iff eventual EVEN-time tau<=2. One late
-  entry followed by one-bit passages and exact six-step repairs covers
-  the late orbit. Eventually there are no odd doublings and infinitely
-  many cyclic even returns.
-* A repair from v has gates u,t,t,t at offsets0,2,4,6, shadow first-right
-  bit0 at v+4, and endpoint center discrepancy e=1 XOR hat r2(v+4).
-  Its spatial profile is1,1,2,3,2,3,e; delays1,3,2,3,2,1,e; injections
-  3,0,2,0,0,e. A doubling can occur only at offset4 and forces e=0.
-* If K=3 but not eventual K=1, there are infinitely many disjoint repairs.
-  They cannot replace the required cyclic births: every doubling ends a
-  noncyclic episode, so births>=log2(clock ratio)-initial I+final I.
-* For original cuts s_j=tau(L_j), the global front is J(u)-u with
-  J(u)=min{j:s_j>u}. Injections are disjoint residence portions after
-  crossing the center. Their erasers are outside the original anchored
-  set; neither ordering nor path parity bounds reuse of initial ancestors.
-* E is one idempotent U-commuting shadow. Every finite actual rebase leaves
-  infinitely many right discrepancies. The actual center escapes the
-  fixed windows of the valid dyadic SU limit. No FULL shadow center follows.
-
-## Round307 verification and ownership
-
-Lead review: `proofs/informal/problem1_round307_review.md`.
-Fixed checker/atomic record: `check_round307_exit_phase.py` /
-`results/problem1/20260907_round307_exit_phase.json`. Eight scalar values,
-sixteen map compositions, four invariant-pair transitions, two first-step
-pair values, and the four named 7/6 orbit certificates pass. Hand values
-precede packed/cell comparison. Ten-second/128-MiB caps and six-source and
-canonical-payload hashes were audited. No source or FULL prefix was searched.
-
-Muse sidecar thread01a07bb5-26b5-7111-9465-72a109c94737 and fresh review
-thread01a07bc1-fdfc-75a1-9667-347c9f3adc2e both failed before work/review text
-with MissingSessionID (missing x-opencode-session). Both CLOSED. Neither
-was429; MiMo was not advertised. No native/other provider was substituted
-and no settings changed. The second-unit fresh review was assigned to Muse
-thread01a07bcc-8b83-7a02-8e97-cae2a53e2e31 and failed with the same
-MissingSessionID before review text; it too is CLOSED and was not429.
-The third unit received a fresh lead-only audit after those failures.
-External review is explicitly missing for all three units.
-
-Round307 owns only its new proof/review notes, fixed checker and record,
-incoming archive and this handoff. Unrelated supervisor files, worktrees,
-and old untracked results remain untouched. Immutable reference SHA256:
-358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
-Keep workloads local. No force-push, history rewrite, main merge, reference
-edit, cloud workload, or hardware-control changes.
+Round309 owns its new notes/reviews, handoff/archive, and recovered research
+units explicitly listed above. Other old signed-slice drafts/results,
+supervisor scripts/logs, and worktrees remain untouched. Immutable reference
+SHA256: 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
+All workloads stay local; no cloud, hardware-control changes, reference
+edits, force-push, history rewrite or main merge.

@@ -167,3 +167,80 @@ explicitly a fresh lead-only audit of the third unit.
 Disposition: accept at `partial-proof` scope. Scalar/paired derivations are
 independent algebraic checks, not external review. No new experiment or
 source search is used for this unit.
+
+## 6. Post-return birth window and spacing
+
+The fourth unit, `problem1_nonreset_return_birth_spacing.md`, received a
+fresh Muse assignment with an explicit fatal-flaw objective, thread
+`01a07be1-f912-7180-bab5-447105167fd6`. It failed before review text with
+MissingSessionID and was closed. This was not429; no substitute model or
+settings change was made. External review remains missing. The following
+is a lead-only disposition of that distinct unit.
+
+* The source phase theorem fixes the actual shadow cells as
+  (u,u,0,u,1) at positions-2 through2. Direct physical updates supply
+  shadow centers0,0,1, not assumed FULL shadow values. The return right
+  pair is (1,u*(a OR b)). In particular its first bit1 masks all wider
+  shadow data in the immediate cyclic-source birth test.
+* At the cyclic return its entire core low trace is1. FULL's code symbols
+  c1 and c2 are therefore BOTH1, giving successive actual gates t,u.
+  This uses whole-trace constancy, not just the three known center values.
+  The first gate matches the zero shadow flag, so the intervening odd
+  and next even rows are actually cyclic.
+* The forward flag law is used only from that cyclic row with its
+  justified centers1,0. For a two-bit source its return right pair10
+  forces the next shadow flag0, whereas the next ACTUAL gate is u.
+  Thus beta=1 at source time t+4 creates lag1 at t+6; those two times
+  are not interchanged. A repair begun at t-4 ends at t+2, so the new
+  lag-one row is four physical steps after its endpoint.
+* The explicit full-core return G(z)=16A^4z+7 follows from c2=1 and
+  the paired bridge. Its code is I3 I1 shift^4 Theta(z), with that order
+  and initial phase. The note restricts its cyclicity and u gate to the
+  actual FULL source domain; it does not claim these for every N core.
+* The six-step delay profile follows from two correct cyclic births and
+  the final beta. The new beta=1 source has gate t by actual no-uu;
+  hence its core is resetting. A cyclic source with beta=0 also cannot
+  be N at its even center1. This excludes all three intermediate even
+  N possibilities without a new strip assumption.
+* Each intermediate odd N would be a zero first-right trace of a cyclic
+  or one-bit preceding even row. The latter trace flips at b0=2; the
+  former would require the whole core alphabet{0,3}, incompatible with
+  its actual gate symbol. The first odd time directly follows the
+  nonresetting lift and also visits both bits. All seven times are
+  covered. The spacing bound is a necessary separation, not a positive
+  density or a bound on the total number of future events.
+
+Disposition: accept these conditional identities at `partial-proof` scope.
+Forced regeneration is not an infinite FULL countermodel, and the remaining
+one-bit beta still uses the complete driver.
+
+The fixed checker compares eight shadow cones using shrinking trusted
+cell intervals and independent packed physical updates. A hand two-step
+cone and eight rule values precede all checks. There is no omitted input
+at the tested boundary: the second outputs occupy positions0 through2,
+whose backward cones fit exactly inside the initial positions-2 through4.
+
+Three direct executions passed the algebra but failed the final resource
+assertion before writing a result. The first failure lacked its metric;
+after adding diagnostic messages the next two reported respectively
+161042432 and161087488 bytes from ru_maxrss, with runtimes below0.0004s.
+The final diagnostic simultaneously reported VmHWM=20008 KiB and
+VmPeak=33912 KiB for the current Python image. A separate small-process
+probe was used only to diagnose the measurement, not as a research run.
+
+The [Linux getrusage documentation](https://man7.org/linux/man-pages/man2/getrusage.2.html)
+states that usage metrics survive execve. The
+[process-status documentation](https://man7.org/linux/man-pages/man5/proc_pid_status.5.html)
+identifies VmHWM and VmPeak. These observations locate the cap failure in
+the retained launching-process peak, rather than in the small checker
+image. The fresh-child command recorded in the proof and JSON passed the
+SAME 10-second/128-MiB caps, without changing the cap or the peak metric.
+No failed execution produced an atomic success record. Diagnostic text was
+retained in the checker so any future cap failure identifies its metrics.
+
+The final atomic record is
+`results/problem1/20260907_round307_nonreset_return.json`. Its six source
+hashes and canonical payload hash were independently audited after the
+final source edit. This supplies finite-exhaustive status only for the
+eight declared cones; the gate, cyclicity, regeneration, and all-period
+spacing deductions remain mathematical with missing external review.

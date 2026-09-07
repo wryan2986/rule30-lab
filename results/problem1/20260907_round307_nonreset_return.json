@@ -1,0 +1,512 @@
+{
+  "experiment_id": "round307-fixed-nonreset-return-shadow-cone",
+  "timestamp_utc": "2026-09-07T12:42:38Z",
+  "git_commit": "8265ddc19593af3d2f5334c8004e1ddbd5d0478c",
+  "question": "problem1",
+  "hypothesis": "For the eight declared u,a,b assignments the shadow cone has centers 0,0,1 and second right pair (1,u*(a OR b)).",
+  "backend": "Python-hand-rule-cells/independent-packed-physical-Rule30",
+  "parameters": {
+    "u": [
+      0,
+      1
+    ],
+    "a": [
+      0,
+      1
+    ],
+    "b": [
+      0,
+      1
+    ],
+    "initial_positions": [
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "initial_values": [
+      "u",
+      "u",
+      0,
+      "u",
+      1,
+      "a",
+      "b"
+    ],
+    "physical_steps": 2,
+    "trusted_positions_at_steps": [
+      [
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        -1,
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "packed_bit_order": "increasing physical position; position -2 is bit0",
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 131072
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 20377600
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3",
+    "reproduction_argv": [
+      "python3",
+      "-c",
+      "import subprocess,sys; subprocess.run([sys.executable, 'experiments/problem1_nonperiodicity/check_round307_nonreset_return.py'], check=True)"
+    ],
+    "launch_note": "Validated in a fresh Python child; getrusage history is preserved across execve.",
+    "launch_scope_reference": "https://man7.org/linux/man-pages/man2/getrusage.2.html"
+  },
+  "runtime_seconds": 0.0003159149782732129,
+  "runtime_scope": "Main entry through checks, excluding provenance serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "4e3778a22fb22e5331c9bd90e19d4c90eb99bc102c71736eca1a6c326000e67f"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round307_nonreset_return.py": "5b0552a2ed5c9db5f99325586505ec4f823462a67963ff8f978007ba697835b9",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "experiments/problem1_nonperiodicity/check_round307_exit_phase.py": "e4cad4976beb4f26dd853bf5df44d8b14b5ce7eb6378f1cca33088bba79fdcb0",
+    "proofs/informal/problem1_nonreset_return_birth_spacing.md": "4aed14b4d83576c1b7c4c63f7e09d4862b70506fb624b552aaaea4c606c57b05",
+    "proofs/informal/problem1_nonresetting_core_returns.md": "cc78420652862f4351f8d74119d7c17be52fb4c2649064ef662efb3dc61fd73e",
+    "proofs/informal/problem1_shadow_gate_birth_phase.md": "351459a904eda4d8e130193ed7c81ea41ee2275801661e5df9fa7bde479b4fa3"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "hand_rule_values": 8,
+    "hand_cone_steps": 2,
+    "fixed_cone_assignments": 8,
+    "caps_passed": true
+  },
+  "status": "finite-exhaustive",
+  "interpretation": "The selected-source shadow transport identity passes; cyclicity, future gates, birth timing and clock spacing are separate conditional deductions.",
+  "proof_scope": "Eight seven-cell inputs, each for two steps on its shrinking trusted cone, after one hand cone.",
+  "limitations": [
+    "Local inputs are not asserted to be global E shadows or FULL realizations.",
+    "No new source, driver word, gate prefix or clock tree searched.",
+    "No numerical test of an eventual strip bound or infinite induction.",
+    "No finite original-support bound on the continuing births.",
+    "External adversarial review is missing."
+  ],
+  "payload": {
+    "hand_cone": [
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    "cases": [
+      {
+        "u": 0,
+        "a": 0,
+        "b": 0,
+        "initial_values_minus2_through4": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          0
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "u": 0,
+        "a": 0,
+        "b": 1,
+        "initial_values_minus2_through4": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          0
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "u": 0,
+        "a": 1,
+        "b": 0,
+        "initial_values_minus2_through4": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          0
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "u": 0,
+        "a": 1,
+        "b": 1,
+        "initial_values_minus2_through4": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          0
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "u": 1,
+        "a": 0,
+        "b": 0,
+        "initial_values_minus2_through4": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          0
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "u": 1,
+        "a": 0,
+        "b": 1,
+        "initial_values_minus2_through4": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          1
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "u": 1,
+        "a": 1,
+        "b": 0,
+        "initial_values_minus2_through4": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          1
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "u": 1,
+        "a": 1,
+        "b": 1,
+        "initial_values_minus2_through4": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "centers": [
+          0,
+          0,
+          1
+        ],
+        "second_right_pair": [
+          1,
+          1
+        ],
+        "rows_on_shrinking_trusted_cones": [
+          [
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ]
+        ]
+      }
+    ]
+  }
+}
