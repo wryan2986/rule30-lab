@@ -1,0 +1,625 @@
+{
+  "experiment_id": "round305-fixed-shadow-gate-birth-and-phase-identities",
+  "timestamp_utc": "2026-09-07T10:28:23Z",
+  "git_commit": "cea82fcc0843183e3d4be3207fa8519fd1f42eb9",
+  "question": "problem1",
+  "hypothesis": "The scan zero-indicator quotient, four-bit flag update and actual/shadow gate birth formula agree with independent exact updates on the declared controls.",
+  "backend": "Python-finite-Boolean-identities/full-physical-cells/packed-original-cuts",
+  "parameters": {
+    "scan_letters": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "scan_states": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "right_words": "all16 four-bit words for the Boolean identity only",
+    "physical_controls": [
+      {
+        "source": 27,
+        "right_pair": [
+          1,
+          0
+        ],
+        "remaining_right_tail": "zero"
+      },
+      {
+        "source": 55,
+        "right_pair": [
+          0,
+          0
+        ],
+        "remaining_right_tail": "zero"
+      }
+    ],
+    "physical_steps": 3,
+    "cycle_step_cap": 16,
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 131072
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 116563968
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.0005421590758487582,
+  "runtime_scope": "Main entry through all fixed checks; excludes final provenance and atomic serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "2ecd7e6725dd610e871921297d3799f7a05daa36ac9fefb5da53c945aad5a9b8"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round305_shadow_gate.py": "4ab656142f385345c155916f5a32fe800d30e253eb49099632c48d14b6eb78c0",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "proofs/informal/problem1_shadow_gate_birth_phase.md": "351459a904eda4d8e130193ed7c81ea41ee2275801661e5df9fa7bde479b4fa3",
+    "proofs/informal/problem1_global_cycle_shadow.md": "34b7fba122bb6d74d60492931317937bd355ab345d722eb14ae1e296e68a003f",
+    "proofs/informal/problem1_inverse_scan_reset_language.md": "7b6848922bacb79ee8630fb36b98b4e7397992cb5e36ee80c7e18e37538b55f5"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "quotient_cases": 16,
+    "forward_flag_cases": 16,
+    "physical_controls": 2,
+    "closed_certificates": 8,
+    "caps_passed": true
+  },
+  "interpretation": "The fixed checks support the exact specified shadow observable. They do not close its future evolution from the two flags.",
+  "status": "finite-exhaustive",
+  "proof_scope": "Exactly32 Boolean identity cases, two fixed three-step physical controls and their listed closed cycle certificates.",
+  "limitations": [
+    "No infinite FULL continuation of either finite control is claimed.",
+    "No source, period, neighborhood-discovery or prefix search.",
+    "Arbitrary four-bit identity cases are not claimed to be admissible shadow states.",
+    "No autonomous phase update, finite birth budget or all-depth machine proof.",
+    "Fresh external review is missing."
+  ],
+  "payload": {
+    "quotient_checks": [
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        3,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        2,
+        0
+      ],
+      [
+        1,
+        3,
+        0
+      ],
+      [
+        2,
+        0,
+        0
+      ],
+      [
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        2,
+        0
+      ],
+      [
+        2,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        0
+      ],
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        3,
+        2,
+        1
+      ],
+      [
+        3,
+        3,
+        1
+      ]
+    ],
+    "forward_checks": [
+      {
+        "right_bits": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "next_pair": [
+          0,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "next_pair": [
+          1,
+          0
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "next_pair": [
+          0,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          0,
+          1,
+          1,
+          0
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "next_pair": [
+          0,
+          0
+        ],
+        "next_zero_flag": 1
+      },
+      {
+        "right_bits": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "next_pair": [
+          1,
+          0
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          0,
+          0,
+          1
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "next_pair": [
+          0,
+          0
+        ],
+        "next_zero_flag": 1
+      },
+      {
+        "right_bits": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "next_pair": [
+          1,
+          0
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          0,
+          1,
+          1
+        ],
+        "next_pair": [
+          0,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "next_pair": [
+          1,
+          1
+        ],
+        "next_zero_flag": 0
+      },
+      {
+        "right_bits": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "next_pair": [
+          0,
+          0
+        ],
+        "next_zero_flag": 1
+      }
+    ],
+    "controls": [
+      {
+        "source": 27,
+        "right_pair": [
+          1,
+          0
+        ],
+        "right_tail_after_position2": "identically zero",
+        "physical_rows": [
+          [
+            -4,
+            -3,
+            -1,
+            0,
+            1
+          ],
+          [
+            -5,
+            -4,
+            -1,
+            2
+          ],
+          [
+            -6,
+            -5,
+            -3,
+            -2,
+            -1,
+            0,
+            1,
+            2,
+            3
+          ],
+          [
+            -7,
+            -6,
+            -3,
+            4
+          ]
+        ],
+        "center_and_left_rows": [
+          27,
+          50,
+          111,
+          200
+        ],
+        "shadow_cut2": 111,
+        "actual_flag": 0,
+        "shadow_flag": 0,
+        "last_reset_offset": -1,
+        "suffix_parity": 0,
+        "birth": 0
+      },
+      {
+        "source": 55,
+        "right_pair": [
+          0,
+          0
+        ],
+        "right_tail_after_position2": "identically zero",
+        "physical_rows": [
+          [
+            -5,
+            -4,
+            -2,
+            -1,
+            0
+          ],
+          [
+            -6,
+            -5,
+            -2,
+            1
+          ],
+          [
+            -7,
+            -6,
+            -4,
+            -3,
+            -2,
+            -1,
+            0,
+            1,
+            2
+          ],
+          [
+            -8,
+            -7,
+            -4,
+            3
+          ]
+        ],
+        "center_and_left_rows": [
+          55,
+          100,
+          223,
+          400
+        ],
+        "shadow_cut2": 222,
+        "actual_flag": 1,
+        "shadow_flag": 0,
+        "last_reset_offset": -1,
+        "suffix_parity": 0,
+        "birth": 1
+      }
+    ],
+    "cycles": [
+      {
+        "seed": 27,
+        "rows": [
+          27,
+          25
+        ],
+        "tau": 0,
+        "period": 2,
+        "cyc": 27
+      },
+      {
+        "seed": 50,
+        "rows": [
+          50,
+          55
+        ],
+        "tau": 0,
+        "period": 2,
+        "cyc": 50
+      },
+      {
+        "seed": 111,
+        "rows": [
+          111,
+          100
+        ],
+        "tau": 0,
+        "period": 2,
+        "cyc": 111
+      },
+      {
+        "seed": 110,
+        "rows": [
+          110,
+          100,
+          111
+        ],
+        "tau": 1,
+        "period": 2,
+        "cyc": 111
+      },
+      {
+        "seed": 55,
+        "rows": [
+          55,
+          50
+        ],
+        "tau": 0,
+        "period": 2,
+        "cyc": 55
+      },
+      {
+        "seed": 100,
+        "rows": [
+          100,
+          111
+        ],
+        "tau": 0,
+        "period": 2,
+        "cyc": 100
+      },
+      {
+        "seed": 223,
+        "rows": [
+          223,
+          200,
+          222
+        ],
+        "tau": 1,
+        "period": 2,
+        "cyc": 222
+      },
+      {
+        "seed": 220,
+        "rows": [
+          220,
+          201,
+          223,
+          200,
+          222
+        ],
+        "tau": 3,
+        "period": 2,
+        "cyc": 222
+      }
+    ],
+    "hand_edges": [
+      [
+        27,
+        25
+      ],
+      [
+        25,
+        27
+      ],
+      [
+        55,
+        50
+      ],
+      [
+        50,
+        55
+      ],
+      [
+        100,
+        111
+      ],
+      [
+        111,
+        100
+      ],
+      [
+        110,
+        100
+      ],
+      [
+        220,
+        201
+      ],
+      [
+        201,
+        223
+      ],
+      [
+        223,
+        200
+      ],
+      [
+        200,
+        222
+      ],
+      [
+        222,
+        200
+      ]
+    ]
+  }
+}

@@ -125,3 +125,80 @@ residence/injection correspondence and full-driver parity identity. This
 does not prove a finite occupation budget, finite ancestor supply, bounded
 reuse, a FULL exclusion, or an autonomous update at a front reset. No new
 experiment was needed for these algebraic and counting arguments.
+
+## 5. Shadow-gate birth and backward periodic phase
+
+Lead-only review of `problem1_shadow_gate_birth_phase.md`:
+
+1. Cyclicity at the even source makes EVERY center-and-left discrepancy
+   vanish. The common center1 shields the time-one center; the time-two
+   center reads the right discrepancy because both odd centers are0.
+   All further-left positions still agree. FULL through the following odd
+   center gives the common left neighbor1 needed for EXACT delay1 if the
+   time-two center differs. This proves the birth law directly in U.
+2. The actual gate flag follows from r_1(t+1)=1 XOR OR(right pair) and
+   the next actual center1. The restriction b_1 in{1,2} is imported from
+   the permitted/FULL condition, not inferred from two centers alone.
+3. The shadow cut at position2 is the phase-correct pair-lift of x. Since
+   its periodic driver contains3 and1 or2, the lift is uniquely recurrent.
+   The zero-indicator quotient has maps identity,constant0,constant0,flip.
+   A last1/2 exists before phase0 because b_1 recurs at1-p<0. The parity
+   interval starts AFTER that resetting letter and ends at-1 inclusive.
+4. Phase-offset audit of the second derivation: for unshifted pure lift w,
+   the cyclic response to shift^2 b is c_s=w_(s+2). Immediately before
+   the wraparound letters b_0,b_1 its state is w_p=w_0. Its zero flag is
+   therefore exactly the backward parity, and the last two H maps select
+   the paired core2 or3 as claimed. Negative indices are pure-code phases,
+   never presumed actual negative physical times.
+5. Solving the two-step shadow-pair zero equations gives A=B=C=0, then
+   a=b=1 and c OR d=1. The forward formula uses only the common source
+   center inputs1,0. It remains valid for a transition creating a birth,
+   but cannot be reused at the noncyclic successor with a forced shadow
+   center. The wider driver and this boundary-phase fence are explicit.
+
+Fixed verification passed32 new Boolean identity cases, two named physical
+controls and8 closed certificates. Both complete physical cell evolution
+and the packed original-cut bridge agree through three steps on each fixed
+fringe. The controls are finite local realizations, not infinite FULL
+examples. The actual/shadow phase parity is0 in each of those two controls;
+the general parity formula is justified by the all-state quotient and the
+mathematical argument, not claimed exhaustively tested on all periods.
+No source collection or larger prefix was run.
+
+Disposition: accept `partial-proof` for the exact birth observable, phase
+interpretation and full-fringe forward identity; `finite-exhaustive` only
+for the declared checks. No autonomous two-flag update or finite birth
+budget is proved. External review of this note is missing.
+
+## 6. Exact one-bit-strip exit
+
+Lead-only review of `problem1_one_bit_shadow_exit.md`:
+
+At an even source satisfying the one-bit spatial strip, the common left
+neighbor1 shields every negative cell for one step. The odd discrepancy is
+epsilon=0 for ell=0 and1 XOR h for ell=1. The actual odd right/left pair
+is(u,1 XOR u), respectively. Thus the following left discrepancy is u*epsilon
+and the center discrepancy is u XOR(epsilon OR h_right_odd). Substitution
+gives every row of the table with no future strip bound assumed.
+
+In the bad lag-one u branch, the center at the next even time AGREES but
+the left neighbor differs. Calling that a cycle return would be a fatal
+error; the note explicitly calls it an exit. At the intervening odd time
+only the center differs and its common left neighbor is0, so one A step
+still differs from the cyclic shadow and the least delay is at least2.
+This delay argument uses the genuine global E premise.
+
+The32 finite cone checks validate the local identities only. Their second
+row is NOT presumed to be E of the first. The source left cells enforce
+four local alternating centers, which do not establish infinite FULL.
+Every negative output asserted to agree was checked; the next left and
+center differences match the four-branch formula independently of the
+physical cell implementation. No least-cycle-delay theorem was inferred
+from those arbitrary test pairs.
+
+The all-time odd compatibility condition is necessary and sufficient for
+negative-half agreement on the GIVEN actual/shadow U orbits, by induction.
+It does not construct or close those orbits from freely assigned fringe
+flags, nor discharge finite support of the reconstructed initial left half.
+Disposition: accept the scoped `partial-proof` and the32-case
+`finite-exhaustive` record. External review remains missing.
