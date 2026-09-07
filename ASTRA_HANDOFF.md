@@ -37,8 +37,9 @@ phase-correct cycle representative, not an arbitrary first cycle state.
 It commutes with A and spatial deletion pi. For finite-entry y, cyc(y)
 is finite; this does NOT make y initially finite.
 
-Let kappa(y)=min{n:pi^n y is A-periodic}, possibly infinity. It equals
-the number of low spatial pairs containing any disagreement from cyc(y).
+Let kappa(y)=min{n:pi^n y is A-periodic}, possibly infinity. It is the
+least number of low spatial pairs whose union contains ALL disagreements
+from cyc(y).
 For ONE infinite permitted orbit X_m=F^m x,
 
     kappa(X_(m+n))>n iff tau(X_m)>2n, all m,n>=0.
@@ -178,6 +179,26 @@ Round audit: `results/problem1/20260907_round9_audit.json`.
 Builder: `experiments/problem1_nonperiodicity/audit_astra_round9.py`.
 One new fixed-word computation, one necessary same-input verification
 correction, and archival integrity work; no sweep or new scientific backend.
+
+## Final checkpoint and restart fence
+
+Established unit dfe741b0e6eb6855ec3c135b2212fab8df64109d is committed and
+pushed. A separate read-only check against that Git tree confirmed every
+current proof/review/checker/handoff snapshot, all seven dependency hashes,
+and self-contained recovery of the superseded checker from the archive.
+The remote branch matched that full commit. The maintenance commit records
+this handoff and final elapsed-time audit; no new mathematics or scientific
+input was introduced after the established unit.
+
+Do not redo this round's transport, one-bit scan classification, highest-bit
+waiting formula, physical-source lateness proof, conditional222 construction,
+or the failed k3 test. No larger prefix, period, lag, source, denominator,
+cycle-width or fixed-width graph campaign is admitted. The next proof must
+control the actual higher driver at the highest disagreement for ONE fixed
+FULL orbit. The projected waiting time can be smaller than the whole-row
+delay, and cyclicity of the whole doubling source is now explicitly ruled
+out under FULL. Problems1 periods>=3 and the older B_all/signed directions
+retain their prior statuses; no parameter work was done or reopened.
 
 Unrelated supervisor files, ASTRA_GOAL.md, .worktrees and old untracked
 results remain untouched. Immutable reference SHA256:
