@@ -1,4 +1,4 @@
-# Astra handoff: round 7 core checkpoint, 2026-09-07
+# Astra handoff: round 7 doubling checkpoint, 2026-09-07
 
 Problem 1 remains OPEN. Research continues in the SAME round on
 `research/astra-next`; this is a logical-unit checkpoint, not completion.
@@ -19,7 +19,8 @@ Read new notes in proofs/informal:
 
 1. `problem1_inverse_scan_reset_language.md`.
 2. `problem1_scan_cycle_entry_obstruction.md`.
-3. `problem1_inverse_scan_reset_language_review.md`, with Sec8 withdrawing
+3. `problem1_scan_doubling_cycle_lag.md` and its scoped review.
+4. `problem1_inverse_scan_reset_language_review.md`, with Sec8 withdrawing
    the reviewer's false generic-shadow objection.
 
 The original full-fringe/anchored formulas and all older stopping fences
@@ -75,6 +76,43 @@ Contradiction. NO Kopra/literature dependency is needed for this proof.
 This condition also applies to every infinite PERMITTED F orbit with
 finite entry; it is not an actual-fringe-only discriminator.
 
+## Clock doublings force specific late source diagonals (`partial-proof`)
+
+For a FIXED nonzero finite-entry x and finite initial fringe ending at J,
+write y=W_J, Y=T^h y. Then Y is finite positive, including when A^h x=0,
+and for m>=J+h,
+
+    A^h W_m=4^(m-J-h)Y.
+
+Its positive finite width grows by2 per scan. Finite A-cycle states of
+period<=P form a finite union of finite Theta-code sets, so p_m tends to
+infinity. Explicitly a finite cycle of widthL and periodp obeys
+ceil(L/2)<=4^p-1: its nonzero Phi-deletion words before the first zero
+are all distinct. No code/cycle list was computed.
+
+Under FULL, original B_m symbols at2m,2m+1,2m+2 are respectively3,
+1/2,1/2. The last statement uses the NEXT permitted gate and
+C_(m+1)=I3 shift^2 C_m. At a doubling source m:
+
+- tail{0,2}: tau_A(W_m)>2m;
+- tail{0,3}: tau_A(W_m)>2m+2 (lag at leastTHREE), and the successor
+  is late as well because its tail lies in{0,1}.
+
+Thus EVERY doubling has its own late SOURCE diagonal, and
+
+    #{0<=m<N:tau_A(W_m)>2m} >= log_2(p_N/p_0) -> infinity.
+
+This is a count of late depths, NOT unbounded lag heights, positive
+frequency, or original anchored activity. The same mechanism applies to
+the larger infinite-permitted-F class (count positive current-row
+preperiods there; do not use the original W_m/2m threshold on F states).
+
+Further exact local lemma: ifx is A-periodic and permitted, F(x) keeps
+its period and has least A-preperiod0 or1. Exactly ONE of
+4 A^2 x+2 and4 A^2 x+3 is periodic; the other has preperiod1. The
+period return map has image{2,3} and identifies2/3 at its first letter.
+The fixed55 example below realizes the one-step defect, not core invariance.
+
 ## Two tempting local cycle-entry shortcuts are refuted
 
 Hand certificate (no machine run): x55 is on the A-cycle55<->50 and
@@ -110,8 +148,11 @@ It authenticates current reviewed sources, exact rejected initial review,
 dependencies, fullGit, timings, software/hardware, immutable reference and
 incoming handoff. No new scientific program, search, vector set or run.
 
-The next local unit is to account for clock doublings against actual
-late-cycle-entry depths, using unbounded cycle width for a fixed nonzero
-finite-entry input and the exact reset alternatives. No count/prefix
-census is admitted. Muse remains available for that separate review;
-this core checkpoint is not a final maintenance rollover.
+Established core checkpoint aa919d6 is pushed. The next missing step is
+an ACTUAL full-boundary obstruction to the infinitely required transient
+passages at {0,2}/{0,3} clock doublings. The generic permitted gates allow
+the local one-step cycle defect, so their mere existence supplies no
+contradiction. Neither universal eventual entry by2m, unbounded lag
+heights, nor exclusion of eventual restricted temporal alphabets is proved.
+No count/prefix census is admitted. Muse remains available for a fresh
+final cross-file audit; this is not yet the final maintenance rollover.
