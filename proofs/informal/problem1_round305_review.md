@@ -56,3 +56,25 @@ controls, not a source census or machine proof of the imported lift theorem.
 Disposition: accept `refuted` for exactly the stated general update;
 accept `finite-exhaustive` for exactly the declared checks. No FULL bound,
 all-depth exclusion, or independent-external-review claim is assigned.
+
+## 3. Sharp width-delay bound
+
+Audited claim: tau(y)<=bitlen(y)-1 for every positive finite y is false.
+The frozen pre-run admission is `problem1_width_delay_bound_test.md`;
+the outcome is `problem1_width_delay_bound_obstruction.md`.
+
+The complete144 certificate has ten distinct rows before its first repeat:
+eight transient rows followed by200/222. This proves exact delay8, width8,
+period2 and phase-correct core200. The five new prefix edges have an
+explicit arithmetic table; the suffix agrees with the earlier220 control.
+Both independent orbit implementations agree on each checked input1..144.
+The search stops at144 rather than increasing the bound or fitting a new
+constant. The record's `finite-exhaustive` status is confined to that
+declared interval; the all-depth proposed inequality is `refuted` by144.
+
+The bridge to a physical orbit is checked at EXACTLY one time:
+144=2^4*9 and A^4(144)=205 with delay4. The original right fringe is zero
+and unchanged, but seed9 is not FULL (its first two centers are1,1).
+This finite event cannot refute an eventual or a FULL-conditioned bound.
+Nor does it refute every width-plus-constant estimate. Those fences are
+load-bearing. External review is missing; this is a lead audit only.

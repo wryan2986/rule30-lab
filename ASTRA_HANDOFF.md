@@ -38,6 +38,25 @@ Fresh external review remains missing. Next: retain the whole transient
 in a proposed crossing transport, or justify an extra FULL-only constraint;
 do not refit this failed general summary with more local observations.
 
+## Round305: sharp full-width delay bound refuted
+
+The distinct structural proposal tau(y)<=bitlen(y)-1 for all finite y>0
+is `refuted` by144: its width is8 and its exact delay is8, with orbit
+144,252,193,209,205,220,201,223,200,222,200. Core200, period2.
+The frozen admission is `proofs/informal/problem1_width_delay_bound_test.md`;
+outcome is `proofs/informal/problem1_width_delay_bound_obstruction.md`.
+Had the bound held, the original-cut bridge would give tau(Y_t)<=L-1 for
+one fixed finite row of original left extent L. It fails even at time4
+of seed9 with the SAME zero right half: Y_4=205 has delay4 while L-1=3.
+Seed9 is not FULL. No eventual bound or width-plus-constant bound is refuted.
+
+Checker `experiments/problem1_nonperiodicity/check_round305_width_delay.py`
+and atomic record `results/problem1/20260907_round305_width_delay.json`:
+independent packed/cell orbits agree on1..144; stopped at first violation,
+before its predeclared4095 cap. No fitted intercept or larger range.
+Do not sample shifted144 or9 to estimate a rate. A general unbounded-excess
+family is unproved; this sharp bound's falsification is complete.
+
 ## Preserved round304 frontier (still authoritative except for that update)
 
 ## Exact bottleneck and next attack

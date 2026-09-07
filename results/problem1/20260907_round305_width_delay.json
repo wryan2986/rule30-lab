@@ -1,0 +1,124 @@
+{
+  "experiment_id": "round305-width-minus-one-delay-bound-falsification",
+  "timestamp_utc": "2026-09-07T09:59:45Z",
+  "git_commit": "477922ee233d9638b1e772141f6ce0a9c23f4a37",
+  "question": "problem1",
+  "hypothesis": "Every positive finite y has least A-preperiod at most bitlen(y)-1.",
+  "backend": "Python-independent-packed-and-Boolean-cell-orbits",
+  "parameters": {
+    "first_input": 1,
+    "maximum_input": 4095,
+    "order": "increasing numeric",
+    "stop": "first violation or maximum input",
+    "cpu_workers": 1,
+    "orbit_step_cap": 4096,
+    "wall_cap_seconds": 30,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 262144
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 94134272
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.004506513010710478,
+  "runtime_scope": "Main entry through scientific checks; excludes final provenance and atomic serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "71623701fb37b4317d61cd8b2a3cb0c39d359e2b65ea2d7d54fe2e292f0c6a69",
+    "ordered_check_transcript_sha256": "5cc96d6979088999bd4de3557c180caca5bc1ee39ba33ff606d54f2385e69476"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round305_width_delay.py": "8ac986966148f8be34a2f9ae26df6154a8d3cda908af8fb53a0699a02f1a802f",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "proofs/informal/problem1_width_delay_bound_test.md": "6b5b1bdeab3a97e6d29af9de7c782341ca35d8e76968df8fae2d2ac9d1ac676c",
+    "proofs/informal/problem1_cycle_completion_defect_transport.md": "f3beba062dc2a28339bea0ded4528bfd777c9f16413184d1101bb1bba1b7c4a4"
+  },
+  "result_summary": {
+    "all_implementations_agree": true,
+    "checked_inputs": 144,
+    "bound_refuted": true,
+    "witness": 144,
+    "caps_passed": true
+  },
+  "interpretation": "A verified counterexample refutes the precise universal bound; absence within the cap would leave the all-depth claim open.",
+  "status": "finite-exhaustive",
+  "proof_scope": "The contiguous finite interval actually checked and the complete closed witness certificate if one is found.",
+  "limitations": [
+    "Not a test or refutation of every possible width-dependent bound.",
+    "No shift-tower rate, physical FULL orbit or general bounded-strip theorem.",
+    "No refitted constant or extension of the search cap.",
+    "External review is missing."
+  ],
+  "payload": {
+    "hand_edges": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        7,
+        6
+      ]
+    ],
+    "checked_interval": [
+      1,
+      144
+    ],
+    "compared_orbit_edges": 758,
+    "witness": {
+      "source": 144,
+      "width": 8,
+      "tau": 8,
+      "period": 2,
+      "cyc": 200,
+      "rows": [
+        144,
+        252,
+        193,
+        209,
+        205,
+        220,
+        201,
+        223,
+        200,
+        222
+      ],
+      "closing_edge": [
+        222,
+        200
+      ],
+      "excess_over_width_minus_one": 1
+    },
+    "ordered_check_transcript_sha256": "5cc96d6979088999bd4de3557c180caca5bc1ee39ba33ff606d54f2385e69476"
+  }
+}
