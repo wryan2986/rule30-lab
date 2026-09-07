@@ -67,8 +67,8 @@ ROLLOVER_SOFT_WARN=100000        # 100k: ask Astra to begin wrapping up
 ROLLOVER_MANDATORY=120000         # 120k: mandatory rollover request
 ROLLOVER_HARD_INTERRUPT=135000    # 135k: SIGINT to current round
 ROLLOVER_EMERGENCY_KILL=150000    # 150k: emergency kill current round
-ROLLOVER_GRACE_PERIOD=360         # 6 min grace after rollover request before hard interrupt
-ROLLOVER_EMERGENCY_GRACE=180      # 3 min grace after hard interrupt before emergency kill
+ROLLOVER_GRACE_PERIOD=120         # 2 min after mandatory SIGINT before SIGKILL
+ROLLOVER_EMERGENCY_GRACE=90          # 90s after hard SIGINT before emergency kill
 ROLLOVER_POLL=15                  # check context every 15 seconds
 ROLLOVER_STATEFILE="${TMPDIR_ASTRA}/rollover_state"
 ROLLOVER_LOG="${REPO}/astra-rollover.log"
@@ -658,11 +658,14 @@ PROMPT_EOF
           [ "${HARD_ELAPSED}" -lt "${ROLLOVER_GRACE_PERIOD}" ] && HARD_GRACE_OK=false
         fi
         if [ "${HARD_GRACE_OK}" = "true" ]; then
-          rollog "Round ${ROUND} ROLLOVER_CTX ${ROLLOVER_CTX}: HARD INTERRUPT - SIGINT"
+          rollog "Round ${ROUND} ROLLOVER_CTX ${ROLLOVER_CTX}: HARD INTERRUPT - SIGKILL"
           set_rollover_state "HARD_INTERRUPT"
           set_rollover_field "hard_sent" "1"
           set_rollover_field "hard_ts" "${ROLLOVER_NOW}"
-          send_ctrl_c_to_round "${ROLLOVER_ROUND_WINDOW}"
+          ROLLOVER_CODEX_PID=$(get_round_codex_pid "$(pgrep -f run_astra_supervisor.sh | head -1)")
+          if [ -n "${ROLLOVER_CODEX_PID}" ]; then
+            kill -9 "${ROLLOVER_CODEX_PID}" 2>/dev/null || true
+          fi
         fi
       fi
     fi
@@ -674,7 +677,7 @@ PROMPT_EOF
         set_rollover_state "ROLLOVER_REQUESTED"
         set_rollover_field "mandatory_sent" "1"
         set_rollover_field "mandatory_ts" "${ROLLOVER_NOW}"
-        send_to_round "${ROLLOVER_ROUND_WINDOW}" "STOP RESEARCHING. Context threshold reached. Immediately update ASTRA_HANDOFF.md, commit/push established work, then exit this round."
+        kill -9 "${ROLLOVER_CODEX_PID}" 2>/dev/null || true
       fi
     fi
 
@@ -684,7 +687,7 @@ PROMPT_EOF
         rollog "Round ${ROUND} ROLLOVER_CTX ${ROLLOVER_CTX}: soft wrap request"
         set_rollover_state "WRAP_REQUESTED"
         set_rollover_field "warn_sent" "1"
-        send_to_round "${ROLLOVER_ROUND_WINDOW}" "Context approaching rollover. Finish current logical unit and prepare to checkpoint."
+        # NOTE: send_to_round ineffective - codex exec reads from file redirect, not terminal
       fi
     fi
 
