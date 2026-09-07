@@ -1,9 +1,11 @@
-# Astra handoff: round 7 doubling checkpoint, 2026-09-07
+# Astra handoff: round 7 maintenance checkpoint, 2026-09-07
 
-Problem 1 remains OPEN. Research continues in the SAME round on
-`research/astra-next`; this is a logical-unit checkpoint, not completion.
+Problem 1 remains OPEN. This is time-maintenance rollover, not goal
+achieved, research blocked, or research exhaustion. Research continues on
+`research/astra-next` across the next supervisor round.
 Round seven began 2026-09-06 at 23:32:42 UTC. The user requested about
 70 minutes, overriding the goal file's earlier 50–60 minute default.
+The final atomic audit records checkpoint time and total elapsed seconds.
 Read ASTRA_GOAL.md first. Incoming round-six handoff preserved byte for
 byte in `docs/astra_handoff_archive_20260907_round7.md`.
 
@@ -110,7 +112,7 @@ preperiods there; do not use the original W_m/2m threshold on F states).
 Further exact local lemma: ifx is A-periodic and permitted, F(x) keeps
 its period and has least A-preperiod0 or1. Exactly ONE of
 4 A^2 x+2 and4 A^2 x+3 is periodic; the other has preperiod1. The
-period return map has image{2,3} and identifies2/3 at its first letter.
+period return map has image contained in{2,3} and identifies2/3 at its first letter.
 The fixed55 example below realizes the one-step defect, not core invariance.
 
 ## Two tempting local cycle-entry shortcuts are refuted
@@ -142,7 +144,7 @@ The equivalences were NOT weakened. The first sidecar's comparison of
 2m with an UPPER transient bound was also rejected, and its missing entry
 height and W=0 edge case corrected. No provider429 or fallback occurred.
 
-Core atomic provenance: `results/problem1/20260907_round7_audit.json`,
+Atomic round provenance: `results/problem1/20260907_round7_audit.json`,
 builder `experiments/problem1_nonperiodicity/audit_astra_round7.py`.
 It authenticates current reviewed sources, exact rejected initial review,
 dependencies, fullGit, timings, software/hardware, immutable reference and
@@ -154,5 +156,45 @@ passages at {0,2}/{0,3} clock doublings. The generic permitted gates allow
 the local one-step cycle defect, so their mere existence supplies no
 contradiction. Neither universal eventual entry by2m, unbounded lag
 heights, nor exclusion of eventual restricted temporal alphabets is proved.
-No count/prefix census is admitted. Muse remains available for a fresh
-final cross-file audit; this is not yet the final maintenance rollover.
+No count/prefix census is admitted. Second established checkpoint04954ef
+is pushed; the later maintenance commit is in Git history.
+
+## Final review and restart point
+
+The primary Muse worker was closed after its corrected scoped reviews.
+A SECOND Muse worker started in a fresh context for final adversarial
+review: thread01a07942-51c5-7812-8916-5235d1244eea, same mandated model.
+Fresh review: `proofs/informal/problem1_round7_final_review.md`; all
+three sources accepted at their stated partial-proof/refuted scopes after
+independent hand derivation, with no prior review verdicts consulted.
+The lead independently rechecked the full claims and accepted the review.
+Both workers are CLOSED; no pending review or worker remains. The final
+handoff audit also corrected the return-image shorthand to CONTAINED in
+{2,3}, consistent with the source's subset claim (not equality).
+The audit builder distinguishes the two review roles and retains the
+fresh review's exact window, 00:26:31–00:30:00 UTC, plus dated metadata
+followups. All computation this round is archival integrity work;
+mathematical tables, the fixed55 certificate, and infinite continuations
+were derived by hand and independently reviewed. No numerical search
+or scientific simulation ran. Repository-only recovery of the rejected
+initial review is tested with /tmp history disabled before the final push.
+
+Restart from the actual compatibility gap, using the exact necessary
+doubling passages. The first route in this round (generic eventual-period
+bounds) alone was insufficient; its overclaimed no-go was rejected. The
+second route (exact reset words) gave the source-gate delay mechanism. A
+local cycle-entry induction was falsified by55. All-depth control of the
+required transient passages at the ORIGINAL fixed fringe remains the
+strongest next attack. The wider permitted-F setting is a necessary
+control, not evidence that its conditions isolate the actual survivor.
+
+Do not repeat any round-six activity/mortality proof or the round-seven
+reset classification, width count, cycle-mate lemma, or55 certificate.
+No prefix, period, inverse word, denominator, cycle width or lag sweep is
+admitted by this checkpoint. Problem1 periods>=3 and B_all/signed
+nonvanishing retain their prior status and are not investigated here.
+
+Unrelated supervisor files, ASTRA_GOAL.md, .worktrees and old untracked
+results remain untouched. Immutable reference SHA256:
+358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
+Never force-push, change that reference, or merge this branch to main.

@@ -74,6 +74,10 @@ def main():
                        "repository_only_recovery": args.repo_only, "scientific_runs": 0,
                        "reviewer_model": "opencode-go/muse-spark-1.3-contributor",
                        "reviewer_thread": "01a07911-f233-7760-b1a3-fefa4d2ff2d9",
+                       "fresh_final_reviewer": ({"model": "opencode-go/muse-spark-1.3-contributor",
+                           "thread": "01a07942-51c5-7812-8916-5235d1244eea", "fresh_context": True,
+                           "scope": "Independent final adversarial derivation; exact timings in final review source"}
+                           if args.stage == "final" else None),
                        "resource_cap": "local metadata only; 20 seconds, 16 MiB output; no trajectory computation"},
         "hardware": {"uname": list(platform.uname()), "logical_cpus": os.cpu_count(), "gpu_used": False},
         "software": {"python": sys.version, "executable": sys.executable},
