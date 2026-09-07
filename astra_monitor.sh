@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # astra_monitor.sh - Lightweight continuous monitoring for Astra supervisor
-set -uo pipefail
+set +e  # monitoring script must tolerate errors
+# Note: check_cycle returns non-zero on alert, caught by || true
 
 REPO="/home/ryan/rule30-lab"
 LOGFILE="${REPO}/astra-supervisor.log"
@@ -66,6 +67,6 @@ check_cycle() {
 
 log "=== Monitor started ==="
 while true; do
-  check_cycle
+  check_cycle || true
   sleep 300
 done
