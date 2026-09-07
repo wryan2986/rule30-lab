@@ -1,205 +1,165 @@
-# Astra handoff: round 10 maintenance checkpoint, 2026-09-07
+# Astra handoff: supervisor round 303 strategy reset, 2026-09-07
 
-Problem 1 remains OPEN. This is historical research round ten and unattended
-supervisor round two. Continue on `research/astra-next`. The user requested
-approximately 70 minutes, overriding the older goal-file default. Started
-03:49:17 UTC. The final audit records elapsed time. This is maintenance,
-NOT goal achieved, research blocked, or research exhaustion.
+Problem 1 remains OPEN. Continue on `research/astra-next`. This is a
+strategy-reset research checkpoint, NOT goal achieved, research blocked,
+or research exhaustion. The incoming historical round-ten handoff is
+preserved byte for byte in `docs/astra_handoff_archive_20260907_round303.md`.
+Base commit: `921764aab83b3d08d1ca991dacc3fc64f31af60e`.
 
-Read ASTRA_GOAL.md first. Incoming round-nine handoff is preserved byte for
-byte in `docs/astra_handoff_archive_20260907_round10.md`. Base commit:
-`043a768d6624983d7871bc99a8a4ced08f09e51b`. Do not repeat that round's
-transport, highest-bit formula, physical doubling-source lateness, finite
-222 construction, or failed one-hole k3 test.
+Read ASTRA_GOAL.md first. The incoming archive retains the exact renewal,
+highest-wait no-go, conditional one-bit episodes, and their dependencies.
+Do not repeat those derivations or the round-nine/ten source controls.
 
-## Current bottleneck and immediate verification task
+## Exact bottleneck
 
-FULL must still contradict finite entry for ONE fixed actual survivor.
-This round replaces the vague delay-growth target with an exact injection
-budget, refutes control by the current highest wait alone, and narrows the
-conditional one-bit strip to bounded episodes with an exact past constraint.
-It does NOT exclude any positive uniformly bounded strip, transfer these
-later-row events into the original anchored Q budget, or solve period two.
+FULL must contradict finite entry for ONE fixed actual survivor with its
+complete original finite right fringe. The renewal identity forces
+infinitely many delay injections and doublings, but no upper bound on
+injections in terms of the original anchored Q has been proved. A uniform
+K=1 physical delay bound still allows distinct bounded lag-one episodes.
+The unresolved birth at a cyclic source is nonlocal in its periodic driver.
 
-FRESH EXTERNAL ADVERSARIAL REVIEW IS MISSING. The three new main notes
-received independent lead derivations and a detailed lead adversarial audit,
-but all authorized external-review paths failed. Resume with a fresh Muse
-review (MiMo after its prescribed fallback sequence) of the EXACT current
-three main notes and the recorded lead disposition. Do not claim such a
-review already happened or substitute a native Codex reviewer. All results
-retain partial-proof/refuted scopes; none is rigorous-proof.
+Round 303 proves a precise obstruction to deciding that birth from finite
+observations on the general cyclic-row domain. It does NOT exclude a
+bounded strip under infinite FULL, supply finite-support countermodels,
+transfer later events to Q(Y_0), or close period two.
 
-## Exact delay renewal on one actual spacetime (`partial-proof`)
+## Strategy reset: three ranked routes
 
-Read `proofs/informal/problem1_cycle_delay_renewal.md`.
-For eventually A-periodic y, put T=tau(y), z=2y+a. Projection gives
- tau(z)>=T. At time T the upper row is cyclic. If its low A-trace is
-identically zero, BOTH one-bit lifts are periodic, so tau(z)=T exactly.
-Otherwise there is one periodic lift; the wrong bit at time T has
- tau(z)=T+rho+1,
-where rho is the first future low 1 of A^T y. The correct lift has tau=T.
-This extends the previous periodic-input formula through an inherited
-transient without conflating cycle entry and phase-correct completion.
+Estimates and rankings are `heuristic`. Full analysis and proof:
+`proofs/informal/problem1_cycle_birth_observation_no_go.md`.
 
-For ONE actual orbit Y_(t+1)=2 A Y_t+c_(t+1), set
+| Rank | Route and assumption | What success would prove | Cheap falsification | Research cost |
+| --- | --- | --- | --- | --- |
+| 1, attacked | Close a whole bounded episode by deciding its initial birth from uniformly bounded observations of a cyclic source; no use of finite support or infinite FULL | A local birth rule, still requiring a global episode exclusion | Preserve an arbitrary prefix and the exact clock, then force opposite cyclic return starts beyond the observation | One structural session; now refuted at this domain |
+| 2 | Charge actual inherited-horizon resetting events to original anchored P_n(Y_0,s), with bounded multiplicity and s<n | Renewal plus finite Q would exclude FULL finite entry for period two | Check one event's pulled-back depth/time and multiplicity; n=0 or an out-of-budget horizon defeats that charge | Several sessions; no valid charge yet |
+| 3 | Combine Phi-nilpotence of finite cyclic codes with the infinite boundary of the same original fringe | A finite-support-specific obstruction to the required infinite reset/doubling sequence, potentially closing period two | The existing finite cyclic 55 birth already refutes a single-step ban; any induction must retain more actual history | Several sessions to weeks; surviving structural route |
 
-    T_t=max(tau_t-1,0), R_t=tau_(t+1)-T_t >=0.
-    tau_(t+1)=max(tau_t-1,0)+R_t.
+Route 1 is closed only at its stated general cyclic-row scope. Route 3
+must use finite support or the full infinite history; extending observed
+prefixes does not repair route 1. Route 2 remains a distinct option.
 
-R_t>0 is a wrong resetting lift at inherited A-time T_t, with exact
-wait rho_t+1. Its bit is e_t=r_(-T_t)(t+1+T_t), NOT automatically the
-current center. Every physical doubling has R_t=0; under FULL its source
-is late, so tau_(t+1)=tau_t-1 exactly. At an EVEN doubling source with
-tau_t<=2, the next EVEN row is A-periodic and retains the doubled clock:
-tau_(t+2)=0. This does not control later births.
+## New quantitative birth no-go (`partial-proof` / scoped `refuted`)
 
-With H_t=t+tau_t, H_(t+1)=max(H_t,t+1)+R_t. FULL doublings lie on plateaus
-of H. For V_N=#{t<N:tau_t>0}, D_N=log_2(p_N/p_0),
+Let w be ANY temporal word of length L>=2 beginning 3,g with g in {1,2}.
+Choose ANY power of two p>=max(8,2L), and set
 
-    sum_(t<N) R_t=tau_N-tau_0+V_N >= D_N-tau_0.
+    B13 = w 0^(p-L-2) 1 3,  B11 = w 0^(p-L-2) 1 1,
+    x13 = Theta^(-1)((B13)^infinity),
+    x11 = Theta^(-1)((B11)^infinity).
 
-Finite entry plus one fixed finite original right fringe forces clock
-growth, hence infinitely many distinct R_t>0 as well as infinitely many
-doublings. With eventual bound K>=1, at least (D_[M,N)-tau_M)/K later
-injections are necessary. An infinite sum of bounded injections is still
-allowed. No anchored-budget upper bound has been obtained.
+Both sources are rational A-periodic permitted rows with the SAME EXACT
+least period p. Symbol 0 is 3 but symbol p/2 is 0; since every proper
+divisor of p divides p/2, the period cannot be smaller.
 
-## The current highest wait alone is insufficient (`partial-proof` / `refuted`)
+The scan for F(x) reads shift^2 Theta(x), starting at 3. In state order
+0,1,2,3, H_1=[3,2,2,2], H_3=[1,0,0,0], so H_3 H_1 is constant 0 and
+H_1 H_1 is constant 2. The full return finishes with these suffixes,
+then H_3,H_g for the wraparound source symbols. Thus:
 
-Read `proofs/informal/problem1_highest_wait_nonforcing.md`.
-For EVERY positive finite x, tau(2^n x) tends to infinity. Proof: these
-onsets are nondecreasing under spatial deletion. A uniform bound H would
-make every 2^k T^H(x) cyclic. But an entirely cyclic zero-extension tower
-must have unbounded periods by the finite-code count; at a doubling, its
-first extension has code (b,0) visiting both bits, and the second zero
-extension obeys w'=b OR w from 0 and cannot be cyclic. Contradiction.
+| Source gate | Ending 13 | Ending 11 |
+| --- | --- | --- |
+| g=1 (t) | recurrent start 2; tau(Fx)=1 | recurrent start 3; tau(Fx)=0 |
+| g=2 (u) | recurrent start 3; tau(Fx)=0 | recurrent start 2; tau(Fx)=1 |
 
-For y_n=2^n*7, sigma^n cyc(y_n)=cyc(7)=6, whereas sigma^n y_n=7.
-The highest disagreement is exactly bit n, its common next bit is 1,
-and its first erasing wait is exactly ONE for every n. Nevertheless
- tau(y_n)->infinity.
-This refutes EVERY universal finite-valued bound tau(y)<=f(current highest
-wait) on initially finite rows. It is not a FULL counterexample.
+Every H_i merges 2/3 on its first update, so the wrong start has LEAST
+preperiod exactly one. Both successor eventual periods remain exactly p.
+The exact spatial separations are
 
-Actual seed-7 rows are Y_n=A^n(2^n*7), with onset
-max(tau(2^n*7)-n,0). The new divergence gives NO control of that difference.
-Do not infer actual lag growth, finite-entry exclusion, or a growth rate.
+    v_2(x13-x11)=2p-1,
+    v_2(Fx13-Fx11)=2p-3,
+    v_2(cyc(Fx13)-cyc(Fx11))=0.
 
-For one finite row under A alone, the whole delay is the SUM of successive
-highest-bit erasing waits, with each new highest index evaluated after the
-preceding erasure. Indices strictly decrease. Lower differences may vanish
-while waiting; initial per-bit waits cannot replace the evolved history.
-No claim all these later waits are bounded in the counterfamily is made.
+The source codes differ only in the high bit of their final period symbol.
+Triangular inversion of Theta and the leading-input term of A^2 prove
+these valuations; the cycle completions have low pairs 2 and 3.
 
-## Conditional one-bit strip: exact episodes and an actual past constraint
+For every cyclic x with x mod4=3, the ACTUAL odd row 2Ax is cyclic:
+the periodic scalar drive at phase -1 sees the source pair 3 and resets
+the lift bit to zero. Therefore, whenever the actual fringe supplies
+this first paired gate, the constructed opposite births are exactly
+R_0=0 and R_1 in {0,1}, with tau(Y_0)=tau(Y_1)=0. They are new physical
+injections, not inherited transients. No later strip bound is inferred.
 
-Read `proofs/informal/problem1_one_bit_strip_return_constraint.md`.
-Assume tau(Y_t)<=1 for ALL sufficiently late PHYSICAL times. The bit-depth
-transport then gives b(Y_t)<=1 at all late times. A single row with tau=1
-DOES NOT imply this spatial bound. Under FULL, an even lag-one row has
-actual low pair 3 and cycle-completion low pair 2.
+Both birth fibers are dense in the domain of cyclic permitted 2-adic
+rows; the birth predicate is nowhere continuous there, also when the
+domain is restricted to dyadic periods. This refutes finite-observation
+birth decisions on that domain. If the exact period is supplied as
+separate certified data, reading the WHOLE period does decide the birth.
+The same-clock construction excludes a uniform observation bound, not
+that period-dependent algorithm.
 
-For the ACTUAL paired gate q_m and late even rows X_m:
+## Same complete fringe and arbitrarily long finite FULL shadows
 
-    lag1 + t gate -> lag1,
-    lag1 + u gate -> lag0.
+Fix any finite initial right fringe and its unique FULL left input x_*;
+the existing triangular full-boundary homeomorphism supplies existence,
+without asserting finite entry or cyclicity of x_*. For any H>=3 and
+physical window [-W,R], choose L>=2 with 2L>W+H, and use the first L
+symbols of Theta(x_*) for w above. Attach the SAME complete right fringe
+to both constructed sources. Their actual spacetimes agree with x_*
+in that entire window through time H, by finite physical cones. Their
+centers therefore alternate through H, and the first gate is actual.
+Yet their first delay injections differ as above.
 
-The first follows from return-map suffix H_1 H_2 being constant 2.
-For the second, no-uu forces the first input b_2=2. A {0,2} tail keeps
-start 3 recurrent; a resetting return has its recurrent start in {1,3}.
-A wrong start stays distinct after that first H_2 and would give lag>=2,
-which is excluded by the hypothesis. Thus the successor is cyclic.
+Quantifier fence: for EACH finite observation there are new sources.
+There is no single constructed infinite FULL orbit. The construction
+refutes neither an infinite-FULL-only quotient nor a rule confined to
+one actual survivor. It also does not assert that these sources are
+finite or satisfy an eventual uniform K=1 bound.
 
-Since u gaps are 2 through 5, each lag-one episode lasts at most five
-even rows. Only even physical doublings are possible under this bound.
-A doubling cannot be the first lag-one row after a cyclic row. Let u be
-its pure completion, contained in {0,2}, and v the previous completion.
-Then Phi u=shift^2 v. If the predecessor were cyclic, v_0=3 would force
-u_-2,u_-1=2,0, making v_1=2 and hence two adjacent actual u gates.
-Therefore the predecessor is lag1 with gate t, and
+## The finite-support condition that remains load-bearing
 
-    (u_-2,u_-1,u_0,u_1,u_2)=(0,2,2,2,2).
+For a cyclic code b,
 
-These negative indices are phases of a PURE periodic code, not negative
-actual physical times. A doubling episode has between two and five
-lag-one even rows. This extra past condition is not satisfied by the
-old period-one and period-four local controls; their original assertions
-remain valid. No larger finite-source supply was searched.
+    Theta^(-1)(b) finite iff Phi^j b=0 for some j.
 
-The unclosed step is the actual lag0->lag1 birth. Its periodic return
-still depends on the complete temporal driver, so the gate/lag pair is
-NOT a proved autonomous quotient. Infinite distinct bounded episodes
-remain possible as far as these results establish.
+For an A-periodic row, finite entry is equivalent to initial finiteness.
+The construction proves NO such Phi-nilpotence. Even a dyadic clock is
+insufficient: Phi fixes (12)^infinity, since g(1,2)=1 and g(2,1)=2;
+its row is periodic of period two with infinite spatial support.
+Whether both birth outcomes can be realized densely by FINITE cyclic
+sources is unproved. Do not silently extend the no-go to that domain.
 
-## Verification, failures, provenance, and stopping fence
+The next structural attack must use this nilpotence condition together
+with the entire original boundary, or produce a valid anchored charge.
+Do not enumerate completions of (3), enlarge source words/periods, or
+sample longer finite shadows: the observation route is already closed.
 
-Lead audit and exact missing-review log:
-`proofs/informal/problem1_round10_fresh_review.md`.
-Muse sidecar: `problem1_round10_bounded_strip_sidecar.md`.
-The sidecar's local strip update reads one higher driver bit for K>=2;
-K=1's low bit alone follows the prescribed center. Its two distinct-row
-witness does not refute an actual-orbit quotient. Earlier overclaims and
-incorrect witness formulas were removed and their bytes archived.
+## Verification and unresolved external review
 
-Contributor Muse thread 01a079fc-e3db-7d60-b020-d44d6e2fc3df succeeded on
-its corrected fixed controls at 04:14:49 UTC, then ended in provider429.
-Its paused retry 01a07a1c-fc5f-7841-8d55-db256cdb0955 failed with
-MissingSessionID. Fresh Muse reviewer threads 01a07a0a-1bc7-7d21-8fc3-66773ab511fc
-and 01a07a0e-efc3-7d40-aebf-88cba6266fd2 both failed with429, with one
-paused retry. Mandated MiMo threads 01a07a11-ebc6-7481-9430-ece38b783ad8
-and 01a07a1e-912e-7793-8b8a-e29f34e10976 failed with400 missing session
-metadata. All six threads are CLOSED; no worker remains pending.
+New lead adversarial disposition:
+`proofs/informal/problem1_round303_review.md`.
+It audits return order, least periods, valuations, actual odd-row
+cyclicity, topology versus certified period data, finite cones, and
+all finite-to-infinite/finite-support quantifiers.
 
-One isolated request to the same configured MiMo provider with explicit
-session metadata failed with403/error1010. No external review text exists.
-Exact credential-free request/response and runner bytes:
-`results/problem1/20260907_round10_mimo_direct_review.json`;
-runner `experiments/problem1_nonperiodicity/review_round10_mimo.py`.
-No native model substituted and no provider configuration changed.
-A CLI endpoint-inspection command incidentally reported automatic
-Codex-launcher backup/shim refresh; no research file was changed by it.
+The fixed checker is
+`experiments/problem1_nonperiodicity/check_round303_birth_algebra.py`.
+Atomic record: `results/problem1/20260907_round303_birth_algebra.json`.
+It independently solves the two deletion equations for each of 16 scan
+entries and agrees with the hand table. Every one of 256 arbitrary
+four-state interior functions, two gates, two suffixes, and four starts
+passes: 4,096 return checks. The 10-second/128-MiB caps passed. There
+were no seed, period, word, source-supply, or physical orbit searches.
+This is `finite-exhaustive` only for the declared scan algebra, not
+machine verification of the all-depth proof or finite-support witnesses.
 
-The only scientific inputs were y in {0,2,3,6,7,12}, a in {0,1}:
-twelve one-bit lifts. Integer/dictionary and tuple-cell/list orbit loops
-agree on complete trajectories, repeats, least onsets, periods, phase-cyc,
-and lift choices. All sixteen hand transitions agree. Checker:
-`experiments/problem1_nonperiodicity/check_round10_delay_renewal.py`.
-Final atomic result: `results/problem1/20260907_round10_delay_renewal.json`.
-This is finite-exhaustive ONLY over those controls, not proof of any
-infinite result or machine verification of the strip-return theorem.
+FRESH EXTERNAL REVIEW IS STILL MISSING for both the incoming three notes
+and the new note. Incoming-review Muse thread
+01a07ae9-2411-7281-bc32-c3b8338e4438 and new-review Muse thread
+01a07af4-6793-75f2-8a90-87c5cfc869cc both failed before review text with
+MissingSessionID (missing x-opencode-session). Both threads are CLOSED.
+Neither returned 429; that fallback sequence was not triggered. MiMo
+was not in the session's advertised model overrides. No native reviewer
+was substituted and no provider configuration was changed. The next
+session should obtain authorized fresh review when routing is available.
+No new result has status `rigorous-proof`.
 
-Exact superseded checker/memo/result bytes, including the initially
-unenforced caps and later corrections, are in
-`results/problem1/20260907_round10_superseded_run.json` (four snapshots).
-One lead run passed all mathematics but failed its cap report because
-RUSAGE_SELF inherited a 199.297-MiB launcher peak. Snapshot4 retains it.
-The unchanged checker was rerun from a small Python parent; all checks
-and the SAME 60-second/128-MiB limits passed. The wrapper is recorded in
-the lead audit. Historical archive-capture runtimes were not measured;
-metadata completion reports its own runtime instead of inventing theirs.
+## Checkpoint ownership
 
-Round audit/builder:
-`results/problem1/20260907_round10_audit.json` and
-`experiments/problem1_nonperiodicity/audit_astra_round10.py`.
-It checks exact current artifacts, dependencies, canonical payloads,
-all four archival versions, and recovery of the incoming handoff from
-its base Git tree. It introduces zero scientific inputs.
-
-Do not repeat the new renewal derivation, shifted-row no-go, K1 return
-maps, 02222 past constraint, or successful scalar controls. Do not expand
-prefixes, periods, lag/width boxes, source words, the failed one-hole
-family, or fixed-width graphs. After missing external review, attack the
-actual resetting lifts/cycle-to-lag births with the complete original
-right fringe, or find a valid transfer to the original anchored budget.
-Periods >=3 and the older B_all/signed directions retain prior statuses.
-
-## Checkpoint state
-
-The established logical unit is ready for the scoped commit/push after
-its artifact audit. The final maintenance update will record that commit
-and remote verification. This checkpoint is not research exhaustion.
-
-Unrelated repository supervisor files and old untracked results remain
-untouched. Immutable reference SHA256:
+Only the round303 proof, lead review, fixed checker/result, incoming
+handoff archive, and this handoff belong to the checkpoint unit. Unrelated
+supervisor files, worktrees, and old untracked results remain untouched.
+The immutable reference remains SHA256
 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.
-Never force-push, modify the reference, or merge to main.
+Do not force-push, rewrite history, modify the reference, or merge to main.
