@@ -1,0 +1,1271 @@
+{
+  "experiment_id": "round306-fixed-three-bit-exit-repair-algebra",
+  "timestamp_utc": "2026-09-07T11:34:07Z",
+  "git_commit": "78e778825485ed72c42edc8ba0f51228a1021b42",
+  "question": "problem1",
+  "hypothesis": "The t-source table and four-step shadow flag hold on sixteen assignments each; the constant-one and odd-doubling entry implications hold on thirty-two assignments each.",
+  "backend": "Python-hand-rule-truth-table/independent-packed-cut-and-right-row",
+  "parameters": {
+    "ell": [
+      0,
+      1
+    ],
+    "input_bit4": [
+      0,
+      1
+    ],
+    "transition_shadow_right_pairs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "transition_actual_right_pair": [
+      1,
+      0
+    ],
+    "transition_actual_bits0_through4": [
+      1,
+      1,
+      0,
+      1,
+      "input_bit4"
+    ],
+    "transition_shadow_bit1": 0,
+    "transition_shadow_bit0": "1 XOR ell",
+    "other_initial_cells": 0,
+    "right_cone_first_bit": 0,
+    "right_cone_remaining_words": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "right_cone_bit_order": "a,b,c,d are low-to-high input-word bits",
+    "shadow_center_inputs": [
+      0,
+      1,
+      1,
+      1
+    ],
+    "constant_one_variables": [
+      "u",
+      "d1",
+      "d2",
+      "bit4",
+      "bit5"
+    ],
+    "constant_one_variable_values": [
+      0,
+      1
+    ],
+    "odd_entry_ell": [
+      0,
+      1
+    ],
+    "odd_entry_shared_bit4_bit5_words": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "odd_entry_shadow_right_pairs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "odd_entry_initial_d1_d2": [
+      1,
+      1
+    ],
+    "transition_steps": 2,
+    "right_cone_steps": 4,
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728,
+    "output_cap_bytes": 131072
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 20590592
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.0037410049699246883,
+  "runtime_scope": "Main entry through fixed checks; excludes final provenance and serialization.",
+  "result_hashes": {
+    "canonical_payload_sha256": "7af7b69b03753157fa1769639090453fd3fa68eb64e86cffc630d844656749d0"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round306_three_bit_repair.py": "49d3b628c41932d3beedac8cba0cd72b1e5a526527893829cbbb5876e14b339b",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "experiments/problem1_nonperiodicity/check_round306_two_bit_collapse.py": "bf1e07973d48e6b93215978d9df059ba64f817cc1adabd0d992fed04b8400037",
+    "proofs/informal/problem1_three_bit_exit_repair.md": "f7f80e1ba22ee9cdad8db795967d45d06b4685d5e2936732b75fe3923224ba77",
+    "proofs/informal/problem1_two_bit_strip_collapse.md": "2cc715ebd3a18c51fee2c402b704b12d4c620c0d58be17d6f58b41d6e1939cda",
+    "proofs/informal/problem1_one_bit_shadow_exit.md": "07ed93b54987037ff498675831c25b28d09444c99dc0a37f77b1e02b4bd58768"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "hand_rule_values": 8,
+    "hand_cone_steps": 4,
+    "transition_cases": 16,
+    "transport_cases": 16,
+    "constant_one_cases": 32,
+    "odd_entry_cases": 32,
+    "caps_passed": true
+  },
+  "status": "finite-exhaustive",
+  "interpretation": "The local table, transported shadow flag, and entry identities are verified. The no-five-t repair, delay profile, clock accounting, and eventual decomposition are separate conditional all-depth deductions.",
+  "proof_scope": "Exactly ninety-six Boolean assignments, eight hand rule values, and one fixed four-step cone.",
+  "limitations": [
+    "Local rows are not asserted to be an actual/E-shadow pair.",
+    "Input bit4 is not asserted to equal the next actual gate without FULL.",
+    "The four boundary inputs are assumptions of the local fringe check, derived separately in the proof for the specified shadow passage.",
+    "No numerical check of no-ttttt, infinite induction, or clock growth.",
+    "No infinite FULL model, new source, or further-width search.",
+    "External adversarial review is missing."
+  ],
+  "payload": {
+    "hand_cone": [
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1
+      ]
+    ],
+    "transition_cases": [
+      {
+        "ell": 0,
+        "input_bit4": 0,
+        "shadow_right_pair": 0,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 0,
+        "shadow_right_pair": 1,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 0,
+        "shadow_right_pair": 2,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 0,
+        "shadow_right_pair": 3,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 1,
+        "shadow_right_pair": 0,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 1,
+        "shadow_right_pair": 1,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 1,
+        "shadow_right_pair": 2,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 0,
+        "input_bit4": 1,
+        "shadow_right_pair": 3,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          0,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 0,
+        "shadow_right_pair": 0,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          0
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 0,
+        "shadow_right_pair": 1,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 0,
+        "shadow_right_pair": 2,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          0
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 0,
+        "shadow_right_pair": 3,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 1,
+        "shadow_right_pair": 0,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          0
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 1,
+        "shadow_right_pair": 1,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 1,
+        "shadow_right_pair": 2,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          0
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "ell": 1,
+        "input_bit4": 1,
+        "shadow_right_pair": 3,
+        "odd_discrepancies_minus2_through0": [
+          1,
+          1,
+          1
+        ],
+        "even_discrepancies_minus3_through0": [
+          1,
+          0,
+          1,
+          0
+        ]
+      }
+    ],
+    "transport_cases": [
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          0,
+          0,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          1,
+          0,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "step4_flag": 1
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          1,
+          1,
+          0
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "step4_flag": 1
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          1,
+          0,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "step4_flag": 1
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          0,
+          1,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "step4_flag": 0
+      },
+      {
+        "initial_right_bits": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "first_right_bits_after_steps1_through4": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "step4_flag": 0
+      }
+    ],
+    "constant_one_cases": [
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": true
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": true
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": true,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": true,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 0,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": false,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": false,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": false,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 0,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": false,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 0,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": true,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 0,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": false,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 0,
+        "bit5": 1,
+        "shadow_next_two_lows_one": true,
+        "first_strip_necessary": false,
+        "second_strip_necessary": false,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 0,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": false,
+        "second_strip_necessary": true,
+        "all_premises": false
+      },
+      {
+        "u": 1,
+        "d1": 1,
+        "d2": 1,
+        "bit4": 1,
+        "bit5": 1,
+        "shadow_next_two_lows_one": false,
+        "first_strip_necessary": false,
+        "second_strip_necessary": false,
+        "all_premises": false
+      }
+    ],
+    "odd_entry_cases": [
+      {
+        "ell": 0,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 0,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": false,
+        "next_even_minus2_discrepancy": 1
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 0,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 1,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 2,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 0,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 1,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 2,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      },
+      {
+        "ell": 1,
+        "shared_high_bits": 3,
+        "shadow_right_pair": 3,
+        "next_even_negative_half_agrees": true,
+        "next_even_minus2_discrepancy": 0
+      }
+    ]
+  }
+}

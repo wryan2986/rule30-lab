@@ -80,3 +80,80 @@ The immutable reference hash remains
 `358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01`.
 No optimized backend, new benchmark, broad regression campaign, reference
 edit, remote computation, or hardware change was involved.
+
+## 4. Three-bit repair and eventual decomposition
+
+Reviewed source: `problem1_three_bit_exit_repair.md`. This was a new
+logical unit after the two-bit checkpoint; the two failed Muse threads
+in Section 1 did not review it. External review remains missing. The
+following is a fresh lead adversarial check with explicit dependencies.
+
+* Section 2's next-gate variable is actual input bit4 only under the FULL
+  paired bridge. The arbitrary finite test cones therefore call it bit4,
+  and do not assert a FULL continuation. The A difference after two steps
+  is (low,high)=(0,z); this puts the high difference at PHYSICAL position
+  -3, not -2. The lower physical differences also require the shadow's
+  own center and right pair, which the direct updates retain.
+* A -1 defect at a t source under b<=3 forces the next gate t even when
+  that transition repairs the defect. Applying this at each listed source
+  really produces the FIVE consecutive t gates v+2 through v+10 if the
+  repair flag at v+4 is 1. No-ttttt then forces that flag to be 0. A b bound
+  only through v+6 would not justify this argument; the all-late premise
+  supplies the required extra two even rows.
+* The b profile is 1,1,2,3,2,3,e, not the tau profile. Each exact tau is
+  deduced with both a strict and a weak threshold at specified later
+  times, or with the common even left-neighbor eraser. The renewal profile
+  sums to 5+e, agreeing independently with tau_end-tau_start plus six
+  positive-delay source times. This is not an original-support budget.
+* Positive R excludes two possible doubling times, and the new odd-source
+  spatial obstruction excludes the three odd ones. The only possible
+  doubling is at offset4, with source tau=2; the old two-step consumption
+  law then forces e=0. Cyclic repair does not conversely prove a doubling.
+* The shadow center inputs 0,1,1,1 used to obtain the transported flag are
+  deduced from THIS exit. They are not a new imposed FULL boundary on the
+  shadow. The flag reads five cells of the same globally selected shadow;
+  realizing their assignments on that global domain is not checked locally.
+* The new constant-one lemma uses only the shadow low values at A-times
+  0,1,2 plus the next-two-step spatial bounds. After forcing d2=u, u=1
+  violates the next spatial bound; u=0 with d1=1 instead violates the
+  bound two steps later. A finite test of those necessary conditions
+  does not claim that its shadow has an all-time constant low trace.
+* At an odd doubling successor, the zero HIGH shadow trace and shared
+  bit3 force d1=d2=1, then the next strip bound forces gate t. Center
+  agreement would produce a -2 defect two steps later and hence delay
+  greater than2. Clock consumption gives delay at most2, so the center
+  also differs. The resulting three-bit difference is erased by ONE A
+  step; the following odd common left1 shields the center. This proves
+  entry at t+3 with no claim that b=tau at its intermediate row.
+* One late doubling exists by the imported unbounded clocks. Either parity
+  gives one even entry. Subsequent two- or six-step passages cover all
+  future even rows and have even depths at most2, so all later odd
+  doublings are excluded. Odd depths can still be3: the conclusion is NOT
+  eventual all-physical b<=2, and the two-bit collapse cannot be reapplied
+  without this missing hypothesis.
+* The even-time tau equivalence uses the threshold at n=2 in one direction
+  and the physical odd-delay bound in the other. If exits were eventually
+  absent, the passage induction would imply eventual K=1. Thus a distinct
+  K=3 alternative needs infinitely many disjoint exit passages, rather
+  than merely a single finite example with delay3.
+
+Disposition: accept only these `partial-proof` conditional results. They
+identify a possible repair mechanism and its necessary repeated supply;
+they neither exhibit that mechanism on an infinite FULL orbit nor refute
+a separate proof that K=3 eventually collapses to K=1.
+
+`check_round306_three_bit_repair.py` checks 96 fixed Boolean assignments:
+16 paired transitions, 16 transported flags, 32 constant-one implications,
+and 32 odd-entry controls. Separate truth-table and packed implementations
+agree, after eight hand rule values and one hand four-step cone. The
+10-second/128-MiB caps pass. The earlier 32-case working record was replaced
+atomically after the additional entry lemmas required new checks; no source
+or parameter discovery was run. Final provenance is audited at checkpoint.
+
+The final notation audit corrected `d_1(t)` to physical `d_-1(t)` in the
+two-bit note's optional even-doubling observation, and uses
+`delta_j=d_(-j)(w)` for bit differences in the three-bit entry proof. The
+formulas and verified cases are unchanged. Both atomic records are refreshed
+against the final proof sources, and both six-source manifests and payload
+hashes are independently recalculated. The incoming handoff archive is
+compared byte for byte with the original base commit's handoff.

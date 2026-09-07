@@ -156,7 +156,7 @@ reverse implication is immediate.
 There is also a sharper local observation that is not needed for this
 proof. Under b_t,b_(t+1)<=2 an EVEN doubling source cannot have gate t:
 its shadow center and the next A low bit are both 0, so (2) and agreement
-at bit 2 force z[1]=u. Gate t would give d_1(t)=1 and common bit 2 zero,
+at bit 2 force z[1]=u. Gate t would give d_-1(t)=1 and common bit 2 zero,
 forcing b_(t+1)>=3. Thus all sufficiently late doublings in the two-bit
 case already have even gate u and negative-half agreement at the source.
 This agrees with the conditional K=1 doubling law; it supplies no bound

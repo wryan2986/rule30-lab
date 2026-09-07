@@ -14,16 +14,20 @@ FULL must contradict finite entry for ONE actual survivor with its COMPLETE
 original finite right fringe. Renewal forces infinitely many delay injections
 and clock doublings; no finite budget or eventual strip bound is proved.
 
-Round306 reduces eventual all-physical K=2 to K=1. The K=1 birth/no-exit
-constraint from round305 remains open. Ranked next routes (`heuristic`):
+Round306 reduces eventual all-physical K=2 to K=1, and gives a complete
+conditional decomposition under K=3 into one-bit passages and exact
+six-step exit repairs. The K=1 birth/no-exit constraint from round305
+remains open. Ranked next routes (`heuristic`):
 
 1. Retain the whole actual/global-shadow pair and the complete periodic
    driver at each cyclic return. Control the simultaneous infinite birth
    supply and no-exit condition using the original finite support. The new
    reduction means an exclusion of eventual K=1 would also exclude K=2.
-2. For a possible structural extension beyond two bits, first identify what
-   prevents a third-bit excursion from repairing. The new third-bit result
-   ALONE does not iterate to arbitrary K. Do not launch width or gate sweeps.
+2. Under eventual K=3, control the FULL-SHADOW repair flag at the six-step
+   exits below. A distinct K=3 alternative must sustain infinitely many
+   disjoint repairs, each with mandatory injections3 and2. Repair is now
+   exactly characterized conditionally; do not redo the local table or
+   try to exclude it solely because the third bit is reached.
 3. Without an eventual strip bound, use the global front residence identity.
    A charge to the finite anchored set after ONE even rebase still needs
    distance-growing transport AND bounded reuse. Path existence or XOR
@@ -64,10 +68,78 @@ clock, row-wise equality b=tau, or general induction on K is used.
 
 Additionally, under b_t,b_(t+1)<=2 an even doubling source cannot have gate
 t: its shadow center and next A low bit are0, forcing shadow bit1=u. Gate
-t would give d_1=1 with common bit2=0 and force b_(t+1)>=3. Consequently
+t would give d_-1=1 with common bit2=0 and force b_(t+1)>=3. Consequently
 all late doublings in this conditional case already have even gate u and
 negative-half agreement at the source. This is consistent with the old
 K=1 episode law; it supplies no finite birth budget.
+
+## New K=3 repair and eventual decomposition (`partial-proof`)
+
+Read `proofs/informal/problem1_three_bit_exit_repair.md`.
+Assume eventual b(Y_s)<=3 (equivalently eventual all-physical tau<=3).
+At a late even one-bit exit source v, the actual gate is u, center
+discrepancy is1, and shadow r_1(v)=0. Put
+
+    (h,k)=(hat r_1(v+4),hat r_2(v+4)).
+
+Necessarily h=0; the actual gates at v,v+2,v+4,v+6 are u,t,t,t.
+At v+6 every negative position agrees and the center discrepancy is
+e=1 XOR k. The exact profiles at offsets0 through6 are
+
+    spatial b: 1,1,2,3,2,3,e,
+    A delay:   1,3,2,3,2,1,e,
+    R at offsets0 through5: 3,0,2,0,0,e.
+
+The proof uses a t-source with a -1 defect and center discrepancy ell.
+Under b<=3 its next gate MUST also be t. Its next even negative half
+agrees at every position<=-2, and the pair (d_-1,d_0) becomes
+
+    ell=0: (1,1),
+    ell=1: (h,hat u), with hat u=indicator[(h,k)=00].
+
+If h at v+4 were1, this repeats and forces FIVE consecutive actual t
+gates at v+2,...,v+10, impossible. The future strip premise through those
+extra times is essential. This gives the repair, not an infinite model.
+
+At most one clock doubling occurs in [v,v+6), and it can only be the
+even step v+4 -> v+5. If it occurs, the repair is cyclic (e=0). Cyclic
+repair does not conversely imply doubling. Repeated repairs are not bounded.
+
+The new flag also has an exact initial-shadow expression: if the shadow
+right bits at v are (0,a,b,c,d), then
+
+    h=(1 XOR a)*(1 XOR b)*(c OR d), hence this product must be0.
+
+The shadow's own center inputs0,1,1,1 for these four steps are derived
+from THIS exit. Do not impose them at unrelated times or treat a,b,c,d
+as freely chosen; they belong to the original globally selected E shadow.
+
+The same note proves ONE late entry, not merely a conditional passage:
+
+* An even FULL row with identically-one shadow LOW A-trace is cyclic
+  under the future b<=3 premise. A center-agreeing bit2 defect would leave
+  the strip next step; a remaining bit1 defect would leave two steps later.
+* Every doubling has that constant-one shadow low trace two physical
+  steps later. Thus every late EVEN doubling returns to a cyclic even row
+  at t+2 and has source delay<=2.
+* A late ODD doubling must have delay2. Its next even row has all three
+  low discrepancies1 but delay1; two steps later the negative halves agree.
+  The alternative center-agreeing successor would have delay>2, violating
+  clock consumption and the eventual bound3.
+
+Unbounded clocks supply an entry of either parity. Thereafter the one-bit
+table and six-step repairs cover the entire late orbit. In particular all
+late EVEN depths are<=2, and there are NO late odd doublings. This does
+NOT give all-physical depth<=2: the repair's odd depths remain3.
+
+Consequently
+
+    eventual all-physical tau<=3 iff eventual EVEN-time tau<=2.
+
+An eventual even-time delay bound1 instead implies eventual K=1 via the
+two-bit-collapse theorem. If K=3 holds but eventual K=1 does not, there
+must be infinitely many disjoint six-step repair passages. No finite bound
+on those passages or their mandatory3,2 injection pairs is proved.
 
 ## Preserved round305 birth, exit, and global-front facts
 
@@ -109,11 +181,19 @@ five even rows remain unchanged. Do not reopen their settled searches.
 ## Verification and review
 
 Lead dispositions: `proofs/informal/problem1_round306_review.md`.
-`check_round306_two_bit_collapse.py` and atomic
-`results/problem1/20260907_round306_two_bit_collapse.json` verify sixteen
-fixed Boolean assignments with independent physical truth-table and packed
-A-cut implementations, after eight hand rule values. Ten-second/128-MiB
-caps passed. Six source hashes and the canonical payload hash were audited.
+Two fixed checker/atomic record pairs have prefix `check_round306_` /
+`results/problem1/20260907_round306_`:
+
+* two_bit_collapse: sixteen Boolean assignments after eight hand rule values.
+* three_bit_repair: sixteen t-source transitions, sixteen four-step flags,
+  thirty-two constant-one implications, thirty-two odd-entry controls;
+  eight hand rule values and one hand four-step cone precede them.
+
+Separate truth-table and packed implementations agree. Both ten-second/
+128-MiB caps passed. Both six-source manifests and canonical payload hashes
+were audited. The final notation audit uses d_-1 for the physical left
+neighbor and delta_j=d_(-j) for bit-index differences; records are refreshed
+against the final proof sources.
 This checks local algebra, not E membership, infinite FULL, or the theorem's
 all-depth induction. No new rigorous-proof status is assigned.
 
@@ -122,9 +202,11 @@ collapse-review thread01a07b83-13c1-7e31-946c-22d09696f35d both failed before
 review text with MissingSessionID (missing x-opencode-session); both CLOSED.
 Neither was429. MiMo was not advertised; no native/other provider was
 substituted or settings changed. External review is explicitly missing.
+Those failed threads did not review the later three-bit unit; its review
+is also explicitly lead-only, in Section4 of the round306 review note.
 
-Round306 owns only its new proof/review notes, fixed checker and atomic
-record, incoming handoff archive, and this handoff. Unrelated supervisor
+Round306 owns only its new proof/review notes, two fixed checkers and atomic
+records, incoming handoff archive, and this handoff. Unrelated supervisor
 files, worktrees, and old untracked results remain untouched. Immutable
 reference SHA256 remains
 358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01.

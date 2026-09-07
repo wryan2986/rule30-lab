@@ -1,7 +1,7 @@
 {
   "experiment_id": "round306-fixed-two-bit-strip-collapse-algebra",
-  "timestamp_utc": "2026-09-07T10:58:04Z",
-  "git_commit": "1f1818d49ebd3824d98a316c0056d7cf9f50010e",
+  "timestamp_utc": "2026-09-07T11:34:07Z",
+  "git_commit": "78e778825485ed72c42edc8ba0f51228a1021b42",
   "question": "problem1",
   "hypothesis": "The four odd-doubling assignments force shadow output 1 at position -2, and the twelve post-exit assignments have exact next spatial disagreement depth 3.",
   "backend": "Python-hand-truth-table/independent-packed-A-cut",
@@ -49,14 +49,14 @@
     "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
     "machine": "x86_64",
     "logical_cpus": 16,
-    "peak_rss_bytes": 116293632
+    "peak_rss_bytes": 20344832
   },
   "software": {
     "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
     "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
     "executable": "/usr/bin/python3"
   },
-  "runtime_seconds": 0.0007162760011851788,
+  "runtime_seconds": 0.0006506319623440504,
   "runtime_scope": "Main entry through fixed checks; excludes final provenance and serialization.",
   "result_hashes": {
     "canonical_payload_sha256": "b2b01f347c5ff525dd7f618ebb266f42492a1f493d56de452c4d698fd82e0867"
@@ -64,7 +64,7 @@
   "source_hashes": {
     "experiments/problem1_nonperiodicity/check_round306_two_bit_collapse.py": "bf1e07973d48e6b93215978d9df059ba64f817cc1adabd0d992fed04b8400037",
     "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
-    "proofs/informal/problem1_two_bit_strip_collapse.md": "cdb939e645db320e529a47a3a6e9a1c0ec20bc3edd55e0544ea2915cb8439f4c",
+    "proofs/informal/problem1_two_bit_strip_collapse.md": "2cc715ebd3a18c51fee2c402b704b12d4c620c0d58be17d6f58b41d6e1939cda",
     "proofs/informal/problem1_one_bit_shadow_exit.md": "07ed93b54987037ff498675831c25b28d09444c99dc0a37f77b1e02b4bd58768",
     "proofs/informal/problem1_cycle_delay_renewal.md": "658ecea91163b495a16fece1b4128a813ec32d5008418a00ca03e2870748c13a",
     "proofs/informal/problem1_physical_time_cycle_defects.md": "87eafb58d1d3c9ff8d922eb7a1e569045381a7f01d219d7228e046554a6376a5"
