@@ -144,3 +144,91 @@ the scoped `refuted` same-cell assignment; no FULL orbit is constructed.
 Disposition: accepted by the lead in scope. This narrows the anchored
 route to global transport with controlled reuse, after a justified actual
 rebase; it does not settle its existence or the FULL incompatibility.
+
+## 5. Third unit: one global cycle shadow and its phase memory (lead review)
+
+Reviewed `problem1_global_cycle_shadow.md`. The objective was again to find
+a fatal flaw, especially in gluing the cuts, transferring FULL through a
+limit, or treating finite actual support as finite shadow-discrepancy support.
+
+1. L_j(r) is finite for EVERY integer j on the left-zero domain, even
+   if the right half is infinite. The two cut identities are exact:
+   sigma L_(j+1)=L_j and L_j U=A L_(j+1). They require the input cell
+   j+1; omitting it would reset the boundary and invalidate the theorem.
+2. Phase-correct cyc, not first cycle entry, commutes with sigma. Thus
+   the C_j are compatible, and their low bits define a unique whole row.
+   Cuts sufficiently far left are zero, so the shadow remains in the
+   stated domain. Idempotence follows because all its cuts are cyclic.
+3. The commutation E U=U E holds cut by cut using cyc A=A cyc. It does
+   not require uniform periods or onsets, a universal phase choice, or
+   a finite right shadow. The independent t-step formula uses the entire
+   initial cut j+t, including all original right-fringe cells in its cone.
+4. For B=SU with S shifting RIGHT, L_j B^n=A^n L_j. The sign is crucial:
+   U moves the left edge left, S restores it. Every fixed finite cut has
+   dyadic eventual period, so its phase-correct state is attained at all
+   sufficiently large dyadic times. This proves the stated limit with
+   no uniform threshold. The actual center moves to position 2^k in
+   that limit; FULL cannot be passed to a fixed shadow center by continuity.
+5. The width of C_j is L+j for j>=0 when the initial center-and-left row
+   is positive. Distinct widths and Theta injectivity prohibit bounded
+   periods. Projection and the one-bit theorem give infinitely many
+   doublings. At each doubling, the next lift has upper bit identically
+   zero and low trace visiting1. Its following CYCLIC lift must have
+   constant low1. This proves the initial position j+2 in (7), including
+   its phase, rather than merely the existence of some1 in a period.
+6. With a finite actual right fringe, all sufficiently far-right forced
+   shadow1s are genuine initial discrepancies. The alternative cyclic
+   zero-tower contradiction independently proves infinitude. At time t,
+   the actual row is still finite and nonzero: its leftmost1 advances left
+   by one per physical step and the two finite cones bound its support.
+   Hence the same argument applies after every fixed rebase. It does not
+   identify any individual discrepancy which survives forever.
+7. The renewal's wrong bit at inherited time T differs from the low bit
+   of A^T cyc(Y_(t+1)), since that state's upper row is exactly q_t and
+   its resetting periodic lift is unique. The shadow identity therefore
+   gives a real difference at (-T,t+1+T). Its backward cone is exactly
+   [-t-1-2T,t+1] initially. This supplies an initial DISCREPANCY ancestor,
+   not an original nonzero cell or a bounded-reuse charge.
+8. In the55 control, phase-correct cyc(110)=111 has projection55. First
+   cycle entry100 would project to50 and fail compatibility; this is a
+   useful adversarial check. With C_2=222, only initial position1 differs
+   in the cone[-2,2], despite position2 agreeing. The actual R_1=1 is thus
+   caused by an old discrepancy. The independent7 control shows that
+   deleting the original transient before a zero extension changes phase.
+9. For formula (11), the scalar update is affine with coefficient1 XOR u_s.
+   Composing those updates gives the product expression. A separate
+   last-reset derivation gives response a XOR(sum v_s) if there is no
+   reset, or 1 XOR v_ell XOR(sum_(s>ell)v_s) if ell is the last reset.
+   Subtracting (over GF(2)) the cyclic prefix parity sum w_s agrees with
+   theta in both cases. Extra valid horizon steps have u=0 and v=w,
+   hence cancel. Empty horizon T=0 gives eta=1,theta=0 as required.
+10. The formula uses a phase-zero cyclic upper row z, not A^T y as its
+    unshifted source. Matching the scalar response at time T selects the
+    correct phase among the two cyclic extensions. The7 control exercises
+    loss of the initial bit; the166 control exercises retained input with
+    flipped phase due to a transient high bit. Forgetting an input at this
+    ONE cut is not a theorem that all later cuts forget it. No update law
+    for eta/theta under the next extension is asserted.
+
+The fixed phase-memory checker independently agrees on all12 declared
+source/bit/horizon cases using product algebra versus a cell-based scalar
+OR recurrence, as well as15 hand edges and eight closed cycle certificates.
+It was reissued on the same inputs after the proof documented the check,
+so the final atomic record includes the final proof-source hash. This was
+not an enlarged campaign. All 10-second/128-MiB caps passed. These finite
+checks do not machine-verify the global construction or its infinite-tail
+conclusion. No additional sources, forks, periods or FULL prefixes were run.
+
+A fresh Muse review of this third unit was attempted after the earlier
+routing failure, in thread `01a07b25-f1d7-73b0-ae99-72d5bfd89552`. It again
+returned no review text, failing with MissingSessionID, and was CLOSED.
+It was a new proof-critical assignment, not a 429 retry. No substitute
+reviewer or provider configuration change was used. External review remains
+missing for ALL three new proof units and the incoming unresolved notes.
+
+Disposition: accepted by the lead at `partial-proof` scope, with the stated
+`finite-exhaustive` controls and scoped refutations. The new object preserves
+the entire original fringe in one coupled evolution. It leaves open which
+of its infinitely many initial right discrepancies reach the center under
+FULL, with what reuse and phase dependence. It does not prove a finite-state
+closure, a uniform delay bound, a FULL countermodel, or Problem1.

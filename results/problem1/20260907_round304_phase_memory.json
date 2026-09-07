@@ -1,0 +1,316 @@
+{
+  "experiment_id": "round304-fixed-transient-phase-memory",
+  "timestamp_utc": "2026-09-07T09:23:22Z",
+  "git_commit": "34771f836611c1ac8dc9ebfbc23649d7e0595e00",
+  "question": "problem1",
+  "hypothesis": "The transient phase formula gives the exact phase-correct zero/one extensions of the fixed finite rows 7 and166 at every tested valid horizon.",
+  "backend": "Python-product-formula/independent-cell-and-scalar-OR-recurrence",
+  "parameters": {
+    "sources": [
+      7,
+      166
+    ],
+    "bits": [
+      0,
+      1
+    ],
+    "horizons": [
+      1,
+      2,
+      5
+    ],
+    "cases": 12,
+    "cycle_step_cap": 16,
+    "cpu_workers": 1,
+    "wall_cap_seconds": 10,
+    "memory_cap_bytes": 134217728
+  },
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "logical_cpus": 16,
+    "peak_rss_bytes": 20295680
+  },
+  "software": {
+    "python": "3.14.4 (main, Jun 18 2026, 14:25:02) [GCC 15.2.0]",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "executable": "/usr/bin/python3"
+  },
+  "runtime_seconds": 0.0006334130885079503,
+  "runtime_scope": "main entry through all fixed scientific checks; excludes provenance and atomic serialization",
+  "result_hashes": {
+    "canonical_payload_sha256": "433f719167eda01c7f0e0b07fee1b8e656d1c81dd4bcad527536da0a11ff693d"
+  },
+  "source_hashes": {
+    "experiments/problem1_nonperiodicity/check_round304_phase_memory.py": "77cb23e994bf2fb7baf6d0f28e5684b1f532acb0340f5540b8e3bcd496f5d3ed",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "proofs/informal/problem1_global_cycle_shadow.md": "34b7fba122bb6d74d60492931317937bd355ab345d722eb14ae1e296e68a003f",
+    "proofs/informal/problem1_cycle_delay_renewal.md": "658ecea91163b495a16fece1b4128a813ec32d5008418a00ca03e2870748c13a"
+  },
+  "result_summary": {
+    "all_checks_passed": true,
+    "cases": 12,
+    "hand_edges": 15,
+    "caps_passed": true
+  },
+  "status": "finite-exhaustive",
+  "proof_scope": "Exactly the 12 fixed source/bit/horizon cases, their eight source/core/lift cycle certificates, and 15 hand transitions.",
+  "interpretation": "The controls verify both loss of the original bit at a transient reset and phase reversal without any actual low-bit reset.",
+  "limitations": [
+    "Not machine verification of the all-depth formula or global shadow construction.",
+    "No proof that the two phase bits form an autonomous quotient.",
+    "No source search, FULL orbit or fresh external review."
+  ],
+  "payload": {
+    "hand_edges": [
+      [
+        7,
+        6
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        14,
+        12
+      ],
+      [
+        15,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        12
+      ],
+      [
+        166,
+        222
+      ],
+      [
+        222,
+        200
+      ],
+      [
+        200,
+        222
+      ],
+      [
+        332,
+        445
+      ],
+      [
+        333,
+        444
+      ],
+      [
+        400,
+        444
+      ],
+      [
+        444,
+        401
+      ],
+      [
+        401,
+        445
+      ],
+      [
+        445,
+        400
+      ]
+    ],
+    "cycles": [
+      {
+        "seed": 7,
+        "rows": [
+          7,
+          6
+        ],
+        "onset": 1,
+        "period": 1,
+        "cyc": 6
+      },
+      {
+        "seed": 6,
+        "rows": [
+          6
+        ],
+        "onset": 0,
+        "period": 1,
+        "cyc": 6
+      },
+      {
+        "seed": 14,
+        "rows": [
+          14,
+          12,
+          13
+        ],
+        "onset": 1,
+        "period": 2,
+        "cyc": 13
+      },
+      {
+        "seed": 15,
+        "rows": [
+          15,
+          12,
+          13
+        ],
+        "onset": 1,
+        "period": 2,
+        "cyc": 13
+      },
+      {
+        "seed": 166,
+        "rows": [
+          166,
+          222,
+          200
+        ],
+        "onset": 1,
+        "period": 2,
+        "cyc": 200
+      },
+      {
+        "seed": 200,
+        "rows": [
+          200,
+          222
+        ],
+        "onset": 0,
+        "period": 2,
+        "cyc": 200
+      },
+      {
+        "seed": 332,
+        "rows": [
+          332,
+          445,
+          400,
+          444,
+          401
+        ],
+        "onset": 1,
+        "period": 4,
+        "cyc": 401
+      },
+      {
+        "seed": 333,
+        "rows": [
+          333,
+          444,
+          401,
+          445,
+          400
+        ],
+        "onset": 1,
+        "period": 4,
+        "cyc": 400
+      }
+    ],
+    "checks": [
+      {
+        "source": 7,
+        "initial_bit": 0,
+        "horizon": 1,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 7,
+        "initial_bit": 0,
+        "horizon": 2,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 7,
+        "initial_bit": 0,
+        "horizon": 5,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 7,
+        "initial_bit": 1,
+        "horizon": 1,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 7,
+        "initial_bit": 1,
+        "horizon": 2,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 7,
+        "initial_bit": 1,
+        "horizon": 5,
+        "eta": 0,
+        "theta": 1,
+        "cyc": 13
+      },
+      {
+        "source": 166,
+        "initial_bit": 0,
+        "horizon": 1,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 401
+      },
+      {
+        "source": 166,
+        "initial_bit": 0,
+        "horizon": 2,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 401
+      },
+      {
+        "source": 166,
+        "initial_bit": 0,
+        "horizon": 5,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 401
+      },
+      {
+        "source": 166,
+        "initial_bit": 1,
+        "horizon": 1,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 400
+      },
+      {
+        "source": 166,
+        "initial_bit": 1,
+        "horizon": 2,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 400
+      },
+      {
+        "source": 166,
+        "initial_bit": 1,
+        "horizon": 5,
+        "eta": 1,
+        "theta": 1,
+        "cyc": 400
+      }
+    ]
+  }
+}
