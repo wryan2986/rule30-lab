@@ -116,11 +116,60 @@ If additionally `y=2^n v` with `n>=2`, then `y_0=y_1=0`; the reviewed
 `A=sigma^2 T` identity gives `b_1=y_1 XOR y_0=0`, hence `q>=2` and
 `tau(4y)>=3`. The two-step contribution is then at least `+1`.
 
-This does **not** solve the late problem: once the tower has positive inherited
-preperiod, monotonicity prevents return to a purely periodic state and the
-lemma cannot simply be rebased at time zero. The missing theorem is a
-transient-aware analogue of this compensation, or another direct proof that
-long-residence surplus outruns the complete skip count.
+## Third automation reduction: strip inherited transients exactly
+
+Read:
+
+`proofs/informal/problem1_transient_stripping_zero_extensions.md`
+
+Let finite `y` have
+
+    H=tau(y),
+    u=T^H(y),
+    c=A^H(y)=sigma^(2H)u.
+
+For `x_m=A^H(2^m y)`, the reviewed identities give exactly
+
+    x_m=sigma^(2H)T^H(2^m y).
+
+For `m<=2H`,
+
+    x_m=sigma^(2H-m)u,
+
+so `x_0=c` is periodic, `x_1` is a one-bit lift of `c`, and `x_2` is a
+one-bit lift of `x_1`.
+
+The key exact splitting theorem is
+
+    tau(2^m y)=H+tau(x_m).
+
+The lower bound follows from spatial deletion (`tau(2^m y)>=tau(y)=H`), and
+once time `H` is reached the remaining least preperiod is exactly that of
+`x_m`.
+
+For the zero-extension tower `y=2^n v`, `H=h_n`, this yields
+
+    delta_n=tau(x_1),
+    delta_n+delta_(n+1)=tau(x_2),
+
+and hence the two-step ledger contribution is exactly
+
+    (delta_n-1)+(delta_(n+1)-1)=tau(x_2)-2.
+
+In particular a skip is exactly `tau(x_1)=0`: after the inherited transient
+is stripped, the first lift is periodic. Thus the transient-transport problem
+has been reduced to a finite-lift phase problem over a periodic core.
+
+Important obstruction: unlike literal multiplication by 2 at time zero, the
+newly exposed low bits of `x_1,x_2` are bits of `u=T^H(y)` and are not
+necessarily zero. For `y=2^n v`, `u=2^n T^H(v)` has `n` trailing zeros, but
+the low bit of `x_2` is bit `2H-2` of `u`, which is forced zero only if
+`2H-2<n`. That inequality is unavailable in the bounded-strip regime where
+`H` may be `n+O(1)`.
+
+So the old purely-periodic compensation proof cannot simply be transported by
+waiting out the transient. The transient itself is now removed exactly; the
+remaining issue is the post-transient lift phase.
 
 ## Current preferred target
 
@@ -128,11 +177,18 @@ Seek an all-depth mechanism on the FULL finite-fringe domain proving
 
     limsup_N [P_v(N)-Z_v(N)] = infinity.
 
-The most concrete next attempt is to transport the two-step doubling
-compensation through an inherited transient while retaining the correct phase
-of the periodic core. If that fails, identify an exact mechanism by which an
-inherited transient lets later skips pay all future long-residence surplus.
-Either outcome is useful.
+The most concrete local formulation is now:
+
+- at a skip, `x_1` is periodic;
+- the next two-step ledger is nonnegative iff `tau(x_2)>=2`;
+- prove this for all admissible skips, prove it for a sufficiently large class
+  (for example doubling skips) with control of the remaining skips, or classify
+  the exact phase failures and force later compensation.
+
+Do **not** spend more effort transporting the inherited transient itself: the
+new splitting identity does that exactly. Focus on the finite-lift phase of
+`x_2` over periodic `x_1` and how its actual low bit is constrained by the
+FULL tail.
 
 Do not resume gate-prefix, source-prefix, shifted-row, periodic-core, or front
 sampling merely to estimate average drift; the ledger is exact and finite
