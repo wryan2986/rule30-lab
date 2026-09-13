@@ -171,24 +171,101 @@ So the old purely-periodic compensation proof cannot simply be transported by
 waiting out the transient. The transient itself is now removed exactly; the
 remaining issue is the post-transient lift phase.
 
+## Fourth automation reduction: exact periodic one-bit lift classifier
+
+Read:
+
+`proofs/informal/problem1_periodic_one_bit_lift_classifier.md`
+
+For any A-periodic finite state `z`, write
+
+    z_s=A^s(z),
+    b_s=bit_0(z_s),
+    c_s=bit_1(z_s).
+
+Every one-bit lift `w=2z+a_0` stays a one-bit lift along the orbit:
+
+    A^s(w)=2z_s+a_s,
+
+and the exposed bit obeys exactly
+
+    a_(s+1)=c_s XOR (b_s OR a_s).
+
+Thus `b_s=1` is an eraser (the next bit is independent of `a_s`), while
+`b_s=0` gives an identity or toggle map and preserves the distinction between
+the two lift bits.
+
+This solves the finite-lift phase problem exactly.
+
+- If `b_s` is identically zero, **both** one-bit lifts are periodic from time
+  zero, so `tau(2z)=tau(2z+1)=0`.
+- Otherwise there is a unique recurrent initial lift bit `r_0`. Let
+
+      q=min{s>=0:b_s=1}.
+
+  The recurrent bit gives `tau(w)=0`; the other bit gives exactly
+
+      tau(w)=q+1.
+
+Applied at a tower skip with `z=x_1`, `w=x_2`, this gives the exact two-step
+ledger:
+
+    tau(x_2)-2 = -2
+
+if the actual phase chooses the recurrent lift (or if the low trace of `x_1`
+is identically zero), while a nonrecurrent lift gives
+
+    tau(x_2)-2 = q-1.
+
+Therefore the hoped-for universal local theorem `tau(x_2)>=2 at every skip`
+is **false for arbitrary periodic lifts**. This is now a closed dead route;
+do not retry it without using extra FULL-tail structure.
+
+The actual post-transient phase bit is explicit. With
+
+    u=T^H(y),
+    x_1=sigma^(2H-1)u,
+    x_2=sigma^(2H-2)u,
+
+we have
+
+    bit_0(x_2)=bit_(2H-2)(u).
+
+So the unresolved question is whether the common-tower origin constrains this
+bit relative to the unique recurrent lift bit strongly enough to produce a
+net ledger gain.
+
+Small exact examples show the phase failure is genuine, not merely logical:
+`z=12` is period two, but its lifts satisfy `tau(24)=2` and `tau(25)=0`;
+`z=13` has `tau(26)=1` and `tau(27)=0`. These are sharpness examples only, not
+finite-sampling evidence for the asymptotic theorem.
+
 ## Current preferred target
 
 Seek an all-depth mechanism on the FULL finite-fringe domain proving
 
     limsup_N [P_v(N)-Z_v(N)] = infinity.
 
-The most concrete local formulation is now:
+The best local object is no longer an isolated skip. Treat a **maximal block of
+consecutive skips** as one object. After transient stripping, such a block is
+exactly a chain
 
-- at a skip, `x_1` is periodic;
-- the next two-step ledger is nonnegative iff `tau(x_2)>=2`;
-- prove this for all admissible skips, prove it for a sufficiently large class
-  (for example doubling skips) with control of the remaining skips, or classify
-  the exact phase failures and force later compensation.
+    x_0, x_1, ..., x_k
+
+of consecutive nested one-bit lifts that are all A-periodic, followed by the
+first nonperiodic lift `x_(k+1)`.
+
+The next concrete target is to derive an exact block ledger formula and lower
+bound the exit preperiod `tau(x_(k+1))` in terms of the block length k and the
+eraser locations of the successive periodic cores. If the exit residence
+always pays for all or almost all preceding skips, the remaining global burden
+becomes much smaller. If not, classify the phase mechanism that permits a
+long periodic-lift block to exit cheaply.
 
 Do **not** spend more effort transporting the inherited transient itself: the
-new splitting identity does that exactly. Focus on the finite-lift phase of
-`x_2` over periodic `x_1` and how its actual low bit is constrained by the
-FULL tail.
+splitting identity does that exactly. Do **not** retry universal two-step
+compensation for arbitrary periodic lifts: the classifier and explicit
+counterexamples above rule it out.
 
 Do not resume gate-prefix, source-prefix, shifted-row, periodic-core, or front
 sampling merely to estimate average drift; the ledger is exact and finite
