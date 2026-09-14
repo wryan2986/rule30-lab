@@ -1,6 +1,8 @@
 # Problem 1: even-corridor terminal source sharpening
 
-Status: exact refinement of the genuine-collision terminal source classification. Problem 1 remains open.
+Status: corrected exact refinement of the genuine-collision terminal source classification. Problem 1 remains open.
+
+> Correction note (run 25): the run-24 version of Section 3 incorrectly said that a word of bitlength `m-2`, divided by `2^(m-4)`, exposes its top three bits. It exposes its top **two** bits. The corrected calculation is stronger: for every even corridor `G=2D>=4`, the penultimate source is exactly `5 mod 8`, and in fact a whole suffix is forced to consist of `5` symbols.
 
 ## Setup
 
@@ -16,13 +18,7 @@ Put
 \[
 m=2p,
 \qquad L=\operatorname{bitlength}(R),
-\qquad G=m-L.
-\]
-
-Assume the return corridor is even:
-
-\[
-G=2D>0.
+\qquad G=m-L=2D>0.
 \]
 
 The first boundary-collision row is
@@ -36,30 +32,28 @@ For
 \[
 u_j=A^j(x),\qquad s_j=T(u_j),
 \]
-
-the previous terminal-source theorem only used bit length and obtained
+we use the separated-return formula. For every integer `r` in the separated range,
 
 \[
-s_{p-1}\pmod8\in\{1,2,5,6\}.
+\boxed{
+ u_{p-r}
+ =2^{2r}T^{D+1-r}(z)
+ +
+ \left\lfloor
+ \frac{T^{D+1-r}(R)}{2^{m-2r}}
+ \right\rfloor.
+}
 \]
-
-The exact leading-bit structure of finite Rule-30 images sharpens this to only two possibilities.
 
 ## 1. Every nonzero finite Rule-30 image begins with binary `11`
 
-Let a nonzero finite word `w` have highest set bit at position `k`.
-
-Using
+Let a nonzero finite word `w` have highest set bit at position `k`. Using
 
 \[
 T(w)=w\oplus((2w)\lor(4w)),
 \]
 
-the output bit at position `k+2` is `1`, because it receives the highest bit of `w` through the `4w` term and there is no contribution from `w` itself or `2w` at that position.
-
-At position `k+1`, the `2w` term contributes the highest input bit `1`, so the OR term is also `1`; again `w` itself has no bit there.
-
-Therefore the two highest output bits are always
+the output bits at positions `k+2` and `k+1` are both `1`. Therefore every nonzero finite Rule-30 image has two leading bits
 
 \[
 \boxed{11_2}.
@@ -73,11 +67,9 @@ Equivalently, if `n=bitlength(w)`, then
 }
 \]
 
-This is stronger than the generic fact that `T(w)` gains two bits.
+## 2. Exact terminal source
 
-## 2. Exact terminal fringe quotient for even corridors
-
-From the earlier collision calculation,
+Taking `r=1`,
 
 \[
  u_{p-1}
@@ -86,53 +78,13 @@ From the earlier collision calculation,
  \left\lfloor\frac{T^D(R)}{2^{m-2}}\right\rfloor.
 \]
 
-Since `G=2D`,
+Since `T^D(R)` is a nonzero Rule-30 image of bitlength `m`, its top two bits are `11`, so the quotient is exactly `3`. Hence
 
 \[
-\operatorname{bitlength}(T^{D-1}(R))
-=L+2D-2
-=m-2.
+\boxed{u_{p-1}=4T^D(z)+3.}
 \]
 
-Set
-
-\[
-W=T^{D-1}(R).
-\]
-
-Then `bitlength(W)=m-2` and
-
-\[
-T^D(R)=T(W).
-\]
-
-By the universal leading-`11` fact,
-
-\[
-\boxed{
-\left\lfloor\frac{T^D(R)}{2^{m-2}}\right\rfloor=3.
-}
-\]
-
-Hence the penultimate normalized state has the exact form
-
-\[
-\boxed{
- u_{p-1}=4T^D(z)+3.
-}
-\]
-
-Therefore
-
-\[
- u_{p-1}\equiv
- \begin{cases}
- 3\pmod8,&T^D(z)\text{ even},\\
- 7\pmod8,&T^D(z)\text{ odd}.
- \end{cases}
-\]
-
-Using `T(y) == -y (mod 8)`, the terminal source symbol is exactly
+Using `T(y)\equiv-y\pmod8`,
 
 \[
 \boxed{
@@ -147,24 +99,14 @@ Using `T(y) == -y (mod 8)`, the terminal source symbol is exactly
 Thus
 
 \[
-\boxed{s_{p-1}\pmod8\in\{1,5\}.}
+\boxed{s_{p-1}\in\{1,5\}\pmod8.}
 \]
 
-The earlier possibilities `2` and `6` cannot occur for a genuine even-corridor collision.
+## 3. Corrected penultimate source and the full forced `5` suffix
 
-In particular, the commutator automaton's one-symbol synchronizer
+Assume `D>=2`, i.e. `G>=4`.
 
-\[
-s\equiv6\pmod8
-\]
-
-is **never** the terminal symbol of any genuine first collision, odd or even: odd corridors end in `{3,7}`, and even corridors end in `{1,5}`.
-
-## 3. Penultimate source refinement for longer even corridors
-
-Assume `D>=2`, equivalently `G>=4`.
-
-The same calculation one step earlier gives
+For `r=2`,
 
 \[
  u_{p-2}
@@ -175,54 +117,125 @@ The same calculation one step earlier gives
  \right\rfloor.
 \]
 
-Again put `W=T^(D-1)(R)`. Since `D>=2`, `W` itself is a nonzero Rule-30 image. Its two highest bits are therefore `11`.
-
-Because `bitlength(W)=m-2`, the quotient
+Now `T^{D-1}(R)` has bitlength `m-2`. Dividing by `2^(m-4)` retains its top **two** bits, not three. Since `D-1>=1`, this word is a nonzero Rule-30 image, so those two bits are `11`. Therefore
 
 \[
-\left\lfloor\frac{W}{2^{m-4}}\right\rfloor
-\]
-
-is its top three bits and must lie in
-
-\[
-\{6,7\}.
-\]
-
-The multiple `16T^(D-1)(z)` vanishes modulo 8, so
-
-\[
-\boxed{u_{p-2}\pmod8\in\{6,7\}.}
+\boxed{
+\left\lfloor
+ \frac{T^{D-1}(R)}{2^{m-4}}
+\right\rfloor=3,
+}
 \]
 
 and hence
 
 \[
-\boxed{s_{p-2}\pmod8\in\{2,1\}.}
+\boxed{u_{p-2}\equiv3\pmod8},
+\qquad
+\boxed{s_{p-2}\equiv5\pmod8}.
 \]
 
-Thus every genuine even corridor with `G>=4` has a terminal two-symbol source suffix in
+The same argument works uniformly. For every
+
+\[
+2\le r\le D,
+\]
+we have `D+1-r>=1`, so `T^(D+1-r)(R)` is a nonzero Rule-30 image. Its bitlength is
+
+\[
+L+2(D+1-r)=m+2-2r.
+\]
+
+After division by `2^(m-2r)`, exactly its two leading bits remain, hence the quotient is again `3`. Since `2^(2r)T^(D+1-r)(z)` is divisible by `8` for `r>=2`,
+
+\[
+\boxed{u_{p-r}\equiv3\pmod8}
+\]
+
+and therefore
+
+\[
+\boxed{s_{p-r}\equiv5\pmod8}
+\qquad(2\le r\le D).
+\]
+
+Thus every genuine even corridor `G=2D>=4` has the forced terminal source structure
 
 \[
 \boxed{
-(s_{p-2},s_{p-1})
-\in
-\{(1,1),(1,5),(2,1),(2,5)\}
-\pmod8.
+(s_{p-D},s_{p-D+1},\ldots,s_{p-2})
+=(5,5,\ldots,5)
 }
 \]
 
-Unlike the odd-corridor suffixes `(7,3)` and `(7,7)`, these four abstract two-symbol words do not all synchronize the three-state commutator automaton. Therefore the odd-corridor bounded-memory proof does not automatically extend to even corridors.
+with exactly `D-1` copies of `5`, followed by
 
-## 4. Consequence for the proof strategy
+\[
+\boxed{s_{p-1}\in\{1,5\}.}
+\]
 
-The genuine-collision terminal alphabet is now much smaller than previously believed:
+This replaces the incorrect run-24 Cartesian-product claim `{1,2} x {1,5}`.
 
-- odd `G`: final source in `{3,7}`;
-- even `G`: final source in `{1,5}`.
+## 4. Exact effect on the three-state commutator automaton
 
-No genuine collision terminates in source `0`, and none terminates in the synchronizing source `6`.
+On reachable commutator states `{0,1,3}`, source symbol `5` acts as
 
-For odd `G>=3`, the previous note shows the forced penultimate `7` makes the last two symbols synchronizing anyway.
+\[
+0\mapsto1,\qquad1\mapsto0,\qquad3\mapsto1.
+\]
 
-For even `G>=4`, the penultimate source is in `{1,2}` and the final source is in `{1,5}`. The remaining sharp target is therefore to determine which of the four pairs above are actually realizable from return-fringe geometry and whether adding one more fringe-determined source symbol forces synchronization or at least determines a proper subset of terminal commutator states.
+After one source-`5` symbol the state is therefore in `{0,1}`, and on `{0,1}` both source `5` and source `1` act as the same transposition
+
+\[
+0\leftrightarrow1.
+\]
+
+Let
+
+\[
+h=d_{p-D}.
+\]
+
+For `D>=2`, the forced suffix contains `D-1` copies of source `5` and then one terminal source in `{1,5}`. The terminal choice no longer matters. The final commutator state is
+
+\[
+\boxed{
+ d_p
+ =
+ \begin{cases}
+ 1,&D\text{ odd and }h\ne1,\\
+ 0,&D\text{ odd and }h=1,\\
+ 1,&D\text{ even and }h=1,\\
+ 0,&D\text{ even and }h\ne1.
+ \end{cases}
+}
+\]
+
+Equivalently,
+
+\[
+\boxed{
+ d_p=
+ \mathbf 1_{h\ne1}\oplus((D-1)\bmod2).
+}
+\]
+
+In particular,
+
+\[
+\boxed{d_p\in\{0,1\}}
+\]
+
+for every even corridor `G>=4`: state `3` is impossible at the end of such a genuine collision.
+
+This does not fully synchronize the history, because it retains one binary distinction: whether `d_(p-D)` equals `1` or lies in `{0,3}`. But it compresses the entire length-`D` collision suffix to that single bit plus the parity of `D`.
+
+## 5. Research consequence
+
+The even-corridor obstruction is now narrower than run 24 indicated. Long even corridors do not produce a complicated terminal alphabet; they force a long run of one source symbol:
+
+\[
+5^{D-1}(1\text{ or }5).
+\]
+
+The remaining task is to control the entering state `d_(p-D)` from the geometry at the beginning of this forced suffix. A natural next target is the source `s_(p-D-1)`, where the fringe term is the original return fringe `R` rather than a positive Rule-30 image. If return-fringe structure restricts that source enough to decide whether `d_(p-D)=1`, then the entire even-corridor commutator history becomes bounded and explicit.
