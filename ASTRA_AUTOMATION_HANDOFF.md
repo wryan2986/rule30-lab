@@ -138,7 +138,7 @@ That inequality is false for arbitrary nested periodic lifts. The exact chain
 
 consists of periodic nested lifts, while the next lift `223` has preperiod one. This gives `k=6`, `q_k=0`, `B=-6`. Thus any successful block theorem must use the shared origin `x_m=A^H(2^m y)`.
 
-## 6. New exact zero-extension / physical-time renormalization
+## 6. Exact zero-extension / physical-time renormalization
 
 Read `proofs/informal/problem1_zero_extension_time_renormalization.md`.
 
@@ -163,30 +163,48 @@ At `n=0`,
 
     tau(T^t(v))=max(h_v(2t)-t,0).
 
-Thus the even tower subsequence has a sharp dichotomy:
+Thus the even tower subsequence has a sharp pointwise dichotomy between A-periodic physical rows and positive physical-row preperiod.
 
-- if `h_v(2t)<=t`, then the actual physical row `T^t(v)` is already A-periodic;
-- if `h_v(2t)>t`, then
+## 7. New physical-time tail conjugacy
 
-      e_v(2t)=tau(T^t(v))-t.
+Read `proofs/informal/problem1_physical_time_tail_conjugacy.md`.
 
-This is the first exact bridge in the automation work from the abstract zero-extension tower back to the actual unnormalized Rule-30 spacetime row.
+For every nonzero finite `v`, the established theorem `h_v(n)->infinity` removes the max branch after any fixed physical restart. Fix `t>=0`. There is `N_t` such that for every `n>=N_t`,
 
-Do not drop the `max` branch: frequent A-periodicity of `T^t(v)` is a genuine alternative, not something already ruled out.
+    h_(T^t v)(n)=h_v(n+2t)-t,
+
+hence
+
+    e_(T^t v)(n)=e_v(n+2t)+t.
+
+The residence increments therefore satisfy, eventually exactly,
+
+    delta_(T^t v)(n)=delta_v(n+2t).
+
+So skips, one-step residences, long residences, and their `P-Z` ledger are transported under physical time by deletion of a finite prefix and translation of indices.
+
+In particular,
+
+    limsup e_(T^t v) = t + limsup e_v
+
+in the extended-real sense. Therefore the target `limsup e_v=infinity` and its negation (eventual boundedness above) are invariant under restarting at any fixed physical Rule-30 time.
+
+This also clarifies the role of the pointwise A-periodic branch at `n=0`: an A-periodic physical row can change only a finite prefix of the restarted tower. It cannot create a permanently different asymptotic residence ledger.
 
 ## Current preferred target
 
-Seek an all-depth FULL-domain mechanism proving `limsup e_v(n)=infinity`, now using the new physical-time bridge.
+Seek an all-depth FULL/front mechanism that can be applied after an arbitrarily late fixed physical restart and forces a **prefix-independent positive ledger gain**.
 
-The most concrete next question is whether existing front/finite-entry/FULL lemmas constrain either branch of
+The useful contradiction template is now:
 
-    tau(T^t(v))=max(h_v(2t)-t,0).
+1. assume `e_v` is eventually bounded above;
+2. restart at a late physical time `t` where FULL/front geometry has a controlled local form;
+3. use tail conjugacy to identify the restarted ledger with the original far tail;
+4. prove a restart-local birth/front obligation that adds a positive amount not chargeable to the discarded prefix;
+5. repeat at separated restarts to force unbounded positive excursions.
 
-A useful theorem would either:
+The old strategy of treating `T^t(v)` being A-periodic as if it produced a permanently cheaper new ledger is not sufficient: tail conjugacy shows every fixed restart eventually rejoins the same original ledger.
 
-1. rule out `T^t(v)` being A-periodic for all sufficiently large `t` and force unbounded positive excursions of `tau(T^t(v))-t`; or
-2. show that each physical-orbit entry into an A-cycle forces a later front/birth surplus that pays into the residence ledger.
-
-Compare this route with maximal skip blocks: the renormalization identity may encode exactly the common-origin constraint absent from arbitrary nested lifts.
+Compare this with `problem1_nonreset_return_birth_spacing.md`: its forced birth after a late nonresetting FULL source is a natural candidate local obligation, but the missing step remains converting such forced regeneration into a signed `P-Z` ledger gain rather than merely a separated birth count.
 
 Do not resume finite sampling merely to estimate asymptotic drift. Do not retry generic nested-lift compensation. Do not claim a Problem 1 solution without an all-depth contradiction.
