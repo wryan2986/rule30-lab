@@ -165,7 +165,7 @@ At `n=0`,
 
 Thus the even tower subsequence has a sharp pointwise dichotomy between A-periodic physical rows and positive physical-row preperiod.
 
-## 7. New physical-time tail conjugacy
+## 7. Physical-time tail conjugacy
 
 Read `proofs/informal/problem1_physical_time_tail_conjugacy.md`.
 
@@ -191,20 +191,65 @@ in the extended-real sense. Therefore the target `limsup e_v=infinity` and its n
 
 This also clarifies the role of the pointwise A-periodic branch at `n=0`: an A-periodic physical row can change only a finite prefix of the restarted tower. It cannot create a permanently different asymptotic residence ledger.
 
+## 8. Physical episode ledger telescope — forced birth route fenced
+
+Read `proofs/informal/problem1_physical_episode_ledger_telescope.md`.
+
+For original-cut delays `s_j`, let
+
+    Delta_j=s_(j+1)-s_j.
+
+For every `a<b`, exactly
+
+    sum_(j=a..b-1)(Delta_j-1)
+      =(s_b-b)-(s_a-a).
+
+Whenever both endpoint physical delays are positive, the threshold identity
+`tau(Y_j)=max(s_j-j,0)` therefore gives
+
+    sum_(j=a..b-1)(Delta_j-1)
+      =tau(Y_b)-tau(Y_a).
+
+This closes the tempting idea that a forced local birth can automatically be
+counted as an independent positive `P-Z` contribution.
+
+For the pushed TWO-BIT nonreset source profile,
+
+    tau(Y_t),...,tau(Y_(t+6))=2,1,0,0,0,0,1,
+
+so the whole passage through the forced birth has exact signed ledger charge
+
+    1-2=-1.
+
+The forced `beta=1` birth creates a resetting one-bit `t` source at `t+6`.
+Its two possible delay triples are `1,1,1` and `1,0,1`, so its complete
+immediate two-step passage has charge zero. Therefore the eight-step segment
+from the two-bit nonreset source through that resetting passage still has
+exact charge `-1`.
+
+For a one-bit nonreset source, if its terminal `beta=1` birth occurs then the
+six-step endpoint delays are both one, hence the charge is exactly zero. If
+`beta=0`, the terminal delay is zero and no positive charge is forced.
+
+Consequently the separated-birth theorem in
+`problem1_nonreset_return_birth_spacing.md` cannot be converted into an
+additive positive residence budget merely by summing its forced births.
+The internal long residences and skips already telescope into endpoint delay.
+
 ## Current preferred target
 
-Seek an all-depth FULL/front mechanism that can be applied after an arbitrarily late fixed physical restart and forces a **prefix-independent positive ledger gain**.
+The previous target "force a restart-local birth and count it as positive ledger gain" is now fenced off.
 
-The useful contradiction template is now:
+A viable all-depth mechanism must instead do at least one of the following:
 
-1. assume `e_v` is eventually bounded above;
-2. restart at a late physical time `t` where FULL/front geometry has a controlled local form;
-3. use tail conjugacy to identify the restarted ledger with the original far tail;
-4. prove a restart-local birth/front obligation that adds a positive amount not chargeable to the discarded prefix;
-5. repeat at separated restarts to force unbounded positive excursions.
+1. force positive endpoint physical delays themselves to increase beyond every bound;
+2. control the hidden negative excess `s_j-j` at zero-delay rows, where `tau(Y_j)=0` truncates that information; or
+3. construct a genuinely non-telescoping global charge, distinct from the signed residence sum, with bounded reuse on the original finite fringe.
 
-The old strategy of treating `T^t(v)` being A-periodic as if it produced a permanently cheaper new ledger is not sufficient: tail conjugacy shows every fixed restart eventually rejoins the same original ledger.
+The second option is the most direct next scalar target. At a zero-delay row, define the hidden slack
 
-Compare this with `problem1_nonreset_return_birth_spacing.md`: its forced birth after a late nonresetting FULL source is a natural candidate local obligation, but the missing step remains converting such forced regeneration into a signed `P-Z` ledger gain rather than merely a separated birth count.
+    g_j=j-s_j >= 0.
 
-Do not resume finite sampling merely to estimate asymptotic drift. Do not retry generic nested-lift compensation. Do not claim a Problem 1 solution without an all-depth contradiction.
+The residence ledger across a segment with a zero-delay endpoint depends on this slack, while the physical strip variable forgets it. A useful next theorem would constrain how large `g_j` can become, or how quickly a later FULL source must repay it, using the same complete-core / global-shadow structure. Without such a theorem, births can be locally real but globally absorbed by skipped characteristics.
+
+Do not resume finite sampling merely to estimate asymptotic drift. Do not retry generic nested-lift compensation. Do not sum separated births as if they were independent positive ledger charges. Do not claim a Problem 1 solution without an all-depth contradiction.
