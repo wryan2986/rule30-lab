@@ -230,12 +230,100 @@ for every even corridor `G>=4`: state `3` is impossible at the end of such a gen
 
 This does not fully synchronize the history, because it retains one binary distinction: whether `d_(p-D)` equals `1` or lies in `{0,3}`. But it compresses the entire length-`D` collision suffix to that single bit plus the parity of `D`.
 
-## 5. Research consequence
+## 5. The source immediately before the forced suffix is read directly from the top of `R`
 
-The even-corridor obstruction is now narrower than run 24 indicated. Long even corridors do not produce a complicated terminal alphabet; they force a long run of one source symbol:
+Because `G=2D` and `L=m-2D`, take `r=D+1`. Then `p-r=p-D-1>=0` and `D+1-r=0`, so the separated-return identity reduces directly to the original return equation:
 
 \[
-5^{D-1}(1\text{ or }5).
+ u_{p-D-1}
+ =2^{2D+2}z
+ +
+ \left\lfloor\frac{R}{2^{L-2}}\right\rfloor.
 \]
 
-The remaining task is to control the entering state `d_(p-D)` from the geometry at the beginning of this forced suffix. A natural next target is the source `s_(p-D-1)`, where the fringe term is the original return fringe `R` rather than a positive Rule-30 image. If return-fringe structure restricts that source enough to decide whether `d_(p-D)=1`, then the entire even-corridor commutator history becomes bounded and explicit.
+Since `L` is positive and even, `L>=2`. The quotient is exactly the top two bits of `R`, hence is either `2` (`10_2`) or `3` (`11_2`). The first term is divisible by `8`, so
+
+\[
+\boxed{
+ u_{p-D-1}\pmod8=
+ \begin{cases}
+ 2,&R\text{ begins }10,\\
+ 3,&R\text{ begins }11.
+ \end{cases}
+}
+\]
+
+and therefore, using `T(y)\equiv-y\pmod8`,
+
+\[
+\boxed{
+ s_{p-D-1}\equiv
+ \begin{cases}
+ 6\pmod8,&R\text{ begins }10,\\
+ 5\pmod8,&R\text{ begins }11.
+ \end{cases}
+}
+\]
+
+This gives a sharp dichotomy.
+
+### `R` begins `10`: complete synchronization
+
+Source `6` is the automaton reset:
+
+\[
+F(d,6)=1
+\qquad\text{for every reachable }d.
+\]
+
+Hence
+
+\[
+\boxed{d_{p-D}=1.}
+\]
+
+The entire earlier source history is erased before the forced `5` suffix begins. Substituting `h=1` into the formula above,
+
+\[
+\boxed{
+ d_p=
+ \begin{cases}
+ 0,&D\text{ odd},\\
+ 1,&D\text{ even}.
+ \end{cases}
+}
+\]
+
+Thus every even corridor `G>=4` whose return fringe begins `10` has a completely explicit terminal commutator state depending only on `D mod 2`.
+
+### `R` begins `11`: exactly one unresolved history bit remains
+
+Then `s_(p-D-1)=5`. This is not a synchronizer. It maps `{0,3}` together to `1` and maps `1` to `0`, so after this symbol
+
+\[
+d_{p-D}\in\{0,1\}
+\]
+
+and the only surviving information is whether the preceding state `d_(p-D-1)` was `1` or not.
+
+Therefore the long-even-corridor obstruction has now been reduced to a single exceptional geometry:
+
+\[
+\boxed{R\text{ begins }11.}
+\]
+
+All `10`-leading even fringes synchronize completely.
+
+## 6. Research consequence
+
+The corrected even-corridor source word is far more rigid than the run-24 note claimed:
+
+\[
+\boxed{
+(6\text{ or }5),\ 5^{D-1},\ (1\text{ or }5).
+}
+\]
+
+The first symbol is determined by the top two bits of the original return fringe. If they are `10`, the automaton resets and `d_p` is explicit. If they are `11`, one binary distinction survives.
+
+The next sharp target is therefore not a generic third terminal source. It is to decide whether a genuine long even return fringe can begin `11`, and, if so, whether common-origin/FULL geometry or one more bit of `R` determines whether `d_(p-D-1)=1`. A proof that long even fringes must begin `10` would completely settle the local commutator-memory problem for all even corridors `G>=4`.
