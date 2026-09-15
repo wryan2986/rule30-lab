@@ -1,6 +1,6 @@
 # Problem 1: immediate re-entry after a long corridor collapses the next same-period corridor
 
-Status: exact theorem for every even corridor `G>=4` and every odd corridor `G>=5`. If the first collision immediately re-enters the same `A^p`-fixed set, the re-entered state's own return corridor has length `0` in the even case and at most `1` in the odd case. The exceptional odd case `G=3` remains open. Problem 1 remains open.
+Status: exact theorem for every long corridor `G>=3`. If the first collision immediately re-enters the same `A^p`-fixed set, the re-entered state's own return corridor has length `0` for every even `G>=4`, and at most `1` for every odd `G>=3`. Problem 1 remains open.
 
 ## Setup
 
@@ -66,7 +66,7 @@ we obtain
 
 Thus the next fringe is simply the old fringe evolved through the collision/re-entry interval and truncated at the normalization boundary.
 
-## 2. Universal fifth leading bit after four Rule-30 steps
+## 2. Universal leading-edge facts
 
 Let a nonzero finite word `w` have highest occupied bit at position `h`. Define relative leading-edge bits
 
@@ -90,21 +90,20 @@ Since `a_0^(0)=1`, one gets
 
 \[
 a_0^{(q)}=1,
-\qquad
-a_1^{(q)}=1\ (q\ge1),
-\qquad
-a_2^{(q)}=0\ (q\ge2).
+\qquad a_1^{(q)}=1\ (q\ge1),
+\qquad a_2^{(q)}=0\ (q\ge2).
 \]
 
 For `q>=2`, therefore,
 
 \[
 a_3^{(q+1)}=1\oplus a_3^{(q)},
-\qquad
-a_4^{(q+1)}=a_3^{(q)}\lor a_4^{(q)}.
+\qquad a_4^{(q+1)}=a_3^{(q)}\lor a_4^{(q)}.
 \]
 
-Hence
+Two consequences are needed.
+
+### Fifth leading bit after four steps
 
 \[
 \begin{aligned}
@@ -121,10 +120,29 @@ Once `a_4=1`, the second recurrence keeps it equal to 1. Thus
 \[
 \boxed{
 q\ge4
-\Longrightarrow
-\text{the fifth bit from the leading edge of }T^q(w)\text{ is }1.
+\Longrightarrow a_4^{(q)}=1.
 }
 \]
+
+### The fourth/fifth pair after three steps cannot both vanish
+
+At `q=3`, the same recurrences give
+
+\[
+a_3^{(3)}=1\oplus a_3^{(2)},
+\qquad
+a_4^{(3)}=a_3^{(2)}\lor a_4^{(2)}.
+\]
+
+Hence
+
+\[
+\boxed{
+a_3^{(3)}\lor a_4^{(3)}=1.
+}
+\]
+
+This two-bit statement is exactly what the `G=3` truncation needs. The previous run focused only on the fifth leading bit `a_4^(3)` and therefore left a spurious exceptional-prefix case: whenever that fifth bit vanishes, the fourth bit is forced to be one.
 
 ## 3. Even corridor: immediate re-entry forces G'=0
 
@@ -153,8 +171,6 @@ Reduction modulo `2^m` removes positions `m` through `m+3` but retains position 
 \[
 \boxed{G'=0.}
 \]
-
-So every immediate re-entry after an even corridor `G>=4` lands in a same-period state with no positive return corridor.
 
 ## 4. Odd corridor G>=5: immediate re-entry forces G'<=1
 
@@ -188,64 +204,76 @@ and hence
 \boxed{G'\le1.}
 \]
 
-Thus an immediate re-entry after any odd corridor `G>=5` cannot initiate another long same-period persistence block.
+## 5. Odd corridor G=3: exact closure
 
-## 5. Exceptional G=3 case
+Now let
 
-For `G=3`, `D=1`, so the fringe evolves only three physical steps before the re-entered state:
+\[
+G=3,
+\qquad D=1.
+\]
+
+Then
 
 \[
 R'=T^3(R)\bmod2^m.
 \]
 
-The universal fifth-leading-bit lemma starts at four steps, so it does not settle this case.
-
-Exact finite-state data nevertheless shows the same collapse at the periods currently tractable:
-
-- period 4: both `G=3` immediate re-entries have `G'` equal to `0` or `1`;
-- period 8: all 47 `G=3` immediate re-entries have `G'` equal to `0` or `1` (31 with `G'=0`, 16 with `G'=1`).
-
-This remains evidence, not a theorem.
-
-## 6. Period-8 finite-state census
-
-The exact period-8 finite-extension graph gives 63 immediate re-entries from corridors `G>=3`:
-
-- `G=3`: 47;
-- `G=4`: 7;
-- `G=5`: 9;
-- `G=6,7,8,9,10`: none.
-
-For all 63,
+Since `R` has bitlength `m-3`, `T^3(R)` has bitlength
 
 \[
-R'=T^{D+2}(R)\bmod2^{16}
+(m-3)+6=m+3.
 \]
 
-matches the directly reconstructed fringe of `z'=T^{D+2}z`.
+Its highest bit is at position `m+2`. Reduction modulo `2^m` discards the first three leading bits, so the two highest positions that can remain are
 
-The post-re-entry gaps are:
+- position `m-1`, carrying `a_3^(3)`;
+- position `m-2`, carrying `a_4^(3)`.
 
-- from `G=3`: 31 with `G'=0`, 16 with `G'=1`;
-- from `G=4`: all 7 with `G'=0`;
-- from `G=5`: 2 with `G'=0`, 7 with `G'=1`.
+But the three-step leading-edge identity above says
+
+\[
+a_3^{(3)}\lor a_4^{(3)}=1.
+\]
+
+Therefore at least one of positions `m-1,m-2` survives as a one. Hence
+
+\[
+\operatorname{bitlength}(R')\ge m-1
+\]
+
+and
+
+\[
+\boxed{G'\le1.}
+\]
+
+This proves the previously open `G=3` case for every period and every nonzero fringe; no admissibility or endpoint re-entry classification is needed beyond the assumption that the transported fringe is the return fringe of the re-entered state.
+
+## 6. Uniform theorem
+
+Combining the cases:
+
+\[
+\boxed{
+G\ge4\text{ even and immediate re-entry}\Longrightarrow G'=0,
+}
+\]
+
+and
+
+\[
+\boxed{
+G\ge3\text{ odd and immediate re-entry}\Longrightarrow G'\le1.
+}
+\]
+
+Thus every immediate re-entry after a long corridor terminates the long same-period persistence block. There is no exceptional `G=3` mechanism capable of chaining one long same-period corridor directly into another.
+
+The exact finite-state data from periods 4 and 8 remains consistent with the theorem: at period 8 the 47 `G=3` immediate re-entries split into 31 cases with `G'=0` and 16 with `G'=1`.
 
 ## Consequence for the global proof strategy
 
-For every even corridor `G>=4` and every odd corridor `G>=5`, one-step re-entry terminates the long same-period corridor rather than resetting into another long corridor:
+The local immediate-reentry branch is now closed. A long return-fringe corridor can collide and immediately re-enter the same `A^p`-fixed set, but that re-entry necessarily lands in a state with corridor gap at most one (and exactly zero for every even long corridor). Therefore immediate re-entry cannot generate an indefinite chain of long same-period residence blocks.
 
-\[
-\boxed{
-G\ge4\text{ even and re-entry}\Longrightarrow G'=0,
-}
-\]
-
-\[
-\boxed{
-G\ge5\text{ odd and re-entry}\Longrightarrow G'\le1.
-}
-\]
-
-This removes immediate re-entry as a mechanism for chaining arbitrarily long same-period residence blocks in all cases except `G=3`.
-
-The next sharp target is the remaining three-step case. Direct leading-edge calculation shows that the fifth leading bit of `T^3(R)` can vanish only for a small set of initial leading prefixes; the useful question is whether any genuine `A^p` return fringe satisfying the `G=3` re-entry condition can realize those prefixes. A negative answer would extend the corridor-collapse theorem to every long odd corridor.
+Further work should return to the global FULL/common-origin/front-residence argument: the remaining task is to show that a finite survivor cannot evade the resulting loss of long same-period residence indefinitely by changing period/phase or by moving through the short-gap states.
