@@ -26,11 +26,7 @@ Put `x=q_(N-5)`. Since `q_(N-3)=0` and `q_(N-4)=A`,
 
     0 = Sx xor (A OR x),
 
-so
-
-    Sx = A OR x.
-
-Because `A` contains a 1, the bit immediately after such a position in `x` is 1. Thereafter the implication `x_j=1 => x_(j+1)=1` propagates around the cyclic word. Hence `x=1`.
+so `Sx=A OR x`. Because `A` contains a 1, the bit immediately after such a position in `x` is 1. Thereafter `x_j=1 => x_(j+1)=1` propagates around the cyclic word. Hence `x=1`.
 
 ### 2. q_(N-6) = A
 
@@ -38,7 +34,7 @@ Put `y=q_(N-6)`. Using `q_(N-5)=1` and output `q_(N-4)=A`,
 
     A = Sy xor (1 OR y) = Sy xor 1.
 
-Thus `Sy=not A`. For an alternating cyclic word, `S A = not A`, hence `y=A`.
+Thus `Sy=not A`. For an alternating cyclic word, `S A=not A`, hence `y=A`.
 
 ### 3. q_(N-7) = A
 
@@ -46,11 +42,7 @@ Put `z=q_(N-7)`. Using `q_(N-6)=A` and output `q_(N-5)=1`,
 
     1 = Sz xor (A OR z),
 
-or bitwise
-
-    (Sz)_j = (not A_j) AND (not z_j).
-
-Choose the phase `A_j=j mod 2`. Whenever `A_j=1`, this forces `z_(j+1)=0`; at the following position `A_(j+1)=0`, the just-forced zero gives `z_(j+2)=1`. Therefore the cyclic word is uniquely `z=A`. The opposite phase is identical after rotation.
+or `(Sz)_j=(not A_j) AND (not z_j)`. Choose phase `A_j=j mod 2`. Whenever `A_j=1`, this forces `z_(j+1)=0`; at the following position `A_(j+1)=0`, the just-forced zero gives `z_(j+2)=1`. Therefore uniquely `z=A`.
 
 ### 4. q_(N-8) = 0
 
@@ -58,24 +50,44 @@ Put `w=q_(N-8)`. Using `q_(N-7)=A` and output `q_(N-6)=A`,
 
     A = Sw xor (A OR w).
 
-At a position with `A_j=1`, this gives `w_(j+1)=0`. At a position with `A_j=0`, it gives `w_(j+1)=w_j`. Since every zero position follows a one position (up to phase), the zeros forced after the `A_j=1` positions propagate across the remaining positions. Hence `w=0`.
+At `A_j=1` this gives `w_(j+1)=0`; at `A_j=0` it gives `w_(j+1)=w_j`. The forced zeros therefore propagate across every position, so `w=0`.
 
-## Extended universal suffix
-
-Therefore every terminating reconstruction long enough to contain these indices has the forced terminal block
-
-    0, A, A, 1, A, 0, 1, 1, 0, 0.
-
-Equivalently,
+Thus every sufficiently long terminating trajectory has
 
     q_(N-8),...,q_(N+1)
-      = 0, alt_p, alt_p, 1^p, alt_p, 0, 1^p, 1^p, 0, 0.
+      = 0, A, A, 1, A, 0, 1, 1, 0, 0.
 
-This is stronger than the run-57 six-column normal form and, importantly, there is still no reverse branching through four additional layers.
+## The first reverse branch: q_(N-9)
 
-## Pair-derivative interpretation for p=2m
+Now put `v=q_(N-9)`. Since `(q_(N-8),q_(N-7))=(0,A)`,
 
-Pair adjacent temporal coordinates compatibly with `A`. Under pair XOR derivative `Delta_2`,
+    A = Sv xor v.
+
+This is the cyclic binary discrete-derivative equation. It is solvable iff `A` has even XOR parity. Since `A` contains exactly `p/2` ones, solvability is equivalent to
+
+    p/2 = 0 mod 2,
+
+that is,
+
+    p = 0 mod 4.
+
+When solvable, the kernel of `S xor I` consists exactly of the two constant words, so there are exactly two solutions, complementary to one another. Integrating the alternating right-hand side shows they are the two cyclic phases of the period-four pattern
+
+    0011 0011 ...
+
+(up to the shift convention for `S`).
+
+Therefore, if the first zero pair occurs late enough that `q_(N-9)` exists (`N>=9`), then
+
+    p is divisible by 4,
+
+and the first reverse branching is exactly a two-element complementary/rotational pair of period-four words.
+
+This sharpens run 57's necessary evenness condition. It also explains why the exceptional known `p=2` terminating trajectory can exist: its first zero pair occurs at `N=8`, so the `q_(N-9)` predecessor does not exist and this divisibility-by-four obstruction is never encountered.
+
+## Pair-derivative interpretation
+
+For `p=2m`, pair adjacent temporal coordinates compatibly with `A`. Under pair XOR derivative `Delta_2`,
 
     Delta_2(0)=0,
     Delta_2(1)=0,
@@ -85,8 +97,10 @@ Hence the forced ten-column terminal block maps to
 
     0, 1, 1, 0, 1, 0, 0, 0, 0, 0
 
-at half temporal length. This is not by itself an ordinary lower-period reconstruction trajectory, consistent with the earlier no-semiconjugacy result, but it gives an exact boundary condition that any reverse-basin period-halving proof must satisfy.
+at half temporal length. The new period-four predecessor has a simple paired image as well: pairing `0011` in aligned adjacent pairs gives an alternating length-`m` word (with pairing phase determining its rotation/complement). Thus the first reverse branch at length `2m` lands, under `Delta_2`, on exactly the alternating predecessor that appears universally near the terminal basin at length `m`.
+
+This is the first exact structural compatibility found between the reverse basins at successive temporal scales. It does not yet prove period halving, but it is stronger evidence than the earlier initial-necklace observation because it arises from forced reverse dynamics.
 
 ## Next target
 
-Continue one predecessor farther back from the newly forced pair `(q_(N-8),q_(N-7))=(0,A)`. This is the first promising place to check whether genuine reverse branching begins. If it does, classify that branch set modulo cyclic rotation and track its pair derivative; if it does not, continue extending the universal terminal word. The goal remains the weaker implication that termination at length `2m` forces `Delta_2(c)` into the terminating basin at length `m`.
+Continue backward from the two period-four solutions for `q_(N-9)`. Determine whether their predecessor sets map under `Delta_2` to the predecessor set of the lower-period alternating state. If this compatibility persists inductively through every reverse branch, it would give the desired basin-level period-halving theorem without requiring a forward semiconjugacy.
