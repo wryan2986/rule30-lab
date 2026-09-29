@@ -308,3 +308,37 @@ This is NOT a p=32 theorem because an exit could in principle occur deeper
 than lift depth 928. The useful next theorem is all-depth rigidity of these
 canonical lift chains plus a uniform bounded source contradiction. Do not
 merely increase the finite depth cap.
+
+
+## 11. Finite-domain zero-return existence and genuine p=32 portals
+
+Read `problem1_finite_lift_zero_return_existence.md`.
+
+The old off-zero-cycle caveat remains valid for arbitrary periodic 2-adic
+temporal words, but it is now closed on the actual FINITE A-cycle domain.
+A nested fixed-period one-bit lift increases finite bitlength by one at every
+step, while its complete p-period temporal code has only `4^p` possibilities
+and Theta is injective. Therefore an infinite off-zero same-period lift chain
+would repeat a temporal code/state, contradicting strict bitlength growth.
+
+Hence every finite fixed-period connector eventually hits a zero low temporal
+column (or, at that zero, the next child forces a period doubling). The
+zero-return graph machinery is therefore unconditional on finite A-cycles.
+
+For p=32, the canonical 16->32 parent must be one of the sixteen terminating
+period-16 leaf necklaces. Thus the actual finite domain has only 16 canonical
+portal necklaces modulo temporal rotation, not the 65,536 arbitrary
+anti-periodic starts of the earlier overinclusive probe.
+
+Exact audit of all 16 genuine portal connectors through 10,000,000 lifts:
+10,001,374 K=3 exit-prefix/backward-phase occurrences, zero survivors, latest
+FULL contradiction +42. No portal hit a zero/fork within that range. The first
+portal has now been followed for 1,000,000,000 exact lifts without a zero
+return; the structural theorem nevertheless proves that a finite return must
+eventually occur.
+
+Do NOT try to prove canonical chains never hit a diagonal/zero condition; on
+the finite domain zero events are eventually required. The next useful theorem
+is instead a connector-local invariant proving that every K=3 exit occurrence
+fails the source automaton within a uniform bounded horizon (empirically <=42),
+independent of total connector length.
