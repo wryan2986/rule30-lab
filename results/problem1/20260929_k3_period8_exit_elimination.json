@@ -1,0 +1,61 @@
+{
+  "status": "finite-exhaustive",
+  "branch_base": "d2544f88ee01d3586cea61f38c2f07e52fdaf2c2",
+  "phase_compatible_period8_words": 128,
+  "finite_period8_exit_cores": 4,
+  "cores": [
+    {
+      "driver": "22211033",
+      "phi_steps_to_zero": 152,
+      "spatial_bitlength": 303,
+      "r1_to_r6": "010011",
+      "endpoint_e": 0,
+      "driver_t6": "32330011",
+      "shadow_pair_t6": "10",
+      "driver_t8": "20111220",
+      "shadow_pair_t8": "11",
+      "driver_t10": "12221331",
+      "contradiction": "birth at t+6 forces one-bit t+8, whose driver begins 20"
+    },
+    {
+      "driver": "22212223",
+      "phi_steps_to_zero": 34,
+      "spatial_bitlength": 67,
+      "r1_to_r6": "001101",
+      "endpoint_e": 0,
+      "driver_t6": "31101211",
+      "shadow_pair_t6": "10",
+      "driver_t8": "32321220",
+      "shadow_pair_t8": "11",
+      "driver_t10": "20221330",
+      "contradiction": "no birth at t+6; birth at t+8 forces one-bit t+10, whose driver begins 20"
+    },
+    {
+      "driver": "22212330",
+      "phi_steps_to_zero": 107,
+      "spatial_bitlength": 213,
+      "r1_to_r6": "011000",
+      "endpoint_e": 1,
+      "driver_t6": "21021100",
+      "shadow_pair_t6": "11",
+      "driver_t8": "23122331",
+      "shadow_pair_t8": "10",
+      "driver_t10": "03130121",
+      "contradiction": "t,h=1 one-bit passage keeps t+8 one-bit, whose driver begins 23"
+    },
+    {
+      "driver": "22213330",
+      "phi_steps_to_zero": 146,
+      "spatial_bitlength": 292,
+      "r1_to_r6": "001110",
+      "endpoint_e": 0,
+      "driver_t6": "30201211",
+      "shadow_pair_t6": "10",
+      "driver_t8": "02321220",
+      "shadow_pair_t8": "11",
+      "driver_t10": "10221333",
+      "contradiction": "cyclic repaired endpoint driver begins 30"
+    }
+  ],
+  "conclusion": "No eventual-K=3 u,h=0 exit can have complete-core period 8; dyadic period plus p>=5 therefore gives p>=16."
+}
