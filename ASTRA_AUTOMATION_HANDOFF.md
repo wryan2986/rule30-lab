@@ -288,3 +288,23 @@ an all-scale renormalization combining the nested one-bit lift system, the
 cyclic/one-bit/repair source automaton, the canonical doubling layer, and the
 existing dyadic derivative singularities. The goal is to make the p=8/p=16
 emptiness recursive.
+
+
+## 10. Period-32 canonical-chain finite-depth probe
+
+Read `problem1_k3_period32_canonical_chain_probe.md`.
+
+Do not enumerate `4^28` period-32 driver suffixes. Every finite period-32
+core descends from a canonical anti-periodic binary 32->16 layer `q(1-q)`,
+so there are only 65,536 starting chains.
+
+Exact finite exhaustion shows that all 65,536 chains have one and only one
+period-32 child, with no mergers, through lift depth 1000. Among depths
+0..928 there are 118,359 nodes satisfying the K=3 exit prefix `2221` plus
+the backward exit phase. Every one violates the pushed source automaton,
+with the latest contradiction at physical offset +34.
+
+This is NOT a p=32 theorem because an exit could in principle occur deeper
+than lift depth 928. The useful next theorem is all-depth rigidity of these
+canonical lift chains plus a uniform bounded source contradiction. Do not
+merely increase the finite depth cap.

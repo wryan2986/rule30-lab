@@ -1,0 +1,31 @@
+{
+  "status": "finite-exhaustive-finite-depth",
+  "canonical_period32_layers": 65536,
+  "canonical_form": "q concatenated with bitwise complement(q), q in {0,1}^16",
+  "unique_period32_child_through_depth": 1000,
+  "mergers_through_depth_1000": 0,
+  "exit_scan_depth": 928,
+  "source_horizon": 64,
+  "exit_nodes": 118359,
+  "surviving_nodes": 0,
+  "minimum_exit_depth": 7,
+  "maximum_failure_offset": 34,
+  "failure_offsets": {
+    "4": 22112,
+    "6": 53236,
+    "8": 22741,
+    "10": 11198,
+    "12": 5089,
+    "14": 2149,
+    "16": 1028,
+    "18": 435,
+    "20": 203,
+    "22": 92,
+    "24": 38,
+    "26": 19,
+    "28": 12,
+    "30": 5,
+    "34": 2
+  },
+  "conclusion": "No period-32 K=3 exit occurs within the first 928 period-preserving lifts below any canonical anti-periodic 32->16 doubling layer. This is not an all-depth p=32 exclusion."
+}
