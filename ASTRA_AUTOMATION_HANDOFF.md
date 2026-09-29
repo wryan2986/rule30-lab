@@ -342,3 +342,25 @@ the finite domain zero events are eventually required. The next useful theorem
 is instead a connector-local invariant proving that every K=3 exit occurrence
 fails the source automaton within a uniform bounded horizon (empirically <=42),
 independent of total connector length.
+
+
+## 12. Unrestricted period-32 +42 conjecture refuted
+
+Read `problem1_period32_unrestricted_plus42_counterexample.md`.
+
+The driver
+
+    22211221323333032110021130122112
+
+has exact period 32, prefix `2221`, and the exact backward exit phase. Its
+nested shadow lifts are unique through the needed window, yet the pushed
+source automaton remains valid through +42 and first fails at +44 (a one-bit
+source with illegal prefix `23`).
+
+Thus the +42 ceiling observed on ten million lifts of every genuine finite
+portal is NOT a consequence of period-32 local algebra alone. The same
+driver stays exact period 32 under at least one billion spatial projections,
+so it is not in the shallow finite-portal region already audited.
+
+Do not seek a universal +42 lemma on arbitrary period-32 temporal words.
+The missing theorem must use finite portal/root-basin ancestry.

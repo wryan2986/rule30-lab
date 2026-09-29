@@ -1,0 +1,12 @@
+{
+  "status": "exact-counterexample",
+  "driver": "22211221323333032110021130122112",
+  "least_period": 32,
+  "forced_prefix": "2221",
+  "backward_exit_phase": true,
+  "first_source_failure_offset": 44,
+  "failure": "one-bit source at +44 has driver prefix 23",
+  "nested_lifts_unique_through_source_window": true,
+  "spatial_projection_no_zero_or_period16_drop_through": 1000000000,
+  "implication": "The +42 bound observed on finite portal prefixes is not a theorem of unrestricted period-32 local algebra. Finite ancestry/root-basin structure is necessary."
+}
