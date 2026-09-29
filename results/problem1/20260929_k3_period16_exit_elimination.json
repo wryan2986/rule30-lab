@@ -1,0 +1,67 @@
+{
+  "status": "finite-exhaustive",
+  "scope": "All exact-period-16 temporal drivers b=2221... satisfying the backward exit-phase condition; all recurrent nested shadow phases through depth 72, including legitimate 16->32 lift doublings.",
+  "physical_source_horizon": 64,
+  "phase_compatible_exact_p16": 8388480,
+  "unique_phase": {
+    "words_failed": 8386657,
+    "words_survived": 0,
+    "failure_offsets": {
+      "4": 1572330,
+      "6": 3775833,
+      "8": 1602920,
+      "10": 793388,
+      "12": 356591,
+      "14": 156559,
+      "16": 71035,
+      "18": 31662,
+      "20": 14322,
+      "22": 6582,
+      "24": 2962,
+      "26": 1363,
+      "28": 622,
+      "30": 266,
+      "32": 119,
+      "34": 50,
+      "36": 12,
+      "38": 39,
+      "42": 2
+    }
+  },
+  "exceptional_phase_or_doubling": {
+    "base_words": 1823,
+    "first_nonunique_depths": {
+      "5": 1020,
+      "9": 510,
+      "11": 128,
+      "15": 127,
+      "17": 4,
+      "19": 8,
+      "20": 13,
+      "21": 9,
+      "22": 1,
+      "23": 1,
+      "25": 1,
+      "28": 1
+    },
+    "terminal_branches": 3647,
+    "max_branches_per_word": 3,
+    "max_period_seen": 32,
+    "surviving_words": 0,
+    "failure_offsets": {
+      "4": 1021,
+      "6": 1244,
+      "8": 765,
+      "10": 274,
+      "12": 200,
+      "14": 75,
+      "16": 36,
+      "18": 20,
+      "20": 7,
+      "22": 1,
+      "24": 2,
+      "26": 2
+    }
+  },
+  "conclusion": "No exact-period-16 complete driver can support an eventual-K=3 u,h=0 exit. For finite A-cycles, dyadic periodicity plus the period-8 result implies every such exit core has least period at least 32."
+}

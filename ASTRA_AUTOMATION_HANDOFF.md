@@ -253,3 +253,38 @@ The second option is the most direct next scalar target. At a zero-delay row, de
 The residence ledger across a segment with a zero-delay endpoint depends on this slack, while the physical strip variable forgets it. A useful next theorem would constrain how large `g_j` can become, or how quickly a later FULL source must repay it, using the same complete-core / global-shadow structure. Without such a theorem, births can be locally real but globally absorbed by skipped characteristics.
 
 Do not resume finite sampling merely to estimate asymptotic drift. Do not retry generic nested-lift compensation. Do not sum separated births as if they were independent positive ledger charges. Do not claim a Problem 1 solution without an all-depth contradiction.
+
+
+## 9. High-effort checkpoint — K=3 periods 8 and 16 eliminated (2026-09-29)
+
+Read `problem1_k3_period8_exit_elimination.md`,
+`problem1_period16_doubling_layer_reduction.md`, and
+`problem1_k3_period16_exit_elimination.md`.
+
+Finite A-cycle periods are dyadic, so the recent formal period-five candidates
+are vacuous. Period 8 is excluded by exact finite-core transport.
+
+Period 16 is now excluded on the ENTIRE temporal-driver domain, not only the
+finite-core subset. Among 8,388,480 exact-period-16 drivers with forced prefix
+`2221` and the backward exit phase, 8,386,657 hit a FULL contradiction with
+a unique period-16 shadow phase. The remaining 1,823 drivers generate 3,647
+exact phase branches after carrying both same-period forks and legitimate
+16->32 shadow lift doublings. Every branch also contradicts the pushed source
+laws; no branch survives beyond physical offset +42.
+
+Therefore every eventual-K=3 `u,h=0` exit on a finite core has
+
+    least complete-core period p >= 32.
+
+Reusable transport:
+
+    b^(n)_s = 2 u_(n-1)(s+n) + u_n(s+n),
+
+    (hat r_1,hat r_2)(v+n)
+      = (u_(n+1)(n),u_(n+2)(n)).
+
+Do NOT brute-force p=32 (`4^28` suffixes). The next proof-relevant target is
+an all-scale renormalization combining the nested one-bit lift system, the
+cyclic/one-bit/repair source automaton, the canonical doubling layer, and the
+existing dyadic derivative singularities. The goal is to make the p=8/p=16
+emptiness recursive.
