@@ -441,3 +441,31 @@ set of sixteen terminating p16 necklaces.
 Therefore "terminating at 2p => some pair-XOR phase terminates at p" is false
 at 32 -> 16. Do not pursue raw decimation or pairwise XOR as the missing
 dyadic semiconjugacy.
+
+
+## 16. Last-reset child formula and static endpoint-parity no-go
+
+Read `proofs/informal/problem1_last_reset_child_and_endpoint_parity_complexity.md`.
+
+For any nonzero parent low plane `b`, choose the last reset phase `r`
+before the phase cut. The unique recurrent child seed is exactly
+
+    a_0 = 1 XOR XOR_(s=r..n-1) c_s.
+
+So future deep connector code should not trial both cyclic seeds; the full child
+is determined in one forward pass once this suffix parity is known.
+
+The formula was exhaustively checked on all 86,870 parent-plane pairs for
+periods 1..8.
+
+A complete lower-scale portal census was also run. For all 128 odd p8 words,
+their antiperiodic p16 portal connectors return to 56 odd and 72 even targets;
+the longest first return is 214,005 lifts. The returned-target parity function
+has no representation as a constant plus cyclic monomial-orbit sums of degree
+<=6. An exact degree-7 formula exists, but reusing that same relative-offset
+formula at p16 already fails on known p32 singleton portal 13.
+
+Do not fit another low-degree static Boolean score to the p16 leaf word alone.
+A viable p->2p classifier must retain connector/half-period auxiliary state or
+use a genuinely scale-dependent renormalization. The last-reset formula is the
+preferred primitive for building such a multi-step transducer.

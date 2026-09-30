@@ -1,0 +1,76 @@
+{
+  "status": "exact-lemma-plus-exhaustive-census",
+  "recurrent_child_last_reset_formula": "a_0 = 1 XOR XOR_{s=r..n-1} c_s, where r is the last phase before the cut with b_r=1",
+  "exhaustive_last_reset_verification": {
+    "periods": "1..8",
+    "parent_plane_pairs": 86870,
+    "mismatches": 0
+  },
+  "antiperiodic_8_to_16_endpoint_parity": {
+    "odd_lower_words": 128,
+    "odd_returned_targets": 56,
+    "even_returned_targets": 72,
+    "maximum_first_return_depth": 214005
+  },
+  "cyclic_orbit_polynomial_classifier": {
+    "degree_le_6_exists": false,
+    "degree_le_7_exists": true,
+    "explicit_degree7_patterns": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    ]
+  },
+  "scale_test": {
+    "portal_5": {
+      "parent_leaf": "0000100100100101",
+      "scaled_degree7_prediction": 1,
+      "actual_p32_return_parity": 1
+    },
+    "portal_13": {
+      "parent_leaf": "0001001111001111",
+      "scaled_degree7_prediction": 0,
+      "actual_p32_return_parity": 1
+    },
+    "conclusion": "The exact p=8 degree-7 endpoint-parity classifier does not renormalize unchanged to p=16."
+  }
+}\n
