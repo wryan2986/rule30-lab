@@ -1,0 +1,77 @@
+{
+  "status": "exact-broadword-plus-partial-p32-zero-return-graph",
+  "broadword_child": {
+    "phase_map": "a_(s+1) = (b_s XOR c_s) XOR ((1 XOR b_s) a_s)",
+    "affine_prefix_stages": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "deterministic_period32_crosscheck_pairs": 1000000,
+    "mismatches": 0
+  },
+  "newly_resolved_portal_roots": [
+    {
+      "portal": 0,
+      "parent_leaf": "0000010101000101",
+      "first_zero_depth": 1420791101,
+      "canonical_target": "00011101011011010111110100111011",
+      "weight": 20,
+      "parity": "even",
+      "period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 2,
+      "parent_leaf": "0101101101111011",
+      "first_zero_depth": 1555560444,
+      "canonical_target": "00001000111100010010101100101111",
+      "weight": 15,
+      "parity": "odd",
+      "period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 6,
+      "parent_leaf": "0000001001011001",
+      "first_zero_depth": 1255920142,
+      "canonical_target": "00011010101101110011001100111101",
+      "weight": 18,
+      "parity": "even",
+      "period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 7,
+      "parent_leaf": "0010111001100111",
+      "first_zero_depth": 1324488168,
+      "canonical_target": "00001000100010100100010010011101",
+      "weight": 11,
+      "parity": "odd",
+      "period": 32,
+      "type": "singleton-terminal"
+    }
+  ],
+  "singleton_portals_now_proved": [
+    2,
+    5,
+    7,
+    13
+  ],
+  "portal0_partial_tree": {
+    "internal_even_vertices_at_least": 3,
+    "terminal_odd_vertices_explicitly_seen": 1
+  },
+  "portal6_partial_tree": {
+    "internal_even_vertices_at_least": 5,
+    "terminal_odd_vertices_explicitly_seen": 1
+  },
+  "exact_leaf_count_consequence": {
+    "L16": 16,
+    "known_sum_B_lower_bound": 8,
+    "L32_lower_bound": 24
+  },
+  "conclusion": "Period 32 has both singleton and genuinely branching portal components. The exact zero-return tree already forces at least 24 terminating period-32 necklaces."
+}\n

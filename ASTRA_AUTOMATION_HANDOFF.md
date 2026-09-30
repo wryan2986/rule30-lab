@@ -469,3 +469,45 @@ Do not fit another low-degree static Boolean score to the p16 leaf word alone.
 A viable p->2p classifier must retain connector/half-period auxiliary state or
 use a genuinely scale-dependent renormalization. The last-reset formula is the
 preferred primitive for building such a multi-step transducer.
+
+
+## 17. Broadword child transducer and first nontrivial p32 portal trees
+
+Read `proofs/informal/problem1_period32_broadword_portal_tree.md`.
+
+The recurrent child recurrence is affine phase-by-phase:
+
+    a_(s+1) = d_s XOR m_s a_s,
+    d=b XOR c,  m=1 XOR b.
+
+Using the exact last-reset seed from run 16, the full 32-phase child can be
+computed by five broadword affine-prefix stages at shifts 1,2,4,8,16. A
+million deterministic period-32 comparisons against the scalar recurrence
+give zero mismatches. Use this transducer for deep p32 connector work.
+
+Four additional genuine portal roots are now resolved:
+
+    portal 0: first return 1,420,791,101 -> even p32 target
+    portal 2: first return 1,555,560,444 -> odd p32 leaf
+    portal 6: first return 1,255,920,142 -> even p32 target
+    portal 7: first return 1,324,488,168 -> odd p32 leaf.
+
+Together with the earlier portals 5 and 13, singleton components are now proved
+for portals 2,5,7,13. Portals 0 and 6 genuinely branch.
+
+Exact descendant scans already give
+
+    B(portal 0) >= 3,
+    B(portal 6) >= 5.
+
+Since the dyadic leaf theorem gives
+
+    L_32 = 16 + sum B(l),
+
+we now have the rigorous lower bound
+
+    L_32 >= 24.
+
+This is the first exact p32 leaf-count improvement beyond the trivial sixteen
+portal components. The preferred next target is a half-period or multi-lift
+renormalization of the affine prefix monoid, not a static leaf statistic.
