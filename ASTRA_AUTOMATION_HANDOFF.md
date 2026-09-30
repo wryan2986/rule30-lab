@@ -427,3 +427,17 @@ This sharply changes the p32 graph target: determine whether more of the
 remaining fourteen portals are singleton components, and find a structural
 predictor for endpoint parity from the period-16 parent leaf or portal
 boundary word. Connector length itself is not such a predictor.
+
+
+## 15. Pair-XOR period-halving route refuted at 32 -> 16
+
+Read `proofs/informal/problem1_pair_derivative_p32_counterexamples.md`.
+
+The two newly computed genuine terminal p32 leaves are exact counterexamples to
+the old `Delta_2` period-halving conjecture. For each p32 leaf, both
+rotation-inequivalent adjacent-pair XOR outputs are absent from the complete
+set of sixteen terminating p16 necklaces.
+
+Therefore "terminating at 2p => some pair-XOR phase terminates at p" is false
+at 32 -> 16. Do not pursue raw decimation or pairwise XOR as the missing
+dyadic semiconjugacy.

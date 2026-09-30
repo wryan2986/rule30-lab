@@ -1,0 +1,26 @@
+{
+  "status": "exact-counterexamples",
+  "implication_refuted": "terminating period-2p necklace implies some cyclic pairing phase of Delta_2 is a terminating period-p necklace",
+  "scale": "32->16",
+  "counterexamples": [
+    {
+      "portal": 5,
+      "period32_terminal": "00000000001001100000010001101101",
+      "delta2_rotation_classes": [
+        "0000010011100001",
+        "0000011100101101"
+      ],
+      "terminating_period16_matches": []
+    },
+    {
+      "portal": 13,
+      "period32_terminal": "00000001001101101001100111100001",
+      "delta2_rotation_classes": [
+        "0000000100011101",
+        "0001001111110101"
+      ],
+      "terminating_period16_matches": []
+    }
+  ],
+  "conclusion": "The pairwise-XOR period-halving pattern observed at lower scales is false at 32->16."
+}
