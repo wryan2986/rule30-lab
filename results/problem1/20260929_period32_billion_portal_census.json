@@ -1,0 +1,48 @@
+{
+  "status": "exact-finite-exhaustive-through-cap",
+  "cap": 1000000000,
+  "portal_count": 16,
+  "returns": [
+    {
+      "portal": 5,
+      "parent_leaf": "0000100100100101",
+      "first_zero_low_plane_depth": 105696243,
+      "returned_high_plane": "00000000001001100000010001101101",
+      "canonical_necklace": "00000000001001100000010001101101",
+      "hamming_weight": 9,
+      "parity": "odd",
+      "exact_rotational_period": 32,
+      "period32_children": 0,
+      "portal_internal_vertices": 0
+    },
+    {
+      "portal": 13,
+      "parent_leaf": "0001001111001111",
+      "first_zero_low_plane_depth": 65154360,
+      "returned_high_plane": "11001111000010000000100110110100",
+      "canonical_necklace": "00000001001101101001100111100001",
+      "hamming_weight": 13,
+      "parity": "odd",
+      "exact_rotational_period": 32,
+      "period32_children": 0,
+      "portal_internal_vertices": 0
+    }
+  ],
+  "no_zero_through_cap": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15
+  ],
+  "conclusion": "Two of the sixteen new exact-period-32 portal components are now completely classified as singleton odd terminal leaves; the other fourteen have first-zero-return depth greater than 1e9."
+}

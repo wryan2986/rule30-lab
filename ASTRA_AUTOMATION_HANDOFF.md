@@ -400,3 +400,30 @@ Do not pursue a universal +42 connector-local source bound. The next concrete
 p=32 graph target is to classify the first zero return of the remaining
 fifteen p16-leaf portals (or derive a structural discriminator for which
 portal components are singleton versus branching).
+
+
+## 14. Billion-depth genuine p=32 portal census
+
+Read `proofs/informal/problem1_period32_billion_portal_census.md`.
+
+All sixteen genuine period-32 portals have now been advanced exactly through
+lift depth 1,000,000,000 or until their first zero low plane.
+
+Two return before the cap:
+
+    portal 13: depth 65,154,360
+    portal  5: depth 105,696,243.
+
+Both returned targets are odd, exact-period-32 necklaces, hence terminal.
+Therefore both new full-period portal components are singleton leaves:
+
+    B(0001001111001111)=0,
+    B(0000100100100101)=0.
+
+The other fourteen portal connectors have no zero return through 10^9 lifts.
+This is only a lower bound; return existence is already proved structurally.
+
+This sharply changes the p32 graph target: determine whether more of the
+remaining fourteen portals are singleton components, and find a structural
+predictor for endpoint parity from the period-16 parent leaf or portal
+boundary word. Connector length itself is not such a predictor.
