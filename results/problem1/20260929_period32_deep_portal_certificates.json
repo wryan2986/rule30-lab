@@ -1,0 +1,68 @@
+{
+  "status": "exact-deep-finite-portal-certificates",
+  "finite_portal_source_counterexamples": [
+    {
+      "portal": 0,
+      "parent_leaf": "0000010101000101",
+      "lift_depth": 20274660,
+      "phase": 7,
+      "driver": "22212110133330210332200210123202",
+      "first_source_failure_offset": 44
+    },
+    {
+      "portal": 1,
+      "parent_leaf": "0011101111101011",
+      "lift_depth": 24780812,
+      "phase": 13,
+      "driver": "22211331222013202222130300102223",
+      "first_source_failure_offset": 50
+    },
+    {
+      "portal": 3,
+      "parent_leaf": "0001010011100101",
+      "lift_depth": 54261234,
+      "phase": 5,
+      "driver": "22211211321100012231222211000103",
+      "first_source_failure_offset": 52
+    },
+    {
+      "portal": 5,
+      "parent_leaf": "0000100100100101",
+      "lift_depth": 24689363,
+      "phase": 18,
+      "driver": "22211221332003333211223311223203",
+      "first_source_failure_offset": 52
+    }
+  ],
+  "conclusion_source_horizon": "The +42 source-failure ceiling is false even on genuine finite period-32 portal connectors. +52 is observed but is not claimed universal.",
+  "first_computed_period32_zero_return": {
+    "portal": 13,
+    "parent_leaf": "0001001111001111",
+    "first_zero_low_plane_depth": 65154360,
+    "returned_high_plane": "11001111000010000000100110110100",
+    "canonical_necklace": "00000001001101101001100111100001",
+    "parity": "odd",
+    "hamming_weight": 13,
+    "exact_rotational_period": 32,
+    "period32_children": 0,
+    "consequence": "The new full-period portal component attached to this repeated period-16 leaf is a singleton terminal leaf; B(leaf)=0."
+  },
+  "hundred_million_scan_observed_max_failure_by_portal": {
+    "0": 44,
+    "1": 50,
+    "2": 42,
+    "3": 52,
+    "4": 40,
+    "5": 52,
+    "6": 48,
+    "7": 46,
+    "8": 48,
+    "9": 48,
+    "10": 42,
+    "11": 44,
+    "12": 46,
+    "13": 42,
+    "14": 50,
+    "15": 48
+  }
+}

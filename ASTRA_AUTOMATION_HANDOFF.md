@@ -364,3 +364,39 @@ so it is not in the shallow finite-portal region already audited.
 
 Do not seek a universal +42 lemma on arbitrary period-32 temporal words.
 The missing theorem must use finite portal/root-basin ancestry.
+
+
+## 13. Deep genuine p=32 portal certificates: +42 refuted; first zero return found
+
+Read `proofs/informal/problem1_period32_deep_portal_return_and_source_horizon_counterexamples.md`.
+
+The previously preferred finite-portal target "every genuine p=32 K=3 exit
+fails by +42" is FALSE. Exact finite-portal certificates now reach +44, +50,
+and +52. In particular:
+
+    portal 3, depth 54,261,234, phase 5
+    driver 22211211321100012231222211000103
+    first source failure +52.
+
+A 100,000,000-lift scan of all sixteen genuine portals found observed maxima
+between +40 and +52; +52 is finite evidence only, not a theorem.
+
+More importantly, portal 13 (parent p16 leaf `0001001111001111`) has its
+FIRST zero low-plane return at exact lift depth
+
+    65,154,360.
+
+The returned high plane has canonical necklace
+
+    00000001001101101001100111100001,
+
+weight 13, odd parity, exact period 32. Hence it is a terminal odd p=32 leaf
+and has no period-32 child. Therefore this entire new full-period portal
+component is a singleton leaf:
+
+    B(0001001111001111)=0.
+
+Do not pursue a universal +42 connector-local source bound. The next concrete
+p=32 graph target is to classify the first zero return of the remaining
+fifteen p16-leaf portals (or derive a structural discriminator for which
+portal components are singleton versus branching).
