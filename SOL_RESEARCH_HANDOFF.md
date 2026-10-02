@@ -273,9 +273,59 @@ The `--targeted-only` option replays the four inputs without modifying
 the full-run record. Atomic record:
 `results/problem1/20261002_hidden_label_reset_criterion.json`.
 
-The current precise local target is now the general H_gate/H_ext law
-at r>=4, not false H_Y. Its first depth is being attacked using the
-4096-state two-stack product and three parity bits described in
-`problem1_depth4_gate_miter_admission.md`. Do not treat a no-witness
-finite graph result as an all-period theorem until the exact reduction
-and a separate certificate verifier are accepted.
+The subsequent fifth unit settles its first unproved depth r=4 by an
+exact graph reduction and independently checked certificate. General
+H_gate/H_ext at r>=5 is now the local target; false H_Y is closed.
+
+## Fifth unit: all-period depth-four affine transport, computer-assisted
+
+Read `proofs/informal/problem1_depth4_affine_transport_certificate.md`
+and `proofs/informal/problem1_gate_miter_finite_reduction.md`.
+
+Status: **LEMMA WITH PROOF — INDEPENDENTLY CHECKED**, computer-assisted.
+For EVERY even p>=2 and every complete aligned depth-four odd-label
+fiber with all raw parents nonzero, extension to depth five is affine.
+Its rank is u_4-u_5 and u_5 is constant. This extends H_ext from r<=3
+to r=4. It does not extend full-Y invariance or fixed-blind-set claims.
+
+The proof uses the exact product of two depth-five stacks with a shared
+depth-four state: 4096 product states and eight parity sheets, 32768
+lifted vertices. A bad edge has upper state blind, equal input labels
+and unequal outgoing new Y. An independently checked topological rank
+is nondecreasing on all 67584 retained edges and STRICTLY increasing
+on all 768 bad edges. Any product cycle lifts to a closed walk by
+repeating it twice; strict increase would be impossible. This proves
+the gate condition at ALL periods, not a finite-period extrapolation.
+
+The rank certificate has 65536 bytes, SHA256
+`3a9eb40a2b54e39ff79869888d1da5be5cfcb75368ad15db80d3619554a03263`.
+The independent verifier derives every edge from a raw Rule-30 truth
+table, importing no producer transition or component algorithm. It
+checks 2048 full transition controls, the complete edge set and all bad
+edges. Parent code/logic review and final reruns passed. The producer's
+record retains its finite-graph status; the proof supplies the all-period
+consequence at this fixed observer depth.
+
+Reproduce:
+
+    python3 experiments/problem1_nonperiodicity/check_depth4_gate_miter.py
+    python3 experiments/problem1_nonperiodicity/verify_depth4_gate_rank_certificate.py
+
+Atomic records:
+`results/problem1/20261002_depth4_gate_miter.json` and
+`results/problem1/20261002_depth4_gate_rank_certificate_verification.json`.
+All runs remain local and within 60 seconds, 256 MiB and 256 KiB output.
+The immutable reference hash is unchanged.
+
+The first unresolved extension depth is now r=5. Section 6 of the finite
+reduction gives a cheap stronger screen: a rank strict on every bad
+edge across all sheets projects to the product graph by taking the
+maximum over sheets. A direct r=5 product graph would therefore have
+only 16384 states. If a bad product cycle exists, its parities and
+nonzero-parent domain must still be checked by the full miter; it is
+not automatically an odd-fiber counterexample. A new admission is
+required before executing that next depth.
+
+The unchanged global obstruction is transport across a zero return or
+period doubling with bounded reuse on the SAME ORIGINAL finite support.
+No fixed observer theorem alone proves the whole-tail target or Problem 1.

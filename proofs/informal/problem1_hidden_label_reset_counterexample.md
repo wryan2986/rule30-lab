@@ -116,8 +116,9 @@ old blind phase's outgoing new difference depends only on that phase's
 own label. H_B is its constant-gate special case. The criterion is an
 all-depth equivalence, not a proof that the gate condition always holds.
 
-The first unproved extension depth for the general affine strategy is
-still r=4. The false H_Y bridge must not be reused. The proven shallow
+The subsequent independently checked depth-four certificate moves the
+first unproved extension depth for the general affine strategy to r=5.
+The false H_Y bridge must not be reused. The proven shallow
 theorem at r=1,2,3 and the conditional H_Y implication remain valid.
 
 ## 5. Reproduction and research relevance

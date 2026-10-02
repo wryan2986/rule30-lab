@@ -1,0 +1,142 @@
+{
+  "caps": {
+    "output_bytes": 262144,
+    "peak_resident_bytes": 26628096,
+    "resident_bytes": 268435456,
+    "wall_seconds": 60.0
+  },
+  "certificate": {
+    "byte_count": 65536,
+    "distinct_rank_count": 32081,
+    "encoding": "little-endian uint16 per lifted vertex (sheet<<12)|product_state",
+    "node_encoding_check": "passed: 32768 values indexed by sheet<<12|product_state",
+    "rank_max": 32080,
+    "rank_min": 0,
+    "rank_outside_uint16": false,
+    "sha256": "3a9eb40a2b54e39ff79869888d1da5be5cfcb75368ad15db80d3619554a03263",
+    "vertex_count": 32768
+  },
+  "checks": {
+    "absence_claim": "no rank group carries all three necessary conditions, so no counterexample lifted cycle exists on this finite depth-4 graph",
+    "edge_monotonicity": "passed on every retained edge",
+    "examples_flag2_sheet0_sheet3_same_rank": [
+      {
+        "product_state": 26,
+        "rank": 32080,
+        "upper_state": 26
+      },
+      {
+        "product_state": 31,
+        "rank": 32080,
+        "upper_state": 31
+      },
+      {
+        "product_state": 98,
+        "rank": 32080,
+        "upper_state": 98
+      },
+      {
+        "product_state": 100,
+        "rank": 32080,
+        "upper_state": 100
+      }
+    ],
+    "examples_flag3_nonzero_last_upper_pair": [
+      {
+        "product_state": 64,
+        "rank": 20982,
+        "sheet": 0,
+        "upper_state": 64
+      },
+      {
+        "product_state": 64,
+        "rank": 18354,
+        "sheet": 1,
+        "upper_state": 64
+      },
+      {
+        "product_state": 64,
+        "rank": 15726,
+        "sheet": 2,
+        "upper_state": 64
+      },
+      {
+        "product_state": 64,
+        "rank": 13098,
+        "sheet": 3,
+        "upper_state": 64
+      }
+    ],
+    "first_offending_groups": [],
+    "rank_groups_satisfying_all_three": 0,
+    "rank_groups_with_nonzero_last_upper_pair": 23977,
+    "rank_groups_with_same_rank_sheet0_and_sheet3_lift": 1,
+    "rank_groups_with_sheet0_internal_bad_edge": 0
+  },
+  "claim_status": "FINITE_EXPERIMENT",
+  "controls": {
+    "builder_or_transition_module_imported": false,
+    "expected_counts_hardcoded": false,
+    "rule30_truth_table": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "truth_table_cases": 2048,
+    "truth_table_two_row_vs_independent_bit_array_all_2048": "passed"
+  },
+  "experiment_id": "20261002-depth4-gate-rank-certificate-verification",
+  "graph": {
+    "bad_edges": 768,
+    "bad_edges_sheet0_internal_note": "every bad edge strictly increases rank, so no sheet-0 internal bad edge exists",
+    "bad_edges_with_equal_endpoint_ranks_all_sheets": 0,
+    "bad_edges_with_strictly_increasing_rank": 768,
+    "bad_products_per_sheet": 96,
+    "full_transition_vectors": 2048,
+    "product_states": 4096,
+    "retained_edges": 67584,
+    "sheets": 8,
+    "upper_blind_states": 8,
+    "vertices": 32768
+  },
+  "input_record": {
+    "byte_count": 91329,
+    "declared_status": "finite_graph_unverified",
+    "path": "results/problem1/20261002_depth4_gate_miter.json",
+    "sha256": "03c68d203595850c0f7fd08e8a5c450ac5e61ac0a2c51535b87e06a062836370"
+  },
+  "limitations": [
+    "Scope is the exact finite N=32768 depth-4 lifted observer graph only.",
+    "The supplied rank partition was not required to be an exact SCC decomposition.",
+    "Group flags are necessary conditions; their absence proves no counterexample here.",
+    "No other depth, period, or whole-period enumeration was performed.",
+    "Consequences for H_gate in general, transport, or nonperiodicity are the parent's call."
+  ],
+  "provenance": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "elapsed_seconds": 0.07890377298463136,
+    "full_base_commit": "122b6299c42d240cb37c7c2668fda9889d5d00d2",
+    "generated_utc": "2026-10-02T19:13:05.954580+00:00",
+    "git_status_porcelain": [
+      "?? experiments/problem1_nonperiodicity/check_depth4_gate_miter.py",
+      "?? experiments/problem1_nonperiodicity/verify_depth4_gate_rank_certificate.py",
+      "?? proofs/informal/problem1_depth4_affine_transport_certificate.md",
+      "?? proofs/informal/problem1_gate_miter_finite_reduction.md",
+      "?? results/problem1/20261002_depth4_gate_miter.json",
+      "?? results/problem1/20261002_depth4_gate_rank_certificate_verification.json"
+    ],
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "immutable_reference_sha256_asserted": true,
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+    "script_sha256": "f8c0c8ea2d1142b2bc08d50aec81e66c795ab71b97d056c860fa92d3a7c66edb"
+  },
+  "schema": "problem1-depth4-gate-rank-certificate-verification-v1",
+  "scope_statement": "Exact finite verification on the N=32768 vertex observer-depth-4 lifted miter graph only. The rank vector was decoded and checked for length, hash, uint16 range, node encoding, monotonicity on every retained edge, and absence of any rank group carrying all three Section-2 necessary conditions. No SCC was computed, no other depth was run, and no all-period consequence is asserted here; that call belongs to the parent.",
+  "status": "PASS"
+}

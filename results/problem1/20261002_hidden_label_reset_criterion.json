@@ -6,12 +6,12 @@
   },
   "backend": "Existing analyze_blind_visit_rank quotient_seq plus independent direct scalar cyclic recurrence and original two-row replay for a witness",
   "experiment_id": "20261002_hidden_label_reset_criterion",
-  "git_commit": "440b6336878ba9ef85929be219577457c4830697",
+  "git_commit": "122b6299c42d240cb37c7c2668fda9889d5d00d2",
   "hardware": {
     "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
     "logical_cpu_count": 16,
     "machine": "x86_64",
-    "peak_rss_bytes": 21995520,
+    "peak_rss_bytes": 22110208,
     "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43"
   },
   "hypothesis": "At a depth-r blind phase s with Y_(r+1)(s+1)=1, cyclically before the first Y_r=1 (or through one full cycle if none), some parent pair (X_r,Y_r)=(1,0) occurs.",
@@ -964,7 +964,7 @@
       "status": "four-input-counterexample-to-H_Y"
     }
   },
-  "runtime_seconds": 0.4433152300771326,
+  "runtime_seconds": 0.4770123530179262,
   "software": {
     "executable": "/usr/bin/python3",
     "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]"
@@ -974,7 +974,7 @@
     "experiments/problem1_nonperiodicity/check_hidden_label_reset_criterion.py": "cb9762c9eed880316936b808ba675716b49e8046d9a07beea86128fb740a1897",
     "proofs/informal/problem1_portal_layer_monodromy.md": "ee000d33485b0cdd8f06f9d97bbe3172605ea033521ca9d4eef9e3ab3cd967a5",
     "proofs/informal/problem1_portal_multilift_phase_quotient.md": "44385676edc9b1e225d288eb623bd7fc877753375f264b5b365cee4d24c73501",
-    "proofs/informal/problem1_shallow_blind_label_affinity.md": "e357d9c08db0c251d2f92886615d013160093d926257e56ea65e33a3b596013c",
+    "proofs/informal/problem1_shallow_blind_label_affinity.md": "5c9ad29aa279eaf5ab16a8132aaa9e6fdded22de7be437467bd014731de1a520",
     "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
     "triple_presentation_fiber_input_set_sha256": "baffcfd7cef650aec5737ca3098f00b33db3b0618933ebc849e67cca0d6ec6cb"
   },
@@ -984,8 +984,8 @@
     "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
     "monodromy_note_sha256": "ee000d33485b0cdd8f06f9d97bbe3172605ea033521ca9d4eef9e3ab3cd967a5",
     "portal_stack_note_sha256": "44385676edc9b1e225d288eb623bd7fc877753375f264b5b365cee4d24c73501",
-    "shallow_note_sha256": "e357d9c08db0c251d2f92886615d013160093d926257e56ea65e33a3b596013c"
+    "shallow_note_sha256": "5c9ad29aa279eaf5ab16a8132aaa9e6fdded22de7be437467bd014731de1a520"
   },
   "status": "finite-counterexample",
-  "timestamp_utc": "2026-10-02T18:58:40.156186+00:00"
+  "timestamp_utc": "2026-10-02T19:20:10.416632+00:00"
 }

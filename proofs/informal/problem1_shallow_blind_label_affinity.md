@@ -249,8 +249,10 @@ with nonconstant affine Y. The implication is not asserted in reverse.
 At r>=4 neither label isolation nor affineness has been proved here.
 The four-matrix fixed-driver theorem remains valid there, but multiplying
 driver-dependent matrices is not automatically linear in the free labels.
-This is the smallest unresolved extension depth for this particular
-transport strategy. H_Y is proved at r=1,2,3 above, but its universal
+The companion computer-assisted theorem in
+`problem1_depth4_affine_transport_certificate.md` now proves H_ext at
+r=4 on the same domain. Thus r=5 is the smallest unresolved extension
+depth. H_Y is proved at r=1,2,3 above, but its universal
 all-depth version is false at p=30,r=6. On that counterexample fiber the
 weaker blind-output invariance H_B and extension affineness both hold.
 Read `problem1_blind_output_gate_criterion.md` for the exact all-depth

@@ -12,6 +12,7 @@ Date: 2026-10-02. Problem 1 remains **OPEN**.
 | H_ext and H_Y at r=1,2,3 | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every even p>=2 and odd driver; full aligned odd-label fibers |
 | H_Y implies H_ext and exact rank loss | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every r>=1, conditional on invariant newest Y history and nonzero parent |
 | H_gate iff H_ext | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every r>=1, complete odd upper fiber and nonzero parent; no assertion that H_gate always holds |
+| H_ext at r=4 | LEMMA WITH PROOF — INDEPENDENTLY CHECKED, computer-assisted | Every even period on the same domain; complete rank certificate checked independently |
 | General H_ext | FINITE EVIDENCE ONLY | p=2,4,6,8,10,12,14 and r=1..6; also one exact p30,r6 square |
 | General H_Y | FAILED — COUNTEREXAMPLE FOUND | Two least-period-30 drivers in one complete r=6 upper fiber |
 | Endpoint parity affine on an upper fiber | FINITE EVIDENCE ONLY | p=8, r=1, using the previously recorded endpoint classifier |
@@ -156,7 +157,8 @@ bridges or reuse the rejected implementation.
 ## 6. Research consequence
 
 The smallest unproved extension depth for this transport strategy is
-r=4. The subsequent targeted four-word construction in
+now r=5, after the independently verified certificate in
+`problem1_depth4_affine_transport_certificate.md`. The targeted four-word construction in
 `problem1_hidden_label_reset_counterexample.md` refutes general H_Y at
 p=30,r=6, while its complete two-dimensional extension remains affine.
 The exact all-depth criterion in `problem1_blind_output_gate_criterion.md`

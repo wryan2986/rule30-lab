@@ -1024,3 +1024,29 @@ Reproducer: `experiments/problem1_nonperiodicity/check_hidden_label_reset_criter
 Atomic record: `results/problem1/20261002_hidden_label_reset_criterion.json`.
 Read the current Sol handoff for the first unresolved depth-four miter
 admission and the unchanged original-support transport obstruction.
+
+## 29. Depth-four affine extension is proved at every period
+
+Sol continuation, computer-assisted LEMMA WITH PROOF — INDEPENDENTLY
+CHECKED. Read `problem1_depth4_affine_transport_certificate.md` and
+`problem1_gate_miter_finite_reduction.md`. The first unresolved extension
+depth is now r=5.
+
+For every even presentation period and every complete depth-four odd
+upper fiber with nonzero raw parents, extension to depth five is affine
+with rank u_4-u_5. A 32768-vertex exact two-stack/parity graph has a
+65536-byte rank certificate. A separately written raw truth-table
+verifier checks all 67584 retained edges and strict rank increase on
+all 768 bad edges. A cyclic gate counterexample would give a closed
+walk with strict rank increase, an exact contradiction. Arbitrarily
+long presentation periods are covered by this proved finite reduction.
+
+Reproducers: `check_depth4_gate_miter.py` and
+`verify_depth4_gate_rank_certificate.py` in experiments/problem1_nonperiodicity.
+Atomic records use corresponding `20261002_depth4_*.json` names.
+
+The full-Y counterexample at p30,r6 remains valid. This theorem proves
+H_ext, not full-Y invariance. The next cost-aware screen can omit sheets
+and use a 16384-state depth-five product if seeking the stronger
+exclusion of ALL bad product cycles. No depth-five execution is admitted
+by this note. Original-support bounded reuse remains unresolved.
