@@ -614,3 +614,92 @@ experiments/problem1_nonperiodicity/check_twisted_half_period_portal.py
 and experiments/problem1_nonperiodicity/check_period32_descendant_expansion.cpp.
 Atomic record:
 results/problem1/20261002_twisted_half_period_and_p32_descendants.json.
+
+
+## 20. All-depth finite-stack phase quotient; genuine blind-edge obstruction
+
+Read proofs/informal/problem1_portal_multilift_phase_quotient.md.
+
+The half-period construction now extends to EVERY finite number r of spatial
+lifts. Pair each 2p temporal word into p half-pairs and write each pair as
+(X,X XOR Y). After the universal two-lift normalization, simultaneous
+half-swap G removes the antiperiodic prefix phase exactly. If w is the original
+odd lower-period leaf, the normalized r-layer stack satisfies
+
+    R_(s+1) = G^(w_s) Phi_0(R_s),
+    R_p = R_0.
+
+Thus the twisted 2p boundary has been converted into an ordinary p-cycle
+driven directly by w. The update is triangular in spatial depth and is exact
+for arbitrary finite r.
+
+For the first two dynamic layers the exact sector is the five-state machine
+
+    A: 0->E, 1->C
+    B: 0->D, 1->B
+    C: 0->D, 1->B
+    D: 0->A, 1->A
+    E: 0->A, 1->A.
+
+Every 1** word synchronizes it. There is also the exact parity law
+
+    P(third lift) XOR P(fourth lift) = p mod 2,
+
+so these two lift parities agree at every even dyadic scale.
+
+Adding the fifth lift gives an exact 14-state even-length/odd-weight sector.
+It has two blind states where input 0 and 1 produce the same next quotient
+state.
+
+This blindness is genuinely proof-relevant. Period-16 leaf portals 5 and 6
+have the SAME complete 14-state orbit through the fifth connector lift,
+modulo temporal rotation:
+
+    [4,26,51,4,26,51,4,26,51,4,31,36,31,36,26,51].
+
+Their aligned leaf labels are
+
+    portal 5: 1001001010000100
+    portal 6: 1011001000000100,
+
+and they differ only at two visits to blind state 51=(1,1,0,0,1,1).
+Nevertheless the exact p32 root outcomes are opposite:
+
+    portal 5 -> odd singleton at depth 105,696,243
+    portal 6 -> even branch at depth 1,255,920,142.
+
+So an unlabeled shallow multilift orbit cannot decide endpoint parity even on
+the genuine p32 domain.
+
+The sixth lift explains how the missing information returns. At blind state
+51, if its added deepest pair has difference Q, the next normalized deepest
+pair is
+
+    (1 XOR w Q, Q).
+
+When Q=1 it carries the hidden driver bit forward. This is the first explicit
+blind-label memory channel.
+
+Exact SCC analysis, with no period cap, gives even-length/odd-weight sector
+sizes for r=1..8:
+
+    3, 5, 14, 30, 75, 195, 443, 1168.
+
+There are explicit rotation-inequivalent odd-driver pairs with the same
+unlabeled quotient orbit at every r=4..8, so the naive observer does not
+stabilize through eight layers.
+
+Finally, zero return has an exact formulation in the projective tower:
+the first zero return is the first spatial layer whose pair-track is (0,0) at
+EVERY phase; the returned target parity is the XOR of the preceding layer's
+Y-track.
+
+The next proof target is no longer the half-period twist. It is the recursive
+extension/observer law for blind labels: determine whether hidden driver
+information can be charged to a finite resource, or whether first all-zero
+track/parity can be computed without constructing an unbounded spatial stack.
+
+Reproducer:
+experiments/problem1_nonperiodicity/analyze_portal_multilift_phase_quotient.py
+Atomic record:
+results/problem1/20261002_portal_multilift_phase_quotient.json.
