@@ -1,0 +1,181 @@
+{
+  "status": "exact-blind-label-extension-plus-finite-observer-census",
+  "date": "2026-10-02",
+  "extension_law": {
+    "deepest_phi0_pair": {
+      "P_next": "H XOR (L OR P)",
+      "Q_next": "K XOR M XOR Q XOR L*Q XOR M*P XOR M*Q"
+    },
+    "normalized_deepest_pair": "(P_next XOR w*Q_next,Q_next)",
+    "consequence": {
+      "Q_next_0": "driver label remains erased one more observer layer",
+      "Q_next_1": "new layer records the driver label"
+    }
+  },
+  "blind_language": {
+    "context": "(K,L,M)=(Y_(j-2),X_(j-1),Y_(j-1))",
+    "start": "001",
+    "transition_table": {
+      "100": [
+        "01->001",
+        "11->011"
+      ],
+      "101": [
+        "00->100",
+        "01->101"
+      ],
+      "110": [],
+      "111": [
+        "00->100",
+        "11->111"
+      ],
+      "000": [
+        "00->000",
+        "10->010"
+      ],
+      "001": [
+        "10->110",
+        "11->111"
+      ],
+      "010": [
+        "00->000",
+        "01->001",
+        "10->010",
+        "11->011"
+      ],
+      "011": [
+        "01->101",
+        "10->110"
+      ]
+    },
+    "generating_function": "(1+x)/(1-x-2*x^3)",
+    "recurrence": "b_r=b_(r-1)+2*b_(r-3), r>=3, with b0=1,b1=2,b2=2",
+    "prefix_counts_r0_to_r10": [
+      1,
+      2,
+      2,
+      4,
+      8,
+      12,
+      20,
+      36,
+      60,
+      100,
+      172
+    ],
+    "arbitrary_depth_raw_blind_family": "(11)^r for every r>=1",
+    "dominant_growth_approx": 1.69562077
+  },
+  "odd_necklace_observer_census": [
+    {
+      "p": 2,
+      "odd_necklaces": 1,
+      "first_injective_r": 1
+    },
+    {
+      "p": 4,
+      "odd_necklaces": 2,
+      "first_injective_r": 1
+    },
+    {
+      "p": 6,
+      "odd_necklaces": 6,
+      "first_injective_r": 3,
+      "collision_classes_at_r2": 2
+    },
+    {
+      "p": 8,
+      "odd_necklaces": 16,
+      "first_injective_r": 4,
+      "collision_classes_at_r3": 3
+    },
+    {
+      "p": 10,
+      "odd_necklaces": 52,
+      "first_injective_r": 4,
+      "collision_classes_at_r3": 12
+    },
+    {
+      "p": 12,
+      "odd_necklaces": 172,
+      "first_injective_r": 5,
+      "collision_classes_at_r4": 3
+    },
+    {
+      "p": 14,
+      "odd_necklaces": 586,
+      "first_injective_r": 5,
+      "collision_classes_at_r4": 12
+    },
+    {
+      "p": 16,
+      "odd_necklaces": 2048,
+      "first_injective_r": 8,
+      "collision_classes_at_r7": 1
+    },
+    {
+      "p": 18,
+      "odd_necklaces": 7286,
+      "first_injective_r": 9,
+      "collision_classes_at_r8": 2
+    },
+    {
+      "p": 20,
+      "odd_necklaces": 26216,
+      "first_injective_r": 9,
+      "collision_classes_at_r8": 3
+    },
+    {
+      "p": 22,
+      "odd_necklaces": 95326,
+      "first_injective_r": 9,
+      "collision_classes_at_r8": 20
+    },
+    {
+      "p": 24,
+      "odd_necklaces": 349536,
+      "first_injective_r": 10,
+      "collision_classes_at_r9": 2
+    },
+    {
+      "p": 26,
+      "odd_necklaces": 1290556,
+      "first_injective_r": 10,
+      "collision_classes_at_r9": 13
+    },
+    {
+      "p": 28,
+      "odd_necklaces": 4793492,
+      "first_injective_r": 10,
+      "collision_classes_at_r9": 73
+    }
+  ],
+  "explicit_collisions": {
+    "p18": {
+      "r": 8,
+      "drivers": [
+        "100111000011100000",
+        "100111010011101000"
+      ],
+      "aligned_differing_phases": [
+        6,
+        17
+      ],
+      "blind_state_codes": [
+        65507,
+        53219
+      ],
+      "separates_at_r": 9
+    },
+    "p24": {
+      "r": 9,
+      "drivers": [
+        "000100111010001001110101",
+        "000001001110001000100111"
+      ],
+      "blind_state_code_at_differing_labels": 118755,
+      "separates_at_r": 10
+    }
+  },
+  "conclusion": "Blind-label propagation has an exact one-bit extension law and an 8-state spatial blindness automaton. Raw local blindness can persist arbitrarily deep, while exhaustive odd-necklace observers require depth 10 by period 24. A useful all-depth bound must exploit finite-core/root-basin ancestry rather than oddness or local quotient algebra alone."
+}

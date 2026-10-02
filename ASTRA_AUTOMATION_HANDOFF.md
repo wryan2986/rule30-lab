@@ -778,3 +778,62 @@ Reproducer:
 experiments/problem1_nonperiodicity/analyze_genuine_portal_observer_depth.py
 Atomic record:
 results/problem1/20261002_genuine_portal_observer_depth.json.
+
+
+## 23. Blind-label extension law; 8-state blindness automaton; observer depth reaches 10
+
+Read proofs/informal/problem1_blind_label_extension_delay.md.
+
+The recursive blind-label problem now has an exact one-layer law. If an
+r-layer quotient transition is blind and a deeper input pair is (P,Q), with
+the preceding two pairs (H,K),(L,M), then
+
+    P+ = H XOR (L OR P)
+    Q+ = K XOR M XOR Q XOR LQ XOR MP XOR MQ,
+
+and after driver label w the deepest normalized output is
+
+    (P+ XOR w Q+, Q+).
+
+Thus Q+=0 keeps the label hidden and Q+=1 records it in the added layer.
+
+Even better, persistence of blindness across spatial depth is itself only an
+8-state regular language. The context is
+
+    (K,L,M)=(Y_(j-2),X_(j-1),Y_(j-1)),
+
+and the next pair (X,Y) is blind-compatible exactly when
+
+    K XOR M XOR Y XOR LY XOR MX XOR MY = 0.
+
+The raw blind-prefix counts have generating function
+
+    (1+x)/(1-x-2x^3)
+
+and recurrence
+
+    b_r=b_(r-1)+2b_(r-3).
+
+There are arbitrarily deep raw blind stacks: (11)^r is blind for every r.
+Therefore no universal constant recovery depth follows from local quotient
+algebra alone.
+
+Cyclic odd drivers restrict this strongly but not to a fixed shallow depth.
+Complete odd-necklace exhaustion gives first injective observer depths
+
+    p:  2  4  6  8 10 12 14 16 18 20 22 24 26 28
+    r:  1  1  3  4  4  5  5  8  9  9  9 10 10 10.
+
+So depth 8 already fails at p=18, and depth 9 fails at p=24. The genuine p32
+root set separating at r=4 is therefore a real finite-root-basin restriction,
+not a generic odd-driver fact.
+
+The next target is to intersect the 8-state blind spatial automaton with
+finite portal/root-basin ancestry and seek a support-controlled charge on
+blind-context persistence. Do not assume every hidden label reappears after a
+universal fixed number of layers.
+
+Reproducer:
+experiments/problem1_nonperiodicity/analyze_blind_label_extension_delay.cpp
+Atomic record:
+results/problem1/20261002_blind_label_extension_delay.json.
