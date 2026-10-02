@@ -1,0 +1,325 @@
+{
+  "status": "exact-twisted-half-period-plus-p32-descendant-expansion",
+  "date": "2026-10-02",
+  "twisted_half_period": {
+    "representation": "H(z)_s=(z_s,z_(s+p))",
+    "boundary": "paired child path closes by component swap after p phases",
+    "portal_third_lift": {
+      "state": "H(u)_s=(U_s,U_s XOR D_s)",
+      "transitions": {
+        "q0": "(U,D)->(1 XOR U,1 XOR U)",
+        "q1": "(U,D)->(0,1 XOR U XOR D)"
+      },
+      "synchronizing_words": {
+        "10": "(1,1)",
+        "01": "(0,1)"
+      },
+      "forbidden_pair_symbol": "11",
+      "exhaustive_portal_odd_words_p1_to_p10": 1023
+    }
+  },
+  "descendant_certificates": [
+    {
+      "label": "p1-c0",
+      "source_raw": "00101001100111010000001001000011",
+      "integration_choice": 0,
+      "first_zero_depth": 2385564355,
+      "returned_raw": "01111000011111001100111011010110",
+      "returned_canonical": "00001111100110011101101011001111",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "label": "p4-c0",
+      "source_raw": "01111010100000101011100000010011",
+      "integration_choice": 0,
+      "first_zero_depth": 404356749,
+      "returned_raw": "00001000110010101000100111000010",
+      "returned_canonical": "00000100011001010100010011100001",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "label": "p4-c1",
+      "source_raw": "01111010100000101011100000010011",
+      "integration_choice": 1,
+      "first_zero_depth": 203191865,
+      "returned_raw": "10111001010001101101111000001010",
+      "returned_canonical": "00000101010111001010001101101111",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "label": "p4-c1-c1",
+      "source_raw": "10111001010001101101111000001010",
+      "integration_choice": 1,
+      "first_zero_depth": 207230746,
+      "returned_raw": "00101110100100110010110101000000",
+      "returned_canonical": "00000000101110100100110010110101",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c0",
+      "source_raw": "10101101000100001100101010001000",
+      "integration_choice": 0,
+      "first_zero_depth": 3311656131,
+      "returned_raw": "10101010010111111000110010000010",
+      "returned_canonical": "00000101010101001011111100011001",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1",
+      "source_raw": "10101101000100001100101010001000",
+      "integration_choice": 1,
+      "first_zero_depth": 2912141700,
+      "returned_raw": "11011100100001000100000110100100",
+      "returned_canonical": "00000110100100110111001000010001",
+      "parity": "even",
+      "weight": 12,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c0",
+      "source_raw": "11011100100001000100000110100100",
+      "integration_choice": 0,
+      "first_zero_depth": 1984702874,
+      "returned_raw": "01011000100011011000110001101010",
+      "returned_canonical": "00010001101100011000110101001011",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c1",
+      "source_raw": "11011100100001000100000110100100",
+      "integration_choice": 1,
+      "first_zero_depth": 3320394584,
+      "returned_raw": "11011110001000011000101101010000",
+      "returned_canonical": "00001100010110101000011011110001",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c0-c0",
+      "source_raw": "01011000100011011000110001101010",
+      "integration_choice": 0,
+      "first_zero_depth": 2119222437,
+      "returned_raw": "01110010001110111001110110110111",
+      "returned_canonical": "00011101110011101101101110111001",
+      "parity": "even",
+      "weight": 20,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c0-c1",
+      "source_raw": "01011000100011011000110001101010",
+      "integration_choice": 1,
+      "first_zero_depth": 1888558713,
+      "returned_raw": "10101110101010100011101110101100",
+      "returned_canonical": "00011101110101100101011101010101",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c1-c0",
+      "source_raw": "11011110001000011000101101010000",
+      "integration_choice": 0,
+      "first_zero_depth": 386045218,
+      "returned_raw": "11011001001101111011100000110100",
+      "returned_canonical": "00000110100110110010011011110111",
+      "parity": "odd",
+      "weight": 17,
+      "exact_period": 32
+    },
+    {
+      "label": "p8-c1-c1-c1",
+      "source_raw": "11011110001000011000101101010000",
+      "integration_choice": 1,
+      "first_zero_depth": 100726797,
+      "returned_raw": "00100010110011000110001000010110",
+      "returned_canonical": "00001011000100010110011000110001",
+      "parity": "even",
+      "weight": 12,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c0",
+      "source_raw": "11110110001101110000100001000010",
+      "integration_choice": 0,
+      "first_zero_depth": 2214214662,
+      "returned_raw": "01100000100010010011011000111110",
+      "returned_canonical": "00000100010010011011000111110011",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c1",
+      "source_raw": "11110110001101110000100001000010",
+      "integration_choice": 1,
+      "first_zero_depth": 1558425976,
+      "returned_raw": "01011101111101100011101100001110",
+      "returned_canonical": "00001110010111011111011000111011",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c0-c0",
+      "source_raw": "01100000100010010011011000111110",
+      "integration_choice": 0,
+      "first_zero_depth": 39916667,
+      "returned_raw": "00110101001010110111111101100110",
+      "returned_canonical": "00011010100101011011111110110011",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c0-c1",
+      "source_raw": "01100000100010010011011000111110",
+      "integration_choice": 1,
+      "first_zero_depth": 318427669,
+      "returned_raw": "00110101100000111011100000001011",
+      "returned_canonical": "00000001011001101011000001110111",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c0-c1-c0",
+      "source_raw": "00110101100000111011100000001011",
+      "integration_choice": 0,
+      "first_zero_depth": 3940764551,
+      "returned_raw": "11000101000111100001011111000010",
+      "returned_canonical": "00001011000101000111100001011111",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "label": "p10-c0-c1-c1",
+      "source_raw": "00110101100000111011100000001011",
+      "integration_choice": 1,
+      "first_zero_depth": 229417894,
+      "returned_raw": "10010100101101011011111010001111",
+      "returned_canonical": "00011111001010010110101101111101",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c0",
+      "source_raw": "01001000110110001101110010100100",
+      "integration_choice": 0,
+      "first_zero_depth": 3122858413,
+      "returned_raw": "00001000000011011001100001010110",
+      "returned_canonical": "00000001101100110000101011000001",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c1",
+      "source_raw": "01001000110110001101110010100100",
+      "integration_choice": 1,
+      "first_zero_depth": 1990824624,
+      "returned_raw": "10111111110111001110011100010100",
+      "returned_canonical": "00010100101111111101110011100111",
+      "parity": "even",
+      "weight": 20,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c1-c0",
+      "source_raw": "10111111110111001110011100010100",
+      "integration_choice": 0,
+      "first_zero_depth": 1022338055,
+      "returned_raw": "10100000111011001111101000001001",
+      "returned_canonical": "00000100110100000111011001111101",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c1-c1",
+      "source_raw": "10111111110111001110011100010100",
+      "integration_choice": 1,
+      "first_zero_depth": 1337460335,
+      "returned_raw": "00010010101110001011000100000000",
+      "returned_canonical": "00000000000100101011100010110001",
+      "parity": "even",
+      "weight": 10,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c1-c1-c0",
+      "source_raw": "00010010101110001011000100000000",
+      "integration_choice": 0,
+      "first_zero_depth": 539640101,
+      "returned_raw": "10100111011011000110100010111000",
+      "returned_canonical": "00010100111011011000110100010111",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "label": "p11-c1-c1-c0-c1",
+      "source_raw": "10100111011011000110100010111000",
+      "integration_choice": 1,
+      "first_zero_depth": 255992085,
+      "returned_raw": "11011110000110011101110100001101",
+      "returned_canonical": "00001100111011101000011011101111",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "label": "p12-c0",
+      "source_raw": "10100101000111011000011100010001",
+      "integration_choice": 0,
+      "first_zero_depth": 91485337,
+      "returned_raw": "00001010111110111001101001101010",
+      "returned_canonical": "00000101011111011100110100110101",
+      "parity": "odd",
+      "weight": 17,
+      "exact_period": 32
+    }
+  ],
+  "exact_component_results": {
+    "portal10": {
+      "B": 3,
+      "odd_leaves": 4,
+      "status": "complete"
+    },
+    "portal8": {
+      "B_lower_bound": 7,
+      "contains_even_vertex_with_two_even_children": true
+    }
+  },
+  "B_lower_bounds": {
+    "0": 3,
+    "1": 1,
+    "4": 2,
+    "6": 5,
+    "8": 7,
+    "10": 3,
+    "11": 5,
+    "12": 1
+  },
+  "exact_leaf_count_consequence": {
+    "L16": 16,
+    "known_sum_B_lower_bound": 27,
+    "L32_lower_bound": 43
+  },
+  "conclusion": "The exact p32 lower bound is L32>=43. Portal 10 is complete with B=3. Portal 8 explicitly refutes the comb-tree hypothesis. The twisted half-period representation gives a synchronized three-symbol third-lift sector but not yet an all-depth quotient."
+}

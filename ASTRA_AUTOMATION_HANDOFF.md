@@ -565,3 +565,52 @@ experiments/problem1_nonperiodicity/check_period32_complete_portal_roots.cpp
 and experiments/problem1_nonperiodicity/check_half_period_block_transducer.py.
 Atomic record:
 results/problem1/20261002_period32_complete_portal_root_census.json.
+
+
+## 19. Twisted half-period portal system; deeper p32 trees; L32 >= 43
+
+Read proofs/informal/problem1_twisted_half_period_portal_and_p32_descendants.md.
+
+Pair temporal phases s and s+p. The exact 2p child recurrence becomes a
+p-phase four-symbol recurrence with a SWAP boundary after p phases. This is an
+exact half-period conjugacy, not the false pair-XOR semiconjugacy.
+
+Starting from the universal two-lift portal normal form (x,1^(2p)), with x
+antiperiodic and H(x)_s=(q_s,1-q_s), the next child is governed by the exact
+two-bit state
+
+    q=0: (U,D) -> (1-U,1-U)
+    q=1: (U,D) -> (0,1-U-D)   over GF(2).
+
+The words 01 and 10 are synchronizing: their two-step maps are constant.
+Consequently the third lift is reset-anchored by any change in q and its
+paired alphabet excludes 11 entirely. This is an exact three-symbol slice,
+verified on all 1,023 odd lower words for p<=10. Later lifts can reintroduce
+11, so the three-symbol sector is not claimed invariant.
+
+Exact descendant work should now be used only as a test suite for this
+renormalization. It gives:
+
+    B(0)>=3, B(1)>=1, B(4)>=2, B(6)>=5,
+    B(8)>=7, B(10)=3, B(11)>=5, B(12)>=1,
+
+hence
+
+    sum B >= 27
+    L_32 >= 43.
+
+Portal 10 is fully classified: exactly 3 even internal vertices and 4 odd
+leaves. Portal 8 contains an even vertex with TWO even children, so the
+hypothesis that every internal p32 vertex has a terminal sibling is false.
+
+Do not continue blind p32 enumeration just to raise the bound. The next
+proof-relevant target is a multi-lift return transducer on the twisted paired
+system, starting from the synchronized three-symbol third-lift slice, and
+testing whether its state can be bounded independently of p or tied to the
+finite-support resource in the main Problem 1 argument.
+
+Reproducers:
+experiments/problem1_nonperiodicity/check_twisted_half_period_portal.py
+and experiments/problem1_nonperiodicity/check_period32_descendant_expansion.cpp.
+Atomic record:
+results/problem1/20261002_twisted_half_period_and_p32_descendants.json.
