@@ -745,3 +745,36 @@ Reproducer:
 experiments/problem1_nonperiodicity/check_period32_portal11_complete.cpp
 Atomic record:
 results/problem1/20261002_period32_portal11_complete.json.
+
+
+## 22. Genuine p32 roots separate exactly at the sixth connector lift
+
+Read proofs/informal/problem1_genuine_portal_observer_depth.md.
+
+Apply the run-20 unlabeled finite-stack quotient only to the sixteen genuine
+p16 leaf portals. The exact orbit counts for dynamic depths r=1..8 are
+
+    distinct orbits: 15,15,15,16,16,16,16,16
+    mixed-parity classes: 1,1,1,0,0,0,0,0.
+
+For r=1..3 the sole mixed class is always portals 5 and 6. At r=4, which
+includes the sixth connector lift, those two separate and ALL sixteen genuine
+root orbits are distinct. They remain distinct through r=8.
+
+Therefore the sixth-lift unlabeled quotient is sufficient to identify every
+current genuine p32 root and hence its root endpoint parity. This is a finite
+p32-domain fact only; run 20 has arbitrary-driver collisions at r=4..8.
+
+There is no affine GF(2) parity readout from sixth-lift state-visit counts:
+the sixteen roots collectively visit 29 quotient states, and Gaussian
+elimination on a constant plus those 29 visit-parity features is inconsistent
+with the endpoint labels.
+
+So the sixth lift restores the missing portal-5/6 information, but not as a
+simple linear counting invariant. Continue with the recursive blind-label
+extension law rather than fitting another shallow statistic.
+
+Reproducer:
+experiments/problem1_nonperiodicity/analyze_genuine_portal_observer_depth.py
+Atomic record:
+results/problem1/20261002_genuine_portal_observer_depth.json.

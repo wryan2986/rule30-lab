@@ -1,0 +1,75 @@
+{
+  "status": "exact-finite-genuine-p32-observer-census",
+  "date": "2026-10-02",
+  "domain": "sixteen genuine period-16 leaf portals entering period 32",
+  "layer_convention": "r=1 is connector lift 3 after the universal two-lift normalization",
+  "census": [
+    {
+      "r": 1,
+      "connector_lift": 3,
+      "distinct_unlabeled_orbits": 15,
+      "mixed_parity_classes": 1,
+      "mixed_portals": [
+        5,
+        6
+      ]
+    },
+    {
+      "r": 2,
+      "connector_lift": 4,
+      "distinct_unlabeled_orbits": 15,
+      "mixed_parity_classes": 1,
+      "mixed_portals": [
+        5,
+        6
+      ]
+    },
+    {
+      "r": 3,
+      "connector_lift": 5,
+      "distinct_unlabeled_orbits": 15,
+      "mixed_parity_classes": 1,
+      "mixed_portals": [
+        5,
+        6
+      ]
+    },
+    {
+      "r": 4,
+      "connector_lift": 6,
+      "distinct_unlabeled_orbits": 16,
+      "mixed_parity_classes": 0
+    },
+    {
+      "r": 5,
+      "connector_lift": 7,
+      "distinct_unlabeled_orbits": 16,
+      "mixed_parity_classes": 0
+    },
+    {
+      "r": 6,
+      "connector_lift": 8,
+      "distinct_unlabeled_orbits": 16,
+      "mixed_parity_classes": 0
+    },
+    {
+      "r": 7,
+      "connector_lift": 9,
+      "distinct_unlabeled_orbits": 16,
+      "mixed_parity_classes": 0
+    },
+    {
+      "r": 8,
+      "connector_lift": 10,
+      "distinct_unlabeled_orbits": 16,
+      "mixed_parity_classes": 0
+    }
+  ],
+  "sixth_lift_conclusion": "On the sixteen genuine p32 roots, the r=4 unlabeled quotient orbit is injective and therefore determines root endpoint parity.",
+  "sixth_lift_state_visit_affine_no_go": {
+    "observed_states": 29,
+    "affine_gf2_classifier_exists": false,
+    "feature": "constant plus parity of visit count to each observed r=4 quotient state"
+  },
+  "limitation": "Arbitrary odd-driver unlabeled observer collisions exist at r=4..8, so genuine-root injectivity is not an all-scale theorem."
+}
