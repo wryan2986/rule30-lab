@@ -63,6 +63,10 @@ The proposed inequality would be `26<=11`, an explicit contradiction.
 The increase is 15. Using the certificate's actual unrotated target
 instead of its canonical target gives the SAME profile and charge.
 
+Period normalization does not repair this witness either: `26>2*11`,
+so `kappa(z)/32>kappa(w)/16`. This is an immediate corollary of the same
+certificate, not another search or a claim excluding all weighted charges.
+
 Portal 2 is the smallest index in the declared eight-root domain. This
 does not claim the globally smallest period or word counterexample.
 

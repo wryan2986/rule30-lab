@@ -144,7 +144,8 @@ Reproducer:
     python3 experiments/problem1_nonperiodicity/check_blind_charge_portal_transport.py
 
 Thus even singleton period doubling regenerates the proposed unweighted
-charge. Do not use kappa as a nonincreasing ancestry potential, and do not
+charge. The same witness has 26>2*11, so dividing the charge by its period
+does not repair nonincrease. Do not use either as an ancestry potential, and do not
 repeat nearby scalar monotonicity fits without a concrete transport law
 that accounts for this regeneration. The unresolved requirement is still
 an original-support resource with bounded reuse across these changes.
