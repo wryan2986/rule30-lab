@@ -4,6 +4,9 @@ Problem 1 remains **OPEN**. Continue on `research/astra-next`.
 
 This handoff supplements, and does not replace, `ASTRA_HANDOFF.md` and its archived predecessors.
 
+The 2026-10-02 Sol session's current frontier is also recorded in
+`SOL_RESEARCH_HANDOFF.md`. Astra delegation is prohibited in that session.
+
 ## Repository-state warning
 
 The pushed `ASTRA_HANDOFF.md` says these round309 drafts existed only in its worktree checkpoint:
@@ -904,3 +907,33 @@ Reproducer:
 experiments/problem1_nonperiodicity/analyze_blind_visit_rank.py
 Atomic record:
 results/problem1/20261002_blind_visit_rank.json.
+
+## 25. All-period cyclic blind-cone bound — Sol continuation
+
+Read `proofs/informal/problem1_cyclic_blind_cone_bound.md` and its review.
+Status: LEMMA WITH PROOF — INDEPENDENTLY CHECKED at the quotient scope;
+Problem 1 remains OPEN.
+
+For every p-cyclic depth-r normalized quotient orbit, arbitrary binary driver,
+and fixed pairs (1,0),(0,1), blind visits have cyclic gaps at least
+
+    g_r=max(2,floor(r/2)+1),
+    k_r<=floor(p/g_r).
+
+The discrepancy-front induction therefore proves that depth 2p is blind-free,
+and that a known odd driver is uniquely determined at depth p for even p.
+The total ambiguity dimension obeys an all-depth fixed-period bound
+
+    sum_r u_r<=U(p)=O(p log p),
+    U(1)=0,
+    U(p)=2 sum_(q=1..p)floor(p/q)-4p+floor(p/2)+1 for p>=2.
+
+No finite root-basin ancestry is needed. Thus fixed-period charge finiteness
+does not distinguish that basin: the remaining resource obstruction is its
+transport across portal restarts / period doublings with bounded reuse on
+the same original support. No endpoint-parity or FULL contradiction follows.
+
+Reproducer:
+`experiments/problem1_nonperiodicity/check_cyclic_blind_cone_independent.py`.
+Atomic finite-check record:
+`results/problem1/20261002_cyclic_blind_cone_independent.json`.
