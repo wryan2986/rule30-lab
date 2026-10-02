@@ -108,7 +108,10 @@ Two cheap retries failed before doing the task:
 Both were closed without model escalation. The parent then built and ran
 the small verifier locally. A separate Space Bunny review of the prior
 rank theorem was requested as agent `01a0fd80-0ab5-7511-ad5c-bc0ee089efff`;
-its disposition is separate from the completed new-lemma review above.
+it did not finish a dependable final audit and was closed. Its provisional
+canonical-orbit counts used a different domain from aligned words and were
+not accepted as counterexamples. The completed new-lemma review above and
+its self-contained counting proof do not depend on that unfinished audit.
 
 ## 6. Remaining uncertainty
 

@@ -29,6 +29,8 @@ REFERENCE_HASH = "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d
 
 def step(state: tuple[int, ...], label: int) -> tuple[int, ...]:
     """Apply Rule 30 separately to the two halves, then normalize."""
+    if label not in (0, 1) or not state or len(state) % 2 or any(bit not in (0, 1) for bit in state):
+        raise ValueError("state must be a nonempty flat tuple (X1,Y1,...,Xr,Yr) of binary bits; label must be binary")
     pairs = [(1, 0), (0, 1)] + list(zip(state[::2], state[1::2]))
     output = []
     for j in range(2, len(pairs)):

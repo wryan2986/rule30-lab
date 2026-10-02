@@ -1,7 +1,7 @@
 {
   "backend": "independent scalar two-row Rule30 Python",
   "experiment_id": "cyclic-blind-cone-independent-20261002",
-  "git_commit": "7ee66c81e974106f6bd0d04607e24e2110e045ce",
+  "git_commit": "b2bc16c62cde27052c3b0658fbe8ff28d6c87bef",
   "hardware": {
     "logical_cpu_count": 16,
     "machine": "x86_64",
@@ -201,16 +201,16 @@
     },
     "transition_cases": 10920
   },
-  "runtime_seconds": 1.0608301180182025,
+  "runtime_seconds": 2.3093862519599497,
   "software": {
     "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43",
     "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]"
   },
   "source_hashes": {
     "experiments/problem1_nonperiodicity/analyze_portal_multilift_phase_quotient.py": "ac3a43b46dc9e6e60f8c0fa477f48d246b68007bdca81c7edd5c4201ce55ac59",
-    "experiments/problem1_nonperiodicity/check_cyclic_blind_cone_independent.py": "bcc142d7e8be9cf9380aad233f2e148e074bd9ec06e2a43f3a04c08ed4a926d8",
+    "experiments/problem1_nonperiodicity/check_cyclic_blind_cone_independent.py": "44c61c67bf67054404789056c22911f1677e6a9ae90477716f2d08cf4e76293a",
     "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
   },
   "status": "finite-exhaustive",
-  "timestamp_utc": "2026-10-02T17:02:01.377720+00:00"
+  "timestamp_utc": "2026-10-02T17:16:50.978333+00:00"
 }

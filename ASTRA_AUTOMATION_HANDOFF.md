@@ -937,3 +937,23 @@ Reproducer:
 `experiments/problem1_nonperiodicity/check_cyclic_blind_cone_independent.py`.
 Atomic finite-check record:
 `results/problem1/20261002_cyclic_blind_cone_independent.json`.
+
+## 26. Unweighted blind charge regenerates at every tested singleton portal
+
+Read `proofs/informal/problem1_blind_charge_portal_transport_counterexample.md`.
+Status: FAILED — COUNTEREXAMPLE FOUND for kappa(z)<=kappa(w), where kappa
+is the complete single-connector ambiguity-dimension charge and z is an
+odd returned leaf of w's doubled portal. All eight certified odd singleton
+p32 roots violate nonincrease. Smallest tested index 2 gives 11->26.
+
+The bounds in section 25 make those charges exact after depths 15/31;
+no billion-length connector was traversed again. Raw and canonical returned
+phases agree. Space Bunny worker, independent Luna numerical review, and
+parent implementation audit are recorded with the result.
+
+This kills the simplest unweighted transport law, not the cyclic cone
+theorem or every weighted/decorated potential. Original-support bounded
+reuse across portal restarts / period doublings remains the bottleneck.
+
+Reproducer: `experiments/problem1_nonperiodicity/check_blind_charge_portal_transport.py`.
+Atomic record: `results/problem1/20261002_blind_charge_portal_transport.json`.

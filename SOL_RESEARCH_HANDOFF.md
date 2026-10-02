@@ -118,3 +118,33 @@ the p32 census or polish a fixed-period budget as a Prize Problem proof.
 Failed closed forms and rejected reviewer claims are retained in
 `proofs/informal/problem1_cyclic_blind_cone_review.md`. Commit this logical
 unit without claiming a full Rule-30 solution.
+
+## Second unit: FAILED — unweighted portal-charge nonincrease
+
+Read `problem1_blind_charge_portal_transport_counterexample.md`.
+For the complete eight odd singleton p32 root certificates, the COMPLETE
+single-connector charge kappa increases from parent to returned leaf in
+every case. Smallest tested portal index 2 has
+
+    w=0101101101111011, kappa(w)=11,
+    z=00001000111100010010101100101111, kappa(z)=26.
+
+The raw returned phase has the same value. These are exact full charges,
+because the cone theorem proves u_r=0 beyond the checked p-1 depths.
+Actual first zero return is at 1,555,560,444 in the imported connector
+certificate; a blind-free observer at depth six is NOT that zero return.
+
+Free worker and independent Luna review agree on the eight numerical
+pairs; the parent checked the code, corrected mistakes, and verified
+deep transitions, blind predicates, and raw/canonical phase equivalence.
+The input endpoints were imported and hashed, not traversed again.
+
+Reproducer:
+
+    python3 experiments/problem1_nonperiodicity/check_blind_charge_portal_transport.py
+
+Thus even singleton period doubling regenerates the proposed unweighted
+charge. Do not use kappa as a nonincreasing ancestry potential, and do not
+repeat nearby scalar monotonicity fits without a concrete transport law
+that accounts for this regeneration. The unresolved requirement is still
+an original-support resource with bounded reuse across these changes.
