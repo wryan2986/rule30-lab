@@ -1,0 +1,64 @@
+{
+  "status": "exact-blind-visit-rank-plus-finite-basin-census",
+  "date": "2026-10-02",
+  "theorem": {
+    "aligned_labelings_same_orbit": "2^k where k is the number of blind phases",
+    "aligned_odd_labelings_same_orbit": "2^(k-1) for k>=1",
+    "odd_ambiguity_dimension": "u_r=max(k_r-1,0)",
+    "nesting": "B_(r+1)(w) subset B_r(w)"
+  },
+  "p16_terminating_leaves": {
+    "count": 16,
+    "max_k_by_r": {
+      "1": 8,
+      "2": 8,
+      "3": 4,
+      "4": 2,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1
+    },
+    "first_depth_all_odd_label_unique": 5
+  },
+  "p16_all_odd_necklaces": {
+    "count": 2048,
+    "max_k_by_r": {
+      "1": 8,
+      "2": 8,
+      "3": 4,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 1
+    },
+    "first_depth_all_odd_label_unique": 8
+  },
+  "certified_p32_terminating_leaves": {
+    "count": 36,
+    "scope": "certified subset only; full p32 tree incomplete",
+    "max_k_by_r": {
+      "1": 14,
+      "2": 14,
+      "3": 6,
+      "4": 3,
+      "5": 3,
+      "6": 2,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "10": 0
+    },
+    "first_depth_all_odd_label_unique": 7,
+    "first_depth_all_blind_free": 10,
+    "distinct_M1_orbits": 36
+  },
+  "candidate_charge": {
+    "visibility_depth": "nu_s = number of initial observer depths for which phase s remains blind",
+    "identity": "k_r=#{s:nu_s>=r}; sum_r k_r=sum_s nu_s when finite",
+    "unresolved_rank_charge": "sum_r max(k_r-1,0)",
+    "status": "candidate only; no original-support bound proved"
+  },
+  "conclusion": "Blind visits are exact unresolved driver bits. Terminating p16 ancestry drives the odd-label ambiguity rank to zero by r=5, versus r=8 for the complete ambient odd p16 language. This identifies a monotone hidden-information charge for the next finite-support bridge."
+}

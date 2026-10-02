@@ -837,3 +837,70 @@ Reproducer:
 experiments/problem1_nonperiodicity/analyze_blind_label_extension_delay.cpp
 Atomic record:
 results/problem1/20261002_blind_label_extension_delay.json.
+
+
+## 24. Blind-visit rank: exact hidden-bit dimension and finite-basin collapse
+
+Read proofs/informal/problem1_blind_visit_rank_and_finite_basin_collapse.md.
+
+For any aligned unlabeled M_r orbit, let k be the number of blind temporal
+phases. Nonblind transitions force their driver labels uniquely; every blind
+transition contributes one independent free driver bit. Therefore exactly
+
+    2^k
+
+aligned binary drivers realize the same state orbit, and for k>=1 exactly
+
+    2^(k-1)
+
+of them have odd parity.
+
+Define
+
+    k_r(w)=number of blind phases at observer depth r
+    u_r(w)=max(k_r(w)-1,0).
+
+Then u_r is the exact GF(2) dimension of unresolved odd-driver information.
+The blind sets are nested with depth,
+
+    B_(r+1)(w) subset B_r(w),
+
+so k_r and u_r are monotone nonincreasing. Run 23's Q+ bit is exactly the
+one-layer visibility event.
+
+This gives the first clean finite-basin comparison. For the COMPLETE sixteen
+terminating p16 leaves,
+
+    max k_r: 8,8,4,2,1,1,1,1  for r=1..8,
+
+so every leaf has u_r=0 by r=5.
+
+For all 2,048 odd p16 necklaces,
+
+    max k_r: 8,8,4,2,2,2,2,1,
+
+so oddness alone does not force u_r=0 until r=8.
+
+Thus terminating ancestry genuinely collapses hidden-label ambiguity earlier;
+this is not just a small sample effect.
+
+For the 36 currently certified terminating p32 leaves,
+
+    max k_r: 14,14,6,3,3,2,1,1,1,0  for r=1..10.
+
+This subset has u_r=0 by r=7 and is completely blind-free by r=10. The full
+p32 leaf set is NOT yet known, so do not extrapolate those two depths to all
+p32 leaves.
+
+A candidate global charge is now
+
+    sum_r u_r,
+
+or equivalently the visibility depths of individual blind phases. The next
+target is to bound this hidden-information persistence using original-support
+or root-basin ancestry. No such support bound is claimed yet.
+
+Reproducer:
+experiments/problem1_nonperiodicity/analyze_blind_visit_rank.py
+Atomic record:
+results/problem1/20261002_blind_visit_rank.json.
