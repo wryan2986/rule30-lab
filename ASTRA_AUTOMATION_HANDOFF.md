@@ -703,3 +703,45 @@ Reproducer:
 experiments/problem1_nonperiodicity/analyze_portal_multilift_phase_quotient.py
 Atomic record:
 results/problem1/20261002_portal_multilift_phase_quotient.json.
+
+
+## 21. Portal 11 completely classified; L32 >= 55
+
+Read proofs/informal/problem1_period32_portal11_complete.md.
+
+The full-period component attached to p16 leaf
+
+    0101111111011111
+
+is now completely resolved. It contains exactly
+
+    17 even internal vertices
+    18 odd terminal leaves,
+
+so
+
+    B(portal 11) = 17
+
+exactly. The maximum tree depth is 12. Its 34 child connectors total
+107,937,533,586 exact lifts; the deepest edge has
+12,479,646,968 lifts.
+
+Combining the exact portal-11 count with the other certified p32 components
+gives
+
+    sum B >= 39
+    L_32 >= 55.
+
+Portal 11 also kills two naive local-resource bounds. Its old p16 leaf has
+weight 13, while B=17, so neither B(l)<=weight(l) nor B(l)<=16 can hold in
+general. This does NOT rule out a larger bound tied to the original finite
+survivor support.
+
+Use portal 11 as a stress-test fixture for the projective extension/observer
+tower from run 20. Any proposed bounded observer should reproduce its 17
+internal nodes, two-even-child forks, and 18 terminal parities.
+
+Reproducer:
+experiments/problem1_nonperiodicity/check_period32_portal11_complete.cpp
+Atomic record:
+results/problem1/20261002_period32_portal11_complete.json.

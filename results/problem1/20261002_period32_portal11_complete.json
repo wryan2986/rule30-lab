@@ -1,0 +1,438 @@
+{
+  "status": "complete-exact-period32-portal11-component",
+  "date": "2026-10-02",
+  "portal": 11,
+  "parent_period16_leaf": "0101111111011111",
+  "parent_leaf_weight": 13,
+  "portal_entry": {
+    "first_zero_depth": 2846542716,
+    "full_period_root_raw": "01001000110110001101110010100100",
+    "full_period_root_canonical": "00010010001101100011011100101001",
+    "parity": "even",
+    "exact_period": 32
+  },
+  "component": {
+    "internal_even_vertices": 17,
+    "odd_terminal_leaves": 18,
+    "B": 17,
+    "child_edges": 34,
+    "maximum_tree_depth": 12,
+    "leaf_depth_histogram": {
+      "1": 1,
+      "2": 1,
+      "4": 1,
+      "5": 4,
+      "6": 3,
+      "8": 3,
+      "9": 1,
+      "10": 1,
+      "11": 1,
+      "12": 2
+    },
+    "connector_steps_sum": 107937533586,
+    "maximum_edge_connector_depth": 12479646968,
+    "all_returned_targets_exact_period": 32,
+    "distinct_returned_canonical_targets": 34
+  },
+  "edges": [
+    {
+      "path": "0",
+      "source_raw": "01001000110110001101110010100100",
+      "integration_choice": 0,
+      "first_zero_depth": 3122858413,
+      "returned_raw": "00001000000011011001100001010110",
+      "returned_canonical": "00000001101100110000101011000001",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "path": "1",
+      "source_raw": "01001000110110001101110010100100",
+      "integration_choice": 1,
+      "first_zero_depth": 1990824624,
+      "returned_raw": "10111111110111001110011100010100",
+      "returned_canonical": "00010100101111111101110011100111",
+      "parity": "even",
+      "weight": 20,
+      "exact_period": 32
+    },
+    {
+      "path": "10",
+      "source_raw": "10111111110111001110011100010100",
+      "integration_choice": 0,
+      "first_zero_depth": 1022338055,
+      "returned_raw": "10100000111011001111101000001001",
+      "returned_canonical": "00000100110100000111011001111101",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "path": "11",
+      "source_raw": "10111111110111001110011100010100",
+      "integration_choice": 1,
+      "first_zero_depth": 1337460335,
+      "returned_raw": "00010010101110001011000100000000",
+      "returned_canonical": "00000000000100101011100010110001",
+      "parity": "even",
+      "weight": 10,
+      "exact_period": 32
+    },
+    {
+      "path": "110",
+      "source_raw": "00010010101110001011000100000000",
+      "integration_choice": 0,
+      "first_zero_depth": 539640101,
+      "returned_raw": "10100111011011000110100010111000",
+      "returned_canonical": "00010100111011011000110100010111",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "path": "111",
+      "source_raw": "00010010101110001011000100000000",
+      "integration_choice": 1,
+      "first_zero_depth": 6765909665,
+      "returned_raw": "11101110001011000111101100000111",
+      "returned_canonical": "00000111111011100010110001111011",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "path": "1100",
+      "source_raw": "10100111011011000110100010111000",
+      "integration_choice": 0,
+      "first_zero_depth": 2369294537,
+      "returned_raw": "10100010110010000100001101101110",
+      "returned_canonical": "00001000011011011101010001011001",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "path": "1101",
+      "source_raw": "10100111011011000110100010111000",
+      "integration_choice": 1,
+      "first_zero_depth": 255992085,
+      "returned_raw": "11011110000110011101110100001101",
+      "returned_canonical": "00001100111011101000011011101111",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "path": "11010",
+      "source_raw": "11011110000110011101110100001101",
+      "integration_choice": 0,
+      "first_zero_depth": 917411703,
+      "returned_raw": "01111100101101111111111001111010",
+      "returned_canonical": "00101101111111111001111010011111",
+      "parity": "odd",
+      "weight": 23,
+      "exact_period": 32
+    },
+    {
+      "path": "11011",
+      "source_raw": "11011110000110011101110100001101",
+      "integration_choice": 1,
+      "first_zero_depth": 6298685676,
+      "returned_raw": "01101101010000101101001111001110",
+      "returned_canonical": "00001011010011110011100110110101",
+      "parity": "odd",
+      "weight": 17,
+      "exact_period": 32
+    },
+    {
+      "path": "11000",
+      "source_raw": "10100010110010000100001101101110",
+      "integration_choice": 0,
+      "first_zero_depth": 620392484,
+      "returned_raw": "00011011111011101010111110100000",
+      "returned_canonical": "00000000110111110111010101111101",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "path": "11001",
+      "source_raw": "10100010110010000100001101101110",
+      "integration_choice": 1,
+      "first_zero_depth": 1147356616,
+      "returned_raw": "00000010110000010101010111010000",
+      "returned_canonical": "00000000001011000001010101011101",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "path": "110000",
+      "source_raw": "00011011111011101010111110100000",
+      "integration_choice": 0,
+      "first_zero_depth": 201439386,
+      "returned_raw": "00000001001110000001110110001100",
+      "returned_canonical": "00000000010011100000011101100011",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "path": "110001",
+      "source_raw": "00011011111011101010111110100000",
+      "integration_choice": 1,
+      "first_zero_depth": 454421730,
+      "returned_raw": "00000000110100010011010101000011",
+      "returned_canonical": "00000000110100010011010101000011",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "path": "1110",
+      "source_raw": "11101110001011000111101100000111",
+      "integration_choice": 0,
+      "first_zero_depth": 1429186925,
+      "returned_raw": "00100110111100111100011110010111",
+      "returned_canonical": "00011110010111001001101111001111",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "path": "1111",
+      "source_raw": "11101110001011000111101100000111",
+      "integration_choice": 1,
+      "first_zero_depth": 10313972740,
+      "returned_raw": "11110011000001000001111101000100",
+      "returned_canonical": "00000100000111110100010011110011",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "path": "11110",
+      "source_raw": "11110011000001000001111101000100",
+      "integration_choice": 0,
+      "first_zero_depth": 3872621716,
+      "returned_raw": "01011100111110001010000101110010",
+      "returned_canonical": "00001011100100101110011111000101",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "path": "11111",
+      "source_raw": "11110011000001000001111101000100",
+      "integration_choice": 1,
+      "first_zero_depth": 2951840447,
+      "returned_raw": "11111111100010100011000101101011",
+      "returned_canonical": "00010100011000101101011111111111",
+      "parity": "odd",
+      "weight": 19,
+      "exact_period": 32
+    },
+    {
+      "path": "111100",
+      "source_raw": "01011100111110001010000101110010",
+      "integration_choice": 0,
+      "first_zero_depth": 5364443153,
+      "returned_raw": "00111000000001110000101111000101",
+      "returned_canonical": "00000000111000010111100010100111",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32
+    },
+    {
+      "path": "111101",
+      "source_raw": "01011100111110001010000101110010",
+      "integration_choice": 1,
+      "first_zero_depth": 785466342,
+      "returned_raw": "10101001011011000100111101011110",
+      "returned_canonical": "00010011110101111010101001011011",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "path": "1111010",
+      "source_raw": "10101001011011000100111101011110",
+      "integration_choice": 0,
+      "first_zero_depth": 4406394223,
+      "returned_raw": "11001001100101110011100011100001",
+      "returned_canonical": "00001110010011001011100111000111",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "path": "1111011",
+      "source_raw": "10101001011011000100111101011110",
+      "integration_choice": 1,
+      "first_zero_depth": 317183221,
+      "returned_raw": "11111001001000000110101111111001",
+      "returned_canonical": "00000011010111111100111111001001",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32
+    },
+    {
+      "path": "11110100",
+      "source_raw": "11001001100101110011100011100001",
+      "integration_choice": 0,
+      "first_zero_depth": 677140366,
+      "returned_raw": "01000010011000011011001110001100",
+      "returned_canonical": "00001001100001101100111000110001",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32
+    },
+    {
+      "path": "11110101",
+      "source_raw": "11001001100101110011100011100001",
+      "integration_choice": 1,
+      "first_zero_depth": 4702237002,
+      "returned_raw": "10101001110110000100110000110101",
+      "returned_canonical": "00001001100001101011010100111011",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "path": "11110110",
+      "source_raw": "11111001001000000110101111111001",
+      "integration_choice": 0,
+      "first_zero_depth": 116187861,
+      "returned_raw": "00011010111110111100111111001101",
+      "returned_canonical": "00011010111110111100111111001101",
+      "parity": "odd",
+      "weight": 21,
+      "exact_period": 32
+    },
+    {
+      "path": "11110111",
+      "source_raw": "11111001001000000110101111111001",
+      "integration_choice": 1,
+      "first_zero_depth": 2168338618,
+      "returned_raw": "10110111110111111010000111011101",
+      "returned_canonical": "00001110111011011011111011111101",
+      "parity": "even",
+      "weight": 22,
+      "exact_period": 32
+    },
+    {
+      "path": "111101110",
+      "source_raw": "10110111110111111010000111011101",
+      "integration_choice": 0,
+      "first_zero_depth": 9483082542,
+      "returned_raw": "10001000101000100101011110000101",
+      "returned_canonical": "00001011000100010100010010101111",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32
+    },
+    {
+      "path": "111101111",
+      "source_raw": "10110111110111111010000111011101",
+      "integration_choice": 1,
+      "first_zero_depth": 1166528144,
+      "returned_raw": "11011011000100011110010110001010",
+      "returned_canonical": "00010001111001011000101011011011",
+      "parity": "even",
+      "weight": 16,
+      "exact_period": 32
+    },
+    {
+      "path": "1111011110",
+      "source_raw": "11011011000100011110010110001010",
+      "integration_choice": 0,
+      "first_zero_depth": 12479646968,
+      "returned_raw": "01110100000101011100001010101101",
+      "returned_canonical": "00000101011100001010101101011101",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32
+    },
+    {
+      "path": "1111011111",
+      "source_raw": "11011011000100011110010110001010",
+      "integration_choice": 1,
+      "first_zero_depth": 839208297,
+      "returned_raw": "10101111010000100100100100010101",
+      "returned_canonical": "00001001001001000101011010111101",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "path": "11110111110",
+      "source_raw": "10101111010000100100100100010101",
+      "integration_choice": 0,
+      "first_zero_depth": 4698029932,
+      "returned_raw": "10010100111100000010110011100100",
+      "returned_canonical": "00000010110011100100100101001111",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32
+    },
+    {
+      "path": "11110111111",
+      "source_raw": "10101111010000100100100100010101",
+      "integration_choice": 1,
+      "first_zero_depth": 80005764,
+      "returned_raw": "01010111100111101010111011111001",
+      "returned_canonical": "00101010111100111101010111011111",
+      "parity": "odd",
+      "weight": 21,
+      "exact_period": 32
+    },
+    {
+      "path": "111101111100",
+      "source_raw": "10010100111100000010110011100100",
+      "integration_choice": 0,
+      "first_zero_depth": 4773510433,
+      "returned_raw": "01001011001100000000111100001000",
+      "returned_canonical": "00000000111100001000010010110011",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32
+    },
+    {
+      "path": "111101111101",
+      "source_raw": "10010100111100000010110011100100",
+      "integration_choice": 1,
+      "first_zero_depth": 10268483482,
+      "returned_raw": "01101011111101001101000010010101",
+      "returned_canonical": "00001001010101101011111101001101",
+      "parity": "odd",
+      "weight": 17,
+      "exact_period": 32
+    }
+  ],
+  "resource_no_go": {
+    "B_le_parent_leaf_weight": false,
+    "B_le_parent_period": false,
+    "evidence": {
+      "B": 17,
+      "parent_leaf_weight": 13,
+      "parent_period": 16
+    }
+  },
+  "p32_leaf_bound": {
+    "L16": 16,
+    "B_lower_bounds": {
+      "0": 3,
+      "1": 1,
+      "4": 2,
+      "6": 5,
+      "8": 7,
+      "10": 3,
+      "11": 17,
+      "12": 1
+    },
+    "known_sum_B_lower_bound": 39,
+    "L32_lower_bound": 55
+  },
+  "conclusion": "Portal 11 is completely classified with B(11)=17 and 18 odd leaves. Combined exact certificates imply L32>=55. The component also refutes B(l)<=weight(l) and B(l)<=16 for p16 leaves."
+}
