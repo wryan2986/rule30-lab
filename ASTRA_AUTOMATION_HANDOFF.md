@@ -995,3 +995,32 @@ Atomic records have corresponding `20261002_*.json` names in results/problem1.
 The local layer obstruction is now precisely H_Y at r>=4. The global
 obstruction remains an original-support resource with bounded reuse
 through zero returns and period doublings. No FULL contradiction follows.
+
+## 28. General H_Y fails; exact blind-output gate criterion replaces it
+
+Section 27's general H_Y candidate is now FAILED — COUNTEREXAMPLE FOUND.
+Its conditional lemma and the proved r<=3 instances remain valid.
+See `problem1_hidden_label_reset_counterexample.md`.
+
+The local reset criterion first fails in its ordered bounded search at
+p10,r6,w55,s4. Repeating that upper orbit three times creates one p30,r6
+odd-label square. Two weight-thirteen, least-period-thirty words 57711655
+and 40950823 share its full upper orbit but have different newest Y at
+phases19,29. All four targeted words have independent scalar and temporal
+replays. No p30 exhaustive search was run.
+
+Their full output XOR is zero. Gates at the old blind phases {4,14,24}
+are all one on all four words; thus weaker H_B and H_ext survive that
+complete square, with rank two. General H_B/H_ext remain unproved.
+
+New LEMMA WITH PROOF — INDEPENDENTLY CHECKED:
+`problem1_blind_output_gate_criterion.md` proves at every depth that
+H_ext holds on a complete odd upper fiber with nonzero parent IFF each
+old blind phase's new outgoing difference depends only on its own label,
+`d_s=alpha_s+beta_s*w_s`. Full-Y invariance is unnecessary. This is an
+exact criterion, not a proof that every fiber satisfies it.
+
+Reproducer: `experiments/problem1_nonperiodicity/check_hidden_label_reset_criterion.py`.
+Atomic record: `results/problem1/20261002_hidden_label_reset_criterion.json`.
+Read the current Sol handoff for the first unresolved depth-four miter
+admission and the unchanged original-support transport obstruction.

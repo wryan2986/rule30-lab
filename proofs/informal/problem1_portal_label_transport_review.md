@@ -11,7 +11,9 @@ Date: 2026-10-02. Problem 1 remains **OPEN**.
 | Zero-parent fixed-point alternatives | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | No extension if b_Y=1; two if b_Y=0, with the explicit higher-track parity formula |
 | H_ext and H_Y at r=1,2,3 | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every even p>=2 and odd driver; full aligned odd-label fibers |
 | H_Y implies H_ext and exact rank loss | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every r>=1, conditional on invariant newest Y history and nonzero parent |
-| General H_ext and H_Y | FINITE EVIDENCE ONLY | p=2,4,6,8,10,12,14 and r=1..6 |
+| H_gate iff H_ext | LEMMA WITH PROOF — INDEPENDENTLY CHECKED | Every r>=1, complete odd upper fiber and nonzero parent; no assertion that H_gate always holds |
+| General H_ext | FINITE EVIDENCE ONLY | p=2,4,6,8,10,12,14 and r=1..6; also one exact p30,r6 square |
+| General H_Y | FAILED — COUNTEREXAMPLE FOUND | Two least-period-30 drivers in one complete r=6 upper fiber |
 | Endpoint parity affine on an upper fiber | FINITE EVIDENCE ONLY | p=8, r=1, using the previously recorded endpoint classifier |
 
 Proofs are in `problem1_portal_layer_monodromy.md` and
@@ -154,9 +156,14 @@ bridges or reuse the rejected implementation.
 ## 6. Research consequence
 
 The smallest unproved extension depth for this transport strategy is
-r=4. H_Y is a sufficient all-depth target, now expressible as a two-driver
-counterexample search: equal complete aligned upper orbits but different
-new Y histories. Proving it would give an exact linear layer transport
-law with rank u_r-u_(r+1). It would still leave the separate task of
-transport through a zero return/period doubling and bounded reuse against
-the same original finite support. Problem 1 remains open.
+r=4. The subsequent targeted four-word construction in
+`problem1_hidden_label_reset_counterexample.md` refutes general H_Y at
+p=30,r=6, while its complete two-dimensional extension remains affine.
+The exact all-depth criterion in `problem1_blind_output_gate_criterion.md`
+replaces that false stronger target: at each upper blind phase the new
+outgoing difference must depend only on that phase's own label.
+Independent review of that criterion is recorded with its proof.
+
+Even a proof of that gate condition on all fibers would leave transport
+through a zero return/period doubling and bounded reuse against the same
+original finite support. Problem 1 remains open.

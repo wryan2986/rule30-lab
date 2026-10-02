@@ -190,8 +190,10 @@ on any one upper fiber with nonzero parent, the full extension is affine,
 the deeper blind set is fixed, and the same rank formula follows. A
 parent phase with M=1 anchors X; if M is always zero, a phase with L=1
 provides an affine reset. Thus **H_Y**, invariant newest Y on every
-fixed aligned odd-label fiber, is a precise sufficient target. It is
-proved only at r<=3. The smallest unresolved extension depth is r=4.
+fixed aligned odd-label fiber, was a precise sufficient target. It is
+proved at r<=3, but its universal version was refuted in the fourth unit
+below. The conditional lemma remains valid. The smallest unresolved
+extension depth is r=4.
 
 Reproduce:
 
@@ -221,7 +223,59 @@ The historical finite-speed margin idea in
 higher indices under A, while the actual doubling fiber is at the changed
 boundary. This is an existing correction, not a new support bridge.
 
-Even a proof of general H_Y would only settle layer transport inside one
-fixed-period connector. Cross-return transport and bounded reuse against
-the SAME ORIGINAL support remain the global obstruction. Do not claim a
-Prize Problem solution from these local transfer lemmas.
+Even a proof of general affine extension would only settle layer transport
+inside one fixed-period connector. Cross-return transport and bounded reuse
+against the SAME ORIGINAL support remain the global obstruction. Do not
+claim a Prize Problem solution from these local transfer lemmas.
+
+## Fourth unit: false full-Y bridge and an exact gate repair
+
+Read `proofs/informal/problem1_hidden_label_reset_counterexample.md` and
+`proofs/informal/problem1_blind_output_gate_criterion.md`.
+
+Status: **FAILED — COUNTEREXAMPLE FOUND** for the active-label reset
+criterion H_reset and general H_Y. The ordered bounded search first
+fails at p10,r6,w55,s4: an active child X impulse reaches a parent Y=1
+after four phases with no earlier (1,0) reset. Its odd fiber is a
+singleton, so that witness alone does not settle H_Y.
+
+Repeat that aligned upper orbit THREE times. At p30,r6 its blind phases
+are {4,14,24}, giving an exact four-member odd cube. Words 57711655 and
+40950823 share the whole upper orbit but differ in newest Y at phases
+19 and 29. Both have weight thirteen and least period thirty. Thus H_Y
+is false even with full-period witness drivers. Independent scalar child
+and original two-row temporal reconstruction passed for all four words.
+This is four targeted inputs, not a period-thirty census.
+
+The full four-output XOR is zero, so H_ext holds on that entire square.
+Each old blind phase has outgoing new Y=1 for every input. Thus the
+weaker **H_B**, constant gate only at old blind phases, survives here;
+rank is two and the new blind set is empty. General H_B is unproved.
+
+New status: **LEMMA WITH PROOF — INDEPENDENTLY CHECKED**, at EVERY depth:
+on a complete odd upper fiber with nonzero parent, extension is affine
+IFF each old blind phase's outgoing new difference has the form
+
+    d_s(w)=alpha_s+beta_s w_s.
+
+It may depend on its own label, but not other labels once its own is
+fixed. Sufficiency uses one fixed odd base driver's invertible monodromy
+and affine forcing. Necessity uses the second finite difference of the
+product w_s*d_s. H_B is beta=0; H_Y is an unnecessarily stronger
+all-phase condition. Any affine extension also has constant u_(r+1)
+and exact rank u_r-u_(r+1), even if its deeper blind set varies.
+
+Reproduce the stopped reset search plus exact four-input repair test:
+
+    python3 experiments/problem1_nonperiodicity/check_hidden_label_reset_criterion.py
+
+The `--targeted-only` option replays the four inputs without modifying
+the full-run record. Atomic record:
+`results/problem1/20261002_hidden_label_reset_criterion.json`.
+
+The current precise local target is now the general H_gate/H_ext law
+at r>=4, not false H_Y. Its first depth is being attacked using the
+4096-state two-stack product and three parity bits described in
+`problem1_depth4_gate_miter_admission.md`. Do not treat a no-witness
+finite graph result as an all-period theorem until the exact reduction
+and a separate certificate verifier are accepted.

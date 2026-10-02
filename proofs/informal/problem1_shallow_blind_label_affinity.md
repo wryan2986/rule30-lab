@@ -208,9 +208,16 @@ and rank-nullity gives rank u_r-u_(r+1), including the singleton cases.
 
 The finite tests also check a stronger, simpler candidate:
 
-**H_Y (CONJECTURE at general r).** For every aligned upper orbit and
+**Attempted H_Y (FAILED — COUNTEREXAMPLE FOUND at general r).**
+For every aligned upper orbit and
 odd-label fiber in Section 1's nonzero-parent domain, the newest
 half-difference history Y_(r+1)(s) is independent of the driver in C_R.
+
+This universal statement was subsequently refuted at p=30,r=6 in
+`problem1_hidden_label_reset_counterexample.md`. Its shallow r<=3
+instances remain proved above; the conditional implication below remains
+valid. The failed stronger candidate is retained to distinguish it from
+the weaker blind-output gate criterion.
 
 **Conditional lemma, at EVERY r>=1.** H_Y for one fiber implies H_ext
 for that fiber, a fixed deeper blind set, and rank u_r-u_(r+1).
@@ -243,9 +250,12 @@ At r>=4 neither label isolation nor affineness has been proved here.
 The four-matrix fixed-driver theorem remains valid there, but multiplying
 driver-dependent matrices is not automatically linear in the free labels.
 This is the smallest unresolved extension depth for this particular
-transport strategy. H_Y is proved at r=1,2,3 above and is a sufficient
-all-depth target by Section 7. The separate endpoint-parity conjecture is not a
-corollary of any shallow extension theorem.
+transport strategy. H_Y is proved at r=1,2,3 above, but its universal
+all-depth version is false at p=30,r=6. On that counterexample fiber the
+weaker blind-output invariance H_B and extension affineness both hold.
+Read `problem1_blind_output_gate_criterion.md` for the exact all-depth
+criterion equivalent to H_ext. The separate endpoint-parity conjecture
+is not a corollary of any shallow extension theorem.
 
 The companion finite checker tests exactly declared driver cubes and
 extension depths; survival beyond the proof's r<=3 scope remains
