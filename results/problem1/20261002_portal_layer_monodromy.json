@@ -1,0 +1,347 @@
+{
+  "backend": "independent scalar raw-bit recurrence plus GF(2) 2x2 affine matrix composition",
+  "experiment_id": "20261002_portal_layer_monodromy",
+  "git_commit": "cd257fd97121880289190ffea1e572f7793c6de8",
+  "hardware": {
+    "cpu_count": 16,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "machine": "x86_64",
+    "peak_rss_bytes": 21987328,
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43",
+    "processor": ""
+  },
+  "hypothesis": "For every odd p-bit driver and arbitrary cyclic higher/parent pair arrays, the p-step added-state affine return matrix is [[d1,d1],[d0+d1,d1]], with the stated nilpotent/coalescence or all-zero-parent fixed-family behavior.",
+  "implementation_diagnostics": [
+    {
+      "bug": "Raw children (z_n,z'_n) were returned as normalized (X_n,Y_n); the required inversion is Y_n=z_n XOR z'_n and X_n=z_n XOR(q_n AND Y_n).",
+      "classification": "superseded checker bug, not theorem evidence",
+      "smallest_observed_case": {
+        "correct_affine_return": [
+          1,
+          0
+        ],
+        "high_pairs": [
+          0
+        ],
+        "incorrect_return": [
+          0,
+          1
+        ],
+        "p": 1,
+        "parent_pairs": [
+          1
+        ],
+        "seed": [
+          0,
+          0
+        ],
+        "w_lsb": 1
+      }
+    },
+    {
+      "bug": "A one-period return was compared directly to the claimed two-period fixed value.",
+      "classification": "superseded checker bug, not theorem evidence",
+      "smallest_observed_case": {
+        "affine_one_period_return": [
+          1,
+          1
+        ],
+        "high_pairs": [
+          0
+        ],
+        "one_period_return": [
+          1,
+          1
+        ],
+        "p": 1,
+        "parent_pairs": [
+          2
+        ],
+        "seed": [
+          0,
+          0
+        ],
+        "two_period_fixed_value": [
+          1,
+          0
+        ],
+        "w_lsb": 1
+      }
+    }
+  ],
+  "interpretation": "A finite exhaustive check over exactly the declared domains; it does not establish an all-period theorem.",
+  "limitations": [
+    "No claim is made for even drivers; even words serve only as a parity-schedule control.",
+    "The p=4 higher-pair arrays are restricted to the four listed constants.",
+    "Finite enumeration is not a proof for arbitrary p.",
+    "Hard caps are 30 seconds, 256 MiB resident memory, and 256 KiB JSON output."
+  ],
+  "parameters": {
+    "caps": {
+      "output_bytes": 262144,
+      "resident_memory_bytes": 268435456,
+      "wall_seconds": 30.0
+    },
+    "child_seeds": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "odd_driver_domain": "all p-bit words of odd Hamming parity",
+    "p1_to_p3_arrays": "every ordered p-array of higher pairs and every ordered p-array of parent pairs, each pair in {00,01,10,11}",
+    "p4_higher_control_arrays": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "p4_parent_arrays": "every ordered p-array of parent pairs in {00,01,10,11}",
+    "periods": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "proof_dependency_policy": "The concurrently authored proof note is outside this run's inputs and hash dependencies.",
+  "proof_scope": "Exhaustive for p=1,2,3 over all odd drivers, all upper-pair arrays, all parent-pair arrays and four seeds; for p=4 exhaustive over all odd drivers, all parent arrays, four constant higher-pair controls and four seeds. Matrix/fixed-point checks are finite computational evidence only.",
+  "question": "problem1",
+  "result_hashes": {
+    "canonical_summary_sha256": "aa8e7cdc2c29fbb2c978856edd86c58bbe5c06febabd937fd983a5003e36d9ff",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "payload_sha256_excluding_this_field": "5cd3049579995725c71e626e51f051dbe9e056a075949be70a6358b0fd91c356",
+    "script_sha256": "dd2be9867479ee147aa74d6bc3363b6775cbca5707540cf5378f91f8a3eba9cd"
+  },
+  "result_summary": {
+    "counts": {
+      "all_zero_parent_cases": 324,
+      "matrix_compositions": 25104,
+      "matrix_kind_counts_d0d1": {
+        "00": 20036,
+        "01": 2372,
+        "10": 2372,
+        "11": 324
+      },
+      "odd_driver_words": 15,
+      "p1_to_p3_cases": 16912,
+      "p4_cases": 8192,
+      "raw_layer_updates": 987808,
+      "raw_parent_any_one_cases": 24780,
+      "seed_return_comparisons": 100416,
+      "zero_parent_fixed_point_counts": {
+        "no_solutions": 146,
+        "two_solutions": 178
+      }
+    },
+    "discrepancy": null,
+    "exceptional_all_zero_parent_examples": {
+      "no_solution": {
+        "b": [
+          1,
+          1
+        ],
+        "high_pairs": [
+          2
+        ],
+        "p": 1,
+        "parent_pairs": [
+          0
+        ],
+        "w_lsb": 1
+      },
+      "solution_family": {
+        "b": [
+          0,
+          0
+        ],
+        "high_pairs": [
+          0
+        ],
+        "p": 1,
+        "parent_pairs": [
+          0
+        ],
+        "solutions": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "w_lsb": 1
+      }
+    },
+    "named_cases": {
+      "any_raw_parent_one": {
+        "A": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "b": [
+          1,
+          0
+        ],
+        "high_pairs": [
+          0
+        ],
+        "parent_pairs": [
+          1
+        ],
+        "w_lsb": 1
+      },
+      "even_driver_scope_control": {
+        "A": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "A_squared": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "A_squared_equals_A": true,
+        "b": [
+          1,
+          1
+        ],
+        "fixed_points": [],
+        "high_pair": 1,
+        "p": 1,
+        "parent_pair": 2,
+        "q_end": 0,
+        "q_start": 0,
+        "seed_domain": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "w_lsb": 0
+      },
+      "matrix_kinds": {
+        "00": {
+          "A": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "high_pairs": [
+            0
+          ],
+          "p": 1,
+          "parent_pairs": [
+            1
+          ],
+          "w_lsb": 1
+        },
+        "01": {
+          "A": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "high_pairs": [
+            0
+          ],
+          "p": 1,
+          "parent_pairs": [
+            3
+          ],
+          "w_lsb": 1
+        },
+        "10": {
+          "A": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "high_pairs": [
+            0
+          ],
+          "p": 1,
+          "parent_pairs": [
+            2
+          ],
+          "w_lsb": 1
+        },
+        "11": {
+          "A": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "high_pairs": [
+            0
+          ],
+          "p": 1,
+          "parent_pairs": [
+            0
+          ],
+          "w_lsb": 1
+        }
+      }
+    }
+  },
+  "runtime_seconds": 1.8706735390005633,
+  "software": {
+    "implementation": "CPython",
+    "python": "3.14.4",
+    "release": "7.0.0-34-generic",
+    "system": "Linux"
+  },
+  "source_and_input_hashes": {
+    "experiments/problem1_nonperiodicity/check_portal_layer_monodromy.py": "dd2be9867479ee147aa74d6bc3363b6775cbca5707540cf5378f91f8a3eba9cd",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-10-02T18:20:45.954944+00:00"
+}

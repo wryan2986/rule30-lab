@@ -2,6 +2,14 @@
 
 ## Status
 
+Recovery audit, 2026-10-02: the finite-speed margin proposal in this
+historical note is superseded by
+`problem1_forced_doubling_fiber_cone_audit.md`. Low-index changes can
+NEVER affect higher indices under A, regardless of elapsed time. The
+new doubling fiber itself occupies the changed low boundary, so this
+protection does not transfer its history. The rejected margin argument
+below is retained as failed research history, not a live proof target.
+
 This note follows the exact projection identity
 
 \[

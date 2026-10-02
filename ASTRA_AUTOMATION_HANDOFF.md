@@ -957,3 +957,41 @@ reuse across portal restarts / period doublings remains the bottleneck.
 
 Reproducer: `experiments/problem1_nonperiodicity/check_blind_charge_portal_transport.py`.
 Atomic record: `results/problem1/20261002_blind_charge_portal_transport.json`.
+
+## 27. Exact one-layer monodromy and shallow affine blind-label transport
+
+Sol continuation; historical filename does not authorize Astra routing.
+Read `SOL_RESEARCH_HANDOFF.md` and
+`proofs/informal/problem1_portal_label_transport_review.md` for the current
+scope and verification record. Problem 1 remains OPEN.
+
+Status: LEMMA WITH PROOF — INDEPENDENTLY CHECKED. For every odd driver
+period p>=1 and arbitrary periodic upper pair histories, the one-layer
+p-step return is affine in its added pair, with only four matrices
+
+    A=[[d1,d1],[d0+d1,d1]], d0,d1 in {0,1}.
+
+Nonzero parent gives A^2=0 and the unique cyclic pair `(I+A)b`.
+Zero parent gives the explicit no/two-extension parity alternatives.
+This is a fixed-driver theorem at every depth, not driver affineness.
+
+At observer extension depths r=1,2,3, every even-period odd-label upper
+fiber has an affine extension, fixed newest Y history, fixed deeper blind
+set, and exact rank `u_r-u_(r+1)`. Five-state resets supply the proof.
+At every depth, invariant newest Y on one such fiber is a proved
+SUFFICIENT condition for those conclusions. General H_Y remains a
+conjecture, with its first unresolved extension depth at r=4.
+
+Finite evidence only: all odd words at p=2,4,6,8,10,12,14, r=1..6,
+42 scopes and 42,196 complete upper fibers survive H_Y/H_ext testing.
+Independent scalar and original two-row controls exhaust p8 through
+depth seven. Endpoint affineness is only a p8,r1 classifier check.
+
+Reproducers:
+`experiments/problem1_nonperiodicity/check_portal_layer_monodromy.py` and
+`experiments/problem1_nonperiodicity/check_blind_fiber_endpoint_affinity.py`.
+Atomic records have corresponding `20261002_*.json` names in results/problem1.
+
+The local layer obstruction is now precisely H_Y at r>=4. The global
+obstruction remains an original-support resource with bounded reuse
+through zero returns and period doublings. No FULL contradiction follows.

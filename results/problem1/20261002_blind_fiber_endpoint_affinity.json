@@ -1,0 +1,2296 @@
+{
+  "H_ext_all_parent_fibers_complete": true,
+  "H_ext_status": "finite-exhaustive-on-nonzero-parent-domain",
+  "admission": {
+    "basis": "Parent-admitted bounded transport falsification. A witness refutes the tested affine fiber map in its declared domain; survival is finite evidence about driver-label transport and does not establish the parent theorem.",
+    "whole_tail_relevance": "A counterexample rules out this affine fixed-state route as stated; no counterexample leaves a finite candidate statistic to assess, without resolving the whole-tail conjecture."
+  },
+  "backend": "Python analyzer quotient plus degree-7 endpoint classifier; exhaustive independent scalar two-seed and original two-row controls",
+  "experiment_id": "20261002_blind_fiber_endpoint_affinity_and_blind_cube_extension",
+  "git_commit": "cd257fd97121880289190ffea1e572f7793c6de8",
+  "hardware": {
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz",
+    "logical_cpu_count": 16,
+    "machine": "x86_64",
+    "peak_rss_bytes": 45699072,
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43"
+  },
+  "hypothesis": {
+    "H_endpoint": "For every fixed exact aligned normalized quotient state sequence R_s at p=8,r=1, f8(w) is affine over GF(2) in the odd driver labels.",
+    "H_ext": "For p=2,4,6,8,10,12,14 and r=1..6, on every fixed exact aligned depth-r quotient orbit in the retained-stack domain, the full aligned depth-(r+1) state sequence is affine in the odd hidden driver labels."
+  },
+  "implementation_diagnostics": {
+    "superseded_basis_bug": "Previous conditional pivot selection could include a zero vector and omit a valid direction when anchor[free[0]]=0. Current basis always uses the first sorted blind phase as pivot and every remaining phase as e_s XOR e_pivot; rank and per-member coordinates are checked. This was an implementation correction, not mathematical evidence."
+  },
+  "interpretation": "No counterexample found among all aligned p=8,r=1 fibers; this is finite evidence only.",
+  "limitations": [
+    "H_ext is limited to p=2,4,6,8,10,12,14 and r=1..6, subject to any reported cap or first witness stop.",
+    "Inputs with a zero low plane before the requested stack are listed as outside the retained-stack domain; no child is assigned. Per-scope all-parent-fibers-complete flags disclose exclusions.",
+    "The p=8 independent scalar/two-row control exhausts all odd drivers through depth seven, stopping at early zero planes.",
+    "H_endpoint parity counts are rechecked with the historical degree-7 classifier; this run performs no new portal first-return traversal.",
+    "The 60-second, 300000-lift, 256-MiB resident-memory, and 256-KiB output caps are recorded; no cap was enlarged.",
+    "No conclusion is drawn about the whole-tail conjecture or untested p/r."
+  ],
+  "parameters": {
+    "H_endpoint": {
+      "input_count": 128,
+      "p": 8,
+      "r": 1
+    },
+    "H_ext": {
+      "affine_map_check": "anchor plus explicit blind-label basis; check predicted output for every fiber member",
+      "driver_domain_each_scope": "all odd p-bit words",
+      "exact_odd_affine_cube_required": true,
+      "p_values": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14
+      ],
+      "r_values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "witness_order": "first coordinate-basis-square witness; p/r ascending, fibers by sorted member lists, then base and basis directions"
+    },
+    "alignment": "literal aligned phase; no necklace canonicalization",
+    "classifier_terms_offsets": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3
+      ],
+      [
+        0,
+        1,
+        2,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        6
+      ],
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    ],
+    "first_return_lift_cap_per_input": 300000,
+    "quotient_grouping": "exact tuple returned by analyze_blind_visit_rank.quotient_seq"
+  },
+  "proof_scope": "H_endpoint remains the completed p=8,r=1 finite check. H_ext is finite-exhaustive only for the exact scopes listed in result_summary; every tested parent fiber was checked against its exact odd affine cube, followed by an anchor-basis affine prediction for all members. No infinite statement is proved.",
+  "provenance": {
+    "analyzer_source": "#!/usr/bin/env python3\nfrom __future__ import annotations\nimport json\nfrom pathlib import Path\n\nROOT=Path(__file__).resolve().parents[2]\n\nP16_LEAVES=[\n\"0000010101000101\",\"0011101111101011\",\"0101101101111011\",\"0001010011100101\",\n\"0101010110111111\",\"0000100100100101\",\"0000001001011001\",\"0010111001100111\",\n\"0001010010001111\",\"0000011101010011\",\"0010101110101101\",\"0101111111011111\",\n\"0000110110000111\",\"0001001111001111\",\"0001111001111111\",\"0010111100111111\",\n]\n\ndef parse_lsb(s:str)->int:\n    return sum((1<<i) for i,ch in enumerate(s) if ch==\"1\")\n\ndef parity(x:int)->int:\n    return x.bit_count()&1\n\ndef broad_child(b:int,c:int,n:int)->int:\n    if b==0: raise ValueError(\"nonzero low plane required\")\n    mask=(1<<n)-1\n    r=b.bit_length()-1\n    a0=1^parity(c>>r)\n    D=(c^b)&mask\n    M=(~b)&mask\n    k=1\n    while k<n:\n        lo=(1<<k)-1\n        od,om=D,M\n        D=(od^(om&((od<<k)&mask)))&mask\n        M=((om&lo)|(om&((om<<k)&mask)&(~lo&mask)))&mask\n        k<<=1\n    Y=D^(M&(mask if a0 else 0))\n    return ((Y<<1)|a0)&mask\n\ndef portal_lift(w:int,p:int)->int:\n    cur=0;x=0\n    for s in range(2*p):\n        x|=cur<<s\n        cur^=(w>>(s%p))&1\n    if cur: raise AssertionError(\"portal integration failed\")\n    return x\n\ndef quotient_seq(w:int,p:int,r:int)->list[int]:\n    n=2*p\n    x=portal_lift(w,p)\n    J=(1<<n)-1\n    low,high=x,J\n    dyn=[]\n    for _ in range(r):\n        ch=broad_child(low,high,n)\n        dyn.append(ch)\n        high,low=low,ch\n    seq=[]\n    for s in range(p):\n        q=(x>>s)&1\n        st=0\n        for j,z in enumerate(dyn):\n            X=(z>>s)&1\n            Y=X^((z>>(s+p))&1)\n            if q: X^=Y\n            st|=X<<(2*j)\n            st|=Y<<(2*j+1)\n        seq.append(st)\n    return seq\n\ndef blind_state(st:int,r:int)->bool:\n    H,K,L,M=1,0,0,1\n    for j in range(r):\n        X=(st>>(2*j))&1\n        Y=(st>>(2*j+1))&1\n        Yn=K^M^Y^(L&Y)^(M&X)^(M&Y)\n        if Yn: return False\n        H,K,L,M=L,M,X,Y\n    return True\n\ndef k_profile(word:str,max_r:int)->list[int]:\n    w=parse_lsb(word);p=len(word)\n    return [\n        sum(blind_state(st,r) for st in quotient_seq(w,p,r))\n        for r in range(1,max_r+1)\n    ]\n\ndef certified_p32_leaves()->list[str]:\n    leaves=set()\n    files=[\n        ROOT/\"results/problem1/20261002_period32_portal11_complete.json\",\n        ROOT/\"results/problem1/20261002_twisted_half_period_and_p32_descendants.json\",\n        ROOT/\"results/problem1/20261002_period32_complete_portal_root_census.json\",\n    ]\n    for path in files:\n        j=json.loads(path.read_text())\n        for e in j.get(\"edges\",[]):\n            if e[\"parity\"]==\"odd\": leaves.add(e[\"returned_canonical\"])\n        for e in j.get(\"descendant_certificates\",[]):\n            if e[\"parity\"]==\"odd\": leaves.add(e[\"returned_canonical\"])\n        for e in j.get(\"portal_roots\",[]):\n            if e[\"parity\"]==\"odd\": leaves.add(e[\"canonical_target\"])\n    return sorted(leaves)\n\ndef summarize(words:list[str],max_r:int)->dict:\n    profs=[k_profile(w,max_r) for w in words]\n    max_k=[max(p[r] for p in profs) for r in range(max_r)]\n    first_rank_zero=next((r+1 for r,k in enumerate(max_k) if k<=1),None)\n    first_blind_free=next((r+1 for r,k in enumerate(max_k) if k==0),None)\n    return {\n        \"count\":len(words),\n        \"max_k_by_r\":max_k,\n        \"first_depth_all_odd_label_unique\":first_rank_zero,\n        \"first_depth_all_blind_free\":first_blind_free,\n    }\n\ndef main():\n    p16=summarize(P16_LEAVES,10)\n    p32_words=certified_p32_leaves()\n    p32=summarize(p32_words,12)\n\n    # Exact complete ambient p16 comparison.\n    ambient=[]\n    seen=set()\n    p=16;mask=(1<<p)-1\n    for w in range(1<<p):\n        if parity(w)==0: continue\n        rots=[]\n        for k in range(p):\n            z=((w>>k)|((w<<(p-k))&mask))&mask if k else w\n            rots.append(z)\n        c=min(rots)\n        if c not in seen:\n            seen.add(c)\n            ambient.append(\"\".join(\"1\" if (c>>i)&1 else \"0\" for i in range(p)))\n    amb=summarize(ambient,10)\n\n    out={\n        \"p16_terminating_leaves\":p16,\n        \"p16_all_odd_necklaces\":amb,\n        \"certified_p32_terminating_leaves\":p32,\n    }\n    print(json.dumps(out,indent=2,sort_keys=True))\n\nif __name__==\"__main__\":\n    main()\n",
+    "classifier_note": "# Problem 1: last-reset child formula and endpoint-parity complexity at the 8 -> 16 portal scale\n\nStatus: exact algebraic lemma plus exhaustive finite census/no-go. Problem 1 remains OPEN.\n\n## 1. Exact recurrent child from the last reset\n\nWrite a cyclic parent temporal word as\n\n    e_s = b_s + 2 c_s,\n\nand let the low plane of a one-bit child be `a). The established recurrence is\n\n    a_(s+1) = c_s XOR (b_s OR a_s).                  (1)\n\nAssume `b` is not the zero word, so the recurrent child is unique.\n\nChoose a linear phase cut `0,...,n-1` and let\n\n    r = max{s : b_s = 1}.\n\nAt phase `r), (1) resets independently of the incoming child bit:\n\n    a_(r+1) = 1 XOR c_r.                              (2)\n\nBy definition of `r`, every later phase before the cut has `b_s=0`. Hence\n\n    a_(s+1) = a_s XOR c_s,   r < s < n.              (3)\n\nIterating (2)-(3) to the cyclic boundary gives\n\n    a_n = 1 XOR XOR_(s=r..n-1) c_s.\n\nRecurrent cyclicity requires `a_n=a_0`. Therefore the recurrent initial child bit is\n\n    boxed: a_0 = 1 XOR XOR_(s=r..n-1) c_s.           (4)\n\nOnce (4) is known, one forward pass of (1) determines the entire child word.\n\nMore invariantly, if `r(t)` is the last reset phase `b_r=1` encountered before phase `t` in cyclic order, then\n\n    boxed: a_t = 1 XOR XOR_(s in [r(t),t)) c_s.       (5)\n\nThus the low plane `b` only partitions the temporal circle into reset gaps; inside each gap, the child is the complemented prefix XOR of `c`.\n\nThis is the cyclic phase-selection counterpart of the already-settled reset-gap formula. Its practical use is that the recurrent child does not require trying both seeds `a_0=0,1`.\n\n## 2. Exact finite verification\n\nThe checker exhaustively compares (4) against the original two-seed cyclic solver for every\n\n    1 <= n <= 8,\n    b != 0,\n    c arbitrary.\n\nThat is exactly\n\n    86,870\n\nparent-plane pairs. Every case agrees.\n\nFor a packed period-32 connector, (4) can be evaluated from the highest reset bit of `b` plus one suffix parity of `c`, after which the existing byte transducer needs only the recurrent seed.\n\n## 3. Exhaustive endpoint parity on every antiperiodic 8 -> 16 portal\n\nThe current p32 problem asks whether a doubled odd lower-period leaf returns first to an odd terminal target or to an even branching target.\n\nBefore fitting statistics to the two known p32 singleton portals, this question can be solved completely one scale lower.\n\nLet `w` range over all odd-parity 8-bit words. Repeat it to `ww`, integrate\n\n    D(x) = ww\n\nwith the canonical integration constant `x_0=0`, and follow the exact period-16 boundary connector from `(x,0)` to its first zero low plane. Let\n\n    f_8(w) = parity(first returned zero target).\n\nThere are 128 odd words. Exact exhaustion gives\n\n    odd returned targets  = 56,\n    even returned targets = 72,\n\nand the largest first-return depth in this census is\n\n    214,005.\n\nSo singleton-versus-branching behavior is already genuinely mixed at the 8 -> 16 antiperiodic portal scale.\n\n## 4. No low-degree cyclic orbit-sum classifier\n\nFor a subset `A subset Z/8Z`, define the cyclic monomial orbit sum\n\n    M_A(w) = XOR_i  product_(a in A) w_(i+a).\n\nThese are the natural translation/phase-invariant Boolean monomials on the lower-period word.\n\nThe checker performs exact GF(2) Gaussian elimination on the 128 odd words, allowing an arbitrary constant plus arbitrary linear combinations of all distinct cyclic orbit sums with `|A| <= d`.\n\nResult:\n\n    d <= 6 : no formula agrees with f_8 on all 128 odd words;\n    d <= 7 : a formula exists.\n\nOne exact degree-7 formula, in the repository's bit-0-first orientation, is\n\n    f_8 =\n      M_{0,2}\n    + M_{0,1,2}\n    + M_{0,1,6}\n    + M_{0,1,2,3}\n    + M_{0,1,2,6}\n    + M_{0,1,2,3,6}\n    + M_{0,1,2,3,4,5,6}                 (mod 2).     (6)\n\nThe checker verifies (6) on all 128 odd inputs.\n\nThis is a scoped no-go: it does NOT say that no useful endpoint statistic exists. It says that even at lower period, the full endpoint-parity map is not represented by any cyclic monomial-orbit polynomial of degree at most six.\n\n## 5. The degree-7 lower-scale classifier does not renormalize unchanged\n\nA tempting next step would be to reuse the same relative-offset formula (6) modulo 16 on the p16 leaf word and hope it predicts p32 first-return parity.\n\nThe two exact p32 singleton certificates already refute that scale-invariant rule.\n\nFor portal 5,\n\n    p16 leaf = 0000100100100101,\n    scaled (6) prediction = 1,\n    actual p32 return parity = 1.\n\nBut for portal 13,\n\n    p16 leaf = 0001001111001111,\n    scaled (6) prediction = 0,\n    actual p32 return parity = 1.\n\nTherefore the exact p=8 classifier is not an all-scale static leaf formula.\n\n## 6. Research consequence\n\nTwo routes are now fenced off:\n\n1. do not spend further effort on two-seed cyclic child solving when the low plane is nonzero; use the exact last-reset seed (4);\n2. do not expect a low-degree cyclic Boolean statistic of the lower leaf alone, or the literal p=8 degree-7 classifier, to decide p32 singleton versus branching behavior.\n\nA viable p -> 2p endpoint-parity theorem must retain additional connector/half-period state or exhibit a genuine scale-dependent renormalization. The most concrete next target is to use (5) to build a multi-step reset-gap transducer that advances several spatial lifts while preserving enough half-period auxiliary data to decide the parity of the first diagonal endpoint.\n\nChecker:\n\n`experiments/problem1_nonperiodicity/check_last_reset_and_p16_endpoint_parity.cpp`.\n\nAtomic record:\n\n`results/problem1/20260929_last_reset_and_p16_endpoint_parity.json`.\n\nDependencies:\n`problem1_periodic_one_bit_lift_classifier.md`;\n`problem1_period32_billion_portal_census.md`.\n",
+    "immutable_reference_path": "src/python/rule30_research_reference.py",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "question": "problem1",
+  "resource_caps": {
+    "first_return_lifts_per_input": 300000,
+    "output_bytes": 262144,
+    "overall_wall_seconds": 60.0,
+    "resident_memory_bytes": 268435456
+  },
+  "result_hashes": {
+    "analyzer_sha256": "1ad72300c02f4f362c5cc9ea109473d7eff41ba7f3715abdcb7fad387bc41748",
+    "classifier_note_sha256": "1a931cf2b31947084ae553418230a44ab69684c98e8fb8d37af2bdb6746a024a",
+    "immutable_reference_sha256": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01",
+    "script_sha256": "0e40bb58e35c6a0674eafa7bed5fb904fc986045fbb823ae02a97ba1f727eb0b",
+    "summary_sha256": "d505012a600a0696c85a6dd0b10a294f7fa9ef965e91ca93c56c894c700a15f9"
+  },
+  "result_summary": {
+    "classifier_counts": {
+      "even": 72,
+      "odd": 56
+    },
+    "direct_scalar_replays": null,
+    "fiber_count": 46,
+    "fiber_size_histogram": {
+      "1": 8,
+      "2": 20,
+      "4": 16,
+      "8": 2
+    },
+    "independent_controls": {
+      "blind_basis_algebra": {
+        "all_basis_identity_controls_passed": true,
+        "cases": [
+          {
+            "anchor": 4,
+            "basis_rank": 1,
+            "basis_vectors": [
+              3
+            ],
+            "free_phases": [
+              0,
+              1
+            ],
+            "functions": {
+              "identity_pair": {
+                "basis_prediction_mismatch": false
+              },
+              "linear_xor": {
+                "basis_prediction_mismatch": false
+              },
+              "nonlinear_product": {
+                "basis_prediction_mismatch": false
+              }
+            },
+            "member_masks": [
+              0,
+              3
+            ],
+            "name": "k2_even_blind_parity_anchor_pivot_zero",
+            "square_parallelogram_control": null
+          },
+          {
+            "anchor": 8,
+            "basis_rank": 2,
+            "basis_vectors": [
+              3,
+              5
+            ],
+            "free_phases": [
+              0,
+              1,
+              2
+            ],
+            "functions": {
+              "identity_pair": {
+                "basis_prediction_mismatch": false
+              },
+              "linear_xor": {
+                "basis_prediction_mismatch": false
+              },
+              "nonlinear_product": {
+                "basis_prediction_mismatch": true
+              }
+            },
+            "member_masks": [
+              0,
+              3,
+              5,
+              6
+            ],
+            "name": "k3_even_blind_parity_affine_square",
+            "square_parallelogram_control": {
+              "all_odd": true,
+              "distinct": true,
+              "ordered_vertices": [
+                8,
+                11,
+                13,
+                14
+              ],
+              "xor_zero": true
+            }
+          }
+        ]
+      },
+      "p8_all_odd_scalar_and_two_row": {
+        "all_inputs_accounted_for": true,
+        "depth_counts": {
+          "1": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "2": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "3": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "4": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "5": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "6": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          },
+          "7": {
+            "drivers": 128,
+            "quotient_state_comparisons": 1024,
+            "two_row_phase_updates": 1024
+          }
+        },
+        "early_zero_cases": [],
+        "early_zero_count": 0,
+        "input_count": 128,
+        "odd_driver_words_lsb_first_sha256": "229c9664eae175e0d6e306bdcc26851b589f576d9bc5317cf169a0ba742b6f5b",
+        "p": 8,
+        "result": "all comparisons and same-depth phase transitions passed",
+        "scalar_two_seed_child_solves": 896
+      }
+    },
+    "odd_driver_count": 128,
+    "one_layer_observation_extension": {
+      "first_witness": null,
+      "scope_order": "p ascending, then r ascending",
+      "scopes": [
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "159f8fc00b295ef62113fc51d46e6d176cc3db5cdc61c9b624a6db78ea34b6ea",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "fd2df8e4c92dad18d12352075e9d5b4078b6bb7b5885d4345c789d09a4b6b5d1",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "7af62209821e726eebd6caf56dbc154e0dc8b32d5abc9b4407fef0e945145294",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "8ab737f3230ce0646a983fe7bfd5bb72d5558993f9206c45bc57acecbdf40ad9",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "6f9b10d476897865d223e99519db1f49e44812148854d79bd030c8b1bc07ca3a",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 2,
+          "affine_member_prediction_checks": 2,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2,
+          "cube_ledger_stream_sha256": "2dba1b299c0ef4aa37deb5632afc0223d051c2865a8075cd23928d087bd254f5",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2
+          },
+          "eligible_driver_count": 2,
+          "eligible_nonzero_parent_fiber_count": 2,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2,
+          "p": 2,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2
+        },
+        {
+          "affine_fiber_basis_checks": 6,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 6,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 1,
+            "basis_vectors": [
+              5
+            ],
+            "blind_phases": [
+              0,
+              2
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0
+            },
+            "member_count": 2,
+            "members_sha256": "aa5507f9e57ee8a21e59299df81766fe623be083b581b933bfc64bf00e64f4d1",
+            "output_sha256": "0131d60841a6f969449a379d2dc25166d2a73326544387e694b9fc8d4cbcd149"
+          },
+          "constructible_parent_fiber_count": 6,
+          "cube_ledger_stream_sha256": "e59276c9cd2f70c0df19b3008440bf682807d1f378dd3d3cd9c89864e099ca70",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 4,
+            "2": 2
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 6,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 6
+        },
+        {
+          "affine_fiber_basis_checks": 6,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 6,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 1,
+            "basis_vectors": [
+              5
+            ],
+            "blind_phases": [
+              0,
+              2
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0
+            },
+            "member_count": 2,
+            "members_sha256": "aa5507f9e57ee8a21e59299df81766fe623be083b581b933bfc64bf00e64f4d1",
+            "output_sha256": "c01780bddaf9ae7926440c566b74bc563b3a0cb40c28c205a0e854466d963408"
+          },
+          "constructible_parent_fiber_count": 6,
+          "cube_ledger_stream_sha256": "a8a5165dfb059ebd73c21519a4b29ac78186c94ff490128072d2753fc94b4013",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 4,
+            "2": 2
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 6,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 6
+        },
+        {
+          "affine_fiber_basis_checks": 8,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 8,
+          "cube_ledger_stream_sha256": "aeb778f90d9cf0f5cac7a0d4f3cf2e959d030df9b9d7119e7d7140868c7a9d72",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 8,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8
+        },
+        {
+          "affine_fiber_basis_checks": 8,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 8,
+          "cube_ledger_stream_sha256": "49292c6579a097dd6541e36e81eef8cd61e06dd5ee39b37daf73179693df3fc5",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 8,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8
+        },
+        {
+          "affine_fiber_basis_checks": 8,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 8,
+          "cube_ledger_stream_sha256": "ed507f0bb108a7a955402b6e74bddfc6a5ec8d821d0afc75777dc254b0224bc2",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 8,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8
+        },
+        {
+          "affine_fiber_basis_checks": 8,
+          "affine_member_prediction_checks": 8,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 8,
+          "cube_ledger_stream_sha256": "925c3c20d774dc9f9f5b0fd4e8a1c1a6edac15418d7e28e4cf5da9954b6f93ee",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8
+          },
+          "eligible_driver_count": 8,
+          "eligible_nonzero_parent_fiber_count": 8,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8,
+          "p": 4,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8
+        },
+        {
+          "affine_fiber_basis_checks": 17,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 17,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 2,
+            "basis_vectors": [
+              5,
+              17
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0
+            },
+            "member_count": 4,
+            "members_sha256": "f5e27ee4a69d073d91342013b581d5b868751458f8d97ee112a12be5b4b15386",
+            "output_sha256": "e78db484f47eae7134903661d416474c7aa50ddcddf160c76cd01dcf3487f91e"
+          },
+          "constructible_parent_fiber_count": 17,
+          "cube_ledger_stream_sha256": "fb40c508776d21ace13789a1f280cc72271e5c4c0769f2452ddea8edfdeb4336",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 6,
+            "2": 9,
+            "4": 2
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 17,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 2,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 17
+        },
+        {
+          "affine_fiber_basis_checks": 17,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 17,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 2,
+            "basis_vectors": [
+              5,
+              17
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0
+            },
+            "member_count": 4,
+            "members_sha256": "f5e27ee4a69d073d91342013b581d5b868751458f8d97ee112a12be5b4b15386",
+            "output_sha256": "773f66d45b41db32704fd2bfc9c25a9581d637b8923f749d48897be8665ad56b"
+          },
+          "constructible_parent_fiber_count": 17,
+          "cube_ledger_stream_sha256": "06717a22117d852e8014c9476f3b19df68aa1c8140e9e994b0f89ec987e7eb9c",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 6,
+            "2": 9,
+            "4": 2
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 17,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 2,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 17
+        },
+        {
+          "affine_fiber_basis_checks": 29,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 29,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 13,
+            "basis_rank": 1,
+            "basis_vectors": [
+              36
+            ],
+            "blind_phases": [
+              2,
+              5
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 0,
+              "3": 1,
+              "4": 0
+            },
+            "member_count": 2,
+            "members_sha256": "ae48b111c6065474318d554969340ab489a9bc5f69257e0f6828ec531ce985be",
+            "output_sha256": "ffcf04726afa2d919d5c17a42e1dce43f35c88302e34478f54a7b0e360929149"
+          },
+          "constructible_parent_fiber_count": 29,
+          "cube_ledger_stream_sha256": "5d4d4cef98113958768d0ca04bac60f514229b313070bea7e6ec446f681ce11f",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 26,
+            "2": 3
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 29,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 29
+        },
+        {
+          "affine_fiber_basis_checks": 32,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 32,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 32,
+          "cube_ledger_stream_sha256": "7ee9ee5348b492091af8937a0c3400871072b8ee339de2d30a24d99a81c3b35a",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 32
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 32,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 32
+        },
+        {
+          "affine_fiber_basis_checks": 32,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 32,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 32,
+          "cube_ledger_stream_sha256": "aae830cfa88b8f76b43fd8d18202ff35e5cb709479e4de19ceaccb96353d51d1",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 32
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 32,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 32
+        },
+        {
+          "affine_fiber_basis_checks": 32,
+          "affine_member_prediction_checks": 32,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 32,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 32,
+          "cube_ledger_stream_sha256": "9a34b7d93ff9e06c524f8391a4179645d68a0c949cf09a17203cfb32f0470161",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 32
+          },
+          "eligible_driver_count": 32,
+          "eligible_nonzero_parent_fiber_count": 32,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 32,
+          "p": 6,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 32
+        },
+        {
+          "affine_fiber_basis_checks": 46,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 46,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 3,
+            "basis_vectors": [
+              5,
+              17,
+              65
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0
+            },
+            "member_count": 8,
+            "members_sha256": "47c1c3ba93736beff207f7f56f98185952efeef504db49f8cf9fe63c75c03ae0",
+            "output_sha256": "2bd3d1d30082a141b677f776dbe6ac126ddf35c4a18e4316bd0e7ebd94363ed3"
+          },
+          "constructible_parent_fiber_count": 46,
+          "cube_ledger_stream_sha256": "da82e123f2e8a0e01acaa4e8bc871f0a2a232b12437586d898b273a27f32cac6",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8,
+            "2": 20,
+            "4": 16,
+            "8": 2
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 46,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 3,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 46
+        },
+        {
+          "affine_fiber_basis_checks": 46,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 46,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 3,
+            "basis_vectors": [
+              5,
+              17,
+              65
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0
+            },
+            "member_count": 8,
+            "members_sha256": "47c1c3ba93736beff207f7f56f98185952efeef504db49f8cf9fe63c75c03ae0",
+            "output_sha256": "1bcd4bc1f3876cbd6354d91f66cb4024d540eb70789b0ce41d7ea672f3dad325"
+          },
+          "constructible_parent_fiber_count": 46,
+          "cube_ledger_stream_sha256": "aa1e88ffebe0566f535a4a6a3b7d01d9638a047dd805dd7603939fa94e28b2d7",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8,
+            "2": 20,
+            "4": 16,
+            "8": 2
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 46,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 3,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 46
+        },
+        {
+          "affine_fiber_basis_checks": 104,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 104,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 13,
+            "basis_rank": 1,
+            "basis_vectors": [
+              36
+            ],
+            "blind_phases": [
+              2,
+              5
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 0,
+              "3": 1,
+              "4": 0,
+              "6": 0,
+              "7": 0
+            },
+            "member_count": 2,
+            "members_sha256": "ae48b111c6065474318d554969340ab489a9bc5f69257e0f6828ec531ce985be",
+            "output_sha256": "638491951ca43d552e351e8ea4848ccf07a8868b38da467f5bccc6f32ca1f779"
+          },
+          "constructible_parent_fiber_count": 104,
+          "cube_ledger_stream_sha256": "caf77fb9efe960f56080c2010d67bdfa89c5165d605668f0c44de657886199cf",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 80,
+            "2": 24
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 104,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 104
+        },
+        {
+          "affine_fiber_basis_checks": 128,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 128,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 128,
+          "cube_ledger_stream_sha256": "408d1894b20a9c6e670d773a20204fb95c5e46e3d6fba55195e85e875342afb1",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 128
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 128,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 128
+        },
+        {
+          "affine_fiber_basis_checks": 128,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 128,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 128,
+          "cube_ledger_stream_sha256": "9ef0d5ed35e300a6a8f5ed2325a90fb2d583aa204d18fca2f43187833aa8bf32",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 128
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 128,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 128
+        },
+        {
+          "affine_fiber_basis_checks": 128,
+          "affine_member_prediction_checks": 128,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 128,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 128,
+          "cube_ledger_stream_sha256": "5e22e4e47b668d2bc4774a342f11510db667410d204b08616325b7ca0cb4e583",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 128
+          },
+          "eligible_driver_count": 128,
+          "eligible_nonzero_parent_fiber_count": 128,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 128,
+          "p": 8,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 128
+        },
+        {
+          "affine_fiber_basis_checks": 122,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 122,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 4,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 16,
+            "members_sha256": "6991068ce9a2dfe20c9c2db718ffd9fc8238ca77d783a71160a837928e708b26",
+            "output_sha256": "5f1e6df86cd4aefb5983708e71efdecaf43b116b5d3ca08329ab20afc1a0d8ae"
+          },
+          "constructible_parent_fiber_count": 122,
+          "cube_ledger_stream_sha256": "a6b8fc177c52b782428d88ff6ee3c87473d44139c3a562a32d845f3ed47b4e33",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 10,
+            "16": 2,
+            "2": 35,
+            "4": 50,
+            "8": 25
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 122,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 4,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 122
+        },
+        {
+          "affine_fiber_basis_checks": 122,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 122,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 4,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 16,
+            "members_sha256": "6991068ce9a2dfe20c9c2db718ffd9fc8238ca77d783a71160a837928e708b26",
+            "output_sha256": "6e49fd2c3bcb993e32ce16487f3191cfd9a5305087c9570384f65283ae75ee46"
+          },
+          "constructible_parent_fiber_count": 122,
+          "cube_ledger_stream_sha256": "e16d0762216a4a2f3fddd3af9f03e484894afc8ba69f8b84d868ee979aed8024",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 10,
+            "16": 2,
+            "2": 35,
+            "4": 50,
+            "8": 25
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 122,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 4,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 122
+        },
+        {
+          "affine_fiber_basis_checks": 377,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 377,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 13,
+            "basis_rank": 1,
+            "basis_vectors": [
+              36
+            ],
+            "blind_phases": [
+              2,
+              5
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 0,
+              "3": 1,
+              "4": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0
+            },
+            "member_count": 2,
+            "members_sha256": "ae48b111c6065474318d554969340ab489a9bc5f69257e0f6828ec531ce985be",
+            "output_sha256": "191a3145d7d76be453b9386cd6677fc6590cea0156c97ca96f1da21739b25f49"
+          },
+          "constructible_parent_fiber_count": 377,
+          "cube_ledger_stream_sha256": "a7cf04943d57cc81612c1fa10109084beb793307c989ad694368347790396be1",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 242,
+            "2": 135
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 377,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 377
+        },
+        {
+          "affine_fiber_basis_checks": 507,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 507,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 247,
+            "basis_rank": 1,
+            "basis_vectors": [
+              528
+            ],
+            "blind_phases": [
+              4,
+              9
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 1,
+              "2": 1,
+              "3": 0,
+              "5": 1,
+              "6": 1,
+              "7": 1,
+              "8": 0
+            },
+            "member_count": 2,
+            "members_sha256": "1ed73031046b286bc14cff17bb5879e554637c5ca3cde4ae6da9e0c372cc52f9",
+            "output_sha256": "bf066c042e17a6873cb9c9e0248e587bfe75a9dea1e41b7dc1b030e11b443cd6"
+          },
+          "constructible_parent_fiber_count": 507,
+          "cube_ledger_stream_sha256": "6416404e36416b6a958b2405da0edefed07773fd1bb9ce593af53fb72da76286",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 502,
+            "2": 5
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 507,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 507
+        },
+        {
+          "affine_fiber_basis_checks": 512,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 512,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 512,
+          "cube_ledger_stream_sha256": "78c08e62baa1b3261a3027c5be17402505a0c69cc560e639b4dca262403570dc",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 512
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 512,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 512
+        },
+        {
+          "affine_fiber_basis_checks": 512,
+          "affine_member_prediction_checks": 512,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 512,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 512,
+          "cube_ledger_stream_sha256": "e9c3068be43972cb0917411cdb6d2982706efef78fc3ea3539047dc08f432113",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 512
+          },
+          "eligible_driver_count": 512,
+          "eligible_nonzero_parent_fiber_count": 512,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 512,
+          "p": 10,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 512
+        },
+        {
+          "affine_fiber_basis_checks": 321,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 321,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 5,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257,
+              1025
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              10
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "11": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 32,
+            "members_sha256": "5193d634c3b3ab1cfa212dd8df51bdcf2cc88ea48dc9edce9106f3c0bd29f8d8",
+            "output_sha256": "9074bef13cb8704d8fadff4b5e6f579752918503c53eeb87e5e32fc34faca3c5"
+          },
+          "constructible_parent_fiber_count": 321,
+          "cube_ledger_stream_sha256": "75a8560c73bfa72ccd2ea7a3870361862e2910bf5085a55ef1092be22a506c3c",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 12,
+            "16": 36,
+            "2": 54,
+            "32": 2,
+            "4": 112,
+            "8": 105
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 321,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 5,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 321
+        },
+        {
+          "affine_fiber_basis_checks": 321,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 321,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 5,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257,
+              1025
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              10
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "11": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 32,
+            "members_sha256": "5193d634c3b3ab1cfa212dd8df51bdcf2cc88ea48dc9edce9106f3c0bd29f8d8",
+            "output_sha256": "cfa97760353173a15c5927734e219c2a5faa94aeb54145ac309096c7f4e67172"
+          },
+          "constructible_parent_fiber_count": 321,
+          "cube_ledger_stream_sha256": "307eb2da792b0be3a24bd27295dd1969ce25693dd9cbf27cf69f1edc06fa3efe",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 12,
+            "16": 36,
+            "2": 54,
+            "32": 2,
+            "4": 112,
+            "8": 105
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 321,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 5,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 321
+        },
+        {
+          "affine_fiber_basis_checks": 1379,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 1379,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 13,
+            "basis_rank": 1,
+            "basis_vectors": [
+              36
+            ],
+            "blind_phases": [
+              2,
+              5
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 0,
+              "10": 0,
+              "11": 0,
+              "3": 1,
+              "4": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0
+            },
+            "member_count": 2,
+            "members_sha256": "ae48b111c6065474318d554969340ab489a9bc5f69257e0f6828ec531ce985be",
+            "output_sha256": "1635393f3d1e454df747178f50d0bdd941e6ae809f0f5aee0ab937015d92e03e"
+          },
+          "constructible_parent_fiber_count": 1379,
+          "cube_ledger_stream_sha256": "6d666219e3bf4d4c4f4199313b5593b21d988512826e4e0bad8f5edc347e2822",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 728,
+            "2": 648,
+            "8": 3
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 1379,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 3,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 1379
+        },
+        {
+          "affine_fiber_basis_checks": 2012,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2012,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 247,
+            "basis_rank": 1,
+            "basis_vectors": [
+              528
+            ],
+            "blind_phases": [
+              4,
+              9
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 1,
+              "10": 0,
+              "11": 0,
+              "2": 1,
+              "3": 0,
+              "5": 1,
+              "6": 1,
+              "7": 1,
+              "8": 0
+            },
+            "member_count": 2,
+            "members_sha256": "1ed73031046b286bc14cff17bb5879e554637c5ca3cde4ae6da9e0c372cc52f9",
+            "output_sha256": "bdab89ff54a4f1fcf6e40fcbf3cc16a7adea4de4764b95e3ca5b903ca6b3c3d1"
+          },
+          "constructible_parent_fiber_count": 2012,
+          "cube_ledger_stream_sha256": "d5331648146e8547e380f21e905aef2f2466c2ab13678d0dc7a4eb9f64ec5800",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 1976,
+            "2": 36
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 2012,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2012
+        },
+        {
+          "affine_fiber_basis_checks": 2048,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2048,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2048,
+          "cube_ledger_stream_sha256": "b93db7d5b18f4bd54396f120644cd6a20bccf16cebbcf31a4012b8b5a6316afd",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2048
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 2048,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2048
+        },
+        {
+          "affine_fiber_basis_checks": 2048,
+          "affine_member_prediction_checks": 2048,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 2048,
+          "canonical_nontrivial_cube_certificate": null,
+          "constructible_parent_fiber_count": 2048,
+          "cube_ledger_stream_sha256": "1fcc76cfbc9642bae2feac385fdfca258b2c231416b738cd3945c527b1be538e",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2048
+          },
+          "eligible_driver_count": 2048,
+          "eligible_nonzero_parent_fiber_count": 2048,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 0,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 2048,
+          "p": 12,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 2048
+        },
+        {
+          "affine_fiber_basis_checks": 842,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 842,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 6,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257,
+              1025,
+              4097
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              10,
+              12
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "11": 0,
+              "13": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 64,
+            "members_sha256": "054ef63e483dbe57afa1deeeb3c6ce4982c65e2869c1438d48c22b48d6172721",
+            "output_sha256": "3aee19dd144ccfd6197ed52ad2b50c649ca15a9c9cefc7ae941c2943390c03fd"
+          },
+          "constructible_parent_fiber_count": 842,
+          "cube_ledger_stream_sha256": "353d19c0060a8de8397383bb096163e7571bc1c0b4b79b60ca3b02d07206b9ae",
+          "depth_r": 1,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 14,
+            "16": 196,
+            "2": 77,
+            "32": 49,
+            "4": 210,
+            "64": 2,
+            "8": 294
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 842,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 6,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 842
+        },
+        {
+          "affine_fiber_basis_checks": 842,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 842,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 1,
+            "basis_rank": 6,
+            "basis_vectors": [
+              5,
+              17,
+              65,
+              257,
+              1025,
+              4097
+            ],
+            "blind_phases": [
+              0,
+              2,
+              4,
+              6,
+              8,
+              10,
+              12
+            ],
+            "fixed_nonblind_labels": {
+              "1": 0,
+              "11": 0,
+              "13": 0,
+              "3": 0,
+              "5": 0,
+              "7": 0,
+              "9": 0
+            },
+            "member_count": 64,
+            "members_sha256": "054ef63e483dbe57afa1deeeb3c6ce4982c65e2869c1438d48c22b48d6172721",
+            "output_sha256": "20d61ca3d114e99491699a0ed008e509cc573a4baafccfb5b092da4944df48ce"
+          },
+          "constructible_parent_fiber_count": 842,
+          "cube_ledger_stream_sha256": "59d0c10a36e19b9884e2f9190e137d16072b08a60abf69572c87e0580287b37a",
+          "depth_r": 2,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 14,
+            "16": 196,
+            "2": 77,
+            "32": 49,
+            "4": 210,
+            "64": 2,
+            "8": 294
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 842,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 6,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 842
+        },
+        {
+          "affine_fiber_basis_checks": 5063,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 5063,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 13,
+            "basis_rank": 1,
+            "basis_vectors": [
+              36
+            ],
+            "blind_phases": [
+              2,
+              5
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 0,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "3": 1,
+              "4": 0,
+              "6": 0,
+              "7": 0,
+              "8": 0,
+              "9": 0
+            },
+            "member_count": 2,
+            "members_sha256": "ae48b111c6065474318d554969340ab489a9bc5f69257e0f6828ec531ce985be",
+            "output_sha256": "5bff39eb931347e1d7156a4dd486e033dcc6c21b8d8c334ea2efcc25406bab23"
+          },
+          "constructible_parent_fiber_count": 5063,
+          "cube_ledger_stream_sha256": "109803a8290f32874a0d0d5af8c01061acdf643bb100ad481eb226804458cb9c",
+          "depth_r": 3,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 2186,
+            "2": 2835,
+            "8": 42
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 5063,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 3,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 5063
+        },
+        {
+          "affine_fiber_basis_checks": 8003,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8003,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 247,
+            "basis_rank": 1,
+            "basis_vectors": [
+              528
+            ],
+            "blind_phases": [
+              4,
+              9
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 1,
+              "10": 0,
+              "11": 0,
+              "12": 0,
+              "13": 0,
+              "2": 1,
+              "3": 0,
+              "5": 1,
+              "6": 1,
+              "7": 1,
+              "8": 0
+            },
+            "member_count": 2,
+            "members_sha256": "1ed73031046b286bc14cff17bb5879e554637c5ca3cde4ae6da9e0c372cc52f9",
+            "output_sha256": "fd3f3504fa0a4117aeee507ad3ed62eab8c400082aeeb817ecb2ca14b29bd0c1"
+          },
+          "constructible_parent_fiber_count": 8003,
+          "cube_ledger_stream_sha256": "50b8e9d0247a930ce810c852d18f4d8442af7bceea97b7bd28f9a4eea606f1c2",
+          "depth_r": 4,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 7814,
+            "2": 189
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 8003,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8003
+        },
+        {
+          "affine_fiber_basis_checks": 8185,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8185,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 919,
+            "basis_rank": 1,
+            "basis_vectors": [
+              2064
+            ],
+            "blind_phases": [
+              4,
+              11
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 1,
+              "10": 0,
+              "12": 0,
+              "13": 0,
+              "2": 1,
+              "3": 0,
+              "5": 0,
+              "6": 0,
+              "7": 1,
+              "8": 1,
+              "9": 1
+            },
+            "member_count": 2,
+            "members_sha256": "50e72c72cb619a390be04ed26840a8f3c5422536abd233aad638654bb180ab0e",
+            "output_sha256": "7d041bc41318a6619dfcbd19d1f8d0a712cfcb50f34460bcd1a156d688d54916"
+          },
+          "constructible_parent_fiber_count": 8185,
+          "cube_ledger_stream_sha256": "17f1db8ff8e2c03ba4411b0d46a68c97b66f2850923dc903b309c56892062492",
+          "depth_r": 5,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8178,
+            "2": 7
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 8185,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8185
+        },
+        {
+          "affine_fiber_basis_checks": 8185,
+          "affine_member_prediction_checks": 8192,
+          "all_declared_odd_parent_fibers_complete": true,
+          "candidate_cube_cardinality_checks": 8185,
+          "canonical_nontrivial_cube_certificate": {
+            "affine_match": true,
+            "anchor": 919,
+            "basis_rank": 1,
+            "basis_vectors": [
+              2064
+            ],
+            "blind_phases": [
+              4,
+              11
+            ],
+            "fixed_nonblind_labels": {
+              "0": 1,
+              "1": 1,
+              "10": 0,
+              "12": 0,
+              "13": 0,
+              "2": 1,
+              "3": 0,
+              "5": 0,
+              "6": 0,
+              "7": 1,
+              "8": 1,
+              "9": 1
+            },
+            "member_count": 2,
+            "members_sha256": "50e72c72cb619a390be04ed26840a8f3c5422536abd233aad638654bb180ab0e",
+            "output_sha256": "495917548e118b0b95a053b3ef95af304acf9b70caf39ad7ca4a3e40630ecb99"
+          },
+          "constructible_parent_fiber_count": 8185,
+          "cube_ledger_stream_sha256": "f910e7396d7c539bdc586fdcb5278a8590d7465d1e1915b15801db27e0cddb0f",
+          "depth_r": 6,
+          "earlier_zero_driver_count": 0,
+          "eligible_cube_size_histogram": {
+            "1": 8178,
+            "2": 7
+          },
+          "eligible_driver_count": 8192,
+          "eligible_nonzero_parent_fiber_count": 8185,
+          "excluded_earlier_zero_cube_fiber_count": 0,
+          "excluded_earlier_zero_driver_count": 0,
+          "excluded_incomplete_cube_fiber_count": 0,
+          "excluded_zero_parent_driver_count": 0,
+          "excluded_zero_parent_fiber_count": 0,
+          "first_coordinate_basis_square_witness": null,
+          "first_newest_Y_history_difference_pair": null,
+          "maximum_affine_dimension": 1,
+          "nonconstant_newest_Y_history_fiber_count": 0,
+          "odd_driver_count": 8192,
+          "p": 14,
+          "status": "finite-exhaustive-survival",
+          "verified_full_odd_cube_count": 8185
+        }
+      ],
+      "scopes_completed": [
+        {
+          "p": 2,
+          "r": 1
+        },
+        {
+          "p": 2,
+          "r": 2
+        },
+        {
+          "p": 2,
+          "r": 3
+        },
+        {
+          "p": 2,
+          "r": 4
+        },
+        {
+          "p": 2,
+          "r": 5
+        },
+        {
+          "p": 2,
+          "r": 6
+        },
+        {
+          "p": 4,
+          "r": 1
+        },
+        {
+          "p": 4,
+          "r": 2
+        },
+        {
+          "p": 4,
+          "r": 3
+        },
+        {
+          "p": 4,
+          "r": 4
+        },
+        {
+          "p": 4,
+          "r": 5
+        },
+        {
+          "p": 4,
+          "r": 6
+        },
+        {
+          "p": 6,
+          "r": 1
+        },
+        {
+          "p": 6,
+          "r": 2
+        },
+        {
+          "p": 6,
+          "r": 3
+        },
+        {
+          "p": 6,
+          "r": 4
+        },
+        {
+          "p": 6,
+          "r": 5
+        },
+        {
+          "p": 6,
+          "r": 6
+        },
+        {
+          "p": 8,
+          "r": 1
+        },
+        {
+          "p": 8,
+          "r": 2
+        },
+        {
+          "p": 8,
+          "r": 3
+        },
+        {
+          "p": 8,
+          "r": 4
+        },
+        {
+          "p": 8,
+          "r": 5
+        },
+        {
+          "p": 8,
+          "r": 6
+        },
+        {
+          "p": 10,
+          "r": 1
+        },
+        {
+          "p": 10,
+          "r": 2
+        },
+        {
+          "p": 10,
+          "r": 3
+        },
+        {
+          "p": 10,
+          "r": 4
+        },
+        {
+          "p": 10,
+          "r": 5
+        },
+        {
+          "p": 10,
+          "r": 6
+        },
+        {
+          "p": 12,
+          "r": 1
+        },
+        {
+          "p": 12,
+          "r": 2
+        },
+        {
+          "p": 12,
+          "r": 3
+        },
+        {
+          "p": 12,
+          "r": 4
+        },
+        {
+          "p": 12,
+          "r": 5
+        },
+        {
+          "p": 12,
+          "r": 6
+        },
+        {
+          "p": 14,
+          "r": 1
+        },
+        {
+          "p": 14,
+          "r": 2
+        },
+        {
+          "p": 14,
+          "r": 3
+        },
+        {
+          "p": 14,
+          "r": 4
+        },
+        {
+          "p": 14,
+          "r": 5
+        },
+        {
+          "p": 14,
+          "r": 6
+        }
+      ],
+      "stopped_early": null
+    },
+    "parallelogram_witness": null
+  },
+  "runtime_seconds": 18.553437112946995,
+  "software": {
+    "executable": "/usr/bin/python3",
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]"
+  },
+  "source_and_input_hashes": {
+    "experiments/problem1_nonperiodicity/analyze_blind_visit_rank.py": "1ad72300c02f4f362c5cc9ea109473d7eff41ba7f3715abdcb7fad387bc41748",
+    "experiments/problem1_nonperiodicity/check_blind_fiber_endpoint_affinity.py": "0e40bb58e35c6a0674eafa7bed5fb904fc986045fbb823ae02a97ba1f727eb0b",
+    "odd_driver_words_lsb_first_sha256": "229c9664eae175e0d6e306bdcc26851b589f576d9bc5317cf169a0ba742b6f5b",
+    "proofs/informal/problem1_last_reset_child_and_endpoint_parity_complexity.md": "1a931cf2b31947084ae553418230a44ab69684c98e8fb8d37af2bdb6746a024a",
+    "src/python/rule30_research_reference.py": "358bdc07904e77080eb78b67bdd8da25822d6b51f1a91b58b5313dfe461c1d01"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-10-02T18:33:55.841114+00:00"
+}
