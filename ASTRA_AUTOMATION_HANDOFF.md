@@ -511,3 +511,57 @@ we now have the rigorous lower bound
 This is the first exact p32 leaf-count improvement beyond the trivial sixteen
 portal components. The preferred next target is a half-period or multi-lift
 renormalization of the affine prefix monoid, not a static leaf statistic.
+
+
+## 18. Complete p32 portal-root census; L32 >= 30; one-lift half-block route fenced off
+
+Read proofs/informal/problem1_period32_complete_portal_root_census.md.
+
+All sixteen genuine period-32 portal roots now have exact first zero returns.
+The root split is
+
+    odd / singleton:  2,3,5,7,9,13,14,15
+    even / branching: 0,1,4,6,8,10,11,12.
+
+The deepest root is portal 4, whose first zero occurs at depth
+
+    15,565,342,385
+
+and returns to an even exact-period-32 target.
+
+Combining the complete root census with the previously proved descendant
+bounds B(portal 0)>=3 and B(portal 6)>=5 gives
+
+    sum B >= 14
+    L_32 = 16 + sum B >= 30.
+
+This is rigorous but is only a lower bound; the eight branching p32 portal
+trees are not completely enumerated.
+
+The half-period affine recurrence also has an exact block path normal form.
+A p-phase block is encoded by (r,q), where r is the first reset position (or
+p if none) and q is the seed-zero output path. There are exactly
+(p+1)2^p such block path transducers.
+
+For every doubled odd portal with antiperiodic lift x, two lifts have the
+universal phase-quotient normal form
+
+    T^2(x,0) ~ (x,1^(2p)).
+
+However, the initial one-lift half-block response is insufficient to decide
+portal endpoint parity even on the genuine p32 domain. The genuine portals
+with the same initial half-block code have mixed outcomes in every reset class
+containing at least two portals.
+
+Do not spend more work classifying p32 portal roots; that census is complete.
+Do not use only a static p16 leaf statistic or the initial one-lift half-block
+code. The preferred next target is a genuinely multi-lift renormalization
+starting from the exact two-lift normal form, or exact descendant comparison
+of the newly branching roots 1,4,8,10,11,12 against the existing portal-0
+and portal-6 trees.
+
+Reproducers:
+experiments/problem1_nonperiodicity/check_period32_complete_portal_roots.cpp
+and experiments/problem1_nonperiodicity/check_half_period_block_transducer.py.
+Atomic record:
+results/problem1/20261002_period32_complete_portal_root_census.json.

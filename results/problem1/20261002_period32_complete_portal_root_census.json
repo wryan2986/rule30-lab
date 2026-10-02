@@ -1,0 +1,269 @@
+{
+  "status": "complete-exact-period32-portal-root-census",
+  "date": "2026-10-02",
+  "method": {
+    "recurrence": "a_(s+1) = (b_s XOR c_s) XOR ((1 XOR b_s) a_s)",
+    "implementation": "32-bit affine-prefix broadword child transducer",
+    "stopping_rule": "test low plane for zero before every exact lift; returned depth is the first zero hit"
+  },
+  "portal_roots": [
+    {
+      "portal": 0,
+      "parent_leaf": "0000010101000101",
+      "first_zero_depth": 1420791101,
+      "raw_target": "10110001110101101101011111010011",
+      "canonical_target": "00011101011011010111110100111011",
+      "parity": "even",
+      "weight": 20,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 1,
+      "parent_leaf": "0011101111101011",
+      "first_zero_depth": 3642025676,
+      "raw_target": "00101001100111010000001001000011",
+      "canonical_target": "00000010010000110010100110011101",
+      "parity": "even",
+      "weight": 12,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 2,
+      "parent_leaf": "0101101101111011",
+      "first_zero_depth": 1555560444,
+      "raw_target": "11100010010101100101111000010001",
+      "canonical_target": "00001000111100010010101100101111",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 3,
+      "parent_leaf": "0001010011100101",
+      "first_zero_depth": 7470817970,
+      "raw_target": "01111100100011101111110111010110",
+      "canonical_target": "00011101111110111010110011111001",
+      "parity": "odd",
+      "weight": 21,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 4,
+      "parent_leaf": "0101010110111111",
+      "first_zero_depth": 15565342385,
+      "raw_target": "01111010100000101011100000010011",
+      "canonical_target": "00000010011011110101000001010111",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 5,
+      "parent_leaf": "0000100100100101",
+      "first_zero_depth": 105696243,
+      "raw_target": "00000000001001100000010001101101",
+      "canonical_target": "00000000001001100000010001101101",
+      "parity": "odd",
+      "weight": 9,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 6,
+      "parent_leaf": "0000001001011001",
+      "first_zero_depth": 1255920142,
+      "raw_target": "01101110011001100111101000110101",
+      "canonical_target": "00011010101101110011001100111101",
+      "parity": "even",
+      "weight": 18,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 7,
+      "parent_leaf": "0010111001100111",
+      "first_zero_depth": 1324488168,
+      "raw_target": "01000100010100100010010011101000",
+      "canonical_target": "00001000100010100100010010011101",
+      "parity": "odd",
+      "weight": 11,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 8,
+      "parent_leaf": "0001010010001111",
+      "first_zero_depth": 9124240171,
+      "raw_target": "10101101000100001100101010001000",
+      "canonical_target": "00001100101010001000101011010001",
+      "parity": "even",
+      "weight": 12,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 9,
+      "parent_leaf": "0000011101010011",
+      "first_zero_depth": 4764407279,
+      "raw_target": "10101111111010000100010000010110",
+      "canonical_target": "00000101101010111111101000010001",
+      "parity": "odd",
+      "weight": 15,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 10,
+      "parent_leaf": "0010101110101101",
+      "first_zero_depth": 8857311844,
+      "raw_target": "11110110001101110000100001000010",
+      "canonical_target": "00001000010000101111011000110111",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 11,
+      "parent_leaf": "0101111111011111",
+      "first_zero_depth": 2846542716,
+      "raw_target": "01001000110110001101110010100100",
+      "canonical_target": "00010010001101100011011100101001",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 12,
+      "parent_leaf": "0000110110000111",
+      "first_zero_depth": 4421569547,
+      "raw_target": "10100101000111011000011100010001",
+      "canonical_target": "00001110001000110100101000111011",
+      "parity": "even",
+      "weight": 14,
+      "exact_period": 32,
+      "type": "branching"
+    },
+    {
+      "portal": 13,
+      "parent_leaf": "0001001111001111",
+      "first_zero_depth": 65154360,
+      "raw_target": "11001111000010000000100110110100",
+      "canonical_target": "00000001001101101001100111100001",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 14,
+      "parent_leaf": "0001111001111111",
+      "first_zero_depth": 4794122735,
+      "raw_target": "01010000010000000111011010111010",
+      "canonical_target": "00000001110110101110100101000001",
+      "parity": "odd",
+      "weight": 13,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    },
+    {
+      "portal": 15,
+      "parent_leaf": "0010111100111111",
+      "first_zero_depth": 4250222543,
+      "raw_target": "11011111111011011010100100011011",
+      "canonical_target": "00011011110111111110110110101001",
+      "parity": "odd",
+      "weight": 21,
+      "exact_period": 32,
+      "type": "singleton-terminal"
+    }
+  ],
+  "singleton_portals": [
+    2,
+    3,
+    5,
+    7,
+    9,
+    13,
+    14,
+    15
+  ],
+  "branching_portals": [
+    0,
+    1,
+    4,
+    6,
+    8,
+    10,
+    11,
+    12
+  ],
+  "root_parity_split": {
+    "odd": 8,
+    "even": 8
+  },
+  "known_internal_vertex_lower_bounds": {
+    "0": 3,
+    "1": 1,
+    "4": 1,
+    "6": 5,
+    "8": 1,
+    "10": 1,
+    "11": 1,
+    "12": 1
+  },
+  "exact_leaf_count_consequence": {
+    "L16": 16,
+    "known_sum_B_lower_bound": 14,
+    "L32_lower_bound": 30
+  },
+  "half_block": {
+    "exact_path_transducer_code": "(r,q), where r is first reset or p and q is the seed-0 output path",
+    "state_count": "(p+1)*2^p",
+    "exhaustive_count_check_through_p": 8,
+    "universal_two_lift_normalization": "for doubled odd portal x, T^2(x,0) is phase-equivalent to (x,1^(2p))",
+    "exhaustive_two_lift_check": {
+      "p_max": 10,
+      "odd_words_checked": 1023,
+      "failures": 0
+    },
+    "genuine_p32_initial_reset_groups": {
+      "2": [
+        "2:odd",
+        "4:even",
+        "11:even"
+      ],
+      "3": [
+        "1:even",
+        "7:odd",
+        "10:even",
+        "15:odd"
+      ],
+      "4": [
+        "3:odd",
+        "8:even",
+        "13:odd",
+        "14:odd"
+      ],
+      "5": [
+        "5:odd",
+        "12:even"
+      ],
+      "6": [
+        "0:even",
+        "9:odd"
+      ],
+      "7": [
+        "6:even"
+      ]
+    },
+    "conclusion": "Every reset class with at least two genuine portals has mixed first-return parity; the initial one-lift half-block path response does not decide singleton versus branching."
+  },
+  "conclusion": "All sixteen genuine p32 portal roots are classified exactly. Eight are singleton terminal roots and eight branch. Existing descendant certificates plus the six newly proved branching roots give L32 >= 30. Problem 1 remains open."
+}
