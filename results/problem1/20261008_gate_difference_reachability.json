@@ -1,0 +1,2071 @@
+{
+  "actual_r5_product_witness_review": {
+    "interpretation": "This exact finite two-child path witnesses a transient selector effect, but its initial upper state 255 is not on an upper-state directed cycle. Therefore it does not refute the proved cyclic S5 statement.",
+    "label_pairs": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "observer_depth": 5,
+    "product_steps": [
+      {
+        "bad_edge": false,
+        "labels": [
+          0,
+          1
+        ],
+        "outgoing_Y_A": 1,
+        "outgoing_Y_B": 1,
+        "output_V": 3,
+        "output_Z": 2,
+        "output_upper_A": 4,
+        "output_upper_B": 4,
+        "source_U": 255,
+        "source_U_blind": true,
+        "source_V": 0,
+        "source_Z": 0,
+        "step": 0
+      },
+      {
+        "bad_edge": false,
+        "labels": [
+          1,
+          1
+        ],
+        "outgoing_Y_A": 1,
+        "outgoing_Y_B": 1,
+        "output_V": 2,
+        "output_Z": 3,
+        "output_upper_A": 90,
+        "output_upper_B": 90,
+        "source_U": 4,
+        "source_U_blind": false,
+        "source_V": 3,
+        "source_Z": 2,
+        "step": 1
+      },
+      {
+        "bad_edge": false,
+        "labels": [
+          1,
+          1
+        ],
+        "outgoing_Y_A": 1,
+        "outgoing_Y_B": 1,
+        "output_V": 2,
+        "output_Z": 3,
+        "output_upper_A": 162,
+        "output_upper_B": 162,
+        "source_U": 90,
+        "source_U_blind": false,
+        "source_V": 2,
+        "source_Z": 3,
+        "step": 2
+      },
+      {
+        "bad_edge": false,
+        "labels": [
+          1,
+          1
+        ],
+        "outgoing_Y_A": 0,
+        "outgoing_Y_B": 0,
+        "output_V": 0,
+        "output_Z": 1,
+        "output_upper_A": 194,
+        "output_upper_B": 194,
+        "source_U": 162,
+        "source_U_blind": false,
+        "source_V": 2,
+        "source_Z": 3,
+        "step": 3
+      },
+      {
+        "bad_edge": false,
+        "labels": [
+          0,
+          0
+        ],
+        "outgoing_Y_A": 1,
+        "outgoing_Y_B": 1,
+        "output_V": 3,
+        "output_Z": 2,
+        "output_upper_A": 995,
+        "output_upper_B": 995,
+        "source_U": 194,
+        "source_U_blind": false,
+        "source_V": 0,
+        "source_Z": 1,
+        "step": 4
+      },
+      {
+        "bad_edge": true,
+        "labels": [
+          0,
+          0
+        ],
+        "outgoing_Y_A": 0,
+        "outgoing_Y_B": 1,
+        "output_V": 0,
+        "output_Z": 2,
+        "output_upper_A": 340,
+        "output_upper_B": 340,
+        "source_U": 995,
+        "source_U_blind": true,
+        "source_V": 3,
+        "source_Z": 2,
+        "step": 5
+      }
+    ],
+    "terminal_bad_edge_index": 5,
+    "upper_255_cycle_test": {
+      "graph": "U -> T_w(U), w in {0,1}",
+      "outgoing_targets": [
+        4,
+        4
+      ],
+      "target_to_source_searches": [
+        {
+          "reaches_255": false,
+          "target": 4,
+          "visited_upper_states": 78
+        }
+      ],
+      "upper_255_on_any_directed_cycle": false
+    },
+    "upper_path": [
+      255,
+      4,
+      90,
+      162,
+      194,
+      995,
+      340
+    ]
+  },
+  "backend": "independent Python raw two-row Rule 30 and breadth-first reachability",
+  "depth_records": [
+    {
+      "blind_upper_states": 2,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": null,
+          "depends_only_on_suffix": true,
+          "suffix_length": 1
+        }
+      ],
+      "r": 1,
+      "reachable_delta_mask_histogram": {
+        "1": 1,
+        "15": 3
+      },
+      "reachable_masks_base64_zlib": "eNrjZ+TnBwAAcAAv",
+      "reachable_state_pairs": 13,
+      "shortest_bad_incoming_witness": {
+        "delta": 1,
+        "delta_pair": [
+          1,
+          0
+        ],
+        "distance": 2,
+        "homogeneous_f_prime": 1,
+        "last_upper_pair": [
+          1,
+          1
+        ],
+        "path_transitions": [
+          {
+            "delta": 0,
+            "impulse_lambda": 1,
+            "label": 0,
+            "u": 1
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 0,
+            "u": 0
+          }
+        ],
+        "seed_upper": 1,
+        "u": 3,
+        "upper_word": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "upper_states": 4
+    },
+    {
+      "blind_upper_states": 2,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 3,
+            "mask_b": 1,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                1,
+                0
+              ]
+            ],
+            "u_a": 4,
+            "u_b": 5,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": null,
+          "depends_only_on_suffix": true,
+          "suffix_length": 2
+        }
+      ],
+      "r": 2,
+      "reachable_delta_mask_histogram": {
+        "1": 15,
+        "3": 1
+      },
+      "reachable_masks_base64_zlib": "eNpjZGRkZGZEAAAAsAAT",
+      "reachable_state_pairs": 17,
+      "shortest_bad_incoming_witness": null,
+      "upper_states": 16
+    },
+    {
+      "blind_upper_states": 4,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": {
+            "mask_a": 3,
+            "mask_b": 1,
+            "suffix_length": 2,
+            "suffix_pairs": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 4,
+            "u_b": 5,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 2
+        },
+        {
+          "counterexample": null,
+          "depends_only_on_suffix": true,
+          "suffix_length": 3
+        }
+      ],
+      "r": 3,
+      "reachable_delta_mask_histogram": {
+        "1": 60,
+        "3": 4
+      },
+      "reachable_masks_base64_zlib": "eNpjZGRkZGZEBcwIEl0KAwAACb4ASQ==",
+      "reachable_state_pairs": 68,
+      "shortest_bad_incoming_witness": null,
+      "upper_states": 64
+    },
+    {
+      "blind_upper_states": 8,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 2,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 2
+        },
+        {
+          "counterexample": {
+            "mask_a": 3,
+            "mask_b": 1,
+            "suffix_length": 3,
+            "suffix_pairs": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 4,
+            "u_b": 5,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 3
+        },
+        {
+          "counterexample": null,
+          "depends_only_on_suffix": true,
+          "suffix_length": 4
+        }
+      ],
+      "r": 4,
+      "reachable_delta_mask_histogram": {
+        "1": 251,
+        "3": 5
+      },
+      "reachable_masks_base64_zlib": "eNpjZGRkZGakDDBj5TMzUsFomgMAiNYBCw==",
+      "reachable_state_pairs": 261,
+      "shortest_bad_incoming_witness": null,
+      "upper_states": 256
+    },
+    {
+      "blind_upper_states": 12,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 2,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 2
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 3,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 3
+        },
+        {
+          "counterexample": {
+            "mask_a": 3,
+            "mask_b": 1,
+            "suffix_length": 4,
+            "suffix_pairs": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 4,
+            "u_b": 5,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 4
+        }
+      ],
+      "r": 5,
+      "reachable_delta_mask_histogram": {
+        "1": 970,
+        "13": 2,
+        "15": 29,
+        "3": 5,
+        "5": 9,
+        "9": 9
+      },
+      "reachable_masks_base64_zlib": "eNrVksEKwCAMQwnSQw4j//+320ELFtGCk7EnBCrUGiMAFJygIHm0NN6uImjejnn/et74kpdLyqlj1CvvR5cee1YGa0LijzT/Md9YE9zM/2PMtv7/Mv/ot6tvFgwGJQ==",
+      "reachable_state_pairs": 1138,
+      "shortest_bad_incoming_witness": {
+        "delta": 1,
+        "delta_pair": [
+          1,
+          0
+        ],
+        "distance": 5,
+        "homogeneous_f_prime": 1,
+        "last_upper_pair": [
+          1,
+          1
+        ],
+        "path_transitions": [
+          {
+            "delta": 0,
+            "impulse_lambda": 1,
+            "label": 0,
+            "u": 255
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 4
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 90
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 162
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 0,
+            "u": 194
+          }
+        ],
+        "seed_upper": 255,
+        "u": 995,
+        "upper_word": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "upper_states": 1024
+    },
+    {
+      "blind_upper_states": 20,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 2,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 2
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 3,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 3
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 4,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 4
+        }
+      ],
+      "r": 6,
+      "reachable_delta_mask_histogram": {
+        "1": 4003,
+        "11": 4,
+        "3": 21,
+        "5": 32,
+        "7": 4,
+        "9": 32
+      },
+      "reachable_masks_base64_zlib": "eNrtlsEOgCAIhseYc8z3f99OcSgwHJJRfQcORcyAHwQAQJBAUF+ZMH9fiviY2PQhxamwCT7/ycmRNDH63HiAk+MFUzxFHOi3p0IWEQwFpNB+nU18/6P7hBH51OafVQ88/4ggI9r8Pv6/lg/v/L9P4OTaf5f9k7T+3v3/k5vKpq//Kjll0v/y/b960McU6S31/zqvv/+3FrL/2266et8AWE0R6w==",
+      "reachable_state_pairs": 4197,
+      "shortest_bad_incoming_witness": null,
+      "upper_states": 4096
+    },
+    {
+      "blind_upper_states": 36,
+      "mask_suffix_dependence": [
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 1,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 1
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 2,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 2
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 3,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 3
+        },
+        {
+          "counterexample": {
+            "mask_a": 1,
+            "mask_b": 3,
+            "suffix_length": 4,
+            "suffix_pairs": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "u_a": 0,
+            "u_b": 4,
+            "word_a": [
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ],
+            "word_b": [
+              [
+                0,
+                0
+              ],
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          },
+          "depends_only_on_suffix": false,
+          "suffix_length": 4
+        }
+      ],
+      "r": 7,
+      "reachable_delta_mask_histogram": {
+        "1": 16296,
+        "15": 21,
+        "3": 45,
+        "5": 11,
+        "9": 11
+      },
+      "reachable_masks_base64_zlib": "eNrt2EELwyAMhmFC8JBT/v+/7U5CKbShi62p7zPwJLLZfdFURERlBJWcpTX7+2lsPe9D6Jd2zVwA5HBJzpP7aX5vVrph9Q/4NJ37/gHghbIQzK8SciD9/hrvf8/Z77NvkNun6s9xEvUI9fNP/393/8g/8H/uY/eP9PoA4MGgj8lvVv8CAJilW9XgPFoxYJW8xxekKFTQ+nA1r7FZAICCB92Y8yt6fgKYse+RnPcX9DtA4TrA+w+sx/pwNc/YrNIP2l79/wDr2gC9JkIF",
+      "reachable_state_pairs": 16514,
+      "shortest_bad_incoming_witness": {
+        "delta": 1,
+        "delta_pair": [
+          1,
+          0
+        ],
+        "distance": 5,
+        "homogeneous_f_prime": 1,
+        "last_upper_pair": [
+          1,
+          1
+        ],
+        "path_transitions": [
+          {
+            "delta": 0,
+            "impulse_lambda": 1,
+            "label": 0,
+            "u": 2767
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 1284
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 1370
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 1,
+            "u": 162
+          },
+          {
+            "delta": 1,
+            "impulse_lambda": 0,
+            "label": 0,
+            "u": 3266
+          }
+        ],
+        "seed_upper": 2767,
+        "u": 13283,
+        "upper_word": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "upper_states": 16384
+    }
+  ],
+  "experiment_id": "20261008-gate-difference-reachability",
+  "git_commit": "ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8",
+  "hardware": {
+    "logical_cpu_count": 9,
+    "machine": "x86_64",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39"
+  },
+  "hypothesis": "For every tested depth r=1,...,7, the specified blind-impulse over-approximation has no reachable state with a blind upper state and homogeneous f_prime=1.",
+  "interpretation": "Finite exact reachability for the specified over-approximation at r=1..7 finds bad incoming witnesses at r=1,5,7, refuting the stated uniform finite-depth absence hypothesis. Absence at r=2,3,4,6 is depth-specific and does not prove an arbitrary-depth invariant.",
+  "limitations": [
+    "The arbitrary lambda impulse at blind states over-approximates actual differing-label behavior.",
+    "Depths 1..7 do not imply an all-depth invariant or prove S_r at arbitrary r.",
+    "This computation addresses no temporal reset, zero-return, or original-support budget claim."
+  ],
+  "parameters": {
+    "delta_encoding": "e+2*f",
+    "depths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "memory_limit_bytes": 268435456,
+    "seed": "delta=0 for every upper state U",
+    "trie_pair_alphabet": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ]
+    ],
+    "wall_limit_seconds": 60
+  },
+  "payload_sha256_excluding_this_field": "3b9fbcd9ce3a4b3148c9b79f47311cb716b98a0a993e88c8df83d3cfc4c7fc93",
+  "peak_rss_bytes": 17039360,
+  "proof_scope": "Exact finite states/transitions for each tested depth and exhaustive direct local verification of the homogeneous delta formula.",
+  "provenance": {
+    "address_space_limit_bytes": 268435456,
+    "base_commit": "ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8",
+    "cpu_limit_seconds": 60,
+    "elapsed_seconds": 0.9098195220003618,
+    "peak_rss_bytes": 17039360,
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "wall_limit_seconds": 60
+  },
+  "question": "problem1",
+  "result_hashes": {
+    "script_sha256": "1bf33d28473730bf8a2c40a234456db14f9754e51278046e65bb056991f278da"
+  },
+  "result_summary": {
+    "depths": [
+      {
+        "bad_witness_found": true,
+        "blind": 2,
+        "r": 1,
+        "reachable_mask_histogram": {
+          "1": 1,
+          "15": 3
+        },
+        "reachable_pairs": 13,
+        "states": 4
+      },
+      {
+        "bad_witness_found": false,
+        "blind": 2,
+        "r": 2,
+        "reachable_mask_histogram": {
+          "1": 15,
+          "3": 1
+        },
+        "reachable_pairs": 17,
+        "states": 16
+      },
+      {
+        "bad_witness_found": false,
+        "blind": 4,
+        "r": 3,
+        "reachable_mask_histogram": {
+          "1": 60,
+          "3": 4
+        },
+        "reachable_pairs": 68,
+        "states": 64
+      },
+      {
+        "bad_witness_found": false,
+        "blind": 8,
+        "r": 4,
+        "reachable_mask_histogram": {
+          "1": 251,
+          "3": 5
+        },
+        "reachable_pairs": 261,
+        "states": 256
+      },
+      {
+        "bad_witness_found": true,
+        "blind": 12,
+        "r": 5,
+        "reachable_mask_histogram": {
+          "1": 970,
+          "13": 2,
+          "15": 29,
+          "3": 5,
+          "5": 9,
+          "9": 9
+        },
+        "reachable_pairs": 1138,
+        "states": 1024
+      },
+      {
+        "bad_witness_found": false,
+        "blind": 20,
+        "r": 6,
+        "reachable_mask_histogram": {
+          "1": 4003,
+          "11": 4,
+          "3": 21,
+          "5": 32,
+          "7": 4,
+          "9": 32
+        },
+        "reachable_pairs": 4197,
+        "states": 4096
+      },
+      {
+        "bad_witness_found": true,
+        "blind": 36,
+        "r": 7,
+        "reachable_mask_histogram": {
+          "1": 16296,
+          "15": 21,
+          "3": 45,
+          "5": 11,
+          "9": 11
+        },
+        "reachable_pairs": 16514,
+        "states": 16384
+      }
+    ],
+    "difference_formula_direct_checks": 512
+  },
+  "runtime_seconds": 0.9098195220003618,
+  "schema": "problem1-gate-difference-reachability-v1",
+  "software": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+  },
+  "status": "refuted",
+  "timestamp_utc": "2026-10-08T20:25:13.695823+00:00",
+  "trie": {
+    "depth_offsets": [
+      {
+        "count": 4,
+        "depth": 1,
+        "offset": 0
+      },
+      {
+        "count": 16,
+        "depth": 2,
+        "offset": 4
+      },
+      {
+        "count": 64,
+        "depth": 3,
+        "offset": 20
+      },
+      {
+        "count": 256,
+        "depth": 4,
+        "offset": 84
+      },
+      {
+        "count": 1024,
+        "depth": 5,
+        "offset": 340
+      },
+      {
+        "count": 4096,
+        "depth": 6,
+        "offset": 1364
+      },
+      {
+        "count": 16384,
+        "depth": 7,
+        "offset": 5460
+      }
+    ],
+    "labels_base64_zlib": "eNrt22GvgiAUgOExdnZ31tr5///2GpWj1IBEgnqfbxKSCMFBzJyZ827Br6QtM+WlhbJyymvJ91ve/X6Zc2JOr4m2zGeXttPokyl3SEM35vaTjfaLyUFNd752T1M1E5N2dY9qrRuZ9LFnd9l/P3T/RrU23sfziTz2i5POv5G/12VWHKv97Trm79b5ejSrjEsNRLbLAwAgIWf+q71W2T1fxfMfqi8l/YulZWgzvfWX6SDEU/f2mOIp7mDfnuPfTgahsvi39ngCMP4BGH38Sjz/eqe8d84Pp1jphBzF9CapbY0mk731uH/UIhbbMX+mn6L7ZEJpV6sZIB8fYXR1/wAAAAAAAAAAANroZP/v594yHG//bzBs1QHAMXHD02HhcJv5t/Ka8YvfvI7V96c80QoAoO9Vzp73f79jOYzRFtTy+crw/AQAAKAAz//ww/4Bp7BbpQ==",
+    "meaning": "Implicit full four-ary trie of spatial pair words (pair j is the jth symbol); each node at depth r is labelled by that U's reachable-delta mask. Concatenated endpoint labels are lexicographic by pair word at each depth.",
+    "total_labeled_nodes": 21844
+  },
+  "witnesses": [
+    {
+      "delta": 1,
+      "delta_pair": [
+        1,
+        0
+      ],
+      "distance": 2,
+      "homogeneous_f_prime": 1,
+      "last_upper_pair": [
+        1,
+        1
+      ],
+      "path_transitions": [
+        {
+          "delta": 0,
+          "impulse_lambda": 1,
+          "label": 0,
+          "u": 1
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 0,
+          "u": 0
+        }
+      ],
+      "r": 1,
+      "seed_upper": 1,
+      "u": 3,
+      "upper_word": [
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "delta": 1,
+      "delta_pair": [
+        1,
+        0
+      ],
+      "distance": 5,
+      "homogeneous_f_prime": 1,
+      "last_upper_pair": [
+        1,
+        1
+      ],
+      "path_transitions": [
+        {
+          "delta": 0,
+          "impulse_lambda": 1,
+          "label": 0,
+          "u": 255
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 4
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 90
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 162
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 0,
+          "u": 194
+        }
+      ],
+      "r": 5,
+      "seed_upper": 255,
+      "u": 995,
+      "upper_word": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    },
+    {
+      "delta": 1,
+      "delta_pair": [
+        1,
+        0
+      ],
+      "distance": 5,
+      "homogeneous_f_prime": 1,
+      "last_upper_pair": [
+        1,
+        1
+      ],
+      "path_transitions": [
+        {
+          "delta": 0,
+          "impulse_lambda": 1,
+          "label": 0,
+          "u": 2767
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 1284
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 1370
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 1,
+          "u": 162
+        },
+        {
+          "delta": 1,
+          "impulse_lambda": 0,
+          "label": 0,
+          "u": 3266
+        }
+      ],
+      "r": 7,
+      "seed_upper": 2767,
+      "u": 13283,
+      "upper_word": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  ]
+}

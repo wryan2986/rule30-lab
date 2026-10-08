@@ -1,8 +1,114 @@
-# Sol research handoff — 2026-10-02
+# Sol research handoff — 2026-10-08
 
 Problem 1 remains **OPEN**. This is the current compact handoff for this
 goal. Historical ASTRA-named files are research material; they do not
 authorize use of Astra.
+
+## Current checkpoint — 2026-10-08
+
+This section supersedes the historical statements below that call depth four
+or five the first unresolved affine-extension depth. This session recovered
+the latest remote `research/sol-blind-frontier` at
+`ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8`, including its corrected depth-five
+product encoding. The corrected graph is independently verified again:
+16,384 states, 33,152 retained edges, 160 bad edges, and no bad edge on a
+directed cycle. The new verifier uses literal raw Rule 30 transitions and
+per-edge return reachability, with no imported producer transition, SCC, or
+rank routine.
+
+The principal new results are stronger explanations, rather than a
+larger observer census:
+
+1. **Exact all-width common-output language.** A blind transition has a
+   16-context raw preimage automaton, 11 reachable deterministic subsets,
+   and an eight-state quotient. Its infinite common rows are
+   `01(111)^omega`, or `01(111)^k 0 v` with
+   `v in {0,110,111}^omega`. The proof is a local path correspondence at
+   arbitrary width, not an extrapolation from the depth-eight controls.
+   A complete eventually-zero common row has exactly one ordered raw
+   preimage pair; one row is eventually zero and the other eventually one.
+   Read `proofs/informal/problem1_blind_image_language_20261008.md` and its
+   independent review.
+
+2. **Short proofs of S4 and S5.** Every cyclic blind source at depth at
+   least three has low-three-pair encoding 35 or 51. Its common blind
+   output at depth five begins `01011` or `01111`; in particular, common
+   output bits four and five equal one. At observer depth four or five,
+   the next, necessarily common-label edge therefore resets every added
+   child-copy difference. Following this reset around any product cycle
+   excludes every bad gate edge. No driver parity or nonzero-parent
+   hypothesis is needed for S4/S5 themselves. This supplies a short local
+   proof in place of dependence on the large product-graph calculation.
+   Read `proofs/informal/problem1_shallow_cyclic_reset_review_20261008.md`
+   and `proofs/informal/problem1_all_depth_gate_candidate.md`.
+
+3. **The unqualified temporal reset bridge is false.** A genuine transient
+   blind source at depth five has the exact path
+   `255 -> 4 -> 90 -> 162 -> 194 -> 995 -> 340`. Start two equal children
+   at zero, use labels `(0,1)` on the first blind edge, then common labels
+   `11100`. The final equal-label blind edge has unequal outgoing child
+   Y bits. The raw last-parent no-reset products are `(1,0)`. The upper
+   source cannot return to itself, so this is not a cyclic S5
+   counterexample. Recurrence cannot be discarded in an all-depth proof.
+
+4. **Exact period-two complete-half formulation and inverse support test.**
+   At a center-one phase, encode the center and left half by `L`, and
+   the complete right half by `R`. Write
+   `Psi(L)=4 A^2(L)+3`, `D(R)=(R<<1) XOR (R OR (R>>1))`, and
+   `F(R)=D(D(R) XOR 1)`. An alternating center is equivalent to the
+   gate `L=7 mod16` when `R=0 mod4`, and `L=11 mod16` otherwise,
+   at EVERY independent iterate `(Psi^m(L),F^m(R))`. This is a
+   biconditional for arbitrary finite halves and allows a finite temporal
+   rebase. Both bit lengths grow by exactly two, so their difference is
+   neutral. The actual finite collision `Psi(171)=Psi(199)=811` has
+   opposite gate branches; the left successor alone cannot select the
+   correct predecessor. The complete right successor selects its unique
+   finite predecessor and hence the left gate branch. A 16-state local
+   inverse then has an exact terminal-zero test for whether that left
+   predecessor is finite. This test is for one passage, not a finite-state
+   model of the entire diagonal map or a proof of orbit termination.
+   Read `proofs/informal/problem1_period_two_phase_maps_20261008.md`
+   and its independent review. Literal full-row controls cover all 4,096
+   specified half pairs; inverse controls cover both gate branches for
+   every target below 4,096. The algebra supplies the unbounded claims.
+
+All-depth cyclic gate transport remains open from depth six. Restricting
+the exact regular-language search to the necessary cyclic shallow prefix
+did not produce an inductive invariant: the exact automata reached the
+stated state cap, and a widened counterexample was spurious. Increasing
+the observer bound or accepting a widened witness is not a proof.
+
+The global target remains the SAME ORIGINAL finite-support condition.
+Even an all-depth affine extension theorem inside one fixed-period
+connector would not prove the needed unbounded excursions
+
+    limsup_n [tau(2^n v)-n] = infinity,  v>0 finite.
+
+The fixed-period blind ambiguity already vanishes by depth `p` on the
+even-period odd-driver domain. Connector lifetimes can be much greater
+than that; no bound on those lifetimes or on reuse across zero returns
+follows from the new shallow reset proof. Problem 1 remains **OPEN**.
+
+For the precise relation between the complete-half gate, the inverse support
+test, and this original-cut excess target, read
+`proofs/informal/problem1_global_support_bridge_20261008.md`. A finite
+inverse test is automatic on an actual finite admissible forward passage;
+its repeated success is not a termination proof or a bounded support budget.
+
+Reproduction of the completed independent checks:
+
+    python3 experiments/problem1_nonperiodicity/analyze_blind_image_language_20261008.py
+    python3 experiments/problem1_nonperiodicity/verify_blind_image_language_20261008.py
+    python3 experiments/problem1_nonperiodicity/verify_depth5_gate_independent_20261008.py
+    python3 experiments/problem1_nonperiodicity/analyze_gate_difference_reachability_20261008.py
+    python3 experiments/problem1_nonperiodicity/verify_period_two_phase_maps_20261008.py
+
+The corresponding `results/problem1/20261008_*.json` files separate finite
+computation from mathematical implications and record exact domains,
+resource limits, source and payload hashes, full base commit, software,
+hardware, and timings. The original reference remains unchanged.
+
+## Historical checkpoint — 2026-10-02
 
 ## Model routing
 

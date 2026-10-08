@@ -1,0 +1,94 @@
+{
+  "all_period_argument_review": {
+    "finding": "If the product graph has no bad edge on any directed cycle, then the stronger unlifted cycle exclusion holds at r=5. The projection lemma correctly transfers a lifted rank strict on every bad edge to the base graph; however this independent check establishes the graph cycle property directly and does not itself certify a lifted-rank artifact. The supplied path-to-period argument is scoped to fixed depth and admissible complete odd fibers with nonzero parents.",
+    "reviewed": "finite reduction Sections 1-2 and projection lemma Section 6",
+    "scope_limit": "No conclusion for depths other than 5, zero returns, bounded reuse, or Problem 1 as a whole."
+  },
+  "backend": "independent Python truth-table transition and per-edge BFS",
+  "claim_status": "finite-exhaustive",
+  "experiment_id": "20261008-depth5-independent-bad-cycle-verification",
+  "git_commit": "ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8",
+  "graph": {
+    "bad_cycle_witnesses": [],
+    "bad_edges": 160,
+    "bad_edges_on_directed_cycles": 0,
+    "blind_upper_states": 12,
+    "reachability_searches": 160,
+    "retained_edges": 33152
+  },
+  "hardware": {
+    "logical_cpu_count": 9,
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "processor": "x86_64"
+  },
+  "hypothesis": "At observer depth five, no directed cycle in the complete normalized product graph contains a bad equal-label gate edge.",
+  "independent_derivation": {
+    "depth_six_transition_calls_are_depth_six_pairs": true,
+    "no_producer_code_imported": true,
+    "rule30_truth_table_order_abc": [
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "transition": "apply F(a,b,c)=a XOR (b OR c) to the fixed-boundary first raw row and its XOR companion; normalize to Xnew=raw_a XOR (label*Y), Y=raw_a XOR raw_b"
+  },
+  "interpretation": "The finite depth-five graph contains no bad edge on a directed cycle. This supports the fixed-depth absence claim only.",
+  "limitations": [
+    "Does not prove Problem 1 or any untested observer depth.",
+    "Does not certify a lifted rank array; it independently establishes the base graph's cycle property.",
+    "The all-period conclusion depends on the separate stated finite-reduction theorem and its hypotheses."
+  ],
+  "parameters": {
+    "memory_cap_bytes": 268435456,
+    "r": 5,
+    "states": 16384,
+    "wall_cap_seconds": 60
+  },
+  "payload_sha256_excluding_this_field": "82447d8139b5c6c5d34511f921a383b607209e22d074e40ab747d3f3054c801c",
+  "proof_scope": "Exhaustive finite graph at r=5; direct reachability check for every bad edge.",
+  "provenance": {
+    "base_commit": "ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8",
+    "elapsed_seconds": 0.49638761100050033,
+    "generated_utc": "2026-10-08T20:12:41.964395+00:00",
+    "logical_cpu_count": 9,
+    "memory_limit_bytes": 268435456,
+    "observed_head": "ddc53f28dbe30a98764f3dec8a7725ec5be1dbe8",
+    "peak_rss_bytes": 14811136,
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "script_sha256": "e0a186e503f991c978631e50d9d367d17cc310c401ece95d4ce2917ffbfbe6f3",
+    "wall_limit_seconds": 60
+  },
+  "question": "problem1",
+  "result_hashes": {
+    "verifier_sha256": "e0a186e503f991c978631e50d9d367d17cc310c401ece95d4ce2917ffbfbe6f3"
+  },
+  "result_summary": {
+    "bad_edges": 160,
+    "bad_edges_on_cycles": 0,
+    "retained_edges": 33152,
+    "states": 16384
+  },
+  "runtime_seconds": 0.49638761100050033,
+  "schema": "problem1-depth5-independent-cycle-review-v1",
+  "scope": {
+    "bad_edge": "upper U is blind and equal-label copied outputs have differing Y bit of the added pair",
+    "cycle_method": "for each bad directed edge source->target, BFS from target and test reachability of source; no SCC or rank routine",
+    "edge_domain": "all binary U,V,Z; for blind U allow all four label pairs, otherwise allow only a=b; retain iff both depth-6 transitions agree in their lower 10 bits",
+    "observer_depth": 5,
+    "product_packing": "U | (V << 10) | (Z << 12)",
+    "product_state_count": 16384
+  },
+  "software": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "transition_source": "local explicit Rule 30 truth-table and raw two-row recurrence"
+  },
+  "status": "finite-exhaustive",
+  "timestamp_utc": "2026-10-08T20:12:41.967080+00:00"
+}
