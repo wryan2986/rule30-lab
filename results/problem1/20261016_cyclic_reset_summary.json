@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-16",
+  "status": "partial-proof",
+  "problem_1": "OPEN",
+  "claim": "S_r for every spatial reconstruction depth 6 through 23 and every temporal presentation period. No all-depth or nonperiodicity claim.",
+  "base_commit": "c424346e1a6efdf7cdd673efeff4b6578fe830b6",
+  "source_sha256": "f67bf27a0cdbc549b63cdbf9e9f6089fb358ea7fb1c791791fa9e234efdbfc54",
+  "full_manifest_sha256": "ffe944152d31b376d58b8ee0a8d844c45605a0c26eb54dbb3df3a0840d1515cf",
+  "parameters": {
+    "max_depth": 23,
+    "segment_state_cap": 400000
+  },
+  "necessary_common_prefixes": {
+    "6": "011110",
+    "7": "0111100"
+  },
+  "prefix_edge_checks": 13656,
+  "segment_edge_checks": 2269976,
+  "total_edge_checks": 2283632,
+  "segment_certificate_count": 12,
+  "total_segment_states": 1134988,
+  "segment_case_sizes": [
+    {
+      "depth": 6,
+      "common": "011110",
+      "states": 109,
+      "raw_sha256": "10116b0d33a790a029d76fc4cbbce7c75bbbb0145359c5f3df6740ce392e35df"
+    },
+    {
+      "depth": 14,
+      "common": "01111000000000",
+      "states": 8957,
+      "raw_sha256": "5c14eee572bbeab4f5010553ca601a7e7bcc360fdb0b304d719464872bc7b155"
+    },
+    {
+      "depth": 14,
+      "common": "01111001111110",
+      "states": 7933,
+      "raw_sha256": "5fb56ea2662108188b18d928bd478c7225a874294b09b3ac9dcbd89b8d10218e"
+    },
+    {
+      "depth": 16,
+      "common": "0111100000000110",
+      "states": 13501,
+      "raw_sha256": "d0e910b3ebab9ab8409dc7252e24e68fde112808a8f027fecff390ff2dd5daaf"
+    },
+    {
+      "depth": 18,
+      "common": "011110011000000000",
+      "states": 33277,
+      "raw_sha256": "2f3cab5770916649ac5e24779896f4e3b1235c81b3ec2711393ac2f57a6c98eb"
+    },
+    {
+      "depth": 21,
+      "common": "011110011101110000110",
+      "states": 61437,
+      "raw_sha256": "68b4edad873a4e91f3af994129480a7da714db40a03d3ec4939e852f41ec5b0d"
+    },
+    {
+      "depth": 22,
+      "common": "0111100000000000000000",
+      "states": 74749,
+      "raw_sha256": "e5462fa6e9f88d21168b62f00a4d5d3a4dbc0ef793241a32a9213459536bac77"
+    },
+    {
+      "depth": 22,
+      "common": "0111100000000011100000",
+      "states": 164349,
+      "raw_sha256": "7b543a308a250f553a7ce6869c58682f498ed69fd1ae5e818467af2b542fe90c"
+    },
+    {
+      "depth": 22,
+      "common": "0111100011100001111110",
+      "states": 74749,
+      "raw_sha256": "a3ac03aa75cb01769f0fd5eb9f36fa3aa69a10547848f2a4e35fca79fb1abfdd"
+    },
+    {
+      "depth": 22,
+      "common": "0111100111111001111110",
+      "states": 179325,
+      "raw_sha256": "5d41e9ec44b758070c31b055e5da01bc2c7a5167102b413e9869cb009aa1a83d"
+    },
+    {
+      "depth": 22,
+      "common": "0111100111111111111110",
+      "states": 287229,
+      "raw_sha256": "bd6ca72a17ef8f0ae95fa4c49dae731f3d7fa95c6384c7e245a716cd0062ed4d"
+    },
+    {
+      "depth": 23,
+      "common": "01111001111100000000110",
+      "states": 229373,
+      "raw_sha256": "156d64c3b4d11959ec555f5ebddc47d83630888e339434e7cee38d185d6a6cad"
+    }
+  ],
+  "verification_passed": true,
+  "negative_controls_rejected": [
+    "missing initial difference with recomputed hashes",
+    "omitted claimed depth"
+  ],
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "generation_seconds": 3.8685746310000013,
+  "segment_verification_seconds": 13.710604921000026,
+  "limits": [
+    "Depth 24 exploration capped at 400000 states in three cases; inconclusive.",
+    "No independent human review, Lean formalization, or full repository test run.",
+    "Same-original-finite-support transport remains open.",
+    "Some nonzero-difference closures contain cycles; no bounded reset-time claim."
+  ],
+  "reproduction": "Run the committed certify_cyclic_resets_20261016.py with generate, then verify --part prefix and verify --part segments. Full certificate bytes are regenerated locally."
+}
